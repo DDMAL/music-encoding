@@ -61,36 +61,22 @@
           </scoredef>
           <section>
             <scoredef meter.count="3" meter.unit="4" key.sig="5f" key.mode="minor"/>
-            <!-- PR: You could also encode the stage direction in a <div> element. -->
+            <!-- PR: You could also encode the stage direction above in a <div> element. -->
             <div type="theatricalCue">
               <p>« Mais voici que Pan de sa flûte recommence à jouer... »</p>
             </div>
             <measure n="1" id="m1">
               <staff>
                 <layer>
-                  <!-- slur direction only at the beginning? -->
-                  <!-- PR: Yes, using the slur.dir attribute, one can only encode the initial
-                    slur direction. If you need to encode a more complex slur, use the slur
-                    element instead. -->
                   <beam>
-                    <!-- PR: When the beam doesn't cross the bar line, you can use the beam
-                      element instead of the beam attribute in order to simplify input. -->
                     <note pname="b" oct="5" dur="8" dots="1" stem.dir="down" beam="i1"
                       slur="i1" slur.dir="up" id="m1n1">
-                      <!-- The place attribute is in relation to the notehead. Here the
-                        articulation is above the notehead, not below. -->
                       <artic value="ten" place="above"/>
-                      <!-- PR: Another alternative is to use the artic attribute on note, leaving
-                        the place to the renderer, i.e.,
-                      <note ... artic="ten"/>
-                      -->
                     </note>
                     <note pname="a" oct="5" dur="32" stem.dir="down" beam="m1" slur="m1"
                       id="m1n2">
                       <accid value="n"/>
                     </note>
-                    <!-- PR: While it can't be enforced in a DTD, the values of the slur attribute
-                    do not include 'f', only 'i, m, or t'. -->
                     <note pname="b" oct="5" dur="32" stem.dir="down" beam="f1" slur="t1"
                       id="m1n3">
                       <accid value="n"/>
@@ -121,20 +107,12 @@
                   </note>
                   <note pname="d" oct="5" dur="16" stem.dir="down" beam="f1" slur="f1"
                     id="m1n10"/>
-
                 </layer>
               </staff>
-              <!-- How to encode editorial addition? -->
-              <!-- <supplied><dynam place="below" staff="1" startid="m1n1">mf</dynam></supplied> -->
-              <!-- PR: use supplied inside dynam.  Note also, the use of tstamp as a relator instead
-              of to a specific note. In effect, the mf applies to anything on beat 1. -->
-              <!-- PR: This problem is now fixed. One can use <supplied> directly within <measure>. -->
-
               <supplied>
                 <dynam staff="1" tstamp="1">mf</dynam>
               </supplied>
-
-              <dir place="above" staff="1" startid="m1n1" lang="fr">
+              <dir place="above" staff="1" tstamp="0.5" lang="fr">
                 <rend fontfam="Times" fontsize="10.25" fontstyle="normal">Très
                   modéré</rend>
               </dir>
@@ -151,32 +129,10 @@
                     <accid value="f"/>
                   </note>
                   <note pname="b" oct="5" dur="2" stem.dir="down" slur="f1" id="m2n4"/>
-                  <!-- IMPORTANT: breath mark missing -->
                 </layer>
               </staff>
-              <dir place="above" staff="1" ho="36" type="fermata" startid="m2n3"/>
-              <!-- Using @type='fermata' is probably not the best: there should be at list a suggested value list.
-                                 i.e. dir/fermata ? -->
-              <!-- Do you want @ho in your encoding? Would you prefer to define classes? 
-                                 Could we have a human readable description too?
-                                 <rendition xml:id="fermata-right" scheme="StaffInterlineDistance">36</rendition>
-                                 <dir type="fermata" rendition="#fermata-right"/> -->
-              <!-- Alternatives ? -->
-              <!-- The fermata element provides syntactic sugar for dir element above. -->
-              <fermata staff="1" place="above" tstamp="3"/>
-
-              <!-- I have no idea how to measure the distance expressed in terms of staff
-              interline distance. -->
-              <hairpin tstamp="1.75" form="dim" place="below" staff="1" startid="m2n2" endho="36"/>
-              <!-- PR: When hand coding, generally you should use tstamp and dur attributes instead of
-                startid and endid, like so:
+              <fermata staff="1" place="above" tstamp="3" form="norm"/>
               <hairpin form="dim" place="below" staff="1" tstamp="1.25" dur="3"/>
-              This indicates a slur starting on the last quarter of beat 1 and ending on beat 3. @endho is then
-              not necessary.  Remember that endho is an *offset* from the position assigned by the renderer, not
-              an absolute position.
-              -->
-              <!-- Here's the breath mark. Syntactic sugar, e.g., <breathmark>, can be added later. -->
-              <!-- <dir staff="1" tstamp="4">,</dir> -->
               <breath staff="1" tstamp="3.9"/>
             </measure>
             <sb/>
@@ -226,8 +182,6 @@
             <measure n="4" id="m4">
               <staff>
                 <layer>
-                  <!-- PR: Note the use of beam and tuplet elements instead of @beam, @tuplet, or
-                  tupletspan. -->
                   <beam>
                     <note pname="b" oct="4" dur="8" dots="1" stem.dir="up" id="m4n1">
                       <artic value="ten" place="below"/>
@@ -260,13 +214,6 @@
                       <note pname="d" oct="5" dur="16" stem.dir="down" id="m4n11"/>
                       <note grace="acc" pname="f" oct="5" dur="16" stem.dir="up"
                         id="m4n12"/>
-                      <!-- ask confirmation for acc or unacc -->
-                      <!-- PR: modern grace notes are generally unacc; that is, the time for them
-                      is stolen from the preceding note. -->
-
-                      <!-- Should the slur attribute be there? -->
-                      <!-- PR: For hand coding, you should also be using the <slur> element, not
-                      the @slur attribute.  See below. -->
                       <note pname="e" oct="5" dur="16" stem.dir="down" id="m4n13">
                         <accid value="n"/>
                       </note>
@@ -275,31 +222,20 @@
                   </beam>
                 </layer>
               </staff>
-
-              <!-- I think that tuplet2 is not meaningful enough as a tag name -->
-              <!-- PR: I know, I just got lazy. :) How about tupletspan instead? -->
               <tupletspan staff="1" startid="m4n5" endid="m4n7" num="3:2"
                 num.visible="false" num.place="above" num.format="count"/>
               <tupletspan staff="1" startid="m4n8" endid="m4n10" num="3:2"
                 num.visible="false" num.place="below" num.format="count"/>
               <tupletspan staff="1" startid="m4n11" endid="m4n13" num="3:2"
                 num.visible="false" num.place="below" num.format="count"/>
-
-              <hairpin tstamp="1" dur="2" form="cres" place="below" staff="1" startid="m4n1" endid="m4n3"/>
-              <dynam place="below" staff="1" startid="m4n4">p</dynam>
-              <!-- No controlled values for this? Should we come up with a list of sugested values? -->
-              <!-- PR: If you mean a list of controlled values for the text content of <dynam>, then
-              no, we should not. There are no limits to the possible values. If you want to map the
-              text values to a MIDI value, use @value. -->
-
-              <hairpin tstamp="2.6" dur="4" form="cres" place="below" staff="1" startid="m4n6" endid="m4n14"/>
+              <hairpin tstamp="1" dur="2" form="cres" place="below" staff="1"/>
+              <dynam tstamp="2" place="below" staff="1">p</dynam>
+              <hairpin tstamp="2.6" dur="4" form="cres" place="below" staff="1"/>
 
               <!-- PR: Here's a simpler way to encode slurs. I admit a dir(ection) attribute might be
               useful here. -->
               <slur staff="1" tstamp="1" dur="1.125"/>
-              <!-- PR: starts on beat 1, ends on last part of beat 1. -->
               <slur staff="1" tstamp="2.33" dur="4"/>
-              <!-- PR: starts on 2nd 3rd of beat 2 and ends at the barline. -->
             </measure>
             <sb/>
             <measure n="5" id="m5">
@@ -319,10 +255,6 @@
                     corresp="m5n4a">
                     <accid value="n"/>
                   </note>
-                  <!-- PR: Note the use of enclose.note, pname.ges, and accid.ges. If these
-                    attributes are used, I'm not sure what purpose <supplied> serves in
-                    this case: The "extra" supplied note will confuse a processor expecting
-                    a measure that conforms to the time sig. -->
                   <supplied>
                     <note pname="c" oct="4" stem.dir="down" id="m5n4a" corresp="m5n4"
                       enclose.note="paren" pname.ges="c" accid.ges="f">
@@ -351,9 +283,9 @@
                 bracket.place="below" bracket.visible="false"/>
               <tupletspan staff="1" startid="m5n7" endid="m5n9" num="3:2"
                 num.visible="false" num.place="below" num.format="count"/>
-              <dynam place="below" staff="1" startid="m5n1">p</dynam>
-              <hairpin tstamp="1.75" dur="2" form="cres" place="below" staff="1" startid="m5n2" endid="m5n4"/>
-              <hairpin tstamp="3.16" dur="3.5" form="cres" place="below" staff="1" startid="m5n6" endid="m5n9"/>
+              <dynam place="below" staff="1">p</dynam>
+              <hairpin tstamp="1.75" dur="2" form="cres" place="below" staff="1"/>
+              <hairpin tstamp="3.16" dur="3.5" form="cres" place="below" staff="1"/>
             </measure>
 
             <measure n="6" id="m6">
@@ -366,12 +298,10 @@
                   </note>
                 </layer>
               </staff>
-              <hairpin staff="1" tstamp="2" dur="1m+1.5" form="cres" place="below"/> 
-              <!-- <hairpin id="problematic1start" form="cres" place="below" staff="1"
-                startid="m6n2" corresp="problematic1end"/> -->
-              <!-- @corresp should be @sameAs (one item represented twice as opposed to
+              <hairpin staff="1" tstamp="2" dur="1m+1.5" form="cres" place="below"/>
+              <!-- Raffaele: @corresp should be @sameAs (one item represented twice as opposed to
                 being two different representations of the same thing)-->
-              <dynam place="below" staff="1" startid="m6n1">mf</dynam>
+              <dynam place="below" staff="1">mf</dynam>
             </measure>
             <measure n="7" id="m7">
               <staff>
@@ -381,9 +311,7 @@
                   <note pname="d" oct="6" dur="4" stem.dir="down" slur="f1" id="m7n2"/>
                 </layer>
               </staff>
-              <!-- <hairpin id="problematic1end" form="cres" place="below" staff="1"
-                endid="m7n1" corresp="problematic1start"/> -->
-              <hairpin form="dim" place="below" staff="1" tstamp="3" dur="4" startid="m7n2" endho="15"/>
+              <hairpin form="dim" place="below" staff="1" tstamp="3" dur="4"/>
             </measure>
             <measure n="8" right="dbl" id="m8">
               <staff>
@@ -393,9 +321,8 @@
                   <note pname="b" oct="5" dur="4" stem.dir="down" slur="f1" id="m8n2"/>
                 </layer>
               </staff>
-              <dynam place="below" staff="1" startid="m8n1">p</dynam>
-              <hairpin form="dim" place="below" staff="1" tstamp="2" dur="3.75" startho="-15" endho="15"/>
-              <!-- completely random values for startho, endho -->
+              <dynam place="below" staff="1">p</dynam>
+              <hairpin form="dim" place="below" staff="1" tstamp="2" dur="3.75"/>
 
               <!-- supplied breath -->
               <supplied>
@@ -405,23 +332,14 @@
               <!-- PR: Generally, the continuation line should be generated by the renderer, not encoded
               as part of the directive text. That way, different layouts will generate a line of the correct
               length.  Therefore, use <dir dur="3.5"> to get a line until the 2nd half of beat 3. -->
-              <dir place="above" staff="1" startid="m8n1" lang="fr" dur="3.5">
+              <dir place="above" staff="1" lang="fr" dur="3.5">
                 <rend fontfam="Times" fontsize="10.25" fontstyle="normal">Retenu</rend>
               </dir>
             </measure>
           </section>
-
-          <!-- Another theatrical cue -->
-          <!-- <lg>
-                        <l>« Tais-toi, contiens ta joie, écoute. »</l>
-                    </lg>-->
-          <!-- PR: Seeing this cue now, I think both of them should just be directives, e.g.,
-          <dir staff="1" tstamp="1" place="above">« Tais-toi, contiens ta joie, écoute. »</dir> -->
-          <!-- PR: However, another possibility is: -->
           <div>
             <p>« Tais-toi, contiens ta joie, écoute. »</p>
           </div>
-
           <!-- new section ... -->
         </score>
       </mdiv>
