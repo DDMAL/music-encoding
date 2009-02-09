@@ -73,18 +73,23 @@ PURPOSE:  This file contains name declarations for all the elements
 
 <!-- ************************************************************** -->
 <!-- MEI Generic Identifiers (Shared)                               -->
+<!-- Common elements which are used in more than one module         -->
 <!-- ************************************************************** -->
 <!ENTITY % n.abbr 'abbr'>
+<!ENTITY % n.accid 'accid'>
 <!ENTITY % n.address 'address'>
 <!ENTITY % n.addressline 'addressline'>
 <!ENTITY % n.anchoredtext 'anchoredtext'>
+<!ENTITY % n.artic 'artic'>
 <!ENTITY % n.barline 'barline'>
 <!ENTITY % n.bibl 'bibl'>
 <!ENTITY % n.blockquote 'blockquote'>
 <!ENTITY % n.caption 'caption'>
+<!ENTITY % n.clefchange 'clefchange'>
 <!ENTITY % n.corpname 'corpname'>
 <!ENTITY % n.curve 'curve'>
 <!ENTITY % n.date 'date'>
+<!ENTITY % n.dot 'dot'>
 <!ENTITY % n.expan 'expan'>
 <!ENTITY % n.extptr 'extptr'>
 <!ENTITY % n.extref 'extref'>
@@ -95,14 +100,21 @@ PURPOSE:  This file contains name declarations for all the elements
 <!ENTITY % n.head 'head'>
 <!ENTITY % n.item 'item'>
 <!ENTITY % n.identifier 'identifier'>
+<!ENTITY % n.keyaccid 'keyaccid'>
+<!ENTITY % n.keysig 'keysig'>
 <!ENTITY % n.l 'l'>
 <!ENTITY % n.lb 'lb'>
 <!ENTITY % n.lg 'lg'>
 <!ENTITY % n.line 'line'>
 <!ENTITY % n.list 'list'>
+<!ENTITY % n.measure 'measure'>
+<!ENTITY % n.mensur 'mensur'>
+<!ENTITY % n.mensurchange 'mensurchange'>
 <!ENTITY % n.name 'name'>
 <!ENTITY % n.num 'num'>
 <!ENTITY % n.p 'p'>
+<!ENTITY % n.proport 'proport'>
+<!ENTITY % n.proportchange 'proportchange'>
 <!ENTITY % n.table 'table'>
 <!ENTITY % n.td 'td'>
 <!ENTITY % n.th 'th'>
@@ -115,107 +127,132 @@ PURPOSE:  This file contains name declarations for all the elements
 <!ENTITY % n.rend 'rend'>
 <!ENTITY % n.repository 'repository'>
 <!ENTITY % n.stack 'stack'>
+<!ENTITY % n.staff 'staff'>
 <!ENTITY % n.stylename 'stylename'>
 <!ENTITY % n.symbol 'symbol'>
 <!ENTITY % n.title 'title'>
 <!ENTITY % n.tr 'tr'>
 
 <!-- ************************************************************** -->
-<!-- MEI Generic Identifiers (Base)                                 -->
+<!-- MEI Generic Identifiers (Structure)                            -->
+<!-- THESE ELEMENTS MAY OCCUR IN ALL MEI DOCUMENTS.                 -->
 <!-- ************************************************************** -->
-<!ENTITY % n.accid 'accid'>
-<!ENTITY % n.annot 'annot'>
-<!ENTITY % n.app 'app'>
-<!ENTITY % n.arpeg 'arpeg'>
-<!ENTITY % n.artic 'artic'>
-<!ENTITY % n.barre 'barre'>
-<!ENTITY % n.beam 'beam'>
-<!ENTITY % n.beam2 'beam2'>
-<!ENTITY % n.beatrpt 'beatrpt'>
-<!ENTITY % n.bend 'bend'>
 <!ENTITY % n.body 'body'>
-<!ENTITY % n.btrem 'btrem'>
-<!ENTITY % n.chord 'chord'>
-<!ENTITY % n.chorddef 'chorddef'>
-<!ENTITY % n.chordmember 'chordmember'>
-<!ENTITY % n.chordtable 'chordtable'>
-<!ENTITY % n.clef 'clef'>
-<!ENTITY % n.clefchange 'clefchange'>
-<!ENTITY % n.custos 'custos'>
-<!ENTITY % n.dir 'dir'>
-<!ENTITY % n.dot 'dot'>
-<!ENTITY % n.dynam 'dynam'>
 <!ENTITY % n.ending 'ending'>
-<!ENTITY % n.ftrem 'ftrem'>
-<!ENTITY % n.fw 'fw'>
-<!ENTITY % n.fwd 'fwd'>
-<!ENTITY % n.fwr 'fwr'>
-<!ENTITY % n.gliss 'gliss'>
 <!ENTITY % n.group 'group'>
-<!ENTITY % n.grpsym 'grpsym'>
-<!ENTITY % n.hairpin 'hairpin'>
-<!ENTITY % n.halfmrpt 'halfmrpt'>
-<!ENTITY % n.harm 'harm'>
-<!ENTITY % n.harppedal 'harppedal'>
-<!ENTITY % n.instrdef 'instrdef'>
-<!ENTITY % n.instrtable 'instrtable'>
-<!ENTITY % n.keyaccid 'keyaccid'>
-<!ENTITY % n.keychange 'keychange'>
-<!ENTITY % n.keysig 'keysig'>
-<!ENTITY % n.label 'label'>
 <!ENTITY % n.layer 'layer'>
 <!ENTITY % n.layerdef 'layerdef'>
-<!ENTITY % n.ligature 'ligature'>
-<!ENTITY % n.lyrics 'lyrics'>
 <!ENTITY % n.mdiv 'mdiv'>
-<!ENTITY % n.measure 'measure'>
-<!ENTITY % n.mensur 'mensur'>
-<!ENTITY % n.mensurchange 'mensurchange'>
-<!ENTITY % n.mordent 'mordent'>
+<!ENTITY % n.music 'music'>
+<!ENTITY % n.ossia 'ossia'>
+<!ENTITY % n.part 'part'>
+<!ENTITY % n.parts 'parts'>
+<!ENTITY % n.sb 'sb'>
+<!ENTITY % n.score 'score'>
+<!ENTITY % n.scoredef 'scoredef'>
+<!ENTITY % n.section 'section'>
+<!ENTITY % n.staffdef 'staffdef'>
+<!ENTITY % n.staffgrp 'staffgrp'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (Base)                                 -->
+<!-- ************************************************************** -->
+<!ENTITY % n.note 'note'>
+<!ENTITY % n.rest 'rest'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (CWN)                                  -->
+<!-- ************************************************************** -->
+<!-- Events (and their children) -->
+<!ENTITY % n.beam 'beam'>
+<!ENTITY % n.beatrpt 'beatrpt'>
+<!ENTITY % n.btrem 'btrem'>
+<!ENTITY % n.chord 'chord'>
+<!ENTITY % n.clef 'clef'>
+<!ENTITY % n.ftrem 'ftrem'>
+<!ENTITY % n.halfmrpt 'halfmrpt'>
+<!ENTITY % n.pad 'pad'>
+<!ENTITY % n.space 'space'>
+<!ENTITY % n.tuplet 'tuplet'>
+
+<!-- Control events -->
+<!ENTITY % n.annot 'annot'>
+<!ENTITY % n.arpeg 'arpeg'>
+<!ENTITY % n.beamspan 'beamspan'>
+<!ENTITY % n.bend 'bend'>
+<!ENTITY % n.breath 'breath'>
+<!ENTITY % n.custos 'custos'>
+<!ENTITY % n.dir 'dir'>
+<!ENTITY % n.dynam 'dynam'>
+<!ENTITY % n.fermata 'fermata'>
+<!ENTITY % n.gliss 'gliss'>
+<!ENTITY % n.hairpin 'hairpin'>
+<!ENTITY % n.harppedal 'harppedal'>
 <!ENTITY % n.mrest 'mrest'>
 <!ENTITY % n.mrpt 'mrpt'>
 <!ENTITY % n.mrpt2 'mrpt2'>
 <!ENTITY % n.mspace 'mspace'>
 <!ENTITY % n.multirest 'multirest'>
 <!ENTITY % n.multirpt 'multirpt'>
-<!ENTITY % n.music 'music'>
-<!ENTITY % n.nota 'nota'>
-<!ENTITY % n.note 'note'>
 <!ENTITY % n.octave 'octave'>
-<!ENTITY % n.ossia 'ossia'>
-<!ENTITY % n.pad 'pad'>
-<!ENTITY % n.part 'part'>
-<!ENTITY % n.parts 'parts'>
 <!ENTITY % n.pedal 'pedal'>
+<!ENTITY % n.phrase 'phrase'>
+<!ENTITY % n.reh 'reh'>
+<!ENTITY % n.slur 'slur'>
+<!ENTITY % n.tempo 'tempo'>
+<!ENTITY % n.tie 'tie'>
+<!ENTITY % n.tupletspan 'tupletspan'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (Lyrics)                               -->
+<!-- ************************************************************** -->
+<!ENTITY % n.lyrics 'lyrics'>
+<!ENTITY % n.syl 'syl'>
+<!ENTITY % n.verse 'verse'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (Ornaments)                            -->
+<!-- ************************************************************** -->
+<!ENTITY % n.mordent 'mordent'>
+<!ENTITY % n.trill 'trill'>
+<!ENTITY % n.turn 'turn'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (Layout)                               -->
+<!-- ************************************************************** -->
+<!ENTITY % n.fw 'fw'>
+<!ENTITY % n.grpsym 'grpsym'>
+<!ENTITY % n.label 'label'>
 <!ENTITY % n.pgfoot1 'pgfoot1'>
 <!ENTITY % n.pgfoot2 'pgfoot2'>
 <!ENTITY % n.pghead1 'pghead1'>
 <!ENTITY % n.pghead2 'pghead2'>
-<!ENTITY % n.phrase 'phrase'>
-<!ENTITY % n.proport 'proport'>
-<!ENTITY % n.proportchange 'proportchange'>
-<!ENTITY % n.rdg 'rdg'>
-<!ENTITY % n.reh 'reh'>
-<!ENTITY % n.rest 'rest'>
-<!ENTITY % n.sb 'sb'>
-<!ENTITY % n.score 'score'>
-<!ENTITY % n.scoredef 'scoredef'>
-<!ENTITY % n.section 'section'>
-<!ENTITY % n.slur 'slur'>
-<!ENTITY % n.space 'space'>
-<!ENTITY % n.staff 'staff'>
-<!ENTITY % n.staffdef 'staffdef'>
-<!ENTITY % n.staffgrp 'staffgrp'>
-<!ENTITY % n.syl 'syl'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (Harmony)                              -->
+<!-- ************************************************************** -->
+<!ENTITY % n.barre 'barre'>
+<!ENTITY % n.chorddef 'chorddef'>
+<!ENTITY % n.chordmember 'chordmember'>
+<!ENTITY % n.chordtable 'chordtable'>
+<!ENTITY % n.harm 'harm'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (User-defined symbols)                 -->
+<!-- ************************************************************** -->
 <!ENTITY % n.symboldef 'symboldef'>
 <!ENTITY % n.symboltable 'symboltable'>
-<!ENTITY % n.tempo 'tempo'>
-<!ENTITY % n.tie 'tie'>
-<!ENTITY % n.trill 'trill'>
-<!ENTITY % n.tuplet 'tuplet'>
-<!ENTITY % n.tuplet2 'tuplet2'>
-<!ENTITY % n.turn 'turn'>
-<!ENTITY % n.verse 'verse'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (Instruments)                          -->
+<!-- ************************************************************** -->
+<!ENTITY % n.instrdef 'instrdef'>
+
+<!-- ************************************************************** -->
+<!-- MEI Generic Identifiers (Apparatus)                            -->
+<!-- ************************************************************** -->
+<!ENTITY % n.app 'app'>
+<!ENTITY % n.rdg 'rdg'>
 
 <!-- ************************************************************** -->
 <!-- MEI Generic Identifiers (Neumes)                               -->
@@ -227,6 +264,8 @@ PURPOSE:  This file contains name declarations for all the elements
 <!-- ************************************************************** -->
 <!-- MEI Generic Identifiers (Mensural)                             -->
 <!-- ************************************************************** -->
+<!ENTITY % n.keychange 'keychange'>
+<!ENTITY % n.ligature 'ligature'>
 <!ENTITY % n.nota 'nota'>
 <!ENTITY % n.pausa 'pausa'>
 
@@ -740,10 +779,7 @@ the staff).  For example, on a 5-line staff the lines would be numbered
 <!ENTITY % STAFFLOC  '%INTEGERNONNEGATIVE;'>
 
 <!-- Stem directions -->
-<!ENTITY % STEMDIRECTION.MENSURAL '|left|right'>
-<!ENTITY % STEMDIRECTION.BASE 'up|down'>
-<!ENTITY % STEMDIRECTION
-                     '(%STEMDIRECTION.BASE; %STEMDIRECTION.MENSURAL;)'>
+<!ENTITY % STEMDIRECTION '(up|down)'>
 
 <!-- Stem modifications -->
 <!ENTITY % STEMMODIFIER
@@ -758,6 +794,10 @@ the staff).  For example, on a 5-line staff the lines would be numbered
 <!ENTITY % TEMPERAMENT
                      '(equal|just|mean)'>
 
+<!-- Rendition values for a single line of text
+<!ENTITY % TEXTLINERENDITION
+                     '(left|right|center)'> -->
+                     
 <!-- Text renditions -->
 <!ENTITY % TEXTRENDITION
                      '(box|center|circle|dblunderline|justify|left|
@@ -1102,7 +1142,8 @@ attribute. -->
 <!-- Element model classes                                          -->
 <!-- ************************************************************** -->
 
-<!-- Location/referencing elements -->
+<!-- Location/referencing elements. This entity must be declared before
+the m.anchoredtext entity. -->
 <!ENTITY % m.locref  '%n.extptr;|%n.extref;|%n.ptr;|%n.ref;'>
 
 <!-- Anchored text sub-elements. These occur as part of the
@@ -1119,9 +1160,55 @@ the pb element. -->
 <!-- MIDI events -->
 <!ENTITY % m.midievents
                      '%n.cc;|%n.chan;|%n.chanpr;|%n.cue;|%n.hex;|
-                     %n.instr;|%n.marker;|%n.metatext;|%n.noteoff;|
-                     %n.noteon;|%n.port;|%n.prog;|%n.seqnum;|
-                     %n.trkname;|%n.vel;'>
+                     %n.marker;|%n.metatext;|%n.noteoff;|%n.noteon;|
+                     %n.port;|%n.prog;|%n.seqnum;|%n.trkname;|%n.vel;'>
+
+<!-- Unless the meiMIDI entity's value is INCLUDE, the m.midi class
+of elements is not available.  To activate them, the meiMIDI entity
+must be set to INCLUDE in the internal DTD subset or in the
+meiModifications.ent file. This entity must be declared before the
+m.controlevents entity. -->
+<![%meiMIDI;[
+  <!ENTITY % m.midi '|%n.midi;'>
+]]>
+<!ENTITY % m.midi   ''>
+
+<!-- Control events modify or otherwise depend on the existence of
+notated events. -->
+<!ENTITY % m.controlevents.mensural ''>
+<!ENTITY % m.controlevents.base
+                     '%n.annot;|%n.arpeg;|%n.beamspan;|%n.bend;|
+                     %n.breath;|%n.dir;|%n.dynam;|%n.fermata;|
+                     %n.gliss;|%n.hairpin;|%n.harm;|%n.harppedal;|
+                     %n.lyrics;|%n.mordent;|%n.octave;|%n.pedal;|
+                     %n.phrase;|%n.reh;|%n.slur;|%n.tempo;|%n.tie;|
+                     %n.trill;|%n.tupletspan;|%n.turn; %m.midi;'>
+<!ENTITY % m.controlevents
+                     '%m.controlevents.base;
+                     %m.controlevents.mensural;'>
+
+<!-- Notated events. Sometimes referred to as "logical" events. The
+mrest, mrpt, mspace, multirest, and multirpt elements are not included
+in this list since in the measure element's content model they are
+alternatives to the elements listed here. They are, however, part of the
+a.events class. -->
+<!ENTITY % m.events.base
+                     '%n.clefchange;|%n.note;|%n.pad;|%n.rest;|%n.space;'>
+<!ENTITY % m.events.neume
+                      '|%n.ineume;|%n.uneume;|%n.syllable;'>
+<!ENTITY % m.events.neume ''>
+<!ENTITY % m.events.mensural
+                      '|%n.barline;|%n.dot;|%n.ligature;|%n.keychange;|
+                      %n.mensurchange;|%n.nota;|%n.pausa;|%n.proportchange;'>
+<!ENTITY % m.events.mensural ''>
+<!ENTITY % m.events.modern
+                     '|%n.beam;|%n.beatrpt;|%n.btrem;|%n.chord;|%n.ftrem;|
+                     %n.halfmrpt;|%n.tuplet;'>
+<!ENTITY % m.events
+                     '%m.events.base;
+                     %m.events.neume;
+                     %m.events.mensural;
+                     %m.events.modern;'>
 
 <!-- Graphic primitives: curves, lines, symbols (made up of curves,
 lines, symbols, or anchored text), and anchoredtext -->
@@ -1131,7 +1218,7 @@ lines, symbols, or anchored text), and anchoredtext -->
 <!-- Lowest level text elements. Since these elements can occur in more
 than one module, they're declared in the meiShared DTD. -->
 <!ENTITY % m.textinline
-                     '%n.abbr;|%n.address;|%n.annot;|%n.bibl;|%n.corpname;|
+                     '%n.abbr;|%n.address;|%n.bibl;|%n.corpname;|
                      %n.date;|%n.expan;|%n.geogname;|%n.identifier;|
                      %n.lb;|%n.name;|%n.num;|%n.pb;|%n.periodname;|
                      %n.persname;|%n.rend;|%n.repository;|%n.stack;|
@@ -1199,15 +1286,6 @@ meiModifications.ent file. -->
 ]]>
 <!ENTITY % m.facsimile "">
 
-<!-- Unless the meiMIDI entity's value is INCLUDE, the m.midi class
-of elements is not available.  To activate them, the meiMIDI entity
-must be set to INCLUDE in the internal DTD subset or in the
-meiModifications.ent file. -->
-<![%meiMIDI;[
-  <!ENTITY % m.midi '|%n.midi;'>
-]]>
-<!ENTITY % m.midi   ''>
-
 <!-- Unless the meiCrit entity's value is INCLUDE, the app tag and its rdg
 sub-elements are not available.  To activate them, the meiCrit entity must
 be set to INCLUDE in the internal DTD subset or in the meiModifications.ent
@@ -1225,44 +1303,9 @@ file. -->
 <!ENTITY % m.clefchange '(%n.clef;)*'>
 <!-- <!ENTITY % m.clefchange 'EMPTY'> -->
 
-<!-- Control events modify or otherwise depend on the existence of
-notated events. -->
-<!ENTITY % m.controlevents.mensural ''>
-<!ENTITY % m.controlevents.base
-                     '%n.annot;|%n.arpeg;|%n.beam2;|%n.bend;|%n.dir;|
-                     %n.dynam;|%n.gliss;|%n.hairpin;|%n.harm;|
-                     %n.harppedal;|%n.lyrics;|%n.mordent;|%n.octave;|
-                     %n.pedal;|%n.phrase;|%n.reh;|%n.slur;|%n.tempo;|
-                     %n.tie;|%n.trill;|%n.tuplet2;|%n.turn; %m.midi;'>
-<!ENTITY % m.controlevents
-                     '%m.controlevents.base;
-                     %m.controlevents.mensural;'>
-
-<!-- Notated events. Sometimes referred to as "logical" events. The
-mrest, mrpt, mspace, multirest, and multirpt elements are not included
-in this list since in the measure element's content model they are
-alternatives to the elements listed here. They are, however, part of the
-a.events class. -->
-<!ENTITY % m.events.base
-                     '%n.clefchange;|%n.note;|%n.pad;|%n.rest;|%n.space;'>
-<!ENTITY % m.events.neume
-                      '|%n.ineume;|%n.uneume;|%n.syllable;'>
-<!ENTITY % m.events.neume ''>
-<!ENTITY % m.events.mensural
-                      '|%n.barline;|%n.dot;|%n.ligature;|%n.keychange;|
-                      %n.mensurchange;|%n.nota;|%n.pausa;|%n.proportchange;'>
-<!ENTITY % m.events.mensural ''>
-<!ENTITY % m.events.modern
-                     '|%n.beam;|%n.beatrpt;|%n.btrem;|%n.chord;|%n.ftrem;|%n.halfmrpt;|%n.tuplet;'>
-<!ENTITY % m.events
-                     '%m.events.base;
-                     %m.events.neume;
-                     %m.events.mensural;
-                     %m.events.modern;'>
-
 <!-- Notated events at the layer level -->
-<!ENTITY % m.layer   '%m.events; %m.edit; |%n.mrest;|%n.mrpt;|%n.mrpt2;|
-                     %n.mspace;|%n.multirest;|%n.multirpt;'>
+<!ENTITY % m.layer   '%m.events;|%n.mrest;|%n.mrpt;|%n.mrpt2;|
+                     %n.mspace;|%n.multirest;|%n.multirpt;|%m.controlevents; %m.edit;'>
 
 <!-- Measure content model (all) -->
 <!ENTITY % m.measure '((%n.staff;|%n.layer;|%m.layer; %m.apparatus; %m.edit;)*
@@ -1438,12 +1481,13 @@ hash marks should be rendered between systems. See Read, p. 436, ex.
 <!-- Logical domain attributes:  -->
 <!ENTITY % a.log.dot
                     'form               (aug|div)             #IMPLIED
-                    loc                 %STAFFLOC;            #REQUIRED'>
+                    loc                 %STAFFLOC;            #IMPLIED'>
 
 <!-- Visual domain attributes:  -->
 <![%meiVisual;[
   <!ENTITY % a.vis.dot
-                     '%a.color;'>
+                     '%a.color;
+                     %a.xy;'>
 ]]>
 <!ENTITY % a.vis.dot ''>
 
@@ -2173,7 +2217,9 @@ form. See Read, p. 226 (ex. 12-10), 228-229 (ex. 12-16). -->
 
 <!-- Gestural domain attributes: -->
 <![%meiGestural;[
-  <!ENTITY % a.ges.staffdef
+  <!ENTITY % a.ges.staffdef.tablature
+                     'tab.strings       CDATA                 #IMPLIED'>
+  <!ENTITY % a.ges.staffdef.base
                      'grace             %GRACE;               %INHERITED;
                      midi.channel       %MIDICHANNEL;         %INHERITED;
                      midi.div           %INTEGERPOSITIVE;     %INHERITED;
@@ -2185,6 +2231,8 @@ form. See Read, p. 226 (ex. 12-10), 228-229 (ex. 12-16). -->
                      <!-- Adding tune.pname, tune.Hz, and tune.temper
                      attributes here would allow each staff to establish
                      its own tuning standard. -->
+  <!ENTITY % a.ges.staffdef '%a.ges.staffdef.base;
+                            %a.ges.staffdef.tablature;'>
 ]]>
 <!ENTITY % a.ges.staffdef ''>
 
@@ -2218,7 +2266,6 @@ staff numbering. -->
                      meter.sym          %METERTEXT;           #IMPLIED
                      meter.unit         %NUMBER;              #IMPLIED
                      octave.default     %OCTAVE;              %INHERITED;
-                     tab.strings        CDATA                 #IMPLIED
                      trans.diat         %NUMBER;              %INHERITED;
                      trans.semi         %NUMBER;              %INHERITED;'>
 <!ENTITY % a.log.staffdef
@@ -2399,7 +2446,7 @@ Unused note attributes:
 <!ENTITY % a.log.uneume
                      '%a.event;
                      form               %UNEUMEFORM;          #IMPLIED
-                     name               %UNEUME;              #REQUIRED
+                     name               %UNEUME;              #IMPLIED
                      syl                CDATA                 #IMPLIED'>
 
 <!-- Visual domain attributes:  
@@ -2626,35 +2673,35 @@ indicates a division of the beam into 2 8th-note groups. -->
 <!ENTITY % a.vis.beam ''>
 
 <!-- ************************************************************** -->
-<!-- * Attributes for beam2                                       * -->
+<!-- * Attributes for beamspan                                    * -->
 
 <!-- Analytical domain attributes: -->
 <![%meiAnalysis;[
-  <!ENTITY % a.anl.beam2
+  <!ENTITY % a.anl.beamspan
                      '%a.anl.common;'>
 ]]>
-<!ENTITY % a.anl.beam2 ''>
+<!ENTITY % a.anl.beamspan ''>
 
 <!-- Gestural domain attributes: -->
 <![%meiGestural;[
-  <!ENTITY % a.ges.beam2 ''>
+  <!ENTITY % a.ges.beamspan ''>
 ]]>
-<!ENTITY % a.ges.beam2 ''>
+<!ENTITY % a.ges.beamspan ''>
 
 <!-- Logical domain attributes: -->
-<!ENTITY % a.log.beam2
+<!ENTITY % a.log.beamspan
                      '%a.controlevent;
                      %a.startendid;
                      with               %PLACE;               #IMPLIED'>
 
 <!-- Visual domain attributes: -->
 <![%meiVisual;[
-  <!ENTITY % a.vis.beam2
+  <!ENTITY % a.vis.beamspan
                      'breaksec          CDATA                 #IMPLIED
                      rend               (acc|rit|norm)        #IMPLIED
                      slope              %NUMBER;              #IMPLIED'>
 ]]>
-<!ENTITY % a.vis.beam2 ''>
+<!ENTITY % a.vis.beamspan ''>
 
 <!-- ************************************************************** -->
 <!-- * Attributes for beatrpt                                     * -->
@@ -2747,6 +2794,41 @@ pairs. -->
                      startvo            %VISUALOFFSET;        #IMPLIED'>
 ]]>
 <!ENTITY % a.vis.bend ''>
+
+<!-- ************************************************************** -->
+<!-- * Attributes for breath                                      * -->
+
+<![%meiAnalysis;[
+  <!ENTITY % a.anl.breath
+                     '%a.anl.common;'>
+]]>
+<!ENTITY % a.anl.breath ''>
+
+<!-- Gestural domain attributes: -->
+<![%meiGestural;[
+   <!ENTITY % a.ges.breath ''>
+]]>
+<!ENTITY % a.ges.breath ''>
+
+<!-- Logical domain attributes: Currently, the dur attribute encodes
+the logical and visual durations of the directive. If cases arise where
+the logical and visual durations differ, it may be necessary to add a
+dur.vis attribute. Please note that the dur attribute is not a true
+duration, but rather a time stamp for the end point of the directive. -->
+<!ENTITY % a.log.breath
+                     '%a.controlevent;
+                     %a.startendid;'>
+
+<!-- Visual domain attributes: -->
+<![%meiVisual;[
+  <!ENTITY % a.vis.breath
+                     '%a.color;
+                     %a.visualoffset;
+                     %a.xy;
+                     altsym             IDREF                 #IMPLIED
+                     place              %PLACE;               #IMPLIED'>
+]]>
+<!ENTITY % a.vis.breath ''>
 
 <!-- ************************************************************** -->
 <!-- * Attributes for btrem                                       * -->
@@ -2995,6 +3077,39 @@ a time stamp for the end point of the dynamic indication. -->
                      startto            %TSTAMPOFFSET;        #IMPLIED'>
 ]]>
 <!ENTITY % a.vis.dynam ''>
+
+<!-- ************************************************************** -->
+<!-- * Attributes for fermata                                     * -->
+
+<![%meiAnalysis;[
+  <!ENTITY % a.anl.fermata
+                     '%a.anl.common;'>
+]]>
+<!ENTITY % a.anl.fermata ''>
+
+<!-- Gestural domain attributes: -->
+<![%meiGestural;[
+   <!ENTITY % a.ges.fermata
+                     'dur.ges           CDATA                 #IMPLIED'>
+]]>
+<!ENTITY % a.ges.fermata ''>
+
+<!-- Logical domain attributes: -->
+<!ENTITY % a.log.fermata
+                     '%a.controlevent;
+                     %a.startendid;'>
+
+<!-- Visual domain attributes: -->
+<![%meiVisual;[
+  <!ENTITY % a.vis.fermata
+                     '%a.color;
+                     %a.visualoffset;
+                     %a.xy;
+                     altsym             IDREF                 #IMPLIED
+                     form               (inv|norm)            #IMPLIED
+                     place              %PLACE;               #IMPLIED'>
+]]>
+<!ENTITY % a.vis.fermata ''>
 
 <!-- ************************************************************** -->
 <!-- * Attributes for ftrem                                       * -->
@@ -3624,7 +3739,10 @@ dots.ges attribute is unnecessary. See Read, p. 238-241, for a
 discussion of grace notes. The pnum attribute holds a pitch-to-number
 mapping, a base-40 or MIDI note number, for example. -->
 <![%meiGestural;[
-  <!ENTITY % a.ges.nota
+  <!ENTITY % a.ges.nota.tablature
+                     'tab.fret          %FRETNUMBER;          #IMPLIED
+                     tab.string         %STRINGNUMBER;        #IMPLIED'>
+  <!ENTITY % a.ges.nota.base
                      'num               %INTEGERPOSITIVE;     #IMPLIED
                      numbase            %INTEGERPOSITIVE;     #IMPLIED
                      accid.ges          %ACCIDENTAL.IMPLICIT; #IMPLIED
@@ -3638,6 +3756,9 @@ mapping, a base-40 or MIDI note number, for example. -->
                      oct.ges            %OCTAVE;              #IMPLIED
                      pname.ges          %PITCHNAME.GES;       #IMPLIED
                      pnum               %PITCHNUMBER;         #IMPLIED'>
+  <!ENTITY % a.ges.nota
+                     '%a.ges.nota.base;
+                     %a.ges.nota.tablature;'>
 ]]>
 <!ENTITY % a.ges.nota ''>
 
@@ -3756,9 +3877,11 @@ measures[s]:beat[s].beatpart, MIDI clicks, Humdrum *recip values, etc.
 Because dur.ges isn't limited to the standard duration values, a
 dots.ges attribute is unnecessary. See Read, p. 238-241, for a
 discussion of grace notes. The pnum attribute holds a pitch-to-number
-mapping, a base-40 or MIDI note number, for example. -->
+mapping, a base-40 or MIDI note number, for example.  Tablature
+information can be recorded in the tab.fret and tab.string attributes. -->
 <![%meiGestural;[
-  <!ENTITY % a.ges.note
+  <!ENTITY % a.ges.note.tablature ''>
+  <!ENTITY % a.ges.note.base
                      'accid.ges         %ACCIDENTAL.IMPLICIT; #IMPLIED
                      artic.ges          %ARTICULATIONS;       #IMPLIED
                      detune             CDATA                 #IMPLIED
@@ -3769,7 +3892,10 @@ mapping, a base-40 or MIDI note number, for example. -->
                      instr              IDREF                 #IMPLIED
                      oct.ges            %OCTAVE;              #IMPLIED
                      pname.ges          %PITCHNAME.GES;       #IMPLIED
-                     pnum               %PITCHNUMBER;         #IMPLIED'>
+                     pnum               %PITCHNUMBER;         #IMPLIED
+                     tab.fret           %FRETNUMBER;          #IMPLIED
+                     tab.string         %STRINGNUMBER;        #IMPLIED'>
+  <!ENTITY % a.ges.note '%a.ges.note.base; %a.ges.note.tablature;'>
 ]]>
 <!ENTITY % a.ges.note ''>
 
@@ -3786,8 +3912,7 @@ duration. The slur, tie, lv (laissez vibrer), and tuplet attributes encode
 the presence of a slur, tie, lv, or tuplet in which this note participates.
 Software may render slur, tie, lv or tuplet indications based on these
 attributes or require separate slur, tie, generic curve, or tuplet elements
-for visual rendition. Tablature information can be recorded in the tab.fret
-and tab.string attributes. -->
+for visual rendition. -->
 <!ENTITY % a.log.note
                      '%a.event;
                      accid              %ACCIDENTAL.EXPLICIT; #IMPLIED
@@ -3801,8 +3926,6 @@ and tab.string attributes. -->
                      pname              %PITCHNAME;           %PROPAGATED;
                      slur               %SLURS;               #IMPLIED
                      syl                CDATA                 #IMPLIED
-                     tab.fret           %FRETNUMBER;          #IMPLIED
-                     tab.string         %STRINGNUMBER;        #IMPLIED
                      tie                %TIE;                 #IMPLIED
                      tuplet             %TUPLET;              #IMPLIED'>
 
@@ -4517,25 +4640,25 @@ controls how the num:numbase ratio is to be displayed.
 <!ENTITY % a.vis.tuplet ''>
 
 <!-- ************************************************************** -->
-<!-- * Attributes for tuplet2                                     * -->
+<!-- * Attributes for tupletspan                                  * -->
 
 <![%meiAnalysis;[
-  <!ENTITY % a.anl.tuplet2
+  <!ENTITY % a.anl.tupletspan
                      '%a.anl.common;'>
 ]]>
-<!ENTITY % a.anl.tuplet2 ''>
+<!ENTITY % a.anl.tupletspan ''>
 
 <!-- Gestural domain attributes: -->
 <![%meiGestural;[
-  <!ENTITY % a.ges.tuplet2 ''>
+  <!ENTITY % a.ges.tupletspan ''>
 ]]>
-<!ENTITY % a.ges.tuplet2 ''>
+<!ENTITY % a.ges.tupletspan ''>
 
 <!-- Logical domain attributes: The dur attribute encodes the logical
 and visual duration of the tuplet. Unlike other control events where
 the dur attribute is expressed as a time stamp, dur here is a true
 duration. -->
-<!ENTITY % a.log.tuplet2
+<!ENTITY % a.log.tupletspan
                      '%a.controlevent;
                      %a.startendid;
                      dots               %AUGMENTDOT;          #IMPLIED
@@ -4550,7 +4673,7 @@ duration. -->
    bracket.visible 'yes'  What about triplets?
    num.visible 'yes'
 -->
-  <!ENTITY % a.vis.tuplet2
+  <!ENTITY % a.vis.tupletspan
                      'bracket.place     %PLACE;               #IMPLIED
                      bracket.visible    %BOOLEAN;             #IMPLIED
                      dur.visible        %BOOLEAN;             #IMPLIED
@@ -4558,7 +4681,7 @@ duration. -->
                      num.place          %PLACE;               #IMPLIED
                      num.visible        %BOOLEAN;             #IMPLIED'>
 ]]>
-<!ENTITY % a.vis.tuplet2 ''>
+<!ENTITY % a.vis.tupletspan ''>
 
 <!-- ************************************************************** -->
 <!-- * Attributes for turn                                        * -->
@@ -4678,7 +4801,7 @@ PURPOSE:  This file contains declarations for elements common to more
 <!-- ************************************************************** -->
 
 <!-- ************************************************************** -->
-<!-- Common (text) elements which are used in more than one module  -->
+<!-- Common elements which are used in more than one module         -->
 <!-- ************************************************************** -->
 <!-- abbr (abbreviation) contains an abbreviation of any sort. The
 type attribute may be used to classify the abbreviation according to
@@ -5040,7 +5163,7 @@ pers, corp, place, process. The role attribute may be used to record
 the function of the person, corporate body, etc. -->
 <!ENTITY % name 'INCLUDE'>
 <![%name;[
-<!ELEMENT %n.name; (#PCDATA|%n.date;|%n.identifier;|%n.name; %m.edit;)*>
+<!ELEMENT %n.name; (#PCDATA|%n.date;|%n.identifier;|%n.name;|%n.lb; %m.edit;)*>
 <!ATTLIST %n.name;
           meiform            CDATA                 #FIXED 'name'
           %a.common;
@@ -5255,7 +5378,8 @@ periodname. -->
           meiform            CDATA                 #FIXED 'tr'
           %a.common;
           %a.facsimile;
-          %a.lang;>
+          %a.lang;
+          %a.xy;>
 ]]>
 
 <!-- Table cell containing header information -->
@@ -5268,6 +5392,7 @@ periodname. -->
           %a.common;
           %a.facsimile;
           %a.lang;
+          %a.xy;
           colspan            %INTEGERPOSITIVE;     #IMPLIED
           rowspan            %INTEGERPOSITIVE;     #IMPLIED>
 ]]>
@@ -5282,6 +5407,7 @@ periodname. -->
           %a.common;
           %a.facsimile;
           %a.lang;
+          %a.xy;
           colspan            %INTEGERPOSITIVE;     #IMPLIED
           rowspan            %INTEGERPOSITIVE;     #IMPLIED>
 ]]>
@@ -5685,17 +5811,10 @@ by the %m.primitives entity are declared in the meiShared DTD. -->
           %a.common;>
 ]]>
 
-<!-- Instrtable contains declarations for MIDI instruments.  Instrtable
-may be used when multiple MIDI instruments share a staff or staffgrp. -->
-<!ENTITY % instrtable 'IGNORE'>
-<![%instrtable;[
-<!ELEMENT %n.instrtable; (%n.instrdef;)+>
-<!ATTLIST %n.instrtable;
-          meiform            CDATA                 #FIXED 'instrtable'
-          %a.common;>
-]]>
-
-<!-- MIDI instrument declaration -->
+<!-- Default MIDI instrument declaration. This element provides a
+starting or default instrument declaration for a staff, a group of
+staves, or a layer. MIDI prog elements may then change the instrument
+as necessary. -->
 <!ENTITY % instrdef 'INCLUDE'>
 <![%instrdef;[
 <!ELEMENT %n.instrdef; EMPTY>
@@ -5710,11 +5829,15 @@ may be used when multiple MIDI instruments share a staff or staffgrp. -->
           midi.track         %INTEGERPOSITIVE;     #IMPLIED>
 ]]>
 
-<!-- A running header on the first page. The pgheadN and pgfootN
-elements should *not* be used to encode textual notes! -->
+<!-- A running header on the first page. This element is a specialized
+form of the fw element for capturing the table-formatted textual data
+that often appears on the first page of printed music. It may also be
+used for similarly formatted material in manuscripts. The pgheadN and
+pgfootN elements should *not* be used to encode textual notes!  Auto-
+generated page numbers may be indicated with a processing instruction. -->
 <!ENTITY % pghead1 'INCLUDE'>
 <![%pghead1;[
-<!ELEMENT %n.pghead1; (%n.fw;)>
+<!ELEMENT %n.pghead1; (%n.table;)*>
 <!ATTLIST %n.pghead1;
           meiform            CDATA                 #FIXED 'pghead1'
           %a.common;
@@ -5722,11 +5845,13 @@ elements should *not* be used to encode textual notes! -->
           %a.lang;>
 ]]>
 
-<!-- A running header on the pages following the first. The pgheadN
-and pgfootN elements should *not* be used to encode textual notes! -->
+<!-- A running header on the pages following the first. This element is
+a specialized form of the fw element. The pgheadN and pgfootN elements
+should *not* be used to encode textual notes! Auto-generated page
+numbers may be indicated with a processing instruction. -->
 <!ENTITY % pghead2 'INCLUDE'>
 <![%pghead2;[
-<!ELEMENT %n.pghead2; (%n.fw;)>
+<!ELEMENT %n.pghead2; (%n.table;)*>
 <!ATTLIST %n.pghead2;
           meiform            CDATA                 #FIXED 'pghead2'
           %a.common;
@@ -5734,11 +5859,13 @@ and pgfootN elements should *not* be used to encode textual notes! -->
           %a.lang;>
 ]]>
 
-<!-- A running footer on the first page. The pgheadN and pgfootN
-elements should *not* be used to encode textual notes! -->
+<!-- A running footer on the first page. This element is a specialized
+form of the fw element. Auto-generated page numbers may be indicated with
+a processing instruction. The pgheadN and pgfootN elements should *not* be
+used to encode textual notes! -->
 <!ENTITY % pgfoot1 'INCLUDE'>
 <![%pgfoot1;[
-<!ELEMENT %n.pgfoot1; (%n.fw;)>
+<!ELEMENT %n.pgfoot1; (%n.table;)*>
 <!ATTLIST %n.pgfoot1;
           meiform            CDATA                 #FIXED 'pgfoot1'
           %a.common;
@@ -5746,11 +5873,13 @@ elements should *not* be used to encode textual notes! -->
           %a.lang;>
 ]]>
 
-<!-- A running header on the pages following the first. The pgheadN
-and pgfootN elements should *not* be used to encode textual notes! -->
+<!-- A running header on the pages following the first. This element
+is a specialized form of the fw element. Auto-generated page numbers may
+be indicated with a processing instruction. The pgheadN and pgfootN
+elements should *not* be used to encode textual notes! -->
 <!ENTITY % pgfoot2 'INCLUDE'>
 <![%pgfoot2;[
-<!ELEMENT %n.pgfoot2; (%n.fw;)>
+<!ELEMENT %n.pgfoot2; (%n.table;)*>
 <!ATTLIST %n.pgfoot2;
           meiform            CDATA                 #FIXED 'pgfoot2'
           %a.common;
@@ -5943,47 +6072,20 @@ may *not* contain endings. -->
           %a.vis.ending;>
 ]]>
 
-<!-- Forme work, e.g. running header and footer. Auto-generated
-page numbers may be indicated by using a processing instruction in
-a fwd element. In MEI the fw element is always formatted like a
-table. -->
+<!-- Forme work, e.g. header and footer. This element is intended for
+capture of header/footer material that is non-repeating; that is, it
+occurs on isolated pages. For running headers and footers use pgheadN
+and pgfootN elements. Auto-generated page numbers may be included with
+a processing instruction. -->
 <!ENTITY % fw 'INCLUDE'>
 <![%fw;[
-<!ELEMENT %n.fw;  (%n.fwr;)+>
+<!ELEMENT %n.fw;  (#PCDATA|%m.textcomponents;|%m.anchoredtext; %m.edit;)*>
 <!ATTLIST %n.fw;
           meiform            CDATA                 #FIXED 'fw'
           %a.common;
           %a.facsimile;
-          %a.lang;>
-]]>
-
-<!-- Forme work row. A single forme work data cell will typically be
-centered, two will be positioned flush left and flush right, while three
-will usually be positioned flush left, center, and flush right.-->
-<!ENTITY % fwr 'INCLUDE'>
-<![%fwr;[
-<!ELEMENT %n.fwr;  (%n.fwd;, (%n.fwd;, (%n.fwd;)?)?)>
-<!ATTLIST %n.fwr;
-          meiform            CDATA                 #FIXED 'fwr'
-          %a.common;
-          %a.facsimile;
           %a.lang;
-          %a.xy;>
-]]>
-
-<!-- Forme work data cell. Automatically generated page numbers may be
-included by using processing instructions. The %m.anchoredtext entity is
-employed here instead of %m.textinline in order to restrict the use of
-the pb sub-element. --> 
-<!ENTITY % fwd 'INCLUDE'>
-<![%fwd;[
-<!ELEMENT %n.fwd;  (#PCDATA|%m.anchoredtext; %m.edit;)*>
-<!ATTLIST %n.fwd;
-          meiform            CDATA                 #FIXED 'fwd'
-          %a.common;
-          %a.facsimile;
-          %a.lang;
-          %a.xy;>
+          %a.typed;>
 ]]>
 
 <!-- System break. Allowing staffdef content, i.e.,  <!ELEMENT %n.sb;
@@ -6227,11 +6329,11 @@ staff. -->
 
 <!-- Beam. A container for a series of explicitly beamed events (Read,
 p. 80-94) which begins and ends entirely within a measure. For beams
-which cross the barline, use the beam2 element. Beaming may be indicated
-for the entire score, part or section by using the beamgroup attribute
-on those elements. Secondary beams may be broken explicitly using the
-breaksec attribute. Stem direction determines whether beams are centered
-between notes with alternating stems (Read, p. 88-89). -->
+which cross the barline, use the beamspan element. Beaming may be
+indicated for an entire score, part or section by using the beamgroup
+attribute on these elements. Secondary beams may be broken explicitly
+using the breaksec attribute. Stem direction determines whether beams
+are centered between notes with alternating stems (Read, p. 88-89). -->
 <!ENTITY % beam 'INCLUDE'>
 <![%beam;[
 <!ELEMENT %n.beam;  (%n.beam;|%n.chord;|%n.clefchange;|%n.note;|%n.pad;|
@@ -6612,17 +6714,17 @@ of the annotation using ref, ptr, extref or extptr elements. -->
 
 <!-- Alternative element for encoding beams, especially useful for beams
 which extend across barlines. -->
-<!ENTITY % beam2 'INCLUDE'>
-<![%beam2;[
-<!ELEMENT %n.beam2;  EMPTY>
-<!ATTLIST %n.beam2;
-          meiform            CDATA                 #FIXED 'beam2'
+<!ENTITY % beamspan 'INCLUDE'>
+<![%beamspan;[
+<!ELEMENT %n.beamspan;  EMPTY>
+<!ATTLIST %n.beamspan;
+          meiform            CDATA                 #FIXED 'beamspan'
           %a.common;
           %a.facsimile;
-          %a.log.beam2;
-          %a.vis.beam2;
-          %a.ges.beam2;
-          %a.anl.beam2;>
+          %a.log.beamspan;
+          %a.vis.beamspan;
+          %a.ges.beamspan;
+          %a.anl.beamspan;>
 ]]>
 
 <!-- Bend (stretching a string to make it sound higher than normal). The
@@ -6643,6 +6745,21 @@ events in a measure may be recorded within the bend element. -->
           %a.anl.bend;>
 ]]>
 
+<!-- The breathmark element is a specialized form of, i.e., syntactic sugar for,
+dir/@type="breathmark" with , as its PCDATA content. -->
+<!ENTITY % breath 'INCLUDE'>
+<![%breath;[
+<!ELEMENT %n.breath;  EMPTY>
+<!ATTLIST %n.breath;
+          meiform            CDATA                 #FIXED 'breath'
+          %a.common;
+          %a.facsimile;
+          %a.log.breath;
+          %a.vis.breath;
+          %a.ges.breath;
+          %a.anl.breath;>
+]]>
+
 <!-- Directives, e.g. text expressions that are on the score (typically
 above, below, or between staves), but not on the staff and not encoded
 elsewhere, such as in tempo or dynam elements. Examples include text
@@ -6654,8 +6771,7 @@ here instead of %m.textinline in order to restrict the use of the pb
 sub-element. -->
 <!ENTITY % dir 'INCLUDE'>
 <![%dir;[
-<!ELEMENT %n.dir;  (#PCDATA|%m.anchoredtext;|%m.primitives;
-                   %m.edit;)*>
+<!ELEMENT %n.dir;  (#PCDATA|%m.anchoredtext;|%m.primitives; %m.edit;)*>
 <!ATTLIST %n.dir;
           meiform            CDATA                 #FIXED 'dir'
           %a.common;
@@ -6686,8 +6802,23 @@ markings. The %m.anchoredtext entity is employed here instead of
           %a.anl.dynam;>
 ]]>
 
+<!-- The fermata element is a specialized form of, i.e., syntactic sugar for,
+dir/@type="fermata" with &ferm; or &uferm; as its PCDATA content. -->
+<!ENTITY % fermata 'INCLUDE'>
+<![%fermata;[
+<!ELEMENT %n.fermata; EMPTY>
+<!ATTLIST %n.fermata;
+          meiform            CDATA                 #FIXED 'fermata'
+          %a.common;
+          %a.facsimile;
+          %a.log.fermata;
+          %a.vis.fermata;
+          %a.ges.fermata;
+          %a.anl.fermata;>
+]]>
+
 <!-- Glissando (Read, p. 243-245, 397-398). Sometimes called a 'slide'.
-Precise performance data may be recorded within the gliss element. -->
+More precise performance data may be recorded within the gliss element. -->
 <!ENTITY % gliss 'INCLUDE'>
 <![%gliss;[
 <!ELEMENT %n.gliss;  (%n.note;|%n.rest;|%n.tuplet;)*>
@@ -6944,17 +7075,17 @@ order to record precise performance data. -->
 
 <!-- Alternative element for encoding tuplets, especially useful for
 those which extend across barlines. -->
-<!ENTITY % tuplet2 'INCLUDE'>
-<![%tuplet2;[
-<!ELEMENT %n.tuplet2; EMPTY>
-<!ATTLIST %n.tuplet2;
-          meiform            CDATA                 #FIXED 'tuplet2'
+<!ENTITY % tupletspan 'INCLUDE'>
+<![%tupletspan;[
+<!ELEMENT %n.tupletspan; EMPTY>
+<!ATTLIST %n.tupletspan;
+          meiform            CDATA                 #FIXED 'tupletspan'
           %a.common;
           %a.facsimile;
-          %a.log.tuplet2;
-          %a.vis.tuplet2;
-          %a.ges.tuplet2;
-          %a.anl.tuplet2;>
+          %a.log.tupletspan;
+          %a.vis.tupletspan;
+          %a.ges.tupletspan;
+          %a.anl.tupletspan;>
 ]]>
 
 <!-- Turn (Read, p. 246-247). Events may be contained within turn in
@@ -7780,7 +7911,8 @@ declared in the meiShared DTD. -->
           meiform            CDATA                 #FIXED 'div'
           %a.common;
           %a.facsimile;
-          %a.lang;>
+          %a.lang;
+          %a.typed;>
 ]]>
 
 <!-- ************************************************************** -->
@@ -7810,16 +7942,21 @@ PURPOSE:  This file contains declarations for MEI MIDI elements. It
 <!-- Shared attributes                                              -->
 <!-- ************************************************************** -->
 
-<!-- Attributes common to MIDI events. The corresp attribute may point
-to logical events, i.e., notes, rests, etc., to which the MIDI event is
-analogous. -->
-<!ENTITY % a.midi    'corresp           IDREFS                #IMPLIED'>
-
 <!-- ************************************************************** -->
 <!-- * Attributes for midi                                        * -->
 
+<!-- Attributes common to MIDI events. %a.controlevent is expanded here
+in order to allow only the staff, layer, and tstamp attributes from this
+class. -->
+<!ENTITY % a.midi.event
+                     'layer             %INTEGERPOSITIVE;     #IMPLIED
+                     staff              %INTEGERPOSITIVE;     #IMPLIED
+                     tstamp             %BEAT;                #IMPLIED'>
+
 <![%meiAnalysis;[
-  <!ENTITY % a.anl.midi ''>
+  <!-- The corresp attribute may point to logical events, i.e., notes,
+  rests, etc., to which the MIDI data is analogous. -->
+  <!ENTITY % a.anl.midi '%a.anl.common;'>
 ]]>
 <!ENTITY % a.anl.midi ''>
 
@@ -7829,20 +7966,18 @@ analogous. -->
 ]]>
 <!ENTITY % a.ges.midi ''>
 
-<!-- Logical domain attributes: %a.controlevent is expanded here in
-order to allow only the staff and layer attributes from this class. The
-staff attribute may point to a staffgrp. If staff is made implied, then
-MIDI data can be encoded without reference to score layout, for use when
-reading in a MIDI source file, for instance. -->
+<!-- Logical domain attributes: The midi element may provide values for
+layer and staff attributes for a group of MIDI events. -->
 <!ENTITY % a.log.midi
                      'layer             %INTEGERPOSITIVE;     #IMPLIED
-                     staff              %INTEGERPOSITIVE;     #REQUIRED'>
+                     staff              %INTEGERPOSITIVE;     #IMPLIED'>
 
 <!-- Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % a.vis.midi ''>
 ]]>
 <!ENTITY % a.vis.midi ''>
+
 <!-- Container for a collection of elements which contain information
 useful when generating MIDI output. The n attribute can be used to
 differentiate between multiple MIDI data streams, e.g.
@@ -7859,10 +7994,9 @@ quantized/unquantized, straight/swing, ornamented/as notated, etc. -->
           %a.anl.midi;>
 ]]>
 
-<!-- Parameter/control change. n attribute specifies parameter number,
-val contains the parameter value. Each must fall in the range 0-127.
-A sampling of controllers and their numbers
-(Values fall in the range 0-127 unless otherwise noted):
+<!-- Parameter/control change. The n attribute specifies parameter number,
+while val contains the parameter value. Each must fall in the range 0-127.
+A sampling of controllers and their numbers:
 0   Bank Select MSB
 1   Modulation 
 2   Breath Control
@@ -7883,8 +8017,9 @@ A sampling of controllers and their numbers
 <!ELEMENT %n.cc;  EMPTY>
 <!ATTLIST %n.cc;
           meiform            CDATA                 #FIXED 'cc'
-          %a.midi;
+          %a.anl.common;
           %a.common;
+          %a.midi.event;
           num                %MIDIVALUE;           #REQUIRED
           val                %MIDIVALUE;           #REQUIRED>
 ]]>
@@ -7895,8 +8030,9 @@ A sampling of controllers and their numbers
 <!ELEMENT %n.chan;  EMPTY>
 <!ATTLIST %n.chan;
           meiform            CDATA                 #FIXED 'chan'
+          %a.anl.common;
           %a.common;
-          %a.midi;
+          %a.midi.event;
           num                %MIDICHANNEL;         #REQUIRED>
 ]]>
 
@@ -7907,8 +8043,9 @@ range 0-127. -->
 <!ELEMENT %n.chanpr;  EMPTY>
 <!ATTLIST %n.chanpr;
           meiform            CDATA                 #FIXED 'chanpr'
+          %a.anl.common;
           %a.common;
-          %a.midi;
+          %a.midi.event;
           num                %MIDIVALUE;           #REQUIRED>
 ]]>
 
@@ -7918,8 +8055,9 @@ range 0-127. -->
 <!ELEMENT %n.cue;  (#PCDATA)>
 <!ATTLIST %n.cue;
           meiform            CDATA                 #FIXED 'cue'
+          %a.anl.common;
           %a.common;
-          %a.midi;>
+          %a.midi.event;>
 ]]>
 
 <!-- Arbitrary MIDI data in hex -->
@@ -7928,26 +8066,9 @@ range 0-127. -->
 <!ELEMENT %n.hex;  (#PCDATA)>
 <!ATTLIST %n.hex;
           meiform            CDATA                 #FIXED 'hex'
+          %a.anl.common;
           %a.common;
-          %a.midi;>
-]]>
-
-<!-- MIDI instrument name and number. The instrument name should be
-given in the content of the element.  The instrument number may be
-provided in the num attribute.  The def attribute is provided for those
-circumstances where the MIDI instrument is declared in an instrdef
-element and a pointer to that location is needed.  It is a semantic
-error if at least one of these attributes is not present. The
-instrument name, however, is completely optional. -->
-<!ENTITY % instr 'INCLUDE'>
-<![%instr;[
-<!ELEMENT %n.instr;  (#PCDATA)>
-<!ATTLIST %n.instr;
-          meiform            CDATA                 #FIXED 'instr'
-          %a.common;
-          %a.midi;
-          def                IDREF                 #IMPLIED
-          num                %MIDIVALUE;           #IMPLIED>
+          %a.midi.event;>
 ]]>
 
 <!-- Marker meta event-->
@@ -7956,8 +8077,9 @@ instrument name, however, is completely optional. -->
 <!ELEMENT %n.marker;  (#PCDATA)>
 <!ATTLIST %n.marker;
           meiform            CDATA                 #FIXED 'marker'
+          %a.anl.common;
           %a.common;
-          %a.midi;>
+          %a.midi.event;>
 ]]>
 
 <!-- Text meta event -->
@@ -7966,8 +8088,9 @@ instrument name, however, is completely optional. -->
 <!ELEMENT %n.metatext;  (#PCDATA)>
 <!ATTLIST %n.metatext;
           meiform            CDATA                 #FIXED 'metatext'
+          %a.anl.common;
           %a.common;
-          %a.midi;>
+          %a.midi.event;>
 ]]>
 
 <!-- Note-off -->
@@ -7976,8 +8099,9 @@ instrument name, however, is completely optional. -->
 <!ELEMENT %n.noteoff;  EMPTY>
 <!ATTLIST %n.noteoff;
           meiform            CDATA                 #FIXED 'noteoff'
+          %a.anl.common;
           %a.common;
-          %a.midi;
+          %a.midi.event;
           num                %MIDIVALUE;           #REQUIRED>
 ]]>
 
@@ -7987,8 +8111,9 @@ instrument name, however, is completely optional. -->
 <!ELEMENT %n.noteon;  EMPTY>
 <!ATTLIST %n.noteon;
           meiform            CDATA                 #FIXED 'noteon'
+          %a.anl.common;
           %a.common;
-          %a.midi;
+          %a.midi.event;
           num                %MIDIVALUE;           #REQUIRED>
 ]]>
 
@@ -7998,8 +8123,9 @@ instrument name, however, is completely optional. -->
 <!ELEMENT %n.port;  EMPTY>
 <!ATTLIST %n.port;
           meiform            CDATA                 #FIXED 'port'
+          %a.anl.common;
           %a.common;
-          %a.midi;
+          %a.midi.event;
           num                %MIDIVALUE;           #REQUIRED>
 ]]>
 
@@ -8010,8 +8136,9 @@ range 0-127. -->
 <!ELEMENT %n.prog;  EMPTY>
 <!ATTLIST %n.prog;
           meiform            CDATA                 #FIXED 'prog'
+          %a.anl.common;
           %a.common;
-          %a.midi;
+          %a.midi.event;
           num                %MIDIVALUE;           #REQUIRED>
 ]]>
 
@@ -8021,8 +8148,9 @@ range 0-127. -->
 <!ELEMENT %n.seqnum;  EMPTY>
 <!ATTLIST %n.seqnum;
           meiform            CDATA                 #FIXED 'seqnum'
+          %a.anl.common;
           %a.common;
-          %a.midi;
+          %a.midi.event;
           num                %INTEGERNONNEGATIVE;  #REQUIRED>
 ]]>
 
@@ -8032,8 +8160,9 @@ range 0-127. -->
 <!ELEMENT %n.trkname;  (#PCDATA)>
 <!ATTLIST %n.trkname;
           meiform            CDATA                 #FIXED 'trkname'
+          %a.anl.common;
           %a.common;
-          %a.midi;>
+          %a.midi.event;>
 ]]>
 
 <!-- Note-on/off velocity. For on velocity, the attribute must be in
@@ -8044,8 +8173,9 @@ the range 1-127. For off velocity, the n attribute must be in the range
 <!ELEMENT %n.vel;  EMPTY>
 <!ATTLIST %n.vel;
           meiform            CDATA                 #FIXED 'vel'
+          %a.anl.common;
           %a.common;
-          %a.midi;
+          %a.midi.event;
           form               (on|off)              #REQUIRED
           num                CDATA                 #REQUIRED>
 ]]>
