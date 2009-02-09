@@ -285,14 +285,14 @@
               <tupletspan staff="1" startid="m4n11" endid="m4n13" num="3:2"
                 num.visible="false" num.place="below" num.format="count"/>
 
-              <hairpin form="cres" place="below" staff="1" startid="m4n1" endid="m4n3"/>
+              <hairpin tstamp="1" dur="2" form="cres" place="below" staff="1" startid="m4n1" endid="m4n3"/>
               <dynam place="below" staff="1" startid="m4n4">p</dynam>
               <!-- No controlled values for this? Should we come up with a list of sugested values? -->
               <!-- PR: If you mean a list of controlled values for the text content of <dynam>, then
               no, we should not. There are no limits to the possible values. If you want to map the
               text values to a MIDI value, use @value. -->
 
-              <hairpin form="cres" place="below" staff="1" startid="m4n6" endid="m4n14"/>
+              <hairpin tstamp="2.6" dur="4" form="cres" place="below" staff="1" startid="m4n6" endid="m4n14"/>
 
               <!-- PR: Here's a simpler way to encode slurs. I admit a dir(ection) attribute might be
               useful here. -->
@@ -352,8 +352,8 @@
               <tupletspan staff="1" startid="m5n7" endid="m5n9" num="3:2"
                 num.visible="false" num.place="below" num.format="count"/>
               <dynam place="below" staff="1" startid="m5n1">p</dynam>
-              <hairpin form="cres" place="below" staff="1" startid="m5n2" endid="m5n4"/>
-              <hairpin form="cres" place="below" staff="1" startid="m5n6" endid="m5n9"/>
+              <hairpin tstamp="1.75" dur="2" form="cres" place="below" staff="1" startid="m5n2" endid="m5n4"/>
+              <hairpin tstamp="3.16" dur="3.5" form="cres" place="below" staff="1" startid="m5n6" endid="m5n9"/>
             </measure>
 
             <measure n="6" id="m6">
@@ -366,8 +366,9 @@
                   </note>
                 </layer>
               </staff>
-              <hairpin id="problematic1start" form="cres" place="below" staff="1"
-                startid="m6n2" corresp="problematic1end"/>
+              <hairpin staff="1" tstamp="2" dur="1m+1.5" form="cres" place="below"/> 
+              <!-- <hairpin id="problematic1start" form="cres" place="below" staff="1"
+                startid="m6n2" corresp="problematic1end"/> -->
               <!-- @corresp should be @sameAs (one item represented twice as opposed to
                 being two different representations of the same thing)-->
               <dynam place="below" staff="1" startid="m6n1">mf</dynam>
@@ -380,9 +381,9 @@
                   <note pname="d" oct="6" dur="4" stem.dir="down" slur="f1" id="m7n2"/>
                 </layer>
               </staff>
-              <hairpin id="problematic1end" form="cres" place="below" staff="1"
-                endid="m7n1" corresp="problematic1start"/>
-              <hairpin form="dim" place="below" staff="1" startid="m7n2" endho="15"/>
+              <!-- <hairpin id="problematic1end" form="cres" place="below" staff="1"
+                endid="m7n1" corresp="problematic1start"/> -->
+              <hairpin form="dim" place="below" staff="1" tstamp="3" dur="4" startid="m7n2" endho="15"/>
             </measure>
             <measure n="8" right="dbl" id="m8">
               <staff>
@@ -393,7 +394,7 @@
                 </layer>
               </staff>
               <dynam place="below" staff="1" startid="m8n1">p</dynam>
-              <hairpin form="dim" place="below" staff="1" startho="-15" endho="15"/>
+              <hairpin form="dim" place="below" staff="1" tstamp="2" dur="3.75" startho="-15" endho="15"/>
               <!-- completely random values for startho, endho -->
 
               <!-- supplied breath -->
