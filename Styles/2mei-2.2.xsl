@@ -3462,14 +3462,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
   <!-- Process mid-measure MusicXML attributes -->
   <xsl:template match="attributes" mode="stage1">
 
-    <!-- <xsl:if test="not(following-sibling::*)">
+    <xsl:if test="not(following-sibling::*)">
       <xsl:variable name="messageText">A mid-measure clef change has been detected at the
         end of measure <xsl:value-of select="ancestor::measure/@number"/>. Transformation
         halted!</xsl:variable>
       <xsl:message terminate="yes">
         <xsl:value-of select="normalize-space($messageText)"/>
       </xsl:message>
-    </xsl:if> -->
+    </xsl:if>
 
     <xsl:if
       test="preceding-sibling::note | preceding-sibling::forward | preceding-sibling::chord">
