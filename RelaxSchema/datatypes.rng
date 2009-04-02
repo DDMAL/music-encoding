@@ -1,0 +1,1014 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  
+<!-- This file contains definitions of datatypes.  It should be substituted
+for the definitions created by Trang from mei19-all-test.dtd. -->
+
+<!--
+  A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must fall
+  between 0 and the numerator of the time signature + 1, where 0
+  represents the left barline and the upper bound represents the right
+  barline.  For example, in 12/8 the value must be in the range from 0 to
+  13.
+-->
+  <define name="data.BEAT">
+    <data type="decimal">
+      <param name="minInclusive">0</param>
+    </data>
+  </define>
+
+  <!--
+    EITHER a hexadecimal color value, ie., x[0-9A-Fa-f]{6,6} OR a
+    descriptive word, i.e., aqua, black, blue, fuchsia, gray, green, lime,
+    maroon, navy, olive, purple, red, silver, teal, white, or yellow, for
+    colors defined by the HTML 4.01 specification.
+  -->
+  <define name="data.COLOR">
+    <data type="token">
+      <param name="pattern">(x[0-9A-Fa-f]{6,6})|
+        (aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)</param>
+    </data>
+  </define>
+
+  <!--
+    360th-unit measure of a cirle's circumference; optionally signed
+    decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)?
+  -->
+  <define name="data.DEGREES">
+    <data type="decimal"/>
+  </define>
+
+  <!-- if not supplied, the value is inherited from an ancestor node -->
+  <!-- unsigned positive integer values including '0', i.e., [0-9]+ -->
+  <define name="data.INTEGERNONNEGATIVE">
+    <data type="nonNegativeInteger"/>
+  </define>
+
+  <!--
+    unsigned positive integer values excluding '0', i.e., 1 to
+    infinity.
+  -->
+  <define name="data.INTEGERPOSITIVE">
+    <data type="positiveInteger"/>
+  </define>
+
+  <!-- ISO date format: YYYYMMDD -->
+  <define name="data.ISODATE">
+    <data type="date"/>
+  </define>
+
+  <!--
+     ISO 24-hour time format: HH:MM:SS.ss, i.e.,
+    [0-9][0-9]:[0-9][0-9]:[0-9][0-9](\.?[0-9]*)?
+  -->
+  <define name="data.ISOTIME">
+    <data type="time"/>
+  </define>
+
+  <!--
+    A duration expressed as a count of measures plus a beat location,
+    i.e., [0-9]+m *\+ *[0-9]+(\.?[0-9]*)?, e.g., dur="1m + 3.5" indicates a
+    duration of 1 measure plus 3 and one half beats or, in other words, on
+    the 2nd half of the 3rd beat of the next measure. The measure number
+    must be in the range of 0 to the number of remaining measures and the
+    beat number must be in the range from 0 to the numerator of the time
+    signature plus 1.  For example, for an event starting in the first
+    measure of a piece containing 6 measures in 6/8, the measure number must
+    be between 0 to 5 and the beat number must be within the range from 0 to
+    7, e.g., "4m+3".
+  -->
+  <define name="data.MEASUREBEAT">
+    <data type="token">
+      <param name="pattern">([0-9]+m *\+ *)?[0-9]+(\.?[0-9]*)?</param>
+    </data>
+  </define>
+
+  <!--
+    MIDI quarter notes per minute: positive integer in the range
+    10-1000
+  -->
+  <define name="data.MIDITEMPO">
+    <data type="positiveInteger">
+      <param name="minInclusive">10</param>
+      <param name="maxInclusive">1000</param>
+    </data>
+  </define>
+
+  <!-- optionally signed decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)? -->
+  <define name="data.NUMBER">
+    <data type="decimal"/>
+  </define>
+
+  <!--
+    unsigned positive decimal values excluding '0', i.e., 1 to
+    infinity.
+  -->
+  <define name="data.NUMBERPOSITIVE">
+    <data type="decimal">
+      <param name="minInclusive">1</param>
+    </data>
+  </define>
+
+  <!-- positive decimal number plus '%', i.e., [0-9]+(\.?[0-9]*)?\% -->
+  <define name="data.PERCENT">
+    <data type="token">
+      <param name="pattern">[0-9]+(\.?[0-9]*)?%</param>
+    </data>
+  </define>
+
+  <!--
+    if not supplied, the value should be obtained from a previous
+    event in the *same measure*
+  -->
+  <!--
+     a ratio, i.e., [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?  For example,
+    "40:7.2319"
+  -->
+  <define name="data.RATIO">
+    <data type="token">
+      <param name="pattern">[0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?</param>
+    </data>
+  </define>
+
+  <!--
+    In string tablature, the number of the string to be played, i.e.,
+    [1-9]+.
+  -->
+  <define name="data.STRINGNUMBER">
+    <data type="positiveInteger"/>
+  </define>
+
+  <!-- Beats (meter signature denominator) per minute, e.g. 120. -->
+  <define name="data.TEMPOVALUE">
+    <data type="positiveInteger"/>
+  </define>
+
+  <!--
+    A positive or negative offset from the value given in the tstamp
+    attribute. The datatype of this attribute must be the same as that of
+    the tstamp, tstamp.ges, or tstamp.real attribute.
+  -->
+  <define name="data.TSTAMPOFFSET">
+    <text/>
+  </define>
+
+  <!-- a Uniform Resource Identifier, see [RFC2396] -->
+  <define name="data.URI">
+    <data type="anyURI"/>
+  </define>
+
+  <!-- an xPath expression -->
+  <!-- a fragment identifier in xPointer syntax -->
+  <!-- ************************************************************** -->
+  <!-- MEI keywords for attribute value lists -->
+  <!-- ************************************************************** -->
+  <!--
+    These parameter entities are used as keywords to express a list of
+    values. They are provided so that attribute value lists may be
+    restricted or expanded according to local practice or to accommodate
+    software constraints.
+  -->
+  <!--
+    Accidental attribute values: s = sharp, f = flat, ss = dblsharp,
+    x=dblsharp, ff = dblflat, n = natural, nf = naturalflat, ns =
+    naturalsharp. ss indicates the use of 2 sharp signs, while x indicates
+    the use of a single double sharp. nf and ns are used to cancel dbflats
+    and dblsharps, respectively. su = sharp note qtr. tone up, sd = sharp
+    note qtr. tone down, fu = flat note qtr. tone up, fd = flat note qtr.
+    tone down, nu = natural note qtr. tone up, nd = natural note quarter
+    tone down. Quarter-tone accidentals listed in Read, p. 145.
+  -->
+  <define name="data.ACCIDENTAL.EXPLICIT">
+    <choice>
+      <value>s</value>
+      <value>f</value>
+      <value>ss</value>
+      <value>x</value>
+      <value>ff</value>
+      <value>n</value>
+      <value>nf</value>
+      <value>ns</value>
+      <value>su</value>
+      <value>sd</value>
+      <value>fu</value>
+      <value>fd</value>
+      <value>nu</value>
+      <value>nd</value>
+    </choice>
+  </define>
+
+  <define name="data.ACCIDENTAL.IMPLICIT">
+    <choice>
+      <value>s</value>
+      <value>f</value>
+      <value>ss</value>
+      <value>ff</value>
+      <value>n</value>
+    </choice>
+  </define>
+
+  <!--
+    The following list of articulations mostly corresponds to symbols
+    1D110-1D111, 1D17B-1D182, 1D185-1D189, 1D1AA-1D1AD, 1D1B3-1D1B5 from
+    the Western Musical Symbols portion of the Unicode Standard, v. 3.1.
+    The dot and stroke values may be used in cases where interpretation is
+    not desirable.
+  -->
+  <define name="data.ARTICULATION">
+    <choice>
+      <value>acc</value>
+      <value>stacc</value>
+      <value>ten</value>
+      <value>stacciss</value>
+      <value>marc</value>
+      <value>marc-stacc</value>
+      <value>acc-marc</value>
+      <value>loure</value>
+      <value>spicc</value>
+      <value>rip</value>
+      <value>doit</value>
+      <value>plop</value>
+      <value>fall</value>
+      <value>bend</value>
+      <value>flip</value>
+      <value>smear</value>
+      <value>dnbow</value>
+      <value>upbow</value>
+      <value>harm</value>
+      <value>snap</value>
+      <value>fingernail</value>
+      <value>damp</value>
+      <value>dampall</value>
+      <value>open</value>
+      <value>stop</value>
+      <value>dbltongue</value>
+      <value>trpltongue</value>
+      <value>heel</value>
+      <value>toe</value>
+      <value>tap</value>
+      <value>pluck</value>
+      <value>dot</value>
+      <value>stroke</value>
+    </choice>
+  </define>
+
+  <!--
+    1 or more from the list given in the definition of the
+    ARTICULATION entity. Changing this to CDATA, however, would allow the
+    use of character entities.
+  -->
+  <define name="data.ARTICULATIONS">
+    <list>
+      <zeroOrMore>
+        <ref name="data.ARTICULATION"/>
+      </zeroOrMore>
+    </list>
+  </define>
+
+  <!--
+    Dots attribute values (number of augmentation dots) (Read,
+    113-119, ex. 8-21)
+  -->
+  <define name="data.AUGMENTDOT">
+    <data type="nonNegativeInteger">
+      <param name="maxInclusive">4</param>
+    </data>
+  </define>
+
+  <!--
+    Placement of barlines: between staves only, between and across
+    staves as necessary, short line above staff or through top line
+  -->
+  <define name="data.BARPLACE">
+    <choice>
+      <value>mensur</value>
+      <value>staff</value>
+      <value>takt</value>
+    </choice>
+  </define>
+
+  <!-- Renderings of barlines -->
+  <define name="data.BARRENDITION">
+    <choice>
+      <value>dashed</value>
+      <value>dotted</value>
+      <value>dbl</value>
+      <value>dbldashed</value>
+      <value>dbldotted</value>
+      <value>end</value>
+      <value>invis</value>
+      <value>rptstart</value>
+      <value>rptboth</value>
+      <value>rptend</value>
+      <value>single</value>
+    </choice>
+  </define>
+
+  <!--
+    Beam attribute values: initial, medial, terminal. Nested beaming
+    is permitted.
+  -->
+  <define name="data.BEAM">
+    <data type="token">
+      <param name="pattern">[i|m|t][1-6]</param>
+    </data>
+  </define>
+
+  <!-- 1 or more from the list given in the definition of the BEAM entity. -->
+  <define name="data.BEAMS">
+    <list>
+      <oneOrMore>
+        <ref name="data.BEAM"/>
+      </oneOrMore>
+    </list>
+  </define>
+
+  <!-- Boolean attribute values -->
+  <define name="data.BOOLEAN">
+    <choice>
+      <value>true</value>
+      <value>false</value>
+    </choice>
+  </define>
+
+  <!-- Values for certainty attribute -->
+  <define name="data.CERTAINTY">
+    <choice>
+      <value>high</value>
+      <value>medium</value>
+      <value>low</value>
+      <value>unknown</value>
+    </choice>
+  </define>
+
+  <!-- Clef line attribute values -->
+  <define name="data.CLEFLINE">
+    <ref name="data.INTEGERPOSITIVE"/>
+  </define>
+
+  <!--
+    1 or more from the list given in the definition of the CLEFLINE
+    entity. Changing this to CDATA would allow the use of character
+    entities.
+  -->
+  <!--
+    1 or more from the list given in the definition of the CLEFLINE
+    entity.
+  <define name="data.CLEFLINES">
+    <list>
+      <oneOrMore>
+        <ref name="data.CLEFLINE"/>
+      </oneOrMore>
+    </list>
+  </define>
+
+  -->
+  <!-- Clef shape attribute values (Read, p.53-56) -->
+  <define name="data.CLEFSHAPE">
+    <choice>
+      <value>G</value>
+      <value>GG</value>
+      <value>F</value>
+      <value>C</value>
+      <value>perc</value>
+      <value>TAB</value>
+    </choice>
+  </define>
+
+  <!--
+    1 or more from the list given in the definition of the CLEFSHAPE
+    entity. Changing this to CDATA would allow the use of character
+    entities.
+  <define name="data.CLEFSHAPES">
+    <list>
+      <oneOrMore>
+        <ref name="data.CLEFSHAPE"/>
+      </oneOrMore>
+    </list>
+  </define>
+
+  -->
+  <!-- Clef trans attribute values -->
+  <define name="data.CLEFTRAN">
+    <choice>
+      <value>8va</value>
+      <value>8vb</value>
+      <value>15va</value>
+    </choice>
+  </define>
+
+  <!-- Tone-clusters -->
+  <define name="data.CLUSTER">
+    <choice>
+      <value>whbox</value>
+      <value>blbox</value>
+    </choice>
+  </define>
+
+  <!-- Renderings of curves -->
+  <define name="data.CURVERENDITION">
+    <choice>
+      <value>medium</value>
+      <value>wide</value>
+      <value>dashed</value>
+      <value>dotted</value>
+    </choice>
+  </define>
+
+  <!--
+    Logical, that is, written, duration attribute values. Whole note
+    duration = '1'.
+  -->
+  <define name="data.DURATION.BASE">
+    <choice>
+      <value>long</value>
+      <value>breve</value>
+      <value>1</value>
+      <value>2</value>
+      <value>4</value>
+      <value>8</value>
+      <value>16</value>
+      <value>32</value>
+      <value>64</value>
+      <value>128</value>
+      <value>256</value>
+      <value>512</value>
+      <value>1024</value>
+      <value>2048</value>
+    </choice>
+  </define>
+
+  <define name="data.DURATION.MEN">
+    <choice>
+      <value>maxima</value>
+      <value>longa</value>
+      <value>brevis</value>
+      <value>semibrevis</value>
+      <value>minima</value>
+      <value>semiminima</value>
+      <value>fusa</value>
+      <value>semifusa</value>
+    </choice>
+  </define>
+
+  <define name="data.DURATION">
+    <choice>
+      <ref name="data.DURATION.BASE"/>
+    </choice>
+  </define>
+
+  <define name="data.DURATION.MENSURAL">
+    <choice>
+      <ref name="data.DURATION.MEN"/>
+    </choice>
+  </define>
+
+  <define name="data.DURATIONS">
+    <choice>
+      <ref name="data.DURATION.BASE"/>
+      <ref name="data.DURATION.MEN"/>
+    </choice>
+  </define>
+
+  <!-- Enclosures for editorial notes and accidentals -->
+  <define name="data.ENCLOSURE">
+    <choice>
+      <value>paren</value>
+      <value>brack</value>
+    </choice>
+  </define>
+
+  <!--
+    Font family (for text) attribute values
+    Mup-acceptable values: <!ENTITY % FONTFAMILY
+                         '(avantgarde|bookman|courier|helvetica|
+                         newcentury|palatino|times)'>
+  -->
+  <define name="data.FONTFAMILY">
+    <data type="token"/>
+  </define>
+
+  <!--
+    Font name (for text) attribute values
+    Mup-acceptable values: <!ENTITY % FONTNAME  '(rom|ital|bold|boldital)'>
+  -->
+  <define name="data.FONTNAME">
+    <data type="token"/>
+  </define>
+
+  <!-- Font style (for text) attribute values -->
+  <define name="data.FONTSTYLE">
+    <choice>
+      <value>ital</value>
+      <value>normal</value>
+    </choice>
+  </define>
+
+  <!-- Font weight (for text) attribute values -->
+  <define name="data.FONTWEIGHT">
+    <choice>
+      <value>bold</value>
+    </choice>
+  </define>
+
+  <!--
+    Fragment referencing method.  Setting this entity to '%data.XPATH;' or
+    '%data.XPOINTER;' makes it possible to document the use of these methods.
+  -->
+  <define name="data.XPATH">
+    <data type="token"/>
+  </define>
+
+  <define name="data.XPOINTER">
+    <data type="token"/>
+  </define>
+
+  <define name="data.FRAGMENT">
+    <choice>
+      <ref name="data.XPATH"/>
+      <ref name="data.XPOINTER"/>
+    </choice>
+  </define>
+
+  <!--
+    In string tablature, the fret number, i.e., [0-9]+. The value '0'
+    indicates the open string.
+  -->
+  <define name="data.FRETNUMBER">
+    <data type="nonNegativeInteger">
+      <param name="maxInclusive">9</param>
+    </data>
+  </define>
+
+  <!--
+    Analytical glissando attribute values: i(nitial), m(edial),
+    t(erminal)
+  -->
+  <define name="data.GLISSANDO">
+    <choice>
+      <value>i</value>
+      <value>m</value>
+      <value>t</value>
+    </choice>
+  </define>
+
+  <!--
+    Do grace notes get time from the current (acc) or previous (unacc)
+    one?
+  -->
+  <define name="data.GRACE">
+    <choice>
+      <value>acc</value>
+      <value>unacc</value>
+    </choice>
+  </define>
+
+  <!-- Allowed notehead shapes -->
+  <define name="data.HEADSHAPE">
+    <choice>
+      <value>quarter</value>
+      <value>half</value>
+      <value>whole</value>
+      <value>dblwhole</value>
+      <value>filldiamond</value>
+      <value>diamond</value>
+      <value>dwdiamond</value>
+      <value>fillisotriangle</value>
+      <value>isotriangle</value>
+      <value>dwhisotriangle</value>
+      <value>fillpiewedge</value>
+      <value>piewedge</value>
+      <value>dwhpiewedge</value>
+      <value>fillrectangle</value>
+      <value>rectangle</value>
+      <value>dwhrectangle</value>
+      <value>fillrtriangle</value>
+      <value>rtriangle</value>
+      <value>dwrtriangle</value>
+      <value>fillurtriangle</value>
+      <value>urtriangle</value>
+      <value>dwurtriangle</value>
+      <value>fillsemicircle</value>
+      <value>semicircle</value>
+      <value>dwsemicircle</value>
+      <value>fillslash</value>
+      <value>slash</value>
+      <value>dwslash</value>
+      <value>x</value>
+      <value>blank</value>
+      <value>circlex</value>
+      <value>cross</value>
+    </choice>
+  </define>
+
+  <!-- Interrupted neume, i.e. neumes written as 2 or more sub-neumes -->
+  <define name="data.INEUMENAME">
+    <choice>
+      <value>pessubpunctis</value>
+      <value>climacus</value>
+      <value>scandicus</value>
+      <value>bistropha</value>
+      <value>tristropha</value>
+      <value>pressusminor</value>
+      <value>pressusmaior</value>
+      <value>pressusliquescens</value>
+      <value>virgastrata</value>
+    </choice>
+  </define>
+
+  <!-- Interrupted neume forms -->
+  <define name="data.INEUMEFORM">
+    <choice>
+      <value>liquescent1</value>
+      <value>liquescent2</value>
+      <value>tied</value>
+      <value>tiedliquescent1</value>
+      <value>tiedliquescent2</value>
+    </choice>
+  </define>
+
+  <define name="data.KEYSIGTOKEN">
+    <data type="token">
+      <param name="pattern">[a-g][s|f|ss|x|ff|n|nf|ns|su|sd|fu|fd|nu|nd][0-9]</param>
+    </data>
+  </define>
+
+  <!--
+    Key signature is normally indicated by a value showing where the
+    key is in the circle of fifths. Mixed key signatures, e.g. those
+    consisting of a mixture of flats and sharps, and key signatures with
+    unorthodox placement of the accidentals (Read, p. 143) must be
+    indicated by setting the key.sig attribute to 'mixed' and providing
+    explicit keysig info in the key.sig.mixed attribute.
+  -->
+  <define name="data.KEYSIGNATURE">
+    <data type="token">
+      <param name="pattern">mixed|0|[1-7][f|s]</param>
+    </data>
+    <!-- <choice>
+      <value>7f</value>
+      <value>6f</value>
+      <value>5f</value>
+      <value>4f</value>
+      <value>3f</value>
+      <value>2f</value>
+      <value>1f</value>
+      <value>0</value>
+      <value>1s</value>
+      <value>2s</value>
+      <value>3s</value>
+      <value>4s</value>
+      <value>5s</value>
+      <value>6s</value>
+      <value>7s</value>
+      <value>mixed</value>
+    </choice> -->
+  </define>
+
+  <!--
+    Indicates how stems should be drawn when more than one layer is
+    present and stem directions are not indicated on the notes/chords
+    themselves. '1' indicates that there is only a single layer on a staff.
+    '2o' means there are two layers with opposing stems. '2f' indicates
+    two 'free' layers; that is, opposing stems will be drawn unless one of
+    the layers has 'space'. In that case, stem direction in the remaining
+    layer will be determined as if there were only one layer. '3o' and
+    '3f' are analogous to '2o' and '2f' with three layers allowed. What
+    about more than 3 layers?
+  -->
+  <define name="data.LAYERSCHEME">
+    <choice>
+      <value>1</value>
+      <value>2o</value>
+      <value>2f</value>
+      <value>3o</value>
+      <value>3f</value>
+    </choice>
+  </define>
+
+  <!-- Ligature forms -->
+  <define name="data.LIGATUREFORM">
+    <choice>
+      <value>recta</value>
+      <value>obliqua</value>
+    </choice>
+  </define>
+
+  <!-- Renderings of lines -->
+  <define name="data.LINERENDITION">
+    <choice>
+      <value>narrow</value>
+      <value>medium</value>
+      <value>wide</value>
+      <value>dashed</value>
+      <value>dotted</value>
+      <value>wavy</value>
+    </choice>
+  </define>
+
+  <!-- Mensuration attribute values -->
+  <define name="data.MENSURATIONSIGN">
+    <choice>
+      <value>C</value>
+      <value>O</value>
+    </choice>
+  </define>
+
+  <!-- Meter.sym attribute values for common-practice notation: -->
+  <define name="data.METERSIGN">
+    <choice>
+      <value>common</value>
+      <value>cut</value>
+    </choice>
+  </define>
+
+  <!-- MIDI channels -->
+  <define name="data.MIDICHANNEL">
+    <data type="positiveInteger">
+      <param name="maxInclusive">16</param>
+    </data>
+  </define>
+
+  <!-- MIDI values are in the following range -->
+  <define name="data.MIDIVALUE">
+    <data type="nonNegativeInteger">
+      <param name="maxInclusive">127</param>
+    </data>
+  </define>
+
+  <!-- Modes -->
+  <define name="data.MODE">
+    <choice>
+      <value>major</value>
+      <value>minor</value>
+      <value>dorian</value>
+      <value>phrygian</value>
+      <value>lydian</value>
+      <value>mixolydian</value>
+      <value>aeolian</value>
+      <value>locrian</value>
+    </choice>
+  </define>
+
+  <!-- Music font family -->
+  <define name="data.MUSICFONT">
+    <data type="token"/>
+  </define>
+
+  <!--
+    Oct attribute values. The default values conform to Acoustical
+    Society of America representation. Read, p. 44. The entity name is
+    plural so as not to conflict with the %octave entity used in the
+    definition of the octave element.
+  -->
+  <define name="data.OCTAVE">
+    <data type="nonNegativeInteger">
+      <param name="maxInclusive">9</param>
+    </data>
+  </define>
+
+  <!--
+    Page scale factor datatype.  Setting this to %data.RATIO; allows
+    page.scale attributes to contain a virtual units to real units conversion
+    ratio.
+  -->
+  <define name="data.PGSCALE">
+    <choice>
+      <ref name="data.PERCENT"/>
+      <ref name="data.RATIO"/>
+    </choice>
+  </define>
+
+  <!-- Unit attribute values -->
+  <define name="data.PGUNITS">
+    <choice>
+      <value>in</value>
+      <value>cm</value>
+      <value>mm</value>
+    </choice>
+  </define>
+
+  <!-- Pclass (pitch class) attribute values -->
+  <define name="data.PITCHCLASS">
+    <data type="nonNegativeInteger">
+      <param name="maxInclusive">11</param>
+    </data>
+  </define>
+
+  <!--
+    The pitch names (gamut) used within a single octave. The default
+    values conform to Acoustical Society of America representation.
+  -->
+  <define name="data.PITCHNAME">
+    <data type="token">
+      <param name="pattern">[a-g]</param>
+    </data>
+  </define>
+
+  <!--
+    Gestural pitch names need an additional value for when the notated
+    pitch is not to be played.
+  -->
+  <define name="data.PITCHNAME.GES">
+    <data type="token">
+      <param name="pattern">[a-g]|none</param>
+    </data>
+  </define>
+
+  <!-- Pnum (pitch number, e.g. MIDI) attribute values -->
+  <define name="data.PITCHNUMBER">
+    <ref name="data.INTEGERNONNEGATIVE"/>
+  </define>
+
+  <!--
+    Participant list referencing method.  Setting this entity to '%data.XPATH;'
+    or '%data.XPOINTER;' makes it possible to document the use of these methods.
+  -->
+  <define name="data.PLIST">
+    <data type="IDREFS"/>
+    <!-- <choice>
+      <data type="IDREFS"/>
+      <ref name="data.XPATH"/>
+      <ref name="data.XPOINTER"/>
+    </choice> -->
+  </define>
+
+  <!-- Place, i.e., relative location of musical material -->
+  <define name="data.PLACE">
+    <choice>
+      <value>above</value>
+      <value>below</value>
+    </choice>
+  </define>
+
+  <!-- Size attribute values -->
+  <define name="data.SIZE">
+    <choice>
+      <value>normal</value>
+      <value>cue</value>
+    </choice>
+  </define>
+
+  <!--
+    i=initial, t=terminal. Number is used to match endpoints of the
+    slur when slurs are nested or overlap, e.g. 
+    <note slur='i1 i2'/><note slur='t1'/><note slur='t2'/> encodes the
+    fact that two slurs begin on note 1, one which terminates on note 2
+    and one which terminates on note 3. % SLUR isn't currently invoked in
+    the DTD; it serves as documentation for the tokens that can be used
+    where % SLURS is invoked.
+  -->
+  <define name="data.SLUR">
+    <data type="token">
+      <param name="pattern">[i|m|t][1-6]</param>
+    </data>
+  </define>
+
+  <!--
+    1 or more from the list given in the definition of the SLUR
+    entity.
+  -->
+  <define name="data.SLURS">
+    <list>
+      <oneOrMore>
+        <ref name="data.SLUR"/>
+      </oneOrMore>
+    </list>
+  </define>
+
+  <!-- Slur directions -->
+  <define name="data.SLURDIRECTION">
+    <choice>
+      <value>up</value>
+      <value>down</value>
+    </choice>
+  </define>
+
+  <!--
+    Staff location. Staff location includes staff lines, spaces, and
+    the spaces directly above and below the staff. The value ranges between
+    0 (just below the staff) to 2 * number of staff lines (directly above
+    the staff).  For example, on a 5-line staff the lines would be numbered
+    1,3,5,7, and 9 while the spaces would be numbered 0,2,4,6,8,10.
+  -->
+  <define name="data.STAFFLOC">
+    <ref name="data.INTEGERNONNEGATIVE"/>
+  </define>
+
+  <!-- Stem directions -->
+  <define name="data.STEMDIRECTION">
+    <choice>
+      <value>up</value>
+      <value>down</value>
+    </choice>
+  </define>
+
+  <!-- Stem modifications -->
+  <define name="data.STEMMODIFIER">
+    <choice>
+      <value>1slash</value>
+      <value>2slash</value>
+      <value>3slash</value>
+      <value>4slash</value>
+      <value>5slash</value>
+      <value>6slash</value>
+      <value>sprech</value>
+      <value>z</value>
+    </choice>
+  </define>
+
+  <!-- Which side of stem? -->
+  <define name="data.STEMPOSITION">
+    <choice>
+      <value>left</value>
+      <value>right</value>
+      <value>center</value>
+    </choice>
+  </define>
+
+  <!-- Temperament -->
+  <define name="data.TEMPERAMENT">
+    <choice>
+      <value>equal</value>
+      <value>just</value>
+      <value>mean</value>
+    </choice>
+  </define>
+
+  <!-- Text renditions -->
+  <define name="data.TEXTRENDITION">
+    <choice>
+      <value>box</value>
+      <value>circle</value>
+      <value>dblunderline</value>
+      <value>none</value>
+      <value>quoted</value>
+      <value>smcaps</value>
+      <value>strike</value>
+      <value>sub</value>
+      <value>sup</value>
+      <value>underline</value>
+    </choice>
+  </define>
+
+  <!-- Tie attribute values: initial, medial, terminal. -->
+  <define name="data.TIE">
+    <data type="token">
+      <param name="pattern">[i|m|t]</param>
+    </data>
+  </define>
+
+  <define name="data.TIEDIRECTION">
+    <choice>
+      <value>up</value>
+      <value>down</value>
+    </choice>
+  </define>
+
+  <!-- Tuplet attribute values: initial, medial, terminal. -->
+  <define name="data.TUPLET">
+    <data type="token">
+      <param name="pattern">[i|m|t][1-6]</param>
+    </data>
+  </define>
+
+  <!-- Basic, i.e., single, uninterrupted, neume names. -->
+  <define name="data.UNEUMENAME">
+    <choice>
+      <value>punctum</value>
+      <value>virga</value>
+      <value>pes</value>
+      <value>clivis</value>
+      <value>torculus</value>
+      <value>torculusresupinus</value>
+      <value>porrectus</value>
+      <value>porrectusflexus</value>
+      <value>apostropha</value>
+      <value>oriscus</value>
+    </choice>
+  </define>
+
+  <define name="data.UNEUMEFORM">
+    <choice>
+      <value>liquescent1</value>
+      <value>liquescent2</value>
+      <value>liquescent3</value>
+      <value>quilismatic</value>
+      <value>rectangular</value>
+      <value>rhombic</value>
+      <value>tied</value>
+    </choice>
+  </define>
+
+  <!--
+    Visual, i.e. ho and vo, offsets are expressed in terms of staff
+    interline distance; that is, in "stepsizes", which are half the
+    distance between staff lines.
+  -->
+  <define name="data.VISUALOFFSET">
+    <ref name="data.NUMBER"/>
+  </define>
+
+</grammar>

@@ -3,7 +3,7 @@
 <!-- ************************************************************** -->
 <!--
 NAME:     File      = 2mei.xsl (version 2.2)
-          Vers Date = 2009/03/19
+          Vers Date = 2009/03/20
 
 NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and
           Visitors of the University of Virginia.
@@ -70,7 +70,8 @@ NOTES:    Not all MusicXML constructs are converted, but enough to create
           features.  Since not all features are dealt with, some manual
           revision of the MEI file may be necessary.
 
-TO DO:    
+TO DO:    1. Bug in handling vo attributes on rests: they are intermittently
+          missed
 
 CHANGES:  (v. 1.1)
           1. Fixed bug that kept horizontal offsets of hairpins from
@@ -6297,10 +6298,161 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
               <xsl:copy-of
                 select="@*[not(name()='meiform') and not(name()='beam') and
                                    not(name()='dur') and not(name()='tstamp.ges') and
-                                   not(name()='id')]"/>
+                                   not(name()='id') and not(name()='vo')]"/>
               <xsl:if test="@dur">
                 <xsl:attribute name="dur.vis">
                   <xsl:value-of select="@dur"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:if test="@vo">
+                <xsl:attribute name="vo">
+                  <!-- MusicXML display-step and display-octave are converted to interline units -->
+                  <xsl:variable name="thisstaff">
+                    <xsl:value-of select="ancestor::staff/@n"/>
+                  </xsl:variable>
+                  <xsl:variable name="whereclef">
+                    <xsl:value-of
+                      select="name(preceding::*[(name()='staffdef' and
+                              @n=$thisstaff and @clef.shape) or
+                             (name()='staff' and @n=$thisstaff and layer/clefchange)][1])"
+                    />
+                  </xsl:variable>
+                  <xsl:variable name="clefshape">
+                    <xsl:choose>
+                      <xsl:when test="$whereclef='staffdef'">
+                        <xsl:value-of
+                          select="preceding::staffdef[@n=$thisstaff][@clef.shape][1]/@clef.shape"
+                        />
+                      </xsl:when>
+                      <xsl:when test="$whereclef='staff'">
+                        <xsl:value-of
+                          select="preceding::staff[@n=$thisstaff and layer/clefchange][1]/layer/clefchange/@shape"
+                        />
+                      </xsl:when>
+                    </xsl:choose>
+                  </xsl:variable>
+                  <xsl:variable name="clefline">
+                    <xsl:choose>
+                      <xsl:when test="$whereclef='staffdef'">
+                        <xsl:value-of
+                          select="preceding::staffdef[@n=$thisstaff][@clef.line][1]/@clef.line"
+                        />
+                      </xsl:when>
+                      <xsl:when test="$whereclef='staff'">
+                        <xsl:value-of
+                          select="preceding::staff[@n=$thisstaff and layer/clefchange][1]/layer/clefchange/@line"
+                        />
+                      </xsl:when>
+                    </xsl:choose>
+                  </xsl:variable>
+                  <xsl:variable name="display-step">
+                    <xsl:value-of select="substring(@vo,1,1)"/>
+                  </xsl:variable>
+                  <xsl:variable name="display-octave">
+                    <xsl:value-of select="substring(@vo,2,1)"/>
+                  </xsl:variable>
+                  <xsl:choose>
+                    <xsl:when test="$clefshape='G' and $clefline='2'">
+                      <xsl:choose>
+                        <xsl:when test="$display-step='E' and $display-octave='3'"
+                          >-11</xsl:when>
+                        <xsl:when test="$display-step='F' and $display-octave='3'"
+                          >-10</xsl:when>
+                        <xsl:when test="$display-step='G' and $display-octave='3'"
+                          >-9</xsl:when>
+                        <xsl:when test="$display-step='A' and $display-octave='3'"
+                          >-8</xsl:when>
+                        <xsl:when test="$display-step='B' and $display-octave='3'"
+                          >-7</xsl:when>
+                        <xsl:when test="$display-step='C' and $display-octave='4'"
+                          >-6</xsl:when>
+                        <xsl:when test="$display-step='D' and $display-octave='4'"
+                          >-5</xsl:when>
+                        <xsl:when test="$display-step='E' and $display-octave='4'"
+                          >-4</xsl:when>
+                        <xsl:when test="$display-step='F' and $display-octave='4'"
+                          >-3</xsl:when>
+                        <xsl:when test="$display-step='G' and $display-octave='4'"
+                          >-2</xsl:when>
+                        <xsl:when test="$display-step='A' and $display-octave='4'"
+                          >-1</xsl:when>
+                        <xsl:when test="$display-step='B' and $display-octave='4'"
+                          >0</xsl:when>
+                        <xsl:when test="$display-step='C' and $display-octave='5'"
+                          >1</xsl:when>
+                        <xsl:when test="$display-step='D' and $display-octave='5'"
+                          >2</xsl:when>
+                        <xsl:when test="$display-step='E' and $display-octave='5'"
+                          >3</xsl:when>
+                        <xsl:when test="$display-step='F' and $display-octave='5'"
+                          >4</xsl:when>
+                        <xsl:when test="$display-step='G' and $display-octave='5'"
+                          >5</xsl:when>
+                        <xsl:when test="$display-step='A' and $display-octave='5'"
+                          >6</xsl:when>
+                        <xsl:when test="$display-step='B' and $display-octave='5'"
+                          >7</xsl:when>
+                        <xsl:when test="$display-step='C' and $display-octave='6'"
+                          >8</xsl:when>
+                        <xsl:when test="$display-step='D' and $display-octave='6'"
+                          >9</xsl:when>
+                        <xsl:when test="$display-step='E' and $display-octave='6'"
+                          >10</xsl:when>
+                        <xsl:when test="$display-step='F' and $display-octave='6'"
+                          >11</xsl:when>
+                      </xsl:choose>
+                    </xsl:when>
+                    <xsl:when test="$clefshape='F' and $clefline='4'">
+                      <xsl:choose>
+                        <xsl:when test="$display-step='G' and $display-octave='1'"
+                          >-11</xsl:when>
+                        <xsl:when test="$display-step='A' and $display-octave='1'"
+                          >-10</xsl:when>
+                        <xsl:when test="$display-step='B' and $display-octave='1'"
+                          >-9</xsl:when>
+                        <xsl:when test="$display-step='C' and $display-octave='2'"
+                          >-8</xsl:when>
+                        <xsl:when test="$display-step='D' and $display-octave='2'"
+                          >-7</xsl:when>
+                        <xsl:when test="$display-step='E' and $display-octave='2'"
+                          >-6</xsl:when>
+                        <xsl:when test="$display-step='F' and $display-octave='2'"
+                          >-5</xsl:when>
+                        <xsl:when test="$display-step='G' and $display-octave='2'"
+                          >-4</xsl:when>
+                        <xsl:when test="$display-step='A' and $display-octave='2'"
+                          >-3</xsl:when>
+                        <xsl:when test="$display-step='B' and $display-octave='2'"
+                          >-2</xsl:when>
+                        <xsl:when test="$display-step='C' and $display-octave='3'"
+                          >-1</xsl:when>
+                        <xsl:when test="$display-step='D' and $display-octave='3'"
+                          >0</xsl:when>
+                        <xsl:when test="$display-step='E' and $display-octave='3'"
+                          >1</xsl:when>
+                        <xsl:when test="$display-step='F' and $display-octave='3'"
+                          >2</xsl:when>
+                        <xsl:when test="$display-step='G' and $display-octave='3'"
+                          >3</xsl:when>
+                        <xsl:when test="$display-step='A' and $display-octave='3'"
+                          >4</xsl:when>
+                        <xsl:when test="$display-step='B' and $display-octave='3'"
+                          >5</xsl:when>
+                        <xsl:when test="$display-step='C' and $display-octave='4'"
+                          >6</xsl:when>
+                        <xsl:when test="$display-step='D' and $display-octave='4'"
+                          >7</xsl:when>
+                        <xsl:when test="$display-step='E' and $display-octave='4'"
+                          >8</xsl:when>
+                        <xsl:when test="$display-step='F' and $display-octave='4'"
+                          >9</xsl:when>
+                        <xsl:when test="$display-step='G' and $display-octave='4'"
+                          >10</xsl:when>
+                        <xsl:when test="$display-step='A' and $display-octave='4'"
+                          >11</xsl:when>
+                      </xsl:choose>
+                    </xsl:when>
+                  </xsl:choose>
                 </xsl:attribute>
               </xsl:if>
             </mrest>
