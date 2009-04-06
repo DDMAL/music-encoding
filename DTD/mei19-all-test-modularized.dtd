@@ -1,48 +1,4 @@
 
-<!-- Date: 2009/04/02 -->
-<!-- CHANGES:
-  renamed tuplet2 to tupletspan
-  renamed beam2 to beamspan
-  allowed staffdef at beginning of measure and ossia
-  first attempt at arranging elements in modules that suit ODDified MEI
-  added version attribute on meihead
-  moved value 'justify' from %data.TEXTRENDITION to halign attribute
-  removed value 'stack' from %data.TEXTRENDITION; use stack element instead
-  added timeline and when elements; also, when attribute (in
-    %att.alignment)
-  changed permitted values of @rend on ftrem to match the pattern
-    established by @rend on beatrpt
-  added model.*ModifierLike class & added this class to the model of
-    elements in the edit class
-  "harmonized" attributes on various types of name: name, corpname,
-    geogname, persname, periodname, repository, stylename
-  added type attribute to app
-  removed bibnote element, use annotLike inside notesstmt instead
-  altered pubstmt model
-  made model of source and filedesc more similar: moved handlist
-    inside physdesc, moved repository inside physdesc, removed
-    repository from directly within source
-  altered model of pgdesc to include %model.locrefLike so that page-
-    level meta-data can be pointed to in meiHead/.../notesstmt/annot
-    elements or in external locations
-  in order to be more "TEI-like", datatype declarations now start with
-    "data."
-  to facilitate extension and restriction, added content.[elementname]
-    entities
--->
-
-<!-- QUESTIONS:
-  remove slur.dir, slur.rend, tie.dir, tie.rend attributes in order to
-    encourage the use of slur and tie elements for visual rendition?
-  examine ATTLIST declarations for possibility of moving all attributes
-    to attribute classes?
--->
-
-<!-- ************************************************************** -->
-<!-- * Document elements.                                         * -->
-<!-- ************************************************************** -->
-<!-- * These are now declared at the end of this file. -->
-
 <!-- ************************************************************** -->
 <!-- * Default parameter entity values                            * -->
 <!-- ************************************************************** -->
@@ -54,399 +10,385 @@ overridden by declarations contained in meiModifications.ent or in
 the internal DTD subset of a document. -->
 
 <!--  Module inclusion -->
-<!ENTITY % meiShared     'INCLUDE'>
-<!ENTITY % meiEditTrans  'INCLUDE'>
-<!ENTITY % meiFigures    'INCLUDE'>
-<!ENTITY % meiNamesDates 'INCLUDE'>
-<!ENTITY % meiPtrRefs    'INCLUDE'>
-<!ENTITY % meiHead       'INCLUDE'>
+<!ENTITY % meiFacsimile     'INCLUDE'>
+<!ENTITY % meiAnalysis      'INCLUDE'>
+<!ENTITY % meiGestural      'INCLUDE'>
+<!ENTITY % meiVisual        'INCLUDE'>
+<!ENTITY % meiEditTrans     'INCLUDE'>
+<!ENTITY % meiMIDI          'INCLUDE'>
+<!ENTITY % meiLinkAlign     'INCLUDE'>
+<!ENTITY % meiFigures       'INCLUDE'>
+<!ENTITY % meiNames         'INCLUDE'>
+<!ENTITY % meiPtrRefs       'INCLUDE'>
+<!ENTITY % meiShared        'INCLUDE'>
+<!ENTITY % meiStructure     'INCLUDE'>
+<!ENTITY % meiNeumes        'INCLUDE'>
+<!ENTITY % meiMensural      'INCLUDE'>
+<!ENTITY % meiCMN           'INCLUDE'>
+<!ENTITY % meiLyrics        'INCLUDE'>
+<!ENTITY % meiCMNOrnaments  'INCLUDE'>
+<!ENTITY % meiHarmony       'INCLUDE'>
+<!ENTITY % meiUserSymbols   'INCLUDE'>
+<!ENTITY % meiCritApp       'INCLUDE'>
+<!ENTITY % meiHead          'INCLUDE'>
+<!ENTITY % meiAnnotations   'INCLUDE'>
+<!ENTITY % meiText          'INCLUDE'>
 
-<!ENTITY % meiNeume      'INCLUDE'>
-<!ENTITY % meiMensural   'INCLUDE'>
-<!ENTITY % meiCMN        'INCLUDE'>
-<!ENTITY % meiLyrics     'INCLUDE'>
-<!ENTITY % meiHarmony    'INCLUDE'>
-<!ENTITY % meiUserSym    'INCLUDE'>
-<!ENTITY % meiAnalysis   'INCLUDE'>
-<!ENTITY % meiGestural   'INCLUDE'>
-<!ENTITY % meiVisual     'INCLUDE'>
-<!ENTITY % meiMIDI       'INCLUDE'>
-<!ENTITY % meiCritApp    'INCLUDE'>
+<!-- GENERIC IDENTIFIERS BY MODULE --> 
+<![%meiText;[
+  <!-- Basic text elements -->
+  <!ENTITY % n.abbr 'abbr'>
+  <!ENTITY % n.address 'address'>
+  <!ENTITY % n.addressline 'addressline'>
+  <!ENTITY % n.bibl 'bibl'>
+  <!ENTITY % n.date 'date'>
+  <!ENTITY % n.expan 'expan'>
+  <!ENTITY % n.graphic 'graphic'>
+  <!ENTITY % n.identifier 'identifier'>
+  <!ENTITY % n.lb 'lb'>
+  <!ENTITY % n.name 'name'>
+  <!ENTITY % n.num 'num'>
+  <!ENTITY % n.pb 'pb'>
+  <!ENTITY % n.rend 'rend'>
+  <!ENTITY % n.repository 'repository'>
+  <!ENTITY % n.stack 'stack'>
+  <!ENTITY % n.title 'title'>
 
-<!ENTITY % meiFacsimile  'INCLUDE'>
-<!ENTITY % meiLinkAlign  'INCLUDE'>
-<!ENTITY % meiAnnot      'INCLUDE'>
-<!ENTITY % meiText       'INCLUDE'>
+  <!-- Text Components -->
+  <!ENTITY % n.blockquote 'blockquote'>
+  <!ENTITY % n.head 'head'>
+  <!ENTITY % n.item 'item'>
+  <!ENTITY % n.l 'l'>
+  <!ENTITY % n.lg 'lg'>
+  <!ENTITY % n.list 'list'>
+  <!ENTITY % n.p 'p'>
+  <!ENTITY % n.table 'table'>
+  <!ENTITY % n.td 'td'>
+  <!ENTITY % n.th 'th'>
+  <!ENTITY % n.tr 'tr'>
 
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Shared Text)                      * -->
-<!-- * Elements which are used in more than one module            * -->
-<!-- ************************************************************** -->
+  <!-- Page-anchored Text -->
+  <!ENTITY % n.anchoredtext 'anchoredtext'>
 
-<!-- Basic text elements -->
-<!ENTITY % n.abbr 'abbr'>
-<!ENTITY % n.address 'address'>
-<!ENTITY % n.addressline 'addressline'>
-<!ENTITY % n.bibl 'bibl'>
-<!ENTITY % n.date 'date'>
-<!ENTITY % n.expan 'expan'>
-<!ENTITY % n.graphic 'graphic'>
-<!ENTITY % n.identifier 'identifier'>
-<!ENTITY % n.lb 'lb'>
-<!ENTITY % n.name 'name'>
-<!ENTITY % n.num 'num'>
-<!ENTITY % n.pb 'pb'>
-<!ENTITY % n.rend 'rend'>
-<!ENTITY % n.repository 'repository'>
-<!ENTITY % n.stack 'stack'>
-<!ENTITY % n.title 'title'>
+  <!-- Page meta-data elements  -->
+  <!ENTITY % n.fw 'fw'>
+  <!ENTITY % n.pgdesc 'pgdesc'>
+]]>
 
-<!-- Annotations -->
-<!ENTITY % n.annot 'annot'>
+<![%meiAnnotations;[
+  <!-- Annotations -->
+  <!ENTITY % n.annot 'annot'>
+]]>
 
-<!-- Page-anchored Text -->
-<!ENTITY % n.anchoredtext 'anchoredtext'>
+<![%meiNames;[
+  <!-- Additional Names and Dates -->
+  <!ENTITY % n.corpname 'corpname'>
+  <!ENTITY % n.geogname 'geogname'>
+  <!ENTITY % n.periodname 'periodname'>
+  <!ENTITY % n.persname 'persname'>
+  <!ENTITY % n.stylename 'stylename'>
+]]>
 
-<!-- Additional Names and Dates -->
-<!ENTITY % n.corpname 'corpname'>
-<!ENTITY % n.geogname 'geogname'>
-<!ENTITY % n.periodname 'periodname'>
-<!ENTITY % n.persname 'persname'>
-<!ENTITY % n.stylename 'stylename'>
+<![%meiFigures;[
+  <!-- Figures -->
+  <!ENTITY % n.caption 'caption'>
+  <!ENTITY % n.fig 'fig'>
+  <!ENTITY % n.figdesc 'figdesc'>
+]]>
 
-<!-- Figures -->
-<!ENTITY % n.caption 'caption'>
-<!ENTITY % n.fig 'fig'>
-<!ENTITY % n.figdesc 'figdesc'>
+<![%meiPtrRefs;[
+  <!-- Pointers and References -->
+  <!ENTITY % n.extptr 'extptr'>
+  <!ENTITY % n.extref 'extref'>
+  <!ENTITY % n.ptr 'ptr'>
+  <!ENTITY % n.ref 'ref'>
+]]>
 
-<!-- Pointers and References -->
-<!ENTITY % n.extptr 'extptr'>
-<!ENTITY % n.extref 'extref'>
-<!ENTITY % n.ptr 'ptr'>
-<!ENTITY % n.ref 'ref'>
+<![%meiShared;[
+  <!-- Multiple Repertoires -->
+  <!-- Neume, mensural, and CMN: -->
+  <!-- Structure/definition -->
+  <!ENTITY % n.clef 'clef'>
+  <!ENTITY % n.custos 'custos'>
+  <!-- Events -->
+  <!ENTITY % n.clefchange 'clefchange'>
+  <!ENTITY % n.pad 'pad'>
+  <!ENTITY % n.space 'space'>
+  <!-- Control Events -->
+  <!ENTITY % n.dir 'dir'>
+  <!ENTITY % n.dynam 'dynam'>
+  <!ENTITY % n.phrase 'phrase'>
+  <!ENTITY % n.reh 'reh'>
+  <!ENTITY % n.slur 'slur'>
+  <!ENTITY % n.tempo 'tempo'>
 
-<!-- Text Components -->
-<!ENTITY % n.blockquote 'blockquote'>
-<!ENTITY % n.head 'head'>
-<!ENTITY % n.item 'item'>
-<!ENTITY % n.l 'l'>
-<!ENTITY % n.lg 'lg'>
-<!ENTITY % n.list 'list'>
-<!ENTITY % n.p 'p'>
-<!ENTITY % n.table 'table'>
-<!ENTITY % n.td 'td'>
-<!ENTITY % n.th 'th'>
-<!ENTITY % n.tr 'tr'>
+  <!-- Neume and mensural: -->
+  <!-- Structure/definition -->
+  <!ENTITY % n.mensur 'mensur'>
+  <!ENTITY % n.proport 'proport'>
+  <!-- Events -->
+  <!ENTITY % n.ligature 'ligature'>
+  <!ENTITY % n.mensurchange 'mensurchange'>
+  <!ENTITY % n.proportchange 'proportchange'>
+  <!-- Control Events -->
 
-<!-- Meta-data elements  -->
-<!ENTITY % n.fw 'fw'>
-<!ENTITY % n.pgdesc 'pgdesc'>
+  <!-- Neume and CMN: -->
+  <!-- Structure/definition -->
+  <!-- Events -->
+  <!-- Control Events -->
 
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Shared Musical Elements)          * -->
-<!-- * These elements occur in multiple repertoires.              * -->
-<!-- ************************************************************** -->
+  <!-- Mensural and CMN: -->
+  <!-- Structure/definition -->
+  <!ENTITY % n.artic 'artic'>
+  <!ENTITY % n.keyaccid 'keyaccid'>
+  <!ENTITY % n.keysig 'keysig'>
+  <!-- Events -->
+  <!ENTITY % n.accid 'accid'>
+  <!ENTITY % n.barline 'barline'>
+  <!ENTITY % n.dot 'dot'>
+  <!ENTITY % n.keychange 'keychange'>
+  <!-- Control Events -->
+]]>
 
-<!-- Neume, mensural, and CMN: -->
-<!-- Structure/definition -->
-<!ENTITY % n.clef 'clef'>
-<!ENTITY % n.custos 'custos'>
-<!-- Events -->
-<!ENTITY % n.clefchange 'clefchange'>
-<!ENTITY % n.pad 'pad'>
-<!ENTITY % n.space 'space'>
-<!-- Control Events -->
-<!ENTITY % n.dir 'dir'>
-<!ENTITY % n.dynam 'dynam'>
-<!ENTITY % n.phrase 'phrase'>
-<!ENTITY % n.reh 'reh'>
-<!ENTITY % n.slur 'slur'>
-<!ENTITY % n.tempo 'tempo'>
+<![%meiStructure;[
+  <!-- Default Structure -->
+  <!ENTITY % n.back 'back'>
+  <!ENTITY % n.body 'body'>
+  <!ENTITY % n.div 'div'>
+  <!ENTITY % n.ending 'ending'>
+  <!ENTITY % n.front 'front'>
+  <!ENTITY % n.group 'group'>
+  <!ENTITY % n.grpsym 'grpsym'>
+  <!ENTITY % n.instrdef 'instrdef'>
+  <!ENTITY % n.label 'label'>
+  <!ENTITY % n.layer 'layer'>
+  <!ENTITY % n.layerdef 'layerdef'>
+  <!ENTITY % n.mdiv 'mdiv'>
+  <!ENTITY % n.music 'music'>
+  <!ENTITY % n.part 'part'>
+  <!ENTITY % n.parts 'parts'>
+  <!ENTITY % n.pgfoot1 'pgfoot1'>
+  <!ENTITY % n.pgfoot2 'pgfoot2'>
+  <!ENTITY % n.pghead1 'pghead1'>
+  <!ENTITY % n.pghead2 'pghead2'>
+  <!ENTITY % n.sb 'sb'>
+  <!ENTITY % n.score 'score'>
+  <!ENTITY % n.scoredef 'scoredef'>
+  <!ENTITY % n.section 'section'>
+  <!ENTITY % n.staff 'staff'>
+  <!ENTITY % n.staffdef 'staffdef'>
+  <!ENTITY % n.staffgrp 'staffgrp'>
+]]>
 
-<!-- Neume and mensural: -->
-<!-- Structure/definition -->
-<!ENTITY % n.mensur 'mensur'>
-<!ENTITY % n.proport 'proport'>
-<!-- Events -->
-<!ENTITY % n.ligature 'ligature'>
-<!ENTITY % n.mensurchange 'mensurchange'>
-<!ENTITY % n.proportchange 'proportchange'>
-<!-- Control Events -->
+<![%meiNeumes;[
+  <!-- Neumes -->
+  <!-- Structure/definition -->
+  <!ENTITY % n.syllable 'syllable'>
+  <!-- Events -->
+  <!ENTITY % n.ineume 'ineume'>
+  <!ENTITY % n.uneume 'uneume'>
+  <!-- Control Events -->
+]]>
 
-<!-- Neume and CMN: -->
-<!-- Structure/definition -->
-<!-- Events -->
-<!-- Control Events -->
+<![%meiMensural;[
+  <!-- Mensural -->
+  <!-- Structure/definition -->
+  <!-- Events -->
+  <!ENTITY % n.nota 'nota'>
+  <!ENTITY % n.pausa 'pausa'>
+  <!-- Control Events -->
+  <!-- Add corona? -->
+]]>
 
-<!-- Mensural and CMN: -->
-<!-- Structure/definition -->
-<!ENTITY % n.artic 'artic'>
-<!ENTITY % n.keyaccid 'keyaccid'>
-<!ENTITY % n.keysig 'keysig'>
-<!-- Events -->
-<!ENTITY % n.accid 'accid'>
-<!ENTITY % n.barline 'barline'>
-<!ENTITY % n.dot 'dot'>
-<!ENTITY % n.keychange 'keychange'>
-<!-- Control Events -->
+<![%meiCMN;[
+  <!-- CMN -->
+  <!-- Structure/definition -->
+  <!-- Measure and measure-like elements; i.e., ossia  -->
+  <!ENTITY % n.measure 'measure'>
+  <!ENTITY % n.ossia 'ossia'>
 
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Default Structure)                * -->
-<!-- ************************************************************** -->
+  <!-- Events -->
+  <!ENTITY % n.beam 'beam'>
+  <!ENTITY % n.beatrpt 'beatrpt'>
+  <!ENTITY % n.bend 'bend'>
+  <!ENTITY % n.btrem 'btrem'>
+  <!ENTITY % n.chord 'chord'>
+  <!ENTITY % n.ftrem 'ftrem'>
+  <!ENTITY % n.gliss 'gliss'>
+  <!ENTITY % n.halfmrpt 'halfmrpt'>
+  <!ENTITY % n.note 'note'>
+  <!ENTITY % n.rest 'rest'>
+  <!ENTITY % n.tuplet 'tuplet'>
 
-<!ENTITY % n.back 'back'>
-<!ENTITY % n.body 'body'>
-<!ENTITY % n.div 'div'>
-<!ENTITY % n.ending 'ending'>
-<!ENTITY % n.front 'front'>
-<!ENTITY % n.group 'group'>
-<!ENTITY % n.grpsym 'grpsym'>
-<!ENTITY % n.instrdef 'instrdef'>
-<!ENTITY % n.label 'label'>
-<!ENTITY % n.layer 'layer'>
-<!ENTITY % n.layerdef 'layerdef'>
-<!ENTITY % n.mdiv 'mdiv'>
-<!ENTITY % n.music 'music'>
-<!ENTITY % n.part 'part'>
-<!ENTITY % n.parts 'parts'>
-<!ENTITY % n.pgfoot1 'pgfoot1'>
-<!ENTITY % n.pgfoot2 'pgfoot2'>
-<!ENTITY % n.pghead1 'pghead1'>
-<!ENTITY % n.pghead2 'pghead2'>
-<!ENTITY % n.sb 'sb'>
-<!ENTITY % n.score 'score'>
-<!ENTITY % n.scoredef 'scoredef'>
-<!ENTITY % n.section 'section'>
-<!ENTITY % n.staff 'staff'>
-<!ENTITY % n.staffdef 'staffdef'>
-<!ENTITY % n.staffgrp 'staffgrp'>
+  <!-- The following elements constitute a special event class:
+  these elements are often the only event in a measure. -->
+  <!ENTITY % n.mrest 'mrest'>
+  <!ENTITY % n.mrpt 'mrpt'>
+  <!ENTITY % n.mrpt2 'mrpt2'>
+  <!ENTITY % n.mspace 'mspace'>
+  <!ENTITY % n.multirest 'multirest'>
+  <!ENTITY % n.multirpt 'multirpt'>
 
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Neumes)                           * -->
-<!-- * These elements only occur in neume notation.               * -->
-<!-- ************************************************************** -->
+  <!-- Control events -->
+  <!ENTITY % n.arpeg 'arpeg'>
+  <!ENTITY % n.beamspan 'beamspan'>
+  <!ENTITY % n.breath 'breath'>
+  <!ENTITY % n.fermata 'fermata'>
+  <!ENTITY % n.hairpin 'hairpin'>
+  <!ENTITY % n.harppedal 'harppedal'>
+  <!ENTITY % n.octave 'octave'>
+  <!ENTITY % n.pedal 'pedal'>
+  <!ENTITY % n.tie 'tie'>
+  <!ENTITY % n.tupletspan 'tupletspan'>
+]]>
 
-<!-- Structure/definition -->
-<!ENTITY % n.syllable 'syllable'>
-<!-- Events -->
-<!ENTITY % n.ineume 'ineume'>
-<!ENTITY % n.uneume 'uneume'>
-<!-- Control Events -->
+<![%meiLyrics;[
+  <!-- Lyrics -->
+  <!ENTITY % n.lyrics 'lyrics'>
+  <!ENTITY % n.syl 'syl'>
+  <!ENTITY % n.verse 'verse'>
+]]>
 
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Mensural)                         * -->
-<!-- * These elements only occur in mensural notation.            * -->
-<!-- ************************************************************** -->
+<![%meiCMNOrnaments;[
+  <!-- CMN Ornaments -->
+  <!ENTITY % n.mordent 'mordent'>
+  <!ENTITY % n.trill 'trill'>
+  <!ENTITY % n.turn 'turn'>
+]]>
 
-<!-- Structure/definition -->
-<!-- Events -->
-<!ENTITY % n.nota 'nota'>
-<!ENTITY % n.pausa 'pausa'>
-<!-- Control Events -->
-<!-- Add corona? -->
+<![%meiHarmony;[
+  <!-- Harmony -->
+  <!ENTITY % n.barre 'barre'>
+  <!ENTITY % n.chorddef 'chorddef'>
+  <!ENTITY % n.chordmember 'chordmember'>
+  <!ENTITY % n.chordtable 'chordtable'>
+  <!ENTITY % n.harm 'harm'>
+]]>
 
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (CMN)                              * -->
-<!-- * These elements only occur in Common Music Notation.        * -->
-<!-- ************************************************************** -->
+<![%meiUserSymbols;[
+  <!-- User-defined symbols -->
+  <!ENTITY % n.curve 'curve'>
+  <!ENTITY % n.line 'line'>
+  <!ENTITY % n.symbol 'symbol'>
+  <!ENTITY % n.symboldef 'symboldef'>
+  <!ENTITY % n.symboltable 'symboltable'>
+]]>
 
-<!-- Structure/definition -->
-<!-- Measure and measure-like elements; i.e., ossia  -->
-<!ENTITY % n.measure 'measure'>
-<!ENTITY % n.ossia 'ossia'>
+<![%meiCritApp;[
+  <!-- Critical apparatus -->
+  <!ENTITY % n.app 'app'>
+  <!ENTITY % n.rdg 'rdg'>
+]]>
 
-<!-- Events -->
-<!ENTITY % n.beam 'beam'>
-<!ENTITY % n.beatrpt 'beatrpt'>
-<!ENTITY % n.bend 'bend'>
-<!ENTITY % n.btrem 'btrem'>
-<!ENTITY % n.chord 'chord'>
-<!ENTITY % n.ftrem 'ftrem'>
-<!ENTITY % n.gliss 'gliss'>
-<!ENTITY % n.halfmrpt 'halfmrpt'>
-<!ENTITY % n.note 'note'>
-<!ENTITY % n.rest 'rest'>
-<!ENTITY % n.tuplet 'tuplet'>
+<![%meiHead;[
+  <!-- Head -->
+  <!ENTITY % n.accessdesc 'accessdesc'>
+  <!ENTITY % n.acqsource 'acqsource'>
+  <!ENTITY % n.altmeiid 'altmeiid'>
+  <!ENTITY % n.appinfo 'appinfo'>
+  <!ENTITY % n.application 'application'>
+  <!ENTITY % n.availability 'availability'>
+  <!ENTITY % n.change 'change'>
+  <!ENTITY % n.changedesc 'changedesc'>
+  <!ENTITY % n.classcode 'classcode'>
+  <!ENTITY % n.condition 'condition'>
+  <!ENTITY % n.correction 'correction'>
+  <!ENTITY % n.creation 'creation'>
+  <!ENTITY % n.dimensions 'dimensions'>
+  <!ENTITY % n.edition 'edition'>
+  <!ENTITY % n.editionstmt 'editionstmt'>
+  <!ENTITY % n.editorialdecl 'editorialdecl'>
+  <!ENTITY % n.encodingdesc 'encodingdesc'>
+  <!ENTITY % n.exhibithist 'exhibithist'>
+  <!ENTITY % n.extent 'extent'>
+  <!ENTITY % n.filedesc 'filedesc'>
+  <!ENTITY % n.fingerprint 'fingerprint'>
+  <!ENTITY % n.hand 'hand'>
+  <!ENTITY % n.handlist 'handlist'>
+  <!ENTITY % n.inscription 'inscription'>
+  <!ENTITY % n.interpretation 'interpretation'>
+  <!ENTITY % n.keywords 'keywords'>
+  <!ENTITY % n.language 'language'>
+  <!ENTITY % n.langusage 'langusage'>
+  <!ENTITY % n.classification 'classification'>
+  <!ENTITY % n.normalization 'normalization'>
+  <!ENTITY % n.notesstmt 'notesstmt'>
+  <!ENTITY % n.physdesc 'physdesc'>
+  <!ENTITY % n.physloc 'physloc'>
+  <!ENTITY % n.physmedium 'physmedium'>
+  <!ENTITY % n.price 'price'>
+  <!ENTITY % n.profiledesc 'profiledesc'>
+  <!ENTITY % n.projectdesc 'projectdesc'>
+  <!ENTITY % n.provenance 'provenance'>
+  <!ENTITY % n.pubstmt 'pubstmt'>
+  <!ENTITY % n.respstmt 'respstmt'>
+  <!ENTITY % n.revisiondesc 'revisiondesc'>
+  <!ENTITY % n.samplingdecl 'samplingdecl'>
+  <!ENTITY % n.segmentation 'segmentation'>
+  <!ENTITY % n.seriesstmt 'seriesstmt'>
+  <!ENTITY % n.source 'source'>
+  <!ENTITY % n.sourcedesc 'sourcedesc'>
+  <!ENTITY % n.stdvals 'stdvals'>
+  <!ENTITY % n.sysreq 'sysreq'>
+  <!ENTITY % n.term 'term'>
+  <!ENTITY % n.titlestmt 'titlestmt'>
+  <!ENTITY % n.treatmenthist 'treatmenthist'>
+  <!ENTITY % n.treatmentsched 'treatmentsched'>
+  <!ENTITY % n.unpub 'unpub'>
+  <!ENTITY % n.userestrict 'userestrict'>
+]]>
 
-<!-- The following elements constitute a special event class:
-these elements are often the only event in a measure. -->
-<!ENTITY % n.mrest 'mrest'>
-<!ENTITY % n.mrpt 'mrpt'>
-<!ENTITY % n.mrpt2 'mrpt2'>
-<!ENTITY % n.mspace 'mspace'>
-<!ENTITY % n.multirest 'multirest'>
-<!ENTITY % n.multirpt 'multirpt'>
+<![%meiMIDI;[
+  <!-- MIDI -->
+  <!ENTITY % n.cc 'cc'>
+  <!ENTITY % n.chan 'chan'>
+  <!ENTITY % n.chanpr 'chanpr'>
+  <!ENTITY % n.cue 'cue'>
+  <!ENTITY % n.hex 'hex'>
+  <!ENTITY % n.instr 'instr'>
+  <!ENTITY % n.marker 'marker'>
+  <!ENTITY % n.metatext 'metatext'>
+  <!ENTITY % n.midi 'midi'>
+  <!ENTITY % n.noteoff 'noteoff'>
+  <!ENTITY % n.noteon 'noteon'>
+  <!ENTITY % n.port 'port'>
+  <!ENTITY % n.prog 'prog'>
+  <!ENTITY % n.seqnum 'seqnum'>
+  <!ENTITY % n.trkname 'trkname'>
+  <!ENTITY % n.vel 'vel'>
+]]>
 
-<!-- Control events -->
-<!ENTITY % n.arpeg 'arpeg'>
-<!ENTITY % n.beamspan 'beamspan'>
-<!ENTITY % n.breath 'breath'>
-<!ENTITY % n.fermata 'fermata'>
-<!ENTITY % n.hairpin 'hairpin'>
-<!ENTITY % n.harppedal 'harppedal'>
-<!ENTITY % n.octave 'octave'>
-<!ENTITY % n.pedal 'pedal'>
-<!ENTITY % n.tie 'tie'>
-<!ENTITY % n.tupletspan 'tupletspan'>
+<![%meiEditTrans;[
+  <!-- Edit/Transcription -->
+  <!ENTITY % n.add 'add'>
+  <!ENTITY % n.choice 'choice'>
+  <!ENTITY % n.corr 'corr'>
+  <!ENTITY % n.damage 'damage'>
+  <!ENTITY % n.del 'del'>
+  <!ENTITY % n.gap 'gap'>
+  <!ENTITY % n.handshift 'handshift'>
+  <!ENTITY % n.orig 'orig'>
+  <!ENTITY % n.reg 'reg'>
+  <!ENTITY % n.restore 'restore'>
+  <!ENTITY % n.sic 'sic'>
+  <!ENTITY % n.subst 'subst'>
+  <!ENTITY % n.supplied 'supplied'>
+  <!ENTITY % n.titlepage 'titlepage'>
+  <!ENTITY % n.unclear 'unclear'>
+]]>
 
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Lyrics)                           * -->
-<!-- ************************************************************** -->
+<![%meiFacsimile;[
+<!-- Facsimile -->
+  <!ENTITY % n.facsimile 'facsimile'>
+  <!ENTITY % n.surface 'surface'>
+  <!ENTITY % n.zone 'zone'>
+]]>
 
-<!ENTITY % n.lyrics 'lyrics'>
-<!ENTITY % n.syl 'syl'>
-<!ENTITY % n.verse 'verse'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (CMN Ornaments)                    * -->
-<!-- ************************************************************** -->
-
-<!ENTITY % n.mordent 'mordent'>
-<!ENTITY % n.trill 'trill'>
-<!ENTITY % n.turn 'turn'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Harmony)                          * -->
-<!-- ************************************************************** -->
-
-<!ENTITY % n.barre 'barre'>
-<!ENTITY % n.chorddef 'chorddef'>
-<!ENTITY % n.chordmember 'chordmember'>
-<!ENTITY % n.chordtable 'chordtable'>
-<!ENTITY % n.harm 'harm'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (User-defined symbols)             * -->
-<!-- ************************************************************** -->
-
-<!ENTITY % n.curve 'curve'>
-<!ENTITY % n.line 'line'>
-<!ENTITY % n.symbol 'symbol'>
-<!ENTITY % n.symboldef 'symboldef'>
-<!ENTITY % n.symboltable 'symboltable'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Critical apparatus)               * -->
-<!-- ************************************************************** -->
-
-<!ENTITY % n.app 'app'>
-<!ENTITY % n.rdg 'rdg'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Head)                             * -->
-<!-- ************************************************************** -->
-
-<!ENTITY % n.accessdesc 'accessdesc'>
-<!ENTITY % n.acqsource 'acqsource'>
-<!ENTITY % n.altmeiid 'altmeiid'>
-<!ENTITY % n.appinfo 'appinfo'>
-<!ENTITY % n.application 'application'>
-<!ENTITY % n.availability 'availability'>
-<!ENTITY % n.change 'change'>
-<!ENTITY % n.changedesc 'changedesc'>
-<!ENTITY % n.classcode 'classcode'>
-<!ENTITY % n.condition 'condition'>
-<!ENTITY % n.correction 'correction'>
-<!ENTITY % n.creation 'creation'>
-<!ENTITY % n.dimensions 'dimensions'>
-<!ENTITY % n.edition 'edition'>
-<!ENTITY % n.editionstmt 'editionstmt'>
-<!ENTITY % n.editorialdecl 'editorialdecl'>
-<!ENTITY % n.encodingdesc 'encodingdesc'>
-<!ENTITY % n.exhibithist 'exhibithist'>
-<!ENTITY % n.extent 'extent'>
-<!ENTITY % n.filedesc 'filedesc'>
-<!ENTITY % n.fingerprint 'fingerprint'>
-<!ENTITY % n.hand 'hand'>
-<!ENTITY % n.handlist 'handlist'>
-<!ENTITY % n.inscription 'inscription'>
-<!ENTITY % n.interpretation 'interpretation'>
-<!ENTITY % n.keywords 'keywords'>
-<!ENTITY % n.language 'language'>
-<!ENTITY % n.langusage 'langusage'>
-<!ENTITY % n.classification 'classification'>
-<!ENTITY % n.normalization 'normalization'>
-<!ENTITY % n.notesstmt 'notesstmt'>
-<!ENTITY % n.physdesc 'physdesc'>
-<!ENTITY % n.physloc 'physloc'>
-<!ENTITY % n.physmedium 'physmedium'>
-<!ENTITY % n.price 'price'>
-<!ENTITY % n.profiledesc 'profiledesc'>
-<!ENTITY % n.projectdesc 'projectdesc'>
-<!ENTITY % n.provenance 'provenance'>
-<!ENTITY % n.pubstmt 'pubstmt'>
-<!ENTITY % n.respstmt 'respstmt'>
-<!ENTITY % n.revisiondesc 'revisiondesc'>
-<!ENTITY % n.samplingdecl 'samplingdecl'>
-<!ENTITY % n.segmentation 'segmentation'>
-<!ENTITY % n.seriesstmt 'seriesstmt'>
-<!ENTITY % n.source 'source'>
-<!ENTITY % n.sourcedesc 'sourcedesc'>
-<!ENTITY % n.stdvals 'stdvals'>
-<!ENTITY % n.sysreq 'sysreq'>
-<!ENTITY % n.term 'term'>
-<!ENTITY % n.titlestmt 'titlestmt'>
-<!ENTITY % n.treatmenthist 'treatmenthist'>
-<!ENTITY % n.treatmentsched 'treatmentsched'>
-<!ENTITY % n.unpub 'unpub'>
-<!ENTITY % n.userestrict 'userestrict'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (MIDI)                             * -->
-<!-- ************************************************************** -->
-
-<!ENTITY % n.cc 'cc'>
-<!ENTITY % n.chan 'chan'>
-<!ENTITY % n.chanpr 'chanpr'>
-<!ENTITY % n.cue 'cue'>
-<!ENTITY % n.hex 'hex'>
-<!ENTITY % n.instr 'instr'>
-<!ENTITY % n.marker 'marker'>
-<!ENTITY % n.metatext 'metatext'>
-<!ENTITY % n.midi 'midi'>
-<!ENTITY % n.noteoff 'noteoff'>
-<!ENTITY % n.noteon 'noteon'>
-<!ENTITY % n.port 'port'>
-<!ENTITY % n.prog 'prog'>
-<!ENTITY % n.seqnum 'seqnum'>
-<!ENTITY % n.trkname 'trkname'>
-<!ENTITY % n.vel 'vel'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Edit/Transcription)               * -->
-<!-- ************************************************************** -->
-
-<!ENTITY % n.add 'add'>
-<!ENTITY % n.choice 'choice'>
-<!ENTITY % n.corr 'corr'>
-<!ENTITY % n.damage 'damage'>
-<!ENTITY % n.del 'del'>
-<!ENTITY % n.gap 'gap'>
-<!ENTITY % n.handshift 'handshift'>
-<!ENTITY % n.orig 'orig'>
-<!ENTITY % n.reg 'reg'>
-<!ENTITY % n.restore 'restore'>
-<!ENTITY % n.sic 'sic'>
-<!ENTITY % n.subst 'subst'>
-<!ENTITY % n.supplied 'supplied'>
-<!ENTITY % n.titlepage 'titlepage'>
-<!ENTITY % n.unclear 'unclear'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Facsimile)                        * -->
-<!-- ************************************************************** -->
-
-<!ENTITY % n.facsimile 'facsimile'>
-<!ENTITY % n.surface 'surface'>
-<!ENTITY % n.zone 'zone'>
-
-<!-- ************************************************************** -->
-<!-- * MEI Generic Identifiers (Linking and Alignment)            * -->
-<!-- ************************************************************** -->
-
-<!-- Linking and Alignment -->
-<!ENTITY % n.timeline 'timeline'>
-<!ENTITY % n.when 'when'>
+<![%meiLinkAlign;[
+  <!-- Linking and Alignment -->
+  <!ENTITY % n.timeline 'timeline'>
+  <!ENTITY % n.when 'when'>
+]]>
 
 <!-- ************************************************************** -->
 <!-- * MEI keywords for datatypes                                 * -->
@@ -2208,70 +2150,20 @@ sub-groupings of staves. -->
 ]]>
 <!ENTITY % att.anl.uneume ''>
 
-<!-- doc: Gestural domain (performance) attributes:
-Unused note attributes:
-  accid.ges          %data.ACCIDENTAL.IMPLICIT; #IMPLIED
-  artic.ges          %data.ARTICULATIONS;       #IMPLIED
-  detune             CDATA                      #IMPLIED
-  dur.ges            CDATA                      #IMPLIED
-  gliss              %data.GLISSANDO;           #IMPLIED
-  grace              %data.GRACE;               #IMPLIED
-  grace.time         %data.PERCENT;             #IMPLIED
-  instr              IDREF                      #IMPLIED
-  oct.ges            %data.OCTAVE;              #IMPLIED
-  pname.ges          %data.PITCHNAME.GES;       #IMPLIED
-  pnum               %data.PITCHNUMBER;         #IMPLIED
--->
+<!-- doc: Gestural domain (performance) attributes: -->
 <![%meiGestural;[
   <!ENTITY % att.ges.uneume ''>
 ]]>
 <!ENTITY % att.ges.uneume ''>
 
-<!-- doc: Logical domain attributes: 
-  Unused note attributes:
-  accid              %data.ACCIDENTAL.EXPLICIT; #IMPLIED
-  artic              %data.ARTICULATIONS;       #IMPLIED
-  beam               %data.BEAMS;               #IMPLIED
-  dots               %data.AUGMENTDOT;          #IMPLIED
-  dur                %data.DURATION;            #IMPLIED
-  fermata            %data.PLACE;               #IMPLIED
-  lv                 %data.BOOLEAN;             #IMPLIED
-  oct                %data.OCTAVE;              %PROPAGATED;
-  pname              %data.PITCHNAME;           %PROPAGATED;
-  slur               %data.SLURS;               #IMPLIED
-  tab.fret           %data.FRETNUMBER;          #IMPLIED
-  tab.string         %data.STRINGNUMBER;        #IMPLIED
-  tie                %data.TIE;                 #IMPLIED
-  tuplet             %data.TUPLET;              #IMPLIED -->
+<!-- doc: Logical domain attributes: -->
 <!ENTITY % att.log.uneume
                      '%att.event;
                      form               %data.UNEUMEFORM;     #IMPLIED
                      name               %data.UNEUMENAME;     #IMPLIED
                      syl                CDATA                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes:  
-  Unused note attributes:
-  accid.ho           %data.NUMBER;         #IMPLIED
-  beam.with          %data.PLACE;          #IMPLIED
-  coloration         (inverse)             #IMPLIED
-  dot.ho             %data.VISUALOFFSET;   #IMPLIED
-  dot.vo             %data.VISUALOFFSET;   #IMPLIED
-  dot.x              %data.NUMBER;         #IMPLIED
-  dot.y              %data.NUMBER;         #IMPLIED
-  enclose.accid      %data.ENCLOSURE;      #IMPLIED
-  enclose.note       %data.ENCLOSURE;      #IMPLIED
-  slur.dir           %data.SLURDIRECTION;  #IMPLIED
-  slur.rend          (dotted|dashed)       #IMPLIED
-  tie.dir            %data.TIEDIRECTION;   #IMPLIED
-  tie.rend           (dotted|dashed)       #IMPLIED
-  stem.dir           %data.STEMDIRECTION;  #IMPLIED
-  stem.len           %data.NUMBER;         #IMPLIED
-  stem.mod           %data.STEMMODIFIER;   #IMPLIED
-  stem.pos           %data.STEMPOSITION;   #IMPLIED
-  stem.with          %data.PLACE;          #IMPLIED
-  stem.x             %data.NUMBER;         #IMPLIED
-  stem.y             %data.NUMBER;         #IMPLIED
- -->
+<!-- doc: Visual domain attributes:  -->
 <![%meiVisual;[
   <!ENTITY % att.vis.uneume
                      '%att.color;
