@@ -2,11 +2,11 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
-  
-<!-- This file contains definitions of datatypes.  It should be substituted
+
+  <!-- This file contains definitions of datatypes.  It should be substituted
 for the definitions created by Trang from mei19-all-test.dtd. -->
 
-<!--
+  <!--
   A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must fall
   between 0 and the numerator of the time signature + 1, where 0
   represents the left barline and the upper bound represents the right
@@ -40,8 +40,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     <data type="decimal"/>
   </define>
 
-  <!-- if not supplied, the value is inherited from an ancestor node -->
-  <!-- unsigned positive integer values including '0', i.e., [0-9]+ -->
+  <!--
+    unsigned positive integer values including '0', i.e., [0-9]+
+  -->
   <define name="data.INTEGERNONNEGATIVE">
     <data type="nonNegativeInteger"/>
   </define>
@@ -96,7 +97,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </data>
   </define>
 
-  <!-- optionally signed decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)? -->
+  <!--
+    optionally signed decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)?
+  -->
   <define name="data.NUMBER">
     <data type="decimal"/>
   </define>
@@ -111,17 +114,15 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </data>
   </define>
 
-  <!-- positive decimal number plus '%', i.e., [0-9]+(\.?[0-9]*)?\% -->
+  <!--
+    positive decimal number plus '%', i.e., [0-9]+(\.?[0-9]*)?\%
+  -->
   <define name="data.PERCENT">
     <data type="token">
       <param name="pattern">[0-9]+(\.?[0-9]*)?%</param>
     </data>
   </define>
 
-  <!--
-    if not supplied, the value should be obtained from a previous
-    event in the *same measure*
-  -->
   <!--
      a ratio, i.e., [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?  For example,
     "40:7.2319"
@@ -140,7 +141,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     <data type="positiveInteger"/>
   </define>
 
-  <!-- Beats (meter signature denominator) per minute, e.g. 120. -->
+  <!--
+    Beats (meter signature denominator) per minute, e.g. 120.
+  -->
   <define name="data.TEMPOVALUE">
     <data type="positiveInteger"/>
   </define>
@@ -154,22 +157,13 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     <text/>
   </define>
 
-  <!-- a Uniform Resource Identifier, see [RFC2396] -->
+  <!--
+    a Uniform Resource Identifier, see [RFC2396]
+  -->
   <define name="data.URI">
     <data type="anyURI"/>
   </define>
 
-  <!-- an xPath expression -->
-  <!-- a fragment identifier in xPointer syntax -->
-  <!-- ************************************************************** -->
-  <!-- MEI keywords for attribute value lists -->
-  <!-- ************************************************************** -->
-  <!--
-    These parameter entities are used as keywords to express a list of
-    values. They are provided so that attribute value lists may be
-    restricted or expanded according to local practice or to accommodate
-    software constraints.
-  -->
   <!--
     Accidental attribute values: s = sharp, f = flat, ss = dblsharp,
     x=dblsharp, ff = dblflat, n = natural, nf = naturalflat, ns =
@@ -278,8 +272,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
   </define>
 
   <!--
-    Placement of barlines: between staves only, between and across
-    staves as necessary, short line above staff or through top line
+    Placement of barlines: 'mensur' = between staves only, 'staff'
+    = between and across staves as necessary, 'takt' = short line
+    above staff or through top line
   -->
   <define name="data.BARPLACE">
     <choice>
@@ -289,7 +284,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Renderings of barlines -->
+  <!--
+    Renderings of barlines
+  -->
   <define name="data.BARRENDITION">
     <choice>
       <value>dashed</value>
@@ -316,7 +313,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </data>
   </define>
 
-  <!-- 1 or more from the list given in the definition of the BEAM entity. -->
+  <!--
+    1 or more from the list given in the definition of the BEAM entity.
+  -->
   <define name="data.BEAMS">
     <list>
       <oneOrMore>
@@ -325,7 +324,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </list>
   </define>
 
-  <!-- Boolean attribute values -->
+  <!--
+    Boolean attribute values
+  -->
   <define name="data.BOOLEAN">
     <choice>
       <value>true</value>
@@ -333,7 +334,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Values for certainty attribute -->
+  <!--
+    Values for certainty attribute
+  -->
   <define name="data.CERTAINTY">
     <choice>
       <value>high</value>
@@ -343,16 +346,13 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Clef line attribute values -->
+  <!--
+    Clef line attribute values
+  -->
   <define name="data.CLEFLINE">
     <ref name="data.INTEGERPOSITIVE"/>
   </define>
 
-  <!--
-    1 or more from the list given in the definition of the CLEFLINE
-    entity. Changing this to CDATA would allow the use of character
-    entities.
-  -->
   <!--
     1 or more from the list given in the definition of the CLEFLINE
     entity.
@@ -363,9 +363,11 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
       </oneOrMore>
     </list>
   </define>
-
   -->
-  <!-- Clef shape attribute values (Read, p.53-56) -->
+
+  <!--
+    Clef shape attribute values (Read, p.53-56)
+  -->
   <define name="data.CLEFSHAPE">
     <choice>
       <value>G</value>
@@ -388,9 +390,11 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
       </oneOrMore>
     </list>
   </define>
-
   -->
-  <!-- Clef trans attribute values -->
+
+  <!--
+    Clef trans attribute values
+  -->
   <define name="data.CLEFTRAN">
     <choice>
       <value>8va</value>
@@ -399,7 +403,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Tone-clusters -->
+  <!--
+    Tone-clusters
+  -->
   <define name="data.CLUSTER">
     <choice>
       <value>whbox</value>
@@ -407,7 +413,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Renderings of curves -->
+  <!--
+    Renderings of curves
+  -->
   <define name="data.CURVERENDITION">
     <choice>
       <value>medium</value>
@@ -472,7 +480,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Enclosures for editorial notes and accidentals -->
+  <!--
+    Enclosures for editorial notes and accidentals
+  -->
   <define name="data.ENCLOSURE">
     <choice>
       <value>paren</value>
@@ -498,7 +508,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     <data type="token"/>
   </define>
 
-  <!-- Font style (for text) attribute values -->
+  <!--
+    Font style (for text) attribute values
+  -->
   <define name="data.FONTSTYLE">
     <choice>
       <value>ital</value>
@@ -506,7 +518,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Font weight (for text) attribute values -->
+  <!--
+    Font weight (for text) attribute values
+  -->
   <define name="data.FONTWEIGHT">
     <choice>
       <value>bold</value>
@@ -565,7 +579,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Allowed notehead shapes -->
+  <!--
+    Allowed notehead shapes
+  -->
   <define name="data.HEADSHAPE">
     <choice>
       <value>quarter</value>
@@ -603,7 +619,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Interrupted neume, i.e. neumes written as 2 or more sub-neumes -->
+  <!--
+    Interrupted neume, i.e. neumes written as 2 or more sub-neumes
+  -->
   <define name="data.INEUMENAME">
     <choice>
       <value>pessubpunctis</value>
@@ -618,7 +636,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Interrupted neume forms -->
+  <!--
+    Interrupted neume forms
+  -->
   <define name="data.INEUMEFORM">
     <choice>
       <value>liquescent1</value>
@@ -647,24 +667,6 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     <data type="token">
       <param name="pattern">mixed|0|[1-7][f|s]</param>
     </data>
-    <!-- <choice>
-      <value>7f</value>
-      <value>6f</value>
-      <value>5f</value>
-      <value>4f</value>
-      <value>3f</value>
-      <value>2f</value>
-      <value>1f</value>
-      <value>0</value>
-      <value>1s</value>
-      <value>2s</value>
-      <value>3s</value>
-      <value>4s</value>
-      <value>5s</value>
-      <value>6s</value>
-      <value>7s</value>
-      <value>mixed</value>
-    </choice> -->
   </define>
 
   <!--
@@ -688,7 +690,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Ligature forms -->
+  <!--
+    Ligature forms
+  -->
   <define name="data.LIGATUREFORM">
     <choice>
       <value>recta</value>
@@ -696,7 +700,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Renderings of lines -->
+  <!--
+    Renderings of lines
+  -->
   <define name="data.LINERENDITION">
     <choice>
       <value>narrow</value>
@@ -708,7 +714,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Mensuration attribute values -->
+  <!--
+    Mensuration attribute values
+  -->
   <define name="data.MENSURATIONSIGN">
     <choice>
       <value>C</value>
@@ -716,7 +724,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Meter.sym attribute values for common-practice notation: -->
+  <!--
+    Meter.sym attribute values for common-practice notation
+  -->
   <define name="data.METERSIGN">
     <choice>
       <value>common</value>
@@ -724,21 +734,27 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- MIDI channels -->
+  <!--
+    MIDI channel numbers
+  -->
   <define name="data.MIDICHANNEL">
     <data type="positiveInteger">
       <param name="maxInclusive">16</param>
     </data>
   </define>
 
-  <!-- MIDI values are in the following range -->
+  <!--
+    MIDI values are in the following range
+  -->
   <define name="data.MIDIVALUE">
     <data type="nonNegativeInteger">
       <param name="maxInclusive">127</param>
     </data>
   </define>
 
-  <!-- Modes -->
+  <!--
+    Modes
+  -->
   <define name="data.MODE">
     <choice>
       <value>major</value>
@@ -752,7 +768,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Music font family -->
+  <!--
+    Music font family
+  -->
   <define name="data.MUSICFONT">
     <data type="token"/>
   </define>
@@ -781,7 +799,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Unit attribute values -->
+  <!--
+    Values for unit attribute
+  -->
   <define name="data.PGUNITS">
     <choice>
       <value>in</value>
@@ -790,7 +810,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Pclass (pitch class) attribute values -->
+  <!--
+    Pclass (pitch class) attribute values
+  -->
   <define name="data.PITCHCLASS">
     <data type="nonNegativeInteger">
       <param name="maxInclusive">11</param>
@@ -817,7 +839,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </data>
   </define>
 
-  <!-- Pnum (pitch number, e.g. MIDI) attribute values -->
+  <!--
+    Pnum (pitch number, e.g. MIDI) attribute values
+  -->
   <define name="data.PITCHNUMBER">
     <ref name="data.INTEGERNONNEGATIVE"/>
   </define>
@@ -835,7 +859,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice> -->
   </define>
 
-  <!-- Place, i.e., relative location of musical material -->
+  <!--
+    Place, i.e., relative location of musical material
+  -->
   <define name="data.PLACE">
     <choice>
       <value>above</value>
@@ -843,7 +869,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Size attribute values -->
+  <!-- 
+    Size attribute values
+  -->
   <define name="data.SIZE">
     <choice>
       <value>normal</value>
@@ -878,7 +906,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </list>
   </define>
 
-  <!-- Slur directions -->
+  <!--
+    Slur direction
+  -->
   <define name="data.SLURDIRECTION">
     <choice>
       <value>up</value>
@@ -897,7 +927,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     <ref name="data.INTEGERNONNEGATIVE"/>
   </define>
 
-  <!-- Stem directions -->
+  <!--
+    Stem direction
+  -->
   <define name="data.STEMDIRECTION">
     <choice>
       <value>up</value>
@@ -905,7 +937,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Stem modifications -->
+  <!--
+    Stem modification
+  -->
   <define name="data.STEMMODIFIER">
     <choice>
       <value>1slash</value>
@@ -919,7 +953,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Which side of stem? -->
+  <!--
+    Which side of stem?
+  -->
   <define name="data.STEMPOSITION">
     <choice>
       <value>left</value>
@@ -928,7 +964,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Temperament -->
+  <!--
+    Temperament
+  -->
   <define name="data.TEMPERAMENT">
     <choice>
       <value>equal</value>
@@ -937,7 +975,9 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Text renditions -->
+  <!--
+    Text renditions
+  -->
   <define name="data.TEXTRENDITION">
     <choice>
       <value>box</value>
@@ -953,13 +993,18 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Tie attribute values: initial, medial, terminal. -->
+  <!--
+    Tie attribute values: initial, medial, terminal
+  -->
   <define name="data.TIE">
     <data type="token">
       <param name="pattern">[i|m|t]</param>
     </data>
   </define>
 
+  <!--
+    Tie direction
+  -->
   <define name="data.TIEDIRECTION">
     <choice>
       <value>up</value>
@@ -967,14 +1012,18 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     </choice>
   </define>
 
-  <!-- Tuplet attribute values: initial, medial, terminal. -->
+  <!--
+    Tuplet attribute values: initial, medial, terminal
+  -->
   <define name="data.TUPLET">
     <data type="token">
       <param name="pattern">[i|m|t][1-6]</param>
     </data>
   </define>
 
-  <!-- Basic, i.e., single, uninterrupted, neume names. -->
+  <!--
+    Basic, i.e., single, uninterrupted, neume names
+  -->
   <define name="data.UNEUMENAME">
     <choice>
       <value>punctum</value>

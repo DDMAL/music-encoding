@@ -7787,44 +7787,6 @@
     elements are not available.  To activate them, the meiEditTrans entity must
     be set to INCLUDE in the internal DTD subset.
   -->
-  <define name="model.transcriptionLike">
-    <choice>
-      <ref name="add"/>
-      <ref name="corr"/>
-      <ref name="damage"/>
-      <ref name="del"/>
-      <ref name="orig"/>
-      <ref name="reg"/>
-      <ref name="restore"/>
-      <ref name="sic"/>
-      <ref name="supplied"/>
-      <ref name="unclear"/>
-    </choice>
-  </define>
-  <define name="model.editLike">
-    <choice>
-      <ref name="choice"/>
-      <ref name="handshift"/>
-      <ref name="gap"/>
-      <ref name="subst"/>
-    </choice>
-  </define>
-  <define name="model.editorialLike">
-    <choice>
-      <ref name="abbr"/>
-      <ref name="expan"/>
-    </choice>
-  </define>
-  <define name="model.choicePart">
-    <choice>
-      <ref name="corr"/>
-      <ref name="orig"/>
-      <ref name="reg"/>
-      <ref name="sic"/>
-      <ref name="unclear"/>
-      <ref name="model.editorialLike"/>
-    </choice>
-  </define>
   <define name="model.biblLike">
     <ref name="bibl"/>
   </define>
@@ -7949,7 +7911,7 @@
       <ref name="model.locrefLike"/>
       <ref name="model.addressLike"/>
       <ref name="model.biblLike"/>
-      <ref name="model.editorialLike"/>
+      <ref name="_DUMMYmodel.editorialLike"/>
       <ref name="model.nameLike.agent"/>
       <ref name="model.nameLike.place"/>
       <ref name="model.nameLike.label"/>
@@ -7971,7 +7933,7 @@
     <choice>
       <ref name="model.locrefLike"/>
       <ref name="model.addressLike"/>
-      <ref name="model.editorialLike"/>
+      <ref name="_DUMMYmodel.editorialLike"/>
       <ref name="model.biblLike"/>
       <ref name="model.nameLike.agent"/>
       <ref name="model.nameLike.place"/>
@@ -7997,8 +7959,8 @@
       <ref name="model.listLike"/>
       <ref name="model.tableLike"/>
       <ref name="model.textphraseLike"/>
-      <ref name="model.editLike"/>
-      <ref name="model.transcriptionLike"/>
+      <ref name="_DUMMYmodel.editLike"/>
+      <ref name="_DUMMYmodel.transcriptionLike"/>
       <ref name="model.figureLike"/>
     </choice>
   </define>
@@ -8356,8 +8318,8 @@
       <ref name="model.controleventLike"/>
       <ref name="model.midiLike"/>
       <ref name="model.annotLike"/>
-      <ref name="model.editLike"/>
-      <ref name="model.transcriptionLike"/>
+      <ref name="_DUMMYmodel.editLike"/>
+      <ref name="_DUMMYmodel.transcriptionLike"/>
       <ref name="model.eventLike.cmn.measureFilling"/>
     </choice>
   </define>
@@ -8370,8 +8332,8 @@
           <ref name="model.layerLike"/>
           <ref name="model.layerPart"/>
           <ref name="model.apparatusLike"/>
-          <ref name="model.editLike"/>
-          <ref name="model.transcriptionLike"/>
+          <ref name="_DUMMYmodel.editLike"/>
+          <ref name="_DUMMYmodel.transcriptionLike"/>
         </choice>
       </zeroOrMore>
       <optional>
@@ -8419,8 +8381,8 @@
         <zeroOrMore>
           <choice>
             <ref name="model.staffLike"/>
-            <ref name="model.editLike"/>
-            <ref name="model.transcriptionLike"/>
+            <ref name="_DUMMYmodel.editLike"/>
+            <ref name="_DUMMYmodel.transcriptionLike"/>
           </choice>
         </zeroOrMore>
         <zeroOrMore>
@@ -8529,8 +8491,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -8576,8 +8538,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -8629,8 +8591,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -8714,8 +8676,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -8852,8 +8814,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -8943,8 +8905,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -8974,8 +8936,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9003,8 +8965,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9092,8 +9054,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9154,8 +9116,8 @@
         <text/>
         <ref name="model.textcomponentLike"/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9188,8 +9150,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9220,8 +9182,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9357,8 +9319,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9389,8 +9351,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9478,8 +9440,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9605,8 +9567,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9685,8 +9647,8 @@
         <text/>
         <ref name="model.textcomponentLike"/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9723,8 +9685,8 @@
         <text/>
         <ref name="model.textcomponentLike"/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -9777,8 +9739,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -10073,8 +10035,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike.limited"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -10164,23 +10126,23 @@
     and part characteristics may change from mdiv to mdiv. For example, the
     2nd movement of a symphony may require different performing forces (and
     therefore different score and part layout) than the other movements.
-    Another possible model is <!ELEMENT mdiv (score?, parts?, sourcedesc*)>
+    Another possible model is &lt;!ELEMENT mdiv (score?, parts?, sourcedesc*)>
     which allows meta-data to accompany an mdiv. However, this creates a
     dependency between the meiBase DTD and the meiHead DTD. The mdiv may be
     recursively nested in order to represent music which exhibits this kind
     of structure.  For example, an opera is normally divided into acts,
     which are in turn divided into scenes. This may be represented by the
     following markup:
-      <mdiv> <- the opera
-        <mdiv> <- act I
-          <mdiv> <- scene i
-          <mdiv> <- scene ii
-        </mdiv>
-        <mdiv> <- act II
-          <mdiv> <- scene i
-          <mdiv> <- scene ii
-        </mdiv>
-      </mdiv>
+      &lt;mdiv> &lt;- the opera
+        &lt;mdiv> &lt;- act I
+          &lt;mdiv> &lt;- scene i
+          &lt;mdiv> &lt;- scene ii
+        &lt;/mdiv>
+        &lt;mdiv> &lt;- act II
+          &lt;mdiv> &lt;- scene i
+          &lt;mdiv> &lt;- scene ii
+        &lt;/mdiv>
+      &lt;/mdiv>
     
     Used by: body mdiv 
     Module:
@@ -10680,8 +10642,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike.limited"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -10977,8 +10939,8 @@
         <text/>
         <ref name="model.textcomponentLike"/>
         <ref name="model.textphraseLike.limited"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -11709,8 +11671,8 @@
         <ref name="model.eventLike"/>
         <ref name="model.noteModifierLike"/>
         <ref name="model.apparatusLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -11986,8 +11948,8 @@
         <text/>
         <ref name="model.textcomponentLike"/>
         <ref name="model.textphraseLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -12139,8 +12101,8 @@
         <text/>
         <ref name="model.textphraseLike.limited"/>
         <ref name="model.graphicprimitiveLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -12175,8 +12137,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike.limited"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -12283,8 +12245,8 @@
         <text/>
         <ref name="model.textphraseLike.limited"/>
         <ref name="model.graphicprimitiveLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -12401,8 +12363,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike.limited"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -12586,8 +12548,8 @@
         <text/>
         <ref name="model.textphraseLike.limited"/>
         <ref name="model.graphicprimitiveLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -13925,8 +13887,8 @@
       <choice>
         <text/>
         <ref name="model.textphraseLike.limited"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -14659,516 +14621,6 @@
     <attribute name="num"/>
   </define>
   <!-- ************************************************************** -->
-  <!-- * Edit/Transcription Elements                                * -->
-  <!-- ************************************************************** -->
-  <!--
-    doc: Marks an addition to the musical text.  The add element contains
-    material inserted by an author, scribe, annotator, or corrector. The
-    resp attribute contains a ID reference to an element containing the
-    editor or transcriber responsible for identifying the hand of the
-    addition. The cert attribute signifies the degree of certainty
-    ascribed to the identification of the hand of the addition. The hand
-    attribute signifies the hand of the agent which made the addition. 
-    Used by: model.transcriptionLike 
-    Module:
-  -->
-  <define name="content.add">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.eventLike"/>
-        <ref name="model.controleventLike"/>
-        <ref name="model.midiLike"/>
-        <ref name="model.annotLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
-        <ref name="model.eventLike.cmn.measureFilling"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="add">
-    <element name="add">
-      <ref name="attlist.add"/>
-      <ref name="content.add"/>
-    </element>
-  </define>
-  <define name="attlist.add" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-    <ref name="att.edit"/>
-    <ref name="att.trans"/>
-  </define>
-  <!--
-    doc: Choice 
-    Used by: model.editLike 
-    Module:
-  -->
-  <define name="content.choice">
-    <zeroOrMore>
-      <choice>
-        <ref name="choice"/>
-        <ref name="model.choicePart"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="choice">
-    <element name="choice">
-      <ref name="attlist.choice"/>
-      <ref name="content.choice"/>
-    </element>
-  </define>
-  <define name="attlist.choice" combine="interleave">
-    <ref name="att.common"/>
-  </define>
-  <!--
-    doc: Correction contains the correct form of an apparent erroneous
-    passage. The resp attribute contains an ID reference to an element
-    containing the name of the editor or transcriber responsible for
-    suggesting the correction held as the content of the <corr> element.
-    If the correction was made in the source, resp should be used to
-    identify the hand of the corrector. 
-    Used by: model.transcriptionLike model.choicePart 
-    Module:
-  -->
-  <define name="content.corr">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="corr">
-    <element name="corr">
-      <ref name="attlist.corr"/>
-      <ref name="content.corr"/>
-    </element>
-  </define>
-  <define name="attlist.corr" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.edit"/>
-    <ref name="att.trans"/>
-  </define>
-  <!--
-    doc: Contains an area of damage to the carrier.  In the case of damage
-    resulting from an identifiable cause, the agent attribute signifies
-    the causative agent.  The degree attribute signifies the degree of
-    damage according to a convenient scale. The <damage> tag with this
-    attribute should only be used where the text may be read with some
-    confidence; data supplied from other sources should be tagged as
-    <supplied>. The extent attribute indicates approximately how much text
-    is in the damaged area, in notes, measures, inches, or any appropriate
-    unit, where this cannot be deduced from the contents of the tag. For
-    example, the damage may span structural divisions in the text so that
-    the tag must then be empty of content. In the case of damage
-    (deliberate defacement, etc.) assignable to an identifiable hand, the
-    hand attribute signifies the hand responsible for the damage. 
-    Used by: model.transcriptionLike 
-    Module:
-  -->
-  <define name="content.damage">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="damage">
-    <element name="damage">
-      <ref name="attlist.damage"/>
-      <ref name="content.damage"/>
-    </element>
-  </define>
-  <define name="attlist.damage" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-    <ref name="att.typed"/>
-    <optional>
-      <attribute name="agent"/>
-    </optional>
-    <optional>
-      <attribute name="degree"/>
-    </optional>
-    <optional>
-      <attribute name="extent"/>
-    </optional>
-    <optional>
-      <attribute name="hand">
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
-  </define>
-  <!--
-    doc: Del contains information deleted, marked as deleted, or otherwise
-    indicated as superfluous or spurious in the copy text by an author,
-    scribe, annotator, or corrector. The resp attribute contains an ID
-    reference to an element containing the name of the editor or
-    transcriber responsible for identifying the hand of the deletion. The
-    cert attribute signifies the degree of certainty ascribed to the
-    identification of the hand of the deletion. The hand of the agent
-    which made the deletion should be pointed to using the hand attribute.
-    The rend attribute may be used to record the method used to make the
-    deletion (overstrike, strike[through], etc.) or how the deleted matter
-    should be displayed. 
-    Used by: model.transcriptionLike 
-    Module:
-  -->
-  <define name="content.del">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="del">
-    <element name="del">
-      <ref name="attlist.del"/>
-      <ref name="content.del"/>
-    </element>
-  </define>
-  <define name="attlist.del" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-    <ref name="att.trans"/>
-    <optional>
-      <attribute name="rend"/>
-    </optional>
-  </define>
-  <!--
-    Used by: model.transcriptionLike model.choicePart 
-    Module:
-  -->
-  <define name="content.orig">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="orig">
-    <element name="orig">
-      <ref name="attlist.orig"/>
-      <ref name="content.orig"/>
-    </element>
-  </define>
-  <define name="attlist.orig" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.edit"/>
-    <ref name="att.facsimile"/>
-    <ref name="att.typed"/>
-  </define>
-  <!--
-    Used by: model.transcriptionLike model.choicePart 
-    Module:
-  -->
-  <define name="content.reg">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="reg">
-    <element name="reg">
-      <ref name="attlist.reg"/>
-      <ref name="content.reg"/>
-    </element>
-  </define>
-  <define name="attlist.reg" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.edit"/>
-  </define>
-  <!--
-    doc: Restore indicates restoration of musical material to an earlier
-    state by cancellation of an editorial or authorial marking or
-    instruction. The desc (description) attribute gives a prose
-    description of the means of restoration, 'stet' or 'strike-down', for
-    example. The cert attribute signifies the degree of certainty ascribed
-    to the identification of the hand of the restoration. The type
-    attribute may be used to indicate the action cancelled by the
-    restoration. The resp attribute contains an ID reference to an element
-    containing the name of the editor or transcriber responsible for
-    identifying the hand of the restoration. The hand attribute signifies
-    the hand of the agent which made the restoration. 
-    Used by: model.transcriptionLike 
-    Module:
-  -->
-  <define name="content.restore">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="restore">
-    <element name="restore">
-      <ref name="attlist.restore"/>
-      <ref name="content.restore"/>
-    </element>
-  </define>
-  <define name="attlist.restore" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-    <ref name="att.trans"/>
-    <ref name="att.typed"/>
-    <optional>
-      <attribute name="desc"/>
-    </optional>
-  </define>
-  <!--
-    doc: Contains apparently incorrect or inaccurate musical material. A
-    correction for the apparent error may be given in an accompanying
-    child or sibling corr element. 
-    Used by: model.transcriptionLike model.choicePart 
-    Module:
-  -->
-  <define name="content.sic">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="sic">
-    <element name="sic">
-      <ref name="attlist.sic"/>
-      <ref name="content.sic"/>
-    </element>
-  </define>
-  <define name="attlist.sic" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-  </define>
-  <!--
-    doc: Substitution 
-    Used by: model.editLike 
-    Module:
-  -->
-  <define name="content.subst">
-    <ref name="model.transcriptionLike"/>
-    <oneOrMore>
-      <ref name="model.transcriptionLike"/>
-    </oneOrMore>
-  </define>
-  <define name="subst">
-    <element name="subst">
-      <ref name="attlist.subst"/>
-      <ref name="content.subst"/>
-    </element>
-  </define>
-  <define name="attlist.subst" combine="interleave">
-    <optional>
-      <attribute name="meiform" a:defaultValue="subst">
-        <value type="string" datatypeLibrary="">subst</value>
-      </attribute>
-    </optional>
-  </define>
-  <!--
-    doc: Supplied contains musical material supplied by the transcriber or
-    editor in place of text which cannot be read, either because of
-    physical damage or loss in the original or because it is illegible for
-    any reason. When the presumed loss of text arises from an identifiable
-    cause, agent signifies the causative agent. When the presumed loss of
-    text arises from action (partial deletion, etc.) assignable to an
-    identifiable hand, the hand attribute signifies the hand responsible
-    for the action. The reason attribute indicates why the text has to be
-    supplied, e.g. 'overbinding', 'faded ink', 'lost folio', 'omitted in
-    original', etc. The source attribute contains the source of the
-    supplied text. 
-    Used by: model.transcriptionLike 
-    Module:
-  -->
-  <define name="content.supplied">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="supplied">
-    <element name="supplied">
-      <ref name="attlist.supplied"/>
-      <ref name="content.supplied"/>
-    </element>
-  </define>
-  <define name="attlist.supplied" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.edit"/>
-    <ref name="att.facsimile"/>
-    <optional>
-      <attribute name="agent"/>
-    </optional>
-    <optional>
-      <attribute name="reason"/>
-    </optional>
-  </define>
-  <!--
-    doc: Unclear contains musical material which cannot be transcribed
-    with certainty because it is illegible or inaudible in the source.
-    Where the difficulty in transcription arises from an identifiable
-    cause, the agent attribute signifies the causative agent. The cert
-    attribute signifies the degree of certainty ascribed to the
-    transcription of the text contained within the <unclear> element.
-    Where the difficulty in transcription arises from action (partial
-    deletion, etc.) assignable to an identifiable hand, the hand attribute
-    signifies the hand responsible for the action. The reason attribute
-    indicates why the material is difficult to transcribe. The resp
-    attribute indicates the individual responsible for the transcription
-    of the word, phrase, or passage contained with the <unclear>
-    element. 
-    Used by: model.transcriptionLike model.choicePart 
-    Module:
-  -->
-  <define name="content.unclear">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.textphraseLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.noteModifierLike"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="unclear">
-    <element name="unclear">
-      <ref name="attlist.unclear"/>
-      <ref name="content.unclear"/>
-    </element>
-  </define>
-  <define name="attlist.unclear" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.edit"/>
-    <ref name="att.facsimile"/>
-    <optional>
-      <attribute name="agent"/>
-    </optional>
-    <optional>
-      <attribute name="hand">
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reason"/>
-    </optional>
-  </define>
-  <!--
-    doc: Marks the beginning of a passage written in a new hand, or of a
-    change in the scribe, writing style, ink or character of the document
-    hand. The character attribute describes characteristics of the hand,
-    particularly those related to the quality of the writing, e.g.,
-    'shaky', 'thick', regular'. A description of the tint or type of ink,
-    e.g. 'brown' or the writing medium, e.g. 'pencil', may be placed in
-    the medium attribute. The new hand may be identified using the new
-    attribute, while the previous hand may be recorded in the old
-    attribute. The resp attribute contains an ID reference to an element
-    containing the name of the editor or transcriber responsible for
-    identifying the change of hand. 
-    Used by: model.editLike 
-    Module:
-  -->
-  <define name="content.handshift">
-    <empty/>
-  </define>
-  <define name="handshift">
-    <element name="handshift">
-      <ref name="attlist.handshift"/>
-      <ref name="content.handshift"/>
-    </element>
-  </define>
-  <define name="attlist.handshift" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.edit"/>
-    <ref name="att.facsimile"/>
-    <optional>
-      <attribute name="character"/>
-    </optional>
-    <optional>
-      <attribute name="medium"/>
-    </optional>
-    <optional>
-      <attribute name="new">
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="old">
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
-  </define>
-  <!--
-    doc: Indicates a point where material has been omitted in a
-    transcription, whether as part of sampling practice or for editorial
-    reasons described in the MEI header. When material is omitted because
-    it is illegible or inaudible, <unclear> should be used instead.
-    Similarly, use <damage> if the omission is due to damage and <del> if
-    the omission is because the material is marked as deleted, or
-    otherwise indicated as superfluous or spurious in the copy text by an
-    author, scribe, annotator, or corrector. An indication of how much
-    material has been omitted from the transcription may be recorded in
-    the extent attribute. The unit attribute names the unit used for
-    describing the extent of the gap. The reason attribute gives the
-    reason for omission. Sample values include 'sampling', 'irrelevant',
-    'cancelled'. The resp attribute contains an ID reference to an element
-    containing the name of the editor, transcriber or encoder responsible
-    for the decision not to provide any transcription of the material and
-    hence the application of the <gap> tag. 
-    Used by: model.editLike 
-    Module:
-  -->
-  <define name="content.gap">
-    <empty/>
-  </define>
-  <define name="gap">
-    <element name="gap">
-      <ref name="attlist.gap"/>
-      <ref name="content.gap"/>
-    </element>
-  </define>
-  <define name="attlist.gap" combine="interleave">
-    <ref name="att.common"/>
-    <ref name="att.edit"/>
-    <optional>
-      <attribute name="extent"/>
-    </optional>
-    <optional>
-      <attribute name="hand">
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reason"/>
-    </optional>
-    <optional>
-      <attribute name="unit"/>
-    </optional>
-  </define>
-  <!-- ************************************************************** -->
   <!-- * Mensural Elements                                          * -->
   <!-- ************************************************************** -->
   <!--
@@ -15189,8 +14641,8 @@
         <ref name="model.eventLike"/>
         <ref name="model.notaModifierLike"/>
         <ref name="model.apparatusLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -15246,8 +14698,8 @@
         <ref name="model.eventLike"/>
         <ref name="model.neumeModifierLike"/>
         <ref name="model.apparatusLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -15279,8 +14731,8 @@
         <ref name="model.eventLike"/>
         <ref name="model.neumeModifierLike"/>
         <ref name="model.apparatusLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -15311,8 +14763,8 @@
         <ref name="model.eventLike"/>
         <ref name="syl"/>
         <ref name="model.apparatusLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
+        <ref name="_DUMMYmodel.editLike"/>
+        <ref name="_DUMMYmodel.transcriptionLike"/>
       </choice>
       <optional>
         <ref name="model.milestoneLike.music"/>
@@ -15621,7 +15073,24 @@
   <define name="_DUMMYmodel.controleventLike.neume-mensural" combine="choice">
     <notAllowed/>
   </define>
+  <define name="_DUMMYmodel.editLike" combine="choice">
+    <notAllowed/>
+  </define>
+  <define name="_DUMMYmodel.editorialLike" combine="choice">
+    <notAllowed/>
+  </define>
   <define name="_DUMMYmodel.eventLike.neume-cmn" combine="choice">
     <notAllowed/>
   </define>
+  <define name="_DUMMYmodel.transcriptionLike" combine="choice">
+    <notAllowed/>
+  </define>
+  <start>
+    <choice>
+      <ref name="mei"/>
+      <ref name="meihead"/>
+      <ref name="meicorpus"/>
+      <ref name="music"/>
+    </choice>
+  </start>
 </grammar>

@@ -28,8 +28,10 @@
       <xsl:value-of select="$NL"/>
       <include href="datatypes.rng"/>
       <xsl:value-of select="$NL"/>
-      <xsl:apply-templates select="*:define[not(matches(@name,'^data\.'))]"
-        exclude-result-prefixes="#default"/>
+      <xsl:apply-templates select="*:define[starts-with(@name,'att.')]"/>
+      <xsl:apply-templates select="*:define[starts-with(@name,'model.')]"/>
+      <xsl:apply-templates select="*:define[*:element]"/>
+      <xsl:apply-templates select="*:define[starts-with(@name,'_')]"/>
       <start>
         <choice>
           <ref name="mei"/>
@@ -38,6 +40,7 @@
           <ref name="music"/>
         </choice>
       </start>
+      
     </grammar>
   </xsl:template>
 
@@ -55,10 +58,19 @@
         </xhtml:div>
       </xhtml:div>
       <xsl:copy-of select="." copy-namespaces="no" exclude-result-prefixes="#default"/>
+      <xsl:variable name="myContent">
+        <xsl:value-of select="concat('content.',@name)"/>
+      </xsl:variable>
+      <xsl:variable name="myAttlist">
+        <xsl:value-of select="concat('attlist.',@name)"/>
+      </xsl:variable>
+      <xsl:apply-templates select="preceding-sibling::*:define[@name eq $myContent]"/>
+      <xsl:apply-templates select="following-sibling::*:define[@name eq $myAttlist]"/>
     </div>
+    <xsl:value-of select="$NL"/>
   </xsl:template>
 
-  <xsl:template match="*:define">
+  <xsl:template match="*:define" exclude-result-prefixes="#default">
     <div>
       <xsl:attribute name="xml:id">
         <xsl:value-of select="@name"/>
@@ -84,12 +96,17 @@
       </xhtml:div>
       <xsl:copy-of select="." copy-namespaces="no" exclude-result-prefixes="#default"/>
     </div>
+    <xsl:if
+      test="starts-with(@name,'att.') or starts-with(@name,'model.') or starts-with(@name,'_')">
+      <xsl:value-of select="$NL"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="node()" exclude-result-prefixes="#default">
     <xsl:if test="not(following::*:grammar)">
       <xsl:copy copy-namespaces="no">
-        <xsl:copy-of select="@*[not(name()='xmlns')]" copy-namespaces="no"/>
+        <xsl:copy-of select="@*[not(name()='xmlns')]" copy-namespaces="no"
+          exclude-result-prefixes="#default"/>
         <xsl:apply-templates/>
       </xsl:copy>
     </xsl:if>
@@ -104,7 +121,7 @@
   <xsl:template match="comment()" mode="makeDesc">
     <xsl:if test="matches(normalize-space(.),'^doc:')">
       <xhtml:p>
-        <xsl:value-of select="normalize-space(.)"/>
+        <xsl:value-of select="replace(normalize-space(.), '^doc: ','')"/>
       </xhtml:p>
     </xsl:if>
   </xsl:template>
