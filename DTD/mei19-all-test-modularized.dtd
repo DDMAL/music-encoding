@@ -13,11 +13,11 @@
 <!ENTITY % meiVisual        'INCLUDE'>
 
 <!ENTITY % meiText          'INCLUDE'>
-<!ENTITY % meiFigures       'IGNORE'>
-<!ENTITY % meiNamesDates    'IGNORE'>
+<!ENTITY % meiFigures       'INCLUDE'>
+<!ENTITY % meiNamesDates    'INCLUDE'>
 
-<!ENTITY % meiNeumes        'IGNORE'>
-<!ENTITY % meiMensural      'IGNORE'>
+<!ENTITY % meiNeumes        'INCLUDE'>
+<!ENTITY % meiMensural      'INCLUDE'>
 <!ENTITY % meiCMN           'INCLUDE'>
 
 <!ENTITY % meiMIDI          'INCLUDE'>
@@ -28,374 +28,349 @@
 <!ENTITY % meiUserSymbols   'INCLUDE'>
 
 <!ENTITY % meiFacsimile     'INCLUDE'>
-<!ENTITY % meiEditTrans     'IGNORE'>
+<!ENTITY % meiEditTrans     'INCLUDE'>
 <!ENTITY % meiCritApp       'INCLUDE'>
-<!ENTITY % meiLinkAlign     'IGNORE'>
-<!ENTITY % meiPtrRefs       'IGNORE'>
+<!ENTITY % meiLinkAlign     'INCLUDE'>
+<!ENTITY % meiPtrRefs       'INCLUDE'>
 
 
 <!-- ************************************************************** -->
 <!-- * Generic Identifiers (By Module)                            * -->
 <!-- ************************************************************** -->
 
-<![%meiShared;[
-  <!-- Basic text elements -->
-  <!ENTITY % n.abbr 'abbr'>
-  <!ENTITY % n.address 'address'>
-  <!ENTITY % n.addressline 'addressline'>
-  <!ENTITY % n.anchoredtext 'anchoredtext'>
-  <!ENTITY % n.annot 'annot'>
-  <!ENTITY % n.bibl 'bibl'>
-  <!ENTITY % n.date 'date'>
-  <!ENTITY % n.edition 'edition'>
-  <!ENTITY % n.expan 'expan'>
-  <!ENTITY % n.figdesc 'figdesc'>
-  <!ENTITY % n.fw 'fw'>
-  <!ENTITY % n.graphic 'graphic'>
-  <!ENTITY % n.identifier 'identifier'>
-  <!ENTITY % n.lb 'lb'>
-  <!ENTITY % n.name 'name'>
-  <!ENTITY % n.num 'num'>
-  <!ENTITY % n.p 'p'>
-  <!ENTITY % n.pb 'pb'>
-  <!ENTITY % n.pgdesc 'pgdesc'>
-  <!ENTITY % n.pgfoot1 'pgfoot1'>
-  <!ENTITY % n.pgfoot2 'pgfoot2'>
-  <!ENTITY % n.pghead1 'pghead1'>
-  <!ENTITY % n.pghead2 'pghead2'>
-  <!ENTITY % n.rend 'rend'>
-  <!ENTITY % n.repository 'repository'>
-  <!ENTITY % n.stack 'stack'>
-  <!ENTITY % n.title 'title'>
+<!-- Basic text elements -->
+<!ENTITY % n.abbr 'abbr'>
+<!ENTITY % n.address 'address'>
+<!ENTITY % n.addressline 'addressline'>
+<!ENTITY % n.anchoredtext 'anchoredtext'>
+<!ENTITY % n.annot 'annot'>
+<!ENTITY % n.bibl 'bibl'>
+<!ENTITY % n.date 'date'>
+<!ENTITY % n.edition 'edition'>
+<!ENTITY % n.expan 'expan'>
+<!ENTITY % n.figdesc 'figdesc'>
+<!ENTITY % n.fw 'fw'>
+<!ENTITY % n.graphic 'graphic'>
+<!ENTITY % n.identifier 'identifier'>
+<!ENTITY % n.lb 'lb'>
+<!ENTITY % n.name 'name'>
+<!ENTITY % n.num 'num'>
+<!ENTITY % n.p 'p'>
+<!ENTITY % n.pb 'pb'>
+<!ENTITY % n.pgdesc 'pgdesc'>
+<!ENTITY % n.pgfoot1 'pgfoot1'>
+<!ENTITY % n.pgfoot2 'pgfoot2'>
+<!ENTITY % n.pghead1 'pghead1'>
+<!ENTITY % n.pghead2 'pghead2'>
+<!ENTITY % n.rend 'rend'>
+<!ENTITY % n.repository 'repository'>
+<!ENTITY % n.stack 'stack'>
+<!ENTITY % n.title 'title'>
 
-  <!-- Notation Elements in Multiple Repertoires -->
-  <!-- Neume, mensural, and CMN: -->
-  <!-- Structure/definition -->
-  <!ENTITY % n.clef 'clef'>
-  <!ENTITY % n.custos 'custos'>
+<!-- Notation Elements in Multiple Repertoires -->
+<!-- Neume, mensural, and CMN: -->
+<!-- Structure/definition -->
+<!ENTITY % n.clef 'clef'>
+<!ENTITY % n.custos 'custos'>
   
-  <!-- Events -->
-  <!ENTITY % n.clefchange 'clefchange'>
-  <!ENTITY % n.pad 'pad'>
-  <!ENTITY % n.space 'space'>
+<!-- Events -->
+<!ENTITY % n.clefchange 'clefchange'>
+<!ENTITY % n.pad 'pad'>
+<!ENTITY % n.space 'space'>
   
-  <!-- Control Events -->
-  <!ENTITY % n.dir 'dir'>
-  <!ENTITY % n.dynam 'dynam'>
-  <!ENTITY % n.phrase 'phrase'>
-  <!ENTITY % n.tempo 'tempo'>
+<!-- Control Events -->
+<!ENTITY % n.dir 'dir'>
+<!ENTITY % n.dynam 'dynam'>
+<!ENTITY % n.phrase 'phrase'>
+<!ENTITY % n.tempo 'tempo'>
 
-  <!-- Neume and mensural: -->
-  <!-- Structure/definition -->
-  <!ENTITY % n.mensur 'mensur'>
-  <!ENTITY % n.proport 'proport'>
+<!-- Neume and mensural: -->
+<!-- Structure/definition -->
+<!ENTITY % n.mensur 'mensur'>
+<!ENTITY % n.proport 'proport'>
   
-  <!-- Events -->
-  <!ENTITY % n.ligature 'ligature'>
-  <!ENTITY % n.mensurchange 'mensurchange'>
-  <!ENTITY % n.proportchange 'proportchange'>
+<!-- Events -->
+<!ENTITY % n.ligature 'ligature'>
+<!ENTITY % n.mensurchange 'mensurchange'>
+<!ENTITY % n.proportchange 'proportchange'>
   
-  <!-- Control Events -->
+<!-- Control Events -->
+<!-- There are no control events currently defined for the
+neume and mensural combination. -->
 
-  <!-- Neume and CMN: -->
-  <!-- Structure/definition -->
-  
-  <!-- Events -->
-  
-  <!-- Control Events -->
+<!-- Neume and CMN: -->
+<!-- Structure/definition -->
+<!-- There are no structure/definition elements currently defined for
+the neume and CMN combination. -->
 
-  <!-- Mensural and CMN: -->
-  <!-- Structure/definition -->
-  <!ENTITY % n.artic 'artic'>
-  <!ENTITY % n.keyaccid 'keyaccid'>
-  <!ENTITY % n.keysig 'keysig'>
+<!-- Events -->
+<!-- There are no events currently defined for the neume and CMN
+combination. -->
+
+<!-- Control Events -->
+<!-- There are no control events currently defined for the neume and
+CMN combination. -->
+
+<!-- Mensural and CMN: -->
+<!-- Structure/definition -->
+<!ENTITY % n.artic 'artic'>
+<!ENTITY % n.keyaccid 'keyaccid'>
+<!ENTITY % n.keysig 'keysig'>
   
-  <!-- Events -->
-  <!ENTITY % n.accid 'accid'>
-  <!ENTITY % n.barline 'barline'>
-  <!-- The dot element is an event in mensural notation, but
-  is a note modifier in CMN. -->
-  <!ENTITY % n.dot 'dot'>
-  <!ENTITY % n.keychange 'keychange'>
+<!-- Events -->
+<!ENTITY % n.accid 'accid'>
+<!ENTITY % n.barline 'barline'>
+<!-- The dot element is an event in mensural notation,
+but is a note modifier in CMN. -->
+<!ENTITY % n.dot 'dot'>
+<!ENTITY % n.keychange 'keychange'>
   
-  <!-- Control Events -->
-]]>
+<!-- Control Events -->
+<!-- There are no control events currently defined for the mensural and CMN
+combination. -->
 
-<![%meiStructure;[
-  <!-- Default Structure -->
-  <!ENTITY % n.back 'back'>
-  <!ENTITY % n.body 'body'>
-  <!ENTITY % n.div 'div'>
-  <!ENTITY % n.ending 'ending'>
-  <!ENTITY % n.front 'front'>
-  <!ENTITY % n.group 'group'>
-  <!ENTITY % n.grpsym 'grpsym'>
-  <!ENTITY % n.instrdef 'instrdef'>
-  <!ENTITY % n.label 'label'>
-  <!ENTITY % n.layer 'layer'>
-  <!ENTITY % n.layerdef 'layerdef'>
-  <!ENTITY % n.mdiv 'mdiv'>
-  <!ENTITY % n.part 'part'>
-  <!ENTITY % n.parts 'parts'>
-  <!ENTITY % n.sb 'sb'>
-  <!ENTITY % n.score 'score'>
-  <!ENTITY % n.scoredef 'scoredef'>
-  <!ENTITY % n.section 'section'>
-  <!ENTITY % n.staff 'staff'>
-  <!ENTITY % n.staffdef 'staffdef'>
-  <!ENTITY % n.staffgrp 'staffgrp'>
-]]>
+<!-- Structural Elements -->
+<!ENTITY % n.body 'body'>
+<!ENTITY % n.ending 'ending'>
+<!ENTITY % n.group 'group'>
+<!ENTITY % n.grpsym 'grpsym'>
+<!ENTITY % n.instrdef 'instrdef'>
+<!ENTITY % n.label 'label'>
+<!ENTITY % n.layer 'layer'>
+<!ENTITY % n.layerdef 'layerdef'>
+<!ENTITY % n.mdiv 'mdiv'>
+<!ENTITY % n.part 'part'>
+<!ENTITY % n.parts 'parts'>
+<!ENTITY % n.sb 'sb'>
+<!ENTITY % n.score 'score'>
+<!ENTITY % n.scoredef 'scoredef'>
+<!ENTITY % n.section 'section'>
+<!ENTITY % n.staff 'staff'>
+<!ENTITY % n.staffdef 'staffdef'>
+<!ENTITY % n.staffgrp 'staffgrp'>
 
-<![%meiHeader;[
-  <!-- Header -->
-  <!ENTITY % n.accessdesc 'accessdesc'>
-  <!ENTITY % n.acqsource 'acqsource'>
-  <!ENTITY % n.altmeiid 'altmeiid'>
-  <!ENTITY % n.appinfo 'appinfo'>
-  <!ENTITY % n.application 'application'>
-  <!ENTITY % n.availability 'availability'>
-  <!ENTITY % n.change 'change'>
-  <!ENTITY % n.changedesc 'changedesc'>
-  <!ENTITY % n.classcode 'classcode'>
-  <!ENTITY % n.classification 'classification'>
-  <!ENTITY % n.condition 'condition'>
-  <!ENTITY % n.correction 'correction'>
-  <!ENTITY % n.creation 'creation'>
-  <!ENTITY % n.dimensions 'dimensions'>
-  <!ENTITY % n.editionstmt 'editionstmt'>
-  <!ENTITY % n.editorialdecl 'editorialdecl'>
-  <!ENTITY % n.encodingdesc 'encodingdesc'>
-  <!ENTITY % n.exhibithist 'exhibithist'>
-  <!ENTITY % n.extent 'extent'>
-  <!ENTITY % n.filedesc 'filedesc'>
-  <!ENTITY % n.fingerprint 'fingerprint'>
-  <!ENTITY % n.hand 'hand'>
-  <!ENTITY % n.handlist 'handlist'>
-  <!ENTITY % n.inscription 'inscription'>
-  <!ENTITY % n.interpretation 'interpretation'>
-  <!ENTITY % n.keywords 'keywords'>
-  <!ENTITY % n.language 'language'>
-  <!ENTITY % n.langusage 'langusage'>
-  <!ENTITY % n.normalization 'normalization'>
-  <!ENTITY % n.notesstmt 'notesstmt'>
-  <!ENTITY % n.physdesc 'physdesc'>
-  <!ENTITY % n.physloc 'physloc'>
-  <!ENTITY % n.physmedium 'physmedium'>
-  <!ENTITY % n.price 'price'>
-  <!ENTITY % n.profiledesc 'profiledesc'>
-  <!ENTITY % n.projectdesc 'projectdesc'>
-  <!ENTITY % n.provenance 'provenance'>
-  <!ENTITY % n.pubstmt 'pubstmt'>
-  <!ENTITY % n.respstmt 'respstmt'>
-  <!ENTITY % n.revisiondesc 'revisiondesc'>
-  <!ENTITY % n.samplingdecl 'samplingdecl'>
-  <!ENTITY % n.segmentation 'segmentation'>
-  <!ENTITY % n.seriesstmt 'seriesstmt'>
-  <!ENTITY % n.source 'source'>
-  <!ENTITY % n.sourcedesc 'sourcedesc'>
-  <!ENTITY % n.stdvals 'stdvals'>
-  <!ENTITY % n.sysreq 'sysreq'>
-  <!ENTITY % n.term 'term'>
-  <!ENTITY % n.titlestmt 'titlestmt'>
-  <!ENTITY % n.treatmenthist 'treatmenthist'>
-  <!ENTITY % n.treatmentsched 'treatmentsched'>
-  <!ENTITY % n.unpub 'unpub'>
-  <!ENTITY % n.userestrict 'userestrict'>
-]]>
+<!-- Header -->
+<!ENTITY % n.accessdesc 'accessdesc'>
+<!ENTITY % n.acqsource 'acqsource'>
+<!ENTITY % n.altmeiid 'altmeiid'>
+<!ENTITY % n.appinfo 'appinfo'>
+<!ENTITY % n.application 'application'>
+<!ENTITY % n.availability 'availability'>
+<!ENTITY % n.change 'change'>
+<!ENTITY % n.changedesc 'changedesc'>
+<!ENTITY % n.classcode 'classcode'>
+<!ENTITY % n.classification 'classification'>
+<!ENTITY % n.condition 'condition'>
+<!ENTITY % n.correction 'correction'>
+<!ENTITY % n.creation 'creation'>
+<!ENTITY % n.dimensions 'dimensions'>
+<!ENTITY % n.editionstmt 'editionstmt'>
+<!ENTITY % n.editorialdecl 'editorialdecl'>
+<!ENTITY % n.encodingdesc 'encodingdesc'>
+<!ENTITY % n.exhibithist 'exhibithist'>
+<!ENTITY % n.extent 'extent'>
+<!ENTITY % n.filedesc 'filedesc'>
+<!ENTITY % n.fingerprint 'fingerprint'>
+<!ENTITY % n.hand 'hand'>
+<!ENTITY % n.handlist 'handlist'>
+<!ENTITY % n.inscription 'inscription'>
+<!ENTITY % n.interpretation 'interpretation'>
+<!ENTITY % n.keywords 'keywords'>
+<!ENTITY % n.language 'language'>
+<!ENTITY % n.langusage 'langusage'>
+<!ENTITY % n.normalization 'normalization'>
+<!ENTITY % n.notesstmt 'notesstmt'>
+<!ENTITY % n.physdesc 'physdesc'>
+<!ENTITY % n.physloc 'physloc'>
+<!ENTITY % n.physmedium 'physmedium'>
+<!ENTITY % n.price 'price'>
+<!ENTITY % n.profiledesc 'profiledesc'>
+<!ENTITY % n.projectdesc 'projectdesc'>
+<!ENTITY % n.provenance 'provenance'>
+<!ENTITY % n.pubstmt 'pubstmt'>
+<!ENTITY % n.respstmt 'respstmt'>
+<!ENTITY % n.revisiondesc 'revisiondesc'>
+<!ENTITY % n.samplingdecl 'samplingdecl'>
+<!ENTITY % n.segmentation 'segmentation'>
+<!ENTITY % n.seriesstmt 'seriesstmt'>
+<!ENTITY % n.source 'source'>
+<!ENTITY % n.sourcedesc 'sourcedesc'>
+<!ENTITY % n.stdvals 'stdvals'>
+<!ENTITY % n.sysreq 'sysreq'>
+<!ENTITY % n.term 'term'>
+<!ENTITY % n.titlestmt 'titlestmt'>
+<!ENTITY % n.treatmenthist 'treatmenthist'>
+<!ENTITY % n.treatmentsched 'treatmentsched'>
+<!ENTITY % n.unpub 'unpub'>
+<!ENTITY % n.userestrict 'userestrict'>
 
-<![%meiNeumes;[
-  <!-- Neumes -->
-  <!-- Structure/definition -->
-  <!ENTITY % n.syllable 'syllable'>
+<!-- Neume Notation Elements -->
+<!-- Structure/definition -->
+<!ENTITY % n.syllable 'syllable'>
   
-  <!-- Events -->
-  <!ENTITY % n.ineume 'ineume'>
-  <!ENTITY % n.uneume 'uneume'>
+<!-- Events -->
+<!ENTITY % n.ineume 'ineume'>
+<!ENTITY % n.uneume 'uneume'>
   
-  <!-- Control Events -->
-]]>
+<!-- Control Events -->
+<!-- There are currently no control events defined for neume-only
+notation. -->
 
-<![%meiMensural;[
-  <!-- Mensural -->
-  <!-- Structure/definition -->
+<!-- Mensural Notation Elements -->
+<!-- Structure/definition -->
   
-  <!-- Events -->
-  <!ENTITY % n.nota 'nota'>
-  <!ENTITY % n.pausa 'pausa'>
+<!-- Events -->
+<!ENTITY % n.nota 'nota'>
+<!ENTITY % n.pausa 'pausa'>
   
-  <!-- Control Events -->
-  <!-- Add corona? -->
-]]>
+<!-- Control Events -->
+<!-- Add corona? -->
 
-<![%meiCMN;[
-  <!-- CMN -->
-  <!-- Structure/definition -->
-  <!-- Measure and measure-like elements; i.e., ossia  -->
-  <!ENTITY % n.measure 'measure'>
-  <!ENTITY % n.ossia 'ossia'>
+<!-- CMN Elements -->
+<!-- Structure/definition -->
+<!-- Measure and measure-like elements; i.e., ossia  -->
+<!ENTITY % n.measure 'measure'>
+<!ENTITY % n.ossia 'ossia'>
 
-  <!-- Events -->
-  <!ENTITY % n.beam 'beam'>
-  <!ENTITY % n.beatrpt 'beatrpt'>
-  <!ENTITY % n.bend 'bend'>
-  <!ENTITY % n.btrem 'btrem'>
-  <!ENTITY % n.chord 'chord'>
-  <!ENTITY % n.ftrem 'ftrem'>
-  <!ENTITY % n.gliss 'gliss'>
-  <!ENTITY % n.halfmrpt 'halfmrpt'>
-  <!ENTITY % n.note 'note'>
-  <!ENTITY % n.rest 'rest'>
-  <!ENTITY % n.tuplet 'tuplet'>
+<!-- Events -->
+<!ENTITY % n.beam 'beam'>
+<!ENTITY % n.beatrpt 'beatrpt'>
+<!ENTITY % n.bend 'bend'>
+<!ENTITY % n.btrem 'btrem'>
+<!ENTITY % n.chord 'chord'>
+<!ENTITY % n.ftrem 'ftrem'>
+<!ENTITY % n.gliss 'gliss'>
+<!ENTITY % n.halfmrpt 'halfmrpt'>
+<!ENTITY % n.note 'note'>
+<!ENTITY % n.rest 'rest'>
+<!ENTITY % n.tuplet 'tuplet'>
 
-  <!-- The following elements constitute a special event class:
+<!-- The following elements constitute a special event class:
   these elements are often the only event in a measure. -->
-  <!ENTITY % n.mrest 'mrest'>
-  <!ENTITY % n.mrpt 'mrpt'>
-  <!ENTITY % n.mrpt2 'mrpt2'>
-  <!ENTITY % n.mspace 'mspace'>
-  <!ENTITY % n.multirest 'multirest'>
-  <!ENTITY % n.multirpt 'multirpt'>
+<!ENTITY % n.mrest 'mrest'>
+<!ENTITY % n.mrpt 'mrpt'>
+<!ENTITY % n.mrpt2 'mrpt2'>
+<!ENTITY % n.mspace 'mspace'>
+<!ENTITY % n.multirest 'multirest'>
+<!ENTITY % n.multirpt 'multirpt'>
 
-  <!-- Control events -->
-  <!ENTITY % n.arpeg 'arpeg'>
-  <!ENTITY % n.beamspan 'beamspan'>
-  <!ENTITY % n.breath 'breath'>
-  <!ENTITY % n.fermata 'fermata'>
-  <!ENTITY % n.hairpin 'hairpin'>
-  <!ENTITY % n.harppedal 'harppedal'>
-  <!ENTITY % n.octave 'octave'>
-  <!ENTITY % n.pedal 'pedal'>
-  <!ENTITY % n.reh 'reh'>
-  <!ENTITY % n.slur 'slur'>
-  <!ENTITY % n.tie 'tie'>
-  <!ENTITY % n.tupletspan 'tupletspan'>
-]]>
+<!-- Control events -->
+<!ENTITY % n.arpeg 'arpeg'>
+<!ENTITY % n.beamspan 'beamspan'>
+<!ENTITY % n.breath 'breath'>
+<!ENTITY % n.fermata 'fermata'>
+<!ENTITY % n.hairpin 'hairpin'>
+<!ENTITY % n.harppedal 'harppedal'>
+<!ENTITY % n.octave 'octave'>
+<!ENTITY % n.pedal 'pedal'>
+<!ENTITY % n.reh 'reh'>
+<!ENTITY % n.slur 'slur'>
+<!ENTITY % n.tie 'tie'>
+<!ENTITY % n.tupletspan 'tupletspan'>
 
-<![%meiText;[
-  <!-- Text Components -->
-  <!ENTITY % n.blockquote 'blockquote'>
-  <!ENTITY % n.head 'head'>
-  <!ENTITY % n.item 'item'>
-  <!ENTITY % n.l 'l'>
-  <!ENTITY % n.lg 'lg'>
-  <!ENTITY % n.list 'list'>
-  <!ENTITY % n.table 'table'>
-  <!ENTITY % n.td 'td'>
-  <!ENTITY % n.th 'th'>
-  <!ENTITY % n.tr 'tr'>
-]]>
+<!-- Text Components -->
+<!ENTITY % n.back 'back'>
+<!ENTITY % n.blockquote 'blockquote'>
+<!ENTITY % n.div 'div'>
+<!ENTITY % n.front 'front'>
+<!ENTITY % n.head 'head'>
+<!ENTITY % n.item 'item'>
+<!ENTITY % n.l 'l'>
+<!ENTITY % n.lg 'lg'>
+<!ENTITY % n.list 'list'>
+<!ENTITY % n.table 'table'>
+<!ENTITY % n.td 'td'>
+<!ENTITY % n.th 'th'>
+<!ENTITY % n.tr 'tr'>
 
-<![%meiFigures;[
-  <!-- Figures -->
-  <!ENTITY % n.caption 'caption'>
-  <!ENTITY % n.fig 'fig'>
-]]>
+<!-- Figures -->
+<!ENTITY % n.caption 'caption'>
+<!ENTITY % n.fig 'fig'>
 
-<![%meiNamesDates;[
-  <!-- Additional Names and Dates -->
-  <!ENTITY % n.corpname 'corpname'>
-  <!ENTITY % n.geogname 'geogname'>
-  <!ENTITY % n.periodname 'periodname'>
-  <!ENTITY % n.persname 'persname'>
-  <!ENTITY % n.stylename 'stylename'>
-]]>
+<!-- Additional Names and Dates -->
+<!ENTITY % n.corpname 'corpname'>
+<!ENTITY % n.geogname 'geogname'>
+<!ENTITY % n.periodname 'periodname'>
+<!ENTITY % n.persname 'persname'>
+<!ENTITY % n.stylename 'stylename'>
 
-<![%meiPtrRefs;[
-  <!-- Pointers and References -->
-  <!ENTITY % n.extptr 'extptr'>
-  <!ENTITY % n.extref 'extref'>
-  <!ENTITY % n.ptr 'ptr'>
-  <!ENTITY % n.ref 'ref'>
-]]>
+<!-- Pointers and References -->
+<!ENTITY % n.extptr 'extptr'>
+<!ENTITY % n.extref 'extref'>
+<!ENTITY % n.ptr 'ptr'>
+<!ENTITY % n.ref 'ref'>
 
-<![%meiLyrics;[
-  <!-- Lyrics -->
-  <!ENTITY % n.lyrics 'lyrics'>
-  <!ENTITY % n.syl 'syl'>
-  <!ENTITY % n.verse 'verse'>
-]]>
+<!-- Lyrics -->
+<!ENTITY % n.lyrics 'lyrics'>
+<!ENTITY % n.syl 'syl'>
+<!ENTITY % n.verse 'verse'>
 
-<![%meiCMNOrnaments;[
-  <!-- CMN Ornaments -->
-  <!ENTITY % n.mordent 'mordent'>
-  <!ENTITY % n.trill 'trill'>
-  <!ENTITY % n.turn 'turn'>
-]]>
+<!-- CMN Ornaments -->
+<!ENTITY % n.mordent 'mordent'>
+<!ENTITY % n.trill 'trill'>
+<!ENTITY % n.turn 'turn'>
 
-<![%meiHarmony;[
-  <!-- Harmony -->
-  <!ENTITY % n.barre 'barre'>
-  <!ENTITY % n.chorddef 'chorddef'>
-  <!ENTITY % n.chordmember 'chordmember'>
-  <!ENTITY % n.chordtable 'chordtable'>
-  <!ENTITY % n.harm 'harm'>
-]]>
+<!-- Harmony -->
+<!ENTITY % n.barre 'barre'>
+<!ENTITY % n.chorddef 'chorddef'>
+<!ENTITY % n.chordmember 'chordmember'>
+<!ENTITY % n.chordtable 'chordtable'>
+<!ENTITY % n.harm 'harm'>
 
-<![%meiUserSymbols;[
-  <!-- User-defined symbols -->
-  <!ENTITY % n.curve 'curve'>
-  <!ENTITY % n.line 'line'>
-  <!ENTITY % n.symbol 'symbol'>
-  <!ENTITY % n.symboldef 'symboldef'>
-  <!ENTITY % n.symboltable 'symboltable'>
-]]>
+<!-- Graphic Primitives and User-defined Symbols -->
+<!ENTITY % n.curve 'curve'>
+<!ENTITY % n.line 'line'>
+<!ENTITY % n.symbol 'symbol'>
+<!ENTITY % n.symboldef 'symboldef'>
+<!ENTITY % n.symboltable 'symboltable'>
 
-<![%meiCritApp;[
-  <!-- Critical apparatus -->
-  <!ENTITY % n.app 'app'>
-  <!ENTITY % n.rdg 'rdg'>
-]]>
+<!-- Critical apparatus -->
+<!ENTITY % n.app 'app'>
+<!ENTITY % n.rdg 'rdg'>
 
-<![%meiMIDI;[
-  <!-- MIDI -->
-  <!ENTITY % n.cc 'cc'>
-  <!ENTITY % n.chan 'chan'>
-  <!ENTITY % n.chanpr 'chanpr'>
-  <!ENTITY % n.cue 'cue'>
-  <!ENTITY % n.hex 'hex'>
-  <!ENTITY % n.marker 'marker'>
-  <!ENTITY % n.metatext 'metatext'>
-  <!ENTITY % n.midi 'midi'>
-  <!ENTITY % n.noteoff 'noteoff'>
-  <!ENTITY % n.noteon 'noteon'>
-  <!ENTITY % n.port 'port'>
-  <!ENTITY % n.prog 'prog'>
-  <!ENTITY % n.seqnum 'seqnum'>
-  <!ENTITY % n.trkname 'trkname'>
-  <!ENTITY % n.vel 'vel'>
-]]>
+<!-- MIDI -->
+<!ENTITY % n.cc 'cc'>
+<!ENTITY % n.chan 'chan'>
+<!ENTITY % n.chanpr 'chanpr'>
+<!ENTITY % n.cue 'cue'>
+<!ENTITY % n.hex 'hex'>
+<!ENTITY % n.marker 'marker'>
+<!ENTITY % n.metatext 'metatext'>
+<!ENTITY % n.midi 'midi'>
+<!ENTITY % n.noteoff 'noteoff'>
+<!ENTITY % n.noteon 'noteon'>
+<!ENTITY % n.port 'port'>
+<!ENTITY % n.prog 'prog'>
+<!ENTITY % n.seqnum 'seqnum'>
+<!ENTITY % n.trkname 'trkname'>
+<!ENTITY % n.vel 'vel'>
 
-<![%meiEditTrans;[
-  <!-- Editorial/Transcription -->
-  <!ENTITY % n.add 'add'>
-  <!ENTITY % n.choice 'choice'>
-  <!ENTITY % n.corr 'corr'>
-  <!ENTITY % n.damage 'damage'>
-  <!ENTITY % n.del 'del'>
-  <!ENTITY % n.gap 'gap'>
-  <!ENTITY % n.handshift 'handshift'>
-  <!ENTITY % n.orig 'orig'>
-  <!ENTITY % n.reg 'reg'>
-  <!ENTITY % n.restore 'restore'>
-  <!ENTITY % n.sic 'sic'>
-  <!ENTITY % n.subst 'subst'>
-  <!ENTITY % n.supplied 'supplied'>
-  <!ENTITY % n.titlepage 'titlepage'>
-  <!ENTITY % n.unclear 'unclear'>
-]]>
+<!-- Editorial/Transcription -->
+<!ENTITY % n.add 'add'>
+<!ENTITY % n.choice 'choice'>
+<!ENTITY % n.corr 'corr'>
+<!ENTITY % n.damage 'damage'>
+<!ENTITY % n.del 'del'>
+<!ENTITY % n.gap 'gap'>
+<!ENTITY % n.handshift 'handshift'>
+<!ENTITY % n.orig 'orig'>
+<!ENTITY % n.reg 'reg'>
+<!ENTITY % n.restore 'restore'>
+<!ENTITY % n.sic 'sic'>
+<!ENTITY % n.subst 'subst'>
+<!ENTITY % n.supplied 'supplied'>
+<!ENTITY % n.titlepage 'titlepage'>
+<!ENTITY % n.unclear 'unclear'>
 
-<![%meiFacsimile;[
 <!-- Facsimile -->
-  <!ENTITY % n.facsimile 'facsimile'>
-  <!ENTITY % n.surface 'surface'>
-  <!ENTITY % n.zone 'zone'>
-]]>
+<!ENTITY % n.facsimile 'facsimile'>
+<!ENTITY % n.surface 'surface'>
+<!ENTITY % n.zone 'zone'>
 
-<![%meiLinkAlign;[
-  <!-- Linking and Alignment -->
-  <!ENTITY % n.timeline 'timeline'>
-  <!ENTITY % n.when 'when'>
-]]>
+<!-- Linking and Alignment -->
+<!ENTITY % n.timeline 'timeline'>
+<!ENTITY % n.when 'when'>
+
 
 <!-- ************************************************************** -->
 <!-- * MEI datatypes                                              * -->
@@ -493,16 +468,6 @@ the tstamp, tstamp.ges, or tstamp.real attribute. -->
 
 <!-- doc: a fragment identifier in xPointer syntax -->
 <!ENTITY % data.XPOINTER 'CDATA'>
-
-
-<!-- ************************************************************** -->
-<!-- * MEI keywords for attribute value lists                     * -->
-<!-- ************************************************************** -->
-
-<!-- These parameter entities are used as keywords to express a list of
-values. They are provided so that attribute value lists may be
-restricted or expanded according to local practice or to accommodate
-software constraints. -->
 
 <!-- doc: Accidental attribute values: s = sharp, f = flat, ss = dblsharp,
 x=dblsharp, ff = dblflat, n = natural, nf = naturalflat, ns =
@@ -823,7 +788,7 @@ between staff lines. -->
 <!-- * Character Entities                                         * -->
 <!-- ************************************************************** -->
 
-<!-- <!ENTITY % ISOlat1 SYSTEM 
+<!ENTITY % ISOlat1 SYSTEM 
    'http://text.lib.virginia.edu/charent/iso-lat1.ent'> %ISOlat1;
 <!ENTITY % ISOgrk1 SYSTEM 
    'http://text.lib.virginia.edu/charent/iso-grk1.ent'> %ISOgrk1;
@@ -844,7 +809,7 @@ between staff lines. -->
 <!ENTITY % UVAsupp SYSTEM 
    'http://text.lib.virginia.edu/charent/uva-supp.ent'> %UVAsupp;
 <!ENTITY % MusicChars SYSTEM
-   'http://text.lib.virginia.edu/charent/musicchar.ent'> %MusicChars; -->
+   'http://text.lib.virginia.edu/charent/musicchar.ent'> %MusicChars;
 
 <!-- ************************************************************** -->
 <!-- * Attribute classes                                          * -->
@@ -4596,6 +4561,27 @@ here in order to disallow ho. -->
 <!ENTITY % model.keyaccidLike '_DUMMYmodel.keyaccidLike'>
 <!ENTITY % model.keysigLike '_DUMMYmodel.keysigLike'>
 
+<![%meiText;[
+  <!ENTITY % model.backLike '%n.back;'>
+  <!ENTITY % model.divLike  '%n.div;'>
+  <!ENTITY % model.frontLike '%n.front;'>
+  <!ENTITY % model.headLike '%n.head;'>
+  <!ENTITY % model.lLike '%n.l;'>
+  <!ENTITY % model.listLike '%n.list;'>
+  <!ENTITY % model.quoteLike '%n.blockquote;'>
+  <!ENTITY % model.tableLike '%n.table;'>
+  <!ENTITY % model.lgLike '%n.lg;'>
+]]>
+<!ENTITY % model.backLike '_DUMMYmodel.backLike'>
+<!ENTITY % model.divLike  '_DUMMYmodel.divLike'>
+<!ENTITY % model.frontLike '_DUMMYmodel.frontLike'>
+<!ENTITY % model.headLike '_DUMMYmodel.headLike'>
+<!ENTITY % model.lLike '_DUMMYmodel.lLike'>
+<!ENTITY % model.listLike '_DUMMYmodel.listLike'>
+<!ENTITY % model.quoteLike '_DUMMYmodel.quoteLike'>
+<!ENTITY % model.tableLike '_DUMMYmodel.tableLike'>
+<!ENTITY % model.lgLike '_DUMMYmodel.lgLike'>
+
 <![%meiStructure;[
   <!ENTITY % model.labelLike  '%n.label;'>
   <!ENTITY % model.endingLike '%n.ending;'>
@@ -4604,6 +4590,7 @@ here in order to disallow ho. -->
   <!ENTITY % model.layerdefLike '%n.layerdef;'>
   <!ENTITY % model.mdivLike '%n.mdiv;'>
   <!ENTITY % model.milestoneLike.music '%model.pbLike;|%n.sb;'>
+  <!ENTITY % model.musicPart '((%model.frontLike;)?, (%n.body;|%n.group;)?, (%model.backLike;)?)'>
   <!ENTITY % model.partLike '%n.part;'>
   <!ENTITY % model.partsLike '%n.parts;'>
   <!ENTITY % model.scoreLike '%n.score;'>
@@ -4612,7 +4599,6 @@ here in order to disallow ho. -->
   <!ENTITY % model.staffLike '%n.staff;'>
   <!ENTITY % model.staffdefLike '%n.staffdef;'>
   <!ENTITY % model.staffgrpLike '%n.staffgrp;'>
-  <!ENTITY % model.musicPart '((%n.front;)?, (%n.body;|%n.group;)?, (%n.back;)?)'>
 ]]>
 <!ENTITY % model.labelLike  '_DUMMYmodel.labelLike'>
 <!ENTITY % model.endingLike '_DUMMYmodel.endingLike'>
@@ -4621,6 +4607,7 @@ here in order to disallow ho. -->
 <!ENTITY % model.layerdefLike '_DUMMYmodel.layerdefLike'>
 <!ENTITY % model.mdivLike '_DUMMYmodel.mdivLike'>
 <!ENTITY % model.milestoneLike.music '_DUMMYmodel.milstoneLike.music'>
+<!ENTITY % model.musicPart '_DUMMYmodel.musicPart'>
 <!ENTITY % model.partLike '_DUMMYmodel.partLike'>
 <!ENTITY % model.partsLike '_DUMMYmodel.partsLike'>
 <!ENTITY % model.scoreLike '_DUMMYmodel.scoreLike'>
@@ -4629,24 +4616,7 @@ here in order to disallow ho. -->
 <!ENTITY % model.staffLike '_DUMMYmodel.staffLike'>
 <!ENTITY % model.staffdefLike '_DUMMYmodel.staffdefLike'>
 <!ENTITY % model.staffgrpLike '_DUMMYmodel.staffgrpLike'>
-<!ENTITY % model.musicPart '_DUMMYmodel.musicPart'>
 
-<![%meiText;[
-  <!ENTITY % model.divLike  '%n.div;'>
-  <!ENTITY % model.headLike '%n.head;'>
-  <!ENTITY % model.lLike '%n.l;'>
-  <!ENTITY % model.listLike '%n.list;'>
-  <!ENTITY % model.quoteLike '%n.blockquote;'>
-  <!ENTITY % model.tableLike '%n.table;'>
-  <!ENTITY % model.lgLike '%n.lg;'>
-]]>
-<!ENTITY % model.divLike  '_DUMMYmodel.divLike'>
-<!ENTITY % model.headLike '_DUMMYmodel.headLike'>
-<!ENTITY % model.lLike '_DUMMYmodel.lLike'>
-<!ENTITY % model.listLike '_DUMMYmodel.listLike'>
-<!ENTITY % model.quoteLike '_DUMMYmodel.quoteLike'>
-<!ENTITY % model.tableLike '_DUMMYmodel.tableLike'>
-<!ENTITY % model.lgLike '_DUMMYmodel.lgLike'>
 
 <![%meiNamesDates;[
   <!ENTITY % model.nameLike.agent '%n.corpname;|%n.persname;'>
@@ -4761,17 +4731,13 @@ entity. -->
 <!ENTITY % model.graphicprimitiveLike '_DUMMYmodel.graphicprimitiveLike'>
 <!ENTITY % model.symboltableLike '_DUMMYmodel.symboltableLike'>
 
-<!-- doc: Unless the meiCritApp entity's value is INCLUDE, the app tag and its rdg
-sub-elements are not available. -->
 <![%meiCritApp;[
   <!ENTITY % model.apparatusLike '%n.app;'>
 ]]>
 <!-- doc: When meiCritApp is IGNOREd, use the following declaration. -->
 <!ENTITY % model.apparatusLike '_DUMMYmodel.apparatusLike'>
 
-<!-- doc: Unless the meiMIDI entity's value is INCLUDE, the model.midi
-class of elements is not available. This entity must be declared before
-the model.controlevents entity.-->
+<!-- doc: This entity must be declared before the model.controlevents entity.-->
 <![%meiMIDI;[
 <!ENTITY % model.midiLike '%n.midi;'>
 <!ENTITY % model.midieventLike
@@ -4783,8 +4749,6 @@ the model.controlevents entity.-->
 <!ENTITY % model.midiLike   '_DUMMYmodel.midiLike'>
 
 <!-- Editorial/Transcription elements. -->
-<!-- Unless the meiEditTrans entity's value is INCLUDE, these classes of
-elements are not available. -->
 <![%meiEditTrans;[
   <!ENTITY % model.frontPart  '%n.titlepage;'>
   <!ENTITY % model.transcriptionLike '%n.add;|%n.corr;|%n.damage;|
@@ -4849,21 +4813,22 @@ model.paracontent entity. -->
                      %model.tableLike;|%model.lgLike;'>
 
 <![%meiHeader;[
-<!ENTITY % model.physdescPart
+  <!ENTITY % model.physdescPart
                      '%n.condition;|%n.dimensions;|%n.exhibithist;|
                      %n.extent;|%n.handlist;|%n.inscription;|%n.physmedium;|
                      %n.physloc;|%n.provenance;|%n.repository;|%model.frontPart;|
                      %n.treatmenthist;|%n.treatmentsched;'>
-<!ENTITY % model.profiledescPart
+  <!ENTITY % model.profiledescPart
                      '(%n.creation;)?, (%n.langusage;)?,
                      (%n.classification;)?'>
-<!ENTITY % model.headerPart '(%n.encodingdesc;)?, (%n.profiledesc;)?'>
-<!ENTITY % model.pubstmtPart
+  <!ENTITY % model.headerPart '(%n.encodingdesc;)?, (%n.profiledesc;)?'>
+  <!ENTITY % model.pubstmtPart
                      '(%model.nameLike.geogname;)|(%model.addressLike;)|
                      (%n.respstmt;)|(%model.dateLike;)|(%n.identifier;)|
                      (%n.availability;)'>
- ]]>
- 
+]]>
+<!ENTITY % model.headerPart '_DUMMYmodel.headerPart'>
+
 <!ENTITY % model.controleventLike.mensural
                      '_DUMMYmodel.controleventLike.mensural'>
 
@@ -4891,17 +4856,31 @@ att.events class. -->
 <!-- doc: By default the content model of the clefchange element is empty. -->
 <!ENTITY % model.clefchangePart '(%n.clef;)*'>
 
-<!-- doc: Notated events at the layer level -->
+<!-- doc: Notated events at the layer level (all): -->
 <!ENTITY % model.layerPart   '%model.eventLike;|%model.controleventLike;|
                      %model.midiLike;|%model.editLike;|
                      %model.transcriptionLike;|
                      %model.eventLike.cmn.measureFilling;'>
 
-<!-- doc: Measure content model (all) -->
-<!ENTITY % model.measurePart '((%model.staffLike;|%model.layerLike;|%model.layerPart;|
+<!-- For CMN only:
+<!ENTITY % model.layerPart   '%model.eventLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;'> -->
+                     
+<!-- doc: Measure content model (all): -->
+<!ENTITY % model.measurePart '(%model.staffLike;|%model.layerLike;|%model.layerPart;|
                      %model.apparatusLike;|%model.editLike;|%model.transcriptionLike;|
-                     %model.annotLike;)*|
-                     (%model.eventLike.cmn.measureFilling;)?)'>
+                     %model.annotLike;|%model.eventLike.cmn.measureFilling;)'>
+
+<!-- For CMN only:
+<!ENTITY % model.measurePart '(%model.staffLike;|%model.layerLike;|%model.layerPart;|
+                     %model.apparatusLike;|%model.editLike;|%model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;)'>
+
+<!ENTITY % model.measurePart '((%model.staffLike;|%model.layerLike;)|
+                     (%model.eventLike;|%model.editLike;|%model.transcriptionLike;|
+                     %model.apparatusLike;|%model.editLike;|%model.transcriptionLike;)|
+                     %model.eventLike.cmn.measureFilling;)'> -->
 
 <!-- doc: Multiple clefs -->
 <!ENTITY % model.staffdefPart.multiplyDefinable '%n.clef;|%n.mensur;|%n.proport;'>
@@ -5642,8 +5621,7 @@ Module:  meiShared -->
 
 <!-- Neume and mensural: -->
 <!-- doc: The mensur element is provided for the encoding of mensural
-notation. It is only available when the meiMensural or meiNeumes entity
-has been set to INCLUDE. 
+notation.
 Used by: model.staffdefPart.multiplyDefinable 
 Module:  meiShared -->
 <!ENTITY % mensur 'INCLUDE'>
@@ -5659,8 +5637,7 @@ Module:  meiShared -->
           %att.anl.mensur;>
 ]]>
 
-<!-- doc: Proportion.  This element is only available when meiMensural is
-set to INCLUDE. 
+<!-- doc: Proportion.
 Used by: model.staffdefPart.multiplyDefinable 
 Module:  meiShared -->
 <!ENTITY % proport 'INCLUDE'>
@@ -5796,8 +5773,7 @@ Module:  meiShared -->
 ]]>
 
 <!-- doc: The barline element may be used instead of the measure element.
-It has the same attributes as measure. However, it is only available
-when the meiMensural or meiBarlines entity has been set to INCLUDE. 
+It has the same attributes as measure.
 Used by: model.eventLike.mensural-cmn 
 Module:  meiShared -->
 <!ENTITY % barline 'INCLUDE'>
@@ -5817,8 +5793,7 @@ Module:  meiShared -->
 ]]>
 
 <!-- doc: The dot element is provided for the encoding of mensural
-notation. It is only available when the meiMensural entity has been
-set to INCLUDE.  The dot element may be used for dots of augmentation
+notation. The dot element may be used for dots of augmentation
 or division. 
 Used by: model.eventLike.mensural-cmn 
 Module:  meiShared -->
@@ -5835,8 +5810,7 @@ Module:  meiShared -->
           %att.anl.dot;>
 ]]>
 
-<!-- doc: Key change.  This element is only available when meiMensural
-is set to INCLUDE. 
+<!-- doc: Key change.
 Used by: model.eventLike.mensural-cmn 
 Module:  meiShared -->
 <!ENTITY % keychange 'INCLUDE'>
@@ -5851,6 +5825,24 @@ Module:  meiShared -->
 
 <![%meiText;[
 <!-- Text Components -->
+<!-- doc: Back matter such as indexes, advertisements, etc. 
+Used by: music 
+Module:  meiText -->
+<!ENTITY % back 'INCLUDE'>
+<![%back;[
+<!ENTITY % content.back '
+                    (
+                      (%model.milestoneLike.text;)*,
+                      (%model.divLike;)+,
+                      (%model.milestoneLike.text;)*
+                    )'>
+<!ELEMENT %n.back; %content.back;>
+<!ATTLIST %n.back;
+          %att.common;
+          %att.facsimile;
+          %att.lang;>
+]]>
+
 <!-- doc: Blockquote contains a text phrase or passage attributed to a
 source external to the text. The source for the quote may be included
 in the optional bibl sub-element. 
@@ -5884,6 +5876,26 @@ Module:  meiText -->
           %att.facsimile;
           %att.lang;
           %att.typed;>
+]]>
+
+<!-- doc: Front matter. The pb element is allowed here in order to
+accommodate page images, e.g. cover, endpapers, etc. before and after
+the actual textual matter. 
+Used by: music 
+Module:  meiText -->
+<!ENTITY % front 'INCLUDE'>
+<![%front;[
+<!ENTITY % content.front '
+                     (
+                       (%model.milestoneLike.text;)*,
+                       (%model.divLike;|%model.frontPart;)+,
+                       (%model.milestoneLike.text;)*
+                     )'>
+<!ELEMENT %n.front; %content.front;>
+<!ATTLIST %n.front;
+          %att.common;
+          %att.facsimile;
+          %att.lang;>
 ]]>
 
 <!-- doc: Contains any heading, for example, the title of a text division,
@@ -6234,24 +6246,6 @@ Module:  meiPtrRefs -->
 
 <![%meiStructure;[
 <!-- Default Structure -->
-<!-- doc: Back matter such as indexes, advertisements, etc. 
-Used by: music 
-Module:  meiStructure -->
-<!ENTITY % back 'INCLUDE'>
-<![%back;[
-<!ENTITY % content.back '
-                    (
-                      (%model.milestoneLike.text;)*,
-                      (%model.divLike;)+,
-                      (%model.milestoneLike.text;)*
-                    )'>
-<!ELEMENT %n.back; %content.back;>
-<!ATTLIST %n.back;
-          %att.common;
-          %att.facsimile;
-          %att.lang;>
-]]>
-
 <!-- doc: The body element contains the actual music data. When the
 music can be broken into high-level, discrete, linear segments, such
 as movements in the case of a symphony, there may be multiple mdiv
@@ -6268,25 +6262,6 @@ Module:  meiStructure -->
 <!ATTLIST %n.body;
           %att.common;>
 ]]>
-
-<!-- doc: Textual division. 
-Used by: model.divLike 
-Module:  meiStructure
-<!ENTITY % div 'INCLUDE'>
-<![%div;[
-<!ENTITY % content.div '
-                   (
-                     (%model.milestoneLike.text;)*, (%model.headLike;)?,
-                     (%model.divLike;|%model.textcomponentLike;)+,
-                     (%model.milestoneLike.text;)*
-                   )'>
-<!ELEMENT %n.div; %content.div;>
-<!ATTLIST %n.div;
-          %att.common;
-          %att.facsimile;
-          %att.lang;
-          %att.typed;>
-]]> -->
 
 <!-- doc: Alternative ending. The scoredef element is allowed so that an
 ending may have its own meta-data without the overhead of child
@@ -6310,26 +6285,6 @@ Module:  meiStructure -->
           %att.ges.ending;
           %att.log.ending;
           %att.vis.ending;>
-]]>
-
-<!-- doc: Front matter. The pb element is allowed here in order to
-accommodate page images, e.g. cover, endpapers, etc. before and after
-the actual textual matter. 
-Used by: music 
-Module:  meiStructure -->
-<!ENTITY % front 'INCLUDE'>
-<![%front;[
-<!ENTITY % content.front '
-                     (
-                       (%model.milestoneLike.text;)*,
-                       (%model.divLike;|%model.frontPart;)+,
-                       (%model.milestoneLike.text;)*
-                     )'>
-<!ELEMENT %n.front; %content.front;>
-<!ATTLIST %n.front;
-          %att.common;
-          %att.facsimile;
-          %att.lang;>
 ]]>
 
 <!-- doc: The group element enables the gathering of multiple documents
@@ -6745,8 +6700,7 @@ Module:  meiNeumes -->
 ]]>
 
 <!-- doc: The interrupted neume element is provided for the encoding of neume
-notation.  It is only available when the meiNeumes entity has been set
-to INCLUDE. 
+notation.
 Used by: model.eventLike.neume 
 Module:  meiNeumes -->
 <!ENTITY % ineume 'INCLUDE'>
@@ -7096,7 +7050,8 @@ Used by: model.eventLike.cmn
 Module:  meiCMN -->
 <!ENTITY % tuplet 'INCLUDE'>
 <![%tuplet;[
-<!ENTITY % content.tuplet '(%model.eventLike.common;|%n.tuplet;|%n.beam;)+'>
+<!ENTITY % content.tuplet '(%model.eventLike.common;|%model.eventLike.cmn;|
+                          %n.tuplet;|%n.beam;)+'>
 <!ELEMENT %n.tuplet; %content.tuplet;>
 <!ATTLIST %n.tuplet;
           %att.common;
