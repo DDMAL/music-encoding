@@ -1,0 +1,87 @@
+default namespace = "http://www.edirom.de/ns/mei"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+namespace rng = "http://relaxng.org/ns/structure/1.0"
+namespace teix = "http://www.tei-c.org/ns/Examples"
+namespace xlink = "http://www.w3.org/1999/xlink"
+
+# Schema generated from ODD source 2009-01-12T13:00:52Z. 
+# TEI Edition: 1.2.0. Last updated on October 31st 2008.
+#
+
+#
+mei =
+  
+  ##
+  element mei {
+    meihead,
+    work,
+    
+    ##
+    [ a:defaultValue = "1.8b" ]
+    attribute version {
+      
+      ##
+      "1.8b"
+    },
+    empty
+  }
+meihead =
+  
+  ##
+  element meihead { meiid, filedesc, empty }
+meiid =
+  
+  ##
+  element meiid {
+    empty,
+    
+    ##
+    [ a:defaultValue = "meiid" ] attribute meiform { text }?,
+    empty
+  }
+filedesc =
+  
+  ##
+  element filedesc {
+    titlestmt,
+    pubstmt,
+    
+    ##
+    [ a:defaultValue = "filedesc" ] attribute meiform { text }?,
+    empty
+  }
+titlestmt =
+  
+  ##
+  element titlestmt {
+    title,
+    
+    ##
+    [ a:defaultValue = "titlestmt" ] attribute meiform { text }?,
+    empty
+  }
+title =
+  
+  ##
+  element title {
+    text,
+    
+    ##
+    [ a:defaultValue = "title" ] attribute meiform { text }?,
+    empty
+  }
+pubstmt =
+  
+  ##
+  element pubstmt {
+    text,
+    
+    ##
+    [ a:defaultValue = "pubstmt" ] attribute meiform { text }?,
+    empty
+  }
+work =
+  
+  ##
+  element work { text, empty }
+start = mei
