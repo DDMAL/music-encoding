@@ -1,0 +1,546 @@
+<?xml encoding="UTF-8"?>
+
+<!--
+This file contains definitions of datatypes.  It should be substituted
+for the definitions created by Trang from mei19-all-test.dtd.
+-->
+
+<!--
+A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must fall
+between 0 and the numerator of the time signature + 1, where 0
+represents the left barline and the upper bound represents the right
+barline.  For example, in 12/8 the value must be in the range from 0 to
+13.
+-->
+
+<!ENTITY % data.BEAT "CDATA">
+
+<!--
+EITHER a hexadecimal color value, ie., x[0-9A-Fa-f]{6,6} OR a
+descriptive word, i.e., aqua, black, blue, fuchsia, gray, green, lime,
+maroon, navy, olive, purple, red, silver, teal, white, or yellow, for
+colors defined by the HTML 4.01 specification.
+-->
+
+<!ENTITY % data.COLOR "CDATA">
+
+<!--
+360th-unit measure of a cirle's circumference; optionally signed
+decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)?
+-->
+
+<!ENTITY % data.DEGREES "CDATA">
+
+<!-- unsigned positive integer values including '0', i.e., [0-9]+ -->
+
+<!ENTITY % data.INTEGERNONNEGATIVE "CDATA">
+
+<!--
+unsigned positive integer values excluding '0', i.e., 1 to
+infinity.
+-->
+
+<!ENTITY % data.INTEGERPOSITIVE "CDATA">
+
+<!-- ISO date format: YYYYMMDD -->
+
+<!ENTITY % data.ISODATE "CDATA">
+
+<!--
+ ISO 24-hour time format: HH:MM:SS.ss, i.e.,
+[0-9][0-9]:[0-9][0-9]:[0-9][0-9](\.?[0-9]*)?
+-->
+
+<!ENTITY % data.ISOTIME "NMTOKEN">
+
+<!--
+A duration expressed as a count of measures plus a beat location,
+i.e., [0-9]+m *\+ *[0-9]+(\.?[0-9]*)?, e.g., dur="1m + 3.5" indicates a
+duration of 1 measure plus 3 and one half beats or, in other words, on
+the 2nd half of the 3rd beat of the next measure. The measure number
+must be in the range of 0 to the number of remaining measures and the
+beat number must be in the range from 0 to the numerator of the time
+signature plus 1.  For example, for an event starting in the first
+measure of a piece containing 6 measures in 6/8, the measure number must
+be between 0 to 5 and the beat number must be within the range from 0 to
+7, e.g., "4m+3".
+-->
+
+<!ENTITY % data.MEASUREBEAT "CDATA">
+
+<!--
+MIDI quarter notes per minute: positive integer in the range
+10-1000
+-->
+
+<!ENTITY % data.MIDITEMPO "CDATA">
+
+<!-- optionally signed decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)? -->
+
+<!ENTITY % data.NUMBER "CDATA">
+
+<!--
+unsigned positive decimal values excluding '0', i.e., 1 to
+infinity.
+-->
+
+<!ENTITY % data.NUMBERPOSITIVE "CDATA">
+
+<!-- positive decimal number plus '%', i.e., [0-9]+(\.?[0-9]*)?\% -->
+
+<!ENTITY % data.PERCENT "CDATA">
+
+<!--
+ a ratio, i.e., [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?  For example,
+"40:7.2319"
+-->
+
+<!ENTITY % data.RATIO "CDATA">
+
+<!--
+In string tablature, the number of the string to be played, i.e.,
+[1-9]+.
+-->
+
+<!ENTITY % data.STRINGNUMBER "CDATA">
+
+<!-- Beats (meter signature denominator) per minute, e.g. 120. -->
+
+<!ENTITY % data.TEMPOVALUE "CDATA">
+
+<!--
+A positive or negative offset from the value given in the tstamp
+attribute. The datatype of this attribute must be the same as that of
+the tstamp, tstamp.ges, or tstamp.real attribute.
+-->
+
+<!ENTITY % data.TSTAMPOFFSET "#PCDATA">
+
+<!-- a Uniform Resource Identifier, see [RFC2396] -->
+
+<!ENTITY % data.URI "CDATA">
+
+<!--
+Accidental attribute values: s = sharp, f = flat, ss = dblsharp,
+x=dblsharp, ff = dblflat, n = natural, nf = naturalflat, ns =
+naturalsharp. ss indicates the use of 2 sharp signs, while x indicates
+the use of a single double sharp. nf and ns are used to cancel dbflats
+and dblsharps, respectively. su = sharp note qtr. tone up, sd = sharp
+note qtr. tone down, fu = flat note qtr. tone up, fd = flat note qtr.
+tone down, nu = natural note qtr. tone up, nd = natural note quarter
+tone down. Quarter-tone accidentals listed in Read, p. 145.
+-->
+
+<!ENTITY % data.ACCIDENTAL.EXPLICIT "s|f|ss|x|ff|n|nf|ns|su|sd|fu|fd|nu
+                                     |nd">
+
+<!ENTITY % data.ACCIDENTAL.IMPLICIT "s|f|ss|ff|n">
+
+<!--
+The following list of articulations mostly corresponds to symbols
+1D110-1D111, 1D17B-1D182, 1D185-1D189, 1D1AA-1D1AD, 1D1B3-1D1B5 from
+the Western Musical Symbols portion of the Unicode Standard, v. 3.1.
+The dot and stroke values may be used in cases where interpretation is
+not desirable.
+-->
+
+<!ENTITY % data.ARTICULATION "acc|stacc|ten|stacciss|marc|marc-stacc
+                              |acc-marc|loure|spicc|rip|doit|plop|fall
+                              |bend|flip|smear|dnbow|upbow|harm|snap
+                              |fingernail|damp|dampall|open|stop
+                              |dbltongue|trpltongue|heel|toe|tap|pluck
+                              |dot|stroke">
+
+<!--
+1 or more from the list given in the definition of the
+ARTICULATION entity. Changing this to CDATA, however, would allow the
+use of character entities.
+-->
+
+<!ENTITY % data.ARTICULATIONS "CDATA">
+
+<!--
+Dots attribute values (number of augmentation dots) (Read,
+113-119, ex. 8-21)
+-->
+
+<!ENTITY % data.AUGMENTDOT "CDATA">
+
+<!--
+Placement of barlines: 'mensur' = between staves only, 'staff'
+= between and across staves as necessary, 'takt' = short line
+above staff or through top line
+-->
+
+<!ENTITY % data.BARPLACE "mensur|staff|takt">
+
+<!-- Renderings of barlines -->
+
+<!ENTITY % data.BARRENDITION "dashed|dotted|dbl|dbldashed|dbldotted|end
+                              |invis|rptstart|rptboth|rptend|single">
+
+<!--
+Beam attribute values: initial, medial, terminal. Nested beaming
+is permitted.
+-->
+
+<!ENTITY % data.BEAM "CDATA">
+
+<!-- 1 or more from the list given in the definition of the BEAM entity. -->
+
+<!ENTITY % data.BEAMS "CDATA">
+
+<!-- Boolean attribute values -->
+
+<!ENTITY % data.BOOLEAN "true|false">
+
+<!-- Values for certainty attribute -->
+
+<!ENTITY % data.CERTAINTY "high|medium|low|unknown">
+
+<!-- Clef line attribute values -->
+
+<!ENTITY % data.CLEFLINE "%data.INTEGERPOSITIVE;">
+
+<!--
+  1 or more from the list given in the definition of the CLEFLINE
+  entity.
+<define name="data.CLEFLINES">
+  <list>
+    <oneOrMore>
+      <ref name="data.CLEFLINE"/>
+    </oneOrMore>
+  </list>
+</define>
+-->
+
+<!-- Clef shape attribute values (Read, p.53-56) -->
+
+<!ENTITY % data.CLEFSHAPE "G|GG|F|C|perc|TAB">
+
+<!--
+  1 or more from the list given in the definition of the CLEFSHAPE
+  entity. Changing this to CDATA would allow the use of character
+  entities.
+<define name="data.CLEFSHAPES">
+  <list>
+    <oneOrMore>
+      <ref name="data.CLEFSHAPE"/>
+    </oneOrMore>
+  </list>
+</define>
+-->
+
+<!-- Clef trans attribute values -->
+
+<!ENTITY % data.CLEFTRAN "8va|8vb|15va">
+
+<!-- Tone-clusters -->
+
+<!ENTITY % data.CLUSTER "whbox|blbox">
+
+<!-- Renderings of curves -->
+
+<!ENTITY % data.CURVERENDITION "medium|wide|dashed|dotted">
+
+<!--
+Logical, that is, written, duration attribute values. Whole note
+duration = '1'.
+-->
+
+<!ENTITY % data.DURATION.BASE "long|breve|1|2|4|8|16|32|64|128|256|512
+                               |1024|2048">
+
+<!ENTITY % data.DURATION.MEN "maxima|longa|brevis|semibrevis|minima
+                              |semiminima|fusa|semifusa">
+
+<!ENTITY % data.DURATION "%data.DURATION.BASE;">
+
+<!ENTITY % data.DURATION.MENSURAL "%data.DURATION.MEN;">
+
+<!ENTITY % data.DURATIONS "%data.DURATION.BASE;|%data.DURATION.MEN;">
+
+<!-- Enclosures for editorial notes and accidentals -->
+
+<!ENTITY % data.ENCLOSURE "paren|brack">
+
+<!--
+Font family (for text) attribute values
+Mup-acceptable values: <!ENTITY % FONTFAMILY
+                     '(avantgarde|bookman|courier|helvetica|
+                     newcentury|palatino|times)'>
+-->
+
+<!ENTITY % data.FONTFAMILY "CDATA">
+
+<!--
+Font name (for text) attribute values
+Mup-acceptable values: <!ENTITY % FONTNAME  '(rom|ital|bold|boldital)'>
+-->
+
+<!ENTITY % data.FONTNAME "CDATA">
+
+<!-- Font style (for text) attribute values -->
+
+<!ENTITY % data.FONTSTYLE "ital|normal">
+
+<!-- Font weight (for text) attribute values -->
+
+<!ENTITY % data.FONTWEIGHT "bold">
+
+<!--
+Fragment referencing method.  Setting this entity to '%data.XPATH;' or
+'%data.XPOINTER;' makes it possible to document the use of these methods.
+-->
+
+<!ENTITY % data.XPATH "CDATA">
+
+<!ENTITY % data.XPOINTER "CDATA">
+
+<!ENTITY % data.FRAGMENT "CDATA">
+
+<!--
+In string tablature, the fret number, i.e., [0-9]+. The value '0'
+indicates the open string.
+-->
+
+<!ENTITY % data.FRETNUMBER "CDATA">
+
+<!--
+Analytical glissando attribute values: i(nitial), m(edial),
+t(erminal)
+-->
+
+<!ENTITY % data.GLISSANDO "i|m|t">
+
+<!--
+Do grace notes get time from the current (acc) or previous (unacc)
+one?
+-->
+
+<!ENTITY % data.GRACE "acc|unacc">
+
+<!-- Allowed notehead shapes -->
+
+<!ENTITY % data.HEADSHAPE "quarter|half|whole|dblwhole|filldiamond
+                           |diamond|dwdiamond|fillisotriangle
+                           |isotriangle|dwhisotriangle|fillpiewedge
+                           |piewedge|dwhpiewedge|fillrectangle|rectangle
+                           |dwhrectangle|fillrtriangle|rtriangle
+                           |dwrtriangle|fillurtriangle|urtriangle
+                           |dwurtriangle|fillsemicircle|semicircle
+                           |dwsemicircle|fillslash|slash|dwslash|x|blank
+                           |circlex|cross">
+
+<!-- Interrupted neume, i.e. neumes written as 2 or more sub-neumes -->
+
+<!ENTITY % data.INEUMENAME "pessubpunctis|climacus|scandicus|bistropha
+                            |tristropha|pressusminor|pressusmaior
+                            |pressusliquescens|virgastrata">
+
+<!-- Interrupted neume forms -->
+
+<!ENTITY % data.INEUMEFORM "liquescent1|liquescent2|tied|tiedliquescent1
+                            |tiedliquescent2">
+
+<!ENTITY % data.KEYSIGTOKEN "CDATA">
+
+<!--
+Key signature is normally indicated by a value showing where the
+key is in the circle of fifths. Mixed key signatures, e.g. those
+consisting of a mixture of flats and sharps, and key signatures with
+unorthodox placement of the accidentals (Read, p. 143) must be
+indicated by setting the key.sig attribute to 'mixed' and providing
+explicit keysig info in the key.sig.mixed attribute.
+-->
+
+<!ENTITY % data.KEYSIGNATURE "CDATA">
+
+<!--
+Indicates how stems should be drawn when more than one layer is
+present and stem directions are not indicated on the notes/chords
+themselves. '1' indicates that there is only a single layer on a staff.
+'2o' means there are two layers with opposing stems. '2f' indicates
+two 'free' layers; that is, opposing stems will be drawn unless one of
+the layers has 'space'. In that case, stem direction in the remaining
+layer will be determined as if there were only one layer. '3o' and
+'3f' are analogous to '2o' and '2f' with three layers allowed. What
+about more than 3 layers?
+-->
+
+<!ENTITY % data.LAYERSCHEME "1|2o|2f|3o|3f">
+
+<!-- Ligature forms -->
+
+<!ENTITY % data.LIGATUREFORM "recta|obliqua">
+
+<!-- Renderings of lines -->
+
+<!ENTITY % data.LINERENDITION "narrow|medium|wide|dashed|dotted|wavy">
+
+<!-- Mensuration attribute values -->
+
+<!ENTITY % data.MENSURATIONSIGN "C|O">
+
+<!-- Meter.sym attribute values for common-practice notation -->
+
+<!ENTITY % data.METERSIGN "common|cut">
+
+<!-- MIDI channel numbers -->
+
+<!ENTITY % data.MIDICHANNEL "CDATA">
+
+<!-- MIDI values are in the following range -->
+
+<!ENTITY % data.MIDIVALUE "CDATA">
+
+<!-- Modes -->
+
+<!ENTITY % data.MODE "major|minor|dorian|phrygian|lydian|mixolydian
+                      |aeolian|locrian">
+
+<!-- Music font family -->
+
+<!ENTITY % data.MUSICFONT "CDATA">
+
+<!--
+Oct attribute values. The default values conform to Acoustical
+Society of America representation. Read, p. 44. The entity name is
+plural so as not to conflict with the %octave entity used in the
+definition of the octave element.
+-->
+
+<!ENTITY % data.OCTAVE "CDATA">
+
+<!--
+Page scale factor datatype.  Setting this to %data.RATIO; allows
+page.scale attributes to contain a virtual units to real units conversion
+ratio.
+-->
+
+<!ENTITY % data.PGSCALE "CDATA">
+
+<!-- Values for unit attribute -->
+
+<!ENTITY % data.PGUNITS "in|cm|mm">
+
+<!-- Pclass (pitch class) attribute values -->
+
+<!ENTITY % data.PITCHCLASS "CDATA">
+
+<!--
+The pitch names (gamut) used within a single octave. The default
+values conform to Acoustical Society of America representation.
+-->
+
+<!ENTITY % data.PITCHNAME "CDATA">
+
+<!--
+Gestural pitch names need an additional value for when the notated
+pitch is not to be played.
+-->
+
+<!ENTITY % data.PITCHNAME.GES "CDATA">
+
+<!-- Pnum (pitch number, e.g. MIDI) attribute values -->
+
+<!ENTITY % data.PITCHNUMBER "%data.INTEGERNONNEGATIVE;">
+
+<!--
+Participant list referencing method.  Setting this entity to '%data.XPATH;'
+or '%data.XPOINTER;' makes it possible to document the use of these methods.
+-->
+
+<!ENTITY % data.PLIST "IDREFS">
+
+<!-- Place, i.e., relative location of musical material -->
+
+<!ENTITY % data.PLACE "above|below">
+
+<!-- Size attribute values -->
+
+<!ENTITY % data.SIZE "normal|cue">
+
+<!--
+i=initial, t=terminal. Number is used to match endpoints of the
+slur when slurs are nested or overlap, e.g. 
+<note slur='i1 i2'/><note slur='t1'/><note slur='t2'/> encodes the
+fact that two slurs begin on note 1, one which terminates on note 2
+and one which terminates on note 3. % SLUR isn't currently invoked in
+the DTD; it serves as documentation for the tokens that can be used
+where % SLURS is invoked.
+-->
+
+<!ENTITY % data.SLUR "CDATA">
+
+<!--
+1 or more from the list given in the definition of the SLUR
+entity.
+-->
+
+<!ENTITY % data.SLURS "CDATA">
+
+<!-- Slur direction -->
+
+<!ENTITY % data.SLURDIRECTION "up|down">
+
+<!--
+Staff location. Staff location includes staff lines, spaces, and
+the spaces directly above and below the staff. The value ranges between
+0 (just below the staff) to 2 * number of staff lines (directly above
+the staff).  For example, on a 5-line staff the lines would be numbered
+1,3,5,7, and 9 while the spaces would be numbered 0,2,4,6,8,10.
+-->
+
+<!ENTITY % data.STAFFLOC "%data.INTEGERNONNEGATIVE;">
+
+<!-- Stem direction -->
+
+<!ENTITY % data.STEMDIRECTION "up|down">
+
+<!-- Stem modification -->
+
+<!ENTITY % data.STEMMODIFIER "1slash|2slash|3slash|4slash|5slash|6slash
+                              |sprech|z">
+
+<!-- Which side of stem? -->
+
+<!ENTITY % data.STEMPOSITION "left|right|center">
+
+<!-- Temperament -->
+
+<!ENTITY % data.TEMPERAMENT "equal|just|mean">
+
+<!-- Text renditions -->
+
+<!ENTITY % data.TEXTRENDITION "box|circle|dblunderline|none|quoted
+                               |smcaps|strike|sub|sup|underline">
+
+<!-- Tie attribute values: initial, medial, terminal -->
+
+<!ENTITY % data.TIE "CDATA">
+
+<!-- Tie direction -->
+
+<!ENTITY % data.TIEDIRECTION "up|down">
+
+<!-- Tuplet attribute values: initial, medial, terminal -->
+
+<!ENTITY % data.TUPLET "CDATA">
+
+<!-- Basic, i.e., single, uninterrupted, neume names -->
+
+<!ENTITY % data.UNEUMENAME "punctum|virga|pes|clivis|torculus
+                            |torculusresupinus|porrectus|porrectusflexus
+                            |apostropha|oriscus">
+
+<!ENTITY % data.UNEUMEFORM "liquescent1|liquescent2|liquescent3
+                            |quilismatic|rectangular|rhombic|tied">
+
+<!--
+Visual, i.e. ho and vo, offsets are expressed in terms of staff
+interline distance; that is, in "stepsizes", which are half the
+distance between staff lines.
+-->
+
+<!ENTITY % data.VISUALOFFSET "%data.NUMBER;">

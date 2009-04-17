@@ -57,7 +57,21 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
 
   <!-- ISO date format: YYYYMMDD -->
   <define name="data.ISODATE">
-    <data type="date"/>
+    <choice>
+      <!-- W3C -->
+      <data type="date"/>
+      <data type="gYear"/>
+      <data type="gMonth"/>
+      <data type="gDay"/>
+      <data type="gYearMonth"/>
+      <data type="gMonthDay"/>
+      <data type="time"/>
+      <data type="dateTime"/>
+      <!-- any ISO 8601 format (and a lot more) -->
+      <data type="token">
+        <param name="pattern">[0-9.,DHMPRSTWYZ/:+\-]+</param>
+      </data>
+    </choice>
   </define>
 
   <!--
