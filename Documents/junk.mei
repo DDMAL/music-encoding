@@ -1,28 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mei SYSTEM "../DTD/junk.dtd">
-<!-- <?oxygen RNGSchema="../RelaxSchema/mei19-all-test-modularized.rng" type="xml"?> -->
+<!DOCTYPE mei SYSTEM "../DTD/mei19b.dtd" [
+  <!-- <!ENTITY % meiMensural 'IGNORE'>
+  <!ENTITY % meiCMN 'IGNORE'> -->
+]>
 <mei version="1.9b">
-    <meihead>
-        <filedesc>
-            <titlestmt>
-                <title>The shortest mei document</title>
-            </titlestmt>
-            <pubstmt>
-                <respstmt>
-                    <name>RV</name>
-                </respstmt>
-            </pubstmt>
-        </filedesc>
-    </meihead>
-    <music>
-        <body>
-            <mdiv>
-                <score>
-                    <staff>
-                        <dir staff="1"></dir>
-                    </staff>
-                </score>
-            </mdiv>
-        </body>
-    </music>
+  <meihead>
+    <filedesc>
+      <titlestmt>
+        <title>The shortest mei document</title>
+      </titlestmt>
+      <pubstmt>
+        <respstmt>
+          <name>RV</name>
+        </respstmt>
+      </pubstmt>
+    </filedesc>
+  </meihead>
+  <music>
+    <body>
+      <mdiv>
+        <score>
+          <app>
+            <rdg>
+              <staff>
+                <layer>
+                  <annot/>
+                  <ineume/>
+                </layer>
+                <annot/>
+                <dir staff=""/>
+                <artic value="dot"/>
+                <ineume>
+                  <artic value="acc"/>
+                </ineume>
+              </staff>
+            </rdg>
+          </app>
+        </score>
+      </mdiv>
+    </body>
+  </music>
 </mei>

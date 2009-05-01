@@ -1,9 +1,92 @@
+<!-- ************************************************************** -->
+<!--
+NAME:     Music Encoding Initiative (MEI) DTD
+          File      = mei19b.dtd (version 1.9b) **DRAFT**
+                      **DO NOT REDISTRIBUTE**
+          Vers Date = 2009/05/01
+
+NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
+          of the University of Virginia.
+
+          Licensed under the Educational Community License version 1.0.
+
+          This Original Work, including software, source code,
+          documents, or other related items, is being provided by the
+          copyright holder(s) subject to the terms of the Educational
+          Community License. By obtaining, using and/or copying this
+          Original Work, you agree that you have read, understand, and
+          will comply with the following terms and conditions of the
+          Educational Community License:
+
+          Permission to use, copy, modify, merge, publish, distribute,
+          and sublicense this Original Work and its documentation, with
+          or without modification, for any purpose, and without fee or
+          royalty to the copyright holder(s) is hereby granted, provided
+          that you include the following on ALL copies of the Original
+          Work or portions thereof, including modifications or
+          derivatives, that you make:
+
+          The full text of the Educational Community License in a
+          location viewable to users of the redistributed or derivative
+          work. 
+
+          Any pre-existing intellectual property disclaimers, notices,
+          or terms and conditions. 
+
+          Notice of any changes or modifications to the Original Work,
+          including the date the changes were made. 
+
+          Any modifications of the Original Work must be distributed in
+          such a manner as to avoid any confusion with the Original Work
+          of the copyright holders.
+
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+          KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+          WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+          PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+          COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+          LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+          OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+          SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+          The name and trademarks of copyright holder(s) may NOT be used
+          in advertising or publicity pertaining to the Original or
+          Derivative Works without specific, written prior permission.
+          Title to copyright in the Original Work and any associated
+          documentation will at all times remain with the copyright
+          holders.
+
+PURPOSE:  This XML DTD is intended for the representation and exchange
+          of mensural, neume, and common music notation (CMN).
+          
+          The semantic information contained in the MEI file may be
+          related to, and/or synchronized with, external digital image,
+          audio, or MIDI files.
+
+          In addition to music notation, this DTD provides the means to
+          transcribe the additional text typically found in a critical
+          or historical music edition. The DTD also facilitates the
+          encoding of multiple versions of a musical work in a single
+          file.        
+          
+AUTHOR:   Perry Roland
+          pdr4h@virginia.edu
+          University of Virginia
+          Charlottesville, VA 22903
+
+NOTE:     This is a beta version XML DTD. Comments and suggestions
+          are welcome.
+                                                                    -->
+<!-- ************************************************************** -->
+
 
 <!-- ************************************************************** -->
 <!-- * Default parameter entity values                            * -->
 <!-- ************************************************************** -->
 
 <!-- Module inclusion -->
+<!-- The meiShared, meiHeader, and meiStructure modules should always
+be included -->
 <!ENTITY % meiShared        'INCLUDE'>
 <!ENTITY % meiHeader        'INCLUDE'>
 <!ENTITY % meiStructure     'INCLUDE'>
@@ -2841,7 +2924,7 @@ of slashes required - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4,
 128ths=5. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.ftrem
-                     'rend              (4|8|16|32|64|128)    #REQUIRED'>
+                     'slash             (1|2|3|4|5|6)         #REQUIRED'>
 ]]>
 <!ENTITY % att.vis.ftrem ''>
 
@@ -4384,7 +4467,8 @@ duration. -->
                      %att.startendid;
                      dots               %data.AUGMENTDOT;      #IMPLIED
                      dur                %data.DURATION;        #IMPLIED
-                     num                %data.RATIO;           #IMPLIED
+                     num                %data.INTEGERNONNEGATIVE;
+                                                               #IMPLIED
                      numbase            %data.DURATION;        #IMPLIED
                      with               %data.PLACE;           #IMPLIED'>
 
@@ -4550,6 +4634,7 @@ here in order to disallow ho. -->
   <!ENTITY % model.lbLike '%n.lb;'>
   <!ENTITY % model.milestoneLike.text '%n.lb;|%n.pb;'>
   <!ENTITY % model.nameLike '%n.name;'>
+  <!ENTITY % model.noteModifierLike  '%n.accid;|%n.artic;|%n.dot;'>
   <!ENTITY % model.numLike '%n.num;'>
   <!ENTITY % model.pLike '%n.p;'>
   <!ENTITY % model.pbLike '%n.pb;'>
@@ -4566,7 +4651,8 @@ here in order to disallow ho. -->
                      '%n.ligature;|%n.mensurchange;|%n.proportchange;'>
   <!ENTITY % model.eventLike.neume-cmn '_DUMMYmodel.eventLike.neume-cmn'>
   <!ENTITY % model.eventLike.mensural-cmn
-                     '%n.accid;|%n.barline;|%n.dot;|%n.keychange;'>
+                     '%n.barline;|%n.keychange;'>
+                     <!-- '%n.accid;|%n.barline;|%n.dot;|%n.keychange;' -->
   <!ENTITY % model.controleventLike.common
                      '%n.dir;|%n.dynam;|%n.phrase;|%n.tempo;'>
   <!ENTITY % model.controleventLike.neume-mensural
@@ -4781,7 +4867,20 @@ entities. -->
 <!ENTITY % model.lyricsLike '_DUMMYmodel.lyricsLike'>
 <!ENTITY % model.sylLike '_DUMMYmodel.sylLike'>
 <!ENTITY % model.verseLike '_DUMMYmodel.verseLike'>
-  
+
+<!-- This entity must be declared before the model.controleventLike.cmn
+entity. -->
+<![%meiCMNOrnaments;[
+  <!-- Include desired elements -->
+  <!ENTITY % mordent 'INCLUDE'>
+  <!ENTITY % trill 'INCLUDE'>
+  <!ENTITY % turn 'INCLUDE'>
+
+  <!-- Create appropriate classes -->
+  <!ENTITY % model.ornamentLike.cmn '%n.mordent;|%n.trill;|%n.turn;'>
+]]>
+<!ENTITY % model.ornamentLike.cmn '_DUMMYmodel.ornamentLike.cmn'>
+
 <![%meiNeumes;[
   <!-- Include desired elements -->
   <!ENTITY % syllable 'INCLUDE'>
@@ -4803,24 +4902,16 @@ entities. -->
   <!ENTITY % pausa 'INCLUDE'>
 
   <!-- Create appropriate classes -->
-  <!ENTITY % model.notaModifierLike  '%n.accid;|%n.artic;|%model.sylLike;|%model.verseLike;'>
+  <!-- <!ENTITY % model.notaModifierLike  '%n.accid;|%n.artic;|%n.dot;'> -->
+                                     <!-- |%model.sylLike;|%model.verseLike;'> -->
   <!ENTITY % model.eventLike.mensural '%n.nota;|%n.pausa;'>
+  <!ENTITY % model.controleventLike.mensural
+                     '_DUMMYmodel.controleventLike.mensural'>
 ]]>
-<!ENTITY % model.notaModifierLike  '_DUMMYmodel.notaModifierLike'>
+<!-- <!ENTITY % model.notaModifierLike  '_DUMMYmodel.notaModifierLike'> -->
 <!ENTITY % model.eventLike.mensural '_DUMMYmodel.eventLike.mensural'>
-
-<!-- This entity must be declared before the model.controleventLike.cmn
-entity. -->
-<![%meiCMNOrnaments;[
-  <!-- Include desired elements -->
-  <!ENTITY % mordent 'INCLUDE'>
-  <!ENTITY % trill 'INCLUDE'>
-  <!ENTITY % turn 'INCLUDE'>
-
-  <!-- Create appropriate classes -->
-  <!ENTITY % model.ornamentLike.cmn '%n.mordent;|%n.trill;|%n.turn;'>
-]]>
-<!ENTITY % model.ornamentLike.cmn '_DUMMYmodel.ornamentLike.cmn'>
+<!ENTITY % model.controleventLike.mensural
+                     '_DUMMYmodel.controleventLike.mensural'>
 
 <![%meiCMN;[
   <!-- Include desired elements -->
@@ -4858,12 +4949,11 @@ entity. -->
 
   <!-- Create appropriate classes -->
   <!ENTITY % model.measureLike '%n.measure;'>
-  <!ENTITY % model.noteModifierLike  '%n.accid;|%n.artic;|%model.verseLike;|%model.sylLike;'>
   <!ENTITY % model.ossiaLike '%n.ossia;'>
   <!ENTITY % model.controleventLike.instruments '%n.harppedal;|%n.pedal;'>
   <!ENTITY % model.controleventLike.cmn
                      '%n.arpeg;|%n.beamspan;|%n.breath;|%n.fermata;|%n.hairpin;|
-                     %model.lyricsLike;|%n.octave;|%model.ornamentLike.cmn;|%n.reh;|
+                     %n.octave;|%model.ornamentLike.cmn;|%n.reh;|
                      %n.slur;|%model.controleventLike.instruments;|%n.tie;|
                      %n.tupletspan;'>
   <!ENTITY % model.eventLike.cmn
@@ -4873,7 +4963,6 @@ entity. -->
                      %n.mrpt2;|%n.mspace;|%n.multirest;|%n.multirpt;'>
 ]]>
 <!ENTITY % model.measureLike '_DUMMYmodel.measureLike'>
-<!ENTITY % model.noteModifierLike  '_DUMMYmodel.NoteModifierLike'>
 <!ENTITY % model.ossiaLike '_DUMMYmodel.ossiaLike'>
 <!ENTITY % model.controleventLike.instruments '_DUMMYmodel.controleventLike.instruments'>
 <!ENTITY % model.controleventLike.cmn '_DUMMYmodel.controleventLike.cmn'>
@@ -4985,7 +5074,6 @@ entity. -->
 <!ENTITY % model.editLike '_DUMMYmodel.editLike'>
 <!ENTITY % model.choicePart '_DUMMYmodel.choicePart'>
 
-<!-- doc: -->
 <![%meiFacsimile;[
   <!-- Include desired elements -->
   <!ENTITY % facsimile 'INCLUDE'>
@@ -4995,7 +5083,7 @@ entity. -->
   <!-- Create appropriate classes -->
   <!ENTITY % model.facsimileLike  '%n.facsimile;'>
 ]]>
-<!ENTITY % model.facsimileLike '_Dummymodel.facsimile'>
+<!ENTITY % model.facsimileLike '_DUMMYmodel.facsimile'>
 
 <![%meiLinkAlign;[
   <!-- Include desired elements -->
@@ -5005,7 +5093,7 @@ entity. -->
   <!-- Create appropriate classes -->
   <!ENTITY % model.alignLike '%n.timeline;'>
 ]]>
-<!ENTITY % model.alignLike '_Dummymodel.alignLike'>
+<!ENTITY % model.alignLike '_DUMMYmodel.alignLike'>
 
 <![%meiHeader;[
   <!-- Include desired elements -->
@@ -5120,32 +5208,185 @@ model.paracontent entity. -->
                      '%model.quoteLike;|%model.listLike;|%model.pLike;|
                      %model.tableLike;|%model.lgLike;'>
 
-<![%meiHeader;[
-  <!ENTITY % model.physdescPart
-                     '%n.condition;|%n.dimensions;|%n.exhibithist;|
-                     %n.extent;|%n.handlist;|%n.inscription;|%n.physmedium;|
-                     %n.physloc;|%n.provenance;|%n.repository;|%model.frontPart;|
-                     %n.treatmenthist;|%n.treatmentsched;'>
-  <!ENTITY % model.profiledescPart
-                     '(%n.creation;)?, (%n.langusage;)?,
-                     (%n.classification;)?'>
-  <!ENTITY % model.headerPart '(%n.encodingdesc;)?, (%n.profiledesc;)?'>
-  <!ENTITY % model.pubstmtPart
-                     '(%model.nameLike.geogname;)|(%model.addressLike;)|
-                     (%n.respstmt;)|(%model.dateLike;)|(%n.identifier;)|
-                     (%n.availability;)'>
+
+<!-- If a single notational style is INCLUDED, some high-level content models are
+more restrictive. -->
+<![%meiCMN;[
+  <![%meiNeumes;[
+    <!ENTITY % cmnOnly 'IGNORE'>
+  ]]>
+  <![%meiMensural;[
+    <!ENTITY % cmnOnly 'IGNORE'>
+  ]]>
+  <!ENTITY % cmnOnly 'INCLUDE'>
+  <![%cmnOnly;[
+    <!ENTITY % content.clefchange 'EMPTY'>
+    <!ENTITY % model.staffdefPart.multiplyDefinable '_DUMMYmodel.staffdefpart.multiplyDefinable'>
+    <!ENTITY % model.controleventLike '%model.controleventLike.common;|%model.controleventLike.neume-cmn;|
+                                      %model.controleventLike.mensural-cmn;|%model.controleventLike.cmn;|
+                                      %model.harmLike;'>
+    <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume-cmn;|
+                               %model.eventLike.cmn;'>
+    <!ENTITY % model.layerPart '%model.eventLike;|%model.editLike;|
+                     %model.transcriptionLike;|%model.eventLike.cmn.measureFilling;'>
+    <!ENTITY % model.measurePart '(%model.staffLike;|%model.apparatusLike;|%model.editLike;|
+                     %model.transcriptionLike;)'>
+    <!ENTITY % model.staffPart
+                     '(%model.layerLike;|%model.annotLike;|%model.apparatusLike;|%model.layerPart;)*'>
+    <!ENTITY % model.rdgPart
+                     '( %model.scoredefLike;
+                       |%model.staffgrpLike;
+                       |%model.staffdefLike;
+                       |(%model.sectionLike;, (%model.endingLike;)*)
+                       |%model.divLike;
+                       |((%model.measureLike;)*, (%model.milestoneLike.music;)?)*
+                       |(%model.layerLike;|%model.eventLike;|%model.sylLike;)*
+                       |((%model.staffLike;|%model.editLike;|%model.transcriptionLike;)*,
+                          (%model.controleventLike;|%model.lyricsLike;|
+                          %model.midiLike;|%model.annotLike;)*,
+                          (%model.graphicprimitiveLike;)*)
+                       |%model.apparatusLike;
+                     )'>
+    <!ENTITY % model.scorePart
+                     '(%model.staffLike;|%model.measureLike;|%model.milestoneLike.music;)*'>
+    <!ENTITY % model.scorecomponentLike
+                     '(
+                       %model.scoredefLike;
+                       |%model.staffgrpLike;
+                       |%model.staffdefLike;
+                       |(%model.sectionLike;, (%model.endingLike;)*)
+                       |%model.divLike;
+                       |%model.scorePart;
+                       |%model.apparatusLike;
+                      )'>
+  ]]>
 ]]>
-<!ENTITY % model.headerPart '_DUMMYmodel.headerPart'>
 
-<!ENTITY % model.controleventLike.mensural
-                     '_DUMMYmodel.controleventLike.mensural'>
+<![%meiMensural;[
+  <![%meiNeumes;[
+    <!ENTITY % mensuralOnly 'IGNORE'>
+  ]]>
+  <![%meiCMN;[
+    <!ENTITY % mensuralOnly 'IGNORE'>
+  ]]>
+  <!ENTITY % mensuralOnly 'INCLUDE'>
+  <![%mensuralOnly;[
+    <!ENTITY % model.clefchangePart '(%n.clef;)*'>
+    <!ENTITY % model.staffdefPart.multiplyDefinable '%n.clef;|%n.mensur;|%n.proport;'>
+    <!ENTITY % model.controleventLike
+                     '%model.controleventLike.common;|%model.controleventLike.neume-mensural;
+                     |%model.controleventLike.mensural;|%model.controleventLike.mensural-cmn;
+                     |%model.harmLike;'>
+    <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume-mensural;|
+                     %model.eventLike.mensural;|%model.eventLike.mensural-cmn;|
+                     %model.sylLike;|%model.verseLike;'>
+    <!ENTITY % model.layerPart '%model.eventLike;|%model.midiLike;|%model.controleventLike;|
+                     %model.editLike;|%model.transcriptionLike;|%model.lyricsLike;|
+                     %model.noteModifierLike;|%model.verseLike;|%model.sylLike;'>
+    <!ENTITY % model.measurePart '_DUMMYmodel.measurePart'>
+    <!ENTITY % model.staffPart
+                     '(%model.layerLike;|%model.annotLike;|%model.apparatusLike;|
+                     %model.layerPart;|%model.milestoneLike.music;)*'>
+    <!ENTITY % model.rdgPart
+                     '( %model.scoredefLike;
+                       |%model.staffgrpLike;
+                       |%model.staffdefLike;
+                       |(%model.sectionLike;, (%model.endingLike;)*)
+                       |%model.divLike;
+                       |(%model.milestoneLike.music;)*
+                       |(%model.layerLike;|%model.eventLike;|%model.sylLike;)*
+                       |((%model.staffLike;|%model.editLike;|%model.transcriptionLike;)*,
+                          (%model.controleventLike;|%model.lyricsLike;|
+                          %model.midiLike;|%model.annotLike;)*,
+                          (%model.graphicprimitiveLike;)*)
+                       |%model.apparatusLike;
+                     )'>
+    <!ENTITY % model.scorePart
+                     '((%model.staffLike;)*|%model.milestoneLike.music;)*'>
+    <!ENTITY % model.scorecomponentLike
+                     '(
+                       %model.scoredefLike;
+                       |%model.staffgrpLike;
+                       |%model.staffdefLike;
+                       |(%model.sectionLike;, (%model.endingLike;)*)
+                       |%model.divLike;
+                       |%model.scorePart;
+                       |%model.apparatusLike;
+                      )'>
+  ]]>
+]]>
 
-<!-- doc: Control events modify or otherwise depend on the existence of
-notated events. -->
+<![%meiNeumes;[
+  <![%meiMensural;[
+    <!ENTITY % neumesOnly 'IGNORE'>
+  ]]>
+  <![%meiCMN;[
+    <!ENTITY % neumesOnly 'IGNORE'>
+  ]]>
+  <!ENTITY % neumesOnly 'INCLUDE'>
+  <![%neumesOnly;[
+    <!ENTITY % model.clefchangePart '(%n.clef;)*'>
+    <!ENTITY % model.staffdefPart.multiplyDefinable '%n.clef;|%n.mensur;|%n.proport;'>
+    <!ENTITY % model.controleventLike
+                     '%model.controleventLike.common;
+                     |%model.controleventLike.neume;
+                     |%model.controleventLike.neume-mensural;
+                     |%model.controleventLike.neume-cmn;
+                     |%model.harmLike;'>
+    <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume;|
+                     %model.eventLike.neume-mensural;|
+                     %model.eventLike.neume-cmn;'>
+    <!ENTITY % model.layerPart   '%model.eventLike;|%model.midiLike;|
+                     %model.editLike;|%model.transcriptionLike;|
+                     %model.noteModifierLike;|%model.verseLike;|%model.sylLike;'>
+    <!ENTITY % model.measurePart '_DUMMYmodel.measurePart'>
+    <!ENTITY % model.staffPart
+                     '(%model.layerLike;|%model.milestoneLike.music;|%model.layerPart;|
+                     %model.annotLike;|%model.graphicprimitiveLike;|%model.apparatusLike;|
+                     %model.controleventLike;)*'>
+    <!ENTITY % model.rdgPart
+                     '( %model.scoredefLike;
+                       |%model.staffgrpLike;
+                       |%model.staffdefLike;
+                       |(%model.sectionLike;, (%model.endingLike;)*)
+                       |%model.divLike;
+                       |(%model.milestoneLike.music;)*
+                       |(%model.layerLike;|%model.eventLike;|%model.sylLike;)*
+                       |((%model.staffLike;|%model.editLike;|%model.transcriptionLike;)*,
+                          (%model.controleventLike;|%model.lyricsLike;|
+                          %model.midiLike;|%model.annotLike;)*,
+                          (%model.graphicprimitiveLike;)*)
+                       |%model.apparatusLike;
+                     )'>
+    <!ENTITY % model.scorePart
+                     '(%model.measureLike;|(%model.staffLike;)*|%model.milestoneLike.music;)*'>
+    <!ENTITY % model.scorecomponentLike
+                     '(
+                       %model.scoredefLike;
+                       |%model.staffgrpLike;
+                       |%model.staffdefLike;
+                       |(%model.sectionLike;, (%model.endingLike;)*)
+                       |%model.divLike;
+                       |%model.scorePart;
+                       |%model.apparatusLike;
+                      )'>
+  ]]>
+]]>
+
+<!-- The following declarations are used when two or more notation styles are INCLUDED. -->
+<!-- doc: -->
+<!ENTITY % model.clefchangePart '(%n.clef;)*'>
+
+<!-- doc: Multiple clefs -->
+<!ENTITY % model.staffdefPart.multiplyDefinable '%n.clef;|%n.mensur;|%n.proport;'>
+
+<!-- If more than one notational style is INCLUDED, a mix of notational styles is allowed. --> 
+<!-- doc: Control events modify or otherwise depend on the existence of notated events. -->
 <!ENTITY % model.controleventLike
                      '%model.controleventLike.common;
                      |%model.controleventLike.neume;
                      |%model.controleventLike.neume-mensural;
+                     |%model.controleventLike.neume-cmn;
                      |%model.controleventLike.mensural;
                      |%model.controleventLike.mensural-cmn;
                      |%model.controleventLike.cmn;
@@ -5159,39 +5400,31 @@ att.events class. -->
 <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume;|
                      %model.eventLike.neume-mensural;|
                      %model.eventLike.neume-cmn;|%model.eventLike.mensural;|
+                     %model.eventLike.mensural-cmn;|
                      %model.eventLike.cmn;'>
 
-<!-- doc: By default the content model of the clefchange element is empty. -->
-<!ENTITY % model.clefchangePart '(%n.clef;)*'>
-
-<!-- doc: Notated events at the layer level (all): -->
-<!ENTITY % model.layerPart   '%model.eventLike;|%model.controleventLike;|
-                     %model.midiLike;|%model.editLike;|
-                     %model.transcriptionLike;|
+<!-- doc: Notated events at the layer level -->
+<!ENTITY % model.layerPart '%model.eventLike;|%model.midiLike;|%model.controleventLike;|
+                     %model.editLike;|%model.transcriptionLike;|%model.lyricsLike;|
+                     %model.noteModifierLike;|%model.verseLike;|%model.sylLike;|
                      %model.eventLike.cmn.measureFilling;'>
-
-<!-- For CMN only:
-<!ENTITY % model.layerPart   '%model.eventLike;|%model.editLike;|
-                     %model.transcriptionLike;|
-                     %model.eventLike.cmn.measureFilling;'> -->
                      
-<!-- doc: Measure content model (all): -->
-<!ENTITY % model.measurePart '(%model.staffLike;|%model.layerLike;|%model.layerPart;|
-                     %model.apparatusLike;|%model.editLike;|%model.transcriptionLike;|
-                     %model.annotLike;|%model.eventLike.cmn.measureFilling;)'>
+<!-- <!ENTITY % model.layerPart   '%model.eventLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|%model.noteModifierLike;|
+                     %model.verseLike;|%model.sylLike;|
+                     %model.eventLike.cmn.measureFilling;'> -->
 
-<!-- For CMN only:
-<!ENTITY % model.measurePart '(%model.staffLike;|%model.layerLike;|%model.layerPart;|
-                     %model.apparatusLike;|%model.editLike;|%model.transcriptionLike;|
-                     %model.eventLike.cmn.measureFilling;)'>
+<!-- doc: Measure content model -->
+<!ENTITY % model.measurePart '(%model.staffLike;|%model.layerLike;|
+                     %model.apparatusLike;|%model.editLike;|
+                     %model.transcriptionLike;|%model.eventLike.cmn.measureFilling;)'>
 
-<!ENTITY % model.measurePart '((%model.staffLike;|%model.layerLike;)|
-                     (%model.eventLike;|%model.editLike;|%model.transcriptionLike;|
-                     %model.apparatusLike;|%model.editLike;|%model.transcriptionLike;)|
-                     %model.eventLike.cmn.measureFilling;)'> -->
-
-<!-- doc: Multiple clefs -->
-<!ENTITY % model.staffdefPart.multiplyDefinable '%n.clef;|%n.mensur;|%n.proport;'>
+<!-- doc: Staff content model -->
+<!ENTITY % model.staffPart
+                     '(%model.measureLike;|
+                     %model.layerLike;|%model.milestoneLike.music;|%model.layerPart;|
+                     %model.annotLike;|%model.graphicprimitiveLike;|
+                     %model.lyricsLike;|%model.apparatusLike;|%model.controleventLike;)*'>
 
 <!-- doc: Reading content model -->
 <!ENTITY % model.rdgPart
@@ -5203,16 +5436,17 @@ att.events class. -->
                        |((%model.measureLike;)*, (%model.milestoneLike.music;)?)*
                        |(%model.layerLike;|%model.eventLike;|%model.sylLike;)*
                        |((%model.staffLike;|%model.editLike;|%model.transcriptionLike;)*,
-                          (%model.ossiaLike;)*, (%model.controleventLike;|
+                          (%model.ossiaLike;)*, (%model.controleventLike;|%model.lyricsLike;|
                           %model.midiLike;|%model.annotLike;)*,
                           (%model.graphicprimitiveLike;)*)
                        |%model.apparatusLike;
                      )'>
 
-<!-- doc: Score content model (all) -->
+<!-- doc: Score content model -->
 <!ENTITY % model.scorePart
                      '(%model.measureLike;|(%model.staffLike;)*|%model.milestoneLike.music;)*'>
 
+<!-- doc: Score components -->
 <!ENTITY % model.scorecomponentLike
                      '(
                        %model.scoredefLike;
@@ -5223,13 +5457,6 @@ att.events class. -->
                        |%model.scorePart;
                        |%model.apparatusLike;
                       )'>
-
-<!-- doc: Staff content model (all) -->
-<!ENTITY % model.staffPart
-                     '(%model.layerLike;|%model.milestoneLike.music;|%model.layerPart;|
-                     %model.controleventLike;|%model.midiLike;|
-                     %model.measureLike;|%model.annotLike;|
-                     %model.graphicprimitiveLike;|%model.apparatusLike;)*'>
 
 <!-- ************************************************************** -->
 <!-- * Element Declarations (By Module)                           * -->
@@ -5269,7 +5496,7 @@ editor or transcriber responsible for supplying the expansion of the
 abbreviation.
 Used by: model.editorialLike
 Module:  meiShared -->
-<!ENTITY % abbr 'INCLUDE'>
+<!ENTITY % abbr 'IGNORE'>
 <![%abbr;[
 <!ENTITY % content.abbr '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                    %model.transcriptionLike;)*'>
@@ -5287,7 +5514,7 @@ Module:  meiShared -->
 <!-- doc: A postal address 
 Used by: model.addressLike 
 Module:  meiShared -->
-<!ENTITY % address 'INCLUDE'>
+<!ENTITY % address 'IGNORE'>
 <![%address;[
 <!ENTITY % content.address '(%n.addressline;)+'>
 <!ELEMENT %n.address; %content.address;>
@@ -5300,7 +5527,7 @@ Module:  meiShared -->
 <!-- doc: Single line of an address 
 Used by: address 
 Module:  meiShared -->
-<!ENTITY % addressline 'INCLUDE'>
+<!ENTITY % addressline 'IGNORE'>
 <![%addressline;[
 <!ENTITY % content.addressline '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                           %model.transcriptionLike;)*'>
@@ -5318,7 +5545,7 @@ of the referenced element. Otherwise, they are assumed to be absolute
 page coordinate references. 
 Used by: model.graphicprimitiveLike 
 Module:  meiShared -->
-<!ENTITY % anchoredtext 'INCLUDE'>
+<!ENTITY % anchoredtext 'IGNORE'>
 <![%anchoredtext;[
 <!ENTITY % content.anchoredtext '(#PCDATA|%model.textphraseLike.limited;|
                             %model.editLike;|%model.transcriptionLike;)*'>
@@ -5352,7 +5579,7 @@ media may be encoded in the href or entityref attributes or in the body
 of the annotation using extref or extptr elements. 
 Used by: model.annotLike 
 Module:  meiShared -->
-<!ENTITY % annot 'INCLUDE'>
+<!ENTITY % annot 'IGNORE'>
 <![%annot;[
 <!ENTITY % content.annot '(#PCDATA|%model.textcomponentLike;|
                          %model.textphraseLike;|%model.editLike;|
@@ -5380,7 +5607,7 @@ similar to TEI's biblFull, requires new elements that function like
 those in the meiHead DTD, but that do not duplicate their names. 
 Used by: model.biblLike 
 Module:  meiShared -->
-<!ENTITY % bibl 'INCLUDE'>
+<!ENTITY % bibl 'IGNORE'>
 <![%bibl;[
 <!ENTITY % content.bibl '(#PCDATA|%model.biblPart;|%model.textphraseLike;)*'>
 <!ELEMENT %n.bibl; %content.bibl;>
@@ -5395,7 +5622,7 @@ Module:  meiShared -->
 <!-- doc: Date contains a date in any format. 
 Used by: model.dateLike 
 Module:  meiShared -->
-<!ENTITY % date 'INCLUDE'>
+<!ENTITY % date 'IGNORE'>
 <![%date;[
 <!ENTITY % content.date '(#PCDATA|%model.textphraseLike;)*'>
 <!ELEMENT %n.date;  %content.date;>
@@ -5418,7 +5645,7 @@ here in order to disallow the pb element.
 Used by: model.biblPart editionstmt 
 Module:  meiShared
 -->
-<!ENTITY % edition 'INCLUDE'>
+<!ENTITY % edition 'IGNORE'>
 <![%edition;[
 <!ENTITY % content.edition '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.edition; %content.edition;>
@@ -5445,7 +5672,7 @@ editor or transcriber responsible for supplying the expansion of the
 abbreviation held as the content of the <expan> element. 
 Used by: model.editorialLike 
 Module:  meiShared -->
-<!ENTITY % expan 'INCLUDE'>
+<!ENTITY % expan 'IGNORE'>
 <![%expan;[
 <!ENTITY % content.expan '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                     %model.transcriptionLike;)*'>
@@ -5468,7 +5695,7 @@ for display with an illustration. It may or may not function as a
 description of the illustration. 
 Used by: figure surface zone
 Module:  meiFigures -->
-<!ENTITY % figdesc 'INCLUDE'>
+<!ENTITY % figdesc 'IGNORE'>
 <![%figdesc;[
 <!ENTITY % content.figdesc '(#PCDATA|%model.graphicprimitiveLike;|
                        %model.textcomponentLike;|%model.annotLike;)*'>
@@ -5485,7 +5712,7 @@ and pgfootN elements. Auto-generated page numbers may be included with
 a processing instruction. 
 Used by: model.pgmetaLike 
 Module:  meiShared -->
-<!ENTITY % fw 'INCLUDE'>
+<!ENTITY % fw 'IGNORE'>
 <![%fw;[
 <!ENTITY % content.fw '(#PCDATA|%model.textcomponentLike;|
                   %model.textphraseLike.limited;|%model.editLike;|
@@ -5502,7 +5729,7 @@ Module:  meiShared -->
 figure. 
 Used by: model.graphicLike 
 Module:  meiShared -->
-<!ENTITY % graphic 'INCLUDE'>
+<!ENTITY % graphic 'IGNORE'>
 <![%graphic;[
 <!ENTITY % content.graphic 'EMPTY'>
 <!ELEMENT %n.graphic; %content.graphic;>
@@ -5520,7 +5747,7 @@ Library of Congress Control Number, Publisher's Number, or personal
 identifier. 
 Used by: model.textphraseLike model.textphraseLike.limited model.pubstmtPart 
 Module:  meiShared -->
-<!ENTITY % identifier 'INCLUDE'>
+<!ENTITY % identifier 'IGNORE'>
 <![%identifier;[
 <!ENTITY % content.identifier '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                           %model.transcriptionLike;)*'>
@@ -5537,7 +5764,7 @@ for the line, i.e. most likely a line number. See comment on verse element
 for description of func attribute. 
 Used by: model.milestoneLike.text model.textphraseLike.limited 
 Module:  meiShared -->
-<!ENTITY % lb 'INCLUDE'>
+<!ENTITY % lb 'IGNORE'>
 <![%lb;[
 <!ENTITY % content.lb 'EMPTY'>
 <!ELEMENT %n.lb; %content.lb;>
@@ -5560,7 +5787,7 @@ pers, corp, place, process. The role attribute may be used to record
 the function of the person, corporate body, etc. 
 Used by: model.nameLike.agent 
 Module:  meiShared -->
-<!ENTITY % name 'INCLUDE'>
+<!ENTITY % name 'IGNORE'>
 <![%name;[
 <!ENTITY % content.name '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                    %model.transcriptionLike;)*'>
@@ -5578,7 +5805,7 @@ Module:  meiShared -->
 <!-- doc: A number in any form 
 Used by: model.measurementLike 
 Module:  meiShared -->
-<!ENTITY % num 'INCLUDE'>
+<!ENTITY % num 'IGNORE'>
 <![%num;[
 <!ENTITY % content.num '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                    %model.transcriptionLike;)*'>
@@ -5593,7 +5820,7 @@ Module:  meiShared -->
 <!-- doc: Paragraph 
 Used by: model.textcomponentLike 
 Module:  meiShared -->
-<!ENTITY % p 'INCLUDE'>
+<!ENTITY % p 'IGNORE'>
 <![%p;[
 <!ENTITY % content.p '(#PCDATA|%model.paracontentPart;)*'>
 <!ELEMENT %n.p; %content.p;>
@@ -5623,7 +5850,7 @@ section element:
           width              %data.NUMBER;         #IMPLIED 
 Used by: model.milestoneLike.text model.milestoneLike.music 
 Module:  meiShared -->
-<!ENTITY % pb 'INCLUDE'>
+<!ENTITY % pb 'IGNORE'>
 <![%pb;[
 <!ENTITY % content.pb '(%model.pgmetaLike;)'>
 <!ELEMENT %n.pb; %content.pb;>
@@ -5646,7 +5873,7 @@ level meta-data to the header where it could be encoded in notesstmt
 elements. 
 Used by: pb 
 Module:  meiShared -->
-<!ENTITY % pgdesc 'INCLUDE'>
+<!ENTITY % pgdesc 'IGNORE'>
 <![%pgdesc;[
 <!ENTITY % content.pgdesc '(#PCDATA|%model.graphicprimitiveLike;|
                       %model.textcomponentLike;|%model.annotLike;|
@@ -5664,7 +5891,7 @@ extend the values of the rend attribute. One or the other of the rend
 and altrend attributes is required. 
 Used by: model.rendLike 
 Module:  meiShared -->
-<!ENTITY % rend 'INCLUDE'>
+<!ENTITY % rend 'IGNORE'>
 <![%rend;[
 <!ENTITY % content.rend '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                     %model.transcriptionLike;)*'>
@@ -5687,7 +5914,7 @@ Module:  meiShared -->
 institution may be marked with nested repository elements. 
 Used by: model.nameLike.place 
 Module:  meiShared -->
-<!ENTITY % repository 'INCLUDE'>
+<!ENTITY % repository 'IGNORE'>
 <![%repository;[
 <!ENTITY % content.repository '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.repository; %content.repository;>
@@ -5703,7 +5930,7 @@ Module:  meiShared -->
 <!-- doc: Stacked text, e.g. an inline table with a single column. 
 Used by: model.rendLike 
 Module:  meiShared -->
-<!ENTITY % stack 'INCLUDE'>
+<!ENTITY % stack 'IGNORE'>
 <![%stack;[
 <!ENTITY % content.stack '(#PCDATA|%model.textphraseLike;)*'>
 <!ELEMENT %n.stack; %content.stack;>
@@ -5736,7 +5963,7 @@ unpublished material. Title parts may be encoded in title sub-elements
 since title is included in model.textphrase. 
 Used by: model.titleLike 
 Module:  meiShared -->
-<!ENTITY % title 'INCLUDE'>
+<!ENTITY % title 'IGNORE'>
 <![%title;[
 <!ENTITY % content.title '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                     %model.transcriptionLike;)*'>
@@ -5755,7 +5982,7 @@ Module:  meiShared -->
 simultaneous clefs. 
 Used by: model.clefchangePart model.staffdefPart.multiplyDefinable 
 Module:  meiShared -->
-<!ENTITY % clef 'INCLUDE'>
+<!ENTITY % clef 'IGNORE'>
 <![%clef;[
 <!ENTITY % content.clef 'EMPTY'>
 <!ELEMENT %n.clef; %content.clef;>
@@ -5771,7 +5998,7 @@ Module:  meiShared -->
 <!-- doc: Custos 
 Used by: model.eventLike.common 
 Module:  meiShared -->
-<!ENTITY % custos 'INCLUDE'>
+<!ENTITY % custos 'IGNORE'>
 <![%custos;[
 <!ENTITY % content.custos 'EMPTY'>
 <!ELEMENT %n.custos; %content.custos;>
@@ -5788,7 +6015,7 @@ Module:  meiShared -->
 measure, a clef change is an event. 
 Used by: model.eventLike.common 
 Module:  meiShared -->
-<!ENTITY % clefchange 'INCLUDE'>
+<!ENTITY % clefchange 'IGNORE'>
 <![%clefchange;[
 <!ENTITY % content.clefchange '(%model.clefchangePart;)'>
 <!ELEMENT %n.clefchange; %content.clefchange;>
@@ -5806,7 +6033,7 @@ Module:  meiShared -->
 elements. 
 Used by: model.eventLike.common 
 Module:  meiShared -->
-<!ENTITY % pad 'INCLUDE'>
+<!ENTITY % pad 'IGNORE'>
 <![%pad;[
 <!ENTITY % content.pad 'EMPTY'>
 <!ELEMENT %n.pad; %content.pad;>
@@ -5823,7 +6050,7 @@ most often so that the combined duration of the events equals the number
 of beats in the measure. 
 Used by: model.eventLike.common 
 Module:  meiShared -->
-<!ENTITY % space 'INCLUDE'>
+<!ENTITY % space 'IGNORE'>
 <![%space;[
 <!ENTITY % content.space 'EMPTY'>
 <!ELEMENT %n.space; %content.space;>
@@ -5847,7 +6074,7 @@ entity is employed here instead of %model.textphrase in order to
 disallow use of the pb sub-element. 
 Used by: model.controleventLike.common 
 Module:  meiShared -->
-<!ENTITY % dir 'INCLUDE'>
+<!ENTITY % dir 'IGNORE'>
 <![%dir;[
 <!ENTITY % content.dir '
                    (#PCDATA|%model.textphraseLike.limited;|
@@ -5873,7 +6100,7 @@ instead of %model.textphrase in order to disallow use of the pb
 sub-element. 
 Used by: model.controleventLike.common 
 Module:  meiShared -->
-<!ENTITY % dynam 'INCLUDE'>
+<!ENTITY % dynam 'IGNORE'>
 <![%dynam;[
 <!ENTITY % content.dynam '(#PCDATA|%model.textphraseLike.limited;|
                      %model.editLike;|%model.transcriptionLike;)*'>
@@ -5890,7 +6117,7 @@ Module:  meiShared -->
 <!-- doc: Phrase mark, used for a "unified melodic idea" (Read, p. 265). 
 Used by: model.controleventLike.common 
 Module:  meiShared -->
-<!ENTITY % phrase 'INCLUDE'>
+<!ENTITY % phrase 'IGNORE'>
 <![%phrase;[
 <!ENTITY % content.phrase 'EMPTY'>
 <!ELEMENT %n.phrase; %content.phrase;>
@@ -5911,7 +6138,7 @@ entity is employed here instead of %model.textphrase in order to
 disallow the use of the pb sub-element. 
 Used by: model.controleventLike.common 
 Module:  meiShared -->
-<!ENTITY % tempo 'INCLUDE'>
+<!ENTITY % tempo 'IGNORE'>
 <![%tempo;[
 <!ENTITY % content.tempo '(#PCDATA|%model.textphraseLike.limited;|
                      %model.graphicprimitiveLike;|%model.editLike;|
@@ -5932,7 +6159,7 @@ Module:  meiShared -->
 notation.
 Used by: model.staffdefPart.multiplyDefinable 
 Module:  meiShared -->
-<!ENTITY % mensur 'INCLUDE'>
+<!ENTITY % mensur 'IGNORE'>
 <![%mensur;[
 <!ENTITY % content.mensur 'EMPTY'>
 <!ELEMENT %n.mensur; %content.mensur;>
@@ -5948,7 +6175,7 @@ Module:  meiShared -->
 <!-- doc: Proportion.
 Used by: model.staffdefPart.multiplyDefinable 
 Module:  meiShared -->
-<!ENTITY % proport 'INCLUDE'>
+<!ENTITY % proport 'IGNORE'>
 <![%proport;[
 <!ENTITY % content.proport 'EMPTY'>
 <!ELEMENT %n.proport; %content.proport;>
@@ -5965,7 +6192,7 @@ Module:  meiShared -->
 notation.
 Used by: model.eventLike.neume-mensural 
 Module:  meiShared -->
-<!ENTITY % ligature 'INCLUDE'>
+<!ENTITY % ligature 'IGNORE'>
 <![%ligature;[
 <!ENTITY % content.ligature '((%model.eventLike;)*|(%n.accid;|%n.artic;|%model.verseLike;)*)'>
 <!ELEMENT %n.ligature; %content.ligature;>
@@ -5981,7 +6208,7 @@ Module:  meiShared -->
 <!-- doc: Mensuration change.
 Used by: model.eventLike.neume-mensural 
 Module:  meiShared -->
-<!ENTITY % mensurchange 'INCLUDE'>
+<!ENTITY % mensurchange 'IGNORE'>
 <![%mensurchange;[
 <!ENTITY % content.mensurchange '(%n.mensur;)+'>
 <!ELEMENT %n.mensurchange; %content.mensurchange;>
@@ -5993,7 +6220,7 @@ Module:  meiShared -->
 <!-- doc: Proportion change.
 Used by: model.eventLike.neume-mensural 
 Module:  meiShared -->
-<!ENTITY % proportchange 'INCLUDE'>
+<!ENTITY % proportchange 'IGNORE'>
 <![%proportchange;[
 <!ENTITY % content.proportchange '(%n.proport;)+'>
 <!ELEMENT %n.proportchange; %content.proportchange;>
@@ -6009,7 +6236,7 @@ when when specific display info, such as size or color, needs to be
 recorded for the articulation. 
 Used by: model.noteModifierLike model.notaModifierLike model.neumeModifierLike 
 Module:  meiShared -->
-<!ENTITY % artic 'INCLUDE'>
+<!ENTITY % artic 'IGNORE'>
 <![%artic;[
 <!ENTITY % content.artic 'EMPTY'>
 <!ELEMENT %n.artic; %content.artic;>
@@ -6027,7 +6254,7 @@ Module:  meiShared -->
 to provide x and y or staffloc attributes. 
 Used by: model.keyaccidLike 
 Module:  meiShared -->
-<!ENTITY % keyaccid 'INCLUDE'>
+<!ENTITY % keyaccid 'IGNORE'>
 <![%keyaccid;[
 <!ENTITY % content.keyaccid 'EMPTY'>
 <!ELEMENT %n.keyaccid; %content.keyaccid;>
@@ -6047,7 +6274,7 @@ Module:  meiShared -->
 key.* attributes (especially key.sig.mixed) on scoredef and staffdef. 
 Used by: model.keysigLike 
 Module:  meiShared -->
-<!ENTITY % keysig 'INCLUDE'>
+<!ENTITY % keysig 'IGNORE'>
 <![%keysig;[
 <!ENTITY % content.keysig '(%model.keyaccidLike;)*'>
 <!ELEMENT %n.keysig; %content.keysig;>
@@ -6066,7 +6293,7 @@ for the accidental. The func attribute can be used to differentiate
 different functions, such as 'cautionary' or 'editorial'. 
 Used by: model.noteModifierLike model.notaModifierLike model.neumeModifierLike model.eventLike.mensural-cmn 
 Module:  meiShared -->
-<!ENTITY % accid 'INCLUDE'>
+<!ENTITY % accid 'IGNORE'>
 <![%accid;[
 <!ENTITY % content.accid 'EMPTY'>
 <!ELEMENT %n.accid; %content.accid;>
@@ -6084,7 +6311,7 @@ Module:  meiShared -->
 It has the same attributes as measure.
 Used by: model.eventLike.mensural-cmn 
 Module:  meiShared -->
-<!ENTITY % barline 'INCLUDE'>
+<!ENTITY % barline 'IGNORE'>
 <![%barline;[
 <!ENTITY % content.barline 'EMPTY'>
 <!ELEMENT %n.barline; %content.barline;>
@@ -6105,7 +6332,7 @@ notation. The dot element may be used for dots of augmentation
 or division. 
 Used by: model.eventLike.mensural-cmn 
 Module:  meiShared -->
-<!ENTITY % dot 'INCLUDE'>
+<!ENTITY % dot 'IGNORE'>
 <![%dot;[
 <!ENTITY % content.dot 'EMPTY'>
 <!ELEMENT %n.dot; %content.dot;>
@@ -6121,7 +6348,7 @@ Module:  meiShared -->
 <!-- doc: Key change.
 Used by: model.eventLike.mensural-cmn 
 Module:  meiShared -->
-<!ENTITY % keychange 'INCLUDE'>
+<!ENTITY % keychange 'IGNORE'>
 <![%keychange;[
 <!ENTITY % content.keychange '(%model.keyaccidLike;)*'>
 <!ELEMENT %n.keychange; %content.keychange;>
@@ -6130,12 +6357,11 @@ Module:  meiShared -->
           %att.facsimile;>
 ]]>
 
-<![%meiText;[
 <!-- Text Components -->
 <!-- doc: Back matter such as indexes, advertisements, etc. 
 Used by: music 
 Module:  meiText -->
-<!ENTITY % back 'INCLUDE'>
+<!ENTITY % back 'IGNORE'>
 <![%back;[
 <!ENTITY % content.back '
                     (
@@ -6155,7 +6381,7 @@ source external to the text. The source for the quote may be included
 in the optional bibl sub-element. 
 Used by: model.textcomponentLike model.paracontentPart 
 Module:  meiText -->
-<!ENTITY % blockquote 'INCLUDE'>
+<!ENTITY % blockquote 'IGNORE'>
 <![%blockquote;[
 <!ENTITY % content.blockquote '((%model.textcomponentLike;)+, (%model.biblLike;)?)'>
 <!ELEMENT %n.blockquote; %content.blockquote;>
@@ -6169,7 +6395,7 @@ Module:  meiText -->
 <!-- doc: Textual division. 
 Used by: model.divLike 
 Module:  meiText -->
-<!ENTITY % div 'INCLUDE'>
+<!ENTITY % div 'IGNORE'>
 <![%div;[
 <!ENTITY % content.div '
                    (
@@ -6190,7 +6416,7 @@ accommodate page images, e.g. cover, endpapers, etc. before and after
 the actual textual matter. 
 Used by: music 
 Module:  meiText -->
-<!ENTITY % front 'INCLUDE'>
+<!ENTITY % front 'IGNORE'>
 <![%front;[
 <!ENTITY % content.front '
                      (
@@ -6210,7 +6436,7 @@ or the heading of a list. A head is not allowed to contain a sub-head
 in order to encourage the proper nesting of div elements. 
 Used by: model.headLike 
 Module:  meiText -->
-<!ENTITY % head 'INCLUDE'>
+<!ENTITY % head 'IGNORE'>
 <![%head;[
 <!ENTITY % content.head '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                     %model.transcriptionLike;)*'>
@@ -6225,7 +6451,7 @@ Module:  meiText -->
 <!-- doc: Single item in a list 
 Used by: list 
 Module:  meiText -->
-<!ENTITY % item 'INCLUDE'>
+<!ENTITY % item 'IGNORE'>
 <![%item;[
 <!ENTITY % content.item '(#PCDATA|%model.textcomponentLike;|%model.textphraseLike;|
                     %model.editLike;|%model.transcriptionLike;)*'>
@@ -6240,7 +6466,7 @@ be used to record a label for the line, i.e. most likely a line
 number. 
 Used by: model.lLike 
 Module:  meiText -->
-<!ENTITY % l 'INCLUDE'>
+<!ENTITY % l 'IGNORE'>
 <![%l;[
 <!ENTITY % content.l '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                 %model.transcriptionLike;)*'>
@@ -6255,7 +6481,7 @@ Module:  meiText -->
 any section of text that is organized as a group of lines. 
 Used by: model.textcomponentLike 
 Module:  meiText -->
-<!ENTITY % lg 'INCLUDE'>
+<!ENTITY % lg 'IGNORE'>
 <![%lg;[
 <!ENTITY % content.lg '((%model.headLike;)?, (%model.lLike;)+)'>
 <!ELEMENT %n.lg; %content.lg;>
@@ -6270,7 +6496,7 @@ Module:  meiText -->
 table. 
 Used by: model.listLike 
 Module:  meiText -->
-<!ENTITY % list 'INCLUDE'>
+<!ENTITY % list 'IGNORE'>
 <![%list;[
 <!ENTITY % content.list '((%model.headLike;)?, (%n.item;)+)'>
 <!ELEMENT %n.list; %content.list;>
@@ -6286,7 +6512,7 @@ Module:  meiText -->
 <!-- doc: Visual layout in tabular form 
 Used by: model.tableLike 
 Module:  meiText -->
-<!ENTITY % table 'INCLUDE'>
+<!ENTITY % table 'IGNORE'>
 <![%table;[
 <!ENTITY % content.table '((%model.captionLike;)?, (%n.tr;)+)'>
 <!ELEMENT %n.table; %content.table;>
@@ -6300,7 +6526,7 @@ Module:  meiText -->
 <!-- doc: Table cell containing data 
 Used by: tr 
 Module:  meiText -->
-<!ENTITY % td 'INCLUDE'>
+<!ENTITY % td 'IGNORE'>
 <![%td;[
 <!ENTITY % content.td '(#PCDATA|%model.textcomponentLike;|%model.textphraseLike;|
                   %model.editLike;|%model.transcriptionLike;)*'>
@@ -6317,7 +6543,7 @@ Module:  meiText -->
 <!-- doc: Table cell containing header information 
 Used by: table 
 Module:  meiText -->
-<!ENTITY % th 'INCLUDE'>
+<!ENTITY % th 'IGNORE'>
 <![%th;[
 <!ENTITY % content.th '(#PCDATA|%model.textcomponentLike;|%model.textphraseLike;|
                   %model.editLike;|%model.transcriptionLike;)*'>
@@ -6334,7 +6560,7 @@ Module:  meiText -->
 <!-- doc: Table row 
 Used by: table 
 Module:  meiText -->
-<!ENTITY % tr 'INCLUDE'>
+<!ENTITY % tr 'IGNORE'>
 <![%tr;[
 <!ENTITY % content.tr '(%n.th;|%n.td;)+'>
 <!ELEMENT %n.tr; %content.tr;>
@@ -6344,16 +6570,14 @@ Module:  meiText -->
           %att.lang;
           %att.xy;>
 ]]>
-]]>
 
-<![%meiNamesDates;[
 <!-- Additional Names and Dates -->
 <!-- doc: Identifies an organization or group of people that acts as an
 entity. May contain name parts in corpname sub-elements since corpname
 is included in model.textphraseLike. 
 Used by: model.nameLike.agent 
 Module:  meiNamesDates -->
-<!ENTITY % corpname 'INCLUDE'>
+<!ENTITY % corpname 'IGNORE'>
 <![%corpname;[
 <!ENTITY % content.corpname '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                        %model.transcriptionLike;)*'>
@@ -6373,7 +6597,7 @@ feature, or political jurisdiction. May contain name sub-parts in
 geogname sub-elements since geogname is included in model.textphrase. 
 Used by: model.nameLike.place model.pubstmtPart 
 Module:  meiNamesDates -->
-<!ENTITY % geogname 'INCLUDE'>
+<!ENTITY % geogname 'IGNORE'>
 <![%geogname;[
 <!ENTITY % content.geogname '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                        %model.transcriptionLike;)*'>
@@ -6391,7 +6615,7 @@ Module:  meiNamesDates -->
 period'. 
 Used by: model.nameLike.label 
 Module:  meiNamesDates -->
-<!ENTITY % periodname 'INCLUDE'>
+<!ENTITY % periodname 'IGNORE'>
 <![%periodname;[
 <!ENTITY % content.periodname '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                          %model.transcriptionLike;)*'>
@@ -6411,7 +6635,7 @@ contain name parts in persname sub-elements since persname is included
 in model.textphrase. 
 Used by: model.nameLike.agent 
 Module:  meiNamesDates -->
-<!ENTITY % persname 'INCLUDE'>
+<!ENTITY % persname 'IGNORE'>
 <![%persname;[
 <!ENTITY % content.persname '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                        %model.transcriptionLike;)*'>
@@ -6431,7 +6655,7 @@ such as 'bebop' or 'rock-n-roll'. May be used independently of
 periodname. 
 Used by: model.nameLike.label 
 Module:  meiShared -->
-<!ENTITY % stylename 'INCLUDE'>
+<!ENTITY % stylename 'IGNORE'>
 <![%stylename;[
 <!ENTITY % content.stylename '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                         %model.transcriptionLike;)*'>
@@ -6444,14 +6668,12 @@ Module:  meiShared -->
           %att.name;
           %att.typed;>
 ]]>
-]]>
 
-<![%meiFigures;[
 <!-- Figures -->
 <!-- doc: A label which accompanies an illustration or a table. 
 Used by: figure 
 Module:  meiFigures -->
-<!ENTITY % caption 'INCLUDE'>
+<!ENTITY % caption 'IGNORE'>
 <![%caption;[
 <!ENTITY % content.caption '(#PCDATA|%model.textphraseLike;|%model.editLike;|
                        %model.transcriptionLike;)*'>
@@ -6465,7 +6687,7 @@ Module:  meiFigures -->
 <!-- doc: An illustration. 
 Used by: model.figureLike 
 Module:  meiFigures -->
-<!ENTITY % fig 'INCLUDE'>
+<!ENTITY % fig 'IGNORE'>
 <![%fig;[
 <!ENTITY % content.fig '((%n.caption;)?, (%n.figdesc;)?, (%model.graphicLike;)*)'>
 <!ELEMENT %n.fig;  %content.fig;>
@@ -6476,9 +6698,7 @@ Module:  meiFigures -->
           %att.link.external;
           %att.xy;>
 ]]>
-]]>
 
-<![%meiPtrRefs;[
 <!-- Pointers and References -->
 <!-- doc: An empty linking element that uses attributes to connect the MEI
 document to an external electronic object. Don't confuse this element
@@ -6486,7 +6706,7 @@ with the ptr element, which is an internal link for movement from one
 place in the MEI document to another in the same document. 
 Used by: model.locrefLike 
 Module:  meiPtrRefs -->
-<!ENTITY % extptr 'INCLUDE'>
+<!ENTITY % extptr 'IGNORE'>
 <![%extptr;[
 <!ENTITY % content.extptr 'EMPTY'>
 <!ELEMENT %n.extptr;  %content.extptr;>
@@ -6503,7 +6723,7 @@ internal link for movement from one place in the MEI document to another
 in the same document. 
 Used by: model.locrefLike 
 Module:  meiPtrRefs -->
-<!ENTITY % extref 'INCLUDE'>
+<!ENTITY % extref 'IGNORE'>
 <![%extref;[
 <!ENTITY % content.extref '(#PCDATA|%model.textphraseLike;)*'>
 <!ELEMENT %n.extref;  %content.extref;>
@@ -6522,7 +6742,7 @@ this element with extptr which is used to connect the MEI document to
 an external electronic object. 
 Used by: model.locrefLike 
 Module:  meiPtrRefs -->
-<!ENTITY % ptr 'INCLUDE'>
+<!ENTITY % ptr 'IGNORE'>
 <![%ptr;[
 <!ENTITY % content.ptr 'EMPTY'>
 <!ELEMENT %n.ptr; %content.ptr;>
@@ -6539,7 +6759,7 @@ destination. Don't confuse this element with extref which provides for
 linking to an electronic object that is external to the MEI document. 
 Used by: model.locrefLike 
 Module:  meiPtrRefs -->
-<!ENTITY % ref 'INCLUDE'>
+<!ENTITY % ref 'IGNORE'>
 <![%ref;[
 <!ENTITY % content.ref '(#PCDATA|%model.textphraseLike;)*'>
 <!ELEMENT %n.ref; %content.ref;>
@@ -6549,9 +6769,7 @@ Module:  meiPtrRefs -->
           %att.link.common;
           %att.link.internal;>
 ]]>
-]]>
 
-<![%meiStructure;[
 <!-- Default Structure -->
 <!-- doc: The body element contains the actual music data. When the
 music can be broken into high-level, discrete, linear segments, such
@@ -6562,7 +6780,7 @@ allows the body element to be empty, which might be useful in some
 editing/creation situations. 
 Used by: music 
 Module:  meiStructure -->
-<!ENTITY % body 'INCLUDE'>
+<!ENTITY % body 'IGNORE'>
 <![%body;[
 <!ENTITY % content.body '(%model.mdivLike;)+'>
 <!ELEMENT %n.body; %content.body;>
@@ -6577,7 +6795,7 @@ avoid collisions with the brackets that are usually displayed over
 endings. Endings may *not* contain endings. 
 Used by: model.endingLike ending 
 Module:  meiStructure -->
-<!ENTITY % ending 'INCLUDE'>
+<!ENTITY % ending 'IGNORE'>
 <![%ending;[
 <!ENTITY % content.ending '(%model.scorecomponentLike;)*'>
 <!ELEMENT %n.ending; %content.ending;>
@@ -6599,7 +6817,7 @@ into a single file. Because its model contains the music element,
 each of the documents can have its own front and back matter. 
 Used by: music group 
 Module:  meiStructure -->
-<!ENTITY % group 'INCLUDE'>
+<!ENTITY % group 'IGNORE'>
 <![%group;[
 <!ENTITY % content.group '((music|%n.group;), (music|%n.group;)*)'>
 <!ELEMENT %n.group; %content.group;>
@@ -6612,7 +6830,7 @@ instead of the staffgrp element's symbol attribute when exact
 placement or editorial details for the brace must be recorded. 
 Used by: staffgrp 
 Module:  meiStructure -->
-<!ENTITY % grpsym 'INCLUDE'>
+<!ENTITY % grpsym 'IGNORE'>
 <![%grpsym;[
 <!ENTITY % content.grpsym '(%model.labelLike;)*'>
 <!ELEMENT %n.grpsym; %content.grpsym;>
@@ -6631,7 +6849,7 @@ staves, or a layer. MIDI prog elements may then change the instrument
 as necessary. 
 Used by: instrdefLike 
 Module:  meiStructure -->
-<!ENTITY % instrdef 'INCLUDE'>
+<!ENTITY % instrdef 'IGNORE'>
 <![%instrdef;[
 <!ENTITY % content.instrdef 'EMPTY'>
 <!ELEMENT %n.instrdef; %content.instrdef;>
@@ -6648,7 +6866,7 @@ Module:  meiStructure -->
 <!-- doc: Staff, staffgrp, or grpsym label 
 Used by: model.labelLike 
 Module:  meiStructure -->
-<!ENTITY % label 'INCLUDE'>
+<!ENTITY % label 'IGNORE'>
 <![%label;[
 <!ENTITY % content.label '(#PCDATA|%model.textphraseLike.limited;|
                       %model.editLike;|%model.transcriptionLike;)*'>
@@ -6667,7 +6885,7 @@ layer order. Of course, if data is supplied for only a subset of
 layers, the n attribute must be supplied. 
 Used by: model.layerLike 
 Module:  meiStructure -->
-<!ENTITY % layer 'INCLUDE'>
+<!ENTITY % layer 'IGNORE'>
 <![%layer;[
 <!ENTITY % content.layer '(%model.layerPart;|%model.annotLike;)*'>
 <!ELEMENT %n.layer; %content.layer;>
@@ -6683,7 +6901,7 @@ Module:  meiStructure -->
 <!-- doc: Container for layer (e.g. voice) meta-information. 
 Used by: layerdefLike 
 Module:  meiStructure -->
-<!ENTITY % layerdef 'INCLUDE'>
+<!ENTITY % layerdef 'IGNORE'>
 <![%layerdef;[
 <!ENTITY % content.layerdef '(%model.instrdefLike;)*'>
 <!ELEMENT %n.layerdef; %content.layerdef;>
@@ -6724,7 +6942,7 @@ following markup:
 
 Used by: body mdiv 
 Module:  meiStructure -->
-<!ENTITY % mdiv 'INCLUDE'>
+<!ENTITY % mdiv 'IGNORE'>
 <![%mdiv;[
 <!ENTITY % content.mdiv '(((%model.scoreLike;)?, (%model.partsLike;)?) | (%model.mdivLike;)*)'>
 <!ELEMENT %n.mdiv; %content.mdiv;>
@@ -6748,7 +6966,7 @@ indicate points of alignment across all the parts should be marked as
 controlling'. 
 Used by: model.partLike 
 Module:  meiStructure -->
-<!ENTITY % part 'INCLUDE'>
+<!ENTITY % part 'IGNORE'>
 <![%part;[
 <!ENTITY % content.part '(%model.scorecomponentLike;)*'>
 <!ELEMENT %n.part; %content.part;>
@@ -6764,7 +6982,7 @@ Module:  meiStructure -->
 <!-- doc: Parts view of the mdiv. 
 Used by: partsLike 
 Module:  meiStructure -->
-<!ENTITY % parts 'INCLUDE'>
+<!ENTITY % parts 'IGNORE'>
 <![%parts;[
 <!ENTITY % content.parts '(%model.partLike;)*'>
 <!ELEMENT %n.parts; %content.parts;>
@@ -6783,7 +7001,7 @@ a processing instruction. The pgheadN and pgfootN elements should *not* be
 used to encode textual notes! 
 Used by: model.pgmetaLike.score 
 Module:  meiStructure -->
-<!ENTITY % pgfoot1 'INCLUDE'>
+<!ENTITY % pgfoot1 'IGNORE'>
 <![%pgfoot1;[
 <!ENTITY % content.pgfoot1 '(#PCDATA|%model.textcomponentLike;|
                   %model.textphraseLike.limited;|%model.editLike;|
@@ -6801,7 +7019,7 @@ be indicated with a processing instruction. The pgheadN and pgfootN
 elements should *not* be used to encode textual notes! 
 Used by: model.pgmetaLike.score 
 Module:  meiStructure -->
-<!ENTITY % pgfoot2 'INCLUDE'>
+<!ENTITY % pgfoot2 'IGNORE'>
 <![%pgfoot2;[
 <!ENTITY % content.pgfoot2 '(#PCDATA|%model.textcomponentLike;|
                   %model.textphraseLike.limited;|%model.editLike;|
@@ -6821,7 +7039,7 @@ pgfootN elements should *not* be used to encode textual notes!  Auto-
 generated page numbers may be indicated with a processing instruction. 
 Used by: model.pgmetaLike.score 
 Module:  meiStructure -->
-<!ENTITY % pghead1 'INCLUDE'>
+<!ENTITY % pghead1 'IGNORE'>
 <![%pghead1;[
 <!ENTITY % content.pghead1 '(#PCDATA|%model.textcomponentLike;|
                   %model.textphraseLike.limited;|%model.editLike;|
@@ -6839,7 +7057,7 @@ should *not* be used to encode textual notes! Auto-generated page
 numbers may be indicated with a processing instruction. 
 Used by: model.pgmetaLike.score 
 Module:  meiStructure -->
-<!ENTITY % pghead2 'INCLUDE'>
+<!ENTITY % pghead2 'IGNORE'>
 <![%pghead2;[
 <!ENTITY % content.pghead2 '(#PCDATA|%model.textcomponentLike;|
                   %model.textphraseLike.limited;|%model.editLike;|
@@ -6859,7 +7077,7 @@ However, it would also allow meter and key changes, which is probably
 undesirable. 
 Used by: model.milestoneLike.music 
 Module:  meiStructure -->
-<!ENTITY % sb 'INCLUDE'>
+<!ENTITY % sb 'IGNORE'>
 <![%sb;[
 <!ENTITY % content.sb '(%n.custos;)?'>
 <!ELEMENT %n.sb; %content.sb;>
@@ -6878,7 +7096,7 @@ image. Div elements are allowed preceding and following sections of music
 data in order to accommodate blocks of explanatory text. 
 Used by: model.scoreLike 
 Module:  meiStructure -->
-<!ENTITY % score 'INCLUDE'>
+<!ENTITY % score 'IGNORE'>
 <![%score;[
 <!ENTITY % content.score '(%model.scorecomponentLike;)*'>
 <!ELEMENT %n.score; %content.score;>
@@ -6894,7 +7112,7 @@ Module:  meiStructure -->
 <!-- doc: Container for score meta-information. 
 Used by: model.scoredefLike 
 Module:  meiStructure -->
-<!ENTITY % scoredef 'INCLUDE'>
+<!ENTITY % scoredef 'IGNORE'>
 <![%scoredef;[
 <!ENTITY % content.scoredef '((%model.alignLike;)*, (%model.chordtableLike;)?,
                         (%model.symboltableLike;)?, (%model.keysigLike;)?,
@@ -6914,7 +7132,7 @@ attributes are available here so that this element can point to external
 media objects or to related internal elements, such as annotations. 
 Used by: model.rdgPart section 
 Module:  meiStructure -->
-<!ENTITY % section 'INCLUDE'>
+<!ENTITY % section 'IGNORE'>
 <![%section;[
 <!ENTITY % content.section '(%model.scorecomponentLike;)*'>
 <!ELEMENT %n.section; %content.section;>
@@ -6937,7 +7155,7 @@ presumed to match the staff order.  Of course, if data is supplied
 for only a subset of staves, the n attribute must be supplied. 
 Used by: model.staffLike 
 Module:  meiStructure -->
-<!ENTITY % staff 'INCLUDE'>
+<!ENTITY % staff 'IGNORE'>
 <![%staff;[
 <!ENTITY % content.staff '(%model.staffPart;)'>
 <!ELEMENT %n.staff; %content.staff;>
@@ -6953,7 +7171,7 @@ Module:  meiStructure -->
 <!-- doc: Container for staff meta-information. 
 Used by: model.rdgPart 
 Module:  meiStructure -->
-<!ENTITY % staffdef 'INCLUDE'>
+<!ENTITY % staffdef 'IGNORE'>
 <![%staffdef;[
 <!ENTITY % content.staffdef '(
                                (%model.labelLike;)*, (%model.keysigLike;)?,
@@ -6975,7 +7193,7 @@ examples p. 434, 438. System is the more proper name for this concept
 (Read, p. 37-38). Split staffgrp into bracket and brace elements? 
 Used by: staffgrpLike staffgrp 
 Module:  meiStructure -->
-<!ENTITY % staffgrp 'INCLUDE'>
+<!ENTITY % staffgrp 'IGNORE'>
 <![%staffgrp;[
 <!ENTITY % content.staffgrp '((%model.labelLike;)*, (%model.instrdefLike;)*,
                          (%model.staffgrpLike;|%model.staffdefLike;)+, (%n.grpsym;)*)'>
@@ -6988,15 +7206,13 @@ Module:  meiStructure -->
           %att.ges.staffgrp;
           %att.anl.staffgrp;>
 ]]>
-]]>
 
-<![%meiNeumes;[
 <!-- Neumes -->
 <!-- doc: The syllable element is used only for neume notation.  Most neume
 notation can be thought of as "neumed text". 
 Used by: model.eventLike.neume 
 Module:  meiNeumes -->
-<!ENTITY % syllable 'INCLUDE'>
+<!ENTITY % syllable 'IGNORE'>
 <![%syllable;[
 <!ENTITY % content.syllable '((%model.eventLike;|%model.sylLike;|%model.apparatusLike;|
                         %model.editLike;|%model.transcriptionLike;),
@@ -7010,11 +7226,11 @@ Module:  meiNeumes -->
 notation.
 Used by: model.eventLike.neume 
 Module:  meiNeumes -->
-<!ENTITY % ineume 'INCLUDE'>
+<!ENTITY % ineume 'IGNORE'>
 <![%ineume;[
-<!ENTITY % content.ineume '(%model.eventLike;|
-                     %model.neumeModifierLike;|%model.apparatusLike;|
-                     %model.editLike;|%model.transcriptionLike;)*'>
+<!ENTITY % content.ineume '(%model.eventLike;|%model.neumeModifierLike;|
+                     %model.apparatusLike;|%model.editLike;|
+                     %model.transcriptionLike;)*'>
 <!ELEMENT %n.ineume; %content.ineume;>
 <!ATTLIST %n.ineume;
           %att.common;
@@ -7031,11 +7247,11 @@ part of the model.events class, it is unlikely that an uninterrupted neume
 containing an interrupted neume is a meaningful construct. 
 Used by: model.eventLike.neume 
 Module:  meiNeumes -->
-<!ENTITY % uneume 'INCLUDE'>
+<!ENTITY % uneume 'IGNORE'>
 <![%uneume;[
-<!ENTITY % content.uneume '(%model.eventLike;|
-                     %model.neumeModifierLike;|%model.apparatusLike;|
-                     %model.editLike;|%model.transcriptionLike;)*'>
+<!ENTITY % content.uneume '(%model.eventLike;|%model.neumeModifierLike;|
+                     %model.apparatusLike;|%model.editLike;|
+                     %model.transcriptionLike;)*'>
 <!ELEMENT %n.uneume; %content.uneume;>
 <!ATTLIST %n.uneume;
           %att.common;
@@ -7046,9 +7262,7 @@ Module:  meiNeumes -->
           %att.ges.uneume;
           %att.anl.uneume;>
 ]]>
-]]>
 
-<![%meiMensural;[
 <!-- Mensural -->
 <!-- doc: A single pitched event in the mensural repertoire. The nota element
 is allowed to contain other events for situations where a single written
@@ -7060,11 +7274,11 @@ syl sub-element may be used instead of the syl attribute. The verse
 sub-element may be used to group text syllables by verse.
 Used by: model.eventLike.mensural 
 Module:  meiMensural -->
-<!ENTITY % nota 'INCLUDE'>
+<!ENTITY % nota 'IGNORE'>
 <![%nota;[
-<!ENTITY % content.nota '(%model.eventLike;|%model.notaModifierLike;|
-                    %model.apparatusLike;|%model.editLike;|
-                    %model.transcriptionLike;)*'>
+<!ENTITY % content.nota '(%model.eventLike;|%model.noteModifierLike;|
+                    %model.sylLike;|%model.verseLike;|%model.apparatusLike;|
+                    %model.editLike;|%model.transcriptionLike;)*'>
 <!ELEMENT %n.nota; %content.nota;>
 <!ATTLIST %n.nota;
           %att.common;
@@ -7078,7 +7292,7 @@ Module:  meiMensural -->
 <!-- doc: A rest in the mensural repertoire.
 Used by: model.eventLike.mensural 
 Module:  meiMensural -->
-<!ENTITY % pausa 'INCLUDE'>
+<!ENTITY % pausa 'IGNORE'>
 <![%pausa;[
 <!ENTITY % content.pausa 'EMPTY'>
 <!ELEMENT %n.pausa; %content.pausa;>
@@ -7090,9 +7304,7 @@ Module:  meiMensural -->
           %att.ges.pausa;
           %att.anl.pausa;>
 ]]>
-]]>
 
-<![%meiCMN;[
 <!-- CMN -->
 <!-- doc: Measure. "In Western notation a vertical line drawn through the
 staff to mark off metrical units. Hence also the metrical unit thus
@@ -7105,14 +7317,15 @@ object or to another location within the MEI instance. Any number of
 alternative encodings for the measure (ossia) can be included. 
 Used by: model.measureLike 
 Module:  meiCMN -->
-<!ENTITY % measure 'INCLUDE'>
+<!ENTITY % measure 'IGNORE'>
 <![%measure;[
 <!ENTITY % content.measure '
                       (
-                        (%model.staffdefLike;)*,
-                        (%model.measurePart;|%model.ossiaLike;)*,
-                        (%model.controleventLike;|%model.midiLike;|
-                        %model.annotLike;|%model.graphicprimitiveLike;)*
+                        (%model.staffdefLike;)?,
+                        (%model.measurePart;|%model.ossiaLike;|%model.staffdefLike;)*,
+                        (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
+                        %model.annotLike;|%model.graphicprimitiveLike;|%model.apparatusLike;|
+                        %model.editLike;|%model.transcriptionLike;)*
                       )'>
 <!ELEMENT %n.measure; %content.measure;>
 <!ATTLIST %n.measure;
@@ -7136,17 +7349,15 @@ contents, in which case it is rendered above the staff on a reduced-size
 staff. 
 Used by: model.ossiaLike 
 Module:  meiCMN -->
-<!ENTITY % ossia 'INCLUDE'>
+<!ENTITY % ossia 'IGNORE'>
 <![%ossia;[
 <!ENTITY % content.ossia '
                       (
                         (%model.staffdefLike;)*,
-                        (
-                          %model.measurePart;|%model.ossiaLike;|
-                          %model.controleventLike;|%model.midiLike;|
-                          %model.annotLike;|%model.graphicprimitiveLike;
-                        )*
-                      )'>
+                        (%model.measurePart;|%model.ossiaLike;)*,
+                        (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
+                        %model.annotLike;|%model.graphicprimitiveLike;)*
+                      )*'>
 <!ELEMENT %n.ossia; %content.ossia;>
 <!ATTLIST %n.ossia;
           %att.common;
@@ -7166,7 +7377,7 @@ using the breaksec attribute. Stem direction determines whether beams
 are centered between notes with alternating stems (Read, p. 88-89). 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % beam 'INCLUDE'>
+<!ENTITY % beam 'IGNORE'>
 <![%beam;[
 <!ENTITY % content.beam '(%model.eventLike.common;|%model.eventLike.cmn;)+'>
 <!ELEMENT %n.beam; %content.beam;>
@@ -7182,7 +7393,7 @@ Module:  meiCMN -->
 <!-- doc: A repeated single beat (Read, p. 223-224) 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % beatrpt 'INCLUDE'>
+<!ENTITY % beatrpt 'IGNORE'>
 <![%beatrpt;[
 <!ENTITY % content.beatrpt 'EMPTY'>
 <!ELEMENT %n.beatrpt; %content.beatrpt;>
@@ -7202,7 +7413,7 @@ indications. Precise performance data that differs from the logical
 events in a measure may be recorded within the bend element. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % bend 'INCLUDE'>
+<!ENTITY % bend 'IGNORE'>
 <![%bend;[
 <!ENTITY % content.bend '(%n.note;|%n.rest;|%n.tuplet;)*'>
 <!ELEMENT %n.bend; %content.bend;>
@@ -7221,7 +7432,7 @@ triple tonguing and for flutter tonguing when these are expressed as
 tremolandi. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % btrem 'INCLUDE'>
+<!ENTITY % btrem 'IGNORE'>
 <![%btrem;[
 <!ENTITY % content.btrem '(%n.chord;|%n.note;)'>
 <!ELEMENT %n.btrem; %content.btrem;>
@@ -7238,7 +7449,7 @@ Module:  meiCMN -->
 *with the same duration*. (Read, p. 69) 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % chord 'INCLUDE'>
+<!ENTITY % chord 'IGNORE'>
 <![%chord;[
 <!ENTITY % content.chord '(%n.note;|%n.artic;)*'>
 <!ELEMENT %n.chord; %content.chord;>
@@ -7258,7 +7469,7 @@ between notes on the same pitch (bowed tremolo, double & triple
 tonguing, and flutter tonguing) use the btrem element. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % ftrem 'INCLUDE'>
+<!ENTITY % ftrem 'IGNORE'>
 <![%ftrem;[
 <!ENTITY % content.ftrem '
                      ((%n.chord;,(%n.chord;|%n.note;)) | (%n.note;,
@@ -7277,7 +7488,7 @@ Module:  meiCMN -->
 More precise performance data may be recorded within the gliss element. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % gliss 'INCLUDE'>
+<!ENTITY % gliss 'IGNORE'>
 <![%gliss;[
 <!ENTITY % content.gliss '(%n.note;|%n.rest;|%n.tuplet;)*'>
 <!ELEMENT %n.gliss; %content.gliss;>
@@ -7293,7 +7504,7 @@ Module:  meiCMN -->
 <!-- doc: Half-measure repeat sign 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % halfmrpt 'INCLUDE'>
+<!ENTITY % halfmrpt 'IGNORE'>
 <![%halfmrpt;[
 <!ENTITY % content.halfmrpt '(%model.eventLike;)*'>
 <!ELEMENT %n.halfmrpt; %content.halfmrpt;>
@@ -7316,9 +7527,10 @@ syl sub-element may be used instead of the syl attribute. The verse
 sub-element may be used to group text syllables by verse. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % note 'INCLUDE'>
+<!ENTITY % note 'IGNORE'>
 <![%note;[
 <!ENTITY % content.note '(%model.eventLike;|%model.noteModifierLike;|
+                        %model.verseLike;|%model.sylLike;|
                         %model.apparatusLike;|%model.editLike;|
                         %model.transcriptionLike;)*'>
 <!ELEMENT %n.note; %content.note;>
@@ -7336,7 +7548,7 @@ the source being transcribed. Do not confuse this element with the
 space element which is used as an aid for visual alignment. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % rest 'INCLUDE'>
+<!ENTITY % rest 'IGNORE'>
 <![%rest;[
 <!ENTITY % content.rest 'EMPTY'>
 <!ELEMENT %n.rest; %content.rest;>
@@ -7355,10 +7567,9 @@ allowed so that custom beaming may be indicated, i.e. a septuplet may be
 divided into a group of 3 plus a group of 4 notes. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % tuplet 'INCLUDE'>
+<!ENTITY % tuplet 'IGNORE'>
 <![%tuplet;[
-<!ENTITY % content.tuplet '(%model.eventLike.common;|%model.eventLike.cmn;|
-                          %n.tuplet;|%n.beam;)+'>
+<!ENTITY % content.tuplet '(%model.eventLike.common;|%model.eventLike.cmn;)+'>
 <!ELEMENT %n.tuplet; %content.tuplet;>
 <!ATTLIST %n.tuplet;
           %att.common;
@@ -7374,7 +7585,7 @@ of consecutive measures of rest may be controlled via the multi.number
 attribute on the scoredef or staffdef elements. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
-<!ENTITY % mrest 'INCLUDE'>
+<!ENTITY % mrest 'IGNORE'>
 <![%mrest;[
 <!ENTITY % content.mrest 'EMPTY'>
 <!ELEMENT %n.mrest; %content.mrest;>
@@ -7392,7 +7603,7 @@ measures of rest may be controlled via the multi.number attribute on the
 scoredef or staffdef elements. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
-<!ENTITY % mrpt 'INCLUDE'>
+<!ENTITY % mrpt 'IGNORE'>
 <![%mrpt;[
 <!ENTITY % content.mrpt 'EMPTY'>
 <!ELEMENT %n.mrpt; %content.mrpt;>
@@ -7408,7 +7619,7 @@ Module:  meiCMN -->
 <!-- doc: 2-measure repeat sign 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
-<!ENTITY % mrpt2 'INCLUDE'>
+<!ENTITY % mrpt2 'IGNORE'>
 <![%mrpt2;[
 <!ENTITY % content.mrpt2 'EMPTY'>
 <!ELEMENT %n.mrpt2; %content.mrpt2;>
@@ -7426,7 +7637,7 @@ measures of space may be controlled via the multi.number attribute on the
 scoredef or staffdef elements. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
-<!ENTITY % mspace 'INCLUDE'>
+<!ENTITY % mspace 'IGNORE'>
 <![%mspace;[
 <!ENTITY % content.mspace 'EMPTY'>
 <!ELEMENT %n.mspace; %content.mspace;>
@@ -7442,7 +7653,7 @@ Module:  meiCMN -->
 <!-- doc: Multiple measures of rest. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
-<!ENTITY % multirest 'INCLUDE'>
+<!ENTITY % multirest 'IGNORE'>
 <![%multirest;[
 <!ENTITY % content.multirest 'EMPTY'>
 <!ELEMENT %n.multirest; %content.multirest;>
@@ -7459,7 +7670,7 @@ Module:  meiCMN -->
 than 2 measures should be written out using repeat signs. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
-<!ENTITY % multirpt 'INCLUDE'>
+<!ENTITY % multirpt 'IGNORE'>
 <![%multirpt;[
 <!ENTITY % content.multirpt 'EMPTY'>
 <!ELEMENT %n.multirpt; %content.multirpt;>
@@ -7475,7 +7686,7 @@ Module:  meiCMN -->
 <!-- doc: Arpeggiation, roll (Read, p. 241-243). 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % arpeg 'INCLUDE'>
+<!ENTITY % arpeg 'IGNORE'>
 <![%arpeg;[
 <!ENTITY % content.arpeg 'EMPTY'>
 <!ELEMENT %n.arpeg; %content.arpeg;>
@@ -7492,7 +7703,7 @@ Module:  meiCMN -->
 which extend across barlines. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % beamspan 'INCLUDE'>
+<!ENTITY % beamspan 'IGNORE'>
 <![%beamspan;[
 <!ENTITY % content.beamspan 'EMPTY'>
 <!ELEMENT %n.beamspan; %content.beamspan;>
@@ -7509,7 +7720,7 @@ Module:  meiCMN -->
 for, dir/@type="breathmark" with "," as its PCDATA content. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % breath 'INCLUDE'>
+<!ENTITY % breath 'IGNORE'>
 <![%breath;[
 <!ENTITY % content.breath 'EMPTY'>
 <!ELEMENT %n.breath; %content.breath;>
@@ -7526,7 +7737,7 @@ Module:  meiCMN -->
 for, dir/@type="fermata" with &ferm; or &uferm; as its PCDATA content. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % fermata 'INCLUDE'>
+<!ENTITY % fermata 'IGNORE'>
 <![%fermata;[
 <!ENTITY % content.fermata 'EMPTY'>
 <!ELEMENT %n.fermata; %content.fermata;>
@@ -7543,7 +7754,7 @@ Module:  meiCMN -->
 graphics, e.g. < and >. See Read, p. 250-255. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % hairpin 'INCLUDE'>
+<!ENTITY % hairpin 'IGNORE'>
 <![%hairpin;[
 <!ENTITY % content.hairpin 'EMPTY'>
 <!ELEMENT %n.hairpin; %content.hairpin;>
@@ -7559,7 +7770,7 @@ Module:  meiCMN -->
 <!-- doc: Harp pedal diagram 
 Used by: model.controleventLike.instruments 
 Module:  meiCMN -->
-<!ENTITY % harppedal 'INCLUDE'>
+<!ENTITY % harppedal 'IGNORE'>
 <![%harppedal;[
 <!ENTITY % content.harppedal 'EMPTY'>
 <!ELEMENT %n.harppedal; %content.harppedal;>
@@ -7575,7 +7786,7 @@ Module:  meiCMN -->
 <!-- doc: Octave displacement. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % octave 'INCLUDE'>
+<!ENTITY % octave 'IGNORE'>
 <![%octave;[
 <!ENTITY % content.octave 'EMPTY'>
 <!ELEMENT %n.octave; %content.octave;>
@@ -7591,7 +7802,7 @@ Module:  meiCMN -->
 <!-- doc: Piano pedal mark (Read, p. 317-318). 
 Used by: model.controleventLike.instruments 
 Module:  meiCMN -->
-<!ENTITY % pedal 'INCLUDE'>
+<!ENTITY % pedal 'IGNORE'>
 <![%pedal;[
 <!ENTITY % content.pedal 'EMPTY'>
 <!ELEMENT %n.pedal; %content.pedal;>
@@ -7609,7 +7820,7 @@ Module:  meiCMN -->
 circled, the enclose attribute is preferred over a rend sub-element. 
 Used by: model.controleventLike.common 
 Module:  meiCMN -->
-<!ENTITY % reh 'INCLUDE'>
+<!ENTITY % reh 'IGNORE'>
 <![%reh;[
 <!ENTITY % content.reh '(#PCDATA|%n.lb;|%model.rendLike;)*'>
 <!ELEMENT %n.reh; %content.reh;>
@@ -7632,7 +7843,7 @@ needed. Normally, a slur has only 2 participating events - the starting
 and ending notes/chords. 
 Used by: model.controleventLike.common 
 Module:  meiCMN -->
-<!ENTITY % slur 'INCLUDE'>
+<!ENTITY % slur 'IGNORE'>
 <![%slur;[
 <!ENTITY % content.slur 'EMPTY'>
 <!ELEMENT %n.slur; %content.slur;>
@@ -7648,7 +7859,7 @@ Module:  meiCMN -->
 <!-- doc: Tie (Read, p. 110-111, 122). 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % tie 'INCLUDE'>
+<!ENTITY % tie 'IGNORE'>
 <![%tie;[
 <!ENTITY % content.tie 'EMPTY'>
 <!ELEMENT %n.tie; %content.tie;>
@@ -7665,7 +7876,7 @@ Module:  meiCMN -->
 those which extend across barlines. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
-<!ENTITY % tupletspan 'INCLUDE'>
+<!ENTITY % tupletspan 'IGNORE'>
 <![%tupletspan;[
 <!ENTITY % content.tupletspan 'EMPTY'>
 <!ELEMENT %n.tupletspan; %content.tupletspan;>
@@ -7677,7 +7888,6 @@ Module:  meiCMN -->
           %att.ges.tupletspan;
           %att.anl.tupletspan;>
 ]]>
-]]>
 
 <!-- Lyrics -->
 <!-- doc: Lyrics. The staff attribute gives the staff to which the lyrics
@@ -7687,7 +7897,7 @@ attribute may be used to indicate the layer from which the rhythm
 should be taken. 
 Used by: model.controleventLike.cmn 
 Module:  meiLyrics -->
-<!ENTITY % lyrics 'INCLUDE'>
+<!ENTITY % lyrics 'IGNORE'>
 <![%lyrics;[
 <!ENTITY % content.lyrics '(%n.verse;)+'>
 <!ELEMENT %n.lyrics; %content.lyrics;>
@@ -7706,7 +7916,7 @@ karaoke applications. The func attribute on lb may be used to
 distinguish true line ends from line group ends for these applications. 
 Used by: model.noteModifierLike model.notaModifierLike model.neumeModifierLike 
 Module:  meiLyrics -->
-<!ENTITY % verse 'INCLUDE'>
+<!ENTITY % verse 'IGNORE'>
 <![%verse;[
 <!ENTITY % content.verse '((%n.dir;|%n.dynam;|%n.tempo;|%n.space;)*, (%n.syl;)+,
                      (%n.lb;)*)'>
@@ -7724,7 +7934,7 @@ Module:  meiLyrics -->
 <!-- doc: Individual lyric syllable. 
 Used by: model.noteModifierLike model.notaModifierLike model.rdgPart 
 Module:  meiLyrics -->
-<!ENTITY % syl 'INCLUDE'>
+<!ENTITY % syl 'IGNORE'>
 <![%syl;[
 <!ENTITY % content.syl '(#PCDATA|%model.textphraseLike.limited;|
                    %model.editLike;|%model.transcriptionLike;)*'>
@@ -7743,7 +7953,7 @@ Module:  meiLyrics -->
 performance data. (Read, p. 245-246) 
 Used by: model.ornamentLike.cmn 
 Module:  meiCMNOrnaments -->
-<!ENTITY % mordent 'INCLUDE'>
+<!ENTITY % mordent 'IGNORE'>
 <![%mordent;[
 <!ENTITY % content.mordent '(%model.eventLike;)*'>
 <!ELEMENT %n.mordent; %content.mordent;>
@@ -7760,7 +7970,7 @@ Module:  meiCMNOrnaments -->
 order to record precise performance data. 
 Used by: model.ornamentLike.cmn 
 Module:  meiCMNOrnaments -->
-<!ENTITY % trill 'INCLUDE'>
+<!ENTITY % trill 'IGNORE'>
 <![%trill;[
 <!ENTITY % content.trill '(%model.eventLike;)*'>
 <!ELEMENT %n.trill; %content.trill;>
@@ -7779,7 +7989,7 @@ or unaccented may be inferred from the timestamp - accented turns occur
 directly on the affected beat, unaccented ones do not. 
 Used by: model.ornamentLike.cmn 
 Module:  meiCMNOrnaments -->
-<!ENTITY % turn 'INCLUDE'>
+<!ENTITY % turn 'IGNORE'>
 <![%turn;[
 <!ENTITY % content.turn '(%model.eventLike;)*'>
 <!ELEMENT %n.turn; %content.turn;>
@@ -7797,7 +8007,7 @@ Module:  meiCMNOrnaments -->
 and to attributes should contain the id of a chordmember element. 
 Used by: chorddef 
 Module:  meiHarmony -->
-<!ENTITY % barre 'INCLUDE'>
+<!ENTITY % barre 'IGNORE'>
 <![%barre;[
 <!ENTITY % content.barre 'EMPTY'>
 <!ELEMENT %n.barre; %content.barre;>
@@ -7816,7 +8026,7 @@ provided in order to create displayable chord tablature grids. (Read,
 p. 409-410) 
 Used by: chordtable 
 Module:  meiHarmony -->
-<!ENTITY % chorddef 'INCLUDE'>
+<!ENTITY % chorddef 'IGNORE'>
 <![%chorddef;[
 <!ENTITY % content.chorddef '((%n.chordmember;)*, (%n.barre;)*)'>
 <!ELEMENT %n.chorddef; %content.chorddef;>
@@ -7833,7 +8043,7 @@ be set to '0'. The inth attribute may be used to provide "playable"
 chords. 
 Used by: chordmember 
 Module:  meiHarmony -->
-<!ENTITY % chordmember 'INCLUDE'>
+<!ENTITY % chordmember 'IGNORE'>
 <![%chordmember;[
 <!ENTITY % content.chordmember 'EMPTY'>
 <!ELEMENT %n.chordmember; %content.chordmember;>
@@ -7851,7 +8061,7 @@ instances through the use of an external parsed entity containing the
 look-up table to be shared. 
 Used by: model.chordtableLike 
 Module:  meiHarmony -->
-<!ENTITY % chordtable 'INCLUDE'>
+<!ENTITY % chordtable 'IGNORE'>
 <![%chordtable;[
 <!ENTITY % content.chordtable '(%n.chorddef;)+'>
 <!ELEMENT %n.chordtable; %content.chordtable;>
@@ -7865,7 +8075,7 @@ entity is employed here instead of %model.textphrase in order to disallow
 the use of the pb sub-element. 
 Used by: model.controleventLike.cmn 
 Module:  meiHarmony -->
-<!ENTITY % harm 'INCLUDE'>
+<!ENTITY % harm 'IGNORE'>
 <![%harm;[
 <!ENTITY % content.harm '(#PCDATA|%model.textphraseLike.limited;|
                     %model.graphicprimitiveLike;|%model.editLike;|
@@ -7895,7 +8105,7 @@ attribute must contain one or more values of the %NUMBER type. Either
 the bezier attribute or the bulge and xy coordinates are required. 
 Used by: model.graphicprimitiveLike 
 Module:  meiUserSymbols -->
-<!ENTITY % curve 'INCLUDE'>
+<!ENTITY % curve 'IGNORE'>
 <![%curve;[
 <!ENTITY % content.curve 'EMPTY'>
 <!ELEMENT %n.curve; %content.curve;>
@@ -7921,7 +8131,7 @@ coordinates of the referenced element(s). Otherwise, they are assumed
 to be absolute page coordinate references. 
 Used by: model.graphicprimitiveLike 
 Module:  meiUserSymbols -->
-<!ENTITY % line 'INCLUDE'>
+<!ENTITY % line 'IGNORE'>
 <![%line;[
 <!ENTITY % content.line '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.line; %content.line;>
@@ -7946,7 +8156,7 @@ must contain the id of a symboldef element. The scale attribute indicates
 that the printed output must be scaled by the specified percentage. 
 Used by: model.graphicprimitiveLike 
 Module:  meiUserSymbols -->
-<!ENTITY % symbol 'INCLUDE'>
+<!ENTITY % symbol 'IGNORE'>
 <![%symbol;[
 <!ENTITY % content.symbol 'EMPTY'>
 <!ELEMENT %n.symbol; %content.symbol;>
@@ -7965,7 +8175,7 @@ Module:  meiUserSymbols -->
 <!-- doc: Declaration of an individual symbol. 
 Used by: symboltable 
 Module:  meiUserSymbols -->
-<!ENTITY % symboldef 'INCLUDE'>
+<!ENTITY % symboldef 'IGNORE'>
 <![%symboldef;[
 <!ENTITY % content.symboldef '(%model.graphicprimitiveLike;)+'>
 <!ELEMENT %n.symboldef; %content.symboldef;>
@@ -7979,7 +8189,7 @@ through the use of an external parsed entity containing the
 symboltable to be shared. 
 Used by: model.symboltableLike 
 Module:  meiUserSymbols -->
-<!ENTITY % symboltable 'INCLUDE'>
+<!ENTITY % symboltable 'IGNORE'>
 <![%symboltable;[
 <!ENTITY % content.symboltable '(%n.symboldef;)+'>
 <!ELEMENT %n.symboltable; %content.symboltable;>
@@ -7998,7 +8208,7 @@ required to understand it (e.g. lectio difficilior, usus auctoris,
 etc.) 
 Used by: model.apparatusLike 
 Module:  meiCritApp -->
-<!ENTITY % app 'INCLUDE'>
+<!ENTITY % app 'IGNORE'>
 <![%app;[
 <!ENTITY % content.app '(%n.rdg;, (%n.rdg;)*)'>
 <!ELEMENT %n.app; %content.app;>
@@ -8015,7 +8225,7 @@ the meiShared DTD. The app sub-element is permitted in order to allow
 nested sub-variants. 
 Used by: app 
 Module:  meiCritApp -->
-<!ENTITY % rdg 'INCLUDE'>
+<!ENTITY % rdg 'IGNORE'>
 <![%rdg;[
 <!ENTITY % content.rdg '(%model.rdgPart;)*'>
 <!ELEMENT %n.rdg; %content.rdg;>
@@ -8038,7 +8248,7 @@ Module:  meiCritApp -->
 the pb element. 
 Used by: model.availabilityPart 
 Module:  meiHeader -->
-<!ENTITY % accessdesc 'INCLUDE'>
+<!ENTITY % accessdesc 'IGNORE'>
 <![%accessdesc;[
 <!ENTITY % content.accessdesc '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.accessdesc; %content.accessdesc;>
@@ -8052,7 +8262,7 @@ distributor, etc. The %model.textphraseLike.limited entity is used here
 in order to disallow the pb element. 
 Used by: model.availabilityPart 
 Module:  meiHeader -->
-<!ENTITY % acqsource 'INCLUDE'>
+<!ENTITY % acqsource 'IGNORE'>
 <![%acqsource;[
 <!ENTITY % content.acqsource '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.acqsource; %content.acqsource;>
@@ -8067,7 +8277,7 @@ the id does not fit the definition of an XML id or because multiple
 identifiers are needed. 
 Used by: meihead 
 Module:  meiHeader -->
-<!ENTITY % altmeiid 'INCLUDE'>
+<!ENTITY % altmeiid 'IGNORE'>
 <![%altmeiid;[
 <!ENTITY % content.altmeiid '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.altmeiid; %content.altmeiid;>
@@ -8083,7 +8293,7 @@ confused with applications which were used to create the MEI file.
 These are recorded in the projectdesc element. 
 Used by: model.encodingPart 
 Module:  meiHeader -->
-<!ENTITY % appinfo 'INCLUDE'>
+<!ENTITY % appinfo 'IGNORE'>
 <![%appinfo;[
 <!ENTITY % content.appinfo '(%n.application;)*'>
 <!ELEMENT %n.appinfo; %content.appinfo;>
@@ -8095,7 +8305,7 @@ Module:  meiHeader -->
 upon the document. 
 Used by: appinfo 
 Module:  meiHeader -->
-<!ENTITY % application 'INCLUDE'>
+<!ENTITY % application 'IGNORE'>
 <![%application;[
 <!ENTITY % content.application '((%n.name;)+, ((%model.ptrLike;)*|(%model.pLike;)*))'>
 <!ELEMENT %n.application; %content.application;>
@@ -8109,7 +8319,7 @@ Module:  meiHeader -->
 <!-- doc: Availability information/qualifications. 
 Used by: model.pubstmtPart 
 Module:  meiHeader -->
-<!ENTITY % availability 'INCLUDE'>
+<!ENTITY % availability 'IGNORE'>
 <![%availability;[
 <!ENTITY % content.availability '(%model.availabilityPart;)'>
 <!ELEMENT %n.availability; %content.availability;>
@@ -8124,7 +8334,7 @@ person/entity responsible for change. The date element is declared in
 the meiShared DTD. 
 Used by: revisiondesc 
 Module:  meiHeader -->
-<!ENTITY % change 'INCLUDE'>
+<!ENTITY % change 'IGNORE'>
 <![%change;[
 <!ENTITY % content.change '(%n.changedesc;, %model.dateLike;)'>
 <!ELEMENT %n.change; %content.change;>
@@ -8138,7 +8348,7 @@ Module:  meiHeader -->
 meiShared DTD. 
 Used by: change 
 Module:  meiHeader -->
-<!ENTITY % changedesc 'INCLUDE'>
+<!ENTITY % changedesc 'IGNORE'>
 <![%changedesc;[
 <!ENTITY % content.changedesc '(%model.pLike;)+'>
 <!ELEMENT %n.changedesc; %content.changedesc;>
@@ -8152,7 +8362,7 @@ thesaurus or ontology citation.  The source of controlled-vocabulary
 terms used in the keywords element. 
 Used by: classification 
 Module:  meiHeader -->
-<!ENTITY % classcode 'INCLUDE'>
+<!ENTITY % classcode 'IGNORE'>
 <![%classcode;[
 <!ENTITY % content.classcode '(#PCDATA)'>
 <!ELEMENT %n.classcode; %content.classcode;>
@@ -8166,7 +8376,7 @@ nature or topic of a musical work in terms of a standard classification
 scheme, thesaurus, etc. 
 Used by: model.profiledescPart 
 Module:  meiHeader -->
-<!ENTITY % classification 'INCLUDE'>
+<!ENTITY % classification 'IGNORE'>
 <![%classification;[
 <!ENTITY % content.classification '(%n.classcode;|%n.keywords;)+'>
 <!ELEMENT %n.classification; %content.classification;>
@@ -8183,7 +8393,7 @@ brittleness, faded images, etc.). The %model.textphraseLike.limited
 entity is used here in order to disallow the pb element. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % condition 'INCLUDE'>
+<!ENTITY % condition 'IGNORE'>
 <![%condition;[
 <!ENTITY % content.condition '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.condition; %content.condition;>
@@ -8196,7 +8406,7 @@ Module:  meiHeader -->
 in the music/text. 
 Used by: model.editorialdeclPart 
 Module:  meiHeader -->
-<!ENTITY % correction 'INCLUDE'>
+<!ENTITY % correction 'IGNORE'>
 <![%correction;[
 <!ENTITY % content.correction '(%model.pLike;)+'>
 <!ELEMENT %n.correction; %content.correction;>
@@ -8213,7 +8423,7 @@ narrative form. The model.textcomponent class elements are declared in the
 meiShared DTD. 
 Used by: model.profiledescPart 
 Module:  meiHeader -->
-<!ENTITY % creation 'INCLUDE'>
+<!ENTITY % creation 'IGNORE'>
 <![%creation;[
 <!ENTITY % content.creation '(%model.textcomponentLike;)+'>
 <!ELEMENT %n.creation; %content.creation;>
@@ -8228,7 +8438,7 @@ the pb element. There are no height and width sub-elements; however,
 the num element may be used. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % dimensions 'INCLUDE'>
+<!ENTITY % dimensions 'IGNORE'>
 <![%dimensions;[
 <!ENTITY % content.dimensions '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.dimensions; %content.dimensions;>
@@ -8241,7 +8451,7 @@ Module:  meiHeader -->
 <!-- doc: Container for meta-data pertaining to the edition. 
 Used by: filedesc source 
 Module:  meiHeader -->
-<!ENTITY % editionstmt 'INCLUDE'>
+<!ENTITY % editionstmt 'IGNORE'>
 <![%editionstmt;[
 <!ENTITY % content.editionstmt '(%n.edition;, (%n.respstmt;)*)+'>
 <!ELEMENT %n.editionstmt; %content.editionstmt;>
@@ -8254,7 +8464,7 @@ Module:  meiHeader -->
 principles and practices applied during the encoding of musical text.
 Used by: model.encodingPart 
 Module:  meiHeader -->
-<!ENTITY % editorialdecl 'INCLUDE'>
+<!ENTITY % editorialdecl 'IGNORE'>
 <![%editorialdecl;[
 <!ENTITY % content.editorialdecl '
                              (
@@ -8272,7 +8482,7 @@ source or sources from which it was derived as well as applications used
 in the encoding/editing process. 
 Used by: meihead 
 Module:  meiHeader -->
-<!ENTITY % encodingdesc 'INCLUDE'>
+<!ENTITY % encodingdesc 'IGNORE'>
 <![%encodingdesc;[
 <!ENTITY % content.encodingdesc '(%model.encodingPart;)'>
 <!ELEMENT %n.encodingdesc; %content.encodingdesc;>
@@ -8286,7 +8496,7 @@ dates, venues, etc. The %model.textphraseLike.limited entity is used
 here in order to disallow the pb element. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % exhibithist 'INCLUDE'>
+<!ENTITY % exhibithist 'IGNORE'>
 <![%exhibithist;[
 <!ENTITY % content.exhibithist '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.exhibithist; %content.exhibithist;>
@@ -8303,7 +8513,7 @@ element. The %model.textphraseLike.limited entity is used here in order
 to disallow the pb element. 
 Used by: model.physdescPart filedesc 
 Module:  meiHeader -->
-<!ENTITY % extent 'INCLUDE'>
+<!ENTITY % extent 'IGNORE'>
 <![%extent;[
 <!ENTITY % content.extent '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.extent; %content.extent;>
@@ -8317,7 +8527,7 @@ Module:  meiHeader -->
 MEI file. Extent in this context is file size. 
 Used by: meihead 
 Module:  meiHeader -->
-<!ENTITY % filedesc 'INCLUDE'>
+<!ENTITY % filedesc 'IGNORE'>
 <![%filedesc;[
 <!ENTITY % content.filedesc '
                         (%n.titlestmt;, (%n.editionstmt;)?, (%n.extent;)?,
@@ -8336,7 +8546,7 @@ checksum makes it possible to signal differences between copies of the
 item. 
 Used by: filedesc 
 Module:  meiHeader -->
-<!ENTITY % fingerprint 'INCLUDE'>
+<!ENTITY % fingerprint 'IGNORE'>
 <![%fingerprint;[
 <!ENTITY % content.fingerprint '(#PCDATA)'>
 <!ELEMENT %n.fingerprint; %content.fingerprint;>
@@ -8356,7 +8566,7 @@ those related to the quality of the writing, such as 'shaky', 'thick',
 etc. may be described within the content of the hand element. 
 Used by: handlist 
 Module:  meiHeader -->
-<!ENTITY % hand 'INCLUDE'>
+<!ENTITY % hand 'IGNORE'>
 <![%hand;[
 <!ENTITY % content.hand '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.hand; %content.hand;>
@@ -8372,7 +8582,7 @@ Module:  meiHeader -->
 the different hands of the source. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % handlist 'INCLUDE'>
+<!ENTITY % handlist 'IGNORE'>
 <![%handlist;[
 <!ENTITY % content.handlist '(%n.hand;)+'>
 <!ELEMENT %n.handlist; %content.handlist;>
@@ -8387,7 +8597,7 @@ designating the item as a gift, and/or the author's signature. The
 the pb element. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % inscription 'INCLUDE'>
+<!ENTITY % inscription 'IGNORE'>
 <![%inscription;[
 <!ENTITY % content.inscription '(#PCDATA|%model.textphraseLike.limited;|
                           %model.editLike;|%model.transcriptionLike;)*'>
@@ -8401,7 +8611,7 @@ Module:  meiHeader -->
 added to the musical text in addition to the transcription. 
 Used by: model.editorialdeclPart 
 Module:  meiHeader -->
-<!ENTITY % interpretation 'INCLUDE'>
+<!ENTITY % interpretation 'IGNORE'>
 <![%interpretation;[
 <!ENTITY % content.interpretation '(%model.pLike;)+'>
 <!ELEMENT %n.interpretation; %content.interpretation;>
@@ -8413,7 +8623,7 @@ Module:  meiHeader -->
 <!-- doc: Collection of keywords or text phrases which describe the work. 
 Used by: classification 
 Module:  meiHeader -->
-<!ENTITY % keywords 'INCLUDE'>
+<!ENTITY % keywords 'IGNORE'>
 <![%keywords;[
 <!ENTITY % content.keywords '(%n.term;)+'>
 <!ELEMENT %n.keywords; %content.keywords;>
@@ -8429,7 +8639,7 @@ drawn from a coded list, such as iso639-2b. The
 disallow the pb element. 
 Used by: langusage 
 Module:  meiHeader -->
-<!ENTITY % language 'INCLUDE'>
+<!ENTITY % language 'IGNORE'>
 <![%language;[
 <!ENTITY % content.language '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.language; %content.language;>
@@ -8442,7 +8652,7 @@ Module:  meiHeader -->
 represented within the encoded work. 
 Used by: model.profiledescPart 
 Module:  meiHeader -->
-<!ENTITY % langusage 'INCLUDE'>
+<!ENTITY % langusage 'IGNORE'>
 <![%langusage;[
 <!ENTITY % content.langusage '(%n.language;)+'>
 <!ELEMENT %n.langusage; %content.langusage;>
@@ -8455,7 +8665,7 @@ Module:  meiHeader -->
 original source carried out in converting it to electronic form. 
 Used by: model.editorialdeclPart 
 Module:  meiHeader -->
-<!ENTITY % normalization 'INCLUDE'>
+<!ENTITY % normalization 'IGNORE'>
 <![%normalization;[
 <!ENTITY % content.normalization '(%model.pLike;)+'>
 <!ELEMENT %n.normalization; %content.normalization;>
@@ -8470,7 +8680,7 @@ additional to that recorded in other parts of the bibliographic
 description. 
 Used by: filedesc 
 Module:  meiHeader -->
-<!ENTITY % notesstmt 'INCLUDE'>
+<!ENTITY % notesstmt 'IGNORE'>
 <![%notesstmt;[
 <!ENTITY % content.notesstmt '(%model.annotLike;)+'>
 <!ELEMENT %n.notesstmt; %content.notesstmt;>
@@ -8485,7 +8695,7 @@ they are not transcribed as part of the front or back matter; i.e.,
 when they are considered to be meta-data. 
 Used by: source 
 Module:  meiHeader -->
-<!ENTITY % physdesc 'INCLUDE'>
+<!ENTITY % physdesc 'IGNORE'>
 <![%physdesc;[
 <!ENTITY % content.physdesc '(%model.physdescPart;)+'>
 <!ELEMENT %n.physdesc; %content.physdesc;>
@@ -8498,7 +8708,7 @@ Module:  meiHeader -->
 other locational information. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % physloc 'INCLUDE'>
+<!ENTITY % physloc 'IGNORE'>
 <![%physloc;[
 <!ENTITY % content.physloc '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.physloc; %content.physloc;>
@@ -8512,7 +8722,7 @@ source, such as ink and paper. The %model.textphraseLike.limited
 entity is used here in order to disallow the pb element. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % physmedium 'INCLUDE'>
+<!ENTITY % physmedium 'IGNORE'>
 <![%physmedium;[
 <!ENTITY % content.physmedium '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.physmedium; %content.physmedium;>
@@ -8525,7 +8735,7 @@ Module:  meiHeader -->
 used here in order to disallow the pb element. 
 Used by: model.availabilityPart 
 Module:  meiHeader -->
-<!ENTITY % price 'INCLUDE'>
+<!ENTITY % price 'IGNORE'>
 <![%price;[
 <!ENTITY % content.price '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.price; %content.price;>
@@ -8541,7 +8751,7 @@ languages and sublanguages used, the situation in which it was
 produced, e.g. the participants, setting, reception history, etc. 
 Used by: meihead 
 Module:  meiHeader -->
-<!ENTITY % profiledesc 'INCLUDE'>
+<!ENTITY % profiledesc 'IGNORE'>
 <![%profiledesc;[
 <!ENTITY % content.profiledesc '(%model.profiledescPart;)'>
 <!ELEMENT %n.profiledesc; %content.profiledesc;>
@@ -8556,7 +8766,7 @@ any other relevant information concerning the process by which it was
 assembled or collected.
 Used by: model.encodingPart 
 Module:  meiHeader -->
-<!ENTITY % projectdesc 'INCLUDE'>
+<!ENTITY % projectdesc 'IGNORE'>
 <![%projectdesc;[
 <!ENTITY % content.projectdesc '(%model.pLike;)+'>
 <!ELEMENT %n.projectdesc; %content.projectdesc;>
@@ -8570,7 +8780,7 @@ Module:  meiHeader -->
 the pb element. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % provenance 'INCLUDE'>
+<!ENTITY % provenance 'IGNORE'>
 <![%provenance;[
 <!ENTITY % content.provenance '(#PCDATA|%model.listLike;|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.provenance; %content.provenance;>
@@ -8582,7 +8792,7 @@ Module:  meiHeader -->
 <!-- doc: Publication meta-data.
 Used by: filedesc source 
 Module:  meiHeader -->
-<!ENTITY % pubstmt 'INCLUDE'>
+<!ENTITY % pubstmt 'IGNORE'>
 <![%pubstmt;[
 <!ENTITY % content.pubstmt '((%n.unpub;)?|(%model.pubstmtPart;)*)'>
 <!ELEMENT %n.pubstmt; %content.pubstmt;>
@@ -8596,7 +8806,7 @@ groups, or in rare cases, mechanical processes, responsible for
 creation or realization of the intellectual or artistic content.
 Used by: model.pubstmtPart model.respLike titlestmt editionstmt seriesstmt 
 Module:  meiHeader -->
-<!ENTITY % respstmt 'INCLUDE'>
+<!ENTITY % respstmt 'IGNORE'>
 <![%respstmt;[
 <!ENTITY % content.respstmt '(%model.nameLike;|%model.nameLike.agent;)+'>
 <!ELEMENT %n.respstmt; %content.respstmt;>
@@ -8608,7 +8818,7 @@ Module:  meiHeader -->
 <!-- doc: The revision history for an MEI file. 
 Used by: meihead 
 Module:  meiHeader -->
-<!ENTITY % revisiondesc 'INCLUDE'>
+<!ENTITY % revisiondesc 'IGNORE'>
 <![%revisiondesc;[
 <!ENTITY % content.revisiondesc '(%n.change;)+'>
 <!ELEMENT %n.revisiondesc; %content.revisiondesc;>
@@ -8621,7 +8831,7 @@ Module:  meiHeader -->
 sampling texts in the creation of a corpus or collection. 
 Used by: model.encodingPart 
 Module:  meiHeader -->
-<!ENTITY % samplingdecl 'INCLUDE'>
+<!ENTITY % samplingdecl 'IGNORE'>
 <![%samplingdecl;[
 <!ENTITY % content.samplingdecl '(%model.pLike;)+'>
 <!ELEMENT %n.samplingdecl; %content.samplingdecl;>
@@ -8634,7 +8844,7 @@ Module:  meiHeader -->
 segmented, for example into movements, sections, etc. 
 Used by: model.editorialdeclPart 
 Module:  meiHeader -->
-<!ENTITY % segmentation 'INCLUDE'>
+<!ENTITY % segmentation 'IGNORE'>
 <![%segmentation;[
 <!ENTITY % content.segmentation '(%model.pLike;)+'>
 <!ELEMENT %n.segmentation; %content.segmentation;>
@@ -8652,7 +8862,7 @@ to enumerate the contents of the series. The seriesstmt is provided
 within seriesstmt for the description of a sub-series.
 Used by: filedesc source seriesstmt 
 Module:  meiHeader -->
-<!ENTITY % seriesstmt 'INCLUDE'>
+<!ENTITY % seriesstmt 'IGNORE'>
 <![%seriesstmt;[
 <!ENTITY % content.seriesstmt '((%n.title;)+, (%n.respstmt;)?, (%n.identifier;)*,
                              (%model.listLike;|(%n.seriesstmt;)*))'>
@@ -8673,7 +8883,7 @@ may be used to describe the physically separate parts of a single
 source. 
 Used by: sourcedesc 
 Module:  meiHeader -->
-<!ENTITY % source 'INCLUDE'>
+<!ENTITY % source 'IGNORE'>
 <![%source;[
 <!ENTITY % content.source '
                       (
@@ -8691,10 +8901,13 @@ Module:  meiHeader -->
 ]]>
 
 <!-- doc: Sourcedesc is a container for the descriptions of the source(s)
-used in the creation of the electronic file. 
+used in the creation of the electronic file. The sourcedesc element is
+required where the MEI file is a transcription of existing music. In the
+case where the data is originally created in MEI form, the sourcedesc
+element is not required.
 Used by: meihead 
 Module:  meiHeader -->
-<!ENTITY % sourcedesc 'INCLUDE'>
+<!ENTITY % sourcedesc 'IGNORE'>
 <![%sourcedesc;[
 <!ENTITY % content.sourcedesc '(%n.source;)+'>
 <!ELEMENT %n.sourcedesc; %content.sourcedesc;>
@@ -8706,7 +8919,7 @@ Module:  meiHeader -->
 supplied. 
 Used by: model.editorialdeclPart 
 Module:  meiHeader -->
-<!ENTITY % stdvals 'INCLUDE'>
+<!ENTITY % stdvals 'IGNORE'>
 <![%stdvals;[
 <!ENTITY % content.stdvals '(%model.pLike;)+'>
 <!ELEMENT %n.stdvals; %content.stdvals;>
@@ -8720,7 +8933,7 @@ Module:  meiHeader -->
 element. 
 Used by: model.availabilityPart 
 Module:  meiHeader -->
-<!ENTITY % sysreq 'INCLUDE'>
+<!ENTITY % sysreq 'IGNORE'>
 <![%sysreq;[
 <!ENTITY % content.sysreq '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.sysreq; %content.sysreq;>
@@ -8738,7 +8951,7 @@ of coordinated terms; i.e., terms created from a combination of other,
 independent terms. 
 Used by: keywords 
 Module:  meiHeader -->
-<!ENTITY % term 'INCLUDE'>
+<!ENTITY % term 'IGNORE'>
 <![%term;[
 <!ENTITY % content.term '(#PCDATA|%n.term;|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.term; %content.term;>
@@ -8751,7 +8964,7 @@ Module:  meiHeader -->
 <!-- doc: Container for title and responsibility meta-data.
 Used by: filedesc source 
 Module:  meiHeader -->
-<!ENTITY % titlestmt 'INCLUDE'>
+<!ENTITY % titlestmt 'IGNORE'>
 <![%titlestmt;[
 <!ENTITY % content.titlestmt '((%n.title;)+, (%n.respstmt;)?)'>
 <!ELEMENT %n.titlestmt; %content.titlestmt;>
@@ -8768,7 +8981,7 @@ techniques applied, etc.), the date the treatment was applied, etc. The
 the pb element. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % treatmenthist 'INCLUDE'>
+<!ENTITY % treatmenthist 'IGNORE'>
 <![%treatmenthist;[
 <!ENTITY % content.treatmenthist '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.treatmenthist; %content.treatmenthist;>
@@ -8782,7 +8995,7 @@ an item. The %model.textphraseLike.limited entity is used here in
 order to disallow the pb element. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
-<!ENTITY % treatmentsched 'INCLUDE'>
+<!ENTITY % treatmentsched 'IGNORE'>
 <![%treatmentsched;[
 <!ENTITY % content.treatmentsched '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.treatmentsched; %content.treatmentsched;>
@@ -8795,7 +9008,7 @@ Module:  meiHeader -->
 bibliographic source is unpublished. 
 Used by: pubstmt 
 Module:  meiHeader -->
-<!ENTITY % unpub 'INCLUDE'>
+<!ENTITY % unpub 'IGNORE'>
 <![%unpub;[
 <!ENTITY % content.unpub 'EMPTY'>
 <!ELEMENT %n.unpub; %content.unpub;>
@@ -8810,7 +9023,7 @@ Module:  meiHeader -->
 the pb element. 
 Used by: model.availabilityPart 
 Module:  meiHeader -->
-<!ENTITY % userestrict 'INCLUDE'>
+<!ENTITY % userestrict 'IGNORE'>
 <![%userestrict;[
 <!ENTITY % content.userestrict '(#PCDATA|%model.textphraseLike.limited;)*'>
 <!ELEMENT %n.userestrict; %content.userestrict;>
@@ -8840,7 +9053,7 @@ A sampling of controllers and their numbers:
 123 All Notes Off (0) 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % cc 'INCLUDE'>
+<!ENTITY % cc 'IGNORE'>
 <![%cc;[
 <!ENTITY % content.cc 'EMPTY'>
 <!ELEMENT %n.cc; %content.cc;>
@@ -8855,7 +9068,7 @@ Module:  meiMIDI -->
 <!-- doc: Channel assignment 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % chan 'INCLUDE'>
+<!ENTITY % chan 'IGNORE'>
 <![%chan;[
 <!ENTITY % content.chan 'EMPTY'>
 <!ELEMENT %n.chan; %content.chan;>
@@ -8870,7 +9083,7 @@ Module:  meiMIDI -->
 range 0-127. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % chanpr 'INCLUDE'>
+<!ENTITY % chanpr 'IGNORE'>
 <![%chanpr;[
 <!ENTITY % content.chanpr 'EMPTY'>
 <!ELEMENT %n.chanpr; %content.chanpr;>
@@ -8884,7 +9097,7 @@ Module:  meiMIDI -->
 <!-- doc: Cue point 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % cue 'INCLUDE'>
+<!ENTITY % cue 'IGNORE'>
 <![%cue;[
 <!ENTITY % content.cue '(#PCDATA)'>
 <!ELEMENT %n.cue; %content.cue;>
@@ -8897,7 +9110,7 @@ Module:  meiMIDI -->
 <!-- doc: Arbitrary MIDI data in hex 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % hex 'INCLUDE'>
+<!ENTITY % hex 'IGNORE'>
 <![%hex;[
 <!ENTITY % content.hex '(#PCDATA)'>
 <!ELEMENT %n.hex; %content.hex;>
@@ -8910,7 +9123,7 @@ Module:  meiMIDI -->
 <!-- doc: Marker meta event
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % marker 'INCLUDE'>
+<!ENTITY % marker 'IGNORE'>
 <![%marker;[
 <!ENTITY % content.marker '(#PCDATA)'>
 <!ELEMENT %n.marker; %content.marker;>
@@ -8923,7 +9136,7 @@ Module:  meiMIDI -->
 <!-- doc: Text meta event 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % metatext 'INCLUDE'>
+<!ENTITY % metatext 'IGNORE'>
 <![%metatext;[
 <!ENTITY % content.metatext '(#PCDATA)'>
 <!ELEMENT %n.metatext; %content.metatext;>
@@ -8939,7 +9152,7 @@ differentiate between multiple MIDI data streams, e.g.
 quantized/unquantized, straight/swing, ornamented/as notated, etc. 
 Used by: model.midiLike 
 Module:  meiMIDI -->
-<!ENTITY % midi 'INCLUDE'>
+<!ENTITY % midi 'IGNORE'>
 <![%midi;[
 <!ENTITY % content.midi '(%n.cc;|%n.chan;|%n.chanpr;|%n.cue;|%n.hex;|
                      %n.marker;|%n.metatext;|%n.noteoff;|%n.noteon;|
@@ -8956,7 +9169,7 @@ Module:  meiMIDI -->
 <!-- doc: Note-off 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % noteoff 'INCLUDE'>
+<!ENTITY % noteoff 'IGNORE'>
 <![%noteoff;[
 <!ENTITY % content.noteoff 'EMPTY'>
 <!ELEMENT %n.noteoff; %content.noteoff;>
@@ -8970,7 +9183,7 @@ Module:  meiMIDI -->
 <!-- doc: Note-on 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % noteon 'INCLUDE'>
+<!ENTITY % noteon 'IGNORE'>
 <![%noteon;[
 <!ENTITY % content.noteon 'EMPTY'>
 <!ELEMENT %n.noteon; %content.noteon;>
@@ -8984,7 +9197,7 @@ Module:  meiMIDI -->
 <!-- doc: MIDI port. The n attribute must be in the range 0-127. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % port 'INCLUDE'>
+<!ENTITY % port 'IGNORE'>
 <![%port;[
 <!ENTITY % content.port 'EMPTY'>
 <!ELEMENT %n.port; %content.port;>
@@ -8999,7 +9212,7 @@ Module:  meiMIDI -->
 range 0-127. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % prog 'INCLUDE'>
+<!ENTITY % prog 'IGNORE'>
 <![%prog;[
 <!ENTITY % content.prog 'EMPTY'>
 <!ELEMENT %n.prog; %content.prog;>
@@ -9013,7 +9226,7 @@ Module:  meiMIDI -->
 <!-- doc: Sequence number. The n attribute must be in the range 0-65535 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % seqnum 'INCLUDE'>
+<!ENTITY % seqnum 'IGNORE'>
 <![%seqnum;[
 <!ENTITY % content.seqnum 'EMPTY'>
 <!ELEMENT %n.seqnum; %content.seqnum;>
@@ -9027,7 +9240,7 @@ Module:  meiMIDI -->
 <!-- doc: Track/sequence name 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % trkname 'INCLUDE'>
+<!ENTITY % trkname 'IGNORE'>
 <![%trkname;[
 <!ENTITY % content.trkname '(#PCDATA)'>
 <!ELEMENT %n.trkname; %content.trkname;>
@@ -9042,7 +9255,7 @@ the range 1-127. For off velocity, the n attribute must be in the range
 0-127. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
-<!ENTITY % vel 'INCLUDE'>
+<!ENTITY % vel 'IGNORE'>
 <![%vel;[
 <!ENTITY % content.vel 'EMPTY'>
 <!ELEMENT %n.vel; %content.vel;>
@@ -9064,12 +9277,12 @@ ascribed to the identification of the hand of the addition. The hand
 attribute signifies the hand of the agent which made the addition. 
 Used by: model.transcriptionLike 
 Module:  meiEditTrans -->
-<!ENTITY % add 'INCLUDE'>
+<!ENTITY % add 'IGNORE'>
 <![%add;[
 <!ENTITY % content.add '
                      (#PCDATA|%model.textphraseLike;|
                      %model.eventLike;|%model.controleventLike;|
-                     %model.midiLike;|%model.editLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
                      %model.transcriptionLike;|
                      %model.eventLike.cmn.measureFilling;|
                      %model.noteModifierLike;)*'>
@@ -9084,7 +9297,7 @@ Module:  meiEditTrans -->
 <!-- doc: Choice 
 Used by: model.editLike 
 Module:  meiEditTrans -->
-<!ENTITY % choice 'INCLUDE'>
+<!ENTITY % choice 'IGNORE'>
 <![%choice;[
 <!ENTITY % content.choice '(%n.choice;|%model.choicePart;)*'>
 <!ELEMENT %n.choice; %content.choice;>
@@ -9100,9 +9313,13 @@ If the correction was made in the source, resp should be used to
 identify the hand of the corrector. 
 Used by: model.transcriptionLike model.choicePart 
 Module:  meiEditTrans -->
-<!ENTITY % corr 'INCLUDE'>
+<!ENTITY % corr 'IGNORE'>
 <![%corr;[
-<!ENTITY % content.corr '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
+<!ENTITY % content.corr '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
                      %model.noteModifierLike;)*'>
 <!ELEMENT %n.corr; %content.corr;>
 <!ATTLIST %n.corr;
@@ -9126,9 +9343,13 @@ the tag must then be empty of content. In the case of damage
 hand attribute signifies the hand responsible for the damage. 
 Used by: model.transcriptionLike 
 Module:  meiEditTrans -->
-<!ENTITY % damage 'INCLUDE'>
+<!ENTITY % damage 'IGNORE'>
 <![%damage;[
-<!ENTITY % content.damage '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
+<!ENTITY % content.damage '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
                      %model.noteModifierLike;)*'>
 <!ELEMENT %n.damage; %content.damage;>
 <!ATTLIST %n.damage;
@@ -9154,9 +9375,13 @@ deletion (overstrike, strike[through], etc.) or how the deleted matter
 should be displayed. 
 Used by: model.transcriptionLike 
 Module:  meiEditTrans -->
-<!ENTITY % del 'INCLUDE'>
+<!ENTITY % del 'IGNORE'>
 <![%del;[
-<!ENTITY % content.del '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
+<!ENTITY % content.del '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
                      %model.noteModifierLike;)*'>
 <!ELEMENT %n.del; %content.del;>
 <!ATTLIST %n.del;
@@ -9184,7 +9409,7 @@ for the decision not to provide any transcription of the material and
 hence the application of the <gap> tag. 
 Used by: model.editLike 
 Module:  meiEditTrans -->
-<!ENTITY % gap 'INCLUDE'>
+<!ENTITY % gap 'IGNORE'>
 <![%gap;[
 <!ENTITY % content.gap 'EMPTY'>
 <!ELEMENT %n.gap; %content.gap;>
@@ -9210,7 +9435,7 @@ containing the name of the editor or transcriber responsible for
 identifying the change of hand. 
 Used by: model.editLike 
 Module:  meiEditTrans -->
-<!ENTITY % handshift 'INCLUDE'>
+<!ENTITY % handshift 'IGNORE'>
 <![%handshift;[
 <!ENTITY % content.handshift 'EMPTY'>
 <!ELEMENT %n.handshift; %content.handshift;>
@@ -9227,9 +9452,13 @@ Module:  meiEditTrans -->
 <!--
 Used by: model.transcriptionLike model.choicePart 
 Module:  meiEditTrans -->
-<!ENTITY % orig 'INCLUDE'>
+<!ENTITY % orig 'IGNORE'>
 <![%orig;[
-<!ENTITY % content.orig '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
+<!ENTITY % content.orig '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
                      %model.noteModifierLike;)*'>
 <!ELEMENT %n.orig; %content.orig;>
 <!ATTLIST %n.orig;
@@ -9242,9 +9471,13 @@ Module:  meiEditTrans -->
 <!-- 
 Used by: model.transcriptionLike model.choicePart 
 Module:  meiEditTrans -->
-<!ENTITY % reg 'INCLUDE'>
+<!ENTITY % reg 'IGNORE'>
 <![%reg;[
-<!ENTITY % content.reg '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
+<!ENTITY % content.reg '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
                      %model.noteModifierLike;)*'>
 <!ELEMENT %n.reg; %content.reg;>
 <!ATTLIST %n.reg;
@@ -9265,10 +9498,14 @@ identifying the hand of the restoration. The hand attribute signifies
 the hand of the agent which made the restoration. 
 Used by: model.transcriptionLike 
 Module:  meiEditTrans -->
-<!ENTITY % restore 'INCLUDE'>
+<!ENTITY % restore 'IGNORE'>
 <![%restore;[
-<!ENTITY % content.restore '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
-                       %model.noteModifierLike;)*'>
+<!ENTITY % content.restore '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;)*'>
 <!ELEMENT %n.restore; %content.restore;>
 <!ATTLIST %n.restore;
           %att.common;
@@ -9283,10 +9520,14 @@ correction for the apparent error may be given in an accompanying
 child or sibling corr element. 
 Used by: model.transcriptionLike model.choicePart 
 Module:  meiEditTrans -->
-<!ENTITY % sic 'INCLUDE'>
+<!ENTITY % sic 'IGNORE'>
 <![%sic;[
-<!ENTITY % content.sic '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
-                   %model.noteModifierLike;)*'>
+<!ENTITY % content.sic '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;)*'>
 <!ELEMENT %n.sic; %content.sic;>
 <!ATTLIST %n.sic;
           %att.common;
@@ -9296,7 +9537,7 @@ Module:  meiEditTrans -->
 <!-- doc: Substitution 
 Used by: model.editLike 
 Module:  meiEditTrans -->
-<!ENTITY % subst 'INCLUDE'>
+<!ENTITY % subst 'IGNORE'>
 <![%subst;[
 <!ENTITY % content.subst '((%model.transcriptionLike;), (%model.transcriptionLike;)+)'>
 <!ELEMENT %n.subst; %content.subst;>
@@ -9317,10 +9558,14 @@ original', etc. The source attribute contains the source of the
 supplied text. 
 Used by: model.transcriptionLike 
 Module:  meiEditTrans -->
-<!ENTITY % supplied 'INCLUDE'>
+<!ENTITY % supplied 'IGNORE'>
 <![%supplied;[
-<!ENTITY % content.supplied '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
-                        %model.noteModifierLike;)*'>
+<!ENTITY % content.supplied '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;)*'>
 <!ELEMENT %n.supplied; %content.supplied;>
 <!ATTLIST %n.supplied;
           %att.common;
@@ -9335,7 +9580,7 @@ of a text. It may be used within the physdesc element when no other
 transcription is provided. 
 Used by: model.frontPart model.physdescPart 
 Module:  meiEditTrans -->
-<!ENTITY % titlepage 'INCLUDE'>
+<!ENTITY % titlepage 'IGNORE'>
 <![%titlepage;[
 <!ENTITY % content.titlepage '(%model.textcomponentLike;|%model.milestoneLike.text;)+'>
 <!ELEMENT %n.titlepage; %content.titlepage;>
@@ -9360,10 +9605,14 @@ of the word, phrase, or passage contained with the <unclear>
 element. 
 Used by: model.transcriptionLike model.choicePart 
 Module:  meiEditTrans -->
-<!ENTITY % unclear 'INCLUDE'>
+<!ENTITY % unclear 'IGNORE'>
 <![%unclear;[
-<!ENTITY % content.unclear '(#PCDATA|%model.textphraseLike;|%model.layerPart;|
-                       %model.noteModifierLike;)*'>
+<!ENTITY % content.unclear '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;)*'>
 <!ELEMENT %n.unclear; %content.unclear;>
 <!ATTLIST %n.unclear;
           %att.common;
@@ -9381,7 +9630,7 @@ source attribute may be used to link the collection of images with a
 particular source. 
 Used by: model.facsimileLike 
 Module:  meiEditTrans -->
-<!ENTITY % facsimile 'INCLUDE'>
+<!ENTITY % facsimile 'IGNORE'>
 <![%facsimile;[
 <!ENTITY % content.facsimile '((%model.graphicLike;| %n.surface;)*)'>
 <!ELEMENT %n.facsimile; %content.facsimile;>
@@ -9396,7 +9645,7 @@ representations of that space, and rectangular zones of interest within
 it.
 Used by: zone 
 Module:  meiEditTrans -->
-<!ENTITY % surface 'INCLUDE'>
+<!ENTITY % surface 'IGNORE'>
 <![%surface;[
 <!ENTITY % content.surface '((%n.figdesc;)*, (%model.graphicLike;)*,
                            (%n.zone;)*)'>
@@ -9411,7 +9660,7 @@ Module:  meiEditTrans -->
 surface element. 
 Used by: surface 
 Module:  meiEditTrans -->
-<!ENTITY % zone 'INCLUDE'>
+<!ENTITY % zone 'IGNORE'>
 <![%zone;[
 <!ENTITY % content.zone '((%n.figdesc;)*, (%model.graphicLike;)*)'>
 <!ELEMENT %n.zone; %content.zone;>
@@ -9433,7 +9682,7 @@ file, such as an audio file. The medialength attribute specifies the
 length of the external media file in terms of the units attribute. 
 Used by: model.alignLike 
 Module:  meiLinkAlign -->
-<!ENTITY % timeline 'INCLUDE'>
+<!ENTITY % timeline 'IGNORE'>
 <![%timeline;[
 <!ENTITY % content.timeline '(%n.when;)*'>
 <!ELEMENT %n.timeline; %content.timeline;>
@@ -9461,7 +9710,7 @@ is omitted, and the absolute attribute is not specified, then the
 reference point is understood to be the preceding when element. 
 Used by: timeline 
 Module:  meiLinkAlign -->
-<!ENTITY % when 'INCLUDE'>
+<!ENTITY % when 'IGNORE'>
 <![%when;[
 <!ENTITY % content.when 'EMPTY'>
 <!ELEMENT %n.when; %content.when;>
@@ -9493,10 +9742,7 @@ elements. -->
           version            NMTOKEN               #FIXED '1.9b'>
 
 <!-- doc: The meihead element contains general information about the
-encoded file. The sourcedesc element is required where the MEI file
-is a transcription of existing music. In the case where the data is
-originally created in MEI form, the sourcedesc element is not
-required. -->
+encoded file. -->
 <!ELEMENT meihead  ((%n.altmeiid;)*, %n.filedesc;, (%model.headerPart;),
                    (%n.revisiondesc;)?)>
 <!ATTLIST meihead

@@ -26,10 +26,12 @@ for the definitions created by Trang from mei19-all-test.dtd. -->
     colors defined by the HTML 4.01 specification.
   -->
   <define name="data.COLOR">
-    <data type="token">
-      <param name="pattern">(x[0-9A-Fa-f]{6,6})|
-        (aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)</param>
-    </data>
+    <choice>
+      <data type="token">
+        <param name="pattern"
+          >(x[0-9A-Fa-f]{6,6}|aqua|black|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)</param>
+      </data>
+    </choice>
   </define>
 
   <!--

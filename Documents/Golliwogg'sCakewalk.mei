@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- <!DOCTYPE mei SYSTEM "../DTD/mei19-all-test-modularized.dtd"> -->
-<?oxygen RNGSchema="../RelaxSchema/mei19-all-test-modularized.rng" type="xml"?>
+<!DOCTYPE mei SYSTEM "../DTD/mei19b.dtd" [
+  <!ENTITY % meiNeumes 'IGNORE'>
+  <!ENTITY % meiMensural 'IGNORE'>
+]>
+<!-- <?oxygen RNGSchema="../RelaxSchema/mei19b.rng" type="xml"?> -->
 <mei version="1.9b" id="_20090320102509750">
   <meihead>
     <filedesc>
@@ -74,7 +77,7 @@
           </scoredef>
           <section>
             <scoredef meter.count="2" meter.unit="4" key.sig="3f" key.mode="major"
-              system.leftmar="70" system.rightmar="0" system.topmar="211"/>
+            system.leftmar="70" system.rightmar="0" system.topmar="211"/>
             <measure n="1" id="d1e67" width="253">
               <staff n="1">
                 <layer n="1">
@@ -1883,7 +1886,8 @@
                       accid.ges="f"/>
                     <note id="d1e11228" pname="e" oct="4" tie="t" accid.ges="f"/>
                   </chord>
-                  <rest id="d1e11250" dur="4" dur.ges="24"/><!-- vo attribute not captured in 2mei.xsl -->
+                  <rest id="d1e11250" dur="4" dur.ges="24"/>
+                  <!-- vo attribute not captured in 2mei.xsl -->
                 </layer>
               </staff>
             </measure>
@@ -3515,8 +3519,8 @@
                   </beam>
                 </layer>
               </staff>
-              <tupletspan staff="2" startid="d1e20912" endid="d1e20964" num="3:2"
-                num.visible="true" num.place="above" num.format="count"/>
+              <tupletspan staff="2" startid="d1e20912" endid="d1e20964" num="3"
+                numbase="2" num.visible="true" num.place="above" num.format="count"/>
             </measure>
             <measure n="83" id="d1e20992" width="110">
               <staff n="1">
@@ -5185,7 +5189,8 @@
                       accid.ges="f"/>
                     <note id="d1e30917" pname="e" oct="4" accid.ges="f"/>
                   </chord>
-                  <rest id="d1e30939" dur="4" dur.ges="24"/><!-- vo attribute not captured in 2mei.xsl -->
+                  <rest id="d1e30939" dur="4" dur.ges="24"/>
+                  <!-- vo attribute not captured in 2mei.xsl -->
                 </layer>
               </staff>
               <slur tstamp="1" dur="0m+1.25" place="above" startid="d1e30657"

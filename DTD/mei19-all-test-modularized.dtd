@@ -2433,7 +2433,7 @@ indicates a division of the beam into 2 8th-note groups. -->
                      '%att.event;'>
 
 <!-- doc: Visual domain attributes: The expand attribute indicates whether to
-render the source measures or the usual repeated beat symbol. The rend
+render the source measures or the usual repeated beat symbol. The slash
 attribute indicates the number of slashes required to render the
 appropriate beat repeat symbol when the beat is divided into even notes
 - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4, 128ths=5. When the beat is
@@ -2444,7 +2444,7 @@ slashes and 2 dots. See Read, pg. 223-224. -->
                      '%att.color;
                      altsym             IDREF                 #IMPLIED
                      expand             %data.BOOLEAN;        #IMPLIED
-                     rend               (4|8|16|32|64|128|mixed)
+                     slash              (1|2|3|4|5|mixed)
                                                               #REQUIRED'>
 ]]>
 <!ENTITY % att.vis.beatrpt ''>
@@ -2836,12 +2836,12 @@ a time stamp for the end point of the dynamic indication. -->
 <!ENTITY % att.log.ftrem
                      '%att.event;'>
 
-<!-- doc: Visual domain attributes: The rend attribute indicates the number
+<!-- doc: Visual domain attributes: The slash attribute indicates the number
 of slashes required - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4,
 128ths=5. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.ftrem
-                     'rend              (4|8|16|32|64|128)    #REQUIRED'>
+                     'slash              (1|2|3|4|5)    #REQUIRED'>
 ]]>
 <!ENTITY % att.vis.ftrem ''>
 
@@ -4805,9 +4805,11 @@ entities. -->
   <!-- Create appropriate classes -->
   <!ENTITY % model.notaModifierLike  '%n.accid;|%n.artic;|%model.sylLike;|%model.verseLike;'>
   <!ENTITY % model.eventLike.mensural '%n.nota;|%n.pausa;'>
+  <!ENTITY % model.controleventLike.mensural '_DUMMYmodel.controleventLike.mensural'>
 ]]>
 <!ENTITY % model.notaModifierLike  '_DUMMYmodel.notaModifierLike'>
 <!ENTITY % model.eventLike.mensural '_DUMMYmodel.eventLike.mensural'>
+<!ENTITY % model.controleventLike.mensural '_DUMMYmodel.controleventLike.mensural'>
 
 <!-- This entity must be declared before the model.controleventLike.cmn
 entity. -->
@@ -5137,15 +5139,13 @@ model.paracontent entity. -->
 ]]>
 <!ENTITY % model.headerPart '_DUMMYmodel.headerPart'>
 
-<!ENTITY % model.controleventLike.mensural
-                     '_DUMMYmodel.controleventLike.mensural'>
-
 <!-- doc: Control events modify or otherwise depend on the existence of
 notated events. -->
 <!ENTITY % model.controleventLike
                      '%model.controleventLike.common;
                      |%model.controleventLike.neume;
                      |%model.controleventLike.neume-mensural;
+                     |%model.controleventLike.neume-cmn;
                      |%model.controleventLike.mensural;
                      |%model.controleventLike.mensural-cmn;
                      |%model.controleventLike.cmn;

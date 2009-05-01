@@ -1,0 +1,867 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <!--
+    This file contains definitions of datatypes.  It should be substituted
+    for the definitions created by Trang from mei19-all-test.dtd.
+  -->
+  <!--
+    A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must fall
+    between 0 and the numerator of the time signature + 1, where 0
+    represents the left barline and the upper bound represents the right
+    barline.  For example, in 12/8 the value must be in the range from 0 to
+    13.
+  -->
+  <xs:simpleType name="data.BEAT">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="0"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    EITHER a hexadecimal color value, ie., x[0-9A-Fa-f]{6,6} OR a
+    descriptive word, i.e., aqua, black, blue, fuchsia, gray, green, lime,
+    maroon, navy, olive, purple, red, silver, teal, white, or yellow, for
+    colors defined by the HTML 4.01 specification.
+  -->
+  <xs:simpleType name="data.COLOR">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="(x[0-9A-Fa-f]{6,6}|aqua|black|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    360th-unit measure of a cirle's circumference; optionally signed
+    decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)?
+  -->
+  <xs:simpleType name="data.DEGREES">
+    <xs:restriction base="xs:decimal"/>
+  </xs:simpleType>
+  <!-- unsigned positive integer values including '0', i.e., [0-9]+ -->
+  <xs:simpleType name="data.INTEGERNONNEGATIVE">
+    <xs:restriction base="xs:nonNegativeInteger"/>
+  </xs:simpleType>
+  <!--
+    unsigned positive integer values excluding '0', i.e., 1 to
+    infinity.
+  -->
+  <xs:simpleType name="data.INTEGERPOSITIVE">
+    <xs:restriction base="xs:positiveInteger"/>
+  </xs:simpleType>
+  <!-- ISO date format: YYYYMMDD -->
+  <xs:simpleType name="data.ISODATE">
+    <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[0-9.,DHMPRSTWYZ/:+\-]+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
+  <!--
+     ISO 24-hour time format: HH:MM:SS.ss, i.e.,
+    [0-9][0-9]:[0-9][0-9]:[0-9][0-9](\.?[0-9]*)?
+  -->
+  <xs:simpleType name="data.ISOTIME">
+    <xs:restriction base="xs:time"/>
+  </xs:simpleType>
+  <!--
+    A duration expressed as a count of measures plus a beat location,
+    i.e., [0-9]+m *\+ *[0-9]+(\.?[0-9]*)?, e.g., dur="1m + 3.5" indicates a
+    duration of 1 measure plus 3 and one half beats or, in other words, on
+    the 2nd half of the 3rd beat of the next measure. The measure number
+    must be in the range of 0 to the number of remaining measures and the
+    beat number must be in the range from 0 to the numerator of the time
+    signature plus 1.  For example, for an event starting in the first
+    measure of a piece containing 6 measures in 6/8, the measure number must
+    be between 0 to 5 and the beat number must be within the range from 0 to
+    7, e.g., "4m+3".
+  -->
+  <xs:simpleType name="data.MEASUREBEAT">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="([0-9]+m *\+ *)?[0-9]+(\.?[0-9]*)?"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    MIDI quarter notes per minute: positive integer in the range
+    10-1000
+  -->
+  <xs:simpleType name="data.MIDITEMPO">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:minInclusive value="10"/>
+      <xs:maxInclusive value="1000"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- optionally signed decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)? -->
+  <xs:simpleType name="data.NUMBER">
+    <xs:restriction base="xs:decimal"/>
+  </xs:simpleType>
+  <!--
+    unsigned positive decimal values excluding '0', i.e., 1 to
+    infinity.
+  -->
+  <xs:simpleType name="data.NUMBERPOSITIVE">
+    <xs:restriction base="xs:decimal">
+      <xs:minInclusive value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- positive decimal number plus '%', i.e., [0-9]+(\.?[0-9]*)?\% -->
+  <xs:simpleType name="data.PERCENT">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[0-9]+(\.?[0-9]*)?%"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+     a ratio, i.e., [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?  For example,
+    "40:7.2319"
+  -->
+  <xs:simpleType name="data.RATIO">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    In string tablature, the number of the string to be played, i.e.,
+    [1-9]+.
+  -->
+  <xs:simpleType name="data.STRINGNUMBER">
+    <xs:restriction base="xs:positiveInteger"/>
+  </xs:simpleType>
+  <!-- Beats (meter signature denominator) per minute, e.g. 120. -->
+  <xs:simpleType name="data.TEMPOVALUE">
+    <xs:restriction base="xs:positiveInteger"/>
+  </xs:simpleType>
+  <!--
+    A positive or negative offset from the value given in the tstamp
+    attribute. The datatype of this attribute must be the same as that of
+    the tstamp, tstamp.ges, or tstamp.real attribute.
+  -->
+  <!-- a Uniform Resource Identifier, see [RFC2396] -->
+  <xs:simpleType name="data.URI">
+    <xs:restriction base="xs:anyURI"/>
+  </xs:simpleType>
+  <!--
+    Accidental attribute values: s = sharp, f = flat, ss = dblsharp,
+    x=dblsharp, ff = dblflat, n = natural, nf = naturalflat, ns =
+    naturalsharp. ss indicates the use of 2 sharp signs, while x indicates
+    the use of a single double sharp. nf and ns are used to cancel dbflats
+    and dblsharps, respectively. su = sharp note qtr. tone up, sd = sharp
+    note qtr. tone down, fu = flat note qtr. tone up, fd = flat note qtr.
+    tone down, nu = natural note qtr. tone up, nd = natural note quarter
+    tone down. Quarter-tone accidentals listed in Read, p. 145.
+  -->
+  <xs:simpleType name="data.ACCIDENTAL.EXPLICIT">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="s"/>
+      <xs:enumeration value="f"/>
+      <xs:enumeration value="ss"/>
+      <xs:enumeration value="x"/>
+      <xs:enumeration value="ff"/>
+      <xs:enumeration value="n"/>
+      <xs:enumeration value="nf"/>
+      <xs:enumeration value="ns"/>
+      <xs:enumeration value="su"/>
+      <xs:enumeration value="sd"/>
+      <xs:enumeration value="fu"/>
+      <xs:enumeration value="fd"/>
+      <xs:enumeration value="nu"/>
+      <xs:enumeration value="nd"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="data.ACCIDENTAL.IMPLICIT">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="s"/>
+      <xs:enumeration value="f"/>
+      <xs:enumeration value="ss"/>
+      <xs:enumeration value="ff"/>
+      <xs:enumeration value="n"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    The following list of articulations mostly corresponds to symbols
+    1D110-1D111, 1D17B-1D182, 1D185-1D189, 1D1AA-1D1AD, 1D1B3-1D1B5 from
+    the Western Musical Symbols portion of the Unicode Standard, v. 3.1.
+    The dot and stroke values may be used in cases where interpretation is
+    not desirable.
+  -->
+  <xs:simpleType name="data.ARTICULATION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="acc"/>
+      <xs:enumeration value="stacc"/>
+      <xs:enumeration value="ten"/>
+      <xs:enumeration value="stacciss"/>
+      <xs:enumeration value="marc"/>
+      <xs:enumeration value="marc-stacc"/>
+      <xs:enumeration value="acc-marc"/>
+      <xs:enumeration value="loure"/>
+      <xs:enumeration value="spicc"/>
+      <xs:enumeration value="rip"/>
+      <xs:enumeration value="doit"/>
+      <xs:enumeration value="plop"/>
+      <xs:enumeration value="fall"/>
+      <xs:enumeration value="bend"/>
+      <xs:enumeration value="flip"/>
+      <xs:enumeration value="smear"/>
+      <xs:enumeration value="dnbow"/>
+      <xs:enumeration value="upbow"/>
+      <xs:enumeration value="harm"/>
+      <xs:enumeration value="snap"/>
+      <xs:enumeration value="fingernail"/>
+      <xs:enumeration value="damp"/>
+      <xs:enumeration value="dampall"/>
+      <xs:enumeration value="open"/>
+      <xs:enumeration value="stop"/>
+      <xs:enumeration value="dbltongue"/>
+      <xs:enumeration value="trpltongue"/>
+      <xs:enumeration value="heel"/>
+      <xs:enumeration value="toe"/>
+      <xs:enumeration value="tap"/>
+      <xs:enumeration value="pluck"/>
+      <xs:enumeration value="dot"/>
+      <xs:enumeration value="stroke"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    1 or more from the list given in the definition of the
+    ARTICULATION entity. Changing this to CDATA, however, would allow the
+    use of character entities.
+  -->
+  <xs:simpleType name="data.ARTICULATIONS">
+    <xs:list itemType="data.ARTICULATION"/>
+  </xs:simpleType>
+  <!--
+    Dots attribute values (number of augmentation dots) (Read,
+    113-119, ex. 8-21)
+  -->
+  <xs:simpleType name="data.AUGMENTDOT">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:maxInclusive value="4"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Placement of barlines: 'mensur' = between staves only, 'staff'
+    = between and across staves as necessary, 'takt' = short line
+    above staff or through top line
+  -->
+  <xs:simpleType name="data.BARPLACE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="mensur"/>
+      <xs:enumeration value="staff"/>
+      <xs:enumeration value="takt"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Renderings of barlines -->
+  <xs:simpleType name="data.BARRENDITION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="dashed"/>
+      <xs:enumeration value="dotted"/>
+      <xs:enumeration value="dbl"/>
+      <xs:enumeration value="dbldashed"/>
+      <xs:enumeration value="dbldotted"/>
+      <xs:enumeration value="end"/>
+      <xs:enumeration value="invis"/>
+      <xs:enumeration value="rptstart"/>
+      <xs:enumeration value="rptboth"/>
+      <xs:enumeration value="rptend"/>
+      <xs:enumeration value="single"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Beam attribute values: initial, medial, terminal. Nested beaming
+    is permitted.
+  -->
+  <xs:simpleType name="data.BEAM">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[i|m|t][1-6]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- 1 or more from the list given in the definition of the BEAM entity. -->
+  <xs:simpleType name="data.BEAMS">
+    <xs:restriction>
+      <xs:simpleType>
+        <xs:list itemType="data.BEAM"/>
+      </xs:simpleType>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Boolean attribute values -->
+  <xs:simpleType name="data.BOOLEAN">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="true"/>
+      <xs:enumeration value="false"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Values for certainty attribute -->
+  <xs:simpleType name="data.CERTAINTY">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="high"/>
+      <xs:enumeration value="medium"/>
+      <xs:enumeration value="low"/>
+      <xs:enumeration value="unknown"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Clef line attribute values -->
+  <xs:simpleType name="data.CLEFLINE">
+    <xs:restriction base="data.INTEGERPOSITIVE"/>
+  </xs:simpleType>
+  <!--
+      1 or more from the list given in the definition of the CLEFLINE
+      entity.
+    <define name="data.CLEFLINES">
+      <list>
+        <oneOrMore>
+          <ref name="data.CLEFLINE"/>
+        </oneOrMore>
+      </list>
+    </define>
+  -->
+  <!-- Clef shape attribute values (Read, p.53-56) -->
+  <xs:simpleType name="data.CLEFSHAPE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="G"/>
+      <xs:enumeration value="GG"/>
+      <xs:enumeration value="F"/>
+      <xs:enumeration value="C"/>
+      <xs:enumeration value="perc"/>
+      <xs:enumeration value="TAB"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+      1 or more from the list given in the definition of the CLEFSHAPE
+      entity. Changing this to CDATA would allow the use of character
+      entities.
+    <define name="data.CLEFSHAPES">
+      <list>
+        <oneOrMore>
+          <ref name="data.CLEFSHAPE"/>
+        </oneOrMore>
+      </list>
+    </define>
+  -->
+  <!-- Clef trans attribute values -->
+  <xs:simpleType name="data.CLEFTRAN">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="8va"/>
+      <xs:enumeration value="8vb"/>
+      <xs:enumeration value="15va"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Tone-clusters -->
+  <xs:simpleType name="data.CLUSTER">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="whbox"/>
+      <xs:enumeration value="blbox"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Renderings of curves -->
+  <xs:simpleType name="data.CURVERENDITION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="medium"/>
+      <xs:enumeration value="wide"/>
+      <xs:enumeration value="dashed"/>
+      <xs:enumeration value="dotted"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Logical, that is, written, duration attribute values. Whole note
+    duration = '1'.
+  -->
+  <xs:simpleType name="data.DURATION.BASE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="long"/>
+      <xs:enumeration value="breve"/>
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2"/>
+      <xs:enumeration value="4"/>
+      <xs:enumeration value="8"/>
+      <xs:enumeration value="16"/>
+      <xs:enumeration value="32"/>
+      <xs:enumeration value="64"/>
+      <xs:enumeration value="128"/>
+      <xs:enumeration value="256"/>
+      <xs:enumeration value="512"/>
+      <xs:enumeration value="1024"/>
+      <xs:enumeration value="2048"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="data.DURATION.MEN">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="maxima"/>
+      <xs:enumeration value="longa"/>
+      <xs:enumeration value="brevis"/>
+      <xs:enumeration value="semibrevis"/>
+      <xs:enumeration value="minima"/>
+      <xs:enumeration value="semiminima"/>
+      <xs:enumeration value="fusa"/>
+      <xs:enumeration value="semifusa"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="data.DURATION">
+    <xs:restriction base="data.DURATION.BASE"/>
+  </xs:simpleType>
+  <xs:simpleType name="data.DURATION.MENSURAL">
+    <xs:restriction base="data.DURATION.MEN"/>
+  </xs:simpleType>
+  <xs:simpleType name="data.DURATIONS">
+    <xs:union memberTypes="data.DURATION.BASE data.DURATION.MEN"/>
+  </xs:simpleType>
+  <!-- Enclosures for editorial notes and accidentals -->
+  <xs:simpleType name="data.ENCLOSURE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="paren"/>
+      <xs:enumeration value="brack"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Font family (for text) attribute values
+    Mup-acceptable values: <!ENTITY % FONTFAMILY
+                         '(avantgarde|bookman|courier|helvetica|
+                         newcentury|palatino|times)'>
+  -->
+  <xs:simpleType name="data.FONTFAMILY">
+    <xs:restriction base="xs:token"/>
+  </xs:simpleType>
+  <!--
+    Font name (for text) attribute values
+    Mup-acceptable values: <!ENTITY % FONTNAME  '(rom|ital|bold|boldital)'>
+  -->
+  <xs:simpleType name="data.FONTNAME">
+    <xs:restriction base="xs:token"/>
+  </xs:simpleType>
+  <!-- Font style (for text) attribute values -->
+  <xs:simpleType name="data.FONTSTYLE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="ital"/>
+      <xs:enumeration value="normal"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Font weight (for text) attribute values -->
+  <xs:simpleType name="data.FONTWEIGHT">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="bold"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Fragment referencing method.  Setting this entity to '%data.XPATH;' or
+    '%data.XPOINTER;' makes it possible to document the use of these methods.
+  -->
+  <xs:simpleType name="data.XPATH">
+    <xs:restriction base="xs:token"/>
+  </xs:simpleType>
+  <xs:simpleType name="data.XPOINTER">
+    <xs:restriction base="xs:token"/>
+  </xs:simpleType>
+  <xs:simpleType name="data.FRAGMENT">
+    <xs:union memberTypes="data.XPATH data.XPOINTER"/>
+  </xs:simpleType>
+  <!--
+    In string tablature, the fret number, i.e., [0-9]+. The value '0'
+    indicates the open string.
+  -->
+  <xs:simpleType name="data.FRETNUMBER">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:maxInclusive value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Analytical glissando attribute values: i(nitial), m(edial),
+    t(erminal)
+  -->
+  <xs:simpleType name="data.GLISSANDO">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="i"/>
+      <xs:enumeration value="m"/>
+      <xs:enumeration value="t"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Do grace notes get time from the current (acc) or previous (unacc)
+    one?
+  -->
+  <xs:simpleType name="data.GRACE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="acc"/>
+      <xs:enumeration value="unacc"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Allowed notehead shapes -->
+  <xs:simpleType name="data.HEADSHAPE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="quarter"/>
+      <xs:enumeration value="half"/>
+      <xs:enumeration value="whole"/>
+      <xs:enumeration value="dblwhole"/>
+      <xs:enumeration value="filldiamond"/>
+      <xs:enumeration value="diamond"/>
+      <xs:enumeration value="dwdiamond"/>
+      <xs:enumeration value="fillisotriangle"/>
+      <xs:enumeration value="isotriangle"/>
+      <xs:enumeration value="dwhisotriangle"/>
+      <xs:enumeration value="fillpiewedge"/>
+      <xs:enumeration value="piewedge"/>
+      <xs:enumeration value="dwhpiewedge"/>
+      <xs:enumeration value="fillrectangle"/>
+      <xs:enumeration value="rectangle"/>
+      <xs:enumeration value="dwhrectangle"/>
+      <xs:enumeration value="fillrtriangle"/>
+      <xs:enumeration value="rtriangle"/>
+      <xs:enumeration value="dwrtriangle"/>
+      <xs:enumeration value="fillurtriangle"/>
+      <xs:enumeration value="urtriangle"/>
+      <xs:enumeration value="dwurtriangle"/>
+      <xs:enumeration value="fillsemicircle"/>
+      <xs:enumeration value="semicircle"/>
+      <xs:enumeration value="dwsemicircle"/>
+      <xs:enumeration value="fillslash"/>
+      <xs:enumeration value="slash"/>
+      <xs:enumeration value="dwslash"/>
+      <xs:enumeration value="x"/>
+      <xs:enumeration value="blank"/>
+      <xs:enumeration value="circlex"/>
+      <xs:enumeration value="cross"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Interrupted neume, i.e. neumes written as 2 or more sub-neumes -->
+  <xs:simpleType name="data.INEUMENAME">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="pessubpunctis"/>
+      <xs:enumeration value="climacus"/>
+      <xs:enumeration value="scandicus"/>
+      <xs:enumeration value="bistropha"/>
+      <xs:enumeration value="tristropha"/>
+      <xs:enumeration value="pressusminor"/>
+      <xs:enumeration value="pressusmaior"/>
+      <xs:enumeration value="pressusliquescens"/>
+      <xs:enumeration value="virgastrata"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Interrupted neume forms -->
+  <xs:simpleType name="data.INEUMEFORM">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="liquescent1"/>
+      <xs:enumeration value="liquescent2"/>
+      <xs:enumeration value="tied"/>
+      <xs:enumeration value="tiedliquescent1"/>
+      <xs:enumeration value="tiedliquescent2"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="data.KEYSIGTOKEN">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[a-g][s|f|ss|x|ff|n|nf|ns|su|sd|fu|fd|nu|nd][0-9]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Key signature is normally indicated by a value showing where the
+    key is in the circle of fifths. Mixed key signatures, e.g. those
+    consisting of a mixture of flats and sharps, and key signatures with
+    unorthodox placement of the accidentals (Read, p. 143) must be
+    indicated by setting the key.sig attribute to 'mixed' and providing
+    explicit keysig info in the key.sig.mixed attribute.
+  -->
+  <xs:simpleType name="data.KEYSIGNATURE">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="mixed|0|[1-7][f|s]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Indicates how stems should be drawn when more than one layer is
+    present and stem directions are not indicated on the notes/chords
+    themselves. '1' indicates that there is only a single layer on a staff.
+    '2o' means there are two layers with opposing stems. '2f' indicates
+    two 'free' layers; that is, opposing stems will be drawn unless one of
+    the layers has 'space'. In that case, stem direction in the remaining
+    layer will be determined as if there were only one layer. '3o' and
+    '3f' are analogous to '2o' and '2f' with three layers allowed. What
+    about more than 3 layers?
+  -->
+  <xs:simpleType name="data.LAYERSCHEME">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="1"/>
+      <xs:enumeration value="2o"/>
+      <xs:enumeration value="2f"/>
+      <xs:enumeration value="3o"/>
+      <xs:enumeration value="3f"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Ligature forms -->
+  <xs:simpleType name="data.LIGATUREFORM">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="recta"/>
+      <xs:enumeration value="obliqua"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Renderings of lines -->
+  <xs:simpleType name="data.LINERENDITION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="narrow"/>
+      <xs:enumeration value="medium"/>
+      <xs:enumeration value="wide"/>
+      <xs:enumeration value="dashed"/>
+      <xs:enumeration value="dotted"/>
+      <xs:enumeration value="wavy"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Mensuration attribute values -->
+  <xs:simpleType name="data.MENSURATIONSIGN">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="C"/>
+      <xs:enumeration value="O"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Meter.sym attribute values for common-practice notation -->
+  <xs:simpleType name="data.METERSIGN">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="common"/>
+      <xs:enumeration value="cut"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- MIDI channel numbers -->
+  <xs:simpleType name="data.MIDICHANNEL">
+    <xs:restriction base="xs:positiveInteger">
+      <xs:maxInclusive value="16"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- MIDI values are in the following range -->
+  <xs:simpleType name="data.MIDIVALUE">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:maxInclusive value="127"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Modes -->
+  <xs:simpleType name="data.MODE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="major"/>
+      <xs:enumeration value="minor"/>
+      <xs:enumeration value="dorian"/>
+      <xs:enumeration value="phrygian"/>
+      <xs:enumeration value="lydian"/>
+      <xs:enumeration value="mixolydian"/>
+      <xs:enumeration value="aeolian"/>
+      <xs:enumeration value="locrian"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Music font family -->
+  <xs:simpleType name="data.MUSICFONT">
+    <xs:restriction base="xs:token"/>
+  </xs:simpleType>
+  <!--
+    Oct attribute values. The default values conform to Acoustical
+    Society of America representation. Read, p. 44. The entity name is
+    plural so as not to conflict with the %octave entity used in the
+    definition of the octave element.
+  -->
+  <xs:simpleType name="data.OCTAVE">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:maxInclusive value="9"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Page scale factor datatype.  Setting this to %data.RATIO; allows
+    page.scale attributes to contain a virtual units to real units conversion
+    ratio.
+  -->
+  <xs:simpleType name="data.PGSCALE">
+    <xs:union memberTypes="data.PERCENT data.RATIO"/>
+  </xs:simpleType>
+  <!-- Values for unit attribute -->
+  <xs:simpleType name="data.PGUNITS">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="in"/>
+      <xs:enumeration value="cm"/>
+      <xs:enumeration value="mm"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Pclass (pitch class) attribute values -->
+  <xs:simpleType name="data.PITCHCLASS">
+    <xs:restriction base="xs:nonNegativeInteger">
+      <xs:maxInclusive value="11"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    The pitch names (gamut) used within a single octave. The default
+    values conform to Acoustical Society of America representation.
+  -->
+  <xs:simpleType name="data.PITCHNAME">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[a-g]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Gestural pitch names need an additional value for when the notated
+    pitch is not to be played.
+  -->
+  <xs:simpleType name="data.PITCHNAME.GES">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[a-g]|none"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Pnum (pitch number, e.g. MIDI) attribute values -->
+  <xs:simpleType name="data.PITCHNUMBER">
+    <xs:restriction base="data.INTEGERNONNEGATIVE"/>
+  </xs:simpleType>
+  <!--
+    Participant list referencing method.  Setting this entity to '%data.XPATH;'
+    or '%data.XPOINTER;' makes it possible to document the use of these methods.
+  -->
+  <xs:simpleType name="data.PLIST">
+    <xs:restriction base="xs:IDREFS"/>
+  </xs:simpleType>
+  <!-- Place, i.e., relative location of musical material -->
+  <xs:simpleType name="data.PLACE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="above"/>
+      <xs:enumeration value="below"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Size attribute values -->
+  <xs:simpleType name="data.SIZE">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="normal"/>
+      <xs:enumeration value="cue"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    i=initial, t=terminal. Number is used to match endpoints of the
+    slur when slurs are nested or overlap, e.g. 
+    <note slur='i1 i2'/><note slur='t1'/><note slur='t2'/> encodes the
+    fact that two slurs begin on note 1, one which terminates on note 2
+    and one which terminates on note 3. % SLUR isn't currently invoked in
+    the DTD; it serves as documentation for the tokens that can be used
+    where % SLURS is invoked.
+  -->
+  <xs:simpleType name="data.SLUR">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[i|m|t][1-6]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    1 or more from the list given in the definition of the SLUR
+    entity.
+  -->
+  <xs:simpleType name="data.SLURS">
+    <xs:restriction>
+      <xs:simpleType>
+        <xs:list itemType="data.SLUR"/>
+      </xs:simpleType>
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Slur direction -->
+  <xs:simpleType name="data.SLURDIRECTION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="up"/>
+      <xs:enumeration value="down"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Staff location. Staff location includes staff lines, spaces, and
+    the spaces directly above and below the staff. The value ranges between
+    0 (just below the staff) to 2 * number of staff lines (directly above
+    the staff).  For example, on a 5-line staff the lines would be numbered
+    1,3,5,7, and 9 while the spaces would be numbered 0,2,4,6,8,10.
+  -->
+  <xs:simpleType name="data.STAFFLOC">
+    <xs:restriction base="data.INTEGERNONNEGATIVE"/>
+  </xs:simpleType>
+  <!-- Stem direction -->
+  <xs:simpleType name="data.STEMDIRECTION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="up"/>
+      <xs:enumeration value="down"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Stem modification -->
+  <xs:simpleType name="data.STEMMODIFIER">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="1slash"/>
+      <xs:enumeration value="2slash"/>
+      <xs:enumeration value="3slash"/>
+      <xs:enumeration value="4slash"/>
+      <xs:enumeration value="5slash"/>
+      <xs:enumeration value="6slash"/>
+      <xs:enumeration value="sprech"/>
+      <xs:enumeration value="z"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Which side of stem? -->
+  <xs:simpleType name="data.STEMPOSITION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="left"/>
+      <xs:enumeration value="right"/>
+      <xs:enumeration value="center"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Temperament -->
+  <xs:simpleType name="data.TEMPERAMENT">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="equal"/>
+      <xs:enumeration value="just"/>
+      <xs:enumeration value="mean"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Text renditions -->
+  <xs:simpleType name="data.TEXTRENDITION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="box"/>
+      <xs:enumeration value="circle"/>
+      <xs:enumeration value="dblunderline"/>
+      <xs:enumeration value="none"/>
+      <xs:enumeration value="quoted"/>
+      <xs:enumeration value="smcaps"/>
+      <xs:enumeration value="strike"/>
+      <xs:enumeration value="sub"/>
+      <xs:enumeration value="sup"/>
+      <xs:enumeration value="underline"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Tie attribute values: initial, medial, terminal -->
+  <xs:simpleType name="data.TIE">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[i|m|t]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Tie direction -->
+  <xs:simpleType name="data.TIEDIRECTION">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="up"/>
+      <xs:enumeration value="down"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Tuplet attribute values: initial, medial, terminal -->
+  <xs:simpleType name="data.TUPLET">
+    <xs:restriction base="xs:token">
+      <xs:pattern value="[i|m|t][1-6]"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Basic, i.e., single, uninterrupted, neume names -->
+  <xs:simpleType name="data.UNEUMENAME">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="punctum"/>
+      <xs:enumeration value="virga"/>
+      <xs:enumeration value="pes"/>
+      <xs:enumeration value="clivis"/>
+      <xs:enumeration value="torculus"/>
+      <xs:enumeration value="torculusresupinus"/>
+      <xs:enumeration value="porrectus"/>
+      <xs:enumeration value="porrectusflexus"/>
+      <xs:enumeration value="apostropha"/>
+      <xs:enumeration value="oriscus"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="data.UNEUMEFORM">
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="liquescent1"/>
+      <xs:enumeration value="liquescent2"/>
+      <xs:enumeration value="liquescent3"/>
+      <xs:enumeration value="quilismatic"/>
+      <xs:enumeration value="rectangular"/>
+      <xs:enumeration value="rhombic"/>
+      <xs:enumeration value="tied"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    Visual, i.e. ho and vo, offsets are expressed in terms of staff
+    interline distance; that is, in "stepsizes", which are half the
+    distance between staff lines.
+  -->
+  <xs:simpleType name="data.VISUALOFFSET">
+    <xs:restriction base="data.NUMBER"/>
+  </xs:simpleType>
+</xs:schema>
