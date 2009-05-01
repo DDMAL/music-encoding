@@ -5404,8 +5404,8 @@ att.events class. -->
                      %model.eventLike.cmn;'>
 
 <!-- doc: Notated events at the layer level -->
-<!ENTITY % model.layerPart '%model.eventLike;|%model.midiLike;|%model.controleventLike;|
-                     %model.editLike;|%model.transcriptionLike;|%model.lyricsLike;|
+<!ENTITY % model.layerPart '%model.eventLike;|%model.midiLike;|
+                     %model.editLike;|%model.transcriptionLike;|
                      %model.noteModifierLike;|%model.verseLike;|%model.sylLike;|
                      %model.eventLike.cmn.measureFilling;'>
                      
@@ -7321,12 +7321,19 @@ Module:  meiCMN -->
 <![%measure;[
 <!ENTITY % content.measure '
                       (
+                         (%model.staffdefLike;)?,
+                         (%model.measurePart;|%model.ossiaLike;)*,
+                         (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
+                         %model.annotLike;|%model.graphicprimitiveLike;)*
+                      )*'>
+<!-- <!ENTITY % content.measure '
+                      (
                         (%model.staffdefLike;)?,
                         (%model.measurePart;|%model.ossiaLike;|%model.staffdefLike;)*,
                         (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
                         %model.annotLike;|%model.graphicprimitiveLike;|%model.apparatusLike;|
                         %model.editLike;|%model.transcriptionLike;)*
-                      )'>
+                      )'> -->
 <!ELEMENT %n.measure; %content.measure;>
 <!ATTLIST %n.measure;
           %att.common;
@@ -7353,11 +7360,19 @@ Module:  meiCMN -->
 <![%ossia;[
 <!ENTITY % content.ossia '
                       (
+                         (%model.staffdefLike;)?,
+                         (%model.measurePart;|%model.ossiaLike;)*,
+                         (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
+                         %model.annotLike;|%model.graphicprimitiveLike;)*
+                      )*'>
+<!-- <!ENTITY % content.ossia '
+                      (
                         (%model.staffdefLike;)*,
                         (%model.measurePart;|%model.ossiaLike;)*,
                         (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
-                        %model.annotLike;|%model.graphicprimitiveLike;)*
-                      )*'>
+                        %model.annotLike;|%model.graphicprimitiveLike;|
+                        %model.editLike;|%model.transcriptionLike;)*
+                      )*'> -->
 <!ELEMENT %n.ossia; %content.ossia;>
 <!ATTLIST %n.ossia;
           %att.common;
