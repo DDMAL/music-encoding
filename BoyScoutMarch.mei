@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mei SYSTEM "../DTD/mei19b.dtd" [
-  <!ENTITY % meiNeumes 'IGNORE'>
-  <!ENTITY % meiMensural 'IGNORE'>
+<!DOCTYPE mei SYSTEM "../DTD/testing.dtd" [
+  <!ENTITY % meiCMN 'INCLUDE'>
+  <!ENTITY % meiEditTrans     'INCLUDE'>
+  <!ENTITY % meiText 'INCLUDE'>
+  <!ENTITY % meiFigures       'INCLUDE'>
+  <!ENTITY % meiGestural      'INCLUDE'>
   <!NOTATION uvaBitonal SYSTEM "">
   <!ENTITY Ellsworth_cover SYSTEM "cover" NDATA uvaBitonal>
   <!ENTITY Ellsworth_page2 SYSTEM "page2" NDATA uvaBitonal>
@@ -94,7 +97,7 @@
       </titlepage>
     </front>
     <body>
-      
+
       <!-- The mdiv element is used to hold multiple, progressively more detailed
         versions of the encoding -->
       <mdiv id="encodingversion1">
@@ -108,7 +111,7 @@
           <pb n="cover" href="URLtoCoverImage" entityref="Ellsworth_back"/>
         </score>
       </mdiv>
-      
+
       <mdiv id="encodingversion2">
         <!-- Page image + score-level description -->
         <score>
@@ -380,32 +383,36 @@
             <pb n="2" href="URLtoPageImage2"/>
             <measure n="1">
               <staff n="1">
-                <chord dur="8" dots="1">
-                  <note pname="b" oct="4"/>
-                  <note pname="b" oct="5"/>
-                </chord>
-                <chord dur="16">
-                  <note pname="b" oct="4" accid="n"/>
-                  <note pname="b" oct="5" accid="n"/>
-                </chord>
-                <chord dur="4">
-                  <note pname="c" oct="5"/>
-                  <note pname="c" oct="6"/>
-                </chord>
+                <layer>
+                  <chord dur="8" dots="1">
+                    <note pname="b" oct="4"/>
+                    <note pname="b" oct="5"/>
+                  </chord>
+                  <chord dur="16">
+                    <note pname="b" oct="4" accid="n"/>
+                    <note pname="b" oct="5" accid="n"/>
+                  </chord>
+                  <chord dur="4">
+                    <note pname="c" oct="5"/>
+                    <note pname="c" oct="6"/>
+                  </chord>
+                </layer>
               </staff>
               <staff n="2">
-                <chord dur="8" dots="1">
-                  <note pname="b" oct="2"/>
-                  <note pname="b" oct="3"/>
-                </chord>
-                <chord dur="16">
-                  <note pname="b" oct="2" accid="n"/>
-                  <note pname="b" oct="3" accid="n"/>
-                </chord>
-                <chord dur="4">
-                  <note pname="c" oct="3"/>
-                  <note pname="c" oct="4"/>
-                </chord>
+                <layer>
+                  <chord dur="8" dots="1">
+                    <note pname="b" oct="2"/>
+                    <note pname="b" oct="3"/>
+                  </chord>
+                  <chord dur="16">
+                    <note pname="b" oct="2" accid="n"/>
+                    <note pname="b" oct="3" accid="n"/>
+                  </chord>
+                  <chord dur="4">
+                    <note pname="c" oct="3"/>
+                    <note pname="c" oct="4"/>
+                  </chord>
+                </layer>
               </staff>
             </measure>
             <measure n="2"/>

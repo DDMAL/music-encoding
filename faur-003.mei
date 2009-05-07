@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE mei SYSTEM "../DTD/mei19b.dtd" [
-  <!ENTITY % meiNeumes 'IGNORE'>
-  <!ENTITY % meiMensural 'IGNORE'>
+<!DOCTYPE mei SYSTEM "../DTD/testing.dtd" [
+  <!ENTITY % meiCMN 'INCLUDE'>
 ]>
 <mei version="1.9b">
   <meihead>
@@ -32,12 +31,14 @@
           <scoredef meter.count="4" meter.unit="4" meter.sym="common" key.sig="4f"
             key.mode="major">
             <staffgrp>
-              <staffdef n="1" id="P1-I1" label.full="Soprano" clef.line="2" clef.shape="G"
-                midi.div="8" key.sig="4f" key.mode="major" midi.channel="1" midi.instr="0"
-                midi.instrname="Grand Piano"/>
-              <staffdef n="2" id="P2-I1" label.full="Contralto" clef.line="2"
-                clef.shape="G" midi.div="8" key.sig="4f" key.mode="major" midi.channel="1"
-                midi.instr="0" midi.instrname="Grand Piano"/>
+              <staffgrp symbol="bracket">
+                <staffdef n="1" id="P1-I1" label.full="Soprano" clef.line="2"
+                  clef.shape="G" midi.div="8" key.sig="4f" key.mode="major"
+                  midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
+                <staffdef n="2" id="P2-I1" label.full="Contralto" clef.line="2"
+                  clef.shape="G" midi.div="8" key.sig="4f" key.mode="major"
+                  midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
+              </staffgrp>
               <staffgrp id="P3" symbol="brace" label.full="Organ" label.abbr="Piano">
                 <staffdef n="3" clef.line="2" clef.shape="G" midi.div="8" key.sig="4f"
                   key.mode="major" midi.channel="1" midi.instr="0"
@@ -46,7 +47,7 @@
                   key.mode="major" midi.channel="1" midi.instr="0"
                   midi.instrname="Grand Piano"/>
               </staffgrp>
-              <grpsym symbol="bracket" start="1" end="2"/>
+              <!-- <grpsym symbol="bracket" start="1" end="2"/> -->
             </staffgrp>
           </scoredef>
           <section>
