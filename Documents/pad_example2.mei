@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mei SYSTEM "../DTD/mei19b.dtd" [
-  <!ENTITY % meiNeumes 'IGNORE'>
-  <!ENTITY % meiMensural 'IGNORE'>
+<!DOCTYPE mei SYSTEM "../DTD/testing.dtd" [
+  <!ENTITY % meiCMN 'INCLUDE'>
 ]>
 <!-- <?oxygen RNGSchema="../RelaxSchema/mei19b.rng" type="xml"?> -->
 <mei version="1.9b">
@@ -179,8 +178,9 @@
         <score>
           <scoredef key.sig="0" meter.count="2" meter.unit="2" key.mode="minor"
             meter.sym="cut">
-            <staffgrp barthru="true" symbol="bracket">
-
+            <staffgrp barthru="true">
+              <grpsym symbol="bracket"/>
+              <label/>
               <!-- The staffdef, staffgrp, and grpsym elements may contain
                    labels or @label.full and @label.abbr may be used: -->
               <staffdef n="1" clef.line="2" clef.shape="G" key.sig="2s" trans.diat="-1"
@@ -189,7 +189,7 @@
                 <label>Clarinetto</label>
               </staffdef>
 
-              <staffgrp label.full="Violini">
+              <staffgrp>
                 <label>Violini</label>
                 <staffdef n="2" clef.line="2" clef.shape="G" key.sig="0"/>
                 <staffdef n="3" clef.line="2" clef.shape="G" key.sig="0"/>
@@ -202,39 +202,47 @@
           <section>
             <measure n="1">
               <staff n="1">
-                <rest dur="2"/>
-                <rest dur="8"/>
-                <beam>
-                  <note pname="a" oct="4" dur="8" dots="1"/>
-                  <note pname="d" oct="5" dur="16"/>
-                </beam>
+                <layer n="1">
+                  <rest dur="2"/>
+                  <rest dur="8"/>
+                  <beam>
+                    <note pname="a" oct="4" dur="8" dots="1"/>
+                    <note pname="d" oct="5" dur="16"/>
+                  </beam>
+                </layer>
               </staff>
               <staff n="2">
-                <beam>
-                  <note pname="e" oct="4" dur="8"/>
-                  <note pname="g" oct="3"/>
-                  <note pname="e" oct="4"/>
-                  <note pname="g" oct="3"/>
-                </beam>
-                <halfmrpt id="r1"/>
+                <layer n="1">
+                  <beam>
+                    <note pname="e" oct="4" dur="8"/>
+                    <note pname="g" oct="3"/>
+                    <note pname="e" oct="4"/>
+                    <note pname="g" oct="3"/>
+                  </beam>
+                  <halfmrpt id="r1"/>
+                </layer>
               </staff>
               <staff n="3">
-                <beam>
-                  <note pname="c" oct="4" dur="8"/>
-                  <note pname="g" oct="3"/>
-                  <note pname="c" oct="4"/>
-                  <note pname="g" oct="3"/>
-                </beam>
-                <halfmrpt id="r2"/>
+                <layer n="1">
+                  <beam>
+                    <note pname="c" oct="4" dur="8"/>
+                    <note pname="g" oct="3"/>
+                    <note pname="c" oct="4"/>
+                    <note pname="g" oct="3"/>
+                  </beam>
+                  <halfmrpt id="r2"/>
+                </layer>
               </staff>
               <staff n="4">
-                <beam>
-                  <note pname="g" oct="3" dur="8"/>
-                  <note pname="c" oct="4"/>
-                  <note pname="g" oct="3" dur="8"/>
-                  <note pname="c" oct="4"/>
-                </beam>
-                <halfmrpt id="r3"/>
+                <layer n="1">
+                  <beam>
+                    <note pname="g" oct="3" dur="8"/>
+                    <note pname="c" oct="4"/>
+                    <note pname="g" oct="3" dur="8"/>
+                    <note pname="c" oct="4"/>
+                  </beam>
+                  <halfmrpt id="r3"/>
+                </layer>
               </staff>
 
               <!-- When the musical text is essentially the same across
@@ -271,42 +279,50 @@
             </measure>
             <measure n="2">
               <staff n="1">
-                <note pname="f" oct="5" dur="2"/>
-                <note dur="4" dots="1"/>
-                <note pname="e" dur="8"/>
+                <layer n="1">
+                  <note pname="f" oct="5" dur="2"/>
+                  <note dur="4" dots="1"/>
+                  <note pname="e" dur="8"/>
+                </layer>
               </staff>
               <staff n="2">
+                <layer n="1">
 
-                <!-- fingered tremolo -->
-                <ftrem slash="1">
-                  <note pname="e" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
+                  <!-- fingered tremolo -->
+                  <ftrem slash="1">
+                    <note pname="e" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
 
-                <ftrem slash="1">
-                  <note pname="f" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
+                  <ftrem slash="1">
+                    <note pname="f" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                </layer>
               </staff>
               <staff n="3">
-                <ftrem slash="1">
-                  <note pname="c" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
-                <ftrem slash="1">
-                  <note pname="b"/>
-                  <note pname="g"/>
-                </ftrem>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="c" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                  <ftrem slash="1">
+                    <note pname="b"/>
+                    <note pname="g"/>
+                  </ftrem>
+                </layer>
               </staff>
               <staff n="4">
-                <ftrem slash="1">
-                  <note pname="g" oct="3" dur="2"/>
-                  <note pname="c" oct="4"/>
-                </ftrem>
-                <ftrem slash="1">
-                  <note pname="g" oct="3"/>
-                  <note pname="b"/>
-                </ftrem>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="g" oct="3" dur="2"/>
+                    <note pname="c" oct="4"/>
+                  </ftrem>
+                  <ftrem slash="1">
+                    <note pname="g" oct="3"/>
+                    <note pname="b"/>
+                  </ftrem>
+                </layer>
               </staff>
 
               <app>
@@ -323,40 +339,48 @@
             </measure>
             <measure n="3">
               <staff n="1">
-                <note pname="d" oct="5" dur="2" tie="i"/>
-                <beam>
-                  <note dur="8" dots="1" tie="t"/>
-                  <note pname="e" dur="32"/>
-                  <note pname="d"/>
-                </beam>
-                <beam>
-                  <note pname="c" dur="8" dots="1"/>
-                  <note pname="d" dur="16"/>
-                </beam>
+                <layer n="1">
+                  <note pname="d" oct="5" dur="2" tie="i"/>
+                  <beam>
+                    <note dur="8" dots="1" tie="t"/>
+                    <note pname="e" dur="32"/>
+                    <note pname="d"/>
+                  </beam>
+                  <beam>
+                    <note pname="c" dur="8" dots="1"/>
+                    <note pname="d" dur="16"/>
+                  </beam>
+                </layer>
               </staff>
               <staff n="2">
-                <ftrem slash="1">
-                  <note id="n1" pname="e" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
-                <halfmrpt id="r4"/>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note id="n1" pname="e" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                  <halfmrpt id="r4"/>
+                </layer>
               </staff>
               <staff n="3">
-                <ftrem slash="1">
-                  <note pname="c" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
-                <halfmrpt id="r5"/>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="c" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                  <halfmrpt id="r5"/>
+                </layer>
               </staff>
               <staff n="4">
+                <layer n="1">
 
-                <!-- This tremolo involves notes with different stem directions. -->
-                <ftrem slash="1">
-                  <note pname="g" oct="3" dur="2" stem.dir="up"/>
-                  <note pname="f" oct="4" stem.dir="down"/>
-                </ftrem>
+                  <!-- This tremolo involves notes with different stem directions. -->
+                  <ftrem slash="1">
+                    <note pname="g" oct="3" dur="2" stem.dir="up"/>
+                    <note pname="f" oct="4" stem.dir="down"/>
+                  </ftrem>
 
-                <halfmrpt id="r6"/>
+                  <halfmrpt id="r6"/>
+                </layer>
               </staff>
               <app>
                 <rdg source="a1">
@@ -414,56 +438,64 @@
             </measure>
             <measure n="4">
               <staff n="1">
-                <note pname="e" oct="5" dur="4"/>
-                <note pname="b" oct="4" accid="f" dur="2">
-                  <artic value="acc" place="below"/>
-                </note>
-                <beam>
-                  <note pname="a" dur="8" dots="1"/>
-                  <note pname="a" oct="5" dur="16"/>
-                </beam>
+                <layer n="1">
+                  <note pname="e" oct="5" dur="4"/>
+                  <note pname="b" oct="4" accid="f" dur="2">
+                    <artic value="acc" place="below"/>
+                  </note>
+                  <beam>
+                    <note pname="a" dur="8" dots="1"/>
+                    <note pname="a" oct="5" dur="16"/>
+                  </beam>
+                </layer>
               </staff>
               <staff n="2">
-                <ftrem slash="1">
-                  <note id="n2" pname="f" oct="4" dur="4"/>
-                  <note pname="a" oct="3"/>
-                </ftrem>
-                <ftrem slash="1">
-                  <note pname="f" oct="4" dur="2"/>
-                  <note pname="a" oct="3" accid="f"/>
-                </ftrem>
-                <ftrem slash="1">
-                  <note pname="f" oct="4" dur="4"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note id="n2" pname="f" oct="4" dur="4"/>
+                    <note pname="a" oct="3"/>
+                  </ftrem>
+                  <ftrem slash="1">
+                    <note pname="f" oct="4" dur="2"/>
+                    <note pname="a" oct="3" accid="f"/>
+                  </ftrem>
+                  <ftrem slash="1">
+                    <note pname="f" oct="4" dur="4"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                </layer>
               </staff>
               <staff n="3">
-                <ftrem slash="1">
-                  <note pname="d" oct="4" dur="4"/>
-                  <note pname="a" oct="3"/>
-                </ftrem>
-                <ftrem slash="1">
-                  <note pname="d" oct="4" dur="2"/>
-                  <note pname="a" accid="f" oct="3"/>
-                </ftrem>
-                <ftrem slash="1">
-                  <note pname="d" oct="4" dur="4"/>
-                  <note pname="a" oct="3"/>
-                </ftrem>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="d" oct="4" dur="4"/>
+                    <note pname="a" oct="3"/>
+                  </ftrem>
+                  <ftrem slash="1">
+                    <note pname="d" oct="4" dur="2"/>
+                    <note pname="a" accid="f" oct="3"/>
+                  </ftrem>
+                  <ftrem slash="1">
+                    <note pname="d" oct="4" dur="4"/>
+                    <note pname="a" oct="3"/>
+                  </ftrem>
+                </layer>
               </staff>
               <staff n="4">
-                <ftrem slash="1">
-                  <note pname="a" oct="3" dur="4" stem.dir="down"/>
-                  <note pname="d" oct="4" stem.dir="down"/>
-                </ftrem>
-                <ftrem slash="1">
-                  <note pname="a" accid="f" oct="3" dur="2" stem.dir="down"/>
-                  <note pname="d" oct="4" stem.dir="down"/>
-                </ftrem>
-                <ftrem slash="1">
-                  <note pname="g" oct="3" dur="4" stem.dir="down"/>
-                  <note pname="f" oct="4" stem.dir="down"/>
-                </ftrem>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="a" oct="3" dur="4" stem.dir="down"/>
+                    <note pname="d" oct="4" stem.dir="down"/>
+                  </ftrem>
+                  <ftrem slash="1">
+                    <note pname="a" accid="f" oct="3" dur="2" stem.dir="down"/>
+                    <note pname="d" oct="4" stem.dir="down"/>
+                  </ftrem>
+                  <ftrem slash="1">
+                    <note pname="g" oct="3" dur="4" stem.dir="down"/>
+                    <note pname="f" oct="4" stem.dir="down"/>
+                  </ftrem>
+                </layer>
               </staff>
 
               <app>
@@ -482,34 +514,42 @@
             </measure>
             <measure n="5">
               <staff n="1">
-                <note pname="a" oct="5" dur="2"/>
-                <note pname="f" dur="8"/>
-                <rest dur="8"/>
-                <beam>
-                  <note pname="a" oct="4" dur="8" dots="1"/>
-                  <note pname="d" oct="5" dur="16"/>
-                </beam>
+                <layer n="1">
+                  <note pname="a" oct="5" dur="2"/>
+                  <note pname="f" dur="8"/>
+                  <rest dur="8"/>
+                  <beam>
+                    <note pname="a" oct="4" dur="8" dots="1"/>
+                    <note pname="d" oct="5" dur="16"/>
+                  </beam>
+                </layer>
               </staff>
               <staff n="2">
-                <ftrem slash="1">
-                  <note pname="e" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
-                <halfmrpt id="r7"/>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="e" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                  <halfmrpt id="r7"/>
+                </layer>
               </staff>
               <staff n="3">
-                <ftrem slash="1">
-                  <note pname="c" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
-                <halfmrpt id="r8"/>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="c" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                  <halfmrpt id="r8"/>
+                </layer>
               </staff>
               <staff n="4">
-                <ftrem slash="1">
-                  <note pname="g" oct="3" dur="2" stem.dir="down"/>
-                  <note pname="e" oct="4" stem.dir="down"/>
-                </ftrem>
-                <halfmrpt id="r9"/>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="g" oct="3" dur="2" stem.dir="down"/>
+                    <note pname="e" oct="4" stem.dir="down"/>
+                  </ftrem>
+                  <halfmrpt id="r9"/>
+                </layer>
               </staff>
 
               <app>
@@ -530,29 +570,37 @@
             </measure>
             <measure n="6">
               <staff n="1">
-                <note pname="f" oct="5" dur="2"/>
-                <note pname="b" tie="i"/>
+                <layer n="1">
+                  <note pname="f" oct="5" dur="2"/>
+                  <note pname="b" tie="i"/>
+                </layer>
               </staff>
               <staff n="2">
-                <halfmrpt id="r10"/>
-                <ftrem slash="1">
-                  <note pname="e" oct="4" dur="2"/>
-                  <note pname="c" accid="s"/>
-                </ftrem>
+                <layer n="1">
+                  <halfmrpt id="r10"/>
+                  <ftrem slash="1">
+                    <note pname="e" oct="4" dur="2"/>
+                    <note pname="c" accid="s"/>
+                  </ftrem>
+                </layer>
               </staff>
               <staff n="3">
-                <halfmrpt id="r11"/>
-                <ftrem slash="1">
-                  <note pname="c" accid="s" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
+                <layer n="1">
+                  <halfmrpt id="r11"/>
+                  <ftrem slash="1">
+                    <note pname="c" accid="s" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                </layer>
               </staff>
               <staff n="4">
-                <halfmrpt id="r12"/>
-                <ftrem slash="1">
-                  <note pname="g" oct="3" dur="2" stem.dir="down"/>
-                  <note pname="c" accid="s" oct="4" stem.dir="down"/>
-                </ftrem>
+                <layer n="1">
+                  <halfmrpt id="r12"/>
+                  <ftrem slash="1">
+                    <note pname="g" oct="3" dur="2" stem.dir="down"/>
+                    <note pname="c" accid="s" oct="4" stem.dir="down"/>
+                  </ftrem>
+                </layer>
               </staff>
 
               <app>
@@ -565,44 +613,52 @@
             </measure>
             <measure n="7">
               <staff n="1">
-                <note pname="b" oct="5" dur="4" tie="t"/>
-                <note pname="b" accid="f"/>
-                <note pname="a" tie="i"/>
-                <beam>
-                  <note pname="a" dur="8" dots="1" tie="t"/>
-                  <note pname="g" dur="16"/>
-                </beam>
+                <layer n="1">
+                  <note pname="b" oct="5" dur="4" tie="t"/>
+                  <note pname="b" accid="f"/>
+                  <note pname="a" tie="i"/>
+                  <beam>
+                    <note pname="a" dur="8" dots="1" tie="t"/>
+                    <note pname="g" dur="16"/>
+                  </beam>
+                </layer>
               </staff>
               <staff n="2">
-                <ftrem slash="1">
-                  <note pname="f" oct="4" dur="2"/>
-                  <note pname="d"/>
-                </ftrem>
-                <halfmrpt id="r13"/>
+                <layer n="1">
+                  <ftrem slash="1">
+                    <note pname="f" oct="4" dur="2"/>
+                    <note pname="d"/>
+                  </ftrem>
+                  <halfmrpt id="r13"/>
+                </layer>
               </staff>
               <staff n="3">
-                <beam>
-                  <note pname="d" oct="4" dur="8"/>
-                  <note pname="a" oct="3"/>
-                  <note pname="d" oct="4"/>
-                  <note pname="a" accid="f" oct="3"/>
-                </beam>
-                <ftrem slash="1">
-                  <note pname="d" oct="4" dur="2"/>
-                  <note pname="g" oct="3"/>
-                </ftrem>
+                <layer n="1">
+                  <beam>
+                    <note pname="d" oct="4" dur="8"/>
+                    <note pname="a" oct="3"/>
+                    <note pname="d" oct="4"/>
+                    <note pname="a" accid="f" oct="3"/>
+                  </beam>
+                  <ftrem slash="1">
+                    <note pname="d" oct="4" dur="2"/>
+                    <note pname="g" oct="3"/>
+                  </ftrem>
+                </layer>
               </staff>
               <staff n="4">
-                <beam>
-                  <note pname="a" oct="3" dur="8" stem.dir="down"/>
-                  <note pname="d" oct="4" stem.dir="down"/>
-                  <note pname="a" accid="f" oct="3" stem.dir="down"/>
-                  <note pname="f" oct="4" stem.dir="down"/>
-                </beam>
-                <ftrem slash="1">
-                  <note pname="g" oct="3" dur="2" stem.dir="down"/>
-                  <note pname="f" oct="4" stem.dir="down"/>
-                </ftrem>
+                <layer n="1">
+                  <beam>
+                    <note pname="a" oct="3" dur="8" stem.dir="down"/>
+                    <note pname="d" oct="4" stem.dir="down"/>
+                    <note pname="a" accid="f" oct="3" stem.dir="down"/>
+                    <note pname="f" oct="4" stem.dir="down"/>
+                  </beam>
+                  <ftrem slash="1">
+                    <note pname="g" oct="3" dur="2" stem.dir="down"/>
+                    <note pname="f" oct="4" stem.dir="down"/>
+                  </ftrem>
+                </layer>
               </staff>
 
               <app>
@@ -615,55 +671,63 @@
             </measure>
             <measure n="8">
               <staff n="1">
-                <note pname="f" oct="5" dur="4"/>
-                <note pname="e"/>
-                <note pname="d"/>
-                <beam>
-                  <note pname="a" oct="5" dur="8" dots="1"/>
-                  <note pname="g" dur="16"/>
-                </beam>
+                <layer n="1">
+                  <note pname="f" oct="5" dur="4"/>
+                  <note pname="e"/>
+                  <note pname="d"/>
+                  <beam>
+                    <note pname="a" oct="5" dur="8" dots="1"/>
+                    <note pname="g" dur="16"/>
+                  </beam>
+                </layer>
               </staff>
               <staff n="2">
-                <beam>
-                  <note pname="e" oct="4" dur="8"/>
-                  <note pname="g" oct="3"/>
-                  <note pname="d" oct="4" dur="8"/>
-                  <note pname="g" oct="3"/>
-                </beam>
-                <beam>
-                  <note pname="c" oct="4" dur="8"/>
-                  <note pname="a" oct="3"/>
-                  <note pname="f" oct="4" dur="8"/>
-                  <note pname="a" oct="3"/>
-                </beam>
+                <layer n="1">
+                  <beam>
+                    <note pname="e" oct="4" dur="8"/>
+                    <note pname="g" oct="3"/>
+                    <note pname="d" oct="4" dur="8"/>
+                    <note pname="g" oct="3"/>
+                  </beam>
+                  <beam>
+                    <note pname="c" oct="4" dur="8"/>
+                    <note pname="a" oct="3"/>
+                    <note pname="f" oct="4" dur="8"/>
+                    <note pname="a" oct="3"/>
+                  </beam>
+                </layer>
               </staff>
               <staff n="3">
-                <beam>
-                  <note pname="c" oct="4" dur="8"/>
-                  <note pname="g" oct="3"/>
-                  <note pname="b"/>
-                  <note pname="g"/>
-                </beam>
-                <beam>
-                  <note pname="c" oct="4"/>
-                  <note pname="a" oct="3"/>
-                  <note pname="d" oct="4"/>
-                  <note pname="a" oct="3"/>
-                </beam>
+                <layer n="1">
+                  <beam>
+                    <note pname="c" oct="4" dur="8"/>
+                    <note pname="g" oct="3"/>
+                    <note pname="b"/>
+                    <note pname="g"/>
+                  </beam>
+                  <beam>
+                    <note pname="c" oct="4"/>
+                    <note pname="a" oct="3"/>
+                    <note pname="d" oct="4"/>
+                    <note pname="a" oct="3"/>
+                  </beam>
+                </layer>
               </staff>
               <staff n="4">
-                <beam>
-                  <note pname="g" oct="3" dur="8" stem.dir="down"/>
-                  <note pname="e" oct="4" stem.dir="down"/>
-                  <note pname="g" oct="3" stem.dir="down"/>
-                  <note pname="b" stem.dir="down"/>
-                </beam>
-                <beam>
-                  <note pname="e" stem.dir="down"/>
-                  <note pname="a" stem.dir="down"/>
-                  <note pname="a" stem.dir="down"/>
-                  <note pname="d" stem.dir="down"/>
-                </beam>
+                <layer n="1">
+                  <beam>
+                    <note pname="g" oct="3" dur="8" stem.dir="down"/>
+                    <note pname="e" oct="4" stem.dir="down"/>
+                    <note pname="g" oct="3" stem.dir="down"/>
+                    <note pname="b" stem.dir="down"/>
+                  </beam>
+                  <beam>
+                    <note pname="e" stem.dir="down"/>
+                    <note pname="a" stem.dir="down"/>
+                    <note pname="a" stem.dir="down"/>
+                    <note pname="d" stem.dir="down"/>
+                  </beam>
+                </layer>
               </staff>
 
               <app>

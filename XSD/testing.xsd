@@ -4,7 +4,7 @@
   NAME:     Music Encoding Initiative (MEI) DTD
             File      = mei19b.dtd (version 1.9b) **DRAFT**
                         **DO NOT REDISTRIBUTE**
-            Vers Date = 2009/05/01
+            Vers Date = 2009/05/05
   
   NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
             of the University of Virginia.
@@ -276,9 +276,6 @@
     doc: In string tablature, the number of the string to be played, i.e.,
     [1-9]+.
   -->
-  <xs:simpleType name="data.STRINGNUMBER">
-    <xs:restriction base="xs:string"/>
-  </xs:simpleType>
   <!-- doc: Beats (meter signature denominator) per minute, e.g. 120. -->
   <xs:simpleType name="data.TEMPOVALUE">
     <xs:restriction base="xs:string"/>
@@ -383,9 +380,6 @@
     ARTICULATION entity. Changing this to CDATA, however, would allow the
     use of character entities.
   -->
-  <xs:simpleType name="data.ARTICULATIONS">
-    <xs:restriction base="xs:NMTOKENS"/>
-  </xs:simpleType>
   <!--
     doc: Dots attribute values (number of augmentation dots) (Read,
     113-119, ex. 8-21)
@@ -484,12 +478,6 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- doc: Tone-clusters -->
-  <xs:simpleType name="data.CLUSTER">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="whbox"/>
-      <xs:enumeration value="blbox"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!-- doc: Renderings of curves -->
   <xs:simpleType name="data.CURVERENDITION">
     <xs:restriction base="xs:token">
@@ -535,9 +523,6 @@
   </xs:simpleType>
   <xs:simpleType name="data.DURATION">
     <xs:restriction base="data.DURATION.BASE"/>
-  </xs:simpleType>
-  <xs:simpleType name="data.DURATION.MENSURAL">
-    <xs:restriction base="data.DURATION.MEN"/>
   </xs:simpleType>
   <xs:simpleType name="data.DURATIONS">
     <xs:union memberTypes="data.DURATION.BASE data.DURATION.MEN"/>
@@ -589,20 +574,10 @@
     doc: In string tablature, the fret number, i.e., [0-9]+. The value '0'
     indicates the open string.
   -->
-  <xs:simpleType name="data.FRETNUMBER">
-    <xs:restriction base="xs:string"/>
-  </xs:simpleType>
   <!--
     doc: Analytical glissando attribute values: i(nitial), m(edial),
     t(erminal)
   -->
-  <xs:simpleType name="data.GLISSANDO">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="i"/>
-      <xs:enumeration value="m"/>
-      <xs:enumeration value="t"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!--
     doc: Do grace notes get time from the current (acc) or previous (unacc)
     one?
@@ -614,66 +589,8 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- doc: Allowed notehead shapes -->
-  <xs:simpleType name="data.HEADSHAPE">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="quarter"/>
-      <xs:enumeration value="half"/>
-      <xs:enumeration value="whole"/>
-      <xs:enumeration value="dblwhole"/>
-      <xs:enumeration value="filldiamond"/>
-      <xs:enumeration value="diamond"/>
-      <xs:enumeration value="dwdiamond"/>
-      <xs:enumeration value="fillisotriangle"/>
-      <xs:enumeration value="isotriangle"/>
-      <xs:enumeration value="dwhisotriangle"/>
-      <xs:enumeration value="fillpiewedge"/>
-      <xs:enumeration value="piewedge"/>
-      <xs:enumeration value="dwhpiewedge"/>
-      <xs:enumeration value="fillrectangle"/>
-      <xs:enumeration value="rectangle"/>
-      <xs:enumeration value="dwhrectangle"/>
-      <xs:enumeration value="fillrtriangle"/>
-      <xs:enumeration value="rtriangle"/>
-      <xs:enumeration value="dwrtriangle"/>
-      <xs:enumeration value="fillurtriangle"/>
-      <xs:enumeration value="urtriangle"/>
-      <xs:enumeration value="dwurtriangle"/>
-      <xs:enumeration value="fillsemicircle"/>
-      <xs:enumeration value="semicircle"/>
-      <xs:enumeration value="dwsemicircle"/>
-      <xs:enumeration value="fillslash"/>
-      <xs:enumeration value="slash"/>
-      <xs:enumeration value="dwslash"/>
-      <xs:enumeration value="x"/>
-      <xs:enumeration value="blank"/>
-      <xs:enumeration value="circlex"/>
-      <xs:enumeration value="cross"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!-- doc: Interrupted neume, i.e. neumes written as 2 or more sub-neumes -->
-  <xs:simpleType name="data.INEUMENAME">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="pessubpunctis"/>
-      <xs:enumeration value="climacus"/>
-      <xs:enumeration value="scandicus"/>
-      <xs:enumeration value="bistropha"/>
-      <xs:enumeration value="tristropha"/>
-      <xs:enumeration value="pressusminor"/>
-      <xs:enumeration value="pressusmaior"/>
-      <xs:enumeration value="pressusliquescens"/>
-      <xs:enumeration value="virgastrata"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!-- doc: Interrupted neume forms -->
-  <xs:simpleType name="data.INEUMEFORM">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="liquescent1"/>
-      <xs:enumeration value="liquescent2"/>
-      <xs:enumeration value="tied"/>
-      <xs:enumeration value="tiedliquescent1"/>
-      <xs:enumeration value="tiedliquescent2"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!--
     doc: Key signature is normally indicated by a value showing where the
     key is in the circle of fifths. Mixed key signatures, e.g. those
@@ -962,22 +879,6 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- doc: Pclass (pitch class) attribute values -->
-  <xs:simpleType name="data.PITCHCLASS">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="0"/>
-      <xs:enumeration value="1"/>
-      <xs:enumeration value="2"/>
-      <xs:enumeration value="3"/>
-      <xs:enumeration value="4"/>
-      <xs:enumeration value="5"/>
-      <xs:enumeration value="6"/>
-      <xs:enumeration value="7"/>
-      <xs:enumeration value="8"/>
-      <xs:enumeration value="9"/>
-      <xs:enumeration value="10"/>
-      <xs:enumeration value="11"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!--
     doc: The pitch names (gamut) used within a single octave. The default
     values conform to Acoustical Society of America representation.
@@ -997,22 +898,7 @@
     doc: Gestural pitch names need an additional value for when the notated
     pitch is not to be played.
   -->
-  <xs:simpleType name="data.PITCHNAME.GES">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="a"/>
-      <xs:enumeration value="b"/>
-      <xs:enumeration value="c"/>
-      <xs:enumeration value="d"/>
-      <xs:enumeration value="e"/>
-      <xs:enumeration value="f"/>
-      <xs:enumeration value="g"/>
-      <xs:enumeration value="none"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!-- doc: Pnum (pitch number, e.g. MIDI) attribute values -->
-  <xs:simpleType name="data.PITCHNUMBER">
-    <xs:restriction base="data.INTEGERNONNEGATIVE"/>
-  </xs:simpleType>
   <!--
     doc: Participant list referencing method.  Setting this entity to '%data.XPATH;'
     or '%data.XPOINTER;' makes it possible to document the use of these methods.
@@ -1047,16 +933,7 @@
     doc: 1 or more from the list given in the definition of the SLUR
     entity.
   -->
-  <xs:simpleType name="data.SLURS">
-    <xs:restriction base="xs:NMTOKENS"/>
-  </xs:simpleType>
   <!-- doc: Slur directions -->
-  <xs:simpleType name="data.SLURDIRECTION">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="up"/>
-      <xs:enumeration value="down"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!--
     doc: Staff location. Staff location includes staff lines, spaces, and
     the spaces directly above and below the staff. The value ranges between
@@ -1068,33 +945,8 @@
     <xs:restriction base="data.INTEGERNONNEGATIVE"/>
   </xs:simpleType>
   <!-- doc: Stem directions -->
-  <xs:simpleType name="data.STEMDIRECTION">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="up"/>
-      <xs:enumeration value="down"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!-- doc: Stem modifications -->
-  <xs:simpleType name="data.STEMMODIFIER">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="1slash"/>
-      <xs:enumeration value="2slash"/>
-      <xs:enumeration value="3slash"/>
-      <xs:enumeration value="4slash"/>
-      <xs:enumeration value="5slash"/>
-      <xs:enumeration value="6slash"/>
-      <xs:enumeration value="sprech"/>
-      <xs:enumeration value="z"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!-- doc: Which side of stem? -->
-  <xs:simpleType name="data.STEMPOSITION">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="left"/>
-      <xs:enumeration value="right"/>
-      <xs:enumeration value="center"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!-- doc: Temperament -->
   <xs:simpleType name="data.TEMPERAMENT">
     <xs:restriction base="xs:token">
@@ -1119,19 +971,6 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- doc: Tie attribute values: initial, medial, terminal. -->
-  <xs:simpleType name="data.TIE">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="i"/>
-      <xs:enumeration value="m"/>
-      <xs:enumeration value="t"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="data.TIEDIRECTION">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="up"/>
-      <xs:enumeration value="down"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!-- doc: Tuplet attribute values: initial, medial, terminal. -->
   <xs:simpleType name="data.TUPLET">
     <xs:restriction base="xs:token">
@@ -1156,31 +995,6 @@
     </xs:restriction>
   </xs:simpleType>
   <!-- doc: Basic, i.e., single, uninterrupted, neume names. -->
-  <xs:simpleType name="data.UNEUMENAME">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="punctum"/>
-      <xs:enumeration value="virga"/>
-      <xs:enumeration value="pes"/>
-      <xs:enumeration value="clivis"/>
-      <xs:enumeration value="torculus"/>
-      <xs:enumeration value="torculusresupinus"/>
-      <xs:enumeration value="porrectus"/>
-      <xs:enumeration value="porrectusflexus"/>
-      <xs:enumeration value="apostropha"/>
-      <xs:enumeration value="oriscus"/>
-    </xs:restriction>
-  </xs:simpleType>
-  <xs:simpleType name="data.UNEUMEFORM">
-    <xs:restriction base="xs:token">
-      <xs:enumeration value="liquescent1"/>
-      <xs:enumeration value="liquescent2"/>
-      <xs:enumeration value="liquescent3"/>
-      <xs:enumeration value="quilismatic"/>
-      <xs:enumeration value="rectangular"/>
-      <xs:enumeration value="rhombic"/>
-      <xs:enumeration value="tied"/>
-    </xs:restriction>
-  </xs:simpleType>
   <!--
     doc: Visual, i.e. ho and vo, offsets are expressed in terms of staff
     interline distance; that is, in "stepsizes", which are half the distance
@@ -1628,11 +1442,6 @@
     used instead of n.
   -->
   <xs:attributeGroup name="att.log.grpsym">
-    <xs:attribute name="barthru" type="data.BOOLEAN"/>
-    <xs:attribute name="label.abbr"/>
-    <xs:attribute name="label.full"/>
-    <xs:attribute name="start" use="required"/>
-    <xs:attribute name="end" use="required"/>
     <xs:attribute name="symbol" use="required">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -1643,6 +1452,15 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
+  <!--
+    <!ENTITY % att.log.grpsym
+    'barthru           %data.BOOLEAN;        #IMPLIED
+    label.abbr         CDATA                 #IMPLIED
+    label.full         CDATA                 #IMPLIED
+    start              CDATA                 #REQUIRED
+    end                CDATA                 #REQUIRED
+    symbol             (brace|bracket|line)  #REQUIRED'>
+  -->
   <!-- doc: Visual domain attributes: -->
   <xs:attributeGroup name="att.vis.grpsym">
     <xs:attributeGroup ref="att.visualoffset"/>
@@ -1651,19 +1469,9 @@
   <!-- ************************************************************** -->
   <!-- * Attributes for interruped neume                            * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.ineume">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.ineume">
-    <xs:attribute name="form" type="data.INEUMEFORM"/>
-    <xs:attribute name="name" type="data.INEUMENAME"/>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.ineume">
-    <xs:attributeGroup ref="att.color"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for layer                                       * -->
   <!-- doc: Analytical domain attributes: -->
@@ -2521,8 +2329,6 @@
   -->
   <xs:attributeGroup name="att.vis.staffgrp">
     <xs:attribute name="barthru" type="data.BOOLEAN"/>
-    <xs:attribute name="brace"/>
-    <xs:attribute name="bracket"/>
     <xs:attribute name="label.abbr"/>
     <xs:attribute name="label.full"/>
     <xs:attribute name="symbol">
@@ -2536,6 +2342,16 @@
     </xs:attribute>
     <xs:attribute name="visible" type="data.BOOLEAN"/>
   </xs:attributeGroup>
+  <!--
+    <!ENTITY % att.vis.staffgrp
+    'barthru           %data.BOOLEAN;        #IMPLIED
+    brace              CDATA                 #IMPLIED
+    bracket            CDATA                 #IMPLIED
+    label.abbr         CDATA                 #IMPLIED
+    label.full         CDATA                 #IMPLIED
+    symbol             (brace|bracket|line)  #IMPLIED
+    visible            %data.BOOLEAN;        #IMPLIED'>
+  -->
   <!-- ************************************************************** -->
   <!-- * Attributes for uneume                                      * -->
   <!--
@@ -2549,35 +2365,9 @@
     pclass           pitch class 
     psolfa           solfa, e.g. do, re, mi, etc.
   -->
-  <xs:attributeGroup name="att.anl.uneume">
-    <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="accid.cautionary" type="data.ACCIDENTAL.EXPLICIT"/>
-    <xs:attribute name="accid.editorial" type="data.ACCIDENTAL.EXPLICIT"/>
-    <xs:attribute name="hfunc"/>
-    <xs:attribute name="inth"/>
-    <xs:attribute name="intm"/>
-    <xs:attribute name="mfunc"/>
-    <xs:attribute name="pclass" type="data.PITCHCLASS"/>
-    <xs:attribute name="psolfa"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain (performance) attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.uneume">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="form" type="data.UNEUMEFORM"/>
-    <xs:attribute name="name" type="data.UNEUMENAME"/>
-    <xs:attribute name="syl"/>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.uneume">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="headshape" type="data.HEADSHAPE"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="size" type="data.SIZE"/>
-    <xs:attribute name="visible" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- ************************************************************** -->
   <!--
@@ -2671,9 +2461,6 @@
   <!-- ************************************************************** -->
   <!-- * Attributes for arpeg                                       * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.arpeg">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: dir=nonarp indicates a non-arpeggiated
@@ -2681,25 +2468,7 @@
     attribute; if there's more than 1 layer in either staff, 2 values are
     required in the layer attribute.
   -->
-  <xs:attributeGroup name="att.log.arpeg">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attribute name="dir">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="up"/>
-          <xs:enumeration value="down"/>
-          <xs:enumeration value="nonarp"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.arpeg">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="arrow" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for artic                                       * -->
   <!-- doc: Analytical domain attributes: -->
@@ -2722,72 +2491,25 @@
   <!-- ************************************************************** -->
   <!-- * Attributes for beam                                        * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.beam">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.beam">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="with" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: Secondary beams may be broken explicitly
     using the breaksec attribute. Its value should contain a space-separated
     list of rhythmic durations that form a single beat. For example,'8 8'
     indicates a division of the beam into 2 8th-note groups.
   -->
-  <xs:attributeGroup name="att.vis.beam">
-    <xs:attribute name="breaksec" type="xs:NMTOKENS"/>
-    <xs:attribute name="rend">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="acc"/>
-          <xs:enumeration value="rit"/>
-          <xs:enumeration value="norm"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="slope" type="data.NUMBER"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for beamspan                                    * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.beamspan">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.beamspan">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attribute name="with" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.beamspan">
-    <xs:attribute name="breaksec"/>
-    <xs:attribute name="rend">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="acc"/>
-          <xs:enumeration value="rit"/>
-          <xs:enumeration value="norm"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="slope" type="data.NUMBER"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for beatrpt                                     * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.beatrpt">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.beatrpt">
-    <xs:attributeGroup ref="att.event"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The expand attribute indicates whether to
     render the source measures or the usual repeated beat symbol. The rend
@@ -2797,48 +2519,11 @@
     comprised of mixed duration values, the symbol is always rendered as 2
     slashes and 2 dots. See Read, pg. 223-224.
   -->
-  <xs:attributeGroup name="att.vis.beatrpt">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="expand" type="data.BOOLEAN"/>
-    <xs:attribute name="rend" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="4"/>
-          <xs:enumeration value="8"/>
-          <xs:enumeration value="16"/>
-          <xs:enumeration value="32"/>
-          <xs:enumeration value="64"/>
-          <xs:enumeration value="128"/>
-          <xs:enumeration value="mixed"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for bend                                        * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.bend">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
-  <xs:attributeGroup name="att.ges.bend">
-    <xs:attribute name="amount">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value=".25"/>
-          <xs:enumeration value=".5"/>
-          <xs:enumeration value=".75"/>
-          <xs:enumeration value="1"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.bend">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The bulge or, alternatively, the bezier
     attribute, describes the shape of the bend.  The bulge attribute
@@ -2856,26 +2541,8 @@
     For exact placement of the endpoints of the bend use the xy coordinate
     pairs.
   -->
-  <xs:attributeGroup name="att.vis.bend">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.xy2"/>
-    <xs:attribute name="bezier" type="xs:NMTOKENS"/>
-    <xs:attribute name="bulge" type="xs:NMTOKENS"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="rend" type="data.CURVERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for breath                                      * -->
-  <xs:attributeGroup name="att.anl.breath">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: Currently, the dur attribute encodes
@@ -2884,24 +2551,10 @@
     dur.vis attribute. Please note that the dur attribute is not a true
     duration, but rather a time stamp for the end point of the directive.
   -->
-  <xs:attributeGroup name="att.log.breath">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.breath">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="place" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for btrem                                       * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.btrem">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: The num attribute should be explicitly
@@ -2909,33 +2562,13 @@
     explicity set on the child note or chord element for a complete visual
     representation.
   -->
-  <xs:attributeGroup name="att.log.btrem">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="form">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="meas"/>
-          <xs:enumeration value="unmeas"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="num" type="data.INTEGERPOSITIVE"/>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.btrem">
-    <xs:attribute name="num.place" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for chord                                       * -->
   <!--
     doc: Analytical domain attributes: hfunc = harmonic function,
     mfunc = melodic function.
   -->
-  <xs:attributeGroup name="att.anl.chord">
-    <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="hfunc"/>
-    <xs:attribute name="mfunc"/>
-  </xs:attributeGroup>
   <!--
     doc: Gestural domain (performance) attributes: The artic.ges and
     dur.ges attributes record the articulation and duration information
@@ -2945,32 +2578,11 @@
     values, or MusicXML 'divisions', etc. Because dur.ges isn't limited to
     the standard duration values, a dots.ges attribute is unnecessary.
   -->
-  <xs:attributeGroup name="att.ges.chord">
-    <xs:attribute name="artic.ges" type="data.ARTICULATIONS"/>
-    <xs:attribute name="detune"/>
-    <xs:attribute name="dur.ges"/>
-    <xs:attribute name="grace" type="data.GRACE"/>
-    <xs:attribute name="grace.time" type="data.PERCENT"/>
-    <xs:attribute name="instr" type="xs:IDREF"/>
-  </xs:attributeGroup>
   <!--
     doc: Logical domain attributes: The artic, dots, and dur attributes
     encode the *written* articulations, augmentation dots, and duration
     values.
   -->
-  <xs:attributeGroup name="att.log.chord">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="artic" type="data.ARTICULATIONS"/>
-    <xs:attribute name="beam" type="data.BEAMS"/>
-    <xs:attribute name="dots" type="data.AUGMENTDOT"/>
-    <xs:attribute name="dur" type="data.DURATION"/>
-    <xs:attribute name="fermata" type="data.PLACE"/>
-    <xs:attribute name="lv" type="data.BOOLEAN"/>
-    <xs:attribute name="slur" type="data.SLURS"/>
-    <xs:attribute name="syl"/>
-    <xs:attribute name="tie" type="data.TIE"/>
-    <xs:attribute name="tuplet" type="data.TUPLET"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes:  The altsym attribute indicates that
     the specified alternative visual symbol is to be displayed. The
@@ -2995,52 +2607,6 @@
     The %att.visualoffset entity is expanded here in order to disallow a
     vertical offset.
   -->
-  <xs:attributeGroup name="att.vis.chord">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="beam.with" type="data.PLACE"/>
-    <xs:attribute name="coloration">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="inverse"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="dot.ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.vo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.x" type="data.NUMBER"/>
-    <xs:attribute name="dot.y" type="data.NUMBER"/>
-    <xs:attribute name="headshape" type="data.CLUSTER"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="size" type="data.SIZE"/>
-    <xs:attribute name="slur.dir" type="data.SLURDIRECTION"/>
-    <xs:attribute name="slur.rend">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="dotted"/>
-          <xs:enumeration value="dashed"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="stem.dir" type="data.STEMDIRECTION"/>
-    <xs:attribute name="stem.len" type="data.NUMBER"/>
-    <xs:attribute name="stem.mod" type="data.STEMMODIFIER"/>
-    <xs:attribute name="stem.pos" type="data.STEMPOSITION"/>
-    <xs:attribute name="stem.with" type="data.PLACE"/>
-    <xs:attribute name="stem.x" type="data.NUMBER"/>
-    <xs:attribute name="stem.y" type="data.NUMBER"/>
-    <xs:attribute name="tie.dir" type="data.TIEDIRECTION"/>
-    <xs:attribute name="tie.rend">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="dotted"/>
-          <xs:enumeration value="dashed"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="to" type="data.TSTAMPOFFSET"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for clefchange                                  * -->
   <!-- doc: Analytical domain attributes: -->
@@ -3129,114 +2695,32 @@
   </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for fermata                                     * -->
-  <xs:attributeGroup name="att.anl.fermata">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
-  <xs:attributeGroup name="att.ges.fermata">
-    <xs:attribute name="dur.ges"/>
-  </xs:attributeGroup>
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.fermata">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.fermata">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="form">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="inv"/>
-          <xs:enumeration value="norm"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="place" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for ftrem                                       * -->
-  <xs:attributeGroup name="att.anl.ftrem">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
-  <xs:attributeGroup name="att.ges.ftrem">
-    <xs:attribute name="form">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="meas"/>
-          <xs:enumeration value="unmeas"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.ftrem">
-    <xs:attributeGroup ref="att.event"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The rend attribute indicates the number
     of slashes required - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4,
     128ths=5.
   -->
-  <xs:attributeGroup name="att.vis.ftrem">
-    <xs:attribute name="slash" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="1"/>
-          <xs:enumeration value="2"/>
-          <xs:enumeration value="3"/>
-          <xs:enumeration value="4"/>
-          <xs:enumeration value="5"/>
-          <xs:enumeration value="6"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for gliss                                       * -->
-  <xs:attributeGroup name="att.anl.gliss">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.gliss">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The text attribute may be used to record
     any text, such as 'gliss.' that accompanies the glissando mark.
   -->
-  <xs:attributeGroup name="att.vis.gliss">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.xy2"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="rend" type="data.LINERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="text"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for hairpin                                     * -->
-  <xs:attributeGroup name="att.anl.hairpin">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!--
     doc: Gestural domain attributes: dur.ges represents the performed
     duration.
   -->
-  <xs:attributeGroup name="att.ges.hairpin">
-    <xs:attribute name="dur.ges"/>
-  </xs:attributeGroup>
   <!--
     doc: Logical domain attributes: The dur attribute encodes the logical
     and visual duration of the hairpin while the dur.ges attribute, if it
@@ -3245,19 +2729,6 @@
     Please note that the dur attribute is not a true duration, but rather
     a time stamp for the end point of the hairpin.
   -->
-  <xs:attributeGroup name="att.log.hairpin">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attribute name="dur" type="data.MEASUREBEAT"/>
-    <xs:attribute name="form" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="cres"/>
-          <xs:enumeration value="dim"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The startho and startvo attributes record
     the horizontal and vertical offsets of the left end, endho and endvo
@@ -3267,42 +2738,15 @@
     coordinates of the left side of the hairpin while x2 and y2 record the
     coordinates of the right side.
   -->
-  <xs:attributeGroup name="att.vis.hairpin">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.xy2"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="place" use="required" type="data.PLACE"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="width" type="data.NUMBER"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for halfmrpt                                    * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.halfmrpt">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.halfmrpt">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="dur" type="data.DURATION"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The expand attribute indicates whether or
     not to render the source material. How can it be pointed to?
   -->
-  <xs:attributeGroup name="att.vis.halfmrpt">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="expand" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for harm                                        * -->
   <xs:attributeGroup name="att.anl.harm">
@@ -3354,88 +2798,9 @@
   </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for harppedal                                   * -->
-  <xs:attributeGroup name="att.anl.harppedal">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
-  <xs:attributeGroup name="att.ges.harppedal">
-    <xs:attribute name="dur.ges"/>
-  </xs:attributeGroup>
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.harppedal">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attribute name="c" default="n">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="f"/>
-          <xs:enumeration value="n"/>
-          <xs:enumeration value="s"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="d" default="n">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="f"/>
-          <xs:enumeration value="n"/>
-          <xs:enumeration value="s"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="e" default="n">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="f"/>
-          <xs:enumeration value="n"/>
-          <xs:enumeration value="s"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="f" default="n">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="f"/>
-          <xs:enumeration value="n"/>
-          <xs:enumeration value="s"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="g" default="n">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="f"/>
-          <xs:enumeration value="n"/>
-          <xs:enumeration value="s"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="a" default="n">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="f"/>
-          <xs:enumeration value="n"/>
-          <xs:enumeration value="s"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="b" default="n">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="f"/>
-          <xs:enumeration value="n"/>
-          <xs:enumeration value="s"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.harppedal">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="place" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for lyrics                                      * -->
   <xs:attributeGroup name="att.anl.lyrics">
@@ -3458,9 +2823,6 @@
   <!-- ************************************************************** -->
   <!-- * Attributes for measure                                     * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.measure">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: The complete attribute allows the
@@ -3484,32 +2846,12 @@
     strings. Measure numbers may be machine-generated.  However, an explicit
     measure number will restart numbering with the given value.
   -->
-  <xs:attributeGroup name="att.log.measure">
-    <xs:attribute name="complete">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="c"/>
-          <xs:enumeration value="i"/>
-          <xs:enumeration value="o"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="control" type="data.BOOLEAN"/>
-    <xs:attribute name="left" type="data.BARRENDITION"/>
-    <xs:attribute name="measref" type="xs:IDREF"/>
-    <xs:attribute name="right" type="data.BARRENDITION"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The taktplace attribute value must be a
     number between 1 and the number of stafflines. For example, a value of
     '5' puts the barline through the top line of a 5-line staff. The width
     attribute records a fixed width for the measure.
   -->
-  <xs:attributeGroup name="att.vis.measure">
-    <xs:attribute name="barplace" type="data.BARPLACE"/>
-    <xs:attribute name="taktplace" type="data.STAFFLOC"/>
-    <xs:attribute name="width" type="data.NUMBER"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for mordent                                     * -->
   <xs:attributeGroup name="att.anl.mordent">
@@ -3558,19 +2900,8 @@
     explicitly encode this measure's position in a string of measures
     containing only mrest elements.
   -->
-  <xs:attributeGroup name="att.anl.mrest">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
-  <xs:attributeGroup name="att.ges.mrest">
-    <xs:attribute name="dur.ges"/>
-    <xs:attribute name="instr" type="xs:IDREF"/>
-  </xs:attributeGroup>
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.mrest">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="fermata" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The altsym attribute indicates that the
     specified alternative visual symbol is to be displayed. When set to
@@ -3580,21 +2911,6 @@
     Sing_, p. 32. The dur.vis attribute should be used to record the
     durational symbol used in the source.
   -->
-  <xs:attributeGroup name="att.vis.mrest">
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="cutout">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="rest"/>
-          <xs:enumeration value="staff"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="dur.vis" type="data.DURATION"/>
-    <xs:attribute name="size" type="data.SIZE"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for mrpt                                        * -->
   <!--
@@ -3603,48 +2919,24 @@
     The n attribute is used to explicitly encode this measure's position in
     a string of measures containing only mrpt elements.
   -->
-  <xs:attributeGroup name="att.anl.mrpt">
-    <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="measref" type="xs:IDREF"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.mrpt">
-    <xs:attributeGroup ref="att.event"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The expand attribute indicates whether or
     not to render the source measure.
   -->
-  <xs:attributeGroup name="att.vis.mrpt">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="expand" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for mrpt2                                       * -->
   <!--
     doc: Analytical domain attributes: The measref attribute is provided to
     explicitly indicate the measures whose contents are to be repeated here.
   -->
-  <xs:attributeGroup name="att.anl.mrpt2">
-    <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="measref" type="xs:IDREFS"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.mrpt2">
-    <xs:attributeGroup ref="att.event"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The expand attribute indicates whether or
     not to render the source measures.
   -->
-  <xs:attributeGroup name="att.vis.mrpt2">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="expand" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for mspace                                      * -->
   <!--
@@ -3652,19 +2944,8 @@
     explicitly encode this measure's position in a string of measures
     containing only mrest elements.
   -->
-  <xs:attributeGroup name="att.anl.mspace">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
-  <xs:attributeGroup name="att.ges.mspace">
-    <xs:attribute name="dur.ges"/>
-    <xs:attribute name="instr" type="xs:IDREF"/>
-  </xs:attributeGroup>
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.mspace">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="fermata" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The altsym attribute indicates that the
     specified alternative visual symbol is to be displayed. When set to
@@ -3674,74 +2955,33 @@
     Sing_, p. 32. The dur.vis attribute should be used to record the
     durational symbol used in the source.
   -->
-  <xs:attributeGroup name="att.vis.mspace">
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="cutout">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="rest"/>
-          <xs:enumeration value="staff"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="dur.vis" type="data.DURATION"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for multirest                                   * -->
-  <xs:attributeGroup name="att.anl.multirest">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
-  <xs:attributeGroup name="att.ges.multirest">
-    <xs:attribute name="dur.ges"/>
-    <xs:attribute name="instr" type="xs:IDREF"/>
-  </xs:attributeGroup>
   <!--
     doc: Logical domain attributes: The num attribute contains the number of
     measures of rest.
   -->
-  <xs:attributeGroup name="att.log.multirest">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="num" use="required" type="data.INTEGERPOSITIVE"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: When the block attribute is used,
     combinations of the 1, 2, & 4 measure rest forms (Read, p. 104) should
     be rendered instead of the modern form.
   -->
-  <xs:attributeGroup name="att.vis.multirest">
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="block" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for multirpt                                    * -->
   <!--
     doc: Analytical domain attributes: The meas attribute is provided to
     explicitly reference the measures where the source content exists.
   -->
-  <xs:attributeGroup name="att.anl.multirpt">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes:  The num attribute contains the number of
     measures to be repeated.
   -->
-  <xs:attributeGroup name="att.log.multirpt">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="measref" type="xs:IDREFS"/>
-    <xs:attribute name="num" use="required" type="data.INTEGERPOSITIVE"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The expand attribute indicates whether or
     not to render the source measures.
   -->
-  <xs:attributeGroup name="att.vis.multirpt">
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="expand" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for nota                                        * -->
   <!--
@@ -3755,17 +2995,6 @@
     pclass           pitch class 
     psolfa           solfa, e.g. do, re, mi, etc.
   -->
-  <xs:attributeGroup name="att.anl.nota">
-    <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="accid.cautionary" type="data.ACCIDENTAL.EXPLICIT"/>
-    <xs:attribute name="accid.editorial" type="data.ACCIDENTAL.EXPLICIT"/>
-    <xs:attribute name="hfunc"/>
-    <xs:attribute name="inth"/>
-    <xs:attribute name="intm"/>
-    <xs:attribute name="mfunc"/>
-    <xs:attribute name="pclass" type="data.PITCHCLASS"/>
-    <xs:attribute name="psolfa"/>
-  </xs:attributeGroup>
   <!--
     doc: Gestural domain (performance) attributes: The artic.ges, dur.ges,
     oct.ges, pname.ges attributes record the articulation, duration,
@@ -3783,29 +3012,6 @@
     discussion of grace notes. The pnum attribute holds a pitch-to-number
     mapping, a base-40 or MIDI note number, for example.
   -->
-  <xs:attributeGroup name="att.ges.nota.tablature">
-    <xs:attribute name="tab.fret" type="data.FRETNUMBER"/>
-    <xs:attribute name="tab.string" type="data.STRINGNUMBER"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="att.ges.nota.base">
-    <xs:attribute name="num" type="data.INTEGERPOSITIVE"/>
-    <xs:attribute name="numbase" type="data.INTEGERPOSITIVE"/>
-    <xs:attribute name="accid.ges" type="data.ACCIDENTAL.IMPLICIT"/>
-    <xs:attribute name="artic.ges" type="data.ARTICULATIONS"/>
-    <xs:attribute name="detune"/>
-    <xs:attribute name="dur.ges"/>
-    <xs:attribute name="gliss" type="data.GLISSANDO"/>
-    <xs:attribute name="grace" type="data.GRACE"/>
-    <xs:attribute name="grace.time" type="data.PERCENT"/>
-    <xs:attribute name="instr" type="xs:IDREF"/>
-    <xs:attribute name="oct.ges" type="data.OCTAVE"/>
-    <xs:attribute name="pname.ges" type="data.PITCHNAME.GES"/>
-    <xs:attribute name="pnum" type="data.PITCHNUMBER"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="att.ges.nota">
-    <xs:attributeGroup ref="att.ges.nota.base"/>
-    <xs:attributeGroup ref="att.ges.nota.tablature"/>
-  </xs:attributeGroup>
   <!--
     doc: Logical domain attributes: The pname, accid, oct, dur, dots, and
     artic attributes encode the *written* note name, accidental, octave,
@@ -3823,24 +3029,6 @@
     for visual rendition. Tablature information can be recorded in the tab.fret
     and tab.string attributes. fermata = corona in the mensural repertoire.
   -->
-  <xs:attributeGroup name="att.log.nota">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="accid" type="data.ACCIDENTAL.EXPLICIT"/>
-    <xs:attribute name="corona" type="data.PLACE"/>
-    <xs:attribute name="dots" type="data.AUGMENTDOT"/>
-    <xs:attribute name="dur" type="data.DURATION.MENSURAL"/>
-    <xs:attribute name="lig">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="recta"/>
-          <xs:enumeration value="obliqua"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="oct" type="data.OCTAVE"/>
-    <xs:attribute name="pname" type="data.PITCHNAME"/>
-    <xs:attribute name="syl"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes:  The distance between the accidental
     and the note it modifies should be recorded in the accid.ho attribute.
@@ -3856,57 +3044,6 @@
     The %att.visualoffset entity is expanded here in order to disallow
     a vertical offset.
   -->
-  <xs:attributeGroup name="att.vis.nota">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="accid.ho" type="data.NUMBER"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="beam.with" type="data.PLACE"/>
-    <xs:attribute name="coloration">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="inverse"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="colored" type="data.BOOLEAN"/>
-    <xs:attribute name="dot.ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.vo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.x" type="data.NUMBER"/>
-    <xs:attribute name="dot.y" type="data.NUMBER"/>
-    <xs:attribute name="enclose.accid" type="data.ENCLOSURE"/>
-    <xs:attribute name="enclose.note" type="data.ENCLOSURE"/>
-    <xs:attribute name="headshape" type="data.HEADSHAPE"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="size" type="data.SIZE"/>
-    <xs:attribute name="slur.dir" type="data.SLURDIRECTION"/>
-    <xs:attribute name="slur.rend">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="dotted"/>
-          <xs:enumeration value="dashed"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="stem.dir" type="data.STEMDIRECTION"/>
-    <xs:attribute name="stem.len" type="data.NUMBER"/>
-    <xs:attribute name="stem.mod" type="data.STEMMODIFIER"/>
-    <xs:attribute name="stem.pos" type="data.STEMPOSITION"/>
-    <xs:attribute name="stem.with" type="data.PLACE"/>
-    <xs:attribute name="stem.x" type="data.NUMBER"/>
-    <xs:attribute name="stem.y" type="data.NUMBER"/>
-    <xs:attribute name="tie.dir" type="data.TIEDIRECTION"/>
-    <xs:attribute name="tie.rend">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="dotted"/>
-          <xs:enumeration value="dashed"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="to" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="visible" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for note                                        * -->
   <!--
@@ -3920,17 +3057,6 @@
     pclass           pitch class 
     psolfa           solfa, e.g. do, re, mi, etc.
   -->
-  <xs:attributeGroup name="att.anl.note">
-    <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="accid.cautionary" type="data.ACCIDENTAL.EXPLICIT"/>
-    <xs:attribute name="accid.editorial" type="data.ACCIDENTAL.EXPLICIT"/>
-    <xs:attribute name="hfunc"/>
-    <xs:attribute name="inth"/>
-    <xs:attribute name="intm"/>
-    <xs:attribute name="mfunc"/>
-    <xs:attribute name="pclass" type="data.PITCHCLASS"/>
-    <xs:attribute name="psolfa"/>
-  </xs:attributeGroup>
   <!--
     doc: Gestural domain (performance) attributes: The artic.ges, dur.ges,
     oct.ges, pname.ges attributes record the articulation, duration,
@@ -3949,24 +3075,6 @@
     mapping, a base-40 or MIDI note number, for example.  Tablature
     information can be recorded in the tab.fret and tab.string attributes.
   -->
-  <xs:attributeGroup name="att.ges.note.base">
-    <xs:attribute name="accid.ges" type="data.ACCIDENTAL.IMPLICIT"/>
-    <xs:attribute name="artic.ges" type="data.ARTICULATIONS"/>
-    <xs:attribute name="detune"/>
-    <xs:attribute name="dur.ges"/>
-    <xs:attribute name="gliss" type="data.GLISSANDO"/>
-    <xs:attribute name="grace" type="data.GRACE"/>
-    <xs:attribute name="grace.time" type="data.PERCENT"/>
-    <xs:attribute name="instr" type="xs:IDREF"/>
-    <xs:attribute name="oct.ges" type="data.OCTAVE"/>
-    <xs:attribute name="pname.ges" type="data.PITCHNAME.GES"/>
-    <xs:attribute name="pnum" type="data.PITCHNUMBER"/>
-    <xs:attribute name="tab.fret" type="data.FRETNUMBER"/>
-    <xs:attribute name="tab.string" type="data.STRINGNUMBER"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="att.ges.note">
-    <xs:attributeGroup ref="att.ges.note.base"/>
-  </xs:attributeGroup>
   <!--
     doc: Logical domain attributes: The pname, accid, oct, dur, dots, and
     artic attributes encode the *written* note name, accidental, octave,
@@ -3983,22 +3091,6 @@
     attributes or require separate slur, tie, generic curve, or tuplet elements
     for visual rendition.
   -->
-  <xs:attributeGroup name="att.log.note">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="accid" type="data.ACCIDENTAL.EXPLICIT"/>
-    <xs:attribute name="artic" type="data.ARTICULATIONS"/>
-    <xs:attribute name="beam" type="data.BEAMS"/>
-    <xs:attribute name="dots" type="data.AUGMENTDOT"/>
-    <xs:attribute name="dur" type="data.DURATION"/>
-    <xs:attribute name="fermata" type="data.PLACE"/>
-    <xs:attribute name="lv" type="data.BOOLEAN"/>
-    <xs:attribute name="oct" type="data.OCTAVE"/>
-    <xs:attribute name="pname" type="data.PITCHNAME"/>
-    <xs:attribute name="slur" type="data.SLURS"/>
-    <xs:attribute name="syl"/>
-    <xs:attribute name="tie" type="data.TIE"/>
-    <xs:attribute name="tuplet" type="data.TUPLET"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes:  The distance between the accidental
     and the note it modifies should be recorded in the accid.ho attribute.
@@ -4014,65 +3106,9 @@
     The %att.visualoffset entity is expanded here in order to disallow
     a vertical offset.
   -->
-  <xs:attributeGroup name="att.vis.note">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="accid.ho" type="data.NUMBER"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="beam.with" type="data.PLACE"/>
-    <xs:attribute name="coloration">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="inverse"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="dot.ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.vo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.x" type="data.NUMBER"/>
-    <xs:attribute name="dot.y" type="data.NUMBER"/>
-    <xs:attribute name="enclose.accid" type="data.ENCLOSURE"/>
-    <xs:attribute name="enclose.note" type="data.ENCLOSURE"/>
-    <xs:attribute name="headshape" type="data.HEADSHAPE"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="size" type="data.SIZE"/>
-    <xs:attribute name="slur.dir" type="data.SLURDIRECTION"/>
-    <xs:attribute name="slur.rend">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="dotted"/>
-          <xs:enumeration value="dashed"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="stem.dir" type="data.STEMDIRECTION"/>
-    <xs:attribute name="stem.len" type="data.NUMBER"/>
-    <xs:attribute name="stem.mod" type="data.STEMMODIFIER"/>
-    <xs:attribute name="stem.pos" type="data.STEMPOSITION"/>
-    <xs:attribute name="stem.with" type="data.PLACE"/>
-    <xs:attribute name="stem.x" type="data.NUMBER"/>
-    <xs:attribute name="stem.y" type="data.NUMBER"/>
-    <xs:attribute name="tie.dir" type="data.TIEDIRECTION"/>
-    <xs:attribute name="tie.rend">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="dotted"/>
-          <xs:enumeration value="dashed"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="to" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="visible" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for octave                                      * -->
-  <xs:attributeGroup name="att.anl.octave">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
-  <xs:attributeGroup name="att.ges.octave">
-    <xs:attribute name="dur.ges"/>
-  </xs:attributeGroup>
   <!--
     doc: Logical domain attributes: The dur attribute encodes the logical
     and visual duration of the octave displacement while the dur.ges
@@ -4088,44 +3124,10 @@
     displacement should be performed simultaneously with the written
     notes.
   -->
-  <xs:attributeGroup name="att.log.octave">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attribute name="coll">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="coll"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="dis" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="8"/>
-          <xs:enumeration value="15"/>
-          <xs:enumeration value="22"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="dur" type="data.MEASUREBEAT"/>
-    <xs:attribute name="place" use="required" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.octave">
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="rend" type="data.LINERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto" type="data.TSTAMPOFFSET"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for ossia                                       * -->
   <!-- doc: Analytical domain attributes: -->
-  <xs:attributeGroup name="att.anl.ossia">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
   <!-- doc: Visual domain attributes: -->
@@ -4144,24 +3146,8 @@
   <!-- doc: Visual domain attributes: -->
   <!-- ************************************************************** -->
   <!-- * Attributes for pedal (piano damper pedal)                  * -->
-  <xs:attributeGroup name="att.anl.pedal">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.pedal">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attribute name="dir" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="down"/>
-          <xs:enumeration value="up"/>
-          <xs:enumeration value="half"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: When style is set to 'line', the pedal
     mark is rendered with a continuous line. When it's set to pedstar, a
@@ -4170,27 +3156,6 @@
     up and down indications are the same as with pedstar but a bounce is
     rendered with "Ped." only.
   -->
-  <xs:attributeGroup name="att.vis.pedal">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attribute name="place">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="below"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="style">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="line"/>
-          <xs:enumeration value="pedstar"/>
-          <xs:enumeration value="altpedstar"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for phrase                                      * -->
   <!--
@@ -4244,9 +3209,6 @@
   </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for reh                                         * -->
-  <xs:attributeGroup name="att.anl.reh">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: %att.controlevent is expanded here in
@@ -4255,61 +3217,15 @@
     these attributes. The a.startendid entity is expanded here in order to
     disallow the end attribute.
   -->
-  <xs:attributeGroup name="att.log.reh">
-    <xs:attribute name="next" type="xs:IDREFS"/>
-    <xs:attribute name="prev" type="xs:IDREFS"/>
-    <xs:attribute name="staff" use="required" type="data.INTEGERPOSITIVE"/>
-    <xs:attribute name="start" type="xs:IDREF"/>
-    <xs:attribute name="tstamp" type="data.BEAT"/>
-    <xs:attribute name="tstamp.ges" type="data.INTEGERNONNEGATIVE"/>
-    <xs:attribute name="tstamp.real" type="data.ISOTIME"/>
-  </xs:attributeGroup>
   <!-- doc: Visual domain attributes: -->
-  <xs:attributeGroup name="att.vis.reh">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.typography"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="enclose">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="box"/>
-          <xs:enumeration value="circle"/>
-          <xs:enumeration value="none"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="place">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="above"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for rest                                        * -->
-  <xs:attributeGroup name="att.anl.rest">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!--
     doc: Gestural domain (performance) attributes:  The dur.ges attribute
     records the performed duration of the rest when it differs from the
     written duration.
   -->
-  <xs:attributeGroup name="att.ges.rest">
-    <xs:attribute name="dur.ges"/>
-    <xs:attribute name="instr" type="xs:IDREF"/>
-  </xs:attributeGroup>
   <!-- doc: Logical domain attributes: -->
-  <xs:attributeGroup name="att.log.rest">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="beam" type="data.BEAMS"/>
-    <xs:attribute name="dots" type="data.AUGMENTDOT"/>
-    <xs:attribute name="dur" type="data.DURATION"/>
-    <xs:attribute name="fermata" type="data.PLACE"/>
-    <xs:attribute name="tuplet" type="data.TUPLET"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes:  The altsym attribute indicates that the
     specified alternative visual symbol is to be displayed. See Read, ex.
@@ -4318,43 +3234,14 @@
     upon which the rest stands.  The spaces attribute states how many spaces
     are covered by the rest.
   -->
-  <xs:attributeGroup name="att.vis.rest">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="beam.with" type="data.PLACE"/>
-    <xs:attribute name="dot.ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.vo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.x" type="data.NUMBER"/>
-    <xs:attribute name="dot.y" type="data.NUMBER"/>
-    <xs:attribute name="size" type="data.SIZE"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for pausa                                       * -->
-  <xs:attributeGroup name="att.anl.pausa">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!--
     doc: Gestural domain (performance) attributes:  The dur.ges attribute
     records the performed duration of the rest when it differs from the
     written duration.
   -->
-  <xs:attributeGroup name="att.ges.pausa">
-    <xs:attribute name="dur.ges"/>
-    <xs:attribute name="instr" type="xs:IDREF"/>
-    <xs:attribute name="num" type="data.INTEGERPOSITIVE"/>
-    <xs:attribute name="numbase" type="data.INTEGERPOSITIVE"/>
-  </xs:attributeGroup>
   <!-- doc: Logical domain attributes: fermata = corona in the mensural repertoire. -->
-  <xs:attributeGroup name="att.log.pausa">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="beam" type="data.BEAMS"/>
-    <xs:attribute name="corona" type="data.PLACE"/>
-    <xs:attribute name="dots" type="data.AUGMENTDOT"/>
-    <xs:attribute name="dur" type="data.DURATION.MENSURAL"/>
-    <xs:attribute name="tuplet" type="data.TUPLET"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes:  The altsym attribute indicates that the
     specified alternative visual symbol is to be displayed. See Read, ex.
@@ -4363,21 +3250,6 @@
     upon which the rest stands.  The spaces attribute states how many spaces
     are covered by the rest.
   -->
-  <xs:attributeGroup name="att.vis.pausa">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="beam.with" type="data.PLACE"/>
-    <xs:attribute name="colored" type="data.BOOLEAN"/>
-    <xs:attribute name="dot.ho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.vo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="dot.x" type="data.NUMBER"/>
-    <xs:attribute name="dot.y" type="data.NUMBER"/>
-    <xs:attribute name="line" type="data.INTEGERPOSITIVE"/>
-    <xs:attribute name="size" type="data.SIZE"/>
-    <xs:attribute name="spaces" type="data.INTEGERPOSITIVE"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for slur                                        * -->
   <!--
@@ -4386,10 +3258,6 @@
     marks, sometimes necessary due to system breaks, that form a single
     musical phrase.
   -->
-  <xs:attributeGroup name="att.anl.slur">
-    <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="join" type="xs:IDREFS"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: The dur attribute encodes the logical
@@ -4402,11 +3270,6 @@
     Slur may either use tstamp and dur or startid and endid attributes. It is
     a semantic error not to specify one of these attribute combinations.
   -->
-  <xs:attributeGroup name="att.log.slur">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attribute name="dur" type="data.MEASUREBEAT"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The bulge or, alternatively, the bezier
     attribute, describes the shape of the slur/phrase mark.  The bulge
@@ -4418,22 +3281,6 @@
     vo attribute is the vertical offset (from its normal position) of the
     entire rendered slur/phrase mark.
   -->
-  <xs:attributeGroup name="att.vis.slur">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.xy2"/>
-    <xs:attribute name="bezier" type="xs:NMTOKENS"/>
-    <xs:attribute name="bulge" type="xs:NMTOKENS"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="place" type="data.PLACE"/>
-    <xs:attribute name="rend" type="data.CURVERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for space                                       * -->
   <xs:attributeGroup name="att.anl.space">
@@ -4553,19 +3400,11 @@
   </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for tie                                         * -->
-  <xs:attributeGroup name="att.anl.tie">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: The a.startendid entity is expanded here
     in order to make startid and endid attributes required.
   -->
-  <xs:attributeGroup name="att.log.tie">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attribute name="endid" use="required" type="xs:IDREF"/>
-    <xs:attribute name="startid" use="required" type="xs:IDREF"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The bulge or, alternatively, the bezier
     attribute, describes the shape of the tie.  The bulge attribute
@@ -4577,21 +3416,6 @@
     attribute is the vertical offset (from its normal position) of the
     entire rendered tie.
   -->
-  <xs:attributeGroup name="att.vis.tie">
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.xy2"/>
-    <xs:attribute name="bezier" type="xs:NMTOKENS"/>
-    <xs:attribute name="bulge" type="xs:NMTOKENS"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="rend" type="data.CURVERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto" type="data.TSTAMPOFFSET"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for trill                                       * -->
   <xs:attributeGroup name="att.anl.trill">
@@ -4629,9 +3453,6 @@
   </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for tuplet                                      * -->
-  <xs:attributeGroup name="att.anl.tuplet">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: The dur attribute is the time taken up
@@ -4643,14 +3464,6 @@
     triplet, etc. The rendering of the ratio, however, is dependent on the
     num.format attribute described below.
   -->
-  <xs:attributeGroup name="att.log.tuplet">
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attribute name="dots" type="data.AUGMENTDOT"/>
-    <xs:attribute name="dur" type="data.DURATION"/>
-    <xs:attribute name="num" type="data.INTEGERPOSITIVE"/>
-    <xs:attribute name="numbase" type="data.DURATION"/>
-    <xs:attribute name="with" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes: The bracket.place attribute is used to
     state where the bracket will be placed in relation to the noteheads
@@ -4663,26 +3476,8 @@
          bracket.visible 'yes'
          num.visible 'yes'
   -->
-  <xs:attributeGroup name="att.vis.tuplet">
-    <xs:attribute name="bracket.place" type="data.PLACE"/>
-    <xs:attribute name="bracket.visible" type="data.BOOLEAN"/>
-    <xs:attribute name="dur.visible" type="data.BOOLEAN"/>
-    <xs:attribute name="num.format">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="count"/>
-          <xs:enumeration value="ratio"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="num.place" type="data.PLACE"/>
-    <xs:attribute name="num.visible" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for tupletspan                                  * -->
-  <xs:attributeGroup name="att.anl.tupletspan">
-    <xs:attributeGroup ref="att.common.anl"/>
-  </xs:attributeGroup>
   <!-- doc: Gestural domain attributes: -->
   <!--
     doc: Logical domain attributes: The dur attribute encodes the logical
@@ -4690,36 +3485,12 @@
     the dur attribute is expressed as a time stamp, dur here is a true
     duration.
   -->
-  <xs:attributeGroup name="att.log.tupletspan">
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attribute name="dots" type="data.AUGMENTDOT"/>
-    <xs:attribute name="dur" type="data.DURATION"/>
-    <xs:attribute name="num" type="data.INTEGERNONNEGATIVE"/>
-    <xs:attribute name="numbase" type="data.DURATION"/>
-    <xs:attribute name="with" type="data.PLACE"/>
-  </xs:attributeGroup>
   <!--
     doc: Visual domain attributes:
     software defaults:
     bracket.visible 'yes'  What about triplets?
     num.visible 'yes'
   -->
-  <xs:attributeGroup name="att.vis.tupletspan">
-    <xs:attribute name="bracket.place" type="data.PLACE"/>
-    <xs:attribute name="bracket.visible" type="data.BOOLEAN"/>
-    <xs:attribute name="dur.visible" type="data.BOOLEAN"/>
-    <xs:attribute name="num.format">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="count"/>
-          <xs:enumeration value="ratio"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="num.place" type="data.PLACE"/>
-    <xs:attribute name="num.visible" type="data.BOOLEAN"/>
-  </xs:attributeGroup>
   <!-- ************************************************************** -->
   <!-- * Attributes for turn                                        * -->
   <xs:attributeGroup name="att.anl.turn">
@@ -4915,9 +3686,9 @@
       <xs:element minOccurs="0" ref="pgfoot2"/>
     </xs:sequence>
   </xs:group>
-  <xs:element name="model.eventLike.common" abstract="true"/>
-  <xs:element name="model.eventLike.neume-mensural" abstract="true"/>
-  <xs:element name="model.eventLike.mensural-cmn" abstract="true"/>
+  <xs:element name="model.eventLike.common" abstract="true" substitutionGroup="model.eventLike"/>
+  <xs:element name="model.eventLike.neume-mensural" abstract="true" substitutionGroup="model.eventLike"/>
+  <xs:element name="model.eventLike.mensural-cmn" abstract="true" substitutionGroup="model.eventLike"/>
   <!-- '%n.accid;|%n.barline;|%n.dot;|%n.keychange;' -->
   <xs:element name="model.controleventLike.common" abstract="true" substitutionGroup="model.controleventLike"/>
   <xs:element name="model.keyaccidLike" abstract="true">
@@ -5028,21 +3799,12 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element name="model.endingLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.ending">
-          <xs:attributeGroup ref="attlist.ending"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="model.instrdefLike" abstract="true">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.instrdef"/>
     </xs:complexType>
   </xs:element>
-  <xs:element name="model.layerLike" abstract="true" substitutionGroup="model.measurePart">
+  <xs:element name="model.layerLike" abstract="true">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.layer">
@@ -5103,33 +3865,6 @@
       <xs:complexContent>
         <xs:extension base="content.score">
           <xs:attributeGroup ref="attlist.score"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.scoredefLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.scoredef">
-          <xs:attributeGroup ref="attlist.scoredef"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.sectionLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.section">
-          <xs:attributeGroup ref="attlist.section"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.staffLike" abstract="true" substitutionGroup="model.measurePart">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.staff">
-          <xs:attributeGroup ref="attlist.staff"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
@@ -5286,61 +4021,7 @@
   -->
   <!-- Include desired elements -->
   <!-- Create appropriate classes -->
-  <xs:element name="model.ornamentLike.cmn" abstract="true" substitutionGroup="model.controleventLike.cmn"/>
-  <!-- Include desired elements -->
-  <!-- Create appropriate classes -->
-  <xs:group name="model.neumeModifierLike">
-    <xs:choice>
-      <xs:element ref="accid"/>
-      <xs:element ref="artic"/>
-      <xs:element ref="model.verseLike"/>
-    </xs:choice>
-  </xs:group>
-  <xs:element name="model.eventLike.neume" abstract="true"/>
-  <!-- Include desired elements -->
-  <!-- Create appropriate classes -->
-  <!-- <!ENTITY % model.notaModifierLike  '%n.accid;|%n.artic;|%n.dot;'> -->
-  <!-- |%model.sylLike;|%model.verseLike;'> -->
-  <xs:element name="model.eventLike.mensural" abstract="true"/>
   <!-- <!ENTITY % model.notaModifierLike  '_DUMMYmodel.notaModifierLike'> -->
-  <!-- Include desired elements -->
-  <!-- Create appropriate classes -->
-  <xs:element name="model.measureLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.measure">
-          <xs:attributeGroup ref="attlist.measure"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.ossiaLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.ossia">
-          <xs:attributeGroup ref="attlist.ossia"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.controleventLike.instruments" abstract="true" substitutionGroup="model.controleventLike.cmn"/>
-  <xs:element name="model.controleventLike.cmn" abstract="true" substitutionGroup="model.controleventLike"/>
-  <xs:group name="model.eventLike.cmn">
-    <xs:choice>
-      <xs:element ref="beam"/>
-      <xs:element ref="bend"/>
-      <xs:element ref="beatrpt"/>
-      <xs:element ref="btrem"/>
-      <xs:element ref="chord"/>
-      <xs:element ref="ftrem"/>
-      <xs:element ref="gliss"/>
-      <xs:element ref="halfmrpt"/>
-      <xs:element ref="note"/>
-      <xs:element ref="rest"/>
-      <xs:element ref="tuplet"/>
-    </xs:choice>
-  </xs:group>
-  <xs:element name="model.eventLike.cmn.measureFilling" abstract="true" substitutionGroup="model.measurePart"/>
   <!-- Include desired elements -->
   <!-- Create appropriate classes -->
   <xs:element name="model.chordtableLike" abstract="true">
@@ -5375,7 +4056,7 @@
   </xs:element>
   <!-- Include desired elements -->
   <!-- Create appropriate classes -->
-  <xs:element name="model.apparatusLike" abstract="true" substitutionGroup="model.measurePart">
+  <xs:element name="model.apparatusLike" abstract="true">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.app">
@@ -5409,8 +4090,8 @@
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
-  <xs:element name="model.transcriptionLike" abstract="true" substitutionGroup="model.measurePart"/>
-  <xs:element name="model.editLike" abstract="true" substitutionGroup="model.measurePart"/>
+  <xs:element name="model.transcriptionLike" abstract="true"/>
+  <xs:element name="model.editLike" abstract="true"/>
   <xs:group name="model.choicePart">
     <xs:choice>
       <xs:element ref="corr"/>
@@ -5554,6 +4235,17 @@
     more restrictive.
   -->
   <!-- The following declarations are used when two or more notation styles are INCLUDED. -->
+  <xs:group name="model.Incl">
+    <xs:choice>
+      <xs:element ref="model.apparatusLike"/>
+      <xs:element ref="model.divLike"/>
+      <xs:element ref="model.milestoneLike.music"/>
+      <xs:element ref="scoredef"/>
+      <xs:element ref="staffdef"/>
+      <xs:element ref="staffgrp"/>
+      <xs:element ref="model.annotLike"/>
+    </xs:choice>
+  </xs:group>
   <!-- doc: -->
   <xs:complexType name="model.clefchangePart">
     <xs:sequence>
@@ -5563,8 +4255,6 @@
   <!-- doc: Multiple clefs -->
   <xs:element name="model.staffdefPart.multiplyDefinable" abstract="true"/>
   <!-- If more than one notational style is INCLUDED, a mix of notational styles is allowed. -->
-  <!-- doc: Control events modify or otherwise depend on the existence of notated events. -->
-  <xs:element name="model.controleventLike" abstract="true"/>
   <!--
     doc: Notated events. Sometimes referred to as "logical" events. The
     mrest, mrpt, mspace, multirest, and multirpt elements are not included
@@ -5572,112 +4262,60 @@
     alternatives to the elements listed here. They are, however, part of the
     att.events class.
   -->
-  <xs:group name="model.eventLike">
-    <xs:choice>
-      <xs:element ref="model.eventLike.common"/>
-      <xs:element ref="model.eventLike.neume"/>
-      <xs:element ref="model.eventLike.neume-mensural"/>
-      <xs:element ref="model.eventLike.mensural"/>
-      <xs:element ref="model.eventLike.mensural-cmn"/>
-      <xs:group ref="model.eventLike.cmn"/>
-    </xs:choice>
-  </xs:group>
+  <xs:element name="model.eventLike" abstract="true"/>
+  <!-- doc: Control events modify or otherwise depend on the existence of notated events. -->
+  <xs:element name="model.controleventLike" abstract="true"/>
   <!-- doc: Notated events at the layer level -->
   <xs:group name="model.layerPart">
     <xs:choice>
-      <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.midiLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
+      <xs:element ref="model.midiLike"/>
+      <xs:element ref="model.controleventLike"/>
+      <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.noteModifierLike"/>
       <xs:element ref="model.verseLike"/>
       <xs:element ref="model.sylLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
     </xs:choice>
   </xs:group>
-  <!--
-    <!ENTITY % model.layerPart   '%model.eventLike;|%model.midiLike;|%model.editLike;|
-    %model.transcriptionLike;|%model.noteModifierLike;|
-    %model.verseLike;|%model.sylLike;|
-    %model.eventLike.cmn.measureFilling;'>
-  -->
-  <!-- doc: Measure content model -->
-  <xs:element name="model.measurePart" abstract="true"/>
+  <!-- doc: Syllable content model -->
   <!-- doc: Staff content model -->
-  <xs:complexType name="model.staffPart">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.measureLike"/>
+  <xs:group name="model.staffPart">
+    <xs:choice>
       <xs:element ref="model.layerLike"/>
-      <xs:element ref="model.milestoneLike.music"/>
-      <xs:group ref="model.layerPart"/>
-      <xs:element ref="model.annotLike"/>
-      <xs:element ref="model.graphicprimitiveLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.apparatusLike"/>
       <xs:element ref="model.controleventLike"/>
     </xs:choice>
-  </xs:complexType>
+  </xs:group>
+  <!-- doc: Measure content model -->
+  <xs:group name="model.sectionPart">
+    <xs:choice>
+      <xs:element ref="section"/>
+      <xs:element ref="ending"/>
+      <xs:element ref="staff"/>
+    </xs:choice>
+  </xs:group>
+  <!-- doc: Score components -->
+  <xs:group name="model.scorePart">
+    <xs:choice>
+      <xs:element ref="section"/>
+      <xs:element ref="ending"/>
+    </xs:choice>
+  </xs:group>
   <!-- doc: Reading content model -->
   <xs:group name="model.rdgPart">
     <xs:choice>
-      <xs:element ref="model.scoredefLike"/>
-      <xs:element ref="model.staffgrpLike"/>
-      <xs:element ref="model.staffdefLike"/>
-      <xs:sequence>
-        <xs:element ref="model.sectionLike"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.endingLike"/>
-      </xs:sequence>
-      <xs:element ref="model.divLike"/>
-      <xs:sequence minOccurs="0" maxOccurs="unbounded">
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.measureLike"/>
-        <xs:element minOccurs="0" ref="model.milestoneLike.music"/>
-      </xs:sequence>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="model.layerLike"/>
-        <xs:group ref="model.eventLike"/>
-        <xs:element ref="model.sylLike"/>
-      </xs:choice>
-      <xs:sequence>
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element ref="model.staffLike"/>
-          <xs:element ref="model.editLike"/>
-          <xs:element ref="model.transcriptionLike"/>
-        </xs:choice>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.ossiaLike"/>
-        <xs:choice minOccurs="0" maxOccurs="unbounded">
-          <xs:element ref="model.controleventLike"/>
-          <xs:element ref="model.lyricsLike"/>
-          <xs:element ref="model.midiLike"/>
-          <xs:element ref="model.annotLike"/>
-        </xs:choice>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.graphicprimitiveLike"/>
-      </xs:sequence>
-      <xs:element ref="model.apparatusLike"/>
-    </xs:choice>
-  </xs:group>
-  <!-- doc: Score content model -->
-  <xs:group name="model.scorePart">
-    <xs:sequence>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="model.measureLike"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.staffLike"/>
-        <xs:element ref="model.milestoneLike.music"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:group>
-  <!-- doc: Score components -->
-  <xs:group name="model.scorecomponentLike">
-    <xs:choice>
-      <xs:element ref="model.scoredefLike"/>
-      <xs:element ref="model.staffgrpLike"/>
-      <xs:element ref="model.staffdefLike"/>
-      <xs:sequence>
-        <xs:element ref="model.sectionLike"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.endingLike"/>
-      </xs:sequence>
-      <xs:element ref="model.divLike"/>
-      <xs:group ref="model.scorePart"/>
-      <xs:element ref="model.apparatusLike"/>
+      <xs:group ref="model.sectionPart"/>
+      <xs:element ref="model.controleventLike"/>
+      <xs:element ref="model.editLike"/>
+      <xs:element ref="model.transcriptionLike"/>
+      <xs:element ref="model.lyricsLike"/>
+      <xs:element ref="model.midiLike"/>
+      <xs:element ref="model.layerLike"/>
+      <xs:element ref="model.sylLike"/>
+      <xs:element ref="model.eventLike"/>
+      <xs:element ref="model.noteModifierLike"/>
+      <xs:element ref="model.verseLike"/>
     </xs:choice>
   </xs:group>
   <!-- ************************************************************** -->
@@ -6651,7 +5289,7 @@
   -->
   <xs:complexType name="content.ligature">
     <xs:choice>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:element ref="accid"/>
         <xs:element ref="artic"/>
@@ -7496,9 +6134,23 @@
     Module:  meiStructure
   -->
   <xs:complexType name="content.ending">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.scorecomponentLike"/>
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.sectionPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
   </xs:complexType>
-  <xs:element name="ending" substitutionGroup="model.endingLike"/>
+  <xs:element name="ending">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.ending">
+          <xs:attributeGroup ref="attlist.ending"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:attributeGroup name="attlist.ending">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
@@ -7614,10 +6266,13 @@
     Module:  meiStructure
   -->
   <xs:complexType name="content.layer">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.layerPart"/>
-      <xs:element ref="model.annotLike"/>
-    </xs:choice>
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.layerPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
   </xs:complexType>
   <xs:element name="layer" substitutionGroup="model.layerLike"/>
   <xs:attributeGroup name="attlist.layer">
@@ -7706,7 +6361,7 @@
     Module:  meiStructure
   -->
   <xs:complexType name="content.part">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.scorecomponentLike"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.scorePart"/>
   </xs:complexType>
   <xs:element name="part" substitutionGroup="model.partLike"/>
   <xs:attributeGroup name="attlist.part">
@@ -7892,8 +6547,15 @@
     Module:  meiStructure
   -->
   <xs:complexType name="content.score">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.scorecomponentLike"/>
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.scorePart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
   </xs:complexType>
+  <!-- <!ENTITY % content.score '(%model.scorecomponentLike;)*'> -->
   <xs:element name="score" substitutionGroup="model.scoreLike"/>
   <xs:attributeGroup name="attlist.score">
     <xs:attributeGroup ref="att.common"/>
@@ -7918,7 +6580,15 @@
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="scoredef" substitutionGroup="model.scoredefLike"/>
+  <xs:element name="scoredef">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.scoredef">
+          <xs:attributeGroup ref="attlist.scoredef"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:attributeGroup name="attlist.scoredef">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.log.scoredef"/>
@@ -7933,9 +6603,23 @@
     Module:  meiStructure
   -->
   <xs:complexType name="content.section">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.scorecomponentLike"/>
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.sectionPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
   </xs:complexType>
-  <xs:element name="section" substitutionGroup="model.sectionLike"/>
+  <xs:element name="section">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.section">
+          <xs:attributeGroup ref="attlist.section"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:attributeGroup name="attlist.section">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
@@ -7955,11 +6639,23 @@
     Module:  meiStructure
   -->
   <xs:complexType name="content.staff">
-    <xs:complexContent>
-      <xs:extension base="model.staffPart"/>
-    </xs:complexContent>
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.staffPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
   </xs:complexType>
-  <xs:element name="staff" substitutionGroup="model.staffLike"/>
+  <xs:element name="staff">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.staff">
+          <xs:attributeGroup ref="attlist.staff"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:attributeGroup name="attlist.staff">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
@@ -7999,6 +6695,7 @@
   -->
   <xs:complexType name="content.staffgrp">
     <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="grpsym"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.instrdefLike"/>
       <xs:choice maxOccurs="unbounded">
@@ -8008,6 +6705,10 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="grpsym"/>
     </xs:sequence>
   </xs:complexType>
+  <!--
+    <!ENTITY % content.staffgrp '((%model.labelLike;)*, (%model.instrdefLike;)*,
+    (%model.staffgrpLike;|%model.staffdefLike;)+, (%n.grpsym;)*)'>
+  -->
   <xs:element name="staffgrp" substitutionGroup="model.staffgrpLike"/>
   <xs:attributeGroup name="attlist.staffgrp">
     <xs:attributeGroup ref="att.common"/>
@@ -8022,62 +6723,12 @@
     Used by: model.eventLike.neume 
     Module:  meiNeumes
   -->
-  <xs:complexType name="content.syllable">
-    <xs:sequence minOccurs="0" maxOccurs="unbounded">
-      <xs:choice>
-        <xs:group ref="model.eventLike"/>
-        <xs:element ref="model.sylLike"/>
-        <xs:element ref="model.apparatusLike"/>
-        <xs:element ref="model.editLike"/>
-        <xs:element ref="model.transcriptionLike"/>
-      </xs:choice>
-      <xs:element minOccurs="0" ref="model.milestoneLike.music"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="syllable" substitutionGroup="model.eventLike.neume">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.syllable">
-          <xs:attributeGroup ref="attlist.syllable"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.syllable">
-    <xs:attributeGroup ref="att.common"/>
-  </xs:attributeGroup>
   <!--
     doc: The interrupted neume element is provided for the encoding of neume
     notation.
     Used by: model.eventLike.neume 
     Module:  meiNeumes
   -->
-  <xs:complexType name="content.ineume">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.neumeModifierLike"/>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="ineume" substitutionGroup="model.eventLike.neume">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.ineume">
-          <xs:attributeGroup ref="attlist.ineume"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.ineume">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.log.ineume"/>
-    <xs:attributeGroup ref="att.vis.ineume"/>
-    <xs:attributeGroup ref="att.anl.ineume"/>
-  </xs:attributeGroup>
   <!--
     doc: A single, uninterrupted neume sign. While ineume is allowed here as
     part of the model.events class, it is unlikely that an uninterrupted neume
@@ -8085,32 +6736,6 @@
     Used by: model.eventLike.neume 
     Module:  meiNeumes
   -->
-  <xs:complexType name="content.uneume">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.neumeModifierLike"/>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="uneume" substitutionGroup="model.eventLike.neume">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.uneume">
-          <xs:attributeGroup ref="attlist.uneume"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.uneume">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.log.uneume"/>
-    <xs:attributeGroup ref="att.vis.uneume"/>
-    <xs:attributeGroup ref="att.anl.uneume"/>
-  </xs:attributeGroup>
   <!-- Mensural -->
   <!--
     doc: A single pitched event in the mensural repertoire. The nota element
@@ -8124,52 +6749,11 @@
     Used by: model.eventLike.mensural 
     Module:  meiMensural
   -->
-  <xs:complexType name="content.nota">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="model.sylLike"/>
-      <xs:element ref="model.verseLike"/>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="nota" substitutionGroup="model.eventLike.mensural">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.nota">
-          <xs:attributeGroup ref="attlist.nota"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.nota">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.nota"/>
-    <xs:attributeGroup ref="att.vis.nota"/>
-    <xs:attributeGroup ref="att.ges.nota"/>
-    <xs:attributeGroup ref="att.anl.nota"/>
-  </xs:attributeGroup>
   <!--
     doc: A rest in the mensural repertoire.
     Used by: model.eventLike.mensural 
     Module:  meiMensural
   -->
-  <xs:element name="pausa" substitutionGroup="model.eventLike.mensural">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.pausa"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.pausa">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.pausa"/>
-    <xs:attributeGroup ref="att.vis.pausa"/>
-    <xs:attributeGroup ref="att.ges.pausa"/>
-    <xs:attributeGroup ref="att.anl.pausa"/>
-  </xs:attributeGroup>
   <!-- CMN -->
   <!--
     doc: Measure. "In Western notation a vertical line drawn through the
@@ -8184,44 +6768,6 @@
     Used by: model.measureLike 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.measure">
-    <xs:sequence minOccurs="0" maxOccurs="unbounded">
-      <xs:element minOccurs="0" ref="model.staffdefLike"/>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="model.measurePart"/>
-        <xs:element ref="model.ossiaLike"/>
-      </xs:choice>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="model.controleventLike"/>
-        <xs:element ref="model.lyricsLike"/>
-        <xs:element ref="model.midiLike"/>
-        <xs:element ref="model.annotLike"/>
-        <xs:element ref="model.graphicprimitiveLike"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:complexType>
-  <!--
-    <!ENTITY % content.measure '
-    (
-      (%model.staffdefLike;)?,
-      (%model.measurePart;|%model.ossiaLike;|%model.staffdefLike;)*,
-      (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
-      %model.annotLike;|%model.graphicprimitiveLike;|%model.apparatusLike;|
-      %model.editLike;|%model.transcriptionLike;)*
-    )'>
-  -->
-  <xs:element name="measure" substitutionGroup="model.measureLike"/>
-  <xs:attributeGroup name="attlist.measure">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.link.common"/>
-    <xs:attributeGroup ref="att.link.internal"/>
-    <xs:attributeGroup ref="att.link.external"/>
-    <xs:attributeGroup ref="att.log.measure"/>
-    <xs:attributeGroup ref="att.vis.measure"/>
-    <xs:attributeGroup ref="att.anl.measure"/>
-  </xs:attributeGroup>
   <!--
     doc: The term "ossia" indicates an alternative, usually simpler, version
     of a measure *present in the source being transcribed*. An ossia may be
@@ -8232,38 +6778,6 @@
     Used by: model.ossiaLike 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.ossia">
-    <xs:sequence minOccurs="0" maxOccurs="unbounded">
-      <xs:element minOccurs="0" ref="model.staffdefLike"/>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="model.measurePart"/>
-        <xs:element ref="model.ossiaLike"/>
-      </xs:choice>
-      <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="model.controleventLike"/>
-        <xs:element ref="model.lyricsLike"/>
-        <xs:element ref="model.midiLike"/>
-        <xs:element ref="model.annotLike"/>
-        <xs:element ref="model.graphicprimitiveLike"/>
-      </xs:choice>
-    </xs:sequence>
-  </xs:complexType>
-  <!--
-    <!ENTITY % content.ossia '
-    (
-      (%model.staffdefLike;)*,
-      (%model.measurePart;|%model.ossiaLike;)*,
-      (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
-      %model.annotLike;|%model.graphicprimitiveLike;|
-      %model.editLike;|%model.transcriptionLike;)*
-    )*'>
-  -->
-  <xs:element name="ossia" substitutionGroup="model.ossiaLike"/>
-  <xs:attributeGroup name="attlist.ossia">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.anl.ossia"/>
-  </xs:attributeGroup>
   <!--
     doc: Beam. A container for a series of explicitly beamed events (Read,
     p. 80-94) which begins and ends entirely within a measure. For beams
@@ -8275,45 +6789,11 @@
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.beam">
-    <xs:choice maxOccurs="unbounded">
-      <xs:element ref="model.eventLike.common"/>
-      <xs:group ref="model.eventLike.cmn"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="beam">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.beam">
-          <xs:attributeGroup ref="attlist.beam"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.beam">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.beam"/>
-    <xs:attributeGroup ref="att.vis.beam"/>
-    <xs:attributeGroup ref="att.anl.beam"/>
-  </xs:attributeGroup>
   <!--
     doc: A repeated single beat (Read, p. 223-224) 
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="beatrpt">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.beatrpt"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.beatrpt">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.beatrpt"/>
-    <xs:attributeGroup ref="att.vis.beatrpt"/>
-    <xs:attributeGroup ref="att.anl.beatrpt"/>
-  </xs:attributeGroup>
   <!--
     doc: Bend (stretching a string to make it sound higher than normal). The
     bend element can also be used for scoop, plop, falloff, and doit
@@ -8323,30 +6803,6 @@
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.bend">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="note"/>
-      <xs:element ref="rest"/>
-      <xs:element ref="tuplet"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="bend">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.bend">
-          <xs:attributeGroup ref="attlist.bend"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.bend">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.bend"/>
-    <xs:attributeGroup ref="att.vis.bend"/>
-    <xs:attributeGroup ref="att.ges.bend"/>
-    <xs:attributeGroup ref="att.anl.bend"/>
-  </xs:attributeGroup>
   <!--
     doc: Bowed tremolo (Read, p. 393-394) is a rapid alternation on a single
     pitch or chord. This element should also be used for wind double and
@@ -8355,57 +6811,12 @@
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.btrem">
-    <xs:choice>
-      <xs:element ref="chord"/>
-      <xs:element ref="note"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="btrem">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.btrem">
-          <xs:attributeGroup ref="attlist.btrem"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.btrem">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.btrem"/>
-    <xs:attributeGroup ref="att.vis.btrem"/>
-    <xs:attributeGroup ref="att.anl.btrem"/>
-  </xs:attributeGroup>
   <!--
     doc: Chord, a simultaneous sounding of 2 or more notes in the same voice
     *with the same duration*. (Read, p. 69) 
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.chord">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="note"/>
-      <xs:element ref="artic"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="chord">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.chord">
-          <xs:attributeGroup ref="attlist.chord"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.chord">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.chord"/>
-    <xs:attributeGroup ref="att.vis.chord"/>
-    <xs:attributeGroup ref="att.ges.chord"/>
-    <xs:attributeGroup ref="att.anl.chord"/>
-  </xs:attributeGroup>
   <!--
     doc: Fingered tremolo (Read, p. 235-238) is a rapid alternation between
     a  pair of notes (or chords or perhaps between a note and a chord) that
@@ -8415,94 +6826,17 @@
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.ftrem">
-    <xs:choice>
-      <xs:sequence>
-        <xs:element ref="chord"/>
-        <xs:choice>
-          <xs:element ref="chord"/>
-          <xs:element ref="note"/>
-        </xs:choice>
-      </xs:sequence>
-      <xs:sequence>
-        <xs:element ref="note"/>
-        <xs:choice>
-          <xs:element ref="chord"/>
-          <xs:element ref="note"/>
-        </xs:choice>
-      </xs:sequence>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="ftrem">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.ftrem">
-          <xs:attributeGroup ref="attlist.ftrem"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.ftrem">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.ftrem"/>
-    <xs:attributeGroup ref="att.vis.ftrem"/>
-    <xs:attributeGroup ref="att.ges.ftrem"/>
-    <xs:attributeGroup ref="att.anl.ftrem"/>
-  </xs:attributeGroup>
   <!--
     doc: Glissando (Read, p. 243-245, 397-398). Sometimes called a 'slide'.
     More precise performance data may be recorded within the gliss element. 
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.gliss">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="note"/>
-      <xs:element ref="rest"/>
-      <xs:element ref="tuplet"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="gliss">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.gliss">
-          <xs:attributeGroup ref="attlist.gliss"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.gliss">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.gliss"/>
-    <xs:attributeGroup ref="att.vis.gliss"/>
-    <xs:attributeGroup ref="att.anl.gliss"/>
-  </xs:attributeGroup>
   <!--
     doc: Half-measure repeat sign 
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.halfmrpt">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
-  </xs:complexType>
-  <xs:element name="halfmrpt">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.halfmrpt">
-          <xs:attributeGroup ref="attlist.halfmrpt"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.halfmrpt">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.halfmrpt"/>
-    <xs:attributeGroup ref="att.vis.halfmrpt"/>
-    <xs:attributeGroup ref="att.anl.halfmrpt"/>
-  </xs:attributeGroup>
   <!--
     doc: Note (Read, p. 63), a single pitched event. The note element is
     allowed to contain other events for situations where a single written
@@ -8515,34 +6849,6 @@
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.note">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="model.verseLike"/>
-      <xs:element ref="model.sylLike"/>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="note">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.note">
-          <xs:attributeGroup ref="attlist.note"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.note">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.note"/>
-    <xs:attributeGroup ref="att.vis.note"/>
-    <xs:attributeGroup ref="att.ges.note"/>
-    <xs:attributeGroup ref="att.anl.note"/>
-  </xs:attributeGroup>
   <!--
     doc: Rest (Read, p. 96-102), i.e. a non-sounding event, found in
     the source being transcribed. Do not confuse this element with the
@@ -8550,19 +6856,6 @@
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="rest">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.rest"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.rest">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.rest"/>
-    <xs:attributeGroup ref="att.vis.rest"/>
-    <xs:attributeGroup ref="att.ges.rest"/>
-    <xs:attributeGroup ref="att.anl.rest"/>
-  </xs:attributeGroup>
   <!--
     doc: Tuplet (Read, p. 187-215), bowed tremolo (Read, p. 394) & double,
     triple, or flutter tonguing (Read, p. 348-349). The beam sub-element is
@@ -8571,28 +6864,6 @@
     Used by: model.eventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.tuplet">
-    <xs:choice maxOccurs="unbounded">
-      <xs:element ref="model.eventLike.common"/>
-      <xs:group ref="model.eventLike.cmn"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="tuplet">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.tuplet">
-          <xs:attributeGroup ref="attlist.tuplet"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.tuplet">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.tuplet"/>
-    <xs:attributeGroup ref="att.vis.tuplet"/>
-    <xs:attributeGroup ref="att.anl.tuplet"/>
-  </xs:attributeGroup>
   <!--
     doc: Complete measure rest in any meter (Read, p. 97-98). The numbering
     of consecutive measures of rest may be controlled via the multi.number
@@ -8600,19 +6871,6 @@
     Used by: model.eventLike.cmn.measureFilling 
     Module:  meiCMN
   -->
-  <xs:element name="mrest" substitutionGroup="model.eventLike.cmn.measureFilling">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.mrest"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.mrest">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.mrest"/>
-    <xs:attributeGroup ref="att.vis.mrest"/>
-    <xs:attributeGroup ref="att.ges.mrest"/>
-    <xs:attributeGroup ref="att.anl.mrest"/>
-  </xs:attributeGroup>
   <!--
     doc: A repeated measure (Read, p. 224-225). The numbering of consecutive
     measures of rest may be controlled via the multi.number attribute on the
@@ -8620,35 +6878,11 @@
     Used by: model.eventLike.cmn.measureFilling 
     Module:  meiCMN
   -->
-  <xs:element name="mrpt" substitutionGroup="model.eventLike.cmn.measureFilling">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.mrpt"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.mrpt">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.mrpt"/>
-    <xs:attributeGroup ref="att.vis.mrpt"/>
-    <xs:attributeGroup ref="att.anl.mrpt"/>
-  </xs:attributeGroup>
   <!--
     doc: 2-measure repeat sign 
     Used by: model.eventLike.cmn.measureFilling 
     Module:  meiCMN
   -->
-  <xs:element name="mrpt2" substitutionGroup="model.eventLike.cmn.measureFilling">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.mrpt2"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.mrpt2">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.mrpt2"/>
-    <xs:attributeGroup ref="att.vis.mrpt2"/>
-    <xs:attributeGroup ref="att.anl.mrpt2"/>
-  </xs:attributeGroup>
   <!--
     doc: Complete measure of space in any meter.  The numbering of consecutive
     measures of space may be controlled via the multi.number attribute on the
@@ -8656,199 +6890,61 @@
     Used by: model.eventLike.cmn.measureFilling 
     Module:  meiCMN
   -->
-  <xs:element name="mspace" substitutionGroup="model.eventLike.cmn.measureFilling">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.mspace"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.mspace">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.mspace"/>
-    <xs:attributeGroup ref="att.vis.mspace"/>
-    <xs:attributeGroup ref="att.ges.mspace"/>
-    <xs:attributeGroup ref="att.anl.mspace"/>
-  </xs:attributeGroup>
   <!--
     doc: Multiple measures of rest. 
     Used by: model.eventLike.cmn.measureFilling 
     Module:  meiCMN
   -->
-  <xs:element name="multirest" substitutionGroup="model.eventLike.cmn.measureFilling">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.multirest"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.multirest">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.multirest"/>
-    <xs:attributeGroup ref="att.vis.multirest"/>
-    <xs:attributeGroup ref="att.ges.multirest"/>
-    <xs:attributeGroup ref="att.anl.multirest"/>
-  </xs:attributeGroup>
   <!--
     doc: Multiple repeated measures. Read (p. 225-226) says repeats of more
     than 2 measures should be written out using repeat signs. 
     Used by: model.eventLike.cmn.measureFilling 
     Module:  meiCMN
   -->
-  <xs:element name="multirpt" substitutionGroup="model.eventLike.cmn.measureFilling">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.multirpt"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.multirpt">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.multirpt"/>
-    <xs:attributeGroup ref="att.vis.multirpt"/>
-    <xs:attributeGroup ref="att.anl.multirpt"/>
-  </xs:attributeGroup>
   <!--
     doc: Arpeggiation, roll (Read, p. 241-243). 
     Used by: model.controleventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="arpeg" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.arpeg"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.arpeg">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.arpeg"/>
-    <xs:attributeGroup ref="att.vis.arpeg"/>
-    <xs:attributeGroup ref="att.anl.arpeg"/>
-  </xs:attributeGroup>
   <!--
     doc: Alternative element for encoding beams, especially useful for beams
     which extend across barlines. 
     Used by: model.controleventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="beamspan" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.beamspan"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.beamspan">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.beamspan"/>
-    <xs:attributeGroup ref="att.vis.beamspan"/>
-    <xs:attributeGroup ref="att.anl.beamspan"/>
-  </xs:attributeGroup>
   <!--
     doc: The breathmark element is a specialized form of, i.e., syntactic sugar
     for, dir/@type="breathmark" with "," as its PCDATA content. 
     Used by: model.controleventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="breath" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.breath"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.breath">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.breath"/>
-    <xs:attributeGroup ref="att.vis.breath"/>
-    <xs:attributeGroup ref="att.anl.breath"/>
-  </xs:attributeGroup>
   <!--
     doc: The fermata element is a specialized form of, i.e., syntactic sugar
     for, dir/@type="fermata" with &ferm; or &uferm; as its PCDATA content. 
     Used by: model.controleventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="fermata" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.fermata"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.fermata">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.fermata"/>
-    <xs:attributeGroup ref="att.vis.fermata"/>
-    <xs:attributeGroup ref="att.ges.fermata"/>
-    <xs:attributeGroup ref="att.anl.fermata"/>
-  </xs:attributeGroup>
   <!--
     doc: Hairpin indicates continuous dynamics expressed on the score as
     graphics, e.g. < and >. See Read, p. 250-255. 
     Used by: model.controleventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="hairpin" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.hairpin"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.hairpin">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.hairpin"/>
-    <xs:attributeGroup ref="att.vis.hairpin"/>
-    <xs:attributeGroup ref="att.ges.hairpin"/>
-    <xs:attributeGroup ref="att.anl.hairpin"/>
-  </xs:attributeGroup>
   <!--
     doc: Harp pedal diagram 
     Used by: model.controleventLike.instruments 
     Module:  meiCMN
   -->
-  <xs:element name="harppedal" substitutionGroup="model.controleventLike.instruments">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.harppedal"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.harppedal">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.harppedal"/>
-    <xs:attributeGroup ref="att.vis.harppedal"/>
-    <xs:attributeGroup ref="att.ges.harppedal"/>
-    <xs:attributeGroup ref="att.anl.harppedal"/>
-  </xs:attributeGroup>
   <!--
     doc: Octave displacement. 
     Used by: model.controleventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="octave" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.octave"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.octave">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.octave"/>
-    <xs:attributeGroup ref="att.vis.octave"/>
-    <xs:attributeGroup ref="att.ges.octave"/>
-    <xs:attributeGroup ref="att.anl.octave"/>
-  </xs:attributeGroup>
   <!--
     doc: Piano pedal mark (Read, p. 317-318). 
     Used by: model.controleventLike.instruments 
     Module:  meiCMN
   -->
-  <xs:element name="pedal" substitutionGroup="model.controleventLike.instruments">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.pedal"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.pedal">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.pedal"/>
-    <xs:attributeGroup ref="att.vis.pedal"/>
-    <xs:attributeGroup ref="att.anl.pedal"/>
-  </xs:attributeGroup>
   <!--
     doc: Rehearsal mark (Read, p. 443). The content model uses a subset of
     %model.textphraseLike.limited.  If the entire rehearsal mark is boxed or
@@ -8856,28 +6952,6 @@
     Used by: model.controleventLike.common 
     Module:  meiCMN
   -->
-  <xs:complexType name="content.reh" mixed="true">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="lb"/>
-      <xs:element ref="model.rendLike"/>
-    </xs:choice>
-  </xs:complexType>
-  <xs:element name="reh" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.reh">
-          <xs:attributeGroup ref="attlist.reh"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.reh">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.reh"/>
-    <xs:attributeGroup ref="att.vis.reh"/>
-    <xs:attributeGroup ref="att.anl.reh"/>
-  </xs:attributeGroup>
   <!--
     doc: Slur, 2 notes performed legato (Read, p. 265-266). The slur element
     will use either tstamp, duration, and place attributes or start, end,
@@ -8890,53 +6964,17 @@
     Used by: model.controleventLike.common 
     Module:  meiCMN
   -->
-  <xs:element name="slur" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.slur"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.slur">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.slur"/>
-    <xs:attributeGroup ref="att.vis.slur"/>
-    <xs:attributeGroup ref="att.anl.slur"/>
-  </xs:attributeGroup>
   <!--
     doc: Tie (Read, p. 110-111, 122). 
     Used by: model.controleventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="tie" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.tie"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.tie">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.tie"/>
-    <xs:attributeGroup ref="att.vis.tie"/>
-    <xs:attributeGroup ref="att.anl.tie"/>
-  </xs:attributeGroup>
   <!--
     doc: Alternative element for encoding tuplets, especially useful for
     those which extend across barlines. 
     Used by: model.controleventLike.cmn 
     Module:  meiCMN
   -->
-  <xs:element name="tupletspan" substitutionGroup="model.controleventLike.cmn">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.tupletspan"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:attributeGroup name="attlist.tupletspan">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.log.tupletspan"/>
-    <xs:attributeGroup ref="att.vis.tupletspan"/>
-    <xs:attributeGroup ref="att.anl.tupletspan"/>
-  </xs:attributeGroup>
   <!-- Lyrics -->
   <!--
     doc: Lyrics. The staff attribute gives the staff to which the lyrics
@@ -9017,9 +7055,11 @@
     Module:  meiCMNOrnaments
   -->
   <xs:complexType name="content.mordent">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    </xs:sequence>
   </xs:complexType>
-  <xs:element name="mordent" substitutionGroup="model.ornamentLike.cmn">
+  <xs:element name="mordent">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.mordent">
@@ -9042,9 +7082,11 @@
     Module:  meiCMNOrnaments
   -->
   <xs:complexType name="content.trill">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    </xs:sequence>
   </xs:complexType>
-  <xs:element name="trill" substitutionGroup="model.ornamentLike.cmn">
+  <xs:element name="trill">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.trill">
@@ -9069,9 +7111,11 @@
     Module:  meiCMNOrnaments
   -->
   <xs:complexType name="content.turn">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    </xs:sequence>
   </xs:complexType>
-  <xs:element name="turn" substitutionGroup="model.ornamentLike.cmn">
+  <xs:element name="turn">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.turn">
@@ -9399,7 +7443,13 @@
     Module:  meiCritApp
   -->
   <xs:complexType name="content.rdg">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.rdgPart"/>
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.rdgPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
   </xs:complexType>
   <xs:element name="rdg">
     <xs:complexType>
@@ -11074,13 +9124,12 @@
   <xs:complexType name="content.add" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11135,13 +9184,12 @@
   <xs:complexType name="content.corr" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11179,13 +9227,12 @@
   <xs:complexType name="content.damage" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11225,13 +9272,12 @@
   <xs:complexType name="content.del" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11319,13 +9365,12 @@
   <xs:complexType name="content.orig" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11351,13 +9396,12 @@
   <xs:complexType name="content.reg" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11392,13 +9436,12 @@
   <xs:complexType name="content.restore" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11428,13 +9471,12 @@
   <xs:complexType name="content.sic" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11498,13 +9540,12 @@
   <xs:complexType name="content.supplied" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>
@@ -11563,13 +9604,12 @@
   <xs:complexType name="content.unclear" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
+      <xs:element ref="model.eventLike"/>
       <xs:element ref="model.controleventLike"/>
       <xs:element ref="model.lyricsLike"/>
       <xs:element ref="model.midiLike"/>
       <xs:element ref="model.editLike"/>
       <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
       <xs:element ref="model.noteModifierLike"/>
     </xs:choice>
   </xs:complexType>

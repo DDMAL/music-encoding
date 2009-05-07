@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE mei
-  SYSTEM "../DTD/mei19b.dtd" [
-  <!ENTITY % meiNeumes 'IGNORE'>
-  <!ENTITY % meiMensural 'IGNORE'>
+<!DOCTYPE mei SYSTEM "../DTD/testing.dtd" [
+  <!ENTITY % meiCMN 'INCLUDE'>
+  <!ENTITY % meiVisual 'INCLUDE'>
+  <!ENTITY % meiGestural 'INCLUDE'>
+  <!ENTITY % meiLyrics 'INCLUDE'>
 ]>
 <mei version="1.9b">
   <meihead>
@@ -34,24 +35,26 @@
           <scoredef meter.count="2" meter.unit="2" meter.sym="cut" key.sig="1s"
             key.mode="major">
             <staffgrp>
-              <staffdef n="1" id="P1-I1" label.full="Soprano" clef.line="2" clef.shape="G"
-                midi.div="24" key.sig="1s" key.mode="major" midi.channel="1"
-                midi.instr="0" midi.instrname="Grand Piano"/>
-              <staffdef n="2" id="P2-I1" label.full="Alto I" clef.line="2" clef.shape="G"
-                midi.div="24" key.sig="1s" key.mode="major" midi.channel="1"
-                midi.instr="0" midi.instrname="Grand Piano"/>
-              <staffdef n="3" id="P3-I1" label.full="Alto II" clef.line="2" clef.shape="G"
-                midi.div="24" key.sig="1s" key.mode="major" midi.channel="1"
-                midi.instr="0" midi.instrname="Grand Piano"/>
-              <staffdef n="4" id="P4-I1" label.full="Tenor" clef.line="2" clef.shape="G"
-                clef.trans="8vb" midi.div="24" key.sig="1s" key.mode="major"
-                midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
-              <staffdef n="5" id="P5-I1" label.full="Bass I" clef.line="4" clef.shape="F"
-                midi.div="24" key.sig="1s" key.mode="major" midi.channel="1"
-                midi.instr="0" midi.instrname="Grand Piano"/>
-              <staffdef n="6" id="P6-I1" label.full="Bass II" clef.line="4" clef.shape="F"
-                midi.div="24" key.sig="1s" key.mode="major" midi.channel="1"
-                midi.instr="0" midi.instrname="Grand Piano"/>
+              <staffgrp symbol="bracket">
+                <staffdef n="1" id="P1-I1" label.full="Soprano" clef.line="2"
+                  clef.shape="G" midi.div="24" key.sig="1s" key.mode="major"
+                  midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
+                <staffdef n="2" id="P2-I1" label.full="Alto I" clef.line="2"
+                  clef.shape="G" midi.div="24" key.sig="1s" key.mode="major"
+                  midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
+                <staffdef n="3" id="P3-I1" label.full="Alto II" clef.line="2"
+                  clef.shape="G" midi.div="24" key.sig="1s" key.mode="major"
+                  midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
+                <staffdef n="4" id="P4-I1" label.full="Tenor" clef.line="2" clef.shape="G"
+                  clef.trans="8vb" midi.div="24" key.sig="1s" key.mode="major"
+                  midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
+                <staffdef n="5" id="P5-I1" label.full="Bass I" clef.line="4"
+                  clef.shape="F" midi.div="24" key.sig="1s" key.mode="major"
+                  midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
+                <staffdef n="6" id="P6-I1" label.full="Bass II" clef.line="4"
+                  clef.shape="F" midi.div="24" key.sig="1s" key.mode="major"
+                  midi.channel="1" midi.instr="0" midi.instrname="Grand Piano"/>
+              </staffgrp>
               <staffgrp id="P7" symbol="brace" label.full="Piano">
                 <staffdef n="7" clef.line="2" clef.shape="G" midi.div="1" key.sig="1s"
                   key.mode="major" midi.channel="1" midi.instr="0"
@@ -60,7 +63,7 @@
                   key.mode="major" midi.channel="1" midi.instr="0"
                   midi.instrname="Grand Piano"/>
               </staffgrp>
-              <grpsym symbol="bracket" start="1" end="6"/>
+              <!-- <grpsym symbol="bracket" start="1" end="6"/> -->
             </staffgrp>
           </scoredef>
           <section>
@@ -903,31 +906,40 @@
                 </layer>
               </staff>
               <tupletspan staff="1" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2118" endid="d1e2164"/>
+                num.format="count" bracket.visible="false" startid="d1e2118"
+                endid="d1e2164"/>
               <tupletspan staff="1" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2185" endid="d1e2227"/>
+                num.format="count" bracket.visible="false" startid="d1e2185"
+                endid="d1e2227"/>
               <slur tstamp="0" place="above" startid="d1e2095" endid="d1e2899" staff="1"
                 dur="1m+0"/>
               <slur tstamp="0" place="above" startid="d1e2258" endid="d1e2945" staff="2"
                 dur="1m+0"/>
               <tupletspan staff="3" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2311" endid="d1e2353"/>
+                num.format="count" bracket.visible="false" startid="d1e2311"
+                endid="d1e2353"/>
               <tupletspan staff="3" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2374" endid="d1e2416"/>
+                num.format="count" bracket.visible="false" startid="d1e2374"
+                endid="d1e2416"/>
               <slur tstamp="0" place="below" startid="d1e2286" endid="d1e2395" staff="3"
                 dur="0m+112"/>
               <tupletspan staff="4" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2473" endid="d1e2515"/>
+                num.format="count" bracket.visible="false" startid="d1e2473"
+                endid="d1e2515"/>
               <tupletspan staff="4" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2536" endid="d1e2578"/>
+                num.format="count" bracket.visible="false" startid="d1e2536"
+                endid="d1e2578"/>
               <slur tstamp="0" place="above" startid="d1e2450" endid="d1e2557" staff="4"
                 dur="0m+112"/>
-              <tupletspan staff="5" num="3:2" numbase="4" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2632" endid="d1e2657"/>
+              <tupletspan staff="5" num="3:2" numbase="4" num.visible="true"
+                num.place="above" num.format="count" bracket.visible="false"
+                startid="d1e2632" endid="d1e2657"/>
               <tupletspan staff="6" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2718" endid="d1e2762"/>
+                num.format="count" bracket.visible="false" startid="d1e2718"
+                endid="d1e2762"/>
               <tupletspan staff="6" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e2788" endid="d1e2836"/>
+                num.format="count" bracket.visible="false" startid="d1e2788"
+                endid="d1e2836"/>
               <slur tstamp="0" place="above" startid="d1e2695" endid="d1e2741" staff="6"
                 dur="0m+64"/>
               <slur tstamp="96" place="above" startid="d1e2788" endid="d1e2815" staff="6"
@@ -3493,37 +3505,47 @@
                 </layer>
               </staff>
               <tupletspan staff="1" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e9417" endid="d1e9459"/>
+                num.format="count" bracket.visible="false" startid="d1e9417"
+                endid="d1e9459"/>
               <tupletspan staff="1" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e9480" endid="d1e9520"/>
+                num.format="count" bracket.visible="false" startid="d1e9480"
+                endid="d1e9520"/>
               <dynam tstamp="0" place="above" staff="1" ho="-2.3">p</dynam>
               <slur tstamp="0" place="above" startid="d1e9393" endid="d1e10330" staff="1"
                 dur="1m+48"/>
               <tupletspan staff="2" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e9577" endid="d1e9623"/>
+                num.format="count" bracket.visible="false" startid="d1e9577"
+                endid="d1e9623"/>
               <tupletspan staff="2" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e9644" endid="d1e9688"/>
+                num.format="count" bracket.visible="false" startid="d1e9644"
+                endid="d1e9688"/>
               <dynam tstamp="0" place="above" staff="2" ho="-2.3">p</dynam>
               <slur tstamp="0" place="below" startid="d1e9554" endid="d1e9667" staff="2"
                 dur="0m+112"/>
               <dynam tstamp="0" place="above" staff="3" ho="-2.3">p</dynam>
               <tupletspan staff="4" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e9800" endid="d1e9846"/>
+                num.format="count" bracket.visible="false" startid="d1e9800"
+                endid="d1e9846"/>
               <tupletspan staff="4" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e9867" endid="d1e9911"/>
+                num.format="count" bracket.visible="false" startid="d1e9867"
+                endid="d1e9911"/>
               <dynam tstamp="0" place="above" staff="4" ho="-2.1">p</dynam>
               <slur tstamp="0" place="above" startid="d1e9777" endid="d1e9890" staff="4"
                 dur="0m+112"/>
               <tupletspan staff="5" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e9971" endid="d1e10017"/>
+                num.format="count" bracket.visible="false" startid="d1e9971"
+                endid="d1e10017"/>
               <tupletspan staff="5" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e10038" endid="d1e10082"/>
+                num.format="count" bracket.visible="false" startid="d1e10038"
+                endid="d1e10082"/>
               <slur tstamp="0" place="above" startid="d1e9946" endid="d1e10061" staff="5"
                 dur="0m+112"/>
               <tupletspan staff="6" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e10141" endid="d1e10187"/>
+                num.format="count" bracket.visible="false" startid="d1e10141"
+                endid="d1e10187"/>
               <tupletspan staff="6" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e10208" endid="d1e10252"/>
+                num.format="count" bracket.visible="false" startid="d1e10208"
+                endid="d1e10252"/>
               <slur tstamp="0" place="above" startid="d1e10116" endid="d1e10231" staff="6"
                 dur="0m+112"/>
             </measure>
@@ -5070,11 +5092,14 @@
                 </layer>
               </staff>
               <tupletspan staff="2" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e14194" endid="d1e14244"/>
+                num.format="count" bracket.visible="false" startid="d1e14194"
+                endid="d1e14244"/>
               <tupletspan staff="3" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e14273" endid="d1e14321"/>
+                num.format="count" bracket.visible="false" startid="d1e14273"
+                endid="d1e14321"/>
               <tupletspan staff="3" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e14342" endid="d1e14384"/>
+                num.format="count" bracket.visible="false" startid="d1e14342"
+                endid="d1e14384"/>
               <slur tstamp="0" place="below" startid="d1e14273" endid="d1e14829" staff="3"
                 dur="1m+64"/>
             </measure>
@@ -5191,20 +5216,24 @@
                 <rend fontfam="Times New Roman" fontsize="9.8" fontstyle="ital"
                   >rit.</rend>
               </dir>
-              <tupletspan staff="2" num="3:2" numbase="4" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e14600" endid="d1e14625"/>
+              <tupletspan staff="2" num="3:2" numbase="4" num.visible="true"
+                num.place="above" num.format="count" bracket.visible="false"
+                startid="d1e14600" endid="d1e14625"/>
               <tupletspan staff="2" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e14659" endid="d1e14709"/>
+                num.format="count" bracket.visible="false" startid="d1e14659"
+                endid="d1e14709"/>
               <dir tstamp="48" place="above" staff="2" lang="it">
                 <rend fontfam="Times New Roman" fontsize="9.8" fontstyle="ital"
                   >rit.</rend>
               </dir>
-              <slur tstamp="48" place="below" startid="d1e14659" endid="d1e14686" staff="2"
-                dur="0m+64"/>
+              <slur tstamp="48" place="below" startid="d1e14659" endid="d1e14686"
+                staff="2" dur="0m+64"/>
               <tupletspan staff="3" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e14739" endid="d1e14781"/>
+                num.format="count" bracket.visible="false" startid="d1e14739"
+                endid="d1e14781"/>
               <tupletspan staff="3" num="3:2" num.visible="true" num.place="above"
-                num.format="count" bracket.visible="false" startid="d1e14808" endid="d1e14850"/>
+                num.format="count" bracket.visible="false" startid="d1e14808"
+                endid="d1e14850"/>
               <dir tstamp="48" place="above" staff="3" lang="it">
                 <rend fontfam="Times New Roman" fontsize="9.8" fontstyle="ital"
                   >rit.</rend>
@@ -5294,7 +5323,8 @@
               <dynam tstamp="0" place="above" staff="5" ho="-3">p</dynam>
               <dir tstamp="0" place="above" staff="5" startid="d1e15120"> &ferm; </dir>
               <dynam tstamp="0" place="above" staff="6" ho="-3">p</dynam>
-              <dir tstamp="0" place="above" staff="6" startid="d1e15148"> &ferm; </dir>
+              <dir tstamp="0" place="above" staff="6" startid="d1e15148"> &ferm;
+              </dir>
             </measure>
           </section>
         </score>

@@ -3,7 +3,7 @@
 NAME:     Music Encoding Initiative (MEI) DTD
           File      = mei19b.dtd (version 1.9b) **DRAFT**
                       **DO NOT REDISTRIBUTE**
-          Vers Date = 2009/05/04
+          Vers Date = 2009/05/07
 
 NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
           of the University of Virginia.
@@ -91,30 +91,30 @@ be included -->
 <!ENTITY % meiHeader        'INCLUDE'>
 <!ENTITY % meiStructure     'INCLUDE'>
 
-<!ENTITY % meiAnalysis      'INCLUDE'>
-<!ENTITY % meiGestural      'INCLUDE'>
-<!ENTITY % meiVisual        'INCLUDE'>
+<!ENTITY % meiAnalysis      'IGNORE'>
+<!ENTITY % meiGestural      'IGNORE'>
+<!ENTITY % meiVisual        'IGNORE'>
 
-<!ENTITY % meiText          'INCLUDE'>
-<!ENTITY % meiFigures       'INCLUDE'>
-<!ENTITY % meiNamesDates    'INCLUDE'>
+<!ENTITY % meiText          'IGNORE'>
+<!ENTITY % meiFigures       'IGNORE'>
+<!ENTITY % meiNamesDates    'IGNORE'>
 
-<!ENTITY % meiNeumes        'INCLUDE'>
-<!ENTITY % meiMensural      'INCLUDE'>
-<!ENTITY % meiCMN           'INCLUDE'>
+<!ENTITY % meiNeumes        'IGNORE'>
+<!ENTITY % meiMensural      'IGNORE'>
+<!ENTITY % meiCMN           'IGNORE'>
 
-<!ENTITY % meiMIDI          'INCLUDE'>
-<!ENTITY % meiCMNOrnaments  'INCLUDE'>
-<!ENTITY % meiLyrics        'INCLUDE'>
-<!ENTITY % meiHarmony       'INCLUDE'>
+<!ENTITY % meiMIDI          'IGNORE'>
+<!ENTITY % meiCMNOrnaments  'IGNORE'>
+<!ENTITY % meiLyrics        'IGNORE'>
+<!ENTITY % meiHarmony       'IGNORE'>
 
-<!ENTITY % meiUserSymbols   'INCLUDE'>
+<!ENTITY % meiUserSymbols   'IGNORE'>
 
-<!ENTITY % meiFacsimile     'INCLUDE'>
-<!ENTITY % meiEditTrans     'INCLUDE'>
-<!ENTITY % meiCritApp       'INCLUDE'>
-<!ENTITY % meiLinkAlign     'INCLUDE'>
-<!ENTITY % meiPtrRefs       'INCLUDE'>
+<!ENTITY % meiFacsimile     'IGNORE'>
+<!ENTITY % meiEditTrans     'IGNORE'>
+<!ENTITY % meiCritApp       'IGNORE'>
+<!ENTITY % meiLinkAlign     'IGNORE'>
+<!ENTITY % meiPtrRefs       'IGNORE'>
 
 
 <!-- ************************************************************** -->
@@ -1343,12 +1343,14 @@ hash marks should be rendered between systems. See Read, p. 436, ex.
 multiple grpsym elements are present. The label.* attributes should be
 used instead of n. -->
 <!ENTITY % att.log.grpsym
+                     'symbol            (brace|bracket|line)  #REQUIRED'>
+<!-- <!ENTITY % att.log.grpsym
                      'barthru           %data.BOOLEAN;        #IMPLIED
                      label.abbr         CDATA                 #IMPLIED
                      label.full         CDATA                 #IMPLIED
                      start              CDATA                 #REQUIRED
                      end                CDATA                 #REQUIRED
-                     symbol             (brace|bracket|line)  #REQUIRED'>
+                     symbol             (brace|bracket|line)  #REQUIRED'> -->
 
 <!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
@@ -2210,12 +2212,18 @@ sub-groupings of staves. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.staffgrp
                      'barthru           %data.BOOLEAN;        #IMPLIED
+                     label.abbr         CDATA                 #IMPLIED
+                     label.full         CDATA                 #IMPLIED
+                     symbol             (brace|bracket|line)  #IMPLIED
+                     visible            %data.BOOLEAN;        #IMPLIED'>
+  <!-- <!ENTITY % att.vis.staffgrp
+                     'barthru           %data.BOOLEAN;        #IMPLIED
                      brace              CDATA                 #IMPLIED
                      bracket            CDATA                 #IMPLIED
                      label.abbr         CDATA                 #IMPLIED
                      label.full         CDATA                 #IMPLIED
                      symbol             (brace|bracket|line)  #IMPLIED
-                     visible            %data.BOOLEAN;        #IMPLIED'>
+                     visible            %data.BOOLEAN;        #IMPLIED'> -->
 ]]>
 <!ENTITY % att.vis.staffgrp ''>
 
@@ -4889,7 +4897,8 @@ entity. -->
 
   <!-- Create appropriate classes -->
   <!ENTITY % model.neumeModifierLike '%n.accid;|%n.artic;|%model.verseLike;'>
-  <!ENTITY % model.eventLike.neume '%n.ineume;|%n.uneume;|%n.syllable;'>
+  <!ENTITY % model.eventLike.neume '%n.ineume;|%n.uneume;'>
+  <!-- <!ENTITY % model.eventLike.neume '%n.ineume;|%n.uneume;|%n.syllable;'> -->
   <!ENTITY % model.controleventLike.neume '_DUMMYmodel.controleventLike.neume'>
 ]]>
 <!ENTITY % model.neumeModifierLike '_DUMMYmodel.neumeModifierLike'>
@@ -5220,45 +5229,25 @@ more restrictive. -->
   ]]>
   <!ENTITY % cmnOnly 'INCLUDE'>
   <![%cmnOnly;[
+    <!ENTITY % model.Incl '%model.apparatusLike;|%model.divLike;|%model.milestoneLike.music;|
+                      %n.scoredef;|%n.staffdef;|%n.staffgrp;|%model.annotLike;|%model.graphicprimitiveLike;'>
     <!ENTITY % content.clefchange 'EMPTY'>
     <!ENTITY % model.staffdefPart.multiplyDefinable '_DUMMYmodel.staffdefpart.multiplyDefinable'>
+    <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume-cmn;|
+                               %model.eventLike.cmn;'>
     <!ENTITY % model.controleventLike '%model.controleventLike.common;|%model.controleventLike.neume-cmn;|
                                       %model.controleventLike.mensural-cmn;|%model.controleventLike.cmn;|
                                       %model.harmLike;'>
-    <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume-cmn;|
-                               %model.eventLike.cmn;'>
-    <!ENTITY % model.layerPart '%model.eventLike;|%model.editLike;|
-                     %model.transcriptionLike;|%model.eventLike.cmn.measureFilling;'>
-    <!ENTITY % model.measurePart '(%model.staffLike;|%model.apparatusLike;|%model.editLike;|
-                     %model.transcriptionLike;)'>
-    <!ENTITY % model.staffPart
-                     '(%model.layerLike;|%model.annotLike;|%model.apparatusLike;|%model.layerPart;)*'>
-    <!ENTITY % model.rdgPart
-                     '( %model.scoredefLike;
-                       |%model.staffgrpLike;
-                       |%model.staffdefLike;
-                       |(%model.sectionLike;, (%model.endingLike;)*)
-                       |%model.divLike;
-                       |((%model.measureLike;)*, (%model.milestoneLike.music;)?)*
-                       |(%model.layerLike;|%model.eventLike;|%model.sylLike;)*
-                       |((%model.staffLike;|%model.editLike;|%model.transcriptionLike;)*,
-                          (%model.controleventLike;|%model.lyricsLike;|
-                          %model.midiLike;|%model.annotLike;)*,
-                          (%model.graphicprimitiveLike;)*)
-                       |%model.apparatusLike;
-                     )'>
-    <!ENTITY % model.scorePart
-                     '(%model.staffLike;|%model.measureLike;|%model.milestoneLike.music;)*'>
-    <!ENTITY % model.scorecomponentLike
-                     '(
-                       %model.scoredefLike;
-                       |%model.staffgrpLike;
-                       |%model.staffdefLike;
-                       |(%model.sectionLike;, (%model.endingLike;)*)
-                       |%model.divLike;
-                       |%model.scorePart;
-                       |%model.apparatusLike;
-                      )'>
+    <!ENTITY % model.syllablePart '_DUMMYmodel.syllablePart'>
+    <!ENTITY % model.layerPart '%model.eventLike;|%model.editLike;|%model.transcriptionLike;|
+                                %model.eventLike.cmn.measureFilling;'>
+    <!ENTITY % model.staffPart '%model.layerLike;'>
+    <!ENTITY % model.measurePart '%n.staff;|%n.ossia;|%model.controleventLike;|%model.editLike;|
+                                 %model.transcriptionLike;|%model.lyricsLike;|%model.midiLike;'>
+    <!ENTITY % model.sectionPart '%model.measureLike;|%n.section;|%n.ending;'>
+    <!ENTITY % model.scorePart '%n.section;|%n.ending;'>
+    <!ENTITY % model.rdgPart '%model.sectionPart;|%model.measurePart;|%model.eventLike;|
+                             %model.eventLike.cmn.measureFilling;'>
   ]]>
 ]]>
 
@@ -5271,48 +5260,26 @@ more restrictive. -->
   ]]>
   <!ENTITY % mensuralOnly 'INCLUDE'>
   <![%mensuralOnly;[
+    <!ENTITY % model.Incl '%model.apparatusLike;|%model.divLike;|%model.milestoneLike.music;|
+                      %n.scoredef;|%n.staffdef;|%n.staffgrp;|%model.annotLike;|%model.graphicprimitiveLike;'>
     <!ENTITY % model.clefchangePart '(%n.clef;)*'>
     <!ENTITY % model.staffdefPart.multiplyDefinable '%n.clef;|%n.mensur;|%n.proport;'>
+    <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume-mensural;|
+                     %model.eventLike.mensural;|%model.eventLike.mensural-cmn;'>
     <!ENTITY % model.controleventLike
                      '%model.controleventLike.common;|%model.controleventLike.neume-mensural;
                      |%model.controleventLike.mensural;|%model.controleventLike.mensural-cmn;
                      |%model.harmLike;'>
-    <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume-mensural;|
-                     %model.eventLike.mensural;|%model.eventLike.mensural-cmn;|
-                     %model.sylLike;|%model.verseLike;'>
+    <!ENTITY % model.syllablePart '_DUMMYmodel.syllablePart'>
     <!ENTITY % model.layerPart '%model.eventLike;|%model.midiLike;|%model.controleventLike;|
-                     %model.editLike;|%model.transcriptionLike;|%model.lyricsLike;|
-                     %model.noteModifierLike;|%model.verseLike;|%model.sylLike;'>
+                                %model.editLike;|%model.transcriptionLike;|
+                                %model.lyricsLike;|%model.noteModifierLike;|%model.verseLike;|
+                                %model.sylLike;'>
+    <!ENTITY % model.staffPart '%model.layerLike;|%model.controleventLike;'>
     <!ENTITY % model.measurePart '_DUMMYmodel.measurePart'>
-    <!ENTITY % model.staffPart
-                     '(%model.layerLike;|%model.annotLike;|%model.apparatusLike;|
-                     %model.layerPart;|%model.milestoneLike.music;)*'>
-    <!ENTITY % model.rdgPart
-                     '( %model.scoredefLike;
-                       |%model.staffgrpLike;
-                       |%model.staffdefLike;
-                       |(%model.sectionLike;, (%model.endingLike;)*)
-                       |%model.divLike;
-                       |(%model.milestoneLike.music;)*
-                       |(%model.layerLike;|%model.eventLike;|%model.sylLike;)*
-                       |((%model.staffLike;|%model.editLike;|%model.transcriptionLike;)*,
-                          (%model.controleventLike;|%model.lyricsLike;|
-                          %model.midiLike;|%model.annotLike;)*,
-                          (%model.graphicprimitiveLike;)*)
-                       |%model.apparatusLike;
-                     )'>
-    <!ENTITY % model.scorePart
-                     '((%model.staffLike;)*|%model.milestoneLike.music;)*'>
-    <!ENTITY % model.scorecomponentLike
-                     '(
-                       %model.scoredefLike;
-                       |%model.staffgrpLike;
-                       |%model.staffdefLike;
-                       |(%model.sectionLike;, (%model.endingLike;)*)
-                       |%model.divLike;
-                       |%model.scorePart;
-                       |%model.apparatusLike;
-                      )'>
+    <!ENTITY % model.sectionPart '%n.staff;|%n.section;|%n.ending;'>
+    <!ENTITY % model.scorePart '%n.section;|%n.ending;'>
+    <!ENTITY % model.rdgPart '%model.sectionPart;|%model.staffPart;|%model.layerPart;'>
   ]]>
 ]]>
 
@@ -5325,55 +5292,32 @@ more restrictive. -->
   ]]>
   <!ENTITY % neumesOnly 'INCLUDE'>
   <![%neumesOnly;[
+    <!ENTITY % model.Incl '%model.apparatusLike;|%model.divLike;|%model.milestoneLike.music;|
+                      %n.scoredef;|%n.staffdef;|%n.staffgrp;|%model.annotLike;|%model.graphicprimitiveLike;'>
     <!ENTITY % model.clefchangePart '(%n.clef;)*'>
     <!ENTITY % model.staffdefPart.multiplyDefinable '%n.clef;|%n.mensur;|%n.proport;'>
-    <!ENTITY % model.controleventLike
-                     '%model.controleventLike.common;
-                     |%model.controleventLike.neume;
-                     |%model.controleventLike.neume-mensural;
-                     |%model.controleventLike.neume-cmn;
-                     |%model.harmLike;'>
     <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume;|
-                     %model.eventLike.neume-mensural;|
-                     %model.eventLike.neume-cmn;'>
-    <!ENTITY % model.layerPart   '%model.eventLike;|%model.midiLike;|
-                     %model.editLike;|%model.transcriptionLike;|
-                     %model.noteModifierLike;|%model.verseLike;|%model.sylLike;'>
+                     %model.eventLike.neume-mensural;|%model.eventLike.neume-cmn;'>
+    <!ENTITY % model.controleventLike
+                     '%model.controleventLike.common;|%model.controleventLike.neume;|
+                     %model.controleventLike.neume-mensural;|%model.controleventLike.neume-cmn;|
+                     %model.harmLike;'>
+    <!ENTITY % model.syllablePart '%model.sylLike;|%model.eventLike;|%model.midiLike;|
+                                %model.controleventLike;|%model.editLike;|
+                                %model.transcriptionLike;|%model.lyricsLike;|
+                                %model.noteModifierLike;|%model.verseLike;'>
+    <!ENTITY % model.staffPart '%n.syllable;'>
     <!ENTITY % model.measurePart '_DUMMYmodel.measurePart'>
-    <!ENTITY % model.staffPart
-                     '(%model.layerLike;|%model.milestoneLike.music;|%model.layerPart;|
-                     %model.annotLike;|%model.graphicprimitiveLike;|%model.apparatusLike;|
-                     %model.controleventLike;)*'>
-    <!ENTITY % model.rdgPart
-                     '( %model.scoredefLike;
-                       |%model.staffgrpLike;
-                       |%model.staffdefLike;
-                       |(%model.sectionLike;, (%model.endingLike;)*)
-                       |%model.divLike;
-                       |(%model.milestoneLike.music;)*
-                       |(%model.layerLike;|%model.eventLike;|%model.sylLike;)*
-                       |((%model.staffLike;|%model.editLike;|%model.transcriptionLike;)*,
-                          (%model.controleventLike;|%model.lyricsLike;|
-                          %model.midiLike;|%model.annotLike;)*,
-                          (%model.graphicprimitiveLike;)*)
-                       |%model.apparatusLike;
-                     )'>
-    <!ENTITY % model.scorePart
-                     '(%model.measureLike;|(%model.staffLike;)*|%model.milestoneLike.music;)*'>
-    <!ENTITY % model.scorecomponentLike
-                     '(
-                       %model.scoredefLike;
-                       |%model.staffgrpLike;
-                       |%model.staffdefLike;
-                       |(%model.sectionLike;, (%model.endingLike;)*)
-                       |%model.divLike;
-                       |%model.scorePart;
-                       |%model.apparatusLike;
-                      )'>
+    <!ENTITY % model.syllablePart '%n.layer;'>
+    <!ENTITY % model.sectionPart '%n.staff;|%n.section;|%n.ending;'>
+    <!ENTITY % model.scorePart '%n.section;|%n.ending;'>
+    <!ENTITY % model.rdgPart '%model.sectionPart;|%model.staffPart;|%model.syllablePart;'>
   ]]>
 ]]>
 
 <!-- The following declarations are used when two or more notation styles are INCLUDED. -->
+<!ENTITY % model.Incl '%model.apparatusLike;|%model.divLike;|%model.milestoneLike.music;|
+                      %n.scoredef;|%n.staffdef;|%n.staffgrp;|%model.annotLike;'>
 <!-- doc: -->
 <!ENTITY % model.clefchangePart '(%n.clef;)*'>
 
@@ -5381,82 +5325,54 @@ more restrictive. -->
 <!ENTITY % model.staffdefPart.multiplyDefinable '%n.clef;|%n.mensur;|%n.proport;'>
 
 <!-- If more than one notational style is INCLUDED, a mix of notational styles is allowed. --> 
-<!-- doc: Control events modify or otherwise depend on the existence of notated events. -->
-<!ENTITY % model.controleventLike
-                     '%model.controleventLike.common;
-                     |%model.controleventLike.neume;
-                     |%model.controleventLike.neume-mensural;
-                     |%model.controleventLike.neume-cmn;
-                     |%model.controleventLike.mensural;
-                     |%model.controleventLike.mensural-cmn;
-                     |%model.controleventLike.cmn;
-                     |%model.harmLike;'>
-
 <!-- doc: Notated events. Sometimes referred to as "logical" events. The
 mrest, mrpt, mspace, multirest, and multirpt elements are not included
 in this list since in the measure element's content model they are
 alternatives to the elements listed here. They are, however, part of the
 att.events class. -->
 <!ENTITY % model.eventLike '%model.eventLike.common;|%model.eventLike.neume;|
-                     %model.eventLike.neume-mensural;|
-                     %model.eventLike.neume-cmn;|%model.eventLike.mensural;|
-                     %model.eventLike.mensural-cmn;|
+                     %model.eventLike.neume-mensural;|%model.eventLike.neume-cmn;|
+                     %model.eventLike.mensural;|%model.eventLike.mensural-cmn;|
                      %model.eventLike.cmn;'>
 
-<!-- doc: Notated events at the layer level -->
-<!ENTITY % model.layerPart '%model.eventLike;|%model.midiLike;|
-                     %model.editLike;|%model.transcriptionLike;|
-                     %model.noteModifierLike;|%model.verseLike;|%model.sylLike;|
-                     %model.eventLike.cmn.measureFilling;'>
-                     
-<!-- <!ENTITY % model.layerPart   '%model.eventLike;|%model.midiLike;|%model.editLike;|
-                     %model.transcriptionLike;|%model.noteModifierLike;|
-                     %model.verseLike;|%model.sylLike;|
-                     %model.eventLike.cmn.measureFilling;'> -->
+<!-- doc: Control events modify or otherwise depend on the existence of notated events. -->
+<!ENTITY % model.controleventLike
+                     '%model.controleventLike.common;|%model.controleventLike.neume;|
+                     %model.controleventLike.neume-mensural;|
+                     %model.controleventLike.neume-cmn;|%model.controleventLike.mensural;|
+                     %model.controleventLike.mensural-cmn;|%model.controleventLike.cmn;|
+                     %model.harmLike;'>
 
-<!-- doc: Measure content model -->
-<!ENTITY % model.measurePart '(%model.staffLike;|%model.layerLike;|
-                     %model.apparatusLike;|%model.editLike;|
-                     %model.transcriptionLike;|%model.eventLike.cmn.measureFilling;)'>
+<!-- doc: Notated events at the layer level -->
+<!ENTITY % model.layerPart '%model.eventLike;|%model.editLike;|%model.transcriptionLike;|
+                           %model.eventLike.cmn.measureFilling;|%model.midiLike;|
+                           %model.controleventLike;|%model.lyricsLike;|
+                           %model.noteModifierLike;|%model.verseLike;|%model.sylLike;'>
+
+<!-- doc: Syllable content model -->
+<!ENTITY % model.syllablePart '%model.sylLike;|%model.eventLike;|%model.midiLike;|
+                              %model.controleventLike;|%model.editLike;|
+                              %model.transcriptionLike;|%model.lyricsLike;|
+                              %model.noteModifierLike;|%model.verseLike;'>
 
 <!-- doc: Staff content model -->
-<!ENTITY % model.staffPart
-                     '(%model.measureLike;|
-                     %model.layerLike;|%model.milestoneLike.music;|%model.layerPart;|
-                     %model.annotLike;|%model.graphicprimitiveLike;|
-                     %model.lyricsLike;|%model.apparatusLike;|%model.controleventLike;)*'>
+<!ENTITY % model.staffPart '%model.layerLike;|%model.controleventLike;|%n.syllable;'>
 
-<!-- doc: Reading content model -->
-<!ENTITY % model.rdgPart
-                     '( %model.scoredefLike;
-                       |%model.staffgrpLike;
-                       |%model.staffdefLike;
-                       |(%model.sectionLike;, (%model.endingLike;)*)
-                       |%model.divLike;
-                       |((%model.measureLike;)*, (%model.milestoneLike.music;)?)*
-                       |(%model.layerLike;|%model.eventLike;|%model.sylLike;)*
-                       |((%model.staffLike;|%model.editLike;|%model.transcriptionLike;)*,
-                          (%model.ossiaLike;)*, (%model.controleventLike;|%model.lyricsLike;|
-                          %model.midiLike;|%model.annotLike;)*,
-                          (%model.graphicprimitiveLike;)*)
-                       |%model.apparatusLike;
-                     )'>
+<!-- doc: Measure content model -->
+<!ENTITY % model.measurePart '%n.staff;|%n.ossia;|%model.controleventLike;|%model.editLike;|
+                             %model.transcriptionLike;|%model.lyricsLike;|%model.midiLike;'>
 
-<!-- doc: Score content model -->
-<!ENTITY % model.scorePart
-                     '(%model.measureLike;|(%model.staffLike;)*|%model.milestoneLike.music;)*'>
+<!ENTITY % model.sectionPart '%n.section;|%n.ending;|%model.measureLike;|%n.staff;'>
 
 <!-- doc: Score components -->
-<!ENTITY % model.scorecomponentLike
-                     '(
-                       %model.scoredefLike;
-                       |%model.staffgrpLike;
-                       |%model.staffdefLike;
-                       |(%model.sectionLike;, (%model.endingLike;)*)
-                       |%model.divLike;
-                       |%model.scorePart;
-                       |%model.apparatusLike;
-                      )'>
+<!ENTITY % model.scorePart '%n.section;|%n.ending;'>
+
+<!-- doc: Reading content model -->
+<!ENTITY % model.rdgPart '%model.sectionPart;|%n.ossia;|%model.controleventLike;|
+                         %model.editLike;|%model.transcriptionLike;|%model.lyricsLike;|
+                         %model.midiLike;|%model.layerLike;|%n.syllable;|%model.sylLike;|
+                         %model.eventLike;|%model.noteModifierLike;|%model.verseLike;|
+                         %model.eventLike.cmn.measureFilling;'>
 
 <!-- ************************************************************** -->
 <!-- * Element Declarations (By Module)                           * -->
@@ -6797,7 +6713,13 @@ Used by: model.endingLike ending
 Module:  meiStructure -->
 <!ENTITY % ending 'IGNORE'>
 <![%ending;[
-<!ENTITY % content.ending '(%model.scorecomponentLike;)*'>
+<!ENTITY % content.ending '(
+                            (%model.Incl;)*,
+                            (
+                              (%model.sectionPart;),
+                              (%model.Incl;)*
+                            )*
+                          )'>
 <!ELEMENT %n.ending; %content.ending;>
 <!ATTLIST %n.ending;
           %att.common;
@@ -6887,7 +6809,13 @@ Used by: model.layerLike
 Module:  meiStructure -->
 <!ENTITY % layer 'IGNORE'>
 <![%layer;[
-<!ENTITY % content.layer '(%model.layerPart;|%model.annotLike;)*'>
+<!ENTITY % content.layer '(
+                            (%model.Incl;)*,
+                            (
+                              (%model.layerPart;),
+                              (%model.Incl;)*
+                            )*
+                          )'>
 <!ELEMENT %n.layer; %content.layer;>
 <!ATTLIST %n.layer;
           %att.common;
@@ -6968,7 +6896,7 @@ Used by: model.partLike
 Module:  meiStructure -->
 <!ENTITY % part 'IGNORE'>
 <![%part;[
-<!ENTITY % content.part '(%model.scorecomponentLike;)*'>
+<!ENTITY % content.part '(%model.scorePart;)*'>
 <!ELEMENT %n.part; %content.part;>
 <!ATTLIST %n.part;
           %att.common;
@@ -7098,7 +7026,14 @@ Used by: model.scoreLike
 Module:  meiStructure -->
 <!ENTITY % score 'IGNORE'>
 <![%score;[
-<!ENTITY % content.score '(%model.scorecomponentLike;)*'>
+<!ENTITY % content.score '(
+                            (%model.Incl;)*,
+                            (
+                              (%model.scorePart;),
+                              (%model.Incl;)*
+                            )*
+                          )'>
+<!-- <!ENTITY % content.score '(%model.scorecomponentLike;)*'> -->
 <!ELEMENT %n.score; %content.score;>
 <!ATTLIST %n.score;
           %att.common;
@@ -7134,7 +7069,13 @@ Used by: model.rdgPart section
 Module:  meiStructure -->
 <!ENTITY % section 'IGNORE'>
 <![%section;[
-<!ENTITY % content.section '(%model.scorecomponentLike;)*'>
+<!ENTITY % content.section '(
+                              (%model.Incl;)*,
+                              (
+                                (%model.sectionPart;),
+                                (%model.Incl;)*
+                              )*
+                            )'>
 <!ELEMENT %n.section; %content.section;>
 <!ATTLIST %n.section;
           %att.common;
@@ -7157,7 +7098,13 @@ Used by: model.staffLike
 Module:  meiStructure -->
 <!ENTITY % staff 'IGNORE'>
 <![%staff;[
-<!ENTITY % content.staff '(%model.staffPart;)'>
+<!ENTITY % content.staff '(
+                            (%model.Incl;)*,
+                            (
+                              (%model.staffPart;),
+                              (%model.Incl;)*
+                            )*
+                          )'>
 <!ELEMENT %n.staff; %content.staff;>
 <!ATTLIST %n.staff;
           %att.common;
@@ -7195,8 +7142,10 @@ Used by: staffgrpLike staffgrp
 Module:  meiStructure -->
 <!ENTITY % staffgrp 'IGNORE'>
 <![%staffgrp;[
-<!ENTITY % content.staffgrp '((%model.labelLike;)*, (%model.instrdefLike;)*,
+<!ENTITY % content.staffgrp '((%n.grpsym;)*, (%model.labelLike;)*, (%model.instrdefLike;)*,
                          (%model.staffgrpLike;|%model.staffdefLike;)+, (%n.grpsym;)*)'>
+<!-- <!ENTITY % content.staffgrp '((%model.labelLike;)*, (%model.instrdefLike;)*,
+                         (%model.staffgrpLike;|%model.staffdefLike;)+, (%n.grpsym;)*)'> -->
 <!ELEMENT %n.staffgrp; %content.staffgrp;>
 <!ATTLIST %n.staffgrp;
           %att.common;
@@ -7214,9 +7163,13 @@ Used by: model.eventLike.neume
 Module:  meiNeumes -->
 <!ENTITY % syllable 'IGNORE'>
 <![%syllable;[
-<!ENTITY % content.syllable '((%model.eventLike;|%model.sylLike;|%model.apparatusLike;|
-                        %model.editLike;|%model.transcriptionLike;),
-                        (%model.milestoneLike.music;)?)*'>
+<!ENTITY % content.syllable '(
+                              (%model.Incl;)*,
+                              (
+                                (%model.syllablePart;),
+                                (%model.Incl;)*
+                              )*
+                            )'>
 <!ELEMENT %n.syllable; %content.syllable;>
 <!ATTLIST %n.syllable;
           %att.common;>
@@ -7319,21 +7272,13 @@ Used by: model.measureLike
 Module:  meiCMN -->
 <!ENTITY % measure 'IGNORE'>
 <![%measure;[
-<!ENTITY % content.measure '
-                      (
-                         (%model.staffdefLike;)?,
-                         (%model.measurePart;|%model.ossiaLike;)*,
-                         (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
-                         %model.annotLike;|%model.graphicprimitiveLike;)*
-                      )*'>
-<!-- <!ENTITY % content.measure '
-                      (
-                        (%model.staffdefLike;)?,
-                        (%model.measurePart;|%model.ossiaLike;|%model.staffdefLike;)*,
-                        (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
-                        %model.annotLike;|%model.graphicprimitiveLike;|%model.apparatusLike;|
-                        %model.editLike;|%model.transcriptionLike;)*
-                      )'> -->
+<!ENTITY % content.measure '(
+                              (%model.Incl;)*,
+                              (
+                                (%model.measurePart;),
+                                (%model.Incl;)*
+                              )*
+                            )'>
 <!ELEMENT %n.measure; %content.measure;>
 <!ATTLIST %n.measure;
           %att.common;
@@ -7358,21 +7303,13 @@ Used by: model.ossiaLike
 Module:  meiCMN -->
 <!ENTITY % ossia 'IGNORE'>
 <![%ossia;[
-<!ENTITY % content.ossia '
-                      (
-                         (%model.staffdefLike;)?,
-                         (%model.measurePart;|%model.ossiaLike;)*,
-                         (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
-                         %model.annotLike;|%model.graphicprimitiveLike;)*
-                      )*'>
-<!-- <!ENTITY % content.ossia '
-                      (
-                        (%model.staffdefLike;)*,
-                        (%model.measurePart;|%model.ossiaLike;)*,
-                        (%model.controleventLike;|%model.lyricsLike;|%model.midiLike;|
-                        %model.annotLike;|%model.graphicprimitiveLike;|
-                        %model.editLike;|%model.transcriptionLike;)*
-                      )*'> -->
+<!ENTITY % content.ossia '(
+                              (%model.Incl;)*,
+                              (
+                                (%model.measurePart;),
+                                (%model.Incl;)*
+                              )*
+                            )'>
 <!ELEMENT %n.ossia; %content.ossia;>
 <!ATTLIST %n.ossia;
           %att.common;
@@ -8242,7 +8179,13 @@ Used by: app
 Module:  meiCritApp -->
 <!ENTITY % rdg 'IGNORE'>
 <![%rdg;[
-<!ENTITY % content.rdg '(%model.rdgPart;)*'>
+<!ENTITY % content.rdg '(
+                          (%model.Incl;)*,
+                          (
+                            (%model.rdgPart;),
+                            (%model.Incl;)*
+                          )*
+                        )'>
 <!ELEMENT %n.rdg; %content.rdg;>
 <!ATTLIST %n.rdg;
           %att.common;
