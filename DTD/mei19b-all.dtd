@@ -91,30 +91,30 @@ be included -->
 <!ENTITY % meiHeader        'INCLUDE'>
 <!ENTITY % meiStructure     'INCLUDE'>
 
-<!ENTITY % meiAnalysis      'IGNORE'>
-<!ENTITY % meiGestural      'IGNORE'>
-<!ENTITY % meiVisual        'IGNORE'>
+<!ENTITY % meiAnalysis      'INCLUDE'>
+<!ENTITY % meiGestural      'INCLUDE'>
+<!ENTITY % meiVisual        'INCLUDE'>
 
-<!ENTITY % meiText          'IGNORE'>
-<!ENTITY % meiFigures       'IGNORE'>
-<!ENTITY % meiNamesDates    'IGNORE'>
+<!ENTITY % meiText          'INCLUDE'>
+<!ENTITY % meiFigures       'INCLUDE'>
+<!ENTITY % meiNamesDates    'INCLUDE'>
 
-<!ENTITY % meiNeumes        'IGNORE'>
-<!ENTITY % meiMensural      'IGNORE'>
-<!ENTITY % meiCMN           'IGNORE'>
+<!ENTITY % meiNeumes        'INCLUDE'>
+<!ENTITY % meiMensural      'INCLUDE'>
+<!ENTITY % meiCMN           'INCLUDE'>
 
-<!ENTITY % meiMIDI          'IGNORE'>
-<!ENTITY % meiCMNOrnaments  'IGNORE'>
-<!ENTITY % meiLyrics        'IGNORE'>
-<!ENTITY % meiHarmony       'IGNORE'>
+<!ENTITY % meiMIDI          'INCLUDE'>
+<!ENTITY % meiCMNOrnaments  'INCLUDE'>
+<!ENTITY % meiLyrics        'INCLUDE'>
+<!ENTITY % meiHarmony       'INCLUDE'>
 
-<!ENTITY % meiUserSymbols   'IGNORE'>
+<!ENTITY % meiUserSymbols   'INCLUDE'>
 
-<!ENTITY % meiFacsimile     'IGNORE'>
-<!ENTITY % meiEditTrans     'IGNORE'>
-<!ENTITY % meiCritApp       'IGNORE'>
-<!ENTITY % meiLinkAlign     'IGNORE'>
-<!ENTITY % meiPtrRefs       'IGNORE'>
+<!ENTITY % meiFacsimile     'INCLUDE'>
+<!ENTITY % meiEditTrans     'INCLUDE'>
+<!ENTITY % meiCritApp       'INCLUDE'>
+<!ENTITY % meiLinkAlign     'INCLUDE'>
+<!ENTITY % meiPtrRefs       'INCLUDE'>
 
 
 <!-- ************************************************************** -->
@@ -4902,12 +4902,10 @@ entity. -->
   <!ENTITY % uneume 'INCLUDE'>
 
   <!-- Create appropriate classes -->
-  <!ENTITY % model.syllableLike '%n.syllable;'>
   <!ENTITY % model.neumeModifierLike '%n.accid;|%n.artic;|%model.verseLike;'>
   <!ENTITY % model.eventLike.neume '%n.ineume;|%n.uneume;'>
   <!ENTITY % model.controleventLike.neume '_DUMMYmodel.controleventLike.neume'>
 ]]>
-<!ENTITY % model.syllableLike '_DUMMYmodel.syllableLike'>
 <!ENTITY % model.neumeModifierLike '_DUMMYmodel.neumeModifierLike'>
 <!ENTITY % model.eventLike.neume '_DUMMYmodel.eventLike.neume'>
 <!ENTITY % model.controleventLike.neume '_DUMMYmodel.controleventLike.neume'>
@@ -5249,9 +5247,9 @@ more restrictive. -->
     <!ENTITY % model.syllablePart '_DUMMYmodel.syllablePart'>
     <!ENTITY % model.layerPart '%model.eventLike;|%model.eventLike.cmn.measureFilling;'>
     <!ENTITY % model.staffPart '%model.layerLike;'>
-    <!ENTITY % model.measurePart '%model.staffLike;|%n.ossia;|%model.controleventLike;|%model.lyricsLike;|%model.midiLike;'>
-    <!ENTITY % model.sectionPart '%model.measureLike;|%model.sectionLike;|%model.endingLike;'>
-    <!ENTITY % model.scorePart '%model.sectionLike;|%model.endingLike;'>
+    <!ENTITY % model.measurePart '%n.staff;|%n.ossia;|%model.controleventLike;|%model.lyricsLike;|%model.midiLike;'>
+    <!ENTITY % model.sectionPart '%model.measureLike;|%n.section;|%n.ending;'>
+    <!ENTITY % model.scorePart '%n.section;|%n.ending;'>
     <!ENTITY % model.rdgPart '%model.sectionPart;|%model.measurePart;|%model.eventLike;|
                              %model.eventLike.cmn.measureFilling;'>
   ]]>
@@ -5283,8 +5281,8 @@ more restrictive. -->
                                 %model.sylLike;'>
     <!ENTITY % model.staffPart '%model.layerLike;|%model.controleventLike;'>
     <!ENTITY % model.measurePart '_DUMMYmodel.measurePart'>
-    <!ENTITY % model.sectionPart '%model.staffLike;|%model.sectionLike;|%model.endingLike;'>
-    <!ENTITY % model.scorePart '%model.sectionLike;|%model.endingLike;'>
+    <!ENTITY % model.sectionPart '%n.staff;|%n.section;|%n.ending;'>
+    <!ENTITY % model.scorePart '%n.section;|%n.ending;'>
     <!ENTITY % model.rdgPart '%model.sectionPart;|%model.layerLike;|%model.layerPart;'>
   ]]>
 ]]>
@@ -5312,12 +5310,11 @@ more restrictive. -->
     <!ENTITY % model.syllablePart '%model.sylLike;|%model.eventLike;|%model.midiLike;|
                                 %model.controleventLike;|%model.lyricsLike;|
                                 %model.noteModifierLike;|%model.verseLike;'>
-    <!ENTITY % model.staffPart '%model.syllableLike;'>
-    <!-- <!ENTITY % model.staffPart '%n.syllable;'> -->
+    <!ENTITY % model.staffPart '%n.syllable;'>
     <!ENTITY % model.measurePart '_DUMMYmodel.measurePart'>
-    <!ENTITY % model.syllablePart '%model.layerLike;'>
-    <!ENTITY % model.sectionPart '%model.staffLike;|%model.sectionLike;|%model.endingLike;'>
-    <!ENTITY % model.scorePart '%model.sectionLike;|%model.endingLike;'>
+    <!ENTITY % model.syllablePart '%n.layer;'>
+    <!ENTITY % model.sectionPart '%n.staff;|%n.section;|%n.ending;'>
+    <!ENTITY % model.scorePart '%n.section;|%n.ending;'>
     <!ENTITY % model.rdgPart '%model.sectionPart;|%model.staffPart;|%model.syllablePart;'>
   ]]>
 ]]>
@@ -5363,30 +5360,22 @@ att.events class. -->
                               %model.noteModifierLike;|%model.verseLike;'>
 
 <!-- doc: Staff content model -->
-<!ENTITY % model.staffPart '%model.layerLike;|%model.controleventLike;|%model.syllableLike;'>
-<!-- <!ENTITY % model.staffPart '%model.layerLike;|%model.controleventLike;|%n.syllable;'> -->
+<!ENTITY % model.staffPart '%model.layerLike;|%model.controleventLike;|%n.syllable;'>
 
 <!-- doc: Measure content model -->
-<!ENTITY % model.measurePart '%model.staffLike;|%model.ossiaLike;|%model.controleventLike;|
-                             %model.lyricsLike;|%model.midiLike;'>
+<!ENTITY % model.measurePart '%n.staff;|%n.ossia;|%model.controleventLike;|%model.lyricsLike;|%model.midiLike;'>
 
-<!ENTITY % model.sectionPart '%model.sectionLike;|%model.endingLike;|%model.measureLike;|
-                             %model.staffLike;'>
+<!ENTITY % model.sectionPart '%n.section;|%n.ending;|%model.measureLike;|%n.staff;'>
 
 <!-- doc: Score components -->
-<!ENTITY % model.scorePart '%model.sectionLike;|%model.endingLike;'>
+<!ENTITY % model.scorePart '%n.section;|%n.ending;'>
 
 <!-- doc: Reading content model -->
-<!ENTITY % model.rdgPart '%model.sectionPart;|%model.ossiaLike;|%model.controleventLike;|
-                         %model.lyricsLike;|%model.midiLike;|%model.layerLike;|
-                         %model.syllableLike;|%model.sylLike;|%model.eventLike;|
-                         %model.noteModifierLike;|%model.verseLike;|
+<!ENTITY % model.rdgPart '%model.sectionPart;|%n.ossia;|%model.controleventLike;|
+                         %model.lyricsLike;|
+                         %model.midiLike;|%model.layerLike;|%n.syllable;|%model.sylLike;|
+                         %model.eventLike;|%model.noteModifierLike;|%model.verseLike;|
                          %model.eventLike.cmn.measureFilling;'>
-<!-- <!ENTITY % model.rdgPart '%model.sectionPart;|%model.ossiaLike;|%model.controleventLike;|
-                         %model.lyricsLike;|%model.midiLike;|%model.layerLike;|
-                         %n.syllable;|%model.sylLike;|%model.eventLike;|
-                         %model.noteModifierLike;|%model.verseLike;|
-                         %model.eventLike.cmn.measureFilling;'> -->
 
 <!-- ************************************************************** -->
 <!-- * Element Declarations (By Module)                           * -->
@@ -9269,12 +9258,12 @@ Module:  meiEditTrans -->
 <!ENTITY % add 'IGNORE'>
 <![%add;[
 <!ENTITY % content.add '
-                     (#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                     %model.controleventLike;|%model.lyricsLike;|
-                     %model.midiLike;|%model.editLike;|
-                     %model.transcriptionLike;|%model.eventLike.cmn.measureFilling;|
-                     %model.noteModifierLike;|%model.sectionLike;|%model.measureLike;|
-                     %model.staffLike;|%model.layerLike;)*'>
+                     (#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.add; %content.add;>
 <!ATTLIST %n.add;
           %att.common;
@@ -9304,12 +9293,12 @@ Used by: model.transcriptionLike model.choicePart
 Module:  meiEditTrans -->
 <!ENTITY % corr 'IGNORE'>
 <![%corr;[
-<!ENTITY % content.corr '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                        %model.controleventLike;|%model.lyricsLike;|
-                        %model.midiLike;|%model.editLike;|%model.transcriptionLike;|
-                        %model.eventLike.cmn.measureFilling;|%model.noteModifierLike;|
-                        %model.sectionLike;|%model.measureLike;|%model.staffLike;|
-                        %model.layerLike;)*'>
+<!ENTITY % content.corr '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.corr; %content.corr;>
 <!ATTLIST %n.corr;
           %att.common;
@@ -9334,12 +9323,12 @@ Used by: model.transcriptionLike
 Module:  meiEditTrans -->
 <!ENTITY % damage 'IGNORE'>
 <![%damage;[
-<!ENTITY % content.damage '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                          %model.controleventLike;|%model.lyricsLike;|
-                          %model.midiLike;|%model.editLike;|%model.transcriptionLike;|
-                          %model.eventLike.cmn.measureFilling;|%model.noteModifierLike;|
-                          %model.sectionLike;|%model.measureLike;|%model.staffLike;|
-                          %model.layerLike;)*'>
+<!ENTITY % content.damage '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.damage; %content.damage;>
 <!ATTLIST %n.damage;
           %att.common;
@@ -9366,12 +9355,12 @@ Used by: model.transcriptionLike
 Module:  meiEditTrans -->
 <!ENTITY % del 'IGNORE'>
 <![%del;[
-<!ENTITY % content.del '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                       %model.controleventLike;|%model.lyricsLike;|
-                       %model.midiLike;|%model.editLike;|%model.transcriptionLike;|
-                       %model.eventLike.cmn.measureFilling;|%model.noteModifierLike;|
-                       %model.sectionLike;|%model.measureLike;|%model.staffLike;|
-                       %model.layerLike;)*'>
+<!ENTITY % content.del '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.del; %content.del;>
 <!ATTLIST %n.del;
           %att.common;
@@ -9443,12 +9432,12 @@ Used by: model.transcriptionLike model.choicePart
 Module:  meiEditTrans -->
 <!ENTITY % orig 'IGNORE'>
 <![%orig;[
-<!ENTITY % content.orig '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                        %model.controleventLike;|%model.lyricsLike;|
-                        %model.midiLike;|%model.editLike;|%model.transcriptionLike;|
-                        %model.eventLike.cmn.measureFilling;|%model.noteModifierLike;|
-                        %model.sectionLike;|%model.measureLike;|%model.staffLike;|
-                        %model.layerLike;)*'>
+<!ENTITY % content.orig '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.orig; %content.orig;>
 <!ATTLIST %n.orig;
           %att.common;
@@ -9462,12 +9451,12 @@ Used by: model.transcriptionLike model.choicePart
 Module:  meiEditTrans -->
 <!ENTITY % reg 'IGNORE'>
 <![%reg;[
-<!ENTITY % content.reg '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                     %model.controleventLike;|%model.lyricsLike;|
-                     %model.midiLike;|%model.editLike;|%model.transcriptionLike;|
-                     %model.eventLike.cmn.measureFilling;|%model.noteModifierLike;|
-                     %model.sectionLike;|%model.measureLike;|%model.staffLike;|
-                     %model.layerLike;)*'>
+<!ENTITY % content.reg '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.reg; %content.reg;>
 <!ATTLIST %n.reg;
           %att.common;
@@ -9489,14 +9478,12 @@ Used by: model.transcriptionLike
 Module:  meiEditTrans -->
 <!ENTITY % restore 'IGNORE'>
 <![%restore;[
-<!ENTITY % content.restore '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                           %model.controleventLike;|%model.lyricsLike;|
-                           %model.midiLike;|%model.editLike;|
-                           %model.transcriptionLike;|
-                           %model.eventLike.cmn.measureFilling;|
-                           %model.noteModifierLike;|%model.sectionLike;|
-                           %model.measureLike;|%model.staffLike;|
-                           %model.layerLike;)*'>
+<!ENTITY % content.restore '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.restore; %content.restore;>
 <!ATTLIST %n.restore;
           %att.common;
@@ -9513,14 +9500,12 @@ Used by: model.transcriptionLike model.choicePart
 Module:  meiEditTrans -->
 <!ENTITY % sic 'IGNORE'>
 <![%sic;[
-<!ENTITY % content.sic '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                       %model.controleventLike;|%model.lyricsLike;|
-                       %model.midiLike;|%model.editLike;|
-                       %model.transcriptionLike;|
-                       %model.eventLike.cmn.measureFilling;|
-                       %model.noteModifierLike;|%model.sectionLike;|
-                       %model.measureLike;|%model.staffLike;|
-                       %model.layerLike;)*'>
+<!ENTITY % content.sic '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.sic; %content.sic;>
 <!ATTLIST %n.sic;
           %att.common;
@@ -9553,14 +9538,12 @@ Used by: model.transcriptionLike
 Module:  meiEditTrans -->
 <!ENTITY % supplied 'IGNORE'>
 <![%supplied;[
-<!ENTITY % content.supplied '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                     %model.controleventLike;|%model.lyricsLike;|
-                     %model.midiLike;|%model.editLike;|
+<!ENTITY % content.supplied '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
                      %model.transcriptionLike;|
                      %model.eventLike.cmn.measureFilling;|
-                     %model.noteModifierLike;|
-                     %model.sectionLike;|%model.measureLike;|%model.staffLike;|
-                     %model.layerLike;)*'>
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.supplied; %content.supplied;>
 <!ATTLIST %n.supplied;
           %att.common;
@@ -9602,14 +9585,12 @@ Used by: model.transcriptionLike model.choicePart
 Module:  meiEditTrans -->
 <!ENTITY % unclear 'IGNORE'>
 <![%unclear;[
-<!ENTITY % content.unclear '(#PCDATA|%model.textphraseLike;|%model.eventLike;|
-                           %model.controleventLike;|%model.lyricsLike;|
-                           %model.midiLike;|%model.editLike;|
-                           %model.transcriptionLike;|
-                           %model.eventLike.cmn.measureFilling;|
-                           %model.noteModifierLike;|%model.sectionLike;|
-                           %model.measureLike;|%model.staffLike;|
-                           %model.layerLike;)*'>
+<!ENTITY % content.unclear '(#PCDATA|%model.textphraseLike;|
+                     %model.eventLike;|%model.controleventLike;|
+                     %model.lyricsLike;|%model.midiLike;|%model.editLike;|
+                     %model.transcriptionLike;|
+                     %model.eventLike.cmn.measureFilling;|
+                     %model.noteModifierLike;|%n.section;|%n.measure;|%n.staff;|%n.layer;)*'>
 <!ELEMENT %n.unclear; %content.unclear;>
 <!ATTLIST %n.unclear;
           %att.common;
