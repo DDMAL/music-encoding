@@ -139,12 +139,13 @@
   </xs:simpleType>
   <!--
     Accidental attribute values: s = sharp, f = flat, ss = dblsharp,
-    x=dblsharp, ff = dblflat, n = natural, nf = naturalflat, ns =
-    naturalsharp. ss indicates the use of 2 sharp signs, while x indicates
-    the use of a single double sharp. nf and ns are used to cancel dbflats
-    and dblsharps, respectively. su = sharp note qtr. tone up, sd = sharp
-    note qtr. tone down, fu = flat note qtr. tone up, fd = flat note qtr.
-    tone down, nu = natural note qtr. tone up, nd = natural note quarter
+    x=dblsharp, ff = dblflat, xs = triple sharp, tb = triple flat, n =
+    natural, nf = naturalflat, ns = naturalsharp. ss indicates the use
+    of 2 sharp signs, while x indicates the use of a single double
+    sharp. nf and ns are used to cancel dbflats and dblsharps,
+    respectively. su = sharp note qtr. tone up, sd = sharp note qtr.
+    tone down, fu = flat note qtr. tone up, fd = flat note qtr. tone
+    down, nu = natural note qtr. tone up, nd = natural note quarter
     tone down. Quarter-tone accidentals listed in Read, p. 145.
   -->
   <xs:simpleType name="data.ACCIDENTAL.EXPLICIT">
@@ -154,6 +155,8 @@
       <xs:enumeration value="ss"/>
       <xs:enumeration value="x"/>
       <xs:enumeration value="ff"/>
+      <xs:enumeration value="xs"/>
+      <xs:enumeration value="tb"/>
       <xs:enumeration value="n"/>
       <xs:enumeration value="nf"/>
       <xs:enumeration value="ns"/>

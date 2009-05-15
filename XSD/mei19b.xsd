@@ -1,0 +1,2902 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:include schemaLocation="datatypes.xsd"/>
+  <xs:attributeGroup name="att.bibl">
+    <xs:attribute name="analog"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.color">
+    <xs:attribute name="color" type="data.COLOR"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.anl">
+    <xs:attribute name="corresp" type="xs:IDREFS"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common">
+    <xs:attribute name="id" type="xs:ID"/>
+    <xs:attribute name="n" type="xs:NMTOKEN"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.controlevent">
+    <xs:attribute name="layer" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="next" type="xs:IDREFS"/>
+    <xs:attribute name="plist" type="data.PLIST"/>
+    <xs:attribute name="prev" type="xs:IDREFS"/>
+    <xs:attribute name="staff" use="required" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="tstamp" type="data.BEAT"/>
+    <xs:attribute name="tstamp.ges" type="data.INTEGERNONNEGATIVE"/>
+    <xs:attribute name="tstamp.real" type="data.ISOTIME"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.date">
+    <xs:attribute name="calendar" type="xs:NMTOKEN"/>
+    <xs:attribute name="cert" type="data.CERTAINTY"/>
+    <xs:attribute name="from" type="data.ISODATE"/>
+    <xs:attribute name="notafter" type="data.ISODATE"/>
+    <xs:attribute name="notbefore" type="data.ISODATE"/>
+    <xs:attribute name="reg" type="data.ISODATE"/>
+    <xs:attribute name="to" type="data.ISODATE"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.edit">
+    <xs:attribute name="cert" type="data.CERTAINTY"/>
+    <xs:attribute name="evidence" type="xs:NMTOKEN"/>
+    <xs:attribute name="resp" type="xs:IDREFS"/>
+    <xs:attribute name="source" type="xs:IDREFS"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.event">
+    <xs:attribute name="layer" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="next" type="xs:IDREFS"/>
+    <xs:attribute name="prev" type="xs:IDREFS"/>
+    <xs:attribute name="staff" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="tstamp" type="data.BEAT"/>
+    <xs:attribute name="tstamp.ges" type="data.INTEGERNONNEGATIVE"/>
+    <xs:attribute name="tstamp.real" type="data.ISOTIME"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.common">
+    <xs:attribute name="actuate">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="onLoad"/>
+          <xs:enumeration value="onRequest"/>
+          <xs:enumeration value="other"/>
+          <xs:enumeration value="none"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="arcrole"/>
+    <xs:attribute name="role"/>
+    <xs:attribute name="show">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="new"/>
+          <xs:enumeration value="replace"/>
+          <xs:enumeration value="other"/>
+          <xs:enumeration value="none"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="targettype" type="xs:NMTOKEN"/>
+    <xs:attribute name="title"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.external">
+    <xs:attribute name="entityref" type="xs:ENTITY"/>
+    <xs:attribute name="fragment" type="data.FRAGMENT"/>
+    <xs:attribute name="href" type="data.URI"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.internal">
+    <xs:attribute name="plist" type="data.PLIST"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.name">
+    <xs:attribute name="authority"/>
+    <xs:attribute name="key" type="xs:NMTOKEN"/>
+    <xs:attribute name="reg"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.startendid">
+    <xs:attribute name="endid" type="xs:IDREF"/>
+    <xs:attribute name="startid" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lang">
+    <xs:attribute name="lang" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.trans">
+    <xs:attribute name="hand" type="xs:IDREF"/>
+    <xs:attribute name="seq" type="data.INTEGERPOSITIVE"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typed">
+    <xs:attribute name="subtype" type="xs:NMTOKEN"/>
+    <xs:attribute name="type" type="xs:NMTOKEN"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typography">
+    <xs:attribute name="fontfam" type="data.FONTFAMILY"/>
+    <xs:attribute name="fontname" type="data.FONTNAME"/>
+    <xs:attribute name="fontsize" type="data.NUMBER"/>
+    <xs:attribute name="fontstyle" type="data.FONTSTYLE"/>
+    <xs:attribute name="fontweight" type="data.FONTWEIGHT"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.xy">
+    <xs:attribute name="x" type="data.NUMBER"/>
+    <xs:attribute name="y" type="data.NUMBER"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.xy.required">
+    <xs:attribute name="x" use="required" type="data.NUMBER"/>
+    <xs:attribute name="y" use="required" type="data.NUMBER"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.barline">
+    <xs:attribute name="complete">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="c"/>
+          <xs:enumeration value="i"/>
+          <xs:enumeration value="o"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="control" type="data.BOOLEAN"/>
+    <xs:attribute name="measref" type="xs:IDREF"/>
+    <xs:attribute name="rend" type="data.BARRENDITION"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.clef">
+    <xs:attribute name="line" use="required" type="data.CLEFLINE"/>
+    <xs:attribute name="octave.default" type="data.OCTAVE"/>
+    <xs:attribute name="shape" use="required" type="data.CLEFSHAPE"/>
+    <xs:attribute name="trans" type="data.CLEFTRAN"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.custos">
+    <xs:attribute name="oct" use="required" type="data.OCTAVE"/>
+    <xs:attribute name="pname" use="required" type="data.PITCHNAME"/>
+    <xs:attribute name="source" type="xs:IDREF"/>
+    <xs:attribute name="target" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.dot">
+    <xs:attribute name="form">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="aug"/>
+          <xs:enumeration value="div"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="loc" type="data.STAFFLOC"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.grpsym">
+    <xs:attribute name="symbol" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="brace"/>
+          <xs:enumeration value="bracket"/>
+          <xs:enumeration value="line"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.layerdef.base">
+    <xs:attribute name="beam.group"/>
+    <xs:attribute name="beam.rests" type="data.BOOLEAN"/>
+    <xs:attribute name="dur.default" type="data.DURATIONS"/>
+    <xs:attribute name="octave.default" type="data.OCTAVE"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.layerdef">
+    <xs:attributeGroup ref="att.log.layerdef.base"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.ligature">
+    <xs:attribute name="form" type="data.LIGATUREFORM"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.mensur">
+    <xs:attribute name="modusmaior">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="modusminor">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="num" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="numbase" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="prolatio">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="tempus">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.proport">
+    <xs:attribute name="num" use="required" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="numbase" use="required" type="data.INTEGERPOSITIVE"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.sb">
+    <xs:attribute name="source" type="xs:IDREFS"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.scoredef.mensural">
+    <xs:attribute name="mensur" type="data.MENSURATIONSIGN"/>
+    <xs:attribute name="mensur.dot" type="data.BOOLEAN"/>
+    <xs:attribute name="mensur.slash" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="modusmaior">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="modusminor">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="num" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="numbase" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="prolatio">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="proport.num" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="proport.numbase" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="tempus">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.scoredef.base">
+    <xs:attribute name="beam.group"/>
+    <xs:attribute name="beam.rests" type="data.BOOLEAN"/>
+    <xs:attribute name="clef.line" type="data.CLEFLINE"/>
+    <xs:attribute name="clef.shape" type="data.CLEFSHAPE"/>
+    <xs:attribute name="clef.trans" type="data.CLEFTRAN"/>
+    <xs:attribute name="dur.default" type="data.DURATIONS"/>
+    <xs:attribute name="key.accid" type="data.ACCIDENTAL.IMPLICIT"/>
+    <xs:attribute name="key.mode" type="data.MODE"/>
+    <xs:attribute name="key.pname" type="data.PITCHNAME"/>
+    <xs:attribute name="key.sig" type="data.KEYSIGNATURE"/>
+    <xs:attribute name="key.sig.mixed"/>
+    <xs:attribute name="meter.count" type="data.NUMBER"/>
+    <xs:attribute name="meter.sym" type="data.METERSIGN"/>
+    <xs:attribute name="meter.unit" type="data.NUMBER"/>
+    <xs:attribute name="octave.default" type="data.OCTAVE"/>
+    <xs:attribute name="trans.diat" type="data.NUMBER"/>
+    <xs:attribute name="trans.semi" type="data.NUMBER"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.scoredef">
+    <xs:attributeGroup ref="att.log.scoredef.base"/>
+    <xs:attributeGroup ref="att.log.scoredef.mensural"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.staffdef.mensural">
+    <xs:attribute name="mensur.sign" type="data.MENSURATIONSIGN"/>
+    <xs:attribute name="mensur.dot" type="data.BOOLEAN"/>
+    <xs:attribute name="mensur.slash" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="modusmaior">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="modusminor">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="num" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="numbase" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="prolatio">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="proport.num" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="proport.numbase" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="tempus">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.staffdef.base">
+    <xs:attribute name="beam.group"/>
+    <xs:attribute name="beam.rests" type="data.BOOLEAN"/>
+    <xs:attribute name="clef.line" type="data.CLEFLINE"/>
+    <xs:attribute name="clef.shape" type="data.CLEFSHAPE"/>
+    <xs:attribute name="clef.trans" type="data.CLEFTRAN"/>
+    <xs:attribute name="dur.default" type="data.DURATIONS"/>
+    <xs:attribute name="key.accid" type="data.ACCIDENTAL.IMPLICIT"/>
+    <xs:attribute name="key.mode" type="data.MODE"/>
+    <xs:attribute name="key.pname" type="data.PITCHNAME"/>
+    <xs:attribute name="key.sig" type="data.KEYSIGNATURE"/>
+    <xs:attribute name="key.sig.mixed"/>
+    <xs:attribute name="meter.count" type="data.NUMBER"/>
+    <xs:attribute name="meter.sym" type="data.METERSIGN"/>
+    <xs:attribute name="meter.unit" type="data.NUMBER"/>
+    <xs:attribute name="octave.default" type="data.OCTAVE"/>
+    <xs:attribute name="trans.diat" type="data.NUMBER"/>
+    <xs:attribute name="trans.semi" type="data.NUMBER"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.staffdef">
+    <xs:attributeGroup ref="att.log.staffdef.base"/>
+    <xs:attributeGroup ref="att.log.staffdef.mensural"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.accid">
+    <xs:attribute name="form">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="implicit"/>
+          <xs:enumeration value="explicit"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="func">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="caution"/>
+          <xs:enumeration value="edit"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="value" use="required" type="data.ACCIDENTAL.EXPLICIT"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.annot">
+    <xs:attribute name="layer" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="next" type="xs:IDREFS"/>
+    <xs:attribute name="prev" type="xs:IDREFS"/>
+    <xs:attribute name="staff" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="tstamp" type="data.BEAT"/>
+    <xs:attribute name="tstamp.ges" type="data.INTEGERNONNEGATIVE"/>
+    <xs:attribute name="tstamp.real" type="data.ISOTIME"/>
+    <xs:attributeGroup ref="att.startendid"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.artic">
+    <xs:attribute name="value" use="required" type="data.ARTICULATION"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.clefchange.base">
+    <xs:attribute name="line" type="data.CLEFLINE"/>
+    <xs:attribute name="octave.default" type="data.OCTAVE"/>
+    <xs:attribute name="shape" type="data.CLEFSHAPE"/>
+    <xs:attribute name="trans" type="data.CLEFTRAN"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.clefchange">
+    <xs:attributeGroup ref="att.log.clefchange.base"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.dir">
+    <xs:attributeGroup ref="att.controlevent"/>
+    <xs:attributeGroup ref="att.startendid"/>
+    <xs:attribute name="dur" type="data.MEASUREBEAT"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.dynam">
+    <xs:attributeGroup ref="att.controlevent"/>
+    <xs:attributeGroup ref="att.startendid"/>
+    <xs:attribute name="dur" type="data.MEASUREBEAT"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.pad">
+    <xs:attributeGroup ref="att.event"/>
+    <xs:attribute name="num" use="required" type="data.NUMBER"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.phrase">
+    <xs:attributeGroup ref="att.controlevent"/>
+    <xs:attributeGroup ref="att.startendid"/>
+    <xs:attribute name="dur" type="data.MEASUREBEAT"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.space">
+    <xs:attributeGroup ref="att.event"/>
+    <xs:attribute name="beam" type="data.BEAMS"/>
+    <xs:attribute name="dots" type="data.AUGMENTDOT"/>
+    <xs:attribute name="dur" type="data.DURATION"/>
+    <xs:attribute name="fermata" type="data.PLACE"/>
+    <xs:attribute name="tuplet" type="data.TUPLET"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.log.tempo">
+    <xs:attributeGroup ref="att.controlevent"/>
+    <xs:attribute name="start" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:element name="model.addressLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.address">
+          <xs:attributeGroup ref="attlist.address"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.annotLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.annot">
+          <xs:attributeGroup ref="attlist.annot"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.biblLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.bibl">
+          <xs:attributeGroup ref="attlist.bibl"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.dateLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.date">
+          <xs:attributeGroup ref="attlist.date"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.editionLike" abstract="true" substitutionGroup="model.biblPart"/>
+  <xs:element name="model.editorialLike" abstract="true"/>
+  <xs:element name="model.identifierLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.identifier">
+          <xs:attributeGroup ref="attlist.identifier"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="model.lbLike">
+    <xs:sequence>
+      <xs:element ref="lb"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.milestoneLike.text">
+    <xs:choice>
+      <xs:element ref="lb"/>
+      <xs:element ref="pb"/>
+    </xs:choice>
+  </xs:group>
+  <xs:element name="model.nameLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.name">
+          <xs:attributeGroup ref="attlist.name"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.noteModifierLike" abstract="true"/>
+  <xs:element name="model.numLike" abstract="true"
+    substitutionGroup="model.measurementLike"/>
+  <xs:element name="model.pLike" abstract="true"
+    substitutionGroup="model.textcomponentLike"/>
+  <xs:element name="model.pbLike" abstract="true"
+    substitutionGroup="model.milestoneLike.music">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pb">
+          <xs:attributeGroup ref="attlist.pb"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.rendLike" abstract="true"/>
+  <xs:group name="model.repositoryLike">
+    <xs:sequence>
+      <xs:element ref="repository"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="model.titleLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.title">
+          <xs:attributeGroup ref="attlist.title"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="model.pgmetaLike">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="fw"/>
+      <xs:element minOccurs="0" ref="pgdesc"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:group name="model.pgmetaLike.score">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="pghead1"/>
+      <xs:element minOccurs="0" ref="pghead2"/>
+      <xs:element minOccurs="0" ref="pgfoot1"/>
+      <xs:element minOccurs="0" ref="pgfoot2"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="model.eventLike.common" abstract="true"
+    substitutionGroup="model.eventLike"/>
+  <xs:element name="model.eventLike.neume-mensural" abstract="true"
+    substitutionGroup="model.eventLike"/>
+  <xs:element name="model.eventLike.mensural-cmn" abstract="true"
+    substitutionGroup="model.eventLike"/>
+  <xs:element name="model.controleventLike.common" abstract="true"
+    substitutionGroup="model.controleventLike"/>
+  <xs:element name="model.keyaccidLike" abstract="true">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.keyaccid"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.keysigLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.keysig">
+          <xs:attributeGroup ref="attlist.keysig"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.labelLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.label">
+          <xs:attributeGroup ref="attlist.label"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.endingLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.ending">
+          <xs:attributeGroup ref="attlist.ending"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.instrdefLike" abstract="true">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.instrdef"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.layerLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.layer">
+          <xs:attributeGroup ref="attlist.layer"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.layerdefLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.layerdef">
+          <xs:attributeGroup ref="attlist.layerdef"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.mdivLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.mdiv">
+          <xs:attributeGroup ref="attlist.mdiv"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.milestoneLike.music" abstract="true"/>
+  <xs:complexType name="model.musicPart">
+    <xs:choice minOccurs="0">
+      <xs:element ref="body"/>
+      <xs:element ref="group"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="model.partLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.part">
+          <xs:attributeGroup ref="attlist.part"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.partsLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.parts">
+          <xs:attributeGroup ref="attlist.parts"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.scoreLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.score">
+          <xs:attributeGroup ref="attlist.score"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.sectionLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.section">
+          <xs:attributeGroup ref="attlist.section"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.staffLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.staff">
+          <xs:attributeGroup ref="attlist.staff"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.staffdefLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.staffdef">
+          <xs:attributeGroup ref="attlist.staffdef"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.staffgrpLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.staffgrp">
+          <xs:attributeGroup ref="attlist.staffgrp"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="model.nameLike.place">
+    <xs:sequence>
+      <xs:group ref="model.repositoryLike"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:complexType name="model.availabilityPart">
+    <xs:sequence>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="acqsource"/>
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="accessdesc"/>
+          <xs:element minOccurs="0" ref="price"/>
+        </xs:sequence>
+      </xs:sequence>
+      <xs:element minOccurs="0" ref="userestrict"/>
+      <xs:element minOccurs="0" ref="sysreq"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="model.biblPart" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.edition">
+          <xs:attributeGroup ref="attlist.edition"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="model.editorialdeclPart" abstract="true"/>
+  <xs:complexType name="model.encodingPart">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="appinfo"/>
+      <xs:element minOccurs="0" ref="projectdesc"/>
+      <xs:element minOccurs="0" ref="samplingdecl"/>
+      <xs:element minOccurs="0" ref="editorialdecl"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="model.measurementLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.num">
+          <xs:attributeGroup ref="attlist.num"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="model.headerPart">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="encodingdesc"/>
+      <xs:element minOccurs="0" ref="profiledesc"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.physdescPart">
+    <xs:choice>
+      <xs:element ref="condition"/>
+      <xs:element ref="dimensions"/>
+      <xs:element ref="exhibithist"/>
+      <xs:element ref="extent"/>
+      <xs:element ref="handlist"/>
+      <xs:element ref="inscription"/>
+      <xs:element ref="physmedium"/>
+      <xs:element ref="physloc"/>
+      <xs:element ref="provenance"/>
+      <xs:element ref="repository"/>
+      <xs:element ref="treatmenthist"/>
+      <xs:element ref="treatmentsched"/>
+    </xs:choice>
+  </xs:group>
+  <xs:complexType name="model.profiledescPart">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="creation"/>
+      <xs:element minOccurs="0" ref="langusage"/>
+      <xs:element minOccurs="0" ref="classification"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:group name="model.pubstmtPart">
+    <xs:choice>
+      <xs:element ref="model.addressLike"/>
+      <xs:element ref="respstmt"/>
+      <xs:element ref="model.dateLike"/>
+      <xs:element ref="identifier"/>
+      <xs:element ref="availability"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.textphraseLike">
+    <xs:choice>
+      <xs:element ref="model.addressLike"/>
+      <xs:element ref="model.annotLike"/>
+      <xs:element ref="model.biblLike"/>
+      <xs:element ref="model.editorialLike"/>
+      <xs:element ref="model.nameLike"/>
+      <xs:group ref="model.nameLike.place"/>
+      <xs:element ref="model.dateLike"/>
+      <xs:element ref="model.rendLike"/>
+      <xs:element ref="model.measurementLike"/>
+      <xs:element ref="model.titleLike"/>
+      <xs:element ref="model.identifierLike"/>
+      <xs:group ref="model.milestoneLike.text"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.textphraseLike.limited">
+    <xs:choice>
+      <xs:element ref="model.addressLike"/>
+      <xs:element ref="model.biblLike"/>
+      <xs:element ref="model.editorialLike"/>
+      <xs:element ref="model.nameLike"/>
+      <xs:group ref="model.nameLike.place"/>
+      <xs:element ref="model.dateLike"/>
+      <xs:element ref="model.rendLike"/>
+      <xs:element ref="model.measurementLike"/>
+      <xs:element ref="model.titleLike"/>
+      <xs:element ref="model.identifierLike"/>
+      <xs:group ref="model.lbLike"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.paracontentPart">
+    <xs:sequence>
+      <xs:group ref="model.textphraseLike"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:element name="model.textcomponentLike" abstract="true">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.p">
+          <xs:attributeGroup ref="attlist.p"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:group name="model.Incl">
+    <xs:choice>
+      <xs:element ref="model.milestoneLike.music"/>
+      <xs:element ref="scoredef"/>
+      <xs:element ref="staffdef"/>
+      <xs:element ref="staffgrp"/>
+      <xs:element ref="model.annotLike"/>
+    </xs:choice>
+  </xs:group>
+  <xs:complexType name="model.clefchangePart">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="clef"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="model.staffdefPart.multiplyDefinable" abstract="true"/>
+  <xs:element name="model.eventLike" abstract="true"/>
+  <xs:element name="model.controleventLike" abstract="true"/>
+  <xs:group name="model.layerPart">
+    <xs:choice>
+      <xs:element ref="model.eventLike"/>
+      <xs:element ref="model.controleventLike"/>
+      <xs:element ref="model.noteModifierLike"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.staffPart">
+    <xs:choice>
+      <xs:element ref="model.layerLike"/>
+      <xs:element ref="model.controleventLike"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.sectionPart">
+    <xs:choice>
+      <xs:element ref="model.sectionLike"/>
+      <xs:element ref="model.endingLike"/>
+      <xs:element ref="model.staffLike"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.scorePart">
+    <xs:choice>
+      <xs:element ref="model.sectionLike"/>
+      <xs:element ref="model.endingLike"/>
+    </xs:choice>
+  </xs:group>
+  <xs:element name="abbr" substitutionGroup="model.editorialLike">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.abbr">
+          <xs:attributeGroup ref="attlist.abbr"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.abbr" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.abbr">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.edit"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.trans"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attribute name="expan"/>
+  </xs:attributeGroup>
+  <xs:element name="address" substitutionGroup="model.addressLike"/>
+  <xs:complexType name="content.address">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="addressline"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.address">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="addressline">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.addressline">
+          <xs:attributeGroup ref="attlist.addressline"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.addressline" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.addressline">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="anchoredtext">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.anchoredtext">
+          <xs:attributeGroup ref="attlist.anchoredtext"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.anchoredtext" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.anchoredtext">
+    <xs:attributeGroup ref="att.common.anl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="att.xy.required"/>
+    <xs:attribute name="startid" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:element name="annot" substitutionGroup="model.annotLike"/>
+  <xs:complexType name="content.annot" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textphraseLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.annot">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="att.log.annot"/>
+    <xs:attributeGroup ref="att.link.common"/>
+    <xs:attributeGroup ref="att.link.internal"/>
+    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attribute name="resp" type="xs:IDREF"/>
+    <xs:attribute name="source" type="xs:IDREFS"/>
+  </xs:attributeGroup>
+  <xs:element name="bibl" substitutionGroup="model.biblLike"/>
+  <xs:complexType name="content.bibl" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.biblPart"/>
+      <xs:group ref="model.textphraseLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.bibl">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.link.common"/>
+    <xs:attributeGroup ref="att.link.external"/>
+  </xs:attributeGroup>
+  <xs:element name="date" substitutionGroup="model.dateLike"/>
+  <xs:complexType name="content.date" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.date">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.date"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="edition" substitutionGroup="model.editionLike"/>
+  <xs:complexType name="content.edition" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.edition">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="expan" substitutionGroup="model.editorialLike">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.expan">
+          <xs:attributeGroup ref="attlist.expan"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.expan" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.expan">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.edit"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.trans"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attribute name="abbr"/>
+  </xs:attributeGroup>
+  <xs:element name="figdesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.figdesc">
+          <xs:attributeGroup ref="attlist.figdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.figdesc" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.textcomponentLike"/>
+      <xs:element ref="model.annotLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.figdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="fw">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.fw">
+          <xs:attributeGroup ref="attlist.fw"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.fw" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textphraseLike.limited"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.fw">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="graphic">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.graphic"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.graphic">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attribute name="height" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="units"/>
+    <xs:attribute name="width" type="data.INTEGERPOSITIVE"/>
+  </xs:attributeGroup>
+  <xs:element name="identifier" substitutionGroup="model.identifierLike"/>
+  <xs:complexType name="content.identifier" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.identifier">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="lb">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.lb"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.lb">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attribute name="func">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="line"/>
+          <xs:enumeration value="group"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="source" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:element name="name" substitutionGroup="model.nameLike"/>
+  <xs:complexType name="content.name" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.name">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.name"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="num" substitutionGroup="model.numLike"/>
+  <xs:complexType name="content.num" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.num">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attribute name="units"/>
+  </xs:attributeGroup>
+  <xs:element name="p" substitutionGroup="model.pLike"/>
+  <xs:complexType name="content.p" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.paracontentPart"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.p">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.xy"/>
+  </xs:attributeGroup>
+  <xs:element name="pb" substitutionGroup="model.pbLike"/>
+  <xs:complexType name="content.pb">
+    <xs:complexContent>
+      <xs:extension base="model.pgmetaLike"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.pb">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.link.common"/>
+    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attribute name="func">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="verso"/>
+          <xs:enumeration value="recto"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="source" type="xs:IDREFS"/>
+  </xs:attributeGroup>
+  <xs:element name="pgdesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pgdesc">
+          <xs:attributeGroup ref="attlist.pgdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.pgdesc" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.textcomponentLike"/>
+      <xs:element ref="model.annotLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.pgdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="rend" substitutionGroup="model.rendLike">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.rend">
+          <xs:attributeGroup ref="attlist.rend"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.rend" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.rend">
+    <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.typography"/>
+    <xs:attribute name="altrend"/>
+    <xs:attribute name="halign">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="right"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="justify"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="rend" type="data.TEXTRENDITION"/>
+    <xs:attribute name="rotation" type="data.DEGREES"/>
+    <xs:attribute name="valign">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="top"/>
+          <xs:enumeration value="middle"/>
+          <xs:enumeration value="bottom"/>
+          <xs:enumeration value="baseline"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="repository">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.repository">
+          <xs:attributeGroup ref="attlist.repository"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.repository" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.repository">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.name"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="stack" substitutionGroup="model.rendLike">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.stack">
+          <xs:attributeGroup ref="attlist.stack"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.stack" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.stack">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attribute name="delim"/>
+    <xs:attribute name="align">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="right"/>
+          <xs:enumeration value="center"/>
+          <xs:enumeration value="rightdigit"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="title" substitutionGroup="model.titleLike"/>
+  <xs:complexType name="content.title" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.title">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.name"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attribute name="level">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="a"/>
+          <xs:enumeration value="m"/>
+          <xs:enumeration value="j"/>
+          <xs:enumeration value="s"/>
+          <xs:enumeration value="u"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="clef" substitutionGroup="model.staffdefPart.multiplyDefinable">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.clef"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.clef">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.clef"/>
+  </xs:attributeGroup>
+  <xs:element name="custos" substitutionGroup="model.eventLike.common">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.custos"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.custos">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.custos"/>
+  </xs:attributeGroup>
+  <xs:element name="clefchange" substitutionGroup="model.eventLike.common">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.clefchange">
+          <xs:attributeGroup ref="attlist.clefchange"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.clefchange">
+    <xs:complexContent>
+      <xs:extension base="model.clefchangePart"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.clefchange">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.event"/>
+    <xs:attributeGroup ref="att.log.clefchange"/>
+  </xs:attributeGroup>
+  <xs:element name="pad" substitutionGroup="model.eventLike.common">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.pad"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.pad">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.pad"/>
+  </xs:attributeGroup>
+  <xs:element name="space" substitutionGroup="model.eventLike.common">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.space"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.space">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.space"/>
+  </xs:attributeGroup>
+  <xs:element name="dir" substitutionGroup="model.controleventLike.common">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.dir">
+          <xs:attributeGroup ref="attlist.dir"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.dir" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.dir">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="att.log.dir"/>
+  </xs:attributeGroup>
+  <xs:element name="dynam" substitutionGroup="model.controleventLike.common">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.dynam">
+          <xs:attributeGroup ref="attlist.dynam"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.dynam" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.dynam">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.dynam"/>
+  </xs:attributeGroup>
+  <xs:element name="phrase" substitutionGroup="model.controleventLike.common">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.phrase"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.phrase">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.phrase"/>
+  </xs:attributeGroup>
+  <xs:element name="tempo" substitutionGroup="model.controleventLike.common">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.tempo">
+          <xs:attributeGroup ref="attlist.tempo"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.tempo" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.tempo">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.log.tempo"/>
+  </xs:attributeGroup>
+  <xs:element name="mensur" substitutionGroup="model.staffdefPart.multiplyDefinable">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.mensur"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.mensur">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.mensur"/>
+  </xs:attributeGroup>
+  <xs:element name="proport" substitutionGroup="model.staffdefPart.multiplyDefinable">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.proport"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.proport">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.proport"/>
+  </xs:attributeGroup>
+  <xs:element name="ligature" substitutionGroup="model.eventLike.neume-mensural">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.ligature">
+          <xs:attributeGroup ref="attlist.ligature"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.ligature">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.layerPart"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.ligature">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.ligature"/>
+  </xs:attributeGroup>
+  <xs:element name="mensurchange" substitutionGroup="model.eventLike.neume-mensural">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.mensurchange">
+          <xs:attributeGroup ref="attlist.mensurchange"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.mensurchange">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="mensur"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.mensurchange">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="proportchange" substitutionGroup="model.eventLike.neume-mensural">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.proportchange">
+          <xs:attributeGroup ref="attlist.proportchange"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.proportchange">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="proport"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.proportchange">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="artic" substitutionGroup="model.noteModifierLike">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.artic"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.artic">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typography"/>
+    <xs:attributeGroup ref="att.log.artic"/>
+  </xs:attributeGroup>
+  <xs:element name="keyaccid" substitutionGroup="model.keyaccidLike"/>
+  <xs:attributeGroup name="attlist.keyaccid">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.xy"/>
+    <xs:attribute name="enclose" type="data.ENCLOSURE"/>
+    <xs:attribute name="form">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="implicit"/>
+          <xs:enumeration value="explicit"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="oct" type="data.OCTAVE"/>
+    <xs:attribute name="pname" use="required" type="data.PITCHNAME"/>
+    <xs:attribute name="staffloc" type="data.STAFFLOC"/>
+    <xs:attribute name="value" use="required" type="data.ACCIDENTAL.EXPLICIT"/>
+  </xs:attributeGroup>
+  <xs:element name="keysig" substitutionGroup="model.keysigLike"/>
+  <xs:complexType name="content.keysig">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.keyaccidLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.keysig">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attribute name="accid" type="data.ACCIDENTAL.IMPLICIT"/>
+    <xs:attribute name="mode" type="data.MODE"/>
+    <xs:attribute name="pname" type="data.PITCHNAME"/>
+  </xs:attributeGroup>
+  <xs:element name="accid" substitutionGroup="model.noteModifierLike">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.accid"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.accid">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typography"/>
+    <xs:attributeGroup ref="att.log.accid"/>
+  </xs:attributeGroup>
+  <xs:element name="barline" substitutionGroup="model.eventLike.mensural-cmn">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.barline"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.barline">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.link.common"/>
+    <xs:attributeGroup ref="att.link.internal"/>
+    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attributeGroup ref="att.log.barline"/>
+  </xs:attributeGroup>
+  <xs:element name="dot" substitutionGroup="model.noteModifierLike">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.dot"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.dot">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.dot"/>
+  </xs:attributeGroup>
+  <xs:element name="keychange" substitutionGroup="model.eventLike.mensural-cmn">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.keychange">
+          <xs:attributeGroup ref="attlist.keychange"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.keychange">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.keyaccidLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.keychange">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="body">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.body">
+          <xs:attributeGroup ref="attlist.body"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.body">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.mdivLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.body">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="ending" substitutionGroup="model.endingLike"/>
+  <xs:complexType name="content.ending">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.sectionPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.ending">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="att.link.common"/>
+    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attributeGroup ref="att.link.internal"/>
+  </xs:attributeGroup>
+  <xs:element name="group">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.group">
+          <xs:attributeGroup ref="attlist.group"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.group">
+    <xs:sequence>
+      <xs:choice>
+        <xs:element ref="music"/>
+        <xs:element ref="group"/>
+      </xs:choice>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="music"/>
+        <xs:element ref="group"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.group">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="grpsym">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.grpsym">
+          <xs:attributeGroup ref="attlist.grpsym"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.grpsym">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.grpsym">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.grpsym"/>
+  </xs:attributeGroup>
+  <xs:element name="instrdef" substitutionGroup="model.instrdefLike"/>
+  <xs:attributeGroup name="attlist.instrdef">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attribute name="midi.channel" type="data.MIDICHANNEL"/>
+    <xs:attribute name="midi.duty" type="data.PERCENT"/>
+    <xs:attribute name="midi.instr" type="data.MIDIVALUE"/>
+    <xs:attribute name="midi.instrname"/>
+    <xs:attribute name="midi.port" type="data.MIDIVALUE"/>
+    <xs:attribute name="midi.track" type="data.INTEGERPOSITIVE"/>
+  </xs:attributeGroup>
+  <xs:element name="label" substitutionGroup="model.labelLike"/>
+  <xs:complexType name="content.label" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.label">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attribute name="source" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:element name="layer" substitutionGroup="model.layerLike"/>
+  <xs:complexType name="content.layer">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.layerPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.layer">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="layerdef" substitutionGroup="model.layerdefLike"/>
+  <xs:complexType name="content.layerdef">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.instrdefLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.layerdef">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.layerdef"/>
+  </xs:attributeGroup>
+  <xs:element name="mdiv" substitutionGroup="model.mdivLike"/>
+  <xs:complexType name="content.mdiv">
+    <xs:choice>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="model.scoreLike"/>
+        <xs:element minOccurs="0" ref="model.partsLike"/>
+      </xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.mdivLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.mdiv">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="part" substitutionGroup="model.partLike"/>
+  <xs:complexType name="content.part">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.scorePart"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.part">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="parts" substitutionGroup="model.partsLike"/>
+  <xs:complexType name="content.parts">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.partLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.parts">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="pgfoot1">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pgfoot1">
+          <xs:attributeGroup ref="attlist.pgfoot1"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.pgfoot1" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textphraseLike.limited"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.pgfoot1">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="pgfoot2">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pgfoot2">
+          <xs:attributeGroup ref="attlist.pgfoot2"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.pgfoot2" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textphraseLike.limited"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.pgfoot2">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="pghead1">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pghead1">
+          <xs:attributeGroup ref="attlist.pghead1"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.pghead1" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textphraseLike.limited"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.pghead1">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="pghead2">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pghead2">
+          <xs:attributeGroup ref="attlist.pghead2"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.pghead2" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textphraseLike.limited"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.pghead2">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="sb" substitutionGroup="model.milestoneLike.music">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.sb">
+          <xs:attributeGroup ref="attlist.sb"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.sb">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="custos"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.sb">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.sb"/>
+  </xs:attributeGroup>
+  <xs:element name="score" substitutionGroup="model.scoreLike"/>
+  <xs:complexType name="content.score">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.scorePart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.score">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="scoredef">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.scoredef">
+          <xs:attributeGroup ref="attlist.scoredef"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.scoredef">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="model.keysigLike"/>
+      <xs:group ref="model.pgmetaLike.score"/>
+      <xs:choice>
+        <xs:element minOccurs="0" ref="model.staffgrpLike"/>
+        <xs:element minOccurs="0" ref="model.staffdefLike"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.scoredef">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.scoredef"/>
+  </xs:attributeGroup>
+  <xs:element name="section" substitutionGroup="model.sectionLike"/>
+  <xs:complexType name="content.section">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.sectionPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.section">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="att.link.common"/>
+    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attributeGroup ref="att.link.internal"/>
+  </xs:attributeGroup>
+  <xs:element name="staff" substitutionGroup="model.staffLike"/>
+  <xs:complexType name="content.staff">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:group ref="model.staffPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
+      </xs:sequence>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.staff">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="staffdef" substitutionGroup="model.staffdefLike"/>
+  <xs:complexType name="content.staffdef">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
+      <xs:element minOccurs="0" ref="model.keysigLike"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="model.instrdefLike"/>
+        <xs:element ref="model.layerdefLike"/>
+        <xs:element ref="model.staffdefPart.multiplyDefinable"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.staffdef">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.log.staffdef"/>
+  </xs:attributeGroup>
+  <xs:element name="staffgrp" substitutionGroup="model.staffgrpLike"/>
+  <xs:complexType name="content.staffgrp">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="grpsym"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.instrdefLike"/>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="model.staffgrpLike"/>
+        <xs:element ref="model.staffdefLike"/>
+      </xs:choice>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="grpsym"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.staffgrp">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="accessdesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.accessdesc">
+          <xs:attributeGroup ref="attlist.accessdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.accessdesc" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.accessdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="acqsource">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.acqsource">
+          <xs:attributeGroup ref="attlist.acqsource"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.acqsource" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.acqsource">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="altmeiid">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.altmeiid">
+          <xs:attributeGroup ref="attlist.altmeiid"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.altmeiid" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.altmeiid">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:element name="appinfo">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.appinfo">
+          <xs:attributeGroup ref="attlist.appinfo"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.appinfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="application"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.appinfo">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="application">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.application">
+          <xs:attributeGroup ref="attlist.application"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.application">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="name"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.application">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.date"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attribute name="version"/>
+  </xs:attributeGroup>
+  <xs:element name="availability">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.availability">
+          <xs:attributeGroup ref="attlist.availability"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.availability">
+    <xs:complexContent>
+      <xs:extension base="model.availabilityPart"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.availability">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="change">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.change">
+          <xs:attributeGroup ref="attlist.change"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.change">
+    <xs:sequence>
+      <xs:element ref="respstmt"/>
+      <xs:element ref="changedesc"/>
+      <xs:element ref="model.dateLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.change">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="changedesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.changedesc">
+          <xs:attributeGroup ref="attlist.changedesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.changedesc">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.changedesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="classcode">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.classcode"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.classcode">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="classification">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.classification">
+          <xs:attributeGroup ref="attlist.classification"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.classification">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element ref="classcode"/>
+      <xs:element ref="keywords"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.classification">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="condition">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.condition">
+          <xs:attributeGroup ref="attlist.condition"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.condition" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.condition">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="correction" substitutionGroup="model.editorialdeclPart">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.correction">
+          <xs:attributeGroup ref="attlist.correction"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.correction">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.correction">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="method">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="silent"/>
+          <xs:enumeration value="tags"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="status">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="high"/>
+          <xs:enumeration value="medium"/>
+          <xs:enumeration value="low"/>
+          <xs:enumeration value="unknown"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="creation">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.creation">
+          <xs:attributeGroup ref="attlist.creation"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.creation">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.textcomponentLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.creation">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="dimensions">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.dimensions">
+          <xs:attributeGroup ref="attlist.dimensions"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.dimensions" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.dimensions">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="units"/>
+  </xs:attributeGroup>
+  <xs:element name="editionstmt">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.editionstmt">
+          <xs:attributeGroup ref="attlist.editionstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.editionstmt">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:element ref="edition"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="respstmt"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.editionstmt">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="editorialdecl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.editorialdecl">
+          <xs:attributeGroup ref="attlist.editorialdecl"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.editorialdecl">
+    <xs:choice>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="model.editorialdeclPart"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
+      </xs:sequence>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.editorialdecl">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="encodingdesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.encodingdesc">
+          <xs:attributeGroup ref="attlist.encodingdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.encodingdesc">
+    <xs:complexContent>
+      <xs:extension base="model.encodingPart"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.encodingdesc">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="exhibithist">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.exhibithist">
+          <xs:attributeGroup ref="attlist.exhibithist"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.exhibithist" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.exhibithist">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="extent">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.extent">
+          <xs:attributeGroup ref="attlist.extent"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.extent" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.extent">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="units"/>
+  </xs:attributeGroup>
+  <xs:element name="filedesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.filedesc">
+          <xs:attributeGroup ref="attlist.filedesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.filedesc">
+    <xs:sequence>
+      <xs:element ref="titlestmt"/>
+      <xs:element minOccurs="0" ref="editionstmt"/>
+      <xs:element minOccurs="0" ref="extent"/>
+      <xs:element minOccurs="0" ref="fingerprint"/>
+      <xs:element ref="pubstmt"/>
+      <xs:element minOccurs="0" ref="seriesstmt"/>
+      <xs:element minOccurs="0" ref="notesstmt"/>
+      <xs:element minOccurs="0" ref="sourcedesc"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.filedesc">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="fingerprint">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.fingerprint"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.fingerprint">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:element name="hand">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.hand">
+          <xs:attributeGroup ref="attlist.hand"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.hand" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.hand">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="initial" type="data.BOOLEAN"/>
+    <xs:attribute name="medium"/>
+    <xs:attribute name="resp" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:element name="handlist">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.handlist">
+          <xs:attributeGroup ref="attlist.handlist"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.handlist">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="hand"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.handlist">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="inscription">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.inscription">
+          <xs:attributeGroup ref="attlist.inscription"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.inscription" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.inscription">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="interpretation" substitutionGroup="model.editorialdeclPart">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.interpretation">
+          <xs:attributeGroup ref="attlist.interpretation"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.interpretation">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.interpretation">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="keywords">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.keywords">
+          <xs:attributeGroup ref="attlist.keywords"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.keywords">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="term"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.keywords">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="language">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.language">
+          <xs:attributeGroup ref="attlist.language"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.language" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.language">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="authority"/>
+  </xs:attributeGroup>
+  <xs:element name="langusage">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.langusage">
+          <xs:attributeGroup ref="attlist.langusage"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.langusage">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="language"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.langusage">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="normalization" substitutionGroup="model.editorialdeclPart">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.normalization">
+          <xs:attributeGroup ref="attlist.normalization"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.normalization">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.normalization">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="method">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="silent"/>
+          <xs:enumeration value="tags"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="notesstmt">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.notesstmt">
+          <xs:attributeGroup ref="attlist.notesstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.notesstmt">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.annotLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.notesstmt">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="physdesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.physdesc">
+          <xs:attributeGroup ref="attlist.physdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.physdesc">
+    <xs:group maxOccurs="unbounded" ref="model.physdescPart"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.physdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="physloc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.physloc">
+          <xs:attributeGroup ref="attlist.physloc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.physloc" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.physloc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="physmedium">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.physmedium">
+          <xs:attributeGroup ref="attlist.physmedium"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.physmedium" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.physmedium">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="authority"/>
+  </xs:attributeGroup>
+  <xs:element name="price">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.price">
+          <xs:attributeGroup ref="attlist.price"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.price" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.price">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="units"/>
+  </xs:attributeGroup>
+  <xs:element name="profiledesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.profiledesc">
+          <xs:attributeGroup ref="attlist.profiledesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.profiledesc">
+    <xs:complexContent>
+      <xs:extension base="model.profiledescPart"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.profiledesc">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="projectdesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.projectdesc">
+          <xs:attributeGroup ref="attlist.projectdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.projectdesc">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.projectdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="provenance">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.provenance">
+          <xs:attributeGroup ref="attlist.provenance"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.provenance" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.provenance">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="pubstmt">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pubstmt">
+          <xs:attributeGroup ref="attlist.pubstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.pubstmt">
+    <xs:choice>
+      <xs:element minOccurs="0" ref="unpub"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pubstmtPart"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.pubstmt">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="resp">
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.resp"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.resp">
+    <xs:attribute name="authority"/>
+  </xs:attributeGroup>
+  <xs:element name="respstmt">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.respstmt">
+          <xs:attributeGroup ref="attlist.respstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.respstmt">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="resp"/>
+      <xs:element ref="model.nameLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.respstmt">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="revisiondesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.revisiondesc">
+          <xs:attributeGroup ref="attlist.revisiondesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.revisiondesc">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="change"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.revisiondesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="samplingdecl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.samplingdecl">
+          <xs:attributeGroup ref="attlist.samplingdecl"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.samplingdecl">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.samplingdecl">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="segmentation" substitutionGroup="model.editorialdeclPart">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.segmentation">
+          <xs:attributeGroup ref="attlist.segmentation"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.segmentation">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.segmentation">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="seriesstmt">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.seriesstmt">
+          <xs:attributeGroup ref="attlist.seriesstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.seriesstmt">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="title"/>
+      <xs:element minOccurs="0" ref="respstmt"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="identifier"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="seriesstmt"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.seriesstmt">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="source">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.source">
+          <xs:attributeGroup ref="attlist.source"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.source">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="identifier"/>
+      <xs:element minOccurs="0" ref="titlestmt"/>
+      <xs:element minOccurs="0" ref="editionstmt"/>
+      <xs:element ref="pubstmt"/>
+      <xs:element minOccurs="0" ref="physdesc"/>
+      <xs:element minOccurs="0" ref="seriesstmt"/>
+      <xs:element minOccurs="0" ref="notesstmt"/>
+      <xs:element minOccurs="0" ref="langusage"/>
+      <xs:element minOccurs="0" ref="classification"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.source">
+    <xs:attribute name="data" type="xs:IDREFS"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="sourcedesc">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.sourcedesc">
+          <xs:attributeGroup ref="attlist.sourcedesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.sourcedesc">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="source"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.sourcedesc">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="stdvals" substitutionGroup="model.editorialdeclPart">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.stdvals">
+          <xs:attributeGroup ref="attlist.stdvals"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.stdvals">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.stdvals">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="sysreq">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.sysreq">
+          <xs:attributeGroup ref="attlist.sysreq"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.sysreq" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.sysreq">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="term">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.term">
+          <xs:attributeGroup ref="attlist.term"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.term" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="term"/>
+      <xs:group ref="model.textphraseLike.limited"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.term">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="classcode" type="xs:IDREF"/>
+  </xs:attributeGroup>
+  <xs:element name="titlestmt">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.titlestmt">
+          <xs:attributeGroup ref="attlist.titlestmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.titlestmt">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="title"/>
+      <xs:element minOccurs="0" ref="respstmt"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.titlestmt">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="treatmenthist">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.treatmenthist">
+          <xs:attributeGroup ref="attlist.treatmenthist"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.treatmenthist" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.treatmenthist">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="treatmentsched">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.treatmentsched">
+          <xs:attributeGroup ref="attlist.treatmentsched"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.treatmentsched" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.treatmentsched">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="unpub">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.unpub"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.unpub">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="userestrict">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.userestrict">
+          <xs:attributeGroup ref="attlist.userestrict"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="content.userestrict" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:attributeGroup name="attlist.userestrict">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="mei">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="meihead"/>
+        <xs:element ref="music"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="attlist.mei"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.mei">
+    <xs:attribute name="id" type="xs:ID"/>
+    <xs:attribute name="version" default="1.9b">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="1.9b"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="meicorpus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="meihead"/>
+        <xs:element maxOccurs="unbounded" ref="mei"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="attlist.meicorpus"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.meicorpus">
+    <xs:attribute name="id" type="xs:ID"/>
+    <xs:attribute name="version" default="1.9b">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="1.9b"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="meihead">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="altmeiid"/>
+        <xs:element ref="filedesc"/>
+        <xs:group ref="model.headerPart"/>
+        <xs:element minOccurs="0" ref="revisiondesc"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="attlist.meihead"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.meihead">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attribute name="type">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="music"/>
+          <xs:enumeration value="corpus"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="version" default="1.9b">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="1.9b"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="music">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="model.musicPart">
+          <xs:attributeGroup ref="attlist.music"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.music">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attribute name="version" default="1.9b">
+      <xs:simpleType>
+        <xs:restriction base="xs:NMTOKEN">
+          <xs:enumeration value="1.9b"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+</xs:schema>

@@ -13,8 +13,6 @@
           temporal correspondence. It should be used to point to when elements within one
           or more timeline elements.</xhtml:p>
       </xhtml:div>
-      <xhtml:div class="example"></xhtml:div>
-      <xhtml:div class="example"></xhtml:div>
     </xhtml:div>
     <define name="att.alignment">
       <optional>
@@ -87,7 +85,7 @@
         <xhtml:p>Common attributes: Each id within a document must have a unique value.
           The id attribute regularizes the naming of the element and thus facilitates
           building links between it and other resources. The n attribute may be used to
-          provide a label (name or number) for the element. This need not be
+          provide a label (name or number) for the element. Its value need not be
           unique.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
@@ -423,6 +421,12 @@
         </attribute>
       </optional>
       <optional>
+        <attribute name="arcrole"/>
+      </optional>
+      <optional>
+        <attribute name="role"/>
+      </optional>
+      <optional>
         <attribute name="show">
           <choice>
             <value>new</value>
@@ -436,6 +440,9 @@
         <attribute name="targettype">
           <data type="NMTOKEN"/>
         </attribute>
+      </optional>
+      <optional>
+        <attribute name="title"/>
       </optional>
     </define>
   </div>
@@ -518,12 +525,17 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.name</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Attributes shared by names: The dbkey attribute may be used to record a
-          value which serves as a primary key in an external database. The reg attribute
-          may be used to record a regularized form of the name.</xhtml:p>
+        <xhtml:p>Attributes shared by names: The authority attribute should contain the
+          name of the list from which a controlled value is taken, such as the Thesaurus
+          of Geographic Names (TGN), etc. The key attribute may be used to record a value
+          which serves as a primary key in an external database. The reg attribute may be
+          used to record a regularized form of the name.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.name">
+      <optional>
+        <attribute name="authority"/>
+      </optional>
       <optional>
         <attribute name="key">
           <data type="NMTOKEN"/>
@@ -1106,19 +1118,6 @@
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.grpsym">
-      <optional>
-        <attribute name="barthru">
-          <ref name="data.BOOLEAN"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="label.abbr"/>
-      </optional>
-      <optional>
-        <attribute name="label.full"/>
-      </optional>
-      <attribute name="start"/>
-      <attribute name="end"/>
       <attribute name="symbol">
         <choice>
           <value>brace</value>
@@ -3365,12 +3364,6 @@
         </attribute>
       </optional>
       <optional>
-        <attribute name="brace"/>
-      </optional>
-      <optional>
-        <attribute name="bracket"/>
-      </optional>
-      <optional>
         <attribute name="label.abbr"/>
       </optional>
       <optional>
@@ -4946,14 +4939,14 @@
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.ftrem">
-      <attribute name="rend">
+      <attribute name="slash">
         <choice>
+          <value>1</value>
+          <value>2</value>
+          <value>3</value>
           <value>4</value>
-          <value>8</value>
-          <value>16</value>
-          <value>32</value>
-          <value>64</value>
-          <value>128</value>
+          <value>5</value>
+          <value>6</value>
         </choice>
       </attribute>
     </define>
@@ -8363,7 +8356,7 @@
       </optional>
       <optional>
         <attribute name="num">
-          <ref name="data.RATIO"/>
+          <ref name="data.INTEGERPOSITIVE"/>
         </attribute>
       </optional>
       <optional>
@@ -8475,7 +8468,7 @@
       </optional>
       <optional>
         <attribute name="num">
-          <ref name="data.RATIO"/>
+          <ref name="data.INTEGERNONNEGATIVE"/>
         </attribute>
       </optional>
       <optional>
@@ -8809,6 +8802,20 @@
     </define>
   </div>
 
+  <div xml:id="model.noteModifierLike">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.noteModifierLike</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="model.noteModifierLike">
+      <choice>
+        <ref name="accid"/>
+        <ref name="artic"/>
+        <ref name="dot"/>
+      </choice>
+    </define>
+  </div>
+
   <div xml:id="model.numLike">
     <xhtml:div>
       <xhtml:h1 class="name">model.numLike</xhtml:h1>
@@ -8933,6 +8940,19 @@
         <ref name="ligature"/>
         <ref name="mensurchange"/>
         <ref name="proportchange"/>
+      </choice>
+    </define>
+  </div>
+
+  <div xml:id="model.eventLike.mensural-cmn">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.eventLike.mensural-cmn</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="model.eventLike.mensural-cmn">
+      <choice>
+        <ref name="barline"/>
+        <ref name="keychange"/>
       </choice>
     </define>
   </div>
@@ -9072,16 +9092,6 @@
     </define>
   </div>
 
-  <div xml:id="model.endingLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.endingLike</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.endingLike">
-      <ref name="ending"/>
-    </define>
-  </div>
-
   <div xml:id="model.instrdefLike">
     <xhtml:div>
       <xhtml:h1 class="name">model.instrdefLike</xhtml:h1>
@@ -9183,36 +9193,6 @@
     </xhtml:div>
     <define name="model.scoreLike">
       <ref name="score"/>
-    </define>
-  </div>
-
-  <div xml:id="model.scoredefLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.scoredefLike</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.scoredefLike">
-      <ref name="scoredef"/>
-    </define>
-  </div>
-
-  <div xml:id="model.sectionLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.sectionLike</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.sectionLike">
-      <ref name="section"/>
-    </define>
-  </div>
-
-  <div xml:id="model.staffLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.staffLike</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.staffLike">
-      <ref name="staff"/>
     </define>
   </div>
 
@@ -9379,10 +9359,7 @@
   <div xml:id="model.locrefLike">
     <xhtml:div>
       <xhtml:h1 class="name">model.locrefLike</xhtml:h1>
-      <xhtml:div class="desc">
-        <xhtml:p>Location/referencing elements. These entities must be declared before the
-          model.textphraseLike and model.textphraseLike.limited entities.</xhtml:p>
-      </xhtml:div>
+      <xhtml:div class="desc"/>
     </xhtml:div>
     <define name="model.locrefLike">
       <choice>
@@ -9444,6 +9421,20 @@
     </define>
   </div>
 
+  <div xml:id="model.ornamentLike.cmn">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.ornamentLike.cmn</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="model.ornamentLike.cmn">
+      <choice>
+        <ref name="mordent"/>
+        <ref name="trill"/>
+        <ref name="turn"/>
+      </choice>
+    </define>
+  </div>
+
   <div xml:id="model.neumeModifierLike">
     <xhtml:div>
       <xhtml:h1 class="name">model.neumeModifierLike</xhtml:h1>
@@ -9467,22 +9458,6 @@
       <choice>
         <ref name="ineume"/>
         <ref name="uneume"/>
-        <ref name="syllable"/>
-      </choice>
-    </define>
-  </div>
-
-  <div xml:id="model.notaModifierLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.notaModifierLike</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.notaModifierLike">
-      <choice>
-        <ref name="accid"/>
-        <ref name="artic"/>
-        <ref name="model.sylLike"/>
-        <ref name="model.verseLike"/>
       </choice>
     </define>
   </div>
@@ -9500,20 +9475,6 @@
     </define>
   </div>
 
-  <div xml:id="model.ornamentLike.cmn">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.ornamentLike.cmn</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.ornamentLike.cmn">
-      <choice>
-        <ref name="mordent"/>
-        <ref name="trill"/>
-        <ref name="turn"/>
-      </choice>
-    </define>
-  </div>
-
   <div xml:id="model.measureLike">
     <xhtml:div>
       <xhtml:h1 class="name">model.measureLike</xhtml:h1>
@@ -9521,31 +9482,6 @@
     </xhtml:div>
     <define name="model.measureLike">
       <ref name="measure"/>
-    </define>
-  </div>
-
-  <div xml:id="model.noteModifierLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.noteModifierLike</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.noteModifierLike">
-      <choice>
-        <ref name="accid"/>
-        <ref name="artic"/>
-        <ref name="model.verseLike"/>
-        <ref name="model.sylLike"/>
-      </choice>
-    </define>
-  </div>
-
-  <div xml:id="model.ossiaLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.ossiaLike</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.ossiaLike">
-      <ref name="ossia"/>
     </define>
   </div>
 
@@ -9574,7 +9510,6 @@
         <ref name="breath"/>
         <ref name="fermata"/>
         <ref name="hairpin"/>
-        <ref name="model.lyricsLike"/>
         <ref name="octave"/>
         <ref name="model.ornamentLike.cmn"/>
         <ref name="reh"/>
@@ -9683,10 +9618,7 @@
   <div xml:id="model.midiLike">
     <xhtml:div>
       <xhtml:h1 class="name">model.midiLike</xhtml:h1>
-      <xhtml:div class="desc">
-        <xhtml:p>This entity must be declared before the model.controlevents
-          entity.</xhtml:p>
-      </xhtml:div>
+      <xhtml:div class="desc"/>
     </xhtml:div>
     <define name="model.midiLike">
       <ref name="midi"/>
@@ -9759,9 +9691,7 @@
   <div xml:id="model.facsimileLike">
     <xhtml:div>
       <xhtml:h1 class="name">model.facsimileLike</xhtml:h1>
-      <xhtml:div class="desc">
-        <xhtml:p>doc:</xhtml:p>
-      </xhtml:div>
+      <xhtml:div class="desc"/>
     </xhtml:div>
     <define name="model.facsimileLike">
       <ref name="facsimile"/>
@@ -9775,6 +9705,80 @@
     </xhtml:div>
     <define name="model.alignLike">
       <ref name="timeline"/>
+    </define>
+  </div>
+
+  <div xml:id="model.headerPart">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.headerPart</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="model.headerPart">
+      <optional>
+        <ref name="encodingdesc"/>
+      </optional>
+      <optional>
+        <ref name="profiledesc"/>
+      </optional>
+    </define>
+  </div>
+
+  <div xml:id="model.physdescPart">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.physdescPart</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="model.physdescPart">
+      <choice>
+        <ref name="condition"/>
+        <ref name="dimensions"/>
+        <ref name="exhibithist"/>
+        <ref name="extent"/>
+        <ref name="handlist"/>
+        <ref name="inscription"/>
+        <ref name="physmedium"/>
+        <ref name="physloc"/>
+        <ref name="provenance"/>
+        <ref name="repository"/>
+        <ref name="model.frontPart"/>
+        <ref name="treatmenthist"/>
+        <ref name="treatmentsched"/>
+      </choice>
+    </define>
+  </div>
+
+  <div xml:id="model.profiledescPart">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.profiledescPart</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="model.profiledescPart">
+      <optional>
+        <ref name="creation"/>
+      </optional>
+      <optional>
+        <ref name="langusage"/>
+      </optional>
+      <optional>
+        <ref name="classification"/>
+      </optional>
+    </define>
+  </div>
+
+  <div xml:id="model.pubstmtPart">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.pubstmtPart</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="model.pubstmtPart">
+      <choice>
+        <ref name="model.nameLike.geogname"/>
+        <ref name="model.addressLike"/>
+        <ref name="respstmt"/>
+        <ref name="model.dateLike"/>
+        <ref name="identifier"/>
+        <ref name="availability"/>
+      </choice>
     </define>
   </div>
 
@@ -9878,97 +9882,53 @@
     </define>
   </div>
 
-  <div xml:id="model.physdescPart">
+  <div xml:id="model.Incl">
     <xhtml:div>
-      <xhtml:h1 class="name">model.physdescPart</xhtml:h1>
+      <xhtml:h1 class="name">model.Incl</xhtml:h1>
       <xhtml:div class="desc"/>
     </xhtml:div>
-    <define name="model.physdescPart">
+    <define name="model.Incl">
       <choice>
-        <ref name="condition"/>
-        <ref name="dimensions"/>
-        <ref name="exhibithist"/>
-        <ref name="extent"/>
-        <ref name="handlist"/>
-        <ref name="inscription"/>
-        <ref name="physmedium"/>
-        <ref name="physloc"/>
-        <ref name="provenance"/>
-        <ref name="repository"/>
-        <ref name="model.frontPart"/>
-        <ref name="treatmenthist"/>
-        <ref name="treatmentsched"/>
+        <ref name="model.apparatusLike"/>
+        <ref name="model.divLike"/>
+        <ref name="model.milestoneLike.music"/>
+        <ref name="scoredef"/>
+        <ref name="staffdef"/>
+        <ref name="staffgrp"/>
+        <ref name="model.annotLike"/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
       </choice>
     </define>
   </div>
 
-  <div xml:id="model.profiledescPart">
+  <div xml:id="model.clefchangePart">
     <xhtml:div>
-      <xhtml:h1 class="name">model.profiledescPart</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.profiledescPart">
-      <optional>
-        <ref name="creation"/>
-      </optional>
-      <optional>
-        <ref name="langusage"/>
-      </optional>
-      <optional>
-        <ref name="classification"/>
-      </optional>
-    </define>
-  </div>
-
-  <div xml:id="model.headerPart">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.headerPart</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.headerPart">
-      <optional>
-        <ref name="encodingdesc"/>
-      </optional>
-      <optional>
-        <ref name="profiledesc"/>
-      </optional>
-    </define>
-  </div>
-
-  <div xml:id="model.pubstmtPart">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.pubstmtPart</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.pubstmtPart">
-      <choice>
-        <ref name="model.nameLike.geogname"/>
-        <ref name="model.addressLike"/>
-        <ref name="respstmt"/>
-        <ref name="model.dateLike"/>
-        <ref name="identifier"/>
-        <ref name="availability"/>
-      </choice>
-    </define>
-  </div>
-
-  <div xml:id="model.controleventLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.controleventLike</xhtml:h1>
+      <xhtml:h1 class="name">model.clefchangePart</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Control events modify or otherwise depend on the existence of notated
-          events.</xhtml:p>
+        <xhtml:p>doc:</xhtml:p>
       </xhtml:div>
     </xhtml:div>
-    <define name="model.controleventLike">
+    <define name="model.clefchangePart">
+      <zeroOrMore>
+        <ref name="clef"/>
+      </zeroOrMore>
+    </define>
+  </div>
+
+  <div xml:id="model.staffdefPart.multiplyDefinable">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.staffdefPart.multiplyDefinable</xhtml:h1>
+      <xhtml:div class="desc">
+        <xhtml:p>Multiple clefs</xhtml:p>
+      </xhtml:div>
+    </xhtml:div>
+    <define name="model.staffdefPart.multiplyDefinable">
       <choice>
-        <ref name="model.controleventLike.common"/>
-        <ref name="_DUMMYmodel.controleventLike.neume"/>
-        <ref name="_DUMMYmodel.controleventLike.neume-mensural"/>
-        <ref name="_DUMMYmodel.controleventLike.mensural"/>
-        <ref name="_DUMMYmodel.controleventLike.mensural-cmn"/>
-        <ref name="model.controleventLike.cmn"/>
-        <ref name="model.harmLike"/>
+        <ref name="clef"/>
+        <ref name="mensur"/>
+        <ref name="proport"/>
       </choice>
     </define>
   </div>
@@ -9990,23 +9950,31 @@
         <ref name="model.eventLike.neume-mensural"/>
         <ref name="_DUMMYmodel.eventLike.neume-cmn"/>
         <ref name="model.eventLike.mensural"/>
+        <ref name="model.eventLike.mensural-cmn"/>
         <ref name="model.eventLike.cmn"/>
       </choice>
     </define>
   </div>
 
-  <div xml:id="model.clefchangePart">
+  <div xml:id="model.controleventLike">
     <xhtml:div>
-      <xhtml:h1 class="name">model.clefchangePart</xhtml:h1>
+      <xhtml:h1 class="name">model.controleventLike</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>By default the content model of the clefchange element is
-          empty.</xhtml:p>
+        <xhtml:p>Control events modify or otherwise depend on the existence of notated
+          events.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
-    <define name="model.clefchangePart">
-      <zeroOrMore>
-        <ref name="clef"/>
-      </zeroOrMore>
+    <define name="model.controleventLike">
+      <choice>
+        <ref name="model.controleventLike.common"/>
+        <ref name="_DUMMYmodel.controleventLike.neume"/>
+        <ref name="_DUMMYmodel.controleventLike.neume-mensural"/>
+        <ref name="_DUMMYmodel.controleventLike.neume-cmn"/>
+        <ref name="_DUMMYmodel.controleventLike.mensural"/>
+        <ref name="_DUMMYmodel.controleventLike.mensural-cmn"/>
+        <ref name="model.controleventLike.cmn"/>
+        <ref name="model.harmLike"/>
+      </choice>
     </define>
   </div>
 
@@ -10014,17 +9982,55 @@
     <xhtml:div>
       <xhtml:h1 class="name">model.layerPart</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Notated events at the layer level (all):</xhtml:p>
+        <xhtml:p>Notated events at the layer level</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="model.layerPart">
       <choice>
         <ref name="model.eventLike"/>
-        <ref name="model.controleventLike"/>
-        <ref name="model.midiLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
         <ref name="model.eventLike.cmn.measureFilling"/>
+        <ref name="model.midiLike"/>
+        <ref name="model.controleventLike"/>
+        <ref name="model.lyricsLike"/>
+        <ref name="model.noteModifierLike"/>
+        <ref name="model.verseLike"/>
+        <ref name="model.sylLike"/>
+      </choice>
+    </define>
+  </div>
+
+  <div xml:id="model.syllablePart">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.syllablePart</xhtml:h1>
+      <xhtml:div class="desc">
+        <xhtml:p>Syllable content model</xhtml:p>
+      </xhtml:div>
+    </xhtml:div>
+    <define name="model.syllablePart">
+      <choice>
+        <ref name="model.sylLike"/>
+        <ref name="model.eventLike"/>
+        <ref name="model.midiLike"/>
+        <ref name="model.controleventLike"/>
+        <ref name="model.lyricsLike"/>
+        <ref name="model.noteModifierLike"/>
+        <ref name="model.verseLike"/>
+      </choice>
+    </define>
+  </div>
+
+  <div xml:id="model.staffPart">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.staffPart</xhtml:h1>
+      <xhtml:div class="desc">
+        <xhtml:p>Staff content model</xhtml:p>
+      </xhtml:div>
+    </xhtml:div>
+    <define name="model.staffPart">
+      <choice>
+        <ref name="model.layerLike"/>
+        <ref name="model.controleventLike"/>
+        <ref name="syllable"/>
       </choice>
     </define>
   </div>
@@ -10033,35 +10039,46 @@
     <xhtml:div>
       <xhtml:h1 class="name">model.measurePart</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Measure content model (all):</xhtml:p>
+        <xhtml:p>Measure content model</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="model.measurePart">
       <choice>
-        <ref name="model.staffLike"/>
-        <ref name="model.layerLike"/>
-        <ref name="model.layerPart"/>
-        <ref name="model.apparatusLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
-        <ref name="model.annotLike"/>
-        <ref name="model.eventLike.cmn.measureFilling"/>
+        <ref name="staff"/>
+        <ref name="ossia"/>
+        <ref name="model.controleventLike"/>
+        <ref name="model.lyricsLike"/>
+        <ref name="model.midiLike"/>
       </choice>
     </define>
   </div>
 
-  <div xml:id="model.staffdefPart.multiplyDefinable">
+  <div xml:id="model.sectionPart">
     <xhtml:div>
-      <xhtml:h1 class="name">model.staffdefPart.multiplyDefinable</xhtml:h1>
+      <xhtml:h1 class="name">model.sectionPart</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="model.sectionPart">
+      <choice>
+        <ref name="section"/>
+        <ref name="ending"/>
+        <ref name="model.measureLike"/>
+        <ref name="staff"/>
+      </choice>
+    </define>
+  </div>
+
+  <div xml:id="model.scorePart">
+    <xhtml:div>
+      <xhtml:h1 class="name">model.scorePart</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Multiple clefs</xhtml:p>
+        <xhtml:p>Score components</xhtml:p>
       </xhtml:div>
     </xhtml:div>
-    <define name="model.staffdefPart.multiplyDefinable">
+    <define name="model.scorePart">
       <choice>
-        <ref name="clef"/>
-        <ref name="mensur"/>
-        <ref name="proport"/>
+        <ref name="section"/>
+        <ref name="ending"/>
       </choice>
     </define>
   </div>
@@ -10075,124 +10092,19 @@
     </xhtml:div>
     <define name="model.rdgPart">
       <choice>
-        <ref name="model.scoredefLike"/>
-        <ref name="model.staffgrpLike"/>
-        <ref name="model.staffdefLike"/>
-        <group>
-          <ref name="model.sectionLike"/>
-          <zeroOrMore>
-            <ref name="model.endingLike"/>
-          </zeroOrMore>
-        </group>
-        <ref name="model.divLike"/>
-        <zeroOrMore>
-          <zeroOrMore>
-            <ref name="model.measureLike"/>
-          </zeroOrMore>
-          <optional>
-            <ref name="model.milestoneLike.music"/>
-          </optional>
-        </zeroOrMore>
-        <zeroOrMore>
-          <choice>
-            <ref name="model.layerLike"/>
-            <ref name="model.eventLike"/>
-            <ref name="model.sylLike"/>
-          </choice>
-        </zeroOrMore>
-        <group>
-          <zeroOrMore>
-            <choice>
-              <ref name="model.staffLike"/>
-              <ref name="model.editLike"/>
-              <ref name="model.transcriptionLike"/>
-            </choice>
-          </zeroOrMore>
-          <zeroOrMore>
-            <ref name="model.ossiaLike"/>
-          </zeroOrMore>
-          <zeroOrMore>
-            <choice>
-              <ref name="model.controleventLike"/>
-              <ref name="model.midiLike"/>
-              <ref name="model.annotLike"/>
-            </choice>
-          </zeroOrMore>
-          <zeroOrMore>
-            <ref name="model.graphicprimitiveLike"/>
-          </zeroOrMore>
-        </group>
-        <ref name="model.apparatusLike"/>
+        <ref name="model.sectionPart"/>
+        <ref name="ossia"/>
+        <ref name="model.controleventLike"/>
+        <ref name="model.lyricsLike"/>
+        <ref name="model.midiLike"/>
+        <ref name="model.layerLike"/>
+        <ref name="syllable"/>
+        <ref name="model.sylLike"/>
+        <ref name="model.eventLike"/>
+        <ref name="model.noteModifierLike"/>
+        <ref name="model.verseLike"/>
+        <ref name="model.eventLike.cmn.measureFilling"/>
       </choice>
-    </define>
-  </div>
-
-  <div xml:id="model.scorePart">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.scorePart</xhtml:h1>
-      <xhtml:div class="desc">
-        <xhtml:p>Score content model (all)</xhtml:p>
-      </xhtml:div>
-    </xhtml:div>
-    <define name="model.scorePart">
-      <choice>
-        <zeroOrMore>
-          <choice>
-            <ref name="model.measureLike"/>
-            <ref name="model.milestoneLike.music"/>
-          </choice>
-        </zeroOrMore>
-        <zeroOrMore>
-          <ref name="model.staffLike"/>
-        </zeroOrMore>
-      </choice>
-    </define>
-  </div>
-
-  <div xml:id="model.scorecomponentLike">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.scorecomponentLike</xhtml:h1>
-      <xhtml:div class="desc"/>
-    </xhtml:div>
-    <define name="model.scorecomponentLike">
-      <choice>
-        <ref name="model.scoredefLike"/>
-        <ref name="model.staffgrpLike"/>
-        <ref name="model.staffdefLike"/>
-        <group>
-          <ref name="model.sectionLike"/>
-          <zeroOrMore>
-            <ref name="model.endingLike"/>
-          </zeroOrMore>
-        </group>
-        <ref name="model.divLike"/>
-        <ref name="model.scorePart"/>
-        <ref name="model.apparatusLike"/>
-      </choice>
-    </define>
-  </div>
-
-  <div xml:id="model.staffPart">
-    <xhtml:div>
-      <xhtml:h1 class="name">model.staffPart</xhtml:h1>
-      <xhtml:div class="desc">
-        <xhtml:p>Staff content model (all)</xhtml:p>
-      </xhtml:div>
-    </xhtml:div>
-    <define name="model.staffPart">
-      <zeroOrMore>
-        <choice>
-          <ref name="model.layerLike"/>
-          <ref name="model.milestoneLike.music"/>
-          <ref name="model.layerPart"/>
-          <ref name="model.controleventLike"/>
-          <ref name="model.midiLike"/>
-          <ref name="model.measureLike"/>
-          <ref name="model.annotLike"/>
-          <ref name="model.graphicprimitiveLike"/>
-          <ref name="model.apparatusLike"/>
-        </choice>
-      </zeroOrMore>
     </define>
   </div>
 
@@ -10728,8 +10640,8 @@
         <xhtml:p>Forme work, e.g. header and footer. This element is intended for capture
           of header/footer material that is non-repeating; that is, it occurs on isolated
           pages. For running headers and footers use pgheadN and pgfootN elements.
-          Auto-generated page numbers may be included with a processing instruction. Used
-          by: model.pgmetaLike Module: meiShared</xhtml:p>
+          Auto-generated page numbers may be included by using a processing instruction.
+          Used by: model.pgmetaLike Module: meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="fw">
@@ -10964,9 +10876,6 @@
         <ref name="att.lang"/>
         <ref name="att.name"/>
         <ref name="att.typed"/>
-        <optional>
-          <attribute name="role"/>
-        </optional>
       </define>
     </div>
   </div>
@@ -11353,9 +11262,9 @@
       <xhtml:div class="desc">
         <xhtml:p>Title of a bibliographic entity. The type attribute may be used to
           classify the title according to some convenient typology. Sample values include:
-          main main title subordinate subtitle, title of part parallel alternate title,
-          often in another language, by which the work is also known abbreviated
-          abbreviated form of title uniform uniform title The type attribute is provided
+          main main title subordinate subtitle, title of part abbreviated abbreviated form
+          of title alternative alternate title by which the work is also known translated
+          translated form of title uniform uniform title The type attribute is provided
           for convenience in analysing titles and processing them according to their type;
           where such specialized processing is not necessary, there is no need for such
           analysis, and the entire title, including subtitles and any parallel titles, may
@@ -11397,6 +11306,7 @@
         <ref name="att.common"/>
         <ref name="att.facsimile"/>
         <ref name="att.lang"/>
+        <ref name="att.name"/>
         <ref name="att.typed"/>
         <optional>
           <attribute name="level">
@@ -11905,18 +11815,9 @@
         <xhtml:div class="desc"/>
       </xhtml:div>
       <define name="content.ligature">
-        <choice>
-          <zeroOrMore>
-            <ref name="model.eventLike"/>
-          </zeroOrMore>
-          <zeroOrMore>
-            <choice>
-              <ref name="accid"/>
-              <ref name="artic"/>
-              <ref name="model.verseLike"/>
-            </choice>
-          </zeroOrMore>
-        </choice>
+        <zeroOrMore>
+          <ref name="model.layerPart"/>
+        </zeroOrMore>
       </define>
     </div>
     <div xml:id="attlist.ligature">
@@ -12983,9 +12884,6 @@
         <ref name="att.lang"/>
         <ref name="att.name"/>
         <ref name="att.typed"/>
-        <optional>
-          <attribute name="role"/>
-        </optional>
       </define>
     </div>
   </div>
@@ -13128,9 +13026,6 @@
         <ref name="att.lang"/>
         <ref name="att.name"/>
         <ref name="att.typed"/>
-        <optional>
-          <attribute name="role"/>
-        </optional>
       </define>
     </div>
   </div>
@@ -13506,7 +13401,13 @@
       </xhtml:div>
       <define name="content.ending">
         <zeroOrMore>
-          <ref name="model.scorecomponentLike"/>
+          <ref name="model.Incl"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="model.sectionPart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
         </zeroOrMore>
       </define>
     </div>
@@ -13754,10 +13655,13 @@
       </xhtml:div>
       <define name="content.layer">
         <zeroOrMore>
-          <choice>
-            <ref name="model.layerPart"/>
-            <ref name="model.annotLike"/>
-          </choice>
+          <ref name="model.Incl"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="model.layerPart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
         </zeroOrMore>
       </define>
     </div>
@@ -13914,7 +13818,7 @@
       </xhtml:div>
       <define name="content.part">
         <zeroOrMore>
-          <ref name="model.scorecomponentLike"/>
+          <ref name="model.scorePart"/>
         </zeroOrMore>
       </define>
     </div>
@@ -14232,7 +14136,13 @@
       </xhtml:div>
       <define name="content.score">
         <zeroOrMore>
-          <ref name="model.scorecomponentLike"/>
+          <ref name="model.Incl"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="model.scorePart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
         </zeroOrMore>
       </define>
     </div>
@@ -14333,7 +14243,13 @@
       </xhtml:div>
       <define name="content.section">
         <zeroOrMore>
-          <ref name="model.scorecomponentLike"/>
+          <ref name="model.Incl"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="model.sectionPart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
         </zeroOrMore>
       </define>
     </div>
@@ -14380,7 +14296,15 @@
         <xhtml:div class="desc"/>
       </xhtml:div>
       <define name="content.staff">
-        <ref name="model.staffPart"/>
+        <zeroOrMore>
+          <ref name="model.Incl"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="model.staffPart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
+        </zeroOrMore>
       </define>
     </div>
     <div xml:id="attlist.staff">
@@ -14473,6 +14397,9 @@
       </xhtml:div>
       <define name="content.staffgrp">
         <zeroOrMore>
+          <ref name="grpsym"/>
+        </zeroOrMore>
+        <zeroOrMore>
           <ref name="model.labelLike"/>
         </zeroOrMore>
         <zeroOrMore>
@@ -14527,16 +14454,13 @@
       </xhtml:div>
       <define name="content.syllable">
         <zeroOrMore>
-          <choice>
-            <ref name="model.eventLike"/>
-            <ref name="model.sylLike"/>
-            <ref name="model.apparatusLike"/>
-            <ref name="model.editLike"/>
-            <ref name="model.transcriptionLike"/>
-          </choice>
-          <optional>
-            <ref name="model.milestoneLike.music"/>
-          </optional>
+          <ref name="model.Incl"/>
+        </zeroOrMore>
+        <zeroOrMore>
+          <ref name="model.syllablePart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
         </zeroOrMore>
       </define>
     </div>
@@ -14678,7 +14602,9 @@
         <zeroOrMore>
           <choice>
             <ref name="model.eventLike"/>
-            <ref name="model.notaModifierLike"/>
+            <ref name="model.noteModifierLike"/>
+            <ref name="model.sylLike"/>
+            <ref name="model.verseLike"/>
             <ref name="model.apparatusLike"/>
             <ref name="model.editLike"/>
             <ref name="model.transcriptionLike"/>
@@ -14769,21 +14695,13 @@
       </xhtml:div>
       <define name="content.measure">
         <zeroOrMore>
-          <ref name="model.staffdefLike"/>
+          <ref name="model.Incl"/>
         </zeroOrMore>
         <zeroOrMore>
-          <choice>
-            <ref name="model.measurePart"/>
-            <ref name="model.ossiaLike"/>
-          </choice>
-        </zeroOrMore>
-        <zeroOrMore>
-          <choice>
-            <ref name="model.controleventLike"/>
-            <ref name="model.midiLike"/>
-            <ref name="model.annotLike"/>
-            <ref name="model.graphicprimitiveLike"/>
-          </choice>
+          <ref name="model.measurePart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
         </zeroOrMore>
       </define>
     </div>
@@ -14832,17 +14750,13 @@
       </xhtml:div>
       <define name="content.ossia">
         <zeroOrMore>
-          <ref name="model.staffdefLike"/>
+          <ref name="model.Incl"/>
         </zeroOrMore>
         <zeroOrMore>
-          <choice>
-            <ref name="model.measurePart"/>
-            <ref name="model.ossiaLike"/>
-            <ref name="model.controleventLike"/>
-            <ref name="model.midiLike"/>
-            <ref name="model.annotLike"/>
-            <ref name="model.graphicprimitiveLike"/>
-          </choice>
+          <ref name="model.measurePart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
         </zeroOrMore>
       </define>
     </div>
@@ -15263,6 +15177,8 @@
           <choice>
             <ref name="model.eventLike"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="model.verseLike"/>
+            <ref name="model.sylLike"/>
             <ref name="model.apparatusLike"/>
             <ref name="model.editLike"/>
             <ref name="model.transcriptionLike"/>
@@ -15354,8 +15270,6 @@
           <choice>
             <ref name="model.eventLike.common"/>
             <ref name="model.eventLike.cmn"/>
-            <ref name="tuplet"/>
-            <ref name="beam"/>
           </choice>
         </oneOrMore>
       </define>
@@ -16958,7 +16872,13 @@
       </xhtml:div>
       <define name="content.rdg">
         <zeroOrMore>
+          <ref name="model.Incl"/>
+        </zeroOrMore>
+        <zeroOrMore>
           <ref name="model.rdgPart"/>
+          <zeroOrMore>
+            <ref name="model.Incl"/>
+          </zeroOrMore>
         </zeroOrMore>
       </define>
     </div>
@@ -17252,6 +17172,7 @@
         <xhtml:div class="desc"/>
       </xhtml:div>
       <define name="content.change">
+        <ref name="respstmt"/>
         <ref name="changedesc"/>
         <ref name="model.dateLike"/>
       </define>
@@ -17264,11 +17185,6 @@
       <define name="attlist.change" combine="interleave">
         <ref name="att.common"/>
         <ref name="att.bibl"/>
-        <optional>
-          <attribute name="resp">
-            <data type="IDREF"/>
-          </attribute>
-        </optional>
       </define>
     </div>
   </div>
@@ -18097,9 +18013,10 @@
       <xhtml:div class="desc">
         <xhtml:p>The name of a language. The language of text elements may be related to
           this element via its id, which may take the form of a code, drawn from a coded
-          list, such as iso639-2b. The %model.textphraseLike.limited entity is used here
-          in order to disallow the pb element. Used by: langusage Module:
-          meiHeader</xhtml:p>
+          list, such as RFC 3066 or iso639-2b. The authority attribute should contain the
+          name of the list from which a controlled value is taken. The
+          %model.textphraseLike.limited entity is used here in order to disallow the pb
+          element. Used by: langusage Module: meiHeader</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="language">
@@ -18130,6 +18047,9 @@
       <define name="attlist.language" combine="interleave">
         <ref name="att.common"/>
         <ref name="att.bibl"/>
+        <optional>
+          <attribute name="authority"/>
+        </optional>
       </define>
     </div>
   </div>
@@ -18340,9 +18260,10 @@
       <xhtml:h1 class="name">physmedium</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>Physmedium is used to record the physical materials used in the source,
-          such as ink and paper. The %model.textphraseLike.limited entity is used here in
-          order to disallow the pb element. Used by: model.physdescPart Module:
-          meiHeader</xhtml:p>
+          such as ink and paper. The authority attribute should contain the name of the
+          list from which a controlled value is taken. The %model.textphraseLike.limited
+          entity is used here in order to disallow the pb element. Used by:
+          model.physdescPart Module: meiHeader</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="physmedium">
@@ -18373,6 +18294,9 @@
       <define name="attlist.physmedium" combine="interleave">
         <ref name="att.common"/>
         <ref name="att.bibl"/>
+        <optional>
+          <attribute name="authority"/>
+        </optional>
       </define>
     </div>
   </div>
@@ -18581,6 +18505,43 @@
     </div>
   </div>
 
+  <div xml:id="resp">
+    <xhtml:div>
+      <xhtml:h1 class="name">resp</xhtml:h1>
+      <xhtml:div class="desc">
+        <xhtml:p>Contains a phrase describing the nature of a person's intellectual
+          responsibility. The authority attribute should contain the name of the list from
+          which a controlled value is taken. Used by: respStmt Module: meiHeader</xhtml:p>
+      </xhtml:div>
+    </xhtml:div>
+    <define name="resp">
+      <element name="resp">
+        <ref name="attlist.resp"/>
+        <ref name="content.resp"/>
+      </element>
+    </define>
+    <div xml:id="content.resp">
+      <xhtml:div>
+        <xhtml:h1 class="name">content.resp</xhtml:h1>
+        <xhtml:div class="desc"/>
+      </xhtml:div>
+      <define name="content.resp">
+        <text/>
+      </define>
+    </div>
+    <div xml:id="attlist.resp">
+      <xhtml:div>
+        <xhtml:h1 class="name">attlist.resp</xhtml:h1>
+        <xhtml:div class="desc"/>
+      </xhtml:div>
+      <define name="attlist.resp" combine="interleave">
+        <optional>
+          <attribute name="authority"/>
+        </optional>
+      </define>
+    </div>
+  </div>
+
   <div xml:id="respstmt">
     <xhtml:div>
       <xhtml:h1 class="name">respstmt</xhtml:h1>
@@ -18603,12 +18564,13 @@
         <xhtml:div class="desc"/>
       </xhtml:div>
       <define name="content.respstmt">
-        <oneOrMore>
+        <zeroOrMore>
           <choice>
+            <ref name="resp"/>
             <ref name="model.nameLike"/>
             <ref name="model.nameLike.agent"/>
           </choice>
-        </oneOrMore>
+        </zeroOrMore>
       </define>
     </div>
     <div xml:id="attlist.respstmt">
@@ -18865,8 +18827,10 @@
       <xhtml:h1 class="name">sourcedesc</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>Sourcedesc is a container for the descriptions of the source(s) used in
-          the creation of the electronic file. Used by: meihead Module:
-          meiHeader</xhtml:p>
+          the creation of the electronic file. The sourcedesc element is required where
+          the MEI file is a transcription of existing music. In the case where the data is
+          originally created in MEI form, the sourcedesc element is not required. Used by:
+          meihead Module: meiHeader</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="sourcedesc">
@@ -19015,13 +18979,13 @@
         <xhtml:div class="desc"/>
       </xhtml:div>
       <define name="attlist.term" combine="interleave">
+        <ref name="att.common"/>
+        <ref name="att.bibl"/>
         <optional>
           <attribute name="classcode">
             <data type="IDREF"/>
           </attribute>
         </optional>
-        <ref name="att.common"/>
-        <ref name="att.bibl"/>
       </define>
     </div>
   </div>
@@ -19855,11 +19819,16 @@
             <ref name="model.textphraseLike"/>
             <ref name="model.eventLike"/>
             <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
             <ref name="model.midiLike"/>
             <ref name="model.editLike"/>
             <ref name="model.transcriptionLike"/>
             <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -19944,8 +19913,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -19998,8 +19977,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -20063,8 +20052,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -20229,8 +20228,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -20270,8 +20279,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -20320,8 +20339,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -20369,8 +20398,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -20459,8 +20498,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -20561,8 +20610,18 @@
           <choice>
             <text/>
             <ref name="model.textphraseLike"/>
-            <ref name="model.layerPart"/>
+            <ref name="model.eventLike"/>
+            <ref name="model.controleventLike"/>
+            <ref name="model.lyricsLike"/>
+            <ref name="model.midiLike"/>
+            <ref name="model.editLike"/>
+            <ref name="model.transcriptionLike"/>
+            <ref name="model.eventLike.cmn.measureFilling"/>
             <ref name="model.noteModifierLike"/>
+            <ref name="section"/>
+            <ref name="measure"/>
+            <ref name="staff"/>
+            <ref name="layer"/>
           </choice>
         </zeroOrMore>
       </define>
@@ -20931,10 +20990,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">meihead</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>The meihead element contains general information about the encoded file.
-          The sourcedesc element is required where the MEI file is a transcription of
-          existing music. In the case where the data is originally created in MEI form,
-          the sourcedesc element is not required.</xhtml:p>
+        <xhtml:p>The meihead element contains general information about the encoded
+          file.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="meihead">
@@ -21036,6 +21093,16 @@
       <xhtml:div class="desc"/>
     </xhtml:div>
     <define name="_DUMMYmodel.controleventLike.neume" combine="choice">
+      <notAllowed/>
+    </define>
+  </div>
+
+  <div xml:id="_DUMMYmodel.controleventLike.neume-cmn">
+    <xhtml:div>
+      <xhtml:h1 class="name">_DUMMYmodel.controleventLike.neume-cmn</xhtml:h1>
+      <xhtml:div class="desc"/>
+    </xhtml:div>
+    <define name="_DUMMYmodel.controleventLike.neume-cmn" combine="choice">
       <notAllowed/>
     </define>
   </div>
