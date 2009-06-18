@@ -3,7 +3,7 @@
 NAME:     Music Encoding Initiative (MEI) DTD
           File      = mei19b.dtd (version 1.9b) **DRAFT**
                       **DO NOT REDISTRIBUTE**
-          Vers Date = 2009/05/28
+          Vers Date = 2009/06/18
 
 NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
           of the University of Virginia.
@@ -485,7 +485,7 @@ signed decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)? -->
 -->
 <!ENTITY % INHERITED '#IMPLIED'>
 
-<!-- doc: unsigned positive integer values including '0', i.e., [0-9]+ -->
+<!-- doc: unsigned positive integer values including '0', i.e., [0-9]+. -->
 <!ENTITY % data.INTEGERNONNEGATIVE 'CDATA'>
 
 <!-- doc: unsigned positive integer values excluding '0', i.e., 1 to
@@ -549,13 +549,13 @@ tstamp attribute. The datatype of this attribute must be the same as
 that of the tstamp, tstamp.ges, or tstamp.real attribute. -->
 <!ENTITY % data.TSTAMPOFFSET 'CDATA'>
 
-<!-- doc: a Uniform Resource Identifier, see RFC2396 -->
+<!-- doc: a Uniform Resource Identifier, see RFC2396. -->
 <!ENTITY % data.URI 'CDATA'>
 
-<!-- doc: an xPath expression -->
+<!-- doc: an xPath expression. -->
 <!ENTITY % data.XPATH 'CDATA'>
 
-<!-- doc: a fragment identifier in xPointer syntax -->
+<!-- doc: a fragment identifier in xPointer syntax. -->
 <!ENTITY % data.XPOINTER 'CDATA'>
 
 <!-- doc: Accidental values: s = sharp, f = flat, ss = dblsharp,
@@ -600,7 +600,7 @@ between and across staves as necessary (the traditional method), takt =
 short line above staff or through top line. -->
 <!ENTITY % data.BARPLACE '(mensur|staff|takt)'>
 
-<!-- doc: Renderings of barlines -->
+<!-- doc: Renderings of barlines. -->
 <!ENTITY % data.BARRENDITION '(dashed|dotted|dbl|dbldashed|dbldotted|end|
                              invis|rptstart|rptboth|rptend|single)'>
 
@@ -613,10 +613,10 @@ endpoints of a beam when the beams are nested or overlap. -->
 entity. -->
 <!ENTITY % data.BEAMS 'NMTOKENS'>
 
-<!-- doc: Boolean values -->
+<!-- doc: Boolean values. -->
 <!ENTITY % data.BOOLEAN '(true|false)'>
 
-<!-- doc: Values for certainty attribute -->
+<!-- doc: Values for certainty attribute. -->
 <!ENTITY % data.CERTAINTY '(high|medium|low|unknown)'>
 
 <!-- doc: Encodes the location of the locus of a clef. This is a non-
@@ -683,11 +683,11 @@ articulations: parentheses and square brackets, respectively. -->
 <!ENTITY % data.ENCLOSURE '(paren|brack)'>
 
 <!-- doc: Text font family values. Mup-acceptable values are avantgarde,
-bookman, courier, helvetica, newcentury, palatino, and times -->
+bookman, courier, helvetica, newcentury, palatino, and times. -->
 <!ENTITY % data.FONTFAMILY 'CDATA'>
 
 <!-- doc: Text font name values. Mup-acceptable values are rom, ital,
-bold, and boldital -->
+bold, and boldital. -->
 <!ENTITY % data.FONTNAME 'CDATA'>
 
 <!-- doc: Text font style values. 'normal' = 'rom' in Mup. -->
@@ -735,7 +735,7 @@ neumes. -->
                             tristropha|pressusminor|pressusmaior|
                             pressusliquescens|virgastrata)'>
                      
-<!-- doc: Interrupted neume forms -->
+<!-- doc: Interrupted neume forms. -->
 <!ENTITY % data.INEUMEFORM '(liquescent1|liquescent2|tied|tiedliquescent1|
                            tiedliquescent2)'>
                      
@@ -771,10 +771,10 @@ staff line, while 'medium' indicates a line twice as wide as the narrow
 line and wide means a line twice as wide as the medium line. -->
 <!ENTITY % data.LINERENDITION '(narrow|medium|wide|dashed|dotted|wavy)'>
 
-<!-- doc: Basic mensuration sign -->
+<!-- doc: Basic mensuration sign. -->
 <!ENTITY % data.MENSURATIONSIGN '(C|O)'>
 
-<!-- doc: Meter.sym values for common-practice notation -->
+<!-- doc: Meter.sym values for common-practice notation. -->
 <!ENTITY % data.METERSIGN '(common|cut)'>
 
 <!-- doc: MIDI channel number, i.e., a number in the range 1-16. -->
@@ -1220,13 +1220,71 @@ type. -->
 
 <!-- doc: Visual offset attributes: Some items may have their location
 recorded in terms of offsets from their programmatically-determined
+location. The ho attribute records the horizontal offset. -->
+<!ENTITY % att.visualoffset.ho
+                     'ho                %data.VISUALOFFSET;   #IMPLIED'>
+
+<!-- doc: Visual offset attributes: Some items may have their location
+recorded in terms of offsets from their programmatically-determined
+location. The to attribute records a timestamp offset. -->
+<!ENTITY % att.visualoffset.to
+                     'to               %data.TSTAMPOFFSET;   #IMPLIED'>
+
+<!-- doc: Visual offset attributes: Some items may have their location
+recorded in terms of offsets from their programmatically-determined
+location. The vo attribute records the vertical offset. -->
+<!ENTITY % att.visualoffset.vo
+                     'vo               %data.VISUALOFFSET;   #IMPLIED'>
+                     
+<!-- doc: Visual offset attributes: Some items may have their location
+recorded in terms of offsets from their programmatically-determined
 location. The ho attribute records the horizontal offset while vo
 records the vertical. The to attribute holds a timestamp offset, the
 most common use of which is as an alternative to the ho attribute. -->
 <!ENTITY % att.visualoffset
-                     'ho                %data.VISUALOFFSET;   #IMPLIED
-                     to                 %data.TSTAMPOFFSET;   #IMPLIED
-                     vo                 %data.VISUALOFFSET;   #IMPLIED'>
+                     '%att.visualoffset.ho;
+                     %att.visualoffset.to;
+                     %att.visualoffset.vo;'>
+
+<!-- doc: Visual offset attributes: Some items may have their location
+recorded in terms of a pair of offsets from their programmatically-
+determined location. The startho and endho attributes record the
+horizontal offsets of the start and end points of the item,
+respectively. -->
+<!ENTITY % att.visualoffset2.ho
+                     'startho           %data.VISUALOFFSET;   #IMPLIED
+                     endho              %data.VISUALOFFSET;   #IMPLIED'>
+                     
+<!-- doc: Visual offset attributes: Some items may have their location
+recorded in terms of of a pair of offsets from their programmatically-
+determined location. The startto and endto attributes record the
+timestamp offsets of the start and end points of the item, respectively.
+-->
+<!ENTITY % att.visualoffset2.to
+                     'startto            %data.TSTAMPOFFSET;   #IMPLIED
+                     endto               %data.TSTAMPOFFSET;   #IMPLIED'>
+
+<!-- doc: Visual offset attributes: Some items may have their location
+recorded in terms of a pair of offsets from their programmatically-
+determined location. The startvo and endvo attributes record the
+vertical offsets of the start and end points of the item, respectively.
+-->
+<!ENTITY % att.visualoffset2.vo
+                     'startvo           %data.VISUALOFFSET;   #IMPLIED
+                     endvo              %data.VISUALOFFSET;   #IMPLIED'>
+
+<!-- doc: Visual offset attributes: Some items may have their location
+recorded in terms of pairs of offsets from their programmatically-
+determined location. The startho and endho attributes record the
+horizontal offsets of the start and end points of the item,
+respectively. Similarly, the startvo and endvo attributes record the
+vertical offsets of the start and end points of the item. The startto
+and endto attributes hold timestamp offsets, the most common use of
+which is as alternatives to the ho attributes. -->
+<!ENTITY % att.visualoffset2
+                     '%att.visualoffset2.ho;
+                     %att.visualoffset2.to;
+                     %att.visualoffset2.vo;'>
 
 <!-- doc: Output coordinate attributes: Some elements may have their
 exact *output* coordinates recorded. x and y indicate where to place the
@@ -1596,15 +1654,15 @@ octave.default attribute behaves in a similar fashion. -->
                      %att.log.layerdef.mensural;'>
 
 <!-- doc: Visual domain attributes: The beam.rend attribute captures
-whether a beam is feathered and in which direction. 'acc' indicates
+whether a beam is feathered and in which direction - 'acc' indicates
 that the secondary beams get progressively closer together, coming
-together at the end of the beam. 'rit' means that the secondary beams
-start at the same point and get progressively more distant. The default
-value for the slope of beams is recorded in beam.slope. The slur.rend
-and tie.rend attributes provide default values for the appearance of
-slurs and ties when this information is not provided on the individual
-elements. Similarly, the text.* attributes provide default values for
-text associated with the layer. -->
+together at the end of the beam, while 'rit' means that the secondary
+beams start at the same point and get progressively more distant. The
+default value for the slope of beams is recorded in beam.slope. The
+slur.rend and tie.rend attributes provide default values for the
+appearance of slurs and ties when this information is not provided on
+the individual elements. Similarly, the text.* attributes provide
+default values for text associated with the layer. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.layerdef.mensural ''>
   <!ENTITY % att.vis.layerdef.base
@@ -1724,8 +1782,8 @@ attributes. -->
 <!ENTITY % att.ges.midi ''>
 
 <!-- doc: Logical domain attributes: The layer and staff attributes for
-a group of MIDI events may be set for the entire group using the layer
-and staff attributes here. -->
+a group of MIDI events may be set for all the midi element's children
+by using the layer and staff attributes. -->
 <!ENTITY % att.log.midi
                      'layer             %data.INTEGERPOSITIVE; #IMPLIED
                      staff              %data.INTEGERPOSITIVE; #IMPLIED'>
@@ -2062,6 +2120,7 @@ string, octave.default - '4', trans.diat - '0', trans.semi -'0'. -->
                      meter.sym          %data.METERSIGN;       #IMPLIED
                      meter.unit         %data.NUMBER;          #IMPLIED
                      octave.default     %data.OCTAVE;          #IMPLIED
+                     source             IDREFS                 #IMPLIED
                      trans.diat         %data.NUMBER;          #IMPLIED
                      trans.semi         %data.NUMBER;          #IMPLIED'>
 <!ENTITY % att.log.scoredef
@@ -2192,28 +2251,6 @@ string, octave.default - '4', trans.diat - '0', trans.semi -'0'. -->
 ]]>
 <!ENTITY % att.vis.scoredef ''>
 
-<!-- doc: Score-level encoding strategies for:
-   a) alternating meter sig, e.g. 2/4 3/4 in alternating measures (Read,
-      p. 164-165) and combined meters (Read, p.166-168): explicitly
-      encode meters, make them invisible, display both meter sigs at the
-      start of the section
-   b) compound meter sig, e.g. 2+3+2/4 (Read, p. 168-170): set
-      meter.count=2+3+2
-   c) polymeters, e.g. different simultaneous meters (Read, p. 170-173):
-      1. where barlines coincide, use beaming to elucidate the polymeter
-      2. where barlines sometimes coincide, break into measures
-      according to a common unit of time, draw barlines where visually
-      required
-      3. where barlines never coincide, encode as parts only
-   d) mixed meter sig, e.g. 2/4 + 3/16 in the same measure (Read, p.
-      173-174): encode in common time base, e.g. 11/16, make meter
-      invisible, display both meter sigs at the start of the measure
-   e) fractional meter sig, e.g. 3.5/4 (Read, p. 175-177):
-      set meter.count=3.5
-      The beat count may be displayed as a fraction or as its decimal
-      equivalent.
--->
-
 <!-- ************************************************************** -->
 <!-- * Attributes for section                                     * -->
 
@@ -2305,8 +2342,7 @@ here would allow each staff to establish its own tuning standard. -->
 ]]>
 <!ENTITY % att.ges.staffdef ''>
 
-<!-- doc: Logical domain attributes: The n attribute is provided for explicit
-staff numbering. -->
+<!-- doc: Logical domain attributes: -->
 <!ENTITY % att.log.staffdef.mensural
                      'mensur.sign       %data.MENSURATIONSIGN; #IMPLIED
                      mensur.dot         %data.BOOLEAN;         #IMPLIED
@@ -2486,7 +2522,9 @@ sub-groupings of staves. -->
 ]]>
 <!ENTITY % att.ges.uneume ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The name and form attributes record
+the name and function of the neume. Syl holds a textual syllable
+associated with the neume. -->
 <!ENTITY % att.log.uneume
                      '%att.event;
                      form               %data.UNEUMEFORM;     #IMPLIED
@@ -2495,14 +2533,16 @@ sub-groupings of staves. -->
 
 <!-- doc: Visual domain attributes: The altsym attribute provides a way
 of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. -->
+symboldef element elsewhere in the document. Ho records the horizontal
+offset of the neume in interline units. The relative size of the neume
+is encoded in the size attribute. The visibility of the neume is
+captured in the visible attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.uneume
                      '%att.color;
+                     %att.visualoffset.ho;
                      %att.xy;
                      altsym             IDREF                 #IMPLIED
-                     headshape          %data.HEADSHAPE;      #IMPLIED
-                     ho                 %data.VISUALOFFSET;   #IMPLIED
                      size               %data.SIZE;           #IMPLIED
                      visible            %data.BOOLEAN;        #IMPLIED'>
 ]]>
@@ -2537,24 +2577,28 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.accid ''>
 
-<!-- doc: Logical domain attributes: %ACCIDENTAL.EXPLICIT is the super-set.
-The value attribute should really be restricted to the subset given by
-the form attribute. -->
+<!-- doc: Logical domain attributes: If an accidental has an editorial
+function, its function may be captured in the func attribute. The value
+attribute records the accidental. -->
 <!ENTITY % att.log.accid
-                     'form              (implicit|explicit)   #IMPLIED
-                     func               (caution|edit)        #IMPLIED
+                     'func              (caution|edit)        #IMPLIED
                      value              %data.ACCIDENTAL.EXPLICIT;
                                                               #REQUIRED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The enclose attribute records the
+characters used to mark the accidental as having an editorial function.
+The placement of the accidental, either above the staff, below the
+staff, or in its usual place on the staff, is captured in the place
+attribute. The ho and vo attributes encode the visual placement of the
+accidental in terms of interline distance. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.accid
                      '%att.color;
+                     %att.visualoffset.ho;
+                     %att.visualoffset.vo;
                      %att.xy;
                      enclose            %data.ENCLOSURE;      #IMPLIED
-                     ho                 %data.VISUALOFFSET;   #IMPLIED
-                     place              (above|below|staff)   #IMPLIED
-                     vo                 %data.VISUALOFFSET;   #IMPLIED'>
+                     place              (above|below|staff)   #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.accid ''>
 
@@ -2618,15 +2662,17 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.arpeg ''>
 
-<!-- doc: Logical domain attributes: dir=nonarp indicates a non-arpeggiated
-chord. Arpeggiation across multiple staves requires 2 values in staff
-attribute; if there's more than 1 layer in either staff, 2 values are
-required in the layer attribute. -->
+<!-- doc: Logical domain attributes: dir=nonarp indicates a non-
+arpeggiated chord, usually rendered with a preceding bracket instead of
+a wavy line. Arpeggiation across multiple staves requires 2 values in
+staff attribute; if there's more than 1 layer in either staff, 2 values
+are required in the layer attribute. -->
 <!ENTITY % att.log.arpeg
                      '%att.controlevent;
                      dir                (up|down|nonarp)      #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The arrow attribute may be used when
+an arrowhead is to be drawn as part of the arpeggiation symbol. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.arpeg
                      '%att.color;
@@ -2653,7 +2699,8 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.artic ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The value attribute records the
+name of the articulation symbol. -->
 <!ENTITY % att.log.artic
                      'value             %data.ARTICULATION;   #REQUIRED'>
 
@@ -2685,15 +2732,23 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.beam ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: In the case of cross-staff beams,
+the with attribute is used to indicate which staff the beam is connected
+to; that is, the staff above or the staff below. -->
 <!ENTITY % att.log.beam
                      '%att.event;
                      with               %data.PLACE;          #IMPLIED'>
 
-<!-- doc: Visual domain attributes: Secondary beams may be broken explicitly
-using the breaksec attribute. Its value should contain a space-separated
-list of rhythmic durations that form a single beat. For example,'8 8'
-indicates a division of the beam into 2 8th-note groups. -->
+<!-- doc: Visual domain attributes: Secondary beams may be broken
+explicitly using the breaksec attribute. Its value should contain a
+space-separated list of rhythmic durations that form a single beat. For
+example,'8 8' indicates a division of the beam into 2 8th-note groups.
+The rend attribute captures whether a beam is feathered and in which
+direction - 'acc' indicates that the secondary beams get progressively
+closer together, coming together at the end of the beam, while 'rit'
+means that the secondary beams start at the same point and get
+progressively more distant. The slope of the beam is recorded in the
+slope attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.beam
                      'breaksec          NMTOKENS              #IMPLIED
@@ -2719,13 +2774,24 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.ges.beamspan ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: In the case of cross-staff beams,
+the with attribute is used to indicate which staff the beam is connected
+to; that is, the staff above or the staff below. -->
 <!ENTITY % att.log.beamspan
                      '%att.controlevent;
                      %att.startendid;
                      with               %data.PLACE;          #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: Secondary beams may be broken
+explicitly using the breaksec attribute. Its value should contain a
+space-separated list of rhythmic durations that form a single beat. For
+example,'8 8' indicates a division of the beam into 2 8th-note groups.
+The rend attribute captures whether a beam is feathered and in which
+direction - 'acc' indicates that the secondary beams get progressively
+closer together, coming together at the end of the beam, while 'rit'
+means that the secondary beams start at the same point and get
+progressively more distant. The slope of the beam is recorded in the
+slope attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.beamspan
                      'breaksec          CDATA                 #IMPLIED
@@ -2758,12 +2824,12 @@ analysis attributes. -->
 <!-- doc: Visual domain attributes: The altsym attribute provides a way
 of pointing to a user-defined symbol. It must contain an ID of a
 symboldef element elsewhere in the document. The expand attribute
-indicates whether to render the source measures or the usual repeated
-beat symbol. The rend attribute indicates the number of slashes required
-to render the appropriate beat repeat symbol when the beat is divided
-into even notes - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4, 128ths=5.
-When the beat is comprised of mixed duration values, the symbol is
-always rendered as 2 slashes and 2 dots. See Read, pg. 223-224. -->
+indicates whether to render the repeated beat symbol or the source
+material. The rend attribute indicates the number of slashes required to
+render the appropriate beat repeat symbol when the beat is divided into
+even notes - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4, 128ths=5. When
+the beat is comprised of mixed duration values, the symbol is always
+rendered as 2 slashes and 2 dots. See Read, pg. 223-224. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.beatrpt
                      '%att.color;
@@ -2785,10 +2851,13 @@ attributes. -->
 ]]>
 <!ENTITY % att.anl.bend ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The amount of detuning is recorded
+in the amount attribute. The decimal values should be rendered as a
+fraction (or an integer plus a fraction) along with the bend symbol. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.bend
-                     'amount            (.25|.5|.75|1)        #IMPLIED'>
+                     'amount            (.25|.5|.75|1|1.5|full)
+                                                              #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.bend ''>
 
@@ -2797,36 +2866,29 @@ attributes. -->
                      '%att.controlevent;
                      %att.startendid;'>
 
-<!-- doc: Visual domain attributes: The bulge or, alternatively, the
-bezier attribute, describes the shape of the bend. The bulge attribute
-describes the curve as a set of distance values above or below an
-imaginary line connecting the endpoints of the curve while the bezier
-attribute records the placement of Bezier control points as a series
-of space-separated xy coordinates, eg. 19 45 -32 118. If the bulge or
-bezier attributes are present, the bend should be rendered as a curve.
-Otherwise, it should be rendered as a line. The bulge attribute must
-contain one or more values of type %NUMBER. The rend attribute records
-the typographical style of the curve or line while the ho and vo
-attributes describe the visual offset of the entire rendered bend. The
-endho, endvo and startho, startvo attribute pairs may be used to
-encode start and end points relative to their programmatic placement.
-For exact placement of the endpoints of the bend use the xy coordinate
-pairs. -->
+<!-- doc: Visual domain attributes: If the bulge or bezier attributes
+are present, the bend should be rendered as a curve. Otherwise, it
+should be rendered using lines. The bulge attribute describes the curve
+as a set of distance values above or below an imaginary line connecting
+the endpoints of the curve while the bezier attribute records the
+placement of Bezier control points as a series of space-separated xy
+coordinates, eg. 19 45 -32 118. The bulge attribute must contain one or
+more values of type %NUMBER. The rend attribute records the
+typographical style of the curve or line while the ho and vo attributes
+describe the visual offset of the entire rendered bend. The endho, endvo
+and startho, startvo attribute pairs may be used to encode start and end
+points relative to their programmatic placement. For exact placement of
+the endpoints of the bend use the xy coordinate pair attributes. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.bend
                      '%att.color;
                      %att.visualoffset;
+                     %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
                      bezier             NMTOKENS              #IMPLIED
                      bulge              NMTOKENS              #IMPLIED
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     endvo              %data.VISUALOFFSET;   #IMPLIED
-                     rend               %data.CURVERENDITION; #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED
-                     startvo            %data.VISUALOFFSET;   #IMPLIED'>
+                     rend               %data.CURVERENDITION; #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.bend ''>
 
@@ -2886,16 +2948,22 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.btrem ''>
 
-<!-- doc: Logical domain attributes: The num attribute should be explicitly
-set for measured tremolandi. The stem modifier (slash or z) must also be
-explicity set on the child note or chord element for a complete visual
-representation. -->
+<!-- doc: Logical domain attributes: The slash attribute, indicating the
+exact note values desired, should be explicitly set for measured
+tremolandi, i.e., 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4, 128ths=5,
+256ths=6. See Read, p. 393-394. The stem modifier (slash or z) must also
+be explicity set on the child note or chord element for a complete
+visual representation. The num attribute may be used to store a number
+to be rendered along with the note. See Read, p. 394, ex. 23-21, line 5.
+-->
 <!ENTITY % att.log.btrem
                      '%att.event;
                      form               (meas|unmeas)          #IMPLIED
-                     num                %data.INTEGERPOSITIVE; #IMPLIED'>
+                     num                %data.INTEGERPOSITIVE; #IMPLIED
+                     slash              (1|2|3|4|5|6)          #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: num.place records where the number
+accompanying the tremolo note or chord should be rendered. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.btrem
                      'num.place         %data.PLACE;          #IMPLIED'>
@@ -2905,8 +2973,9 @@ representation. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for chord                                       * -->
 
-<!-- doc: Analytical domain attributes: hfunc = harmonic function,
-mfunc = melodic function. -->
+<!-- doc: Analytical domain attributes: The hfunc and mfunc attributes
+may use any convenient typology to indicate harmonic and melodic
+function, respectively. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.chord
                      '%att.common.anl;
@@ -2938,7 +3007,10 @@ values, a dots.ges attribute is unnecessary. -->
 
 <!-- doc: Logical domain attributes: The artic, dots, and dur attributes
 encode the *written* articulations, augmentation dots, and duration
-values. -->
+values. The beam, fermata, lv, slur, syl, tie, and tuplet attributes may
+be used to indicate the attachment of these things to this chord. If
+visual information about these things needs to be recorded, then the
+elements corresponding to these attributes should be employed. -->
 <!ENTITY % att.log.chord
                      '%att.event;
                      artic              %data.ARTICULATIONS;  #IMPLIED
@@ -2977,6 +3049,8 @@ vertical offset. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.chord
                      '%att.color;
+                     %att.visualoffset.ho;
+                     %att.visualoffset.to;
                      %att.xy;
                      altsym             IDREF                 #IMPLIED
                      beam.with          %data.PLACE;          #IMPLIED
@@ -2986,7 +3060,6 @@ vertical offset. -->
                      dot.x              %data.NUMBER;         #IMPLIED
                      dot.y              %data.NUMBER;         #IMPLIED
                      headshape          %data.CLUSTER;        #IMPLIED
-                     ho                 %data.VISUALOFFSET;   #IMPLIED
                      size               %data.SIZE;           #IMPLIED
                      slur.dir           %data.SLURDIRECTION;  #IMPLIED
                      slur.rend          (dotted|dashed)       #IMPLIED
@@ -2998,8 +3071,7 @@ vertical offset. -->
                      stem.x             %data.NUMBER;         #IMPLIED
                      stem.y             %data.NUMBER;         #IMPLIED
                      tie.dir            %data.TIEDIRECTION;   #IMPLIED
-                     tie.rend           (dotted|dashed)       #IMPLIED
-                     to                 %data.TSTAMPOFFSET;   #IMPLIED'>
+                     tie.rend           (dotted|dashed)       #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.chord ''>
 
@@ -3020,7 +3092,11 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.ges.clefchange ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The line attribute records a value
+for the position of the clef, while shape encodes a value for the clef
+symbol and trans records an octave shift to be applied to the clef. If
+the oct attribute isn't given on the first note following the clef
+change, then the value of octave.default is used. -->
 <!ENTITY % att.log.clefchange.base
                      'line             %data.CLEFLINE;       #IMPLIED
                      octave.default    %data.OCTAVE;         #IMPLIED
@@ -3051,7 +3127,9 @@ attributes. -->
 ]]>
 <!ENTITY % att.anl.dir ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the  directive when it differs from the logical and
+visual durations. -->
 <![%meiGestural;[
    <!ENTITY % att.ges.dir
                      'dur.ges           CDATA                 #IMPLIED'>
@@ -3072,12 +3150,10 @@ duration, but rather a time stamp for the end point of the directive. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.dir
                      '%att.visualoffset;
+                     %att.visualoffset2.ho;
+                     %att.visualoffset2.to;
                      %att.xy;
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     place              %data.PLACE;          #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED'>
+                     place              %data.PLACE;          #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.dir ''>
 
@@ -3115,12 +3191,10 @@ a time stamp for the end point of the dynamic indication. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.dynam
                      '%att.visualoffset;
+                     %att.visualoffset2.ho;
+                     %att.visualoffset2.to;
                      %att.xy;
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     place              %data.PLACE;          #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED'>
+                     place              %data.PLACE;          #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.dynam ''>
 
@@ -3183,9 +3257,9 @@ attributes. -->
 <!ENTITY % att.log.ftrem
                      '%att.event;'>
 
-<!-- doc: Visual domain attributes: The rend attribute indicates the number
-of slashes required - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4,
-128ths=5. -->
+<!-- doc: Visual domain attributes: The slash attribute indicates the
+number of slashes required - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4,
+128ths=5, 256ths=6. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.ftrem
                      'slash             (1|2|3|4|5|6)         #REQUIRED'>
@@ -3220,15 +3294,10 @@ any text, such as 'gliss.' that accompanies the glissando mark. -->
   <!ENTITY % att.vis.gliss
                      '%att.color;
                      %att.visualoffset;
+                     %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     endvo              %data.VISUALOFFSET;   #IMPLIED
                      rend               %data.LINERENDITION;  #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED
-                     startvo            %data.VISUALOFFSET;   #IMPLIED
                      text               CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.gliss ''>
@@ -3275,15 +3344,10 @@ coordinates of the right side. -->
   <!ENTITY % att.vis.hairpin
                      '%att.color;
                      %att.visualoffset;
+                     %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     endvo              %data.VISUALOFFSET;   #IMPLIED
                      place              %data.PLACE;          #REQUIRED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED
-                     startvo            %data.VISUALOFFSET;   #IMPLIED
                      width              %data.NUMBER;         #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.hairpin ''>
@@ -3362,14 +3426,12 @@ of the harm element, e.g. 'Cmaj' or 'V7/III', should be rendered. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.harm
                      '%att.visualoffset;
+                     %att.visualoffset2.ho;
+                     %att.visualoffset2.to;
                      %att.xy;
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
                      extender           %data.BOOLEAN;        #IMPLIED
                      place              %data.PLACE;          #IMPLIED
-                     rendgrid           (grid|gridname)       #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED'>
+                     rendgrid           (grid|gridname)       #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.harm ''>
 
@@ -3897,6 +3959,8 @@ vertical offset. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.nota
                      '%att.color;
+                     %att.visualoffset.ho;
+                     %att.visualoffset.to;
                      %att.xy;
                      accid.ho           %data.NUMBER;         #IMPLIED
                      altsym             IDREF                 #IMPLIED
@@ -3910,7 +3974,6 @@ vertical offset. -->
                      enclose.accid      %data.ENCLOSURE;      #IMPLIED
                      enclose.note       %data.ENCLOSURE;      #IMPLIED
                      headshape          %data.HEADSHAPE;      #IMPLIED
-                     ho                 %data.VISUALOFFSET;   #IMPLIED
                      size               %data.SIZE;           #IMPLIED
                      slur.dir           %data.SLURDIRECTION;  #IMPLIED
                      slur.rend          (dotted|dashed)       #IMPLIED
@@ -3923,7 +3986,6 @@ vertical offset. -->
                      stem.y             %data.NUMBER;         #IMPLIED
                      tie.dir            %data.TIEDIRECTION;   #IMPLIED
                      tie.rend           (dotted|dashed)       #IMPLIED
-                     to                 %data.TSTAMPOFFSET;   #IMPLIED
                      visible            %data.BOOLEAN;        #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.nota ''>
@@ -4046,6 +4108,8 @@ vertical offset. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.note
                      '%att.color;
+                     %att.visualoffset.ho;
+                     %att.visualoffset.to;
                      %att.xy;
                      accid.ho           %data.NUMBER;         #IMPLIED
                      altsym             IDREF                 #IMPLIED
@@ -4058,7 +4122,6 @@ vertical offset. -->
                      enclose.accid      %data.ENCLOSURE;      #IMPLIED
                      enclose.note       %data.ENCLOSURE;      #IMPLIED
                      headshape          %data.HEADSHAPE;      #IMPLIED
-                     ho                 %data.VISUALOFFSET;   #IMPLIED
                      size               %data.SIZE;           #IMPLIED
                      slur.dir           %data.SLURDIRECTION;  #IMPLIED
                      slur.rend          (dotted|dashed)       #IMPLIED
@@ -4071,7 +4134,6 @@ vertical offset. -->
                      stem.y             %data.NUMBER;         #IMPLIED
                      tie.dir            %data.TIEDIRECTION;   #IMPLIED
                      tie.rend           (dotted|dashed)       #IMPLIED
-                     to                 %data.TSTAMPOFFSET;   #IMPLIED
                      visible            %data.BOOLEAN;        #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.note ''>
@@ -4118,11 +4180,9 @@ notes. -->
   <!ENTITY % att.vis.octave
                      '%att.xy;
                      %att.visualoffset;
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     rend               %data.LINERENDITION;  #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED'>
+                     %att.visualoffset2.ho;
+                     %att.visualoffset2.to;
+                     rend               %data.LINERENDITION;  #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.octave ''>
 
@@ -4260,18 +4320,13 @@ entire rendered phrase mark. -->
   <!ENTITY % att.vis.phrase
                      '%att.color;
                      %att.visualoffset;
+                     %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
                      bezier             NMTOKENS              #IMPLIED
                      bulge              NMTOKENS              #IMPLIED
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     endvo              %data.VISUALOFFSET;   #IMPLIED
                      place              %data.PLACE;          #IMPLIED
-                     rend               %data.CURVERENDITION; #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED
-                     startvo            %data.VISUALOFFSET;   #IMPLIED'>
+                     rend               %data.CURVERENDITION; #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.phrase ''>
 
@@ -4469,18 +4524,13 @@ entire rendered slur/phrase mark. -->
   <!ENTITY % att.vis.slur
                      '%att.color;
                      %att.visualoffset;
+                     %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
                      bezier             NMTOKENS              #IMPLIED
                      bulge              NMTOKENS              #IMPLIED
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     endvo              %data.VISUALOFFSET;   #IMPLIED
                      place              %data.PLACE;          #IMPLIED
-                     rend               %data.CURVERENDITION; #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED
-                     startvo            %data.VISUALOFFSET;   #IMPLIED'>
+                     rend               %data.CURVERENDITION; #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.slur ''>
 
@@ -4591,13 +4641,11 @@ expanded here in order to disallow the end attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.tempo
                      '%att.visualoffset;
+                     %att.visualoffset2.ho;
+                     %att.visualoffset2.to;
                      %att.xy;
                      dur.vis            CDATA                 #IMPLIED
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     place              %data.PLACE;          #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED'>
+                     place              %data.PLACE;          #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.tempo ''>
 
@@ -4627,26 +4675,24 @@ in order to make startid and endid attributes required. -->
 bezier attribute, describes the shape of the tie. The bulge attribute
 describes the curve as a set of distance values above or below an
 imaginary line connecting the endpoints of the curve while the bezier
-attribute records the placement of Bezier control points as a series
-of space-separated xy coordinates, eg. 19 45 -32 118. The bulge
-attribute must contain one or more values of type %NUMBER. The vo
-attribute is the vertical offset (from its normal position) of the
-entire rendered tie. -->
+attribute records the placement of Bezier control points as a series of
+space-separated xy coordinates, eg. 19 45 -32 118. The bulge attribute
+must contain one or more values of type %NUMBER. The vo attribute is the
+vertical offset (from its normal position) of the entire rendered tie.
+The startho, startvo, endho, and endvo attributes describe the
+horizontal and vertical offsets of the start and end points of the tie
+in terms of interline distance. Startto and endto describe the start and
+end points in terms of time; that is, beats. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.tie
                      '%att.color;
                      %att.visualoffset;
+                     %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
                      bezier             NMTOKENS              #IMPLIED
                      bulge              NMTOKENS              #IMPLIED
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     endvo              %data.VISUALOFFSET;   #IMPLIED
-                     rend               %data.CURVERENDITION; #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED
-                     startvo            %data.VISUALOFFSET;   #IMPLIED'>
+                     rend               %data.CURVERENDITION; #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.tie ''>
 
@@ -4685,12 +4731,10 @@ supplied in the accid attribute. -->
   <!ENTITY % att.vis.trill
                      '%att.color;
                      %att.visualoffset;
+                     %att.visualoffset2.ho;
+                     %att.visualoffset2.to;
                      %att.xy;
-                     endho              %data.VISUALOFFSET;   #IMPLIED
-                     endto              %data.TSTAMPOFFSET;   #IMPLIED
-                     place              %data.PLACE;          #IMPLIED
-                     startho            %data.VISUALOFFSET;   #IMPLIED
-                     startto            %data.TSTAMPOFFSET;   #IMPLIED'>
+                     place              %data.PLACE;          #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.trill ''>
 
@@ -4854,14 +4898,13 @@ staff. -->
                      'refrain          %data.BOOLEAN;        #IMPLIED
                      rhythm            CDATA                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The a.visualoffset entity is expanded
-here in order to disallow ho. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.verse
                      '%att.typography;
-                     %att.xy;
-                     to                 %data.TSTAMPOFFSET;   #IMPLIED
-                     vo                 %data.VISUALOFFSET;   #IMPLIED'>
+                     %att.visualoffset.to;
+                     %att.visualoffset.vo;
+                     %att.xy;'>
 ]]>
 <!ENTITY % att.vis.verse ''>
 
@@ -7336,7 +7379,29 @@ Module:  meiStructure -->
           %att.anl.score;>
 ]]>
 
-<!-- doc: Container for score meta-information. 
+<!-- doc: Container for score meta-information.
+
+Score-level encoding strategies for:
+   a) alternating meter sig, e.g. 2/4 3/4 in alternating measures (Read,
+      p. 164-165) and combined meters (Read, p.166-168): explicitly
+      encode meters, make them invisible, display both meter sigs at the
+      start of the section
+   b) compound meter sig, e.g. 2+3+2/4 (Read, p. 168-170): set
+      meter.count=2+3+2
+   c) polymeters, e.g. different simultaneous meters (Read, p. 170-173):
+      1. where barlines coincide, use beaming to elucidate the polymeter
+      2. where barlines sometimes coincide, break into measures
+      according to a common unit of time, draw barlines where visually
+      required
+      3. where barlines never coincide, encode as parts only
+   d) mixed meter sig, e.g. 2/4 + 3/16 in the same measure (Read, p.
+      173-174): encode in common time base, e.g. 11/16, make meter
+      invisible, display both meter sigs at the start of the measure
+   e) fractional meter sig, e.g. 3.5/4 (Read, p. 175-177):
+      set meter.count=3.5
+      The beat count may be displayed as a fraction or as its decimal
+      equivalent.
+
 Used by: model.scoredefLike 
 Module:  meiStructure -->
 <!ENTITY % scoredef 'IGNORE'>
