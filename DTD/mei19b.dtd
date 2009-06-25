@@ -3,7 +3,7 @@
 NAME:     Music Encoding Initiative (MEI) DTD
           File      = mei19b.dtd (version 1.9b) **DRAFT**
                       **DO NOT REDISTRIBUTE**
-          Vers Date = 2009/06/18
+          Vers Date = 2009/06/25
 
 NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
           of the University of Virginia.
@@ -544,7 +544,7 @@ i.e., [1-9]+. -->
 <!-- doc: Beats (meter signature denominator) per minute, e.g. 120. -->
 <!ENTITY % data.TEMPOVALUE 'CDATA'>
 
-<!-- doc: A positive or negative offset from the value given in the
+<!-- doc: A positive or negative offset from the value given in a
 tstamp attribute. The datatype of this attribute must be the same as
 that of the tstamp, tstamp.ges, or tstamp.real attribute. -->
 <!ENTITY % data.TSTAMPOFFSET 'CDATA'>
@@ -590,9 +590,9 @@ ARTICULATION entity. -->
 <!-- doc: Dots values: Records the number of augmentation dots attached
 to a chord, note, rest, etc. (Read, p. 113-120) Dots as replacements for
 ties across a barline are described by Read (p. 118, ex. 8-21), but are
-not currently supported. Probably, the best method of handling this use
-of augmentation dots is to use a dot or rend attribute on the tie
-element. -->
+not currently supported. The best method of handling this use of
+augmentation dots is to add a dot or rend attribute on the tie element.
+-->
 <!ENTITY % data.AUGMENTDOT '(0|1|2|3|4)'>
 
 <!-- doc: Placement of barlines: mensur = between staves only, staff =
@@ -979,12 +979,12 @@ also a member of this attribute class. -->
                      'corresp           IDREFS                #IMPLIED
                      %att.alignment;'>
 
-<!-- doc: Common attributes: Each id within a document must have a
-unique value. The id attribute regularizes the naming of the element and
-thus facilitates building links between it and other resources. The n
-attribute may be used to provide a label (name or number) for the
-element. While its value need not be unique, it is required to be a
-single token. -->
+<!-- doc: Common attributes: Each id attribute within a document must
+have a unique value. The id attribute regularizes the naming of the
+element and thus facilitates building links between it and other
+resources. The n attribute may be used to provide a label (name or
+number) for the element. While its value need not be unique, it is
+required to be a single token. -->
 <!ENTITY % att.common
                      'id                ID                    #IMPLIED
                      n                  NMTOKEN               #IMPLIED'>
@@ -1094,7 +1094,9 @@ tstamp.ges attribute may be used to record the onset time in pulses per
 quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
 of the measure, while the tstamp.real attribute records the onset time
 as a real-time offset, i.e., in HH:MM:SS.ss format, since the beginning
-of the file. -->
+of the file. The next attribute may be used to point to the next control
+event(s) in a user-defined collection, while the prev attribute may
+point to the previous event(s). -->
 <!ENTITY % att.event
                      'layer             %data.INTEGERPOSITIVE; #IMPLIED
                      next               IDREFS                 #IMPLIED
@@ -1171,8 +1173,8 @@ form of the name. -->
                      reg                CDATA                 #IMPLIED'>
 
 <!-- doc: These attributes record the IDs of a sequence of elements to
-which the current element is associated. startid holds the a reference
-to the first element in the sequence, while endid indicates the final
+which the current element is associated. startid holds a reference to
+the first element in the sequence, while endid indicates the final
 element in the sequence. -->
 <!ENTITY % att.startendid
                      'endid             IDREF                 #IMPLIED
@@ -1180,7 +1182,7 @@ element in the sequence. -->
 
 <!-- doc: Attributes common to text elements: The lang attribute should
 be used to identify the language of the word or text phrase marked. Its
-value must be the identifier of a <language> element supplied in the MEI
+value must be the identifier of a language element supplied in the MEI
 header of the current document. -->
 <!ENTITY % att.lang
                      'lang              IDREF                 #IMPLIED'>
@@ -2129,7 +2131,6 @@ string, octave.default - '4', trans.diat - '0', trans.semi -'0'. -->
 
 <!-- doc: Visual domain attributes: 
    Definitions and suggested software default values:
-   mnum.visible       are measure numbers visible?, 'no'
    bar.place          placement of barlines, 'norm'
    beam.rend          encodes whether a beam is feathered and in which
                       direction, 'norm'
@@ -2146,9 +2147,16 @@ string, octave.default - '4', trans.diat - '0', trans.semi -'0'. -->
    lyric.fam          font family for lyrics, 'times'
    lyric.name         font name for lyrics, 'rom'
    lyric.size         point size of lyrics, '12'
+   lyric.style        font style, e.g., 'ital', 'normal', 'oblique', no
+                      default
+   lyric.weight       weight value, e.g., 'bold', for lyrics, no default
    meter.rend         display meter normally (3/4), with symbol as denom,
                       or invis, 'norm'
    meter.sig.showchange display cautionary meter signature change?, 'yes'
+   mnum.visible       are measure numbers visible?, 'no'
+   multi.number       programmatically calculate number of consecutive
+                      measures of rest (mrest) and whole measure repeats
+                      (mrpt)?, 'no'
    ontheline          governs display of notes on a 1-line staff, 'yes'
    optimize           display only those staves with notes?, 'no'
    ** page.* attributes apply to the entire score/part
@@ -2180,6 +2188,10 @@ string, octave.default - '4', trans.diat - '0', trans.semi -'0'. -->
    text.fam           font family for text, 'times'
    text.nam           font name for text, 'rom'
    text.size          point size of text, '12'
+   text.style         font style, e.g., 'ital', 'normal', 'oblique', no
+                      default
+   text.weight        weight value, e.g., 'bold', for text other than lyrics,
+                      no default
    tie.rend           default look of ties, 'medium'
 -->
 
@@ -2262,10 +2274,10 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.anl.section ''>
 
-<!-- doc: Gestural domain attributes: The expan attribute contains a list of
-ids of child section, ending or app elements. This 'expansion list'
-indicates how the section should be expanded into its 'through-composed'
-form. See Read, p. 226 (ex. 12-10), 228-229 (ex. 12-16). -->
+<!-- doc: Gestural domain attributes: The expan attribute contains a
+list of ids of child section, ending or app elements. This 'expansion
+list' indicates how the section should be expanded into its 'through-
+composed' form. See Read, p. 226 (ex. 12-10), 228-229 (ex. 12-16). -->
 <![%meiGestural;[
   <!ENTITY % att.ges.section
                      'expan             IDREFS                #IMPLIED'>
@@ -2301,7 +2313,10 @@ attributes. -->
 <!-- doc: Logical domain attributes: -->
 <!ENTITY % att.log.staff ''>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The visible attribute may be used to
+indicate if a staff should be displayed when the score is rendered. A
+staff with this attribute set to 'false' should not be included in a
+sounded rendition. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.staff
                      'visible           %data.BOOLEAN;        #IMPLIED'>
@@ -2322,8 +2337,13 @@ for staffdef. -->
 <!-- doc: Gestural domain attributes: Setting the grace attribute here
 provides the possibility of changing all the grace attribute values in a
 given layer without having to individually change each note's grace
-attribute value. Adding tune.pname, tune.Hz, and tune.temper attributes
-here would allow each staff to establish its own tuning standard. -->
+attribute value. The tab.strings attribute lists a written pitch and
+octave for each open string, e.g. "e3 a3 d4 g4 b4 e5" for standard
+guitar tuning. It should contain the number of tokens indicated by the
+lines attribute. Chromatic alteration may be indicated with '-' (flat)
+and '#' (sharp). Double sharps and flats are not permitted. Adding
+tune.pname, tune.Hz, and tune.temper attributes here would allow each
+staff to establish its own tuning standard. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.staffdef.tablature
                      'tab.strings       CDATA                 #IMPLIED'>
@@ -2342,7 +2362,11 @@ here would allow each staff to establish its own tuning standard. -->
 ]]>
 <!ENTITY % att.ges.staffdef ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The attributes in the class
+att.log.scoredef.mensural are provided for mensural notation. The
+attributes in the class att.log.scoredef.base are provided for common
+Western music notation. For descriptions of the individual attributes in
+these classes, see the comments associated with % att.log.scoredef. -->
 <!ENTITY % att.log.staffdef.mensural
                      'mensur.sign       %data.MENSURATIONSIGN; #IMPLIED
                      mensur.dot         %data.BOOLEAN;         #IMPLIED
@@ -2378,24 +2402,20 @@ here would allow each staff to establish its own tuning standard. -->
                      '%att.log.staffdef.base;
                      %att.log.staffdef.mensural;'>
 
-<!-- doc: Visual domain attributes: It is a semantic error if the clef.shape,
-clef.line, key.sig, meter.count, and meter.unit attributes are not
-supplied or are not available from a scoredef ancestor. The layerscheme
-attribute indicates the number of layers and the stem direction. The
-lines attribute indicates the number of stafflines. The lines.color
-attribute is structured; that is, it should have the same number of
-space-separated RGB values as indicated by the lines attribute. A line
-can be made invisible by assigning it the same RGB value as the
-background, usually white. The tab.strings attribute lists a written
-pitch and octave for each open string, e.g. "e3 a3 d4 g4 b4 e5" for
-standard guitar tuning. It should contain the number of tokens indicated
-by the lines attribute. Chromatic alteration may be indicated with '-'
-(flat) and '#' (sharp). Double sharps and flats are not permitted. The
-spacing attribute should be used to record the absolute distance (as
-opposed to the relative distances recorded in scoredef elements) between
-this staff and the preceding one in the same system. This value is
-meaningless for the first staff in a system since the spacing.system
-attribute indicates the spacing between systems. -->
+<!-- doc: Visual domain attributes: It is a semantic error if the
+clef.shape, clef.line, key.sig, meter.count, and meter.unit attributes
+are not supplied or are not available from a scoredef ancestor. The
+layerscheme attribute indicates the number of layers and the stem
+direction. The lines attribute indicates the number of stafflines. The
+lines.color attribute is structured; that is, it should have the same
+number of space-separated RGB values as indicated by the lines
+attribute. A line can be made invisible by assigning it the same RGB
+value as the background, usually white. The spacing attribute should be
+used to record the absolute distance (as opposed to the relative
+distances recorded in scoredef elements) between this staff and the
+preceding one in the same system. This value is meaningless for the
+first staff in a system since the spacing.system attribute indicates the
+spacing between systems. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.staffdef.mensural
                      'mensur.form       (horizontal|vertical)  #IMPLIED
@@ -2586,11 +2606,11 @@ attribute records the accidental. -->
                                                               #REQUIRED'>
 
 <!-- doc: Visual domain attributes: The enclose attribute records the
-characters used to mark the accidental as having an editorial function.
-The placement of the accidental, either above the staff, below the
-staff, or in its usual place on the staff, is captured in the place
-attribute. The ho and vo attributes encode the visual placement of the
-accidental in terms of interline distance. -->
+characters often used to mark the accidental as having an cautionary or
+editorial function. The placement of the accidental, either above the
+staff, below the staff, or in its usual place on the staff, is captured
+in the place attribute. The ho and vo attributes encode the visual
+placement of the accidental in terms of interline distance. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.accid
                      '%att.color;
@@ -2605,7 +2625,12 @@ accidental in terms of interline distance. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for annot                                       * -->
 
-<!-- doc: Analytical domain attributes: -->
+<!-- doc: Analytical domain attributes: The dur.anl attribute records
+the durational scope of the annotation when it differs from the written
+values of the participants. The dur.ges attribute (performed duration)
+may be expressed in several forms, such as measures[s]+
+beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values, or MusicXML
+'divisions', etc. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.annot
                      'dur.anl           CDATA                 #IMPLIED'>
@@ -2704,7 +2729,10 @@ name of the articulation symbol. -->
 <!ENTITY % att.log.artic
                      'value             %data.ARTICULATION;   #REQUIRED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The character used to enclose an
+accidental may be recorded in the enclose attribute. The place attribute
+captures the placement of the articulation with respect to the note or
+chord with which it is associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.artic
                      '%att.color;
@@ -2744,7 +2772,7 @@ explicitly using the breaksec attribute. Its value should contain a
 space-separated list of rhythmic durations that form a single beat. For
 example,'8 8' indicates a division of the beam into 2 8th-note groups.
 The rend attribute captures whether a beam is feathered and in which
-direction - 'acc' indicates that the secondary beams get progressively
+direction: 'acc' indicates that the secondary beams get progressively
 closer together, coming together at the end of the beam, while 'rit'
 means that the secondary beams start at the same point and get
 progressively more distant. The slope of the beam is recorded in the
@@ -2787,7 +2815,7 @@ explicitly using the breaksec attribute. Its value should contain a
 space-separated list of rhythmic durations that form a single beat. For
 example,'8 8' indicates a division of the beam into 2 8th-note groups.
 The rend attribute captures whether a beam is feathered and in which
-direction - 'acc' indicates that the secondary beams get progressively
+direction: 'acc' indicates that the secondary beams get progressively
 closer together, coming together at the end of the beam, while 'rit'
 means that the secondary beams start at the same point and get
 progressively more distant. The slope of the beam is recorded in the
@@ -2873,12 +2901,12 @@ as a set of distance values above or below an imaginary line connecting
 the endpoints of the curve while the bezier attribute records the
 placement of Bezier control points as a series of space-separated xy
 coordinates, eg. 19 45 -32 118. The bulge attribute must contain one or
-more values of type %NUMBER. The rend attribute records the
-typographical style of the curve or line while the ho and vo attributes
-describe the visual offset of the entire rendered bend. The endho, endvo
-and startho, startvo attribute pairs may be used to encode start and end
-points relative to their programmatic placement. For exact placement of
-the endpoints of the bend use the xy coordinate pair attributes. -->
+more values of type %NUMBER. The rend attribute records the appearance
+of the curve or line while the ho and vo attributes describe the visual
+offset of the entire rendered bend. The endho, endvo and startho,
+startvo attribute pairs may be used to encode start and end points
+relative to their programmatic placement. For exact placement of the
+endpoints of the bend use the xy coordinate pair attributes. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.bend
                      '%att.color;
@@ -2920,7 +2948,9 @@ duration, but rather a time stamp for the end point of the directive. -->
 
 <!-- doc: Visual domain attributes: The altsym attribute provides a way
 of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. -->
+symboldef element elsewhere in the document. The place attribute
+captures the placement of the breath mark with respect to the staff with
+which it is associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.breath
                      '%att.color;
@@ -2993,7 +3023,9 @@ values differ from the written values. The dur.ges attribute (performed
 duration) may be expressed in several forms, such as measures[s]+
 beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values, or MusicXML
 'divisions', etc. Because dur.ges isn't limited to the standard duration
-values, a dots.ges attribute is unnecessary. -->
+values, a dots.ges attribute is unnecessary. The instr attribute
+provides a way of pointing to a MIDI instrument definition. It must
+contain the ID of an instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.chord
                      'artic.ges         %data.ARTICULATIONS;  #IMPLIED
@@ -3128,8 +3160,10 @@ attributes. -->
 <!ENTITY % att.anl.dir ''>
 
 <!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
-gestural duration of the  directive when it differs from the logical and
-visual durations. -->
+gestural duration of the directive when it differs from the logical and
+visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
    <!ENTITY % att.ges.dir
                      'dur.ges           CDATA                 #IMPLIED'>
@@ -3146,7 +3180,9 @@ duration, but rather a time stamp for the end point of the directive. -->
                      %att.startendid;
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the directive with respect to the staff with which it is
+associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.dir
                      '%att.visualoffset;
@@ -3168,7 +3204,11 @@ attributes. -->
 ]]>
 <!ENTITY % att.anl.dynam ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the dynamic marking when it differs from the
+logical and visual durations. It may be expressed in several forms, such
+as measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip
+values, or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.dynam
                      'dur.ges           CDATA                 #IMPLIED
@@ -3176,18 +3216,20 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.dynam ''>
 
-<!-- doc: Logical domain attributes: The dur attribute encodes the logical
-and visual duration of the dynamic symbol or text while the dur.ges
-attribute encodes the performed duration. If logical and visual
-duration differ, it may be necessary to add a dur.vis attribute.
-Please note that the dur attribute is not a true duration, but rather
-a time stamp for the end point of the dynamic indication. -->
+<!-- doc: Logical domain attributes: The dur attribute encodes the
+logical and visual duration of the dynamic symbol or text while the
+dur.ges attribute encodes the performed duration. If logical and visual
+duration differ, it may be necessary to add a dur.vis attribute. Please
+note that the dur attribute is not a true duration, but rather a time
+stamp for the end point of the dynamic indication. -->
 <!ENTITY % att.log.dynam
                      '%att.controlevent;
                      %att.startendid;
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the dynamic mark with respect to the staff with which it is
+associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.dynam
                      '%att.visualoffset;
@@ -3209,7 +3251,11 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.anl.fermata ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the fermata when it differs from the logical and
+visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
    <!ENTITY % att.ges.fermata
                      'dur.ges           CDATA                 #IMPLIED'>
@@ -3223,7 +3269,9 @@ analysis attributes. -->
 
 <!-- doc: Visual domain attributes: The altsym attribute provides a way
 of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. -->
+symboldef element elsewhere in the document. The place attribute
+captures the placement of the fermata with respect to the staff with
+which it is associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.fermata
                      '%att.color;
@@ -3288,8 +3336,10 @@ attributes. -->
                      '%att.controlevent;
                      %att.startendid;'>
 
-<!-- doc: Visual domain attributes: The text attribute may be used to record
-any text, such as 'gliss.' that accompanies the glissando mark. -->
+<!-- doc: Visual domain attributes: The text attribute may be used to
+record any text, such as 'gliss.', that accompanies the glissando mark.
+The appearance of the glissando mark is captured in the rend attribute.
+-->
 <![%meiVisual;[
   <!ENTITY % att.vis.gliss
                      '%att.color;
@@ -3313,33 +3363,38 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.anl.hairpin ''>
 
-<!-- doc: Gestural domain attributes: dur.ges represents the performed
-duration. -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the hairpin when it differs from the logical and
+visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.hairpin
                      'dur.ges           CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.hairpin ''>
 
-<!-- doc: Logical domain attributes: The dur attribute encodes the logical
-and visual duration of the hairpin while the dur.ges attribute, if it
-is available, encodes the performed duration. If logical and visual
-duration differ, it may be necessary to add a dur.vis attribute.
-Please note that the dur attribute is not a true duration, but rather
-a time stamp for the end point of the hairpin. -->
+<!-- doc: Logical domain attributes: The dur attribute encodes the
+logical and visual duration of the hairpin. If the logical and visual
+durations differ, it may be necessary to add a dur.vis attribute. Please
+note that the dur attribute is not a true duration, but rather a time
+stamp for the end point of the hairpin. -->
 <!ENTITY % att.log.hairpin
                      '%att.controlevent;
                      %att.startendid;
                      dur                %data.MEASUREBEAT;    #IMPLIED
                      form               (cres|dim)            #REQUIRED'>
 
-<!-- doc: Visual domain attributes: The startho and startvo attributes record
-the horizontal and vertical offsets of the left end, endho and endvo
-record the horizontal and vertical offsets of the right end, and the
-width attribute records the width of the opening on the open end in
-staff inter-line units. The x1 and y1 attributes give the absolute
-coordinates of the left side of the hairpin while x2 and y2 record the
-coordinates of the right side. -->
+<!-- doc: Visual domain attributes: The startho and startvo attributes
+record the horizontal and vertical offsets of the left end, endho and
+endvo record the horizontal and vertical offsets of the right end, and
+the width attribute records the width of the opening on the open end in
+one-half staff inter-line units. The x1 and y1 attributes give the
+absolute coordinates of the left side of the hairpin while x2 and y2
+record the coordinates of the right side. Place records the placement of
+the hairpin with respect to the staff with which it is associated. Width
+specifies the distance, in interline units, between the points of the
+open end of the mark. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.hairpin
                      '%att.color;
@@ -3369,7 +3424,8 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.ges.halfmrpt ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The dur attribute states the
+logical duration of the repeat symbol. -->
 <!ENTITY % att.log.halfmrpt
                      '%att.event;
                      dur               %data.DURATION;        #IMPLIED'>
@@ -3398,31 +3454,39 @@ attributes. -->
 ]]>
 <!ENTITY % att.anl.harm ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the harmony when it differs from the logical and
+visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.harm
                      'dur.ges           CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.harm ''>
 
-<!-- doc: Logical domain attributes: The dur attribute encodes the logical
-and visual duration of the harmony while the dur.ges attribute, if it
-is available, encodes the performed duration. If logical and visual
-duration differ, it may be necessary to add a dur.vis attribute.
-Please note that the dur attribute here is not a true duration, but
-rather a time stamp for the end point of the directive. -->
+<!-- doc: Logical domain attributes: The dur attribute encodes the
+logical and visual duration of the harmony. If the logical and visual
+durations differ, it may be necessary to add a dur.vis attribute. Please
+note that the dur attribute here is not a true duration, but rather a
+time stamp for the end point of the directive. -->
 <!ENTITY % att.log.harm
                      '%att.controlevent;
                      %att.startendid;
                      chordref           IDREF                 #IMPLIED
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
-<!-- doc: Visual domain attributes: If the rendgrid attribute is set to 'grid',
-then the chord tablature grid defined in the chordtable should be rendered
-instead of the text contents of the harm element; if rendgrid equals
-'gridname', both the harm element's text and the grid should be
-displayed; otherwise, only the 'name' of the chord, i.e., the text content
-of the harm element, e.g. 'Cmaj' or 'V7/III', should be rendered. -->
+<!-- doc: Visual domain attributes: If the rendgrid attribute is set to
+'grid', then the chord tablature grid defined in the chordtable should
+be rendered instead of the text contents of the harm element; if
+rendgrid equals 'gridname', both the harm element's text and the grid
+should be displayed; otherwise, only the 'name' of the chord, i.e., the
+text content of the harm element, e.g. 'Cmaj' or 'V7/III', should be
+rendered. Place captures the placement of the harmonic symbol with
+respect to the staff to which it is associated. The presence of an
+extension symbol, typically a dash or underscore, drawn from the end of
+the harmonic indication to the point indicated by the dur attribute, is
+indicated via the extender attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.harm
                      '%att.visualoffset;
@@ -3446,14 +3510,20 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.anl.harppedal ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the harppedal when it differs from the logical and
+visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.harppedal
                      'dur.ges           CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.harppedal ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The pedal setting, flat, natural,
+or sharp, for each diatonic pitch name is indicated by the seven letter-
+named attributes. -->
 <!ENTITY % att.log.harppedal
                      '%att.controlevent;
                      %att.startendid;
@@ -3465,7 +3535,9 @@ analysis attributes. -->
                      a                  (f|n|s)               "n"
                      b                  (f|n|s)               "n"'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the harp pedal indication with respect to the staff with
+which it is associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.harppedal
                      '%att.color;
@@ -3498,7 +3570,9 @@ order to allow only the staff and layer attributes from this class. -->
                      'layer             %data.INTEGERPOSITIVE; #IMPLIED
                      staff              %data.INTEGERPOSITIVE; #REQUIRED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the content of the lyrics element with respect to the staff
+with which it is associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.lyrics
                      '%att.typography;
@@ -3517,37 +3591,45 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.anl.measure ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The tstamp.ges and tstamp.real
+attributes encode the onset time of the measure. In reality, this is
+usually the onset time of the first event in the measure. The tstamp.ges
+attribute may be used to record the onset time in pulses per quarter
+note (ppq, MusicXML divisions, or MIDI clicks) since the start of the
+file, while the tstamp.real attribute records the onset time as a real-
+time offset, i.e., HH:MM:SS.ss, since the beginning of the file. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.measure ''>
 ]]>
 <!ENTITY % att.ges.measure
-                     'tstamp            CDATA                 #IMPLIED'>
+                     'tstamp.ges        %data.INTEGERNONNEGATIVE;
+                                                               #IMPLIED
+                     tstamp.real        %data.ISOTIME;         #IMPLIED'>
 
 <!-- doc: Logical domain attributes: The complete attribute allows the
 encoding of whether a measure matches the prevailing meter: a value of
 'c' indicates a metrically complete measure, 'i' indicates a measure
 with not enough beats, while 'o' is for measures with too many beats.
-The control attribute indicates whether or not the barline is
+The control attribute indicates whether or not the right barline is
 "controlling", that is, indicates a point of alignment across all the
 parts. Barlines within a score are usually 'controlling'; that is, they
-'line up'. Barlines within parts may or may not be 'controlling'. The
-left attribute indicates the function of the left barline. It is present
-here only for facilitation of translation from legacy encodings which
-use it. Usually, it can be safely ignored. The right attribute, on the
-other hand, indicates the function of the right barline and is
-structurally important. The n attribute may contain a name or number
-associated with the measure (Read, p. 445). Often, this is an integer,
-but not always. For example, some measures, especially incomplete
-measures or those under an ending mark, may have labels that contain an
-integer plus a suffix, such as '12a'. Measures may even have labels,
-especially in editorial or analytical uses of MEI, that are entirely
-non-numeric strings. Measure numbers may be machine-generated instead of
-encoding them in the markup. However, an explicit measure number should
-restart numbering with the given value. If this measure's contents
-duplicate another, probably preceding, measure, the measure which
-contains the content being repeated can be referenced using the measref
-attribute. -->
+'line up'. Barlines within a part may or may not be 'controlling' with
+respect to other parts. The left attribute indicates the visual
+rendition of the left barline. It is present here only for facilitation
+of translation from legacy encodings which use it. Usually, it can be
+safely ignored. The right attribute, on the other hand, indicates the
+function of the right barline and is structurally important. The n
+attribute may contain a name or number associated with the measure
+(Read, p. 445). Often, this is an integer, but not always. For example,
+some measures, especially incomplete measures or those under an ending
+mark, may have labels that contain an integer plus a suffix, such as
+'12a'. Measures may even have labels, especially in editorial or
+analytical uses of MEI, that are entirely non-numeric strings. Measure
+numbers may be machine-generated instead of encoding them in the markup.
+However, an explicit measure number should restart numbering with the
+given value. If this measure's contents duplicate another (probably
+preceding) measure, the measure which contains the content being
+repeated can be referenced using the measref attribute. -->
 <!ENTITY % att.log.measure
                      'complete          (c|i|o)               #IMPLIED
                      control            %data.BOOLEAN;        #IMPLIED
@@ -3555,10 +3637,10 @@ attribute. -->
                      measref            IDREF                 #IMPLIED
                      right              %data.BARRENDITION;   #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The taktplace attribute value must be a
-number between 1 and the number of stafflines. For example, a value of
-'5' puts the barline through the top line of a 5-line staff. The width
-attribute records a fixed width for the measure. -->
+<!-- doc: Visual domain attributes: The taktplace attribute value must
+be a number between 1 and the number of stafflines. For example, a value
+of '5' puts the barline through the top line of a 5-line staff. The
+width attribute records a fixed width for the measure. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.measure
                      'barplace          %data.BARPLACE;       #IMPLIED
@@ -3584,10 +3666,10 @@ analysis attributes. -->
 ]]>
 <!ENTITY % att.ges.mordent ''>
 
-<!-- doc: Logical domain attributes: In the form attribute, 'norm' signals
-the normal form, that is, the written note, followed by its lower
-neighbor, with a return to the written note, while 'inv' indicates the
-inverted form, that is, the principal note, followed by its upper
+<!-- doc: Logical domain attributes: In the form attribute, 'norm'
+signals the normal form, that is, the written note, followed by its
+lower neighbor, with a return to the written note, while 'inv' indicates
+the inverted form, that is, the principal note, followed by its upper
 neighbor, with a return to the principal note. When the long attribute
 is set to 'yes', a double or long mordent, consisting of 5 notes, is
 indicated. Traditionally, the 'normal' mordent is written as a short
@@ -3606,7 +3688,9 @@ about which visual symbol is actually to be rendered. -->
                      form               (inv|norm)            #IMPLIED
                      long               %data.BOOLEAN;        #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the mordent with respect to the staff with which it is
+associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mordent
                      '%att.color;
@@ -3626,7 +3710,13 @@ attributes. -->
 ]]>
 <!ENTITY % att.anl.mrest ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the measure rest when it differs from the logical
+and visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. The instr attribute provides a way of
+pointing to a MIDI instrument definition. It must contain the ID of an
+instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.mrest
                      'dur.ges           CDATA                 #IMPLIED
@@ -3634,7 +3724,10 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.mrest ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The fermata attribute may be used
+to indicate the attachment of a fermata to this element. If visual
+information about the fermata needs to be recorded, then a fermata
+element should be employed. -->
 <!ENTITY % att.log.mrest
                      '%att.event;
                      fermata            %data.PLACE;          #IMPLIED'>
@@ -3646,7 +3739,8 @@ cutout attribute indicates that the staff lines are to be displayed but
 not the rest itself. When set to 'staff' even the staff lines should not
 be drawn for this measure. See _56 Songs You Like to Sing_, p. 32. The
 dur.vis attribute should be used to record the durational symbol used in
-the source. -->
+the source. The relative typographical size of the rest can be captured
+in the size attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mrest
                      '%att.visualoffset;
@@ -3684,7 +3778,8 @@ content being repeated can be referenced using the measref attribute. -->
 <!-- doc: Visual domain attributes: The altsym attribute provides a way
 of pointing to a user-defined symbol. It must contain an ID of a
 symboldef element elsewhere in the document. The expand attribute
-indicates whether or not to render the source measure. -->
+indicates whether to render the source measure instead of the repeat
+symbol. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mrpt
                      '%att.color;
@@ -3720,7 +3815,8 @@ content being repeated can be referenced using the measref attribute. -->
 <!-- doc: Visual domain attributes: The altsym attribute provides a way
 of pointing to a user-defined symbol. It must contain an ID of a
 symboldef element elsewhere in the document. The expand attribute
-indicates whether or not to render the source measures. -->
+indicates whether to render the source measures instead of the repeat
+symbol. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mrpt2
                      '%att.color;
@@ -3741,7 +3837,13 @@ containing only mrest elements. -->
 ]]>
 <!ENTITY % att.anl.mspace ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the measure space when it differs from the logical
+and visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. The instr attribute provides a way of
+pointing to a MIDI instrument definition. It must contain the ID of an
+instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.mspace
                      'dur.ges           CDATA                 #IMPLIED
@@ -3749,14 +3851,17 @@ containing only mrest elements. -->
 ]]>
 <!ENTITY % att.ges.mspace ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The fermata attribute may be used
+to indicate the attachment of a fermata to this element. If visual
+information about the fermata needs to be recorded, then a fermata
+element should be employed. -->
 <!ENTITY % att.log.mspace
                      '%att.event;
                      fermata            %data.PLACE;          #IMPLIED'>
 
 <!-- doc: Visual domain attributes: The altsym attribute provides a way
 of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document.  When set to 'rest' the
+symboldef element elsewhere in the document. When set to 'rest' the
 cutout attribute indicates that the staff lines are to be displayed but
 not the rest itself. When set to 'staff' even the staff lines should not
 be drawn for this measure. See _56 Songs You Like to Sing_, p. 32. The
@@ -3781,7 +3886,13 @@ the source. -->
 ]]>
 <!ENTITY % att.anl.multirest ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the multiple measure rest when it differs from the
+logical and visual durations. It may be expressed in several forms, such
+as measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip
+values, or MusicXML 'divisions', etc. The instr attribute provides a way
+of pointing to a MIDI instrument definition. It must contain the ID of
+an instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.multirest
                      'dur.ges           CDATA                 #IMPLIED
@@ -3789,15 +3900,18 @@ the source. -->
 ]]>
 <!ENTITY % att.ges.multirest ''>
 
-<!-- doc: Logical domain attributes: The num attribute contains the number of
-measures of rest. -->
+<!-- doc: Logical domain attributes: The num attribute contains the
+number of measures of rest. -->
 <!ENTITY % att.log.multirest
                      '%att.event;
                      num                %data.INTEGERPOSITIVE; #REQUIRED'>
 
-<!-- doc: Visual domain attributes: When the block attribute is used,
-combinations of the 1, 2, &amp; 4 measure rest forms (Read, p. 104) should
-be rendered instead of the modern form. -->
+<!-- doc: Visual domain attributes: The altsym attribute provides a way
+of pointing to a user-defined symbol. It must contain an ID of a
+symboldef element elsewhere in the document. When the block attribute is
+used, combinations of the 1, 2, &amp; 4 measure rest forms (Read, p.
+104) should be rendered instead of the modern form or the alternative
+symbol. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.multirest
                      'altsym            IDREF                 #IMPLIED
@@ -3847,11 +3961,12 @@ of the repeat marking. -->
 
 <!-- doc: Analytical domain attributes:
      accid.cautionary cautionary accidental
-     accid.editorial  editorial accidental or musica ficta
+     accid.editorial  editorial or musica ficta accidental
      hfunc            harmonic function, e.g. root, 3rd, 5th
-     inth             harmonic interval from pitch in same chord
-     intm             melodic interval from previous pitch
-     mfunc            melodic function, e.g. appogg., N.T.
+     inth             harmonic interval from another, lower pitch in
+                      chord
+     intm             melodic interval from pitch in previous note/chord
+     mfunc            melodic function, e.g. appogg., N.T., etc.
      pclass           pitch class 
      psolfa           solfa, e.g. do, re, mi, etc.
 -->
@@ -3887,7 +4002,13 @@ defined terms, such as measures[s]:beat[s].beatpart, MIDI clicks,
 Humdrum *recip values, etc. Because dur.ges isn't limited to the
 standard duration values, a dots.ges attribute is unnecessary. See Read,
 p. 238-241, for a discussion of grace notes. The pnum attribute holds a
-pitch-to-number mapping, a base-40 or MIDI note number, for example. -->
+pitch-to-number mapping, a base-40 or MIDI note number, for example. The
+instr attribute provides a way of pointing to a MIDI instrument
+definition. It must contain the ID of an instrdef element elsewhere in
+the document. The num and numbase attributes are provided for use when
+the performed duration of the note is best expressed as a ratio. String
+tablature information can be recorded in the tab.fret and tab.string
+attributes. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.nota.tablature
                      'tab.fret          %data.FRETNUMBER;      #IMPLIED
@@ -3913,8 +4034,8 @@ pitch-to-number mapping, a base-40 or MIDI note number, for example. -->
 ]]>
 <!ENTITY % att.ges.nota ''>
 
-<!-- doc: Logical domain attributes: The pname, accid, oct, dur, dots, and
-artic attributes encode the *written* note name, accidental, octave,
+<!-- doc: Logical domain attributes: The pname, accid, oct, dur, dots,
+and artic attributes encode the *written* note name, accidental, octave,
 duration, articulations, augmentation dots, and articulations. The acci
 attribute records the notated accidental for the note, e.g. flat, sharp,
 natural, double flat, double sharp (both forms), natural+flat,
@@ -3922,12 +4043,14 @@ natural+sharp, and the quarter tone accidentals. The beam attribute
 records the presence of a beam in which this note participates. Software
 may use this attribute or beam elements for rendering. The dots
 attribute records the number of augmentation dots required by a dotted
-duration. The slur, tie, lv (laissez vibrer), and tuplet attributes encode
-the presence of a slur, tie, lv, or tuplet in which this note participates.
-Software may render slur, tie, lv or tuplet indications based on these
-attributes or require separate slur, tie, generic curve, or tuplet elements
-for visual rendition. Tablature information can be recorded in the tab.fret
-and tab.string attributes. fermata = corona in the mensural repertoire. -->
+duration. The corona (the name for fermata in the mensural repertoire),
+slur, syl, tie, lv (laissez vibrer), and tuplet attributes encode the
+presence of a fermata, slur, syl, tie, lv, or tuplet in which this note
+participates. Software may render fermata, slur, syl, tie, lv or tuplet
+indications based on these attributes or require separate fermata, slur,
+syl, tie, generic curve, or tuplet elements for visual rendition.
+Similarly, the lig attribute indicates participation of this note in a
+ligature. -->
 <!ENTITY % att.log.nota
                      '%att.event;
                      accid              %data.ACCIDENTAL.EXPLICIT;
@@ -4036,10 +4159,14 @@ Humdrum *recip values, etc. Because dur.ges isn't limited to the
 standard duration values, a dots.ges attribute is unnecessary. See Read,
 p. 238-241, for a discussion of grace notes. The pnum attribute holds a
 pitch-to-number mapping, a base-40 or MIDI note number, for example.
-Tablature information can be recorded in the tab.fret and tab.string
-attributes. -->
+String tablature information can be recorded in the tab.fret and
+tab.string attributes. The instr attribute provides a way of pointing to
+a MIDI instrument definition. It must contain the ID of an instrdef
+element elsewhere in the document. -->
 <![%meiGestural;[
-  <!ENTITY % att.ges.note.tablature ''>
+  <!ENTITY % att.ges.note.tablature
+                     'tab.fret          %data.FRETNUMBER;     #IMPLIED
+                     tab.string         %data.STRINGNUMBER;   #IMPLIED'>
   <!ENTITY % att.ges.note.base
                      'accid.ges         %data.ACCIDENTAL.IMPLICIT;
                                                               #IMPLIED
@@ -4052,15 +4179,13 @@ attributes. -->
                      instr              IDREF                 #IMPLIED
                      oct.ges            %data.OCTAVE;         #IMPLIED
                      pname.ges          %data.PITCHNAME.GES;  #IMPLIED
-                     pnum               %data.PITCHNUMBER;    #IMPLIED
-                     tab.fret           %data.FRETNUMBER;     #IMPLIED
-                     tab.string         %data.STRINGNUMBER;   #IMPLIED'>
+                     pnum               %data.PITCHNUMBER;    #IMPLIED'>
   <!ENTITY % att.ges.note '%att.ges.note.base; %att.ges.note.tablature;'>
 ]]>
 <!ENTITY % att.ges.note ''>
 
-<!-- doc: Logical domain attributes: The pname, accid, oct, dur, dots, and
-artic attributes encode the *written* note name, accidental, octave,
+<!-- doc: Logical domain attributes: The pname, accid, oct, dur, dots,
+and artic attributes encode the *written* note name, accidental, octave,
 duration, articulations, augmentation dots, and articulations. The acci
 attribute records the notated accidental for the note, e.g. flat, sharp,
 natural, double flat, double sharp (both forms), natural+flat,
@@ -4068,11 +4193,12 @@ natural+sharp, and the quarter tone accidentals. The beam attribute
 records the presence of a beam in which this note participates. Software
 may use this attribute or beam elements for rendering. The dots
 attribute records the number of augmentation dots required by a dotted
-duration. The slur, tie, lv (laissez vibrer), and tuplet attributes encode
-the presence of a slur, tie, lv, or tuplet in which this note participates.
-Software may render slur, tie, lv or tuplet indications based on these
-attributes or require separate slur, tie, generic curve, or tuplet elements
-for visual rendition. -->
+duration. The fermata, slur, syl, tie, lv (laissez vibrer), and tuplet
+attributes encode the presence of a fermata, slur, syl, tie, lv, or
+tuplet in which this note participates. Software may render fermata,
+slur, syl, tie, lv or tuplet indications based on these attributes or
+require separate fermata, slur, syl, tie, generic curve, or tuplet
+elements for visual rendition. -->
 <!ENTITY % att.log.note
                      '%att.event;
                      accid              %data.ACCIDENTAL.EXPLICIT;
@@ -4147,26 +4273,30 @@ vertical offset. -->
 ]]>
 <!ENTITY % att.anl.octave ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the octave displacement when it differs from the
+logical and visual durations. It may be expressed in several forms, such
+as measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip
+values, or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.octave
                      'dur.ges           CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.octave ''>
 
-<!-- doc: Logical domain attributes: The dur attribute encodes the logical
-and visual duration of the octave displacement while the dur.ges
-attribute, if it is available, encodes the performed duration. If
-logical and visual duration differ, it may be necessary to add a
-dur.vis attribute. Please note that the dur attribute here is
-not a true duration, but rather a time stamp for the end point of the
-octave displacement. The dur attribute is NOT REQUIRED because the
-octave displacement can be visually instantaneous. The place
-attribute indicates direction of displacement and display location and
-therefore is REQUIRED. The dis attribute states the amount of
-displacement while coll (Read, p. 47-48) encodes whether the octave
-displacement should be performed simultaneously with the written
-notes. -->
+<!-- doc: Logical domain attributes: The dur attribute encodes the
+logical and visual duration of the octave displacement. If logical and
+visual duration differ, it may be necessary to add a dur.vis attribute.
+Please note that the dur attribute here is not a true duration, but
+rather a time stamp for the end point of the octave displacement. The
+dur attribute is NOT REQUIRED because the octave displacement can be
+visually instantaneous. The place attribute indicates direction of
+displacement and display location and therefore is REQUIRED. The dis
+attribute states the amount of displacement while coll (Read, p. 47-48)
+encodes whether the octave displacement should be performed
+simultaneously with the written notes. The place attribute captures the
+placement of the octave sign with respect to the staff with which it is
+associated. -->
 <!ENTITY % att.log.octave
                      '%att.controlevent;
                      %att.startendid;
@@ -4175,7 +4305,8 @@ notes. -->
                      dur                %data.MEASUREBEAT;    #IMPLIED
                      place              %data.PLACE;          #REQUIRED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The rend attribute captures the
+appearance of the continuation line associated with the octave shift. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.octave
                      '%att.xy;
@@ -4229,7 +4360,8 @@ attributes. -->
 <!ENTITY % att.ges.pad ''>
 
 <!-- doc: Logical domain attributes: The num attribute is the amount of
-horizontal space to be added, expressed in inter-line staff units. -->
+horizontal space to be added, expressed in one-half inter-line staff
+distance units. -->
 <!ENTITY % att.log.pad
                      '%att.event;
                      num                %data.NUMBER;         #REQUIRED'>
@@ -4243,6 +4375,8 @@ horizontal space to be added, expressed in inter-line staff units. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for pedal (piano damper pedal)                  * -->
 
+<!-- doc: Analytical domain attributes: pedal uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.pedal
                      '%att.common.anl;'>
@@ -4255,18 +4389,21 @@ horizontal space to be added, expressed in inter-line staff units. -->
 ]]>
 <!ENTITY % att.ges.pedal ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The dir attribute records the
+position of the pedal. -->
 <!ENTITY % att.log.pedal
                      '%att.controlevent;
                      %att.startendid;
                      dir                (down|up|half)        #REQUIRED'>
 
-<!-- doc: Visual domain attributes: When style is set to 'line', the pedal
-mark is rendered with a continuous line. When it's set to pedstar, a
-pedal down is rendered with "Ped.", a pedal up is rendered as "*", and a
-pedal "bounce" is rendered with "Ped. *". When set to altpedstar pedal
+<!-- doc: Visual domain attributes: When style is set to 'line', the
+pedal mark is rendered with a continuous line. When it's set to pedstar,
+a pedal down is rendered with "Ped.", a pedal up is rendered as "*", and
+a pedal "bounce" is rendered with "Ped. *". When set to altpedstar pedal
 up and down indications are the same as with pedstar but a bounce is
-rendered with "Ped." only. -->
+rendered with "Ped." only. The place attribute captures the placement of
+the pedal marking with respect to the staff with which it is associated.
+-->
 <![%meiVisual;[
   <!ENTITY % att.vis.pedal
                      '%att.color;
@@ -4299,23 +4436,24 @@ to system breaks, that form a single musical phrase. -->
 <!ENTITY % att.ges.phrase ''>
 
 <!-- doc: Logical domain attributes: Phrase may either use tstamp and
-duration or startid and endid attributes. It is a semantic error not
-to specify one of these attribute combinations. -->
+dur or startid and endid attributes. It is a semantic error not to
+specify one of these attribute combinations. -->
 <!ENTITY % att.log.phrase
                      '%att.controlevent;
                      %att.startendid;
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The place attribute records general,
-relative placement only. The bulge or, alternatively, the bezier
-attribute, describes the shape of the phrase mark. The bulge attribute
-describes the curve as a set of distance values above or below an
-imaginary line connecting the endpoints of the curve while the bezier
-attribute records the placement of Bezier control points as a series
-of space-separated xy coordinates, eg. 19 45 -32 118. The bulge
-attribute must contain one or more values of type %NUMBER. The vo
-attribute is the vertical offset (from its normal position) of the
-entire rendered phrase mark. -->
+<!-- doc: Visual domain attributes: The bulge or, alternatively, the
+bezier attribute, describes the shape of the phrase mark. The bulge
+attribute describes the curve as a set of distance values above or below
+an imaginary line connecting the endpoints of the curve while the bezier
+attribute records the placement of Bezier control points as a series of
+space-separated xy coordinates, eg. 19 45 -32 118. The bulge attribute
+must contain one or more values of type %NUMBER. The vo attribute is the
+vertical offset (from its normal position) of the entire rendered phrase
+mark. The place attribute captures the placement of the phrase mark with
+respect to the staff with which it is associated. The rend attribute
+captures the appearance of the phrase mark. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.phrase
                      '%att.color;
@@ -4333,6 +4471,8 @@ entire rendered phrase mark. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for reh                                         * -->
 
+<!-- doc: Analytical domain attributes: reh uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.reh
                      '%att.common.anl;'>
@@ -4360,7 +4500,9 @@ disallow the end attribute. -->
                                                                #IMPLIED
                      tstamp.real        %data.ISOTIME;         #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the rehearsal mark with respect to the staff with which it
+is associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.reh
                      '%att.color;
@@ -4375,15 +4517,21 @@ disallow the end attribute. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for rest                                        * -->
 
+<!-- doc: Analytical domain attributes: rest uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.rest
                      '%att.common.anl;'>
 ]]>
 <!ENTITY % att.anl.rest ''>
 
-<!-- doc: Gestural domain (performance) attributes: The dur.ges attribute
-records the performed duration of the rest when it differs from the
-written duration. -->
+<!-- doc: Gestural domain (performance) attributes: The dur.ges
+attribute encodes the gestural duration of the rest when it differs from
+the logical and visual durations. It may be expressed in several forms,
+such as measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip
+values, or MusicXML 'divisions', etc. The instr attribute provides a way
+of pointing to a MIDI instrument definition. It must contain the ID of
+an instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.rest
                      'dur.ges           CDATA                 #IMPLIED
@@ -4391,7 +4539,12 @@ written duration. -->
 ]]>
 <!ENTITY % att.ges.rest ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The beam, fermata, and tuplet
+attributes may be used to indicate the attachment of these things to
+this element. If visual information about these items needs to be
+recorded, then the elements corresponding to these attributes should be
+employed. The dots attribute records the number of augmentation dots
+required by a dotted duration. -->
 <!ENTITY % att.log.rest
                      '%att.event;
                      beam               %data.BEAMS;          #IMPLIED
@@ -4425,15 +4578,19 @@ the rest. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for pausa                                       * -->
 
+<!-- doc: Analytical domain attributes: pausa uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.pausa
                      '%att.common.anl;'>
 ]]>
 <!ENTITY % att.anl.pausa ''>
 
-<!-- doc: Gestural domain (performance) attributes: The dur.ges attribute
-records the performed duration of the rest when it differs from the
-written duration. -->
+<!-- doc: Gestural domain (performance) attributes: The dur.ges
+attribute records the performed duration of the pausa when it differs
+from the written duration. The instr attribute provides a way of
+pointing to a MIDI instrument definition. It must contain the ID of an
+instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.pausa
                      'dur.ges           CDATA                  #IMPLIED
@@ -4443,7 +4600,12 @@ written duration. -->
 ]]>
 <!ENTITY % att.ges.pausa ''>
 
-<!-- doc: Logical domain attributes: fermata = corona in the mensural repertoire. -->
+<!-- doc: Logical domain attributes: The corona (the name for fermata in
+the mensural repertoire) attribute may be used to indicate the
+attachment of a corona to this element. If visual information about the
+fermata needs to be recorded, then a fermata element should be employed.
+The dots attribute records the number of augmentation dots required by a
+dotted duration. -->
 <!ENTITY % att.log.pausa
                      '%att.event;
                      beam               %data.BEAMS;          #IMPLIED
@@ -4512,14 +4674,17 @@ a semantic error not to specify one of these attribute combinations. -->
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
 <!-- doc: Visual domain attributes: The bulge or, alternatively, the
-bezier attribute, describes the shape of the slur/phrase mark. The
-bulge attribute describes the curve as a set of distance values above
+bezier attribute, describes the shape of the slur/phrase mark. The bulge
+attribute describes the curve as a set of distance values above
 (positive value) or below (negative value) an imaginary line connecting
 the endpoints of the curve while the bezier attribute records the
 placement of Bezier control points as a series of space-separated xy
-coordinates, eg. 19 45 -32 118. The bulge attribute must contain one
-or more values of type %NUMBER. The vo attribute is the vertical offset (from its normal position) of the
-entire rendered slur/phrase mark. -->
+coordinates, eg. 19 45 -32 118. The bulge attribute must contain one or
+more values of type %NUMBER. The vo attribute is the vertical offset
+(from its normal position) of the entire rendered slur/phrase mark. The
+place attribute captures the placement of the slur with respect to the
+staff with which it is associated. The rend attribute captures the
+appearance of the slur mark. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.slur
                      '%att.color;
@@ -4537,20 +4702,33 @@ entire rendered slur/phrase mark. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for space                                       * -->
 
+<!-- doc: Analytical domain attributes: space uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.space
                      '%att.common.anl;'>
 ]]>
 <!ENTITY % att.anl.space ''>
 
-<!-- doc: Gestural domain attributes: -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the space when it differs from the logical and
+visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.space
                      'dur.ges           CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.space ''>
 
-<!-- doc: Logical domain attributes: -->
+<!-- doc: Logical domain attributes: The beam, fermata, and tuplet
+attributes may be used to indicate the participation of this element in
+a beam or tuplet or attachment of a fermata to this element. If visual
+information about these items needs to be recorded, then the elements
+corresponding to these attributes should be employed. The dots attribute
+records the number of augmentation dots required by a dotted duration.
+The duration (in musical terms) of the space may be recorded in the dur
+attribute. -->
 <!ENTITY % att.log.space
                      '%att.event;
                      beam               %data.BEAMS;          #IMPLIED
@@ -4559,7 +4737,9 @@ entire rendered slur/phrase mark. -->
                      fermata            %data.PLACE;          #IMPLIED
                      tuplet             %data.TUPLET;         #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: If the space is 'compressable',
+i.e., it may be removed by processing software, then the compressable
+attribute may be used. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.space
                      'compressable      %data.BOOLEAN;        #IMPLIED'>
@@ -4569,6 +4749,8 @@ entire rendered slur/phrase mark. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for syl                                         * -->
 
+<!-- doc: Analytical domain attributes: syl uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.syl
                      '%att.common.anl;'>
@@ -4581,21 +4763,23 @@ entire rendered slur/phrase mark. -->
 ]]>
 <!ENTITY % att.ges.syl ''>
 
-<!-- doc: Logical domain attributes:
-  Lyric syllable connectors -
-    s (_s_pace) = word separator
-    d (_d_ash)  = syllable separator
-    u (_u_nderscore) = syllable extension
-    t (_t_ilde) = syllable elision
-  wordpos attribute records the position of the syllable in a word
-   -->
+<!-- doc: Logical domain attributes: Lyric syllable connectors, i.e.,
+symbols typically used to indicate breaks between syllables:
+  s (_s_pace) = word separator
+  d (_d_ash)  = syllable separator
+  u (_u_nderscore) = syllable extension
+  t (_t_ilde) = syllable elision
+The wordpos attribute records the position of the syllable within a
+word. -->
 <!ENTITY % att.log.syl
                      'con                (s|d|u|t)             #IMPLIED
                      wordpos             (i|m|t)               #IMPLIED'>
 
 <!-- doc: Visual domain attributes: The ho attribute allows any lyric
 syllable to be horizontally offset from its normal (centered below the
-note) position. -->
+note) position. Horizontal alignment of the syllable with respect to the
+note to which it is attached may be indicated in the halign attribute.
+The appearance of the text is captured in the rend attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.syl
                      '%att.typography;
@@ -4610,6 +4794,8 @@ note) position. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for tempo                                       * -->
 
+<!-- doc: Analytical domain attributes: tempo uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.tempo
                      '%att.common.anl;'>
@@ -4626,18 +4812,21 @@ The value attribute is for a beats-per-minute value. -->
 ]]>
 <!ENTITY % att.ges.tempo ''>
 
-<!-- doc: Logical domain attributes: The dur.vis attribute encodes visual
-duration. (Read, p. 276-281) If logical and visual durations differ,
-it may be necessary to add a dur attribute. Please note that the dur
-attribute here is expressed in musical time, i.e., beats or other time
-stamp. Therefore, it is not a true duration, but rather a time stamp
-for the end point of the directive. The a.startendid entity is
+<!-- doc: Logical domain attributes: The dur.vis attribute encodes
+visual duration. (Read, p. 276-281) If logical and visual durations
+differ, it may be necessary to add a dur attribute. Please note that the
+dur attribute here is expressed in musical time, i.e., beats or other
+time stamp. Therefore, it is not a true duration, but rather a time
+stamp for the end point of the directive. The a.startendid entity is
 expanded here in order to disallow the end attribute. -->
 <!ENTITY % att.log.tempo
                      '%att.controlevent;
                      start              IDREF                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the tempo marking with respect to the staff with which it
+is associated. The dur.vis attribute should be used to record the visual
+duration of the tempo marking in the source. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.tempo
                      '%att.visualoffset;
@@ -4652,6 +4841,8 @@ expanded here in order to disallow the end attribute. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for tie                                         * -->
 
+<!-- doc: Analytical domain attributes: tie uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.tie
                      '%att.common.anl;'>
@@ -4664,8 +4855,8 @@ expanded here in order to disallow the end attribute. -->
 ]]>
 <!ENTITY % att.ges.tie ''>
 
-<!-- doc: Logical domain attributes: The a.startendid entity is expanded here
-in order to make startid and endid attributes required. -->
+<!-- doc: Logical domain attributes: The a.startendid entity is expanded
+here in order to make startid and endid attributes required. -->
 <!ENTITY % att.log.tie
                      '%att.controlevent;
                      endid              IDREF                 #REQUIRED
@@ -4682,7 +4873,8 @@ vertical offset (from its normal position) of the entire rendered tie.
 The startho, startvo, endho, and endvo attributes describe the
 horizontal and vertical offsets of the start and end points of the tie
 in terms of interline distance. Startto and endto describe the start and
-end points in terms of time; that is, beats. -->
+end points in terms of time; that is, beats. The appearance of the tie
+is captured in the rend attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.tie
                      '%att.color;
@@ -4699,16 +4891,22 @@ end points in terms of time; that is, beats. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for trill                                       * -->
 
+<!-- doc: Analytical domain attributes: trill uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.trill
                      '%att.common.anl;'>
 ]]>
 <!ENTITY % att.anl.trill ''>
 
-<!-- doc: Gestural domain attributes: The dur.ges attribute records the
-performed duration. -->
+<!-- doc: Gestural domain attributes: The dur.ges attribute encodes the
+gestural duration of the trill when it differs from the logical and
+visual durations. It may be expressed in several forms, such as
+measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values,
+or MusicXML 'divisions', etc. -->
 <![%meiGestural;[
-  <!ENTITY % att.ges.trill ''>
+  <!ENTITY % att.ges.trill
+                     'dur.ges           CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.trill ''>
 
@@ -4726,7 +4924,9 @@ supplied in the accid attribute. -->
                                                               #IMPLIED
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the trill with respect to the staff with which it is
+associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.trill
                      '%att.color;
@@ -4741,6 +4941,8 @@ supplied in the accid attribute. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for tuplet                                      * -->
 
+<!-- doc: Analytical domain attributes: tuplet uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.tuplet
                      '%att.common.anl;'>
@@ -4753,14 +4955,19 @@ supplied in the accid attribute. -->
 ]]>
 <!ENTITY % att.ges.tuplet ''>
 
-<!-- doc: Logical domain attributes: The dur attribute is the time taken up
-by the tuplet. If dur is omitted, the default is to calculate the total
-duration of the included notes and use the next shorter un-dotted value.
-The dots attribute may be used for dotted durations. The num and numbase
-attributes express a ratio. They may be used for explicit labelling of the
-tuplet, such as, '3' with an 8th-note triplet, '3:2' over a quarter-note
-triplet, etc. The rendering of the ratio, however, is dependent on the
-num.format attribute described below. -->
+<!-- doc: Logical domain attributes: The dur attribute is the time taken
+up by the tuplet. Unlike other control events where the dur attribute is
+expressed as a time stamp, dur here is a true duration. If dur is
+omitted, the default is to calculate the total duration of the included
+notes and use the next shorter un-dotted value. The dots attribute
+records the number of augmentation dots required by a dotted duration.
+The num and numbase attributes express a ratio. They may be used for
+explicit labelling of the tuplet, such as, '3' with an 8th-note triplet,
+'3:2' over a quarter-note triplet, etc. The rendering of the ratio,
+however, is dependent on the num.format attribute found in the
+att.vis.tuplet attribute class. In the case of tuplets that cross
+staves, the with attribute is used to indicate which staff the tuplet is
+connected to; that is, the staff above or the staff below. -->
 <!ENTITY % att.log.tuplet
                      '%att.event;
                      dots               %data.AUGMENTDOT;      #IMPLIED
@@ -4773,11 +4980,14 @@ num.format attribute described below. -->
 to state where the bracket will be placed in relation to the noteheads,
 while the num.place attribute gives the placement of the number or ratio
 label for the tuplet (if num.visible is 'yes'). The num.visible,
-bracket.visible, and dur.visible attributes indicate whether the numbers,
-bracket, and duration are visible. The num.format attribute controls how
-the num:numbase ratio is to be displayed. When set to 'count' only the
-num attribute is displayed; however, when set to 'ratio', both the num
-and numbase attributes are displayed, i.e., '7:4'. -->
+bracket.visible, and dur.visible attributes indicate whether the
+numbers, bracket, and duration are visible. The num.format attribute
+controls how the num:numbase ratio is to be displayed. When set to
+'count' only the num attribute is displayed; however, when set to
+'ratio', both the num and numbase attributes are displayed, i.e., '7:4'.
+In the case of tuplets that cross staves, the with attribute is used to
+indicate which staff the tuplet is connected to; that is, the staff
+above or the staff below. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.tuplet
                      'bracket.place     %data.PLACE;          #IMPLIED
@@ -4792,6 +5002,8 @@ and numbase attributes are displayed, i.e., '7:4'. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for tupletspan                                  * -->
 
+<!-- doc: Analytical domain attributes: tupletspan uses only common
+analysis attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.tupletspan
                      '%att.common.anl;'>
@@ -4804,10 +5016,19 @@ and numbase attributes are displayed, i.e., '7:4'. -->
 ]]>
 <!ENTITY % att.ges.tupletspan ''>
 
-<!-- doc: Logical domain attributes: The dur attribute encodes the logical
-and visual duration of the tuplet. Unlike other control events where
-the dur attribute is expressed as a time stamp, dur here is a true
-duration. -->
+<!-- doc: Logical domain attributes: The dur attribute is the time taken
+up by the tuplet. Unlike other control events where the dur attribute is
+expressed as a time stamp, dur here is a true duration. If dur is
+omitted, the default is to calculate the total duration of the included
+notes and use the next shorter un-dotted value. The dots attribute
+records the number of augmentation dots required by a dotted duration.
+The num and numbase attributes express a ratio. They may be used for
+explicit labelling of the tuplet, such as, '3' with an 8th-note triplet,
+'3:2' over a quarter-note triplet, etc. The rendering of the ratio,
+however, is dependent on the num.format attribute found in the
+att.vis.tupletspan attribute class. In the case of tuplets that cross
+staves, the with attribute is used to indicate which staff the tuplet is
+connected to; that is, the staff above or the staff below. -->
 <!ENTITY % att.log.tupletspan
                      '%att.controlevent;
                      %att.startendid;
@@ -4819,7 +5040,18 @@ duration. -->
                      with               %data.PLACE;           #IMPLIED'>
 
 <![%meiVisual;[
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The bracket.place attribute is used
+to state where the bracket will be placed in relation to the noteheads,
+while the num.place attribute gives the placement of the number or ratio
+label for the tuplet (if num.visible is 'yes'). The num.visible,
+bracket.visible, and dur.visible attributes indicate whether the
+numbers, bracket, and duration are visible. The num.format attribute
+controls how the num:numbase ratio is to be displayed. When set to
+'count' only the num attribute is displayed; however, when set to
+'ratio', both the num and numbase attributes are displayed, i.e., '7:4'.
+In the case of tuplets that cross staves, the with attribute is used to
+indicate which staff the tuplet is connected to; that is, the staff
+above or the staff below. -->
   <!ENTITY % att.vis.tupletspan
                      'bracket.place     %data.PLACE;          #IMPLIED
                      bracket.visible    %data.BOOLEAN;        #IMPLIED
@@ -4833,6 +5065,8 @@ duration. -->
 <!-- ************************************************************** -->
 <!-- * Attributes for turn                                        * -->
 
+<!-- doc: Analytical domain attributes: turn uses only common analysis
+attributes. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.turn
                      '%att.common.anl;'>
@@ -4845,11 +5079,13 @@ duration. -->
 ]]>
 <!ENTITY % att.ges.turn ''>
 
-<!-- doc: Logical domain attributes: Accidentals for the turn may be
-supplied in the accidupper and accidlower attributes. The a.startendid
-entity is expanded here in order to disallow the end attribute. When
-the delayed attribute is set to 'yes', the turn begins on the second
-half of the beat. See Read, p. 246. -->
+<!-- doc: Logical domain attributes: The form attribute indicates
+whether the turn begins on the note above (norm) or on the note below
+(inv). Accidentals for the turn may be supplied in the accidupper and
+accidlower attributes. The a.startendid entity is expanded here in order
+to disallow the end attribute. When the delayed attribute is set to
+'yes', the turn begins on the second half of the beat. See Read, p. 246.
+-->
 <!ENTITY % att.log.turn
                      '%att.controlevent;
                      accidupper         %data.ACCIDENTAL.EXPLICIT;
@@ -4860,7 +5096,9 @@ half of the beat. See Read, p. 246. -->
                      form               (inv|norm)            #IMPLIED
                      start              IDREF                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: -->
+<!-- doc: Visual domain attributes: The place attribute captures the
+placement of the turn with respect to the staff with which it is
+associated. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.turn
                      '%att.color;
@@ -6139,11 +6377,12 @@ Module:  meiShared -->
           %att.lang;>
 ]]>
 
-<!-- doc: Special visual rendering of text. A positive value for rotation
-rotates the text in a counter-clockwise fashion, while negative values
-produce clockwise rotation. The altrend attribute can be used to
-extend the values of the rend attribute. One or the other of the rend
-and altrend attributes is required. 
+<!-- doc: Special visual rendering of text. A positive value for
+rotation rotates the text in a counter-clockwise fashion, while negative
+values produce clockwise rotation. The rend attribute captures the
+appearance of the text. The altrend attribute can be used to extend the
+values of the rend attribute. One or the other of the rend and altrend
+attributes is required.
 Used by: model.rendLike 
 Module:  meiShared -->
 <!ENTITY % rend 'IGNORE'>
@@ -6563,8 +6802,8 @@ Module:  meiShared -->
           %att.anl.accid;>
 ]]>
 
-<!-- doc: The barline element may be used instead of the measure element.
-It has the same attributes as measure.
+<!-- doc: The barline element may be used instead of the measure
+element. It has the same attributes as measure.
 Used by: model.eventLike.mensural-cmn 
 Module:  meiShared -->
 <!ENTITY % barline 'IGNORE'>
@@ -6584,8 +6823,8 @@ Module:  meiShared -->
 ]]>
 
 <!-- doc: The dot element is provided for the encoding of mensural
-notation. The dot element may be used for dots of augmentation
-or division. 
+notation. The dot element may be used for dots of augmentation or
+division.
 Used by: model.eventLike.mensural-cmn 
 Module:  meiShared -->
 <!ENTITY % dot 'IGNORE'>
@@ -8124,10 +8363,10 @@ Module:  meiCMN -->
           %att.anl.pedal;>
 ]]>
 
-<!-- doc: Rehearsal mark (Read, p. 443). The content model uses a subset of
+<!-- doc: Rehearsal mark (Read, p. 443). Reh uses a subset of
 %model.textphraseLike.limited. If the entire rehearsal mark is boxed or
 circled, the enclose attribute is preferred over a rend sub-element. 
-Used by: model.controleventLike.common 
+Used by: model.controleventLike.common
 Module:  meiCMN -->
 <!ENTITY % reh 'IGNORE'>
 <![%reh;[
@@ -8400,18 +8639,19 @@ Module:  meiHarmony -->
 ]]>
 
 <!-- User-defined symbols -->
-<!-- doc: Curve. The x1,y1 and x2,y2 attributes identify the two terminal
-points of the curve. If the startid or endid attributes are present,
-then the x,y and x2,y2 coordinates are relative to the xy coordinates
-of the referenced element(s). Otherwise, they are assumed to be
-absolute page coordinate references. The bulge or, alternatively, the
+<!-- doc: Curve. The x1,y1 and x2,y2 attributes identify the two
+terminal points of the curve. If the startid or endid attributes are
+present, then the x,y and x2,y2 coordinates are relative to the xy
+coordinates of the referenced element(s). Otherwise, they are assumed to
+be absolute page coordinate references. The bulge or, alternatively, the
 bezier attribute, describe the shape of the curve. The bulge attribute
 describes the curve as a set of distance values above or below an
 imaginary line connecting the endpoints of the curve while the bezier
-attribute records the placement of Bezier control points as a series
-of space-separated xy coordinate pairs, eg. 19 45 -32 118. The bulge
+attribute records the placement of Bezier control points as a series of
+space-separated xy coordinate pairs, eg. 19 45 -32 118. The bulge
 attribute must contain one or more values of the %NUMBER type. Either
-the bezier attribute or the bulge and xy coordinates are required. 
+the bezier attribute or the bulge and xy coordinates are required. The
+rend attribute captures the appearance of the curve.
 Used by: model.graphicprimitiveLike 
 Module:  meiUserSymbols -->
 <!ENTITY % curve 'IGNORE'>
@@ -8437,7 +8677,8 @@ points of the line. Text content of the line element, e.g. 'gliss.',
 may be rendered with the line. If the startid or endid attributes are
 present, then the x,y and x2,y2 coordinates are relative to the xy
 coordinates of the referenced element(s). Otherwise, they are assumed
-to be absolute page coordinate references. 
+to be absolute page coordinate references. The appearance of the line
+is captured in the rend attribute.
 Used by: model.graphicprimitiveLike 
 Module:  meiUserSymbols -->
 <!ENTITY % line 'IGNORE'>
