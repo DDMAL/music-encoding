@@ -12,7 +12,7 @@
             <p>Converted from rng through an XSLT script written by Raffaele Viglianti</p>
          </publicationStmt>
          <sourceDesc>
-            <p>created on 2009-07-02T18:31:28.084+01:00</p>
+            <p>created on 2009-07-02T19:06:54.236+01:00</p>
          </sourceDesc>
       </fileDesc>
    </teiHeader>
@@ -8397,15 +8397,6 @@
           ID reference to an element containing the name of the editor or transcriber
           responsible for supplying the expansion of the abbreviation. Used by:
           model.editorialLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.trans"/>
-                  <rng:ref name="att.typed"/>
-                  <attDef ident="expan" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8419,11 +8410,6 @@
             </elementSpec>
             <elementSpec ident="address">
                <desc>A postal address Used by: model.addressLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="addressline"/>
@@ -8432,11 +8418,6 @@
             </elementSpec>
             <elementSpec ident="addressline">
                <desc>Single line of an address Used by: address Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8454,19 +8435,6 @@
           present, then the xy coordinates are relative to the xy coordinates of the
           referenced element. Otherwise, they are assumed to be absolute page coordinate
           references. Used by: model.graphicprimitiveLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.xy.required"/>
-                  <attDef ident="startid" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8496,29 +8464,6 @@
           encoded in the href or entityref attributes or in the body of the annotation
           using extref or extptr elements. Used by: model.annotLike Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.log.annot"/>
-                  <rng:ref name="att.vis.annot"/>
-                  <rng:ref name="att.ges.annot"/>
-                  <rng:ref name="att.anl.annot"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.internal"/>
-                  <rng:ref name="att.link.external"/>
-                  <attDef ident="resp" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="source" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREFS"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8537,13 +8482,6 @@
           biblFull, requires new elements that function like those in the meiHead DTD, but
           that do not duplicate their names. Used by: model.biblLike Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.external"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8557,13 +8495,6 @@
             <elementSpec ident="date">
                <desc>Date contains a date in any format. Used by: model.dateLike Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.date"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8582,10 +8513,6 @@
           edition, British edition, etc.). The %model.textphraseLike.limited entity is
           used here in order to disallow the pb element. Used by: model.biblPart
           editionstmt Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8612,15 +8539,6 @@
           editor or transcriber responsible for supplying the expansion of the
           abbreviation held as the content of the &lt;expan&gt; element. Used by:
           model.editorialLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.trans"/>
-                  <rng:ref name="att.typed"/>
-                  <attDef ident="abbr" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8639,10 +8557,6 @@
           with a figure caption. A caption is text primarily intended for display with an
           illustration. It may or may not function as a description of the illustration.
           Used by: figure surface zone Module: meiFigures</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8660,12 +8574,6 @@
           pages. For running headers and footers use pgheadN and pgfootN elements.
           Auto-generated page numbers may be included by using a processing instruction.
           Used by: model.pgmetaLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8681,22 +8589,6 @@
             <elementSpec ident="graphic">
                <desc>Indicates the location of an inline graphic, illustration, or figure.
           Used by: model.graphicLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.link.external"/>
-                  <attDef ident="height" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="units" usage="opt"/>
-                  <attDef ident="width" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -8706,12 +8598,6 @@
           Congress Control Number, Publisher's Number, or personal identifier. Used by:
           model.textphraseLike model.textphraseLike.limited model.pubstmtPart Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8728,22 +8614,6 @@
           line, i.e. most likely a line number. See comment on verse element for
           description of func attribute. Used by: model.milestoneLike.text
           model.textphraseLike.limited Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-                  <attDef ident="func" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="line"/>
-                        <valItem ident="group"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="source" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -8758,14 +8628,6 @@
           for the type attribute are: pers, corp, place, process. The role attribute may
           be used to record the function of the person, corporate body, etc. Used by:
           model.nameLike.agent Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.name"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8780,12 +8642,6 @@
             <elementSpec ident="num">
                <desc>A number in any form Used by: model.measurementLike Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <attDef ident="units" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8799,12 +8655,6 @@
             </elementSpec>
             <elementSpec ident="p">
                <desc>Paragraph Used by: model.textcomponentLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8828,23 +8678,6 @@
           %data.NUMBER; #IMPLIED spacing.system CDATA #IMPLIED width %data.NUMBER;
           #IMPLIED Used by: model.milestoneLike.text model.milestoneLike.music Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.external"/>
-                  <attDef ident="func" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="verso"/>
-                        <valItem ident="recto"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="source" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREFS"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:ref name="model.pgmetaLike"/>
                </content>
@@ -8858,10 +8691,6 @@
           (%model.locrefLike;)* with which one could force page- level meta-data to the
           header where it could be encoded in notesstmt elements. Used by: pb Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8880,39 +8709,6 @@
           rotation. The altrend attribute can be used to extend the values of the rend
           attribute. One or the other of the rend and altrend attributes is required. Used
           by: model.rendLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.typography"/>
-                  <attDef ident="altrend" usage="opt"/>
-                  <attDef ident="halign" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="left"/>
-                        <valItem ident="right"/>
-                        <valItem ident="center"/>
-                        <valItem ident="justify"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="rend" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.TEXTRENDITION"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="rotation" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.DEGREES"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="valign" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="top"/>
-                        <valItem ident="middle"/>
-                        <valItem ident="bottom"/>
-                        <valItem ident="baseline"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8928,14 +8724,6 @@
                <desc>Institution which holds a bibliographic item. Sub-units of the
           institution may be marked with nested repository elements. Used by:
           model.nameLike.place Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.name"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8948,20 +8736,6 @@
             <elementSpec ident="stack">
                <desc>Stacked text, e.g. an inline table with a single column. Used by:
           model.rendLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <attDef ident="delim" usage="opt"/>
-                  <attDef ident="align" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="left"/>
-                        <valItem ident="right"/>
-                        <valItem ident="center"/>
-                        <valItem ident="rightdigit"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -8985,22 +8759,6 @@
           or unpublished material. Title parts may be encoded in title sub-elements since
           title is included in model.textphrase. Used by: model.titleLike Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.name"/>
-                  <rng:ref name="att.typed"/>
-                  <attDef ident="level" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="a"/>
-                        <valItem ident="m"/>
-                        <valItem ident="j"/>
-                        <valItem ident="s"/>
-                        <valItem ident="u"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9016,28 +8774,12 @@
                <desc>The clef element must be used when a staff employs multiple simultaneous
           clefs. Used by: model.clefchangePart model.staffdefPart.multiplyDefinable
           Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.anl.clef"/>
-                  <rng:ref name="att.ges.clef"/>
-                  <rng:ref name="att.log.clef"/>
-                  <rng:ref name="att.vis.clef"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
             </elementSpec>
             <elementSpec ident="custos">
                <desc>Custos Used by: model.eventLike.common Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.custos"/>
-                  <rng:ref name="att.vis.custos"/>
-                  <rng:ref name="att.ges.sb"/>
-                  <rng:ref name="att.anl.sb"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9046,15 +8788,6 @@
                <desc>Mid-measure clef change. Coming as it does, in the middle of a measure, a
           clef change is an event. Used by: model.eventLike.common Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.event"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.clefchange"/>
-                  <rng:ref name="att.vis.clefchange"/>
-                  <rng:ref name="att.ges.clefchange"/>
-                  <rng:ref name="att.anl.clefchange"/>
-               </attList>
                <content>
                   <rng:ref name="model.clefchangePart"/>
                </content>
@@ -9062,13 +8795,6 @@
             <elementSpec ident="pad">
                <desc>Used to create additional visual space between notational elements. Used
           by: model.eventLike.common Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.log.pad"/>
-                  <rng:ref name="att.vis.pad"/>
-                  <rng:ref name="att.ges.pad"/>
-                  <rng:ref name="att.anl.pad"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9077,14 +8803,6 @@
                <desc>A placeholder used to fill an incomplete measure, layer, etc. most often
           so that the combined duration of the events equals the number of beats in the
           measure. Used by: model.eventLike.common Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.space"/>
-                  <rng:ref name="att.vis.space"/>
-                  <rng:ref name="att.ges.space"/>
-                  <rng:ref name="att.anl.space"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9099,16 +8817,6 @@
           %model.textphraseLike.limited entity is employed here instead of
           %model.textphrase in order to disallow use of the pb sub-element. Used by:
           model.controleventLike.common Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.log.dir"/>
-                  <rng:ref name="att.vis.dir"/>
-                  <rng:ref name="att.ges.dir"/>
-                  <rng:ref name="att.anl.dir"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9128,14 +8836,6 @@
           %model.textphraseLike.limited entity is employed here instead of
           %model.textphrase in order to disallow use of the pb sub-element. Used by:
           model.controleventLike.common Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.dynam"/>
-                  <rng:ref name="att.vis.dynam"/>
-                  <rng:ref name="att.ges.dynam"/>
-                  <rng:ref name="att.anl.dynam"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9150,14 +8850,6 @@
             <elementSpec ident="phrase">
                <desc>Phrase mark, used for a "unified melodic idea" (Read, p. 265). Used by:
           model.controleventLike.common Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.phrase"/>
-                  <rng:ref name="att.vis.phrase"/>
-                  <rng:ref name="att.ges.phrase"/>
-                  <rng:ref name="att.anl.phrase"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9169,15 +8861,6 @@
           element. The %model.textphraseLike.limited entity is employed here instead of
           %model.textphrase in order to disallow the use of the pb sub-element. Used by:
           model.controleventLike.common Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.log.tempo"/>
-                  <rng:ref name="att.vis.tempo"/>
-                  <rng:ref name="att.ges.tempo"/>
-                  <rng:ref name="att.anl.tempo"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9193,14 +8876,6 @@
             <elementSpec ident="mensur">
                <desc>The mensur element is provided for the encoding of mensural notation.
           Used by: model.staffdefPart.multiplyDefinable Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.mensur"/>
-                  <rng:ref name="att.vis.mensur"/>
-                  <rng:ref name="att.ges.mensur"/>
-                  <rng:ref name="att.anl.mensur"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9208,14 +8883,6 @@
             <elementSpec ident="proport">
                <desc>Proportion. Used by: model.staffdefPart.multiplyDefinable Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.proport"/>
-                  <rng:ref name="att.vis.proport"/>
-                  <rng:ref name="att.ges.proport"/>
-                  <rng:ref name="att.anl.proport"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9223,14 +8890,6 @@
             <elementSpec ident="ligature">
                <desc>The ligature element is provided for the encoding of mensural notation.
           Used by: model.eventLike.neume-mensural Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.ligature"/>
-                  <rng:ref name="att.vis.ligature"/>
-                  <rng:ref name="att.ges.ligature"/>
-                  <rng:ref name="att.anl.ligature"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.layerPart"/>
@@ -9240,10 +8899,6 @@
             <elementSpec ident="mensurchange">
                <desc>Mensuration change. Used by: model.eventLike.neume-mensural Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="mensur"/>
@@ -9253,10 +8908,6 @@
             <elementSpec ident="proportchange">
                <desc>Proportion change. Used by: model.eventLike.neume-mensural Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="proport"/>
@@ -9269,15 +8920,6 @@
           specific display info, such as size or color, needs to be recorded for the
           articulation. Used by: model.noteModifierLike model.notaModifierLike
           model.neumeModifierLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typography"/>
-                  <rng:ref name="att.log.artic"/>
-                  <rng:ref name="att.vis.artic"/>
-                  <rng:ref name="att.ges.artic"/>
-                  <rng:ref name="att.anl.artic"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9286,40 +8928,6 @@
                <desc>Accidental in a key signature. It is a semantic error not to provide x
           and y or staffloc attributes. Used by: model.keyaccidLike Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.xy"/>
-                  <attDef ident="enclose" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.ENCLOSURE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="form" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="implicit"/>
-                        <valItem ident="explicit"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="oct" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.OCTAVE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="pname">req<datatype>
-                        <rng:ref name="data.PITCHNAME"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="staffloc" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.STAFFLOC"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="value">req<datatype>
-                        <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9328,25 +8936,6 @@
                <desc>Key signature. This element may be used as an alternative to the key.*
           attributes (especially key.sig.mixed) on scoredef and staffdef. Used by:
           model.keysigLike Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <attDef ident="accid" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.ACCIDENTAL.IMPLICIT"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="mode" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.MODE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="pname" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.PITCHNAME"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.keyaccidLike"/>
@@ -9360,15 +8949,6 @@
           can be used to differentiate different functions, such as 'cautionary' or
           'editorial'. Used by: model.noteModifierLike model.notaModifierLike
           model.neumeModifierLike model.eventLike.mensural-cmn Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typography"/>
-                  <rng:ref name="att.log.accid"/>
-                  <rng:ref name="att.vis.accid"/>
-                  <rng:ref name="att.ges.accid"/>
-                  <rng:ref name="att.anl.accid"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9377,17 +8957,6 @@
                <desc>The barline element may be used instead of the measure element. It has
           the same attributes as measure. Used by: model.eventLike.mensural-cmn Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.internal"/>
-                  <rng:ref name="att.link.external"/>
-                  <rng:ref name="att.log.barline"/>
-                  <rng:ref name="att.vis.barline"/>
-                  <rng:ref name="att.ges.barline"/>
-                  <rng:ref name="att.anl.barline"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9396,14 +8965,6 @@
                <desc>The dot element is provided for the encoding of mensural notation. The
           dot element may be used for dots of augmentation or division. Used by:
           model.eventLike.mensural-cmn Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.dot"/>
-                  <rng:ref name="att.vis.dot"/>
-                  <rng:ref name="att.ges.dot"/>
-                  <rng:ref name="att.anl.dot"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9411,10 +8972,6 @@
             <elementSpec ident="keychange">
                <desc>Key change. Used by: model.eventLike.mensural-cmn Module:
           meiShared</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.keyaccidLike"/>
@@ -9424,11 +8981,6 @@
             <elementSpec ident="back">
                <desc>Back matter such as indexes, advertisements, etc. Used by: music Module:
           meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.milestoneLike.text"/>
@@ -9446,12 +8998,6 @@
           external to the text. The source for the quote may be included in the optional
           bibl sub-element. Used by: model.textcomponentLike model.paracontentPart Module:
           meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.textcomponentLike"/>
@@ -9463,12 +9009,6 @@
             </elementSpec>
             <elementSpec ident="div">
                <desc>Textual division. Used by: model.divLike Module: meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.milestoneLike.text"/>
@@ -9491,11 +9031,6 @@
                <desc>Front matter. The pb element is allowed here in order to accommodate page
           images, e.g. cover, endpapers, etc. before and after the actual textual matter.
           Used by: music Module: meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.milestoneLike.text"/>
@@ -9516,12 +9051,6 @@
           heading of a list. A head is not allowed to contain a sub-head in order to
           encourage the proper nesting of div elements. Used by: model.headLike Module:
           meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9535,10 +9064,6 @@
             </elementSpec>
             <elementSpec ident="item">
                <desc>Single item in a list Used by: list Module: meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9555,11 +9080,6 @@
                <desc>Line contains a single line of text. The n attribute should be used to
           record a label for the line, i.e. most likely a line number. Used by:
           model.lLike Module: meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9575,12 +9095,6 @@
                <desc>Line group usually contains verse although it may be used for any section
           of text that is organized as a group of lines. Used by: model.textcomponentLike
           Module: meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
                <content>
                   <rng:optional>
                      <rng:ref name="model.headLike"/>
@@ -9593,19 +9107,6 @@
             <elementSpec ident="list">
                <desc>List. N.B. A definition list should be encoded as a 2-column table. Used
           by: model.listLike Module: meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-                  <attDef ident="form" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="simple"/>
-                        <valItem ident="marked"/>
-                        <valItem ident="ordered"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:optional>
                      <rng:ref name="model.headLike"/>
@@ -9618,12 +9119,6 @@
             <elementSpec ident="table">
                <desc>Visual layout in tabular form Used by: model.tableLike Module:
           meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
                <content>
                   <rng:optional>
                      <rng:ref name="model.captionLike"/>
@@ -9635,22 +9130,6 @@
             </elementSpec>
             <elementSpec ident="td">
                <desc>Table cell containing data Used by: tr Module: meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-                  <attDef ident="colspan" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="rowspan" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9666,22 +9145,6 @@
             <elementSpec ident="th">
                <desc>Table cell containing header information Used by: table Module:
           meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-                  <attDef ident="colspan" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="rowspan" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9696,12 +9159,6 @@
             </elementSpec>
             <elementSpec ident="tr">
                <desc>Table row Used by: table Module: meiText</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:choice>
@@ -9716,14 +9173,6 @@
           contain name parts in corpname sub-elements since corpname is included in
           model.textphraseLike. Used by: model.nameLike.agent Module:
           meiNamesDates</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.name"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9740,14 +9189,6 @@
           feature, or political jurisdiction. May contain name sub-parts in geogname
           sub-elements since geogname is included in model.textphrase. Used by:
           model.nameLike.place model.pubstmtPart Module: meiNamesDates</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.name"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9762,14 +9203,6 @@
             <elementSpec ident="periodname">
                <desc>A label for a period of time, such as 'Baroque' or '3rd Style period'.
           Used by: model.nameLike.label Module: meiNamesDates</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.name"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9786,14 +9219,6 @@
           forenames, surnames, honorific titles, and added names. May contain name parts
           in persname sub-elements since persname is included in model.textphrase. Used
           by: model.nameLike.agent Module: meiNamesDates</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.name"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9809,14 +9234,6 @@
                <desc>A label for a characteristic style of writing or performance, such as
           'bebop' or 'rock-n-roll'. May be used independently of periodname. Used by:
           model.nameLike.label Module: meiShared</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.name"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9831,11 +9248,6 @@
             <elementSpec ident="caption">
                <desc>A label which accompanies an illustration or a table. Used by: figure
           Module: meiFigures</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9849,13 +9261,6 @@
             </elementSpec>
             <elementSpec ident="fig">
                <desc>An illustration. Used by: model.figureLike Module: meiFigures</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.external"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
                <content>
                   <rng:optional>
                      <rng:ref name="caption"/>
@@ -9874,11 +9279,6 @@
           element, which is an internal link for movement from one place in the MEI
           document to another in the same document. Used by: model.locrefLike Module:
           meiPtrRefs</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.external"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9889,12 +9289,6 @@
           confuse this element with the ref element, which is an internal link for
           movement from one place in the MEI document to another in the same document.
           Used by: model.locrefLike Module: meiPtrRefs</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.external"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9911,11 +9305,6 @@
           describe the referenced object. Don't confuse this element with extptr which is
           used to connect the MEI document to an external electronic object. Used by:
           model.locrefLike Module: meiPtrRefs</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.internal"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -9927,12 +9316,6 @@
           this element with extref which provides for linking to an electronic object that
           is external to the MEI document. Used by: model.locrefLike Module:
           meiPtrRefs</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.internal"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -9950,9 +9333,6 @@
           &amp;lt;!ELEMENT %n.body; (%n.mdiv;)*&gt; allows the body element to be
           empty, which might be useful in some editing/creation situations. Used by: music
           Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.mdivLike"/>
@@ -9966,18 +9346,6 @@
           order to avoid collisions with the brackets that are usually displayed over
           endings. Endings may *not* contain endings. Used by: model.endingLike ending
           Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.external"/>
-                  <rng:ref name="att.link.internal"/>
-                  <rng:ref name="att.anl.ending"/>
-                  <rng:ref name="att.ges.ending"/>
-                  <rng:ref name="att.log.ending"/>
-                  <rng:ref name="att.vis.ending"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -9995,9 +9363,6 @@
           single file. Because its model contains the music element, each of the documents
           can have its own front and back matter. Used by: music group Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:choice>
                      <rng:ref name="music"/>
@@ -10016,14 +9381,6 @@
           of the staffgrp element's symbol attribute when exact placement or editorial
           details for the brace must be recorded. Used by: staffgrp Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.grpsym"/>
-                  <rng:ref name="att.vis.grpsym"/>
-                  <rng:ref name="att.ges.grpsym"/>
-                  <rng:ref name="att.anl.grpsym"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.labelLike"/>
@@ -10035,35 +9392,6 @@
           default instrument declaration for a staff, a group of staves, or a layer. MIDI
           prog elements may then change the instrument as necessary. Used by: instrdefLike
           Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <attDef ident="midi.channel" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.MIDICHANNEL"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="midi.duty" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.PERCENT"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="midi.instr" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="midi.instrname" usage="opt"/>
-                  <attDef ident="midi.port" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="midi.track" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -10071,15 +9399,6 @@
             <elementSpec ident="label">
                <desc>Staff, staffgrp, or grpsym label Used by: model.labelLike Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <attDef ident="source" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10098,14 +9417,6 @@
           encoding order is presumed to match the layer order. Of course, if data is
           supplied for only a subset of layers, the n attribute must be supplied. Used by:
           model.layerLike Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.layer"/>
-                  <rng:ref name="att.vis.layer"/>
-                  <rng:ref name="att.ges.layer"/>
-                  <rng:ref name="att.anl.layer"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -10121,13 +9432,6 @@
             <elementSpec ident="layerdef">
                <desc>Container for layer (e.g. voice) meta-information. Used by: layerdefLike
           Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.log.layerdef"/>
-                  <rng:ref name="att.vis.layerdef"/>
-                  <rng:ref name="att.ges.layerdef"/>
-                  <rng:ref name="att.anl.layerdef"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.instrdefLike"/>
@@ -10156,11 +9460,6 @@
           &amp;lt;mdiv&gt; &amp;lt;- scene i &amp;lt;mdiv&gt;
           &amp;lt;- scene ii &amp;lt;/mdiv&gt; &amp;lt;/mdiv&gt; Used
           by: body mdiv Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:choice>
                      <rng:group>
@@ -10189,14 +9488,6 @@
           barlines which indicate points of alignment across all the parts should be
           marked as 'controlling', while non-aligning ones should be marked as 'non-
           controlling'. Used by: model.partLike Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.log.part"/>
-                  <rng:ref name="att.vis.part"/>
-                  <rng:ref name="att.ges.part"/>
-                  <rng:ref name="att.anl.part"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.scorePart"/>
@@ -10205,14 +9496,6 @@
             </elementSpec>
             <elementSpec ident="parts">
                <desc>Parts view of the mdiv. Used by: partsLike Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.log.parts"/>
-                  <rng:ref name="att.vis.parts"/>
-                  <rng:ref name="att.ges.parts"/>
-                  <rng:ref name="att.anl.parts"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.partLike"/>
@@ -10224,11 +9507,6 @@
           the fw element. Auto-generated page numbers may be indicated with a processing
           instruction. The pgheadN and pgfootN elements should *not* be used to encode
           textual notes! Used by: model.pgmetaLike.score Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10247,11 +9525,6 @@
           with a processing instruction. The pgheadN and pgfootN elements should *not* be
           used to encode textual notes! Used by: model.pgmetaLike.score Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10272,11 +9545,6 @@
           to encode textual notes! Auto- generated page numbers may be indicated with a
           processing instruction. Used by: model.pgmetaLike.score Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10295,11 +9563,6 @@
           *not* be used to encode textual notes! Auto-generated page numbers may be
           indicated with a processing instruction. Used by: model.pgmetaLike.score Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10319,14 +9582,6 @@
           made at section boundaries. However, it would also allow meter and key changes,
           which is probably undesirable. Used by: model.milestoneLike.music Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.sb"/>
-                  <rng:ref name="att.vis.sb"/>
-                  <rng:ref name="att.ges.sb"/>
-                  <rng:ref name="att.anl.sb"/>
-               </attList>
                <content>
                   <rng:optional>
                      <rng:ref name="custos"/>
@@ -10339,14 +9594,6 @@
           Div elements are allowed preceding and following sections of music data in order
           to accommodate blocks of explanatory text. Used by: model.scoreLike Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.log.score"/>
-                  <rng:ref name="att.vis.score"/>
-                  <rng:ref name="att.ges.score"/>
-                  <rng:ref name="att.anl.score"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -10362,13 +9609,6 @@
             <elementSpec ident="scoredef">
                <desc>Container for score meta-information. Used by: model.scoredefLike Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.log.scoredef"/>
-                  <rng:ref name="att.vis.scoredef"/>
-                  <rng:ref name="att.ges.scoredef"/>
-                  <rng:ref name="att.anl.scoredef"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.alignLike"/>
@@ -10398,18 +9638,6 @@
           are available here so that this element can point to external media objects or
           to related internal elements, such as annotations. Used by: model.rdgPart
           section Module: meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.external"/>
-                  <rng:ref name="att.link.internal"/>
-                  <rng:ref name="att.log.section"/>
-                  <rng:ref name="att.vis.section"/>
-                  <rng:ref name="att.ges.section"/>
-                  <rng:ref name="att.anl.section"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -10428,14 +9656,6 @@
           staff order. Of course, if data is supplied for only a subset of staves, the n
           attribute must be supplied. Used by: model.staffLike Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.staff"/>
-                  <rng:ref name="att.vis.staff"/>
-                  <rng:ref name="att.ges.staff"/>
-                  <rng:ref name="att.anl.staff"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -10451,13 +9671,6 @@
             <elementSpec ident="staffdef">
                <desc>Container for staff meta-information. Used by: model.rdgPart Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.log.staffdef"/>
-                  <rng:ref name="att.vis.staffdef"/>
-                  <rng:ref name="att.ges.staffdef"/>
-                  <rng:ref name="att.anl.staffdef"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.labelLike"/>
@@ -10480,14 +9693,6 @@
           System is the more proper name for this concept (Read, p. 37-38). Split staffgrp
           into bracket and brace elements? Used by: staffgrpLike staffgrp Module:
           meiStructure</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.staffgrp"/>
-                  <rng:ref name="att.vis.staffgrp"/>
-                  <rng:ref name="att.ges.staffgrp"/>
-                  <rng:ref name="att.anl.staffgrp"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="grpsym"/>
@@ -10513,9 +9718,6 @@
                <desc>The syllable element is used only for neume notation. Most neume notation
           can be thought of as "neumed text". Used by: model.eventLike.neume Module:
           meiNeumes</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -10531,15 +9733,6 @@
             <elementSpec ident="ineume">
                <desc>The interrupted neume element is provided for the encoding of neume
           notation. Used by: model.eventLike.neume Module: meiNeumes</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.log.ineume"/>
-                  <rng:ref name="att.vis.ineume"/>
-                  <rng:ref name="att.ges.ineume"/>
-                  <rng:ref name="att.anl.ineume"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10557,15 +9750,6 @@
           of the model.events class, it is unlikely that an uninterrupted neume containing
           an interrupted neume is a meaningful construct. Used by: model.eventLike.neume
           Module: meiNeumes</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.log.uneume"/>
-                  <rng:ref name="att.vis.uneume"/>
-                  <rng:ref name="att.ges.uneume"/>
-                  <rng:ref name="att.anl.uneume"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10587,14 +9771,6 @@
           x and y location attributes. Similarly, the syl sub-element may be used instead
           of the syl attribute. The verse sub-element may be used to group text syllables
           by verse. Used by: model.eventLike.mensural Module: meiMensural</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.nota"/>
-                  <rng:ref name="att.vis.nota"/>
-                  <rng:ref name="att.ges.nota"/>
-                  <rng:ref name="att.anl.nota"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10612,14 +9788,6 @@
             <elementSpec ident="pausa">
                <desc>A rest in the mensural repertoire. Used by: model.eventLike.mensural
           Module: meiMensural</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.pausa"/>
-                  <rng:ref name="att.vis.pausa"/>
-                  <rng:ref name="att.ges.pausa"/>
-                  <rng:ref name="att.anl.pausa"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -10634,18 +9802,6 @@
           external electronic object or to another location within the MEI instance. Any
           number of alternative encodings for the measure (ossia) can be included. Used
           by: model.measureLike Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.internal"/>
-                  <rng:ref name="att.link.external"/>
-                  <rng:ref name="att.log.measure"/>
-                  <rng:ref name="att.vis.measure"/>
-                  <rng:ref name="att.ges.measure"/>
-                  <rng:ref name="att.anl.measure"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -10665,14 +9821,6 @@
           or it may be rendered in addition to the measure's contents, in which case it is
           rendered above the staff on a reduced-size staff. Used by: model.ossiaLike
           Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.ossia"/>
-                  <rng:ref name="att.vis.ossia"/>
-                  <rng:ref name="att.ges.ossia"/>
-                  <rng:ref name="att.anl.ossia"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -10693,14 +9841,6 @@
           Secondary beams may be broken explicitly using the breaksec attribute. Stem
           direction determines whether beams are centered between notes with alternating
           stems (Read, p. 88-89). Used by: model.eventLike.cmn Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.beam"/>
-                  <rng:ref name="att.vis.beam"/>
-                  <rng:ref name="att.ges.beam"/>
-                  <rng:ref name="att.anl.beam"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:choice>
@@ -10713,14 +9853,6 @@
             <elementSpec ident="beatrpt">
                <desc>A repeated single beat (Read, p. 223-224) Used by: model.eventLike.cmn
           Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.beatrpt"/>
-                  <rng:ref name="att.vis.beatrpt"/>
-                  <rng:ref name="att.ges.beatrpt"/>
-                  <rng:ref name="att.anl.beatrpt"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -10732,14 +9864,6 @@
           performance data that differs from the logical events in a measure may be
           recorded within the bend element. Used by: model.eventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.bend"/>
-                  <rng:ref name="att.vis.bend"/>
-                  <rng:ref name="att.ges.bend"/>
-                  <rng:ref name="att.anl.bend"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10755,14 +9879,6 @@
           or chord. This element should also be used for wind double and triple tonguing
           and for flutter tonguing when these are expressed as tremolandi. Used by:
           model.eventLike.cmn Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.btrem"/>
-                  <rng:ref name="att.vis.btrem"/>
-                  <rng:ref name="att.ges.btrem"/>
-                  <rng:ref name="att.anl.btrem"/>
-               </attList>
                <content>
                   <rng:choice>
                      <rng:ref name="chord"/>
@@ -10774,14 +9890,6 @@
                <desc>Chord, a simultaneous sounding of 2 or more notes in the same voice *with
           the same duration*. (Read, p. 69) Used by: model.eventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.chord"/>
-                  <rng:ref name="att.vis.chord"/>
-                  <rng:ref name="att.ges.chord"/>
-                  <rng:ref name="att.anl.chord"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10798,14 +9906,6 @@
           same pitch (bowed tremolo, double &amp; triple tonguing, and flutter
           tonguing) use the btrem element. Used by: model.eventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.ftrem"/>
-                  <rng:ref name="att.vis.ftrem"/>
-                  <rng:ref name="att.ges.ftrem"/>
-                  <rng:ref name="att.anl.ftrem"/>
-               </attList>
                <content>
                   <rng:choice>
                      <rng:group>
@@ -10829,14 +9929,6 @@
                <desc>Glissando (Read, p. 243-245, 397-398). Sometimes called a 'slide'. More
           precise performance data may be recorded within the gliss element. Used by:
           model.eventLike.cmn Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.gliss"/>
-                  <rng:ref name="att.vis.gliss"/>
-                  <rng:ref name="att.ges.gliss"/>
-                  <rng:ref name="att.anl.gliss"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10850,14 +9942,6 @@
             <elementSpec ident="halfmrpt">
                <desc>Half-measure repeat sign Used by: model.eventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.halfmrpt"/>
-                  <rng:ref name="att.vis.halfmrpt"/>
-                  <rng:ref name="att.ges.halfmrpt"/>
-                  <rng:ref name="att.anl.halfmrpt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.eventLike"/>
@@ -10873,14 +9957,6 @@
           y location attributes. Similarly, the syl sub-element may be used instead of the
           syl attribute. The verse sub-element may be used to group text syllables by
           verse. Used by: model.eventLike.cmn Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.note"/>
-                  <rng:ref name="att.vis.note"/>
-                  <rng:ref name="att.ges.note"/>
-                  <rng:ref name="att.anl.note"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -10900,14 +9976,6 @@
           being transcribed. Do not confuse this element with the space element which is
           used as an aid for visual alignment. Used by: model.eventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.rest"/>
-                  <rng:ref name="att.vis.rest"/>
-                  <rng:ref name="att.ges.rest"/>
-                  <rng:ref name="att.anl.rest"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -10918,14 +9986,6 @@
           so that custom beaming may be indicated, i.e. a septuplet may be divided into a
           group of 3 plus a group of 4 notes. Used by: model.eventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.tuplet"/>
-                  <rng:ref name="att.vis.tuplet"/>
-                  <rng:ref name="att.ges.tuplet"/>
-                  <rng:ref name="att.anl.tuplet"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:choice>
@@ -10940,14 +10000,6 @@
           consecutive measures of rest may be controlled via the multi.number attribute on
           the scoredef or staffdef elements. Used by: model.eventLike.cmn.measureFilling
           Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.mrest"/>
-                  <rng:ref name="att.vis.mrest"/>
-                  <rng:ref name="att.ges.mrest"/>
-                  <rng:ref name="att.anl.mrest"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -10957,14 +10009,6 @@
           measures of rest may be controlled via the multi.number attribute on the
           scoredef or staffdef elements. Used by: model.eventLike.cmn.measureFilling
           Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.mrpt"/>
-                  <rng:ref name="att.vis.mrpt"/>
-                  <rng:ref name="att.ges.mrpt"/>
-                  <rng:ref name="att.anl.mrpt"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -10972,14 +10016,6 @@
             <elementSpec ident="mrpt2">
                <desc>2-measure repeat sign Used by: model.eventLike.cmn.measureFilling Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.mrpt2"/>
-                  <rng:ref name="att.vis.mrpt2"/>
-                  <rng:ref name="att.ges.mrpt2"/>
-                  <rng:ref name="att.anl.mrpt2"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -10989,14 +10025,6 @@
           measures of space may be controlled via the multi.number attribute on the
           scoredef or staffdef elements. Used by: model.eventLike.cmn.measureFilling
           Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.mspace"/>
-                  <rng:ref name="att.vis.mspace"/>
-                  <rng:ref name="att.ges.mspace"/>
-                  <rng:ref name="att.anl.mspace"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11004,14 +10032,6 @@
             <elementSpec ident="multirest">
                <desc>Multiple measures of rest. Used by: model.eventLike.cmn.measureFilling
           Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.multirest"/>
-                  <rng:ref name="att.vis.multirest"/>
-                  <rng:ref name="att.ges.multirest"/>
-                  <rng:ref name="att.anl.multirest"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11020,14 +10040,6 @@
                <desc>Multiple repeated measures. Read (p. 225-226) says repeats of more than 2
           measures should be written out using repeat signs. Used by:
           model.eventLike.cmn.measureFilling Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.multirpt"/>
-                  <rng:ref name="att.vis.multirpt"/>
-                  <rng:ref name="att.ges.multirpt"/>
-                  <rng:ref name="att.anl.multirpt"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11035,14 +10047,6 @@
             <elementSpec ident="arpeg">
                <desc>Arpeggiation, roll (Read, p. 241-243). Used by:
           model.controleventLike.cmn Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.arpeg"/>
-                  <rng:ref name="att.vis.arpeg"/>
-                  <rng:ref name="att.ges.arpeg"/>
-                  <rng:ref name="att.anl.arpeg"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11051,14 +10055,6 @@
                <desc>Alternative element for encoding beams, especially useful for beams which
           extend across barlines. Used by: model.controleventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.beamspan"/>
-                  <rng:ref name="att.vis.beamspan"/>
-                  <rng:ref name="att.ges.beamspan"/>
-                  <rng:ref name="att.anl.beamspan"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11067,14 +10063,6 @@
                <desc>The breathmark element is a specialized form of, i.e., syntactic sugar
           for, dir/@type="breathmark" with "," as its PCDATA content. Used by:
           model.controleventLike.cmn Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.breath"/>
-                  <rng:ref name="att.vis.breath"/>
-                  <rng:ref name="att.ges.breath"/>
-                  <rng:ref name="att.anl.breath"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11083,14 +10071,6 @@
                <desc>The fermata element is a specialized form of, i.e., syntactic sugar for,
           dir/@type="fermata" with &amp;ferm; or &amp;uferm; as its PCDATA
           content. Used by: model.controleventLike.cmn Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.fermata"/>
-                  <rng:ref name="att.vis.fermata"/>
-                  <rng:ref name="att.ges.fermata"/>
-                  <rng:ref name="att.anl.fermata"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11099,14 +10079,6 @@
                <desc>Hairpin indicates continuous dynamics expressed on the score as graphics,
           e.g. &lt; and &gt;. See Read, p. 250-255. Used by:
           model.controleventLike.cmn Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.hairpin"/>
-                  <rng:ref name="att.vis.hairpin"/>
-                  <rng:ref name="att.ges.hairpin"/>
-                  <rng:ref name="att.anl.hairpin"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11114,14 +10086,6 @@
             <elementSpec ident="harppedal">
                <desc>Harp pedal diagram Used by: model.controleventLike.instruments Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.harppedal"/>
-                  <rng:ref name="att.vis.harppedal"/>
-                  <rng:ref name="att.ges.harppedal"/>
-                  <rng:ref name="att.anl.harppedal"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11129,14 +10093,6 @@
             <elementSpec ident="octave">
                <desc>Octave displacement. Used by: model.controleventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.octave"/>
-                  <rng:ref name="att.vis.octave"/>
-                  <rng:ref name="att.ges.octave"/>
-                  <rng:ref name="att.anl.octave"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11144,14 +10100,6 @@
             <elementSpec ident="pedal">
                <desc>Piano pedal mark (Read, p. 317-318). Used by:
           model.controleventLike.instruments Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.pedal"/>
-                  <rng:ref name="att.vis.pedal"/>
-                  <rng:ref name="att.ges.pedal"/>
-                  <rng:ref name="att.anl.pedal"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11161,14 +10109,6 @@
           %model.textphraseLike.limited. If the entire rehearsal mark is boxed or circled,
           the enclose attribute is preferred over a rend sub-element. Used by:
           model.controleventLike.common Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.reh"/>
-                  <rng:ref name="att.vis.reh"/>
-                  <rng:ref name="att.ges.reh"/>
-                  <rng:ref name="att.anl.reh"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11188,14 +10128,6 @@
           by software, or 2) multiple, alternative slurs are needed. Normally, a slur has
           only 2 participating events - the starting and ending notes/chords. Used by:
           model.controleventLike.common Module: meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.slur"/>
-                  <rng:ref name="att.vis.slur"/>
-                  <rng:ref name="att.ges.slur"/>
-                  <rng:ref name="att.anl.slur"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11203,14 +10135,6 @@
             <elementSpec ident="tie">
                <desc>Tie (Read, p. 110-111, 122). Used by: model.controleventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.tie"/>
-                  <rng:ref name="att.vis.tie"/>
-                  <rng:ref name="att.ges.tie"/>
-                  <rng:ref name="att.anl.tie"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11219,14 +10143,6 @@
                <desc>Alternative element for encoding tuplets, especially useful for those
           which extend across barlines. Used by: model.controleventLike.cmn Module:
           meiCMN</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.tupletspan"/>
-                  <rng:ref name="att.vis.tupletspan"/>
-                  <rng:ref name="att.ges.tupletspan"/>
-                  <rng:ref name="att.anl.tupletspan"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11237,15 +10153,6 @@
           If there is more than 1 layer on that staff, the layer attribute may be used to
           indicate the layer from which the rhythm should be taken. Used by:
           model.controleventLike.cmn Module: meiLyrics</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.log.lyrics"/>
-                  <rng:ref name="att.vis.lyrics"/>
-                  <rng:ref name="att.ges.lyrics"/>
-                  <rng:ref name="att.anl.lyrics"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="verse"/>
@@ -11258,15 +10165,6 @@
           line ends from line group ends for these applications. Used by:
           model.noteModifierLike model.notaModifierLike model.neumeModifierLike Module:
           meiLyrics</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-                  <rng:ref name="att.log.verse"/>
-                  <rng:ref name="att.vis.verse"/>
-                  <rng:ref name="att.ges.verse"/>
-                  <rng:ref name="att.anl.verse"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11287,14 +10185,6 @@
             <elementSpec ident="syl">
                <desc>Individual lyric syllable. Used by: model.noteModifierLike
           model.notaModifierLike model.rdgPart Module: meiLyrics</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.syl"/>
-                  <rng:ref name="att.vis.syl"/>
-                  <rng:ref name="att.ges.syl"/>
-                  <rng:ref name="att.anl.syl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11310,14 +10200,6 @@
                <desc>Events may be contained within mordent in order to record precise
           performance data. (Read, p. 245-246) Used by: model.ornamentLike.cmn Module:
           meiCMNOrnaments</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.mordent"/>
-                  <rng:ref name="att.vis.mordent"/>
-                  <rng:ref name="att.ges.mordent"/>
-                  <rng:ref name="att.anl.mordent"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.eventLike"/>
@@ -11328,14 +10210,6 @@
                <desc>Trill (Read, p. 232-235). Events may be contained within trill in order
           to record precise performance data. Used by: model.ornamentLike.cmn Module:
           meiCMNOrnaments</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.trill"/>
-                  <rng:ref name="att.vis.trill"/>
-                  <rng:ref name="att.ges.trill"/>
-                  <rng:ref name="att.anl.trill"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.eventLike"/>
@@ -11348,14 +10222,6 @@
           be inferred from the timestamp - accented turns occur directly on the affected
           beat, unaccented ones do not. Used by: model.ornamentLike.cmn Module:
           meiCMNOrnaments</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.turn"/>
-                  <rng:ref name="att.vis.turn"/>
-                  <rng:ref name="att.ges.turn"/>
-                  <rng:ref name="att.anl.turn"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.eventLike"/>
@@ -11366,25 +10232,6 @@
                <desc>An indication of fingering in a chord tablature grid. The from and to
           attributes should contain the id of a chordmember element. Used by: chorddef
           Module: meiHarmony</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <attDef ident="fret">req<valList type="closed">
-                        <valItem ident="1"/>
-                        <valItem ident="2"/>
-                        <valItem ident="3"/>
-                        <valItem ident="4"/>
-                        <valItem ident="5"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="from">req<datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="to">req<datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11396,10 +10243,6 @@
           The pos (position) attribute is provided in order to create displayable chord
           tablature grids. (Read, p. 409-410) Used by: chordtable Module:
           meiHarmony</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <attDef ident="pos" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="chordmember"/>
@@ -11416,43 +10259,6 @@
           bass. Of course, for the bass note itself, inth should be set to '0'. The inth
           attribute may be used to provide "playable" chords. Used by: chordmember Module:
           meiHarmony</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <attDef ident="accid" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.ACCIDENTAL.IMPLICIT"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="fing" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="x"/>
-                        <valItem ident="o"/>
-                        <valItem ident="1"/>
-                        <valItem ident="2"/>
-                        <valItem ident="3"/>
-                        <valItem ident="4"/>
-                        <valItem ident="5"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="fret" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="1"/>
-                        <valItem ident="2"/>
-                        <valItem ident="3"/>
-                        <valItem ident="4"/>
-                        <valItem ident="5"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="inth" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERNONNEGATIVE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="pname">req<datatype>
-                        <rng:ref name="data.PITCHNAME"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11461,9 +10267,6 @@
                <desc>Chord/tablature look-up table. A table may be shared between mei
           instances through the use of an external parsed entity containing the look-up
           table to be shared. Used by: model.chordtableLike Module: meiHarmony</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="chorddef"/>
@@ -11476,14 +10279,6 @@
           is employed here instead of %model.textphrase in order to disallow the use of
           the pb sub-element. Used by: model.controleventLike.cmn Module:
           meiHarmony</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.log.harm"/>
-                  <rng:ref name="att.vis.harm"/>
-                  <rng:ref name="att.ges.harm"/>
-                  <rng:ref name="att.anl.harm"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11509,31 +10304,6 @@
           attribute must contain one or more values of the %NUMBER type. Either the bezier
           attribute or the bulge and xy coordinates are required. Used by:
           model.graphicprimitiveLike Module: meiUserSymbols</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.startendid"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.xy.required"/>
-                  <rng:ref name="att.xy2.required"/>
-                  <attDef ident="bezier" usage="opt">
-                     <datatype>
-                        <rng:data type="NMTOKENS"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="bulge" usage="opt">
-                     <datatype>
-                        <rng:data type="NMTOKENS"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="rend" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.CURVERENDITION"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11545,21 +10315,6 @@
           coordinates are relative to the xy coordinates of the referenced element(s).
           Otherwise, they are assumed to be absolute page coordinate references. Used by:
           model.graphicprimitiveLike Module: meiUserSymbols</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.startendid"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.xy.required"/>
-                  <rng:ref name="att.xy2.required"/>
-                  <attDef ident="rend" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.LINERENDITION"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11578,28 +10333,6 @@
           element. The scale attribute indicates that the printed output must be scaled by
           the specified percentage. Used by: model.graphicprimitiveLike Module:
           meiUserSymbols</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.xy.required"/>
-                  <attDef ident="ref">req<datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="scale" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.PERCENT"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="startid" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -11607,9 +10340,6 @@
             <elementSpec ident="symboldef">
                <desc>Declaration of an individual symbol. Used by: symboltable Module:
           meiUserSymbols</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.graphicprimitiveLike"/>
@@ -11621,9 +10351,6 @@
           table, a symboltable may be shared between mei instances through the use of an
           external parsed entity containing the symboltable to be shared. Used by:
           model.symboltableLike Module: meiUserSymbols</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="symboldef"/>
@@ -11638,10 +10365,6 @@
           (e.g. significant, accidental, unclear), or the nature of the variation or the
           principles required to understand it (e.g. lectio difficilior, usus auctoris,
           etc.) Used by: model.apparatusLike Module: meiCritApp</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:ref name="rdg"/>
                   <rng:zeroOrMore>
@@ -11656,18 +10379,6 @@
           DTD and the pb sub-element is declared in the meiShared DTD. The app sub-element
           is permitted in order to allow nested sub-variants. Used by: app Module:
           meiCritApp</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.crit"/>
-                  <rng:ref name="att.typed"/>
-                  <rng:ref name="att.link.common"/>
-                  <rng:ref name="att.link.external"/>
-                  <rng:ref name="att.link.internal"/>
-                  <rng:ref name="att.anl.rdg"/>
-                  <rng:ref name="att.ges.rdg"/>
-                  <rng:ref name="att.log.rdg"/>
-                  <rng:ref name="att.vis.rdg"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.Incl"/>
@@ -11684,10 +10395,6 @@
                <desc>Description of the access that may be obtained. The
           %model.textphraseLike.limited entity is used here in order to disallow the pb
           element. Used by: model.availabilityPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11702,10 +10409,6 @@
           distributor, etc. The %model.textphraseLike.limited entity is used here in order
           to disallow the pb element. Used by: model.availabilityPart Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11720,11 +10423,6 @@
           fit within the meihead id attribute, for example because the id does not fit the
           definition of an XML id or because multiple identifiers are needed. Used by:
           meihead Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11739,9 +10437,6 @@
           which have acted upon the MEI file. This is not to be confused with applications
           which were used to create the MEI file. These are recorded in the projectdesc
           element. Used by: model.encodingPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="application"/>
@@ -11751,12 +10446,6 @@
             <elementSpec ident="application">
                <desc>Application provides information about an application which has acted
           upon the document. Used by: appinfo Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.date"/>
-                  <rng:ref name="att.typed"/>
-                  <attDef ident="version" usage="opt"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="name"/>
@@ -11774,10 +10463,6 @@
             <elementSpec ident="availability">
                <desc>Availability information/qualifications. Used by: model.pubstmtPart
           Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:ref name="model.availabilityPart"/>
                </content>
@@ -11787,10 +10472,6 @@
           contains a pointer to an element containing info about the person/entity
           responsible for change. The date element is declared in the meiShared DTD. Used
           by: revisiondesc Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:ref name="respstmt"/>
                   <rng:ref name="changedesc"/>
@@ -11800,10 +10481,6 @@
             <elementSpec ident="changedesc">
                <desc>Description of a revision. The p element is declared in the meiShared
           DTD. Used by: change Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.pLike"/>
@@ -11814,10 +10491,6 @@
                <desc>A classification code, i.e., LC subject or call number, or a thesaurus or
           ontology citation. The source of controlled-vocabulary terms used in the
           keywords element. Used by: classification Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:text/>
                </content>
@@ -11826,10 +10499,6 @@
                <desc>The classification element groups information which describes the nature
           or topic of a musical work in terms of a standard classification scheme,
           thesaurus, etc. Used by: model.profiledescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:choice>
@@ -11846,10 +10515,6 @@
           physical condition of the item as well (e.g., brittleness, faded images, etc.).
           The %model.textphraseLike.limited entity is used here in order to disallow the
           pb element. Used by: model.physdescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11862,24 +10527,6 @@
             <elementSpec ident="correction">
                <desc>States how and under what circumstances corrections have been made in the
           music/text. Used by: model.editorialdeclPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="method" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="silent"/>
-                        <valItem ident="tags"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="status" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="high"/>
-                        <valItem ident="medium"/>
-                        <valItem ident="low"/>
-                        <valItem ident="unknown"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.pLike"/>
@@ -11890,10 +10537,6 @@
                <desc>Non-bibliographic creation details for the work being encoded, in
           narrative form. The model.textcomponent class elements are declared in the
           meiShared DTD. Used by: model.profiledescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.textcomponentLike"/>
@@ -11905,11 +10548,6 @@
           %model.textphraseLike.limited entity is used here in order to disallow the pb
           element. There are no height and width sub-elements; however, the num element
           may be used. Used by: model.physdescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="units" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11922,10 +10560,6 @@
             <elementSpec ident="editionstmt">
                <desc>Container for meta-data pertaining to the edition. Used by: filedesc
           source Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="edition"/>
@@ -11939,10 +10573,6 @@
                <desc>Editorialdecl should be used to provide details of editorial principles
           and practices applied during the encoding of musical text. Used by:
           model.encodingPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:choice>
                      <rng:oneOrMore>
@@ -11963,10 +10593,6 @@
                <desc>Documents the relationship between an electronic file and the source or
           sources from which it was derived as well as applications used in the
           encoding/editing process. Used by: meihead Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:ref name="model.encodingPart"/>
                </content>
@@ -11975,10 +10601,6 @@
                <desc>Exhibition history is a record of public exhibitions, including dates,
           venues, etc. The %model.textphraseLike.limited entity is used here in order to
           disallow the pb element. Used by: model.physdescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -11995,11 +10617,6 @@
           For physical dimensions use the dimensions element. The
           %model.textphraseLike.limited entity is used here in order to disallow the pb
           element. Used by: model.physdescPart filedesc Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="units" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12013,10 +10630,6 @@
                <desc>Filedesc contains a full bibliographic description of the MEI file.
           Extent in this context is file size. Used by: meihead Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:ref name="titlestmt"/>
                   <rng:optional>
@@ -12046,10 +10659,6 @@
           item, however, the fingerprint should be a checksum. The checksum makes it
           possible to signal differences between copies of the item. Used by: filedesc
           Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:text/>
                </content>
@@ -12064,21 +10673,6 @@
           particularly those related to the quality of the writing, such as 'shaky',
           'thick', etc. may be described within the content of the hand element. Used by:
           handlist Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="initial" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.BOOLEAN"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="medium" usage="opt"/>
-                  <attDef ident="resp" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12092,10 +10686,6 @@
                <desc>The handlist element contains a series of &lt;hand&gt; elements
           listing the different hands of the source. Used by: model.physdescPart Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="hand"/>
@@ -12107,10 +10697,6 @@
           the item as a gift, and/or the author's signature. The
           %model.textphraseLike.limited entity is used here in order to disallow the pb
           element. Used by: model.physdescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12126,10 +10712,6 @@
                <desc>Describes the scope of any analytic or interpretive information added to
           the musical text in addition to the transcription. Used by:
           model.editorialdeclPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.pLike"/>
@@ -12139,10 +10721,6 @@
             <elementSpec ident="keywords">
                <desc>Collection of keywords or text phrases which describe the work. Used by:
           classification Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="term"/>
@@ -12156,11 +10734,6 @@
           name of the list from which a controlled value is taken. The
           %model.textphraseLike.limited entity is used here in order to disallow the pb
           element. Used by: langusage Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="authority" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12174,10 +10747,6 @@
                <desc>Langusage describes the languages, sublanguages, dialects, etc.,
           represented within the encoded work. Used by: model.profiledescPart Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="language"/>
@@ -12188,16 +10757,6 @@
                <desc>Indicates the extent of normalization or regularization of the original
           source carried out in converting it to electronic form. Used by:
           model.editorialdeclPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="method" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="silent"/>
-                        <valItem ident="tags"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.pLike"/>
@@ -12208,10 +10767,6 @@
                <desc>Collects together any bibliographic notes providing information
           additional to that recorded in other parts of the bibliographic description.
           Used by: filedesc Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.annotLike"/>
@@ -12223,10 +10778,6 @@
           text and title page features may be encoded here when they are not transcribed
           as part of the front or back matter; i.e., when they are considered to be
           meta-data. Used by: source Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.physdescPart"/>
@@ -12236,10 +10787,6 @@
             <elementSpec ident="physloc">
                <desc>Location of the source within a repository, e.g., shelf mark or other
           locational information. Used by: model.physdescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12255,11 +10802,6 @@
           list from which a controlled value is taken. The %model.textphraseLike.limited
           entity is used here in order to disallow the pb element. Used by:
           model.physdescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="authority" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12273,11 +10815,6 @@
                <desc>The cost of access. The %model.textphraseLike.limited entity is used here
           in order to disallow the pb element. Used by: model.availabilityPart Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="units" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12292,10 +10829,6 @@
           aspects of the creation of a work, specifically the languages and sublanguages
           used, the situation in which it was produced, e.g. the participants, setting,
           reception history, etc. Used by: meihead Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:ref name="model.profiledescPart"/>
                </content>
@@ -12305,10 +10838,6 @@
           electronic file was encoded, funding agencies, etc. together with any other
           relevant information concerning the process by which it was assembled or
           collected. Used by: model.encodingPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.pLike"/>
@@ -12319,10 +10848,6 @@
                <desc>The record of ownership or custodianship of an item. The
           %model.textphraseLike.limited entity is used here in order to disallow the pb
           element. Used by: model.physdescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12336,10 +10861,6 @@
             <elementSpec ident="pubstmt">
                <desc>Publication meta-data. Used by: filedesc source Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:choice>
                      <rng:optional>
@@ -12355,9 +10876,6 @@
                <desc>Contains a phrase describing the nature of a person's intellectual
           responsibility. The authority attribute should contain the name of the list from
           which a controlled value is taken. Used by: respStmt Module: meiHeader</desc>
-               <attList>
-                  <attDef ident="authority" usage="opt"/>
-               </attList>
                <content>
                   <rng:text/>
                </content>
@@ -12367,10 +10885,6 @@
           in rare cases, mechanical processes, responsible for creation or realization of
           the intellectual or artistic content. Used by: model.pubstmtPart model.respLike
           titlestmt editionstmt seriesstmt Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12384,10 +10898,6 @@
             <elementSpec ident="revisiondesc">
                <desc>The revision history for an MEI file. Used by: meihead Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="change"/>
@@ -12398,10 +10908,6 @@
                <desc>Contains a prose description of the rationale and methods used in
           sampling texts in the creation of a corpus or collection. Used by:
           model.encodingPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.pLike"/>
@@ -12412,10 +10918,6 @@
                <desc>Describes the principles according to which the musical text has been
           segmented, for example into movements, sections, etc. Used by:
           model.editorialdeclPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.pLike"/>
@@ -12430,10 +10932,6 @@
           when it is necessary to enumerate the contents of the series. The seriesstmt is
           provided within seriesstmt for the description of a sub-series. Used by:
           filedesc source seriesstmt Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="title"/>
@@ -12461,15 +10959,6 @@
           If extent is absent, then the entire source is presumed to have been encoded.
           Multiple physdesc sub-elements may be used to describe the physically separate
           parts of a single source. Used by: sourcedesc Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="data" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREFS"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="identifier"/>
@@ -12504,9 +10993,6 @@
           the MEI file is a transcription of existing music. In the case where the data is
           originally created in MEI form, the sourcedesc element is not required. Used by:
           meihead Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="source"/>
@@ -12516,10 +11002,6 @@
             <elementSpec ident="stdvals">
                <desc>Specifies the format used when standardized date or number values are
           supplied. Used by: model.editorialdeclPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="model.pLike"/>
@@ -12530,10 +11012,6 @@
                <desc>System requirements for using the electronic item. The
           %model.textphraseLike.limited entity is used here in order to disallow the pb
           element. Used by: model.availabilityPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12551,15 +11029,6 @@
           elements in order to allow the creation of coordinated terms; i.e., terms
           created from a combination of other, independent terms. Used by: keywords
           Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-                  <attDef ident="classcode" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12573,10 +11042,6 @@
             <elementSpec ident="titlestmt">
                <desc>Container for title and responsibility meta-data. Used by: filedesc
           source Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:ref name="title"/>
@@ -12593,10 +11058,6 @@
           treatment was applied, etc. The %model.textphraseLike.limited entity is used
           here in order to disallow the pb element. Used by: model.physdescPart Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12610,10 +11071,6 @@
                <desc>Scheduled treatment, e.g. deacidification, restoration, etc., for an
           item. The %model.textphraseLike.limited entity is used here in order to disallow
           the pb element. Used by: model.physdescPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12627,10 +11084,6 @@
                <desc>The unpub element should be used to explicitly indicate that a
           bibliographic source is unpublished. Used by: pubstmt Module:
           meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -12640,10 +11093,6 @@
           (re-)publication rights in the source element. The %model.textphraseLike.limited
           entity is used here in order to disallow the pb element. Used by:
           model.availabilityPart Module: meiHeader</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.bibl"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12661,34 +11110,12 @@
           Select LSB 64 Sustain Pedal (0=up, 127=down) 65 Portamento Pedal (0=off, 127=on)
           91 Reverb 93 Chorus Depth 120 All Sounds Off (0) 121 Reset All Controllers (0)
           123 All Notes Off (0) Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="num">req<datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="val">req<datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
             </elementSpec>
             <elementSpec ident="chan">
                <desc>Channel assignment Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="num">req<datatype>
-                        <rng:ref name="data.MIDICHANNEL"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -12696,26 +11123,12 @@
             <elementSpec ident="chanpr">
                <desc>Channel pressure/after touch. The n attribute must be in the range 0-127.
           Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="num">req<datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
             </elementSpec>
             <elementSpec ident="cue">
                <desc>Cue point Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-               </attList>
                <content>
                   <rng:text/>
                </content>
@@ -12723,33 +11136,18 @@
             <elementSpec ident="hex">
                <desc>Arbitrary MIDI data in hex Used by: model.midieventLike Module:
           meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-               </attList>
                <content>
                   <rng:text/>
                </content>
             </elementSpec>
             <elementSpec ident="marker">
                <desc>Marker meta event Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-               </attList>
                <content>
                   <rng:text/>
                </content>
             </elementSpec>
             <elementSpec ident="metatext">
                <desc>Text meta event Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-               </attList>
                <content>
                   <rng:text/>
                </content>
@@ -12759,13 +11157,6 @@
           when generating MIDI output. The n attribute can be used to differentiate
           between multiple MIDI data streams, e.g. quantized/unquantized, straight/swing,
           ornamented/as notated, etc. Used by: model.midiLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.log.midi"/>
-                  <rng:ref name="att.vis.midi"/>
-                  <rng:ref name="att.ges.midi"/>
-                  <rng:ref name="att.anl.midi"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12789,30 +11180,12 @@
             </elementSpec>
             <elementSpec ident="noteoff">
                <desc>Note-off Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="num">req<datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
             </elementSpec>
             <elementSpec ident="noteon">
                <desc>Note-on Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="num">req<datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -12820,15 +11193,6 @@
             <elementSpec ident="port">
                <desc>MIDI port. The n attribute must be in the range 0-127. Used by:
           model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="num">req<datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -12836,15 +11200,6 @@
             <elementSpec ident="prog">
                <desc>Program change/new instrument. The n attribute must be in the range
           0-127. Used by: model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="num">req<datatype>
-                        <rng:ref name="data.MIDIVALUE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -12852,15 +11207,6 @@
             <elementSpec ident="seqnum">
                <desc>Sequence number. The n attribute must be in the range 0-65535 Used by:
           model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="num">req<datatype>
-                        <rng:ref name="data.INTEGERNONNEGATIVE"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -12868,11 +11214,6 @@
             <elementSpec ident="trkname">
                <desc>Track/sequence name Used by: model.midieventLike Module:
           meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-               </attList>
                <content>
                   <rng:text/>
                </content>
@@ -12881,17 +11222,6 @@
                <desc>Note-on/off velocity. For on velocity, the attribute must be in the range
           1-127. For off velocity, the n attribute must be in the range 0-127. Used by:
           model.midieventLike Module: meiMIDI</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.midi.event"/>
-                  <attDef ident="form">req<valList type="closed">
-                        <valItem ident="on"/>
-                        <valItem ident="off"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="num">req</attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -12904,12 +11234,6 @@
           signifies the degree of certainty ascribed to the identification of the hand of
           the addition. The hand attribute signifies the hand of the agent which made the
           addition. Used by: model.transcriptionLike Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.edit"/>
-                  <rng:ref name="att.trans"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12933,9 +11257,6 @@
             </elementSpec>
             <elementSpec ident="choice">
                <desc>Choice Used by: model.editLike Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12952,11 +11273,6 @@
           content of the &lt;corr&gt; element. If the correction was made in the
           source, resp should be used to identify the hand of the corrector. Used by:
           model.transcriptionLike model.choicePart Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-                  <rng:ref name="att.trans"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -12992,19 +11308,6 @@
           (deliberate defacement, etc.) assignable to an identifiable hand, the hand
           attribute signifies the hand responsible for the damage. Used by:
           model.transcriptionLike Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-                  <attDef ident="agent" usage="opt"/>
-                  <attDef ident="degree" usage="opt"/>
-                  <attDef ident="extent" usage="opt"/>
-                  <attDef ident="hand" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13037,12 +11340,6 @@
           attribute. The rend attribute may be used to record the method used to make the
           deletion (overstrike, strike[through], etc.) or how the deleted matter should be
           displayed. Used by: model.transcriptionLike Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.trans"/>
-                  <attDef ident="rend" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13081,18 +11378,6 @@
           for the decision not to provide any transcription of the material and hence the
           application of the &lt;gap&gt; tag. Used by: model.editLike Module:
           meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-                  <attDef ident="extent" usage="opt"/>
-                  <attDef ident="hand" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="reason" usage="opt"/>
-                  <attDef ident="unit" usage="opt"/>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -13108,35 +11393,12 @@
           resp attribute contains an ID reference to an element containing the name of the
           editor or transcriber responsible for identifying the change of hand. Used by:
           model.editLike Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-                  <rng:ref name="att.facsimile"/>
-                  <attDef ident="character" usage="opt"/>
-                  <attDef ident="medium" usage="opt"/>
-                  <attDef ident="new" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="old" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
             </elementSpec>
             <elementSpec ident="orig">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.typed"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13160,10 +11422,6 @@
             </elementSpec>
             <elementSpec ident="reg">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13196,13 +11454,6 @@
           the editor or transcriber responsible for identifying the hand of the
           restoration. The hand attribute signifies the hand of the agent which made the
           restoration. Used by: model.transcriptionLike Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.trans"/>
-                  <rng:ref name="att.typed"/>
-                  <attDef ident="desc" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13229,10 +11480,6 @@
           correction for the apparent error may be given in an accompanying child or
           sibling corr element. Used by: model.transcriptionLike model.choicePart Module:
           meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13256,14 +11503,6 @@
             </elementSpec>
             <elementSpec ident="subst">
                <desc>Substitution Used by: model.editLike Module: meiEditTrans</desc>
-               <attList>
-                  <attDef ident="meiform" usage="opt">
-                     <defaultVal>subst</defaultVal>
-                     <valList type="closed">
-                        <valItem ident="subst"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:ref name="model.transcriptionLike"/>
                   <rng:oneOrMore>
@@ -13282,13 +11521,6 @@
           be supplied, e.g. 'overbinding', 'faded ink', 'lost folio', 'omitted in
           original', etc. The source attribute contains the source of the supplied text.
           Used by: model.transcriptionLike Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-                  <rng:ref name="att.facsimile"/>
-                  <attDef ident="agent" usage="opt"/>
-                  <attDef ident="reason" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13315,11 +11547,6 @@
           text. It may be used within the physdesc element when no other transcription is
           provided. Used by: model.frontPart model.physdescPart Module:
           meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.facsimile"/>
-                  <rng:ref name="att.lang"/>
-               </attList>
                <content>
                   <rng:oneOrMore>
                      <rng:choice>
@@ -13342,18 +11569,6 @@
           attribute indicates the individual responsible for the transcription of the
           word, phrase, or passage contained with the &lt;unclear&gt; element.
           Used by: model.transcriptionLike model.choicePart Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.edit"/>
-                  <rng:ref name="att.facsimile"/>
-                  <attDef ident="agent" usage="opt"/>
-                  <attDef ident="hand" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="reason" usage="opt"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13380,14 +11595,6 @@
           a set of images rather than as transcribed or encoded text. The source attribute
           may be used to link the collection of images with a particular source. Used by:
           model.facsimileLike Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <attDef ident="source" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:choice>
@@ -13402,15 +11609,6 @@
           coordinate space, optionally grouping one or more graphic representations of
           that space, and rectangular zones of interest within it. Used by: zone Module:
           meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.coordinated"/>
-                  <attDef ident="start" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="figdesc"/>
@@ -13426,10 +11624,6 @@
             <elementSpec ident="zone">
                <desc>The zone element defines a rectangular area contained within a surface
           element. Used by: surface Module: meiEditTrans</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.coordinated"/>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="figdesc"/>
@@ -13450,28 +11644,6 @@
           external media file, such as an audio file. The medialength attribute specifies
           the length of the external media file in terms of the units attribute. Used by:
           model.alignLike Module: meiLinkAlign</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <attDef ident="mediacontent" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.URI"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="medialength" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.INTEGERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="origin">req<datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="units" usage="opt">
-                     <datatype>
-                        <rng:data type="NMTOKEN"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="when"/>
@@ -13492,25 +11664,6 @@
           timeline. If this attribute is omitted, and the absolute attribute is not
           specified, then the reference point is understood to be the preceding when
           element. Used by: timeline Module: meiLinkAlign</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <attDef ident="absolute" usage="opt"/>
-                  <attDef ident="interval" usage="opt">
-                     <datatype>
-                        <rng:ref name="data.NUMBERPOSITIVE"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="since" usage="opt">
-                     <datatype>
-                        <rng:data type="IDREF"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="unit" usage="opt">
-                     <datatype>
-                        <rng:data type="NMTOKEN"/>
-                     </datatype>
-                  </attDef>
-               </attList>
                <content>
                   <rng:empty/>
                </content>
@@ -13521,19 +11674,6 @@
           level of MEI compliance. The version attribute contains the version of the DTD
           used by the instance. The document element for a single document contains a
           header and data.</desc>
-               <attList>
-                  <attDef ident="id" usage="opt">
-                     <datatype>
-                        <rng:data type="ID"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="version" usage="opt">
-                     <defaultVal>1.9b</defaultVal>
-                     <valList type="closed">
-                        <valItem ident="1.9b"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:ref name="meihead"/>
                   <rng:ref name="music"/>
@@ -13542,19 +11682,6 @@
             <elementSpec ident="meicorpus">
                <desc>The document element for a group of documents, each with its own complete
           header, contains a header for the group, and one or more mei elements.</desc>
-               <attList>
-                  <attDef ident="id" usage="opt">
-                     <datatype>
-                        <rng:data type="ID"/>
-                     </datatype>
-                  </attDef>
-                  <attDef ident="version" usage="opt">
-                     <defaultVal>1.9b</defaultVal>
-                     <valList type="closed">
-                        <valItem ident="1.9b"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:ref name="meihead"/>
                   <rng:oneOrMore>
@@ -13565,23 +11692,6 @@
             <elementSpec ident="meihead">
                <desc>The meihead element contains general information about the encoded
           file.</desc>
-               <attList>
-                  <rng:ref name="att.bibl"/>
-                  <rng:ref name="att.common"/>
-                  <rng:ref name="att.lang"/>
-                  <attDef ident="type" usage="opt">
-                     <valList type="closed">
-                        <valItem ident="music"/>
-                        <valItem ident="corpus"/>
-                     </valList>
-                  </attDef>
-                  <attDef ident="version" usage="opt">
-                     <defaultVal>1.9b</defaultVal>
-                     <valList type="closed">
-                        <valItem ident="1.9b"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="altmeiid"/>
@@ -13597,15 +11707,6 @@
                <desc>This element is a container for everything else in the document besides
           the header. The front and back elements are declared in the meiText
           DTD.</desc>
-               <attList>
-                  <rng:ref name="att.common"/>
-                  <attDef ident="version" usage="opt">
-                     <defaultVal>1.9b</defaultVal>
-                     <valList type="closed">
-                        <valItem ident="1.9b"/>
-                     </valList>
-                  </attDef>
-               </attList>
                <content>
                   <rng:zeroOrMore>
                      <rng:ref name="model.facsimileLike"/>
