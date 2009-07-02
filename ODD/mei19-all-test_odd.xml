@@ -7,13 +7,12 @@
       <fileDesc>
          <titleStmt>
             <title>MEI</title>
-            <author>Raffaele Viglianti</author>
          </titleStmt>
          <publicationStmt>
-            <p>Converted from rng through an XSLT script</p>
+            <p>Converted from rng through an XSLT script written by Raffaele Viglianti</p>
          </publicationStmt>
          <sourceDesc>
-            <p>created on 2009-06-30T17:29:10.854+01:00</p>
+            <p>created on 2009-07-02T18:27:42.673+01:00</p>
          </sourceDesc>
       </fileDesc>
    </teiHeader>
@@ -1203,7 +1202,7 @@
                                 Defintion of Attribute Classes
                                 Number of definitions found in original RNG: 340
                                 ****
-                            --><classSpec type="dt" ident="att.alignment">
+                            --><classSpec type="atts" ident="att.alignment">
                <desc>The when attribute indicates a particular kind of correspondence; i.e.,
           temporal correspondence. It should be used to point to when elements within one
           or more timeline elements.</desc>
@@ -1215,7 +1214,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.bibl">
+            <classSpec type="atts" ident="att.bibl">
                <desc>Bibliographic attributes: The analog attribute contains a reference to a
           field or element in another descriptive encoding system to which an MEI element
           is comparable. Mapping elements from one system to another may help a repository
@@ -1229,7 +1228,7 @@
                   <attDef ident="analog" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.color">
+            <classSpec type="atts" ident="att.color">
                <desc/>
                <attList>
                   <attDef ident="color" usage="opt">
@@ -1239,12 +1238,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.common.anl">
+            <classSpec type="atts" ident="att.common.anl">
                <desc>Common analytical attributes: corresp may be used to point to other
           events or control events that correspond to this event in some
           fashion.</desc>
+               <classes>
+                  <memberOf key="att.alignment"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.alignment"/>
                   <attDef ident="corresp" usage="opt">
                      <datatype>
                         <rng:data type="IDREFS"/>
@@ -1252,7 +1253,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.common">
+            <classSpec type="atts" ident="att.common">
                <desc>Common attributes: Each id within a document must have a unique value.
           The id attribute regularizes the naming of the element and thus facilitates
           building links between it and other resources. The n attribute may be used to
@@ -1271,7 +1272,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.controlevent">
+            <classSpec type="atts" ident="att.controlevent">
                <desc>Control events rely on other events for their existence. For example, a
           slur/phrase marking must be drawn between or over a group of notes. The next
           attribute may be used to point to the next control event(s) in a user-defined
@@ -1307,7 +1308,8 @@
                         <rng:data type="IDREFS"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="staff">req<datatype>
+                  <attDef ident="staff" usage="req">
+                     <datatype>
                         <rng:ref name="data.INTEGERPOSITIVE"/>
                      </datatype>
                   </attDef>
@@ -1328,7 +1330,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.coordinated">
+            <classSpec type="atts" ident="att.coordinated">
                <desc/>
                <attList>
                   <attDef ident="ulx" usage="opt">
@@ -1353,7 +1355,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.crit">
+            <classSpec type="atts" ident="att.crit">
                <desc>Attributes common to all elements representing variant
           readings:</desc>
                <attList>
@@ -1384,7 +1386,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.date">
+            <classSpec type="atts" ident="att.date">
                <desc>Attributes common to dates: calendar indicates the system or calendar to
           which the date belongs, for example, Gregorian, Julian, Roman, Mosaic,
           Revolutionary, Islamic; cert indicates the degree of precision to be attributed
@@ -1432,7 +1434,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.edit">
+            <classSpec type="atts" ident="att.edit">
                <desc>Attributes describing the nature of an encoded scholarly intervention or
           interpretation: cert signifies the degree of certainty associated with the
           intervention or interpretation. evidence indicates the nature of the evidence
@@ -1467,7 +1469,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.event">
+            <classSpec type="atts" ident="att.event">
                <desc>Attributes that apply to all written events, e.g. beam, beatrpt, chord,
           note, etc. The tstamp attribute encodes the onset time of a musical feature in
           terms of musical time, i.e., beats. The tstamp.ges attribute may be used to
@@ -1513,7 +1515,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.facsimile">
+            <classSpec type="atts" ident="att.facsimile">
                <desc>All elements subscribing to this class may include one or more ID
           references to an image or to an image zone which corresponds with the
           element.</desc>
@@ -1525,7 +1527,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.link.common">
+            <classSpec type="atts" ident="att.link.common">
                <desc>Attributes common to all linking elements: actuate defines whether a link
           occurs automatically or must be requested by the user. It is used in conjunction
           with the show attribute to determine link behavior. show defines whether a
@@ -1560,7 +1562,7 @@
                   <attDef ident="title" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.link.external">
+            <classSpec type="atts" ident="att.link.external">
                <desc>Linking attributes for external referencing elements: entityref
           references a previously-declared entity which represents a complete document.
           The href attribute allows the use of an undeclared URI. The fragment attribute
@@ -1584,7 +1586,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.link.internal">
+            <classSpec type="atts" ident="att.link.internal">
                <desc>Linking attributes for internal referencing elements.</desc>
                <attList>
                   <attDef ident="plist" usage="opt">
@@ -1594,7 +1596,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.midi.event">
+            <classSpec type="atts" ident="att.midi.event">
                <desc>Attributes common to MIDI events. %att.controlevent is expanded here in
           order to allow only the staff, layer, and tstamp attributes from this
           class.</desc>
@@ -1616,7 +1618,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.name">
+            <classSpec type="atts" ident="att.name">
                <desc>Attributes shared by names: The authority attribute should contain the
           name of the list from which a controlled value is taken, such as the Thesaurus
           of Geographic Names (TGN), etc. The key attribute may be used to record a value
@@ -1632,7 +1634,7 @@
                   <attDef ident="reg" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.startendid">
+            <classSpec type="atts" ident="att.startendid">
                <desc>Start and end attributes record the IDs of other elements to which the
           current element is associated.</desc>
                <attList>
@@ -1648,7 +1650,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.lang">
+            <classSpec type="atts" ident="att.lang">
                <desc>Attributes common to text elements: The lang attribute should be used to
           identify the language of the word or text phrase marked. Its value must be the
           identifier of a &lt;language&gt; element supplied in the MEI header of
@@ -1661,7 +1663,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.trans">
+            <classSpec type="atts" ident="att.trans">
                <desc>Attributes for elements encoding authorial or scribal intervention when
           transcribing manuscript or similar sources: The hand attribute signifies the
           hand of the agent which made the intervention. Its value must be the ID of hand
@@ -1681,7 +1683,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.typed">
+            <classSpec type="atts" ident="att.typed">
                <desc>Attributes which can be used to classify or subclassify elements in any
           way</desc>
                <attList>
@@ -1697,7 +1699,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.typography">
+            <classSpec type="atts" ident="att.typography">
                <desc>Typographical attributes</desc>
                <attList>
                   <attDef ident="fontfam" usage="opt">
@@ -1727,7 +1729,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.visualoffset">
+            <classSpec type="atts" ident="att.visualoffset">
                <desc>Some items may have their location recorded in terms of offsets from
           their programmatically-determined location. The ho attribute records the
           horizontal offset while vo records the vertical. The to attribute holds a
@@ -1751,7 +1753,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.xy">
+            <classSpec type="atts" ident="att.xy">
                <desc>Some elements may have their exact "output" coordinates recorded: x and y
           indicate where to place the rendered output. Recording the coordinates of a
           feature in a facsimile requires the use of the facs attribute.</desc>
@@ -1768,20 +1770,22 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.xy.required">
+            <classSpec type="atts" ident="att.xy.required">
                <desc/>
                <attList>
-                  <attDef ident="x">req<datatype>
+                  <attDef ident="x" usage="req">
+                     <datatype>
                         <rng:ref name="data.NUMBER"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="y">req<datatype>
+                  <attDef ident="y" usage="req">
+                     <datatype>
                         <rng:ref name="data.NUMBER"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.xy2">
+            <classSpec type="atts" ident="att.xy2">
                <desc>Some elements need 2 coordinate pairs</desc>
                <attList>
                   <attDef ident="x2" usage="opt">
@@ -1796,32 +1800,35 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.xy2.required">
+            <classSpec type="atts" ident="att.xy2.required">
                <desc/>
                <attList>
-                  <attDef ident="x2">req<datatype>
+                  <attDef ident="x2" usage="req">
+                     <datatype>
                         <rng:ref name="data.NUMBER"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="y2">req<datatype>
+                  <attDef ident="y2" usage="req">
+                     <datatype>
                         <rng:ref name="data.NUMBER"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.barline">
+            <classSpec type="atts" ident="att.anl.barline">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.barline">
+            <classSpec type="atts" ident="att.ges.barline">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="tstamp" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.barline">
+            <classSpec type="atts" ident="att.log.barline">
                <desc>Logical domain attributes:</desc>
                <attList>
                   <attDef ident="complete" usage="opt">
@@ -1848,10 +1855,12 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.barline">
+            <classSpec type="atts" ident="att.vis.barline">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
                   <attDef ident="barplace" usage="opt">
                      <datatype>
                         <rng:ref name="data.BARPLACE"/>
@@ -1869,22 +1878,22 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.clef">
+            <classSpec type="atts" ident="att.anl.clef">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.clef">
+            <classSpec type="atts" ident="att.ges.clef">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.clef">
+            <classSpec type="atts" ident="att.log.clef">
                <desc>Logical domain attributes:</desc>
                <attList>
-                  <attDef ident="line">req<datatype>
+                  <attDef ident="line" usage="req">
+                     <datatype>
                         <rng:ref name="data.CLEFLINE"/>
                      </datatype>
                   </attDef>
@@ -1893,7 +1902,8 @@
                         <rng:ref name="data.OCTAVE"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="shape">req<datatype>
+                  <attDef ident="shape" usage="req">
+                     <datatype>
                         <rng:ref name="data.CLEFSHAPE"/>
                      </datatype>
                   </attDef>
@@ -1904,10 +1914,12 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.clef">
+            <classSpec type="atts" ident="att.vis.clef">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -1915,17 +1927,19 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.custos">
+            <classSpec type="atts" ident="att.log.custos">
                <desc>Logical domain attributes: The pname and oct attributes identify the
           location where the custos appears. This is usually, but not always, the same as
           the target pitch. The target pitch may be referenced using the target
           attribute.</desc>
                <attList>
-                  <attDef ident="oct">req<datatype>
+                  <attDef ident="oct" usage="req">
+                     <datatype>
                         <rng:ref name="data.OCTAVE"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="pname">req<datatype>
+                  <attDef ident="pname" usage="req">
+                     <datatype>
                         <rng:ref name="data.PITCHNAME"/>
                      </datatype>
                   </attDef>
@@ -1941,26 +1955,26 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.custos">
+            <classSpec type="atts" ident="att.vis.custos">
                <desc>Visual domain attributes: The rend attribute indicates whether hash marks
           should be rendered between systems. See Read, p. 436, ex. 26-3.</desc>
-               <attList>
-                  <rng:ref name="att.color"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.dot">
+            <classSpec type="atts" ident="att.anl.dot">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.dot">
+            <classSpec type="atts" ident="att.ges.dot">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.dot">
+            <classSpec type="atts" ident="att.log.dot">
                <desc>Logical domain attributes:</desc>
                <attList>
                   <attDef ident="form" usage="opt">
@@ -1976,55 +1990,51 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.dot">
+            <classSpec type="atts" ident="att.vis.dot">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.xy"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.ending">
+            <classSpec type="atts" ident="att.anl.ending">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.ending">
+            <classSpec type="atts" ident="att.ges.ending">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.ending">
+            <classSpec type="atts" ident="att.log.ending">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.ending">
+            <classSpec type="atts" ident="att.vis.ending">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.grpsym">
+            <classSpec type="atts" ident="att.anl.grpsym">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.grpsym">
+            <classSpec type="atts" ident="att.ges.grpsym">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.grpsym">
+            <classSpec type="atts" ident="att.log.grpsym">
                <desc>Logical domain attributes: The staves attribute must be used when
           multiple grpsym elements are present. The label.* attributes should be used
           instead of n.</desc>
                <attList>
-                  <attDef ident="symbol">req<valList type="closed">
+                  <attDef ident="symbol" usage="req">
+                     <valList type="closed">
                         <valItem ident="brace"/>
                         <valItem ident="bracket"/>
                         <valItem ident="line"/>
@@ -2032,26 +2042,26 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.grpsym">
+            <classSpec type="atts" ident="att.vis.grpsym">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.ineume">
+            <classSpec type="atts" ident="att.anl.ineume">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.ineume">
+            <classSpec type="atts" ident="att.ges.ineume">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.ineume">
+            <classSpec type="atts" ident="att.log.ineume">
                <desc>Logical domain attributes:</desc>
                <attList>
                   <attDef ident="form" usage="opt">
@@ -2066,31 +2076,29 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.ineume">
+            <classSpec type="atts" ident="att.vis.ineume">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.color"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.layer">
+            <classSpec type="atts" ident="att.anl.layer">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.layer">
+            <classSpec type="atts" ident="att.ges.layer">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.layer">
+            <classSpec type="atts" ident="att.log.layer">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.layer">
+            <classSpec type="atts" ident="att.vis.layer">
                <desc>Visual domain attributes:</desc>
                <attList>
                   <attDef ident="visible" usage="opt">
@@ -2100,13 +2108,11 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.layerdef">
+            <classSpec type="atts" ident="att.anl.layerdef">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.layerdef">
+            <classSpec type="atts" ident="att.ges.layerdef">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="grace" usage="opt">
@@ -2142,14 +2148,12 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.layerdef.mensural">
+            <classSpec type="atts" ident="att.log.layerdef.mensural">
                <desc>Logical domain attributes: The n attribute is provided for explicit layer
           numbering.</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.layerdef.base">
+            <classSpec type="atts" ident="att.log.layerdef.base">
                <desc/>
                <attList>
                   <attDef ident="beam.group" usage="opt"/>
@@ -2170,20 +2174,19 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.layerdef">
+            <classSpec type="atts" ident="att.log.layerdef">
                <desc/>
-               <attList>
-                  <rng:ref name="att.log.layerdef.base"/>
-                  <rng:ref name="att.log.layerdef.mensural"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.log.layerdef.base"/>
+                  <memberOf key="att.log.layerdef.mensural"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.layerdef.mensural">
+            <classSpec type="atts" ident="att.vis.layerdef.mensural">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.layerdef.base">
+            <classSpec type="atts" ident="att.vis.layerdef.base">
                <desc/>
                <attList>
                   <attDef ident="beam.rend" usage="opt">
@@ -2240,26 +2243,26 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.layerdef">
+            <classSpec type="atts" ident="att.vis.layerdef">
                <desc/>
-               <attList>
-                  <rng:ref name="att.vis.layerdef.base"/>
-                  <rng:ref name="att.vis.layerdef.mensural"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.vis.layerdef.base"/>
+                  <memberOf key="att.vis.layerdef.mensural"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.ligature">
+            <classSpec type="atts" ident="att.anl.ligature">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.ligature">
+            <classSpec type="atts" ident="att.ges.ligature">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.ligature">
+            <classSpec type="atts" ident="att.log.ligature">
                <desc>Logical domain attributes:</desc>
                <attList>
                   <attDef ident="form" usage="opt">
@@ -2269,25 +2272,22 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.ligature">
+            <classSpec type="atts" ident="att.vis.ligature">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.mensur">
+            <classSpec type="atts" ident="att.anl.mensur">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.mensur">
+            <classSpec type="atts" ident="att.ges.mensur">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.mensur">
+            <classSpec type="atts" ident="att.log.mensur">
                <desc>Logical domain attributes:</desc>
                <attList>
                   <attDef ident="modusmaior" usage="opt">
@@ -2326,10 +2326,12 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.mensur">
+            <classSpec type="atts" ident="att.vis.mensur">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
                   <attDef ident="dot" usage="opt">
                      <datatype>
                         <rng:ref name="data.BOOLEAN"/>
@@ -2370,20 +2372,19 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.midi">
+            <classSpec type="atts" ident="att.anl.midi">
                <desc>The corresp attribute may point to logical events, i.e., notes, rests,
           etc., to which the MIDI data is analogous.</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.midi">
+            <classSpec type="atts" ident="att.ges.midi">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.midi">
+            <classSpec type="atts" ident="att.log.midi">
                <desc>Logical domain attributes: The midi element may provide values for layer
           and staff attributes for a group of MIDI events.</desc>
                <attList>
@@ -2399,108 +2400,94 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.midi">
+            <classSpec type="atts" ident="att.vis.midi">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.proport">
+            <classSpec type="atts" ident="att.anl.proport">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.proport">
+            <classSpec type="atts" ident="att.ges.proport">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.proport">
+            <classSpec type="atts" ident="att.log.proport">
                <desc>Logical domain attributes:</desc>
                <attList>
-                  <attDef ident="num">req<datatype>
+                  <attDef ident="num" usage="req">
+                     <datatype>
                         <rng:ref name="data.INTEGERPOSITIVE"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="numbase">req<datatype>
+                  <attDef ident="numbase" usage="req">
+                     <datatype>
                         <rng:ref name="data.INTEGERPOSITIVE"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.proport">
+            <classSpec type="atts" ident="att.vis.proport">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.part">
+            <classSpec type="atts" ident="att.anl.part">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.part">
+            <classSpec type="atts" ident="att.ges.part">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.part">
+            <classSpec type="atts" ident="att.log.part">
                <desc>Logical domain attributes: The n attribute allows explicit numbering of
           parts.</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.part">
+            <classSpec type="atts" ident="att.vis.part">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.parts">
+            <classSpec type="atts" ident="att.anl.parts">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.parts">
+            <classSpec type="atts" ident="att.ges.parts">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.parts">
+            <classSpec type="atts" ident="att.log.parts">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.parts">
+            <classSpec type="atts" ident="att.vis.parts">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.rdg">
+            <classSpec type="atts" ident="att.anl.rdg">
                <desc>Analytical domain attributes: The priority attribute is available so that
           variant readings may be assigned an order, e.g., for selection and/or rendering
           purposes, other than the encoded order. The resp attribute identifies the editor
           responsible for asserting this reading in the source.</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.rdg">
+            <classSpec type="atts" ident="att.ges.rdg">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.rdg">
+            <classSpec type="atts" ident="att.log.rdg">
                <desc>Logical domain attributes: The expan attribute contains a list of ids of
           child section, ending or app elements. This 'expansion list' indicates how the
           section should be expanded into its 'through-composed' form.</desc>
@@ -2512,25 +2499,22 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.rdg">
+            <classSpec type="atts" ident="att.vis.rdg">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.sb">
+            <classSpec type="atts" ident="att.anl.sb">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.sb">
+            <classSpec type="atts" ident="att.ges.sb">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.sb">
+            <classSpec type="atts" ident="att.log.sb">
                <desc>Adding the following attributes: leftmar %data.NUMBER; #IMPLIED rightmar
           %data.NUMBER; #IMPLIED spacing.staff %data.NUMBER; #IMPLIED to a.log.sb would
           make it possible to record layout changes without requiring them to be at
@@ -2543,7 +2527,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.sb">
+            <classSpec type="atts" ident="att.vis.sb">
                <desc>Visual domain attributes: The rend attribute indicates whether hash marks
           should be rendered between systems. See Read, p. 436, ex. 26-3.</desc>
                <attList>
@@ -2554,39 +2538,32 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.score">
+            <classSpec type="atts" ident="att.anl.score">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.score">
+            <classSpec type="atts" ident="att.ges.score">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.score">
+            <classSpec type="atts" ident="att.log.score">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.score">
+            <classSpec type="atts" ident="att.vis.score">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.scoredef">
+            <classSpec type="atts" ident="att.anl.scoredef">
                <desc>Analytical domain attributes: Since the score element carries analytical
           attributes for the score, it is unlikely a.anl.scoredef will ever be
           used.</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.scoredef">
+            <classSpec type="atts" ident="att.ges.scoredef">
                <desc>Gestural domain attributes: Definitions and suggested default values:
           grace do grace notes get time from the current (acc) or previous (unacc) main
           note? 'acc' midi.channel '1' midi.div MIDI pulses per quarter note '96'
@@ -2660,7 +2637,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.scoredef.mensural">
+            <classSpec type="atts" ident="att.log.scoredef.mensural">
                <desc>Logical domain attributes: beam.group an example of how beaming
           (including secondary beams) is to be done, e.g. (4.,4.,4.) indicates one outer
           beam per measure with secondary beams broken at each dotted quarter duration, no
@@ -2739,7 +2716,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.scoredef.base">
+            <classSpec type="atts" ident="att.log.scoredef.base">
                <desc/>
                <attList>
                   <attDef ident="beam.group" usage="opt"/>
@@ -2821,14 +2798,15 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.scoredef">
+            <classSpec type="atts" ident="att.log.scoredef">
                <desc/>
-               <attList>
-                  <rng:ref name="att.log.scoredef.base"/>
-                  <rng:ref name="att.log.scoredef.mensural"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.log.scoredef.base"/>
+                  <memberOf key="att.log.scoredef.mensural"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.scoredef.mensural">
+            <classSpec type="atts" ident="att.vis.scoredef.mensural">
                <desc>Visual domain attributes: Definitions and suggested software default
           values: mnum.visible are measure numbers visible?, 'no' bar.place placement of
           barlines, 'norm' beam.rend encodes whether a beam is feathered and in which
@@ -2888,7 +2866,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.scoredef.base">
+            <classSpec type="atts" ident="att.vis.scoredef.base">
                <desc/>
                <attList>
                   <attDef ident="bar.place" usage="opt">
@@ -3154,20 +3132,22 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.scoredef">
+            <classSpec type="atts" ident="att.vis.scoredef">
                <desc/>
-               <attList>
-                  <rng:ref name="att.vis.scoredef.base"/>
-                  <rng:ref name="att.vis.scoredef.mensural"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.vis.scoredef.base"/>
+                  <memberOf key="att.vis.scoredef.mensural"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.section">
+            <classSpec type="atts" ident="att.anl.section">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.section">
+            <classSpec type="atts" ident="att.ges.section">
                <desc>Gestural domain attributes: The expan attribute contains a list of ids of
           child section, ending or app elements. This 'expansion list' indicates how the
           section should be expanded into its 'through-composed' form. See Read, p. 226
@@ -3180,37 +3160,30 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.section">
+            <classSpec type="atts" ident="att.log.section">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.section">
+            <classSpec type="atts" ident="att.vis.section">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.staff">
+            <classSpec type="atts" ident="att.anl.staff">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.staff">
+            <classSpec type="atts" ident="att.ges.staff">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.staff">
+            <classSpec type="atts" ident="att.log.staff">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.staff">
+            <classSpec type="atts" ident="att.vis.staff">
                <desc>Visual domain attributes:</desc>
                <attList>
                   <attDef ident="visible" usage="opt">
@@ -3220,13 +3193,11 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.staffdef">
+            <classSpec type="atts" ident="att.anl.staffdef">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.staffdef.tablature">
+            <classSpec type="atts" ident="att.ges.staffdef.tablature">
                <desc>Gestural domain attributes: Adding tune.pname, tune.Hz, and tune.temper
           attributes here would allow each staff to establish its own tuning
           standard.</desc>
@@ -3234,7 +3205,7 @@
                   <attDef ident="tab.strings" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.staffdef.base">
+            <classSpec type="atts" ident="att.ges.staffdef.base">
                <desc/>
                <attList>
                   <attDef ident="grace" usage="opt">
@@ -3275,14 +3246,15 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.staffdef">
+            <classSpec type="atts" ident="att.ges.staffdef">
                <desc/>
-               <attList>
-                  <rng:ref name="att.ges.staffdef.base"/>
-                  <rng:ref name="att.ges.staffdef.tablature"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.ges.staffdef.base"/>
+                  <memberOf key="att.ges.staffdef.tablature"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.staffdef.mensural">
+            <classSpec type="atts" ident="att.log.staffdef.mensural">
                <desc>Logical domain attributes: The n attribute is provided for explicit staff
           numbering.</desc>
                <attList>
@@ -3347,7 +3319,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.staffdef.base">
+            <classSpec type="atts" ident="att.log.staffdef.base">
                <desc/>
                <attList>
                   <attDef ident="beam.group" usage="opt"/>
@@ -3429,14 +3401,15 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.staffdef">
+            <classSpec type="atts" ident="att.log.staffdef">
                <desc/>
-               <attList>
-                  <rng:ref name="att.log.staffdef.base"/>
-                  <rng:ref name="att.log.staffdef.mensural"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.log.staffdef.base"/>
+                  <memberOf key="att.log.staffdef.mensural"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.staffdef.mensural">
+            <classSpec type="atts" ident="att.vis.staffdef.mensural">
                <desc>Visual domain attributes: It is a semantic error if the clef.shape,
           clef.line, key.sig, meter.count, and meter.unit attributes are not supplied or
           are not available from a scoredef ancestor. The layerscheme attribute indicates
@@ -3479,7 +3452,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.staffdef.base">
+            <classSpec type="atts" ident="att.vis.staffdef.base">
                <desc/>
                <attList>
                   <attDef ident="beam.rend" usage="opt">
@@ -3673,20 +3646,19 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.staffdef">
+            <classSpec type="atts" ident="att.vis.staffdef">
                <desc/>
-               <attList>
-                  <rng:ref name="att.vis.staffdef.base"/>
-                  <rng:ref name="att.vis.staffdef.mensural"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.vis.staffdef.base"/>
+                  <memberOf key="att.vis.staffdef.mensural"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.staffgrp">
+            <classSpec type="atts" ident="att.anl.staffgrp">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.staffgrp">
+            <classSpec type="atts" ident="att.ges.staffgrp">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="midi.div" usage="opt">
@@ -3696,13 +3668,11 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.staffgrp">
+            <classSpec type="atts" ident="att.log.staffgrp">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.staffgrp">
+            <classSpec type="atts" ident="att.vis.staffgrp">
                <desc>Visual domain attributes: barthru indicates whether barlines go across
           the space between staves (yes) or are only drawn across the stafflines of each
           staff (no), label.full is used on the first page while label.abbr is used
@@ -3732,14 +3702,16 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.uneume">
+            <classSpec type="atts" ident="att.anl.uneume">
                <desc>Analytical domain attributes: accid.cautionary cautionary accidental
           accid.editorial editorial accidental or musica ficta hfunc harmonic function,
           e.g. root, 3rd, 5th inth harmonic interval from pitch in same chord intm melodic
           interval from previous pitch mfunc melodic function, e.g. appogg., N.T. pclass
           pitch class psolfa solfa, e.g. do, re, mi, etc.</desc>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.common.anl"/>
                   <attDef ident="accid.cautionary" usage="opt">
                      <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
@@ -3762,16 +3734,16 @@
                   <attDef ident="psolfa" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.uneume">
+            <classSpec type="atts" ident="att.ges.uneume">
                <desc>Gestural domain (performance) attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.uneume">
+            <classSpec type="atts" ident="att.log.uneume">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="form" usage="opt">
                      <datatype>
                         <rng:ref name="data.UNEUMEFORM"/>
@@ -3785,11 +3757,13 @@
                   <attDef ident="syl" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.uneume">
+            <classSpec type="atts" ident="att.vis.uneume">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -3817,19 +3791,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.accid">
+            <classSpec type="atts" ident="att.anl.accid">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.accid">
+            <classSpec type="atts" ident="att.ges.accid">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.accid">
+            <classSpec type="atts" ident="att.log.accid">
                <desc>Logical domain attributes: %ACCIDENTAL.EXPLICIT is the super-set. The
           value attribute should really be restricted to the subset given by the form
           attribute.</desc>
@@ -3846,17 +3819,20 @@
                         <valItem ident="edit"/>
                      </valList>
                   </attDef>
-                  <attDef ident="value">req<datatype>
+                  <attDef ident="value" usage="req">
+                     <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.accid">
+            <classSpec type="atts" ident="att.vis.accid">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="enclose" usage="opt">
                      <datatype>
                         <rng:ref name="data.ENCLOSURE"/>
@@ -3881,19 +3857,17 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.annot">
+            <classSpec type="atts" ident="att.anl.annot">
                <desc>Analytical domain attributes:</desc>
                <attList>
                   <attDef ident="dur.anl" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.annot">
+            <classSpec type="atts" ident="att.ges.annot">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.annot">
+            <classSpec type="atts" ident="att.log.annot">
                <desc>Logical domain attributes: % att.controlevent is expanded here in order
           to allow staff to be IMPLIED. Values for the type attribute can be taken from
           any convenient typology of annotation suitable to the work in hand; e.g.
@@ -3904,8 +3878,10 @@
           start of the measure, while the tstamp.real attribute records the onset time as
           a real-time offset, i.e., HH:MM:SS.ss, since the beginning of the
           file.</desc>
+               <classes>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="layer" usage="opt">
                      <datatype>
                         <rng:ref name="data.INTEGERPOSITIVE"/>
@@ -3943,31 +3919,30 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.annot">
+            <classSpec type="atts" ident="att.vis.annot">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.arpeg">
+            <classSpec type="atts" ident="att.anl.arpeg">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.arpeg">
+            <classSpec type="atts" ident="att.ges.arpeg">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.arpeg">
+            <classSpec type="atts" ident="att.log.arpeg">
                <desc>Logical domain attributes: dir=nonarp indicates a non-arpeggiated chord.
           Arpeggiation across multiple staves requires 2 values in staff attribute; if
           there's more than 1 layer in either staff, 2 values are required in the layer
           attribute.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
                   <attDef ident="dir" usage="opt">
                      <valList type="closed">
                         <valItem ident="up"/>
@@ -3977,12 +3952,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.arpeg">
+            <classSpec type="atts" ident="att.vis.arpeg">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="arrow" usage="opt">
                      <datatype>
                         <rng:ref name="data.BOOLEAN"/>
@@ -3990,33 +3967,35 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.artic">
+            <classSpec type="atts" ident="att.anl.artic">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.artic">
+            <classSpec type="atts" ident="att.ges.artic">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.artic">
+            <classSpec type="atts" ident="att.log.artic">
                <desc>Logical domain attributes:</desc>
                <attList>
-                  <attDef ident="value">req<datatype>
+                  <attDef ident="value" usage="req">
+                     <datatype>
                         <rng:ref name="data.ARTICULATION"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.artic">
+            <classSpec type="atts" ident="att.vis.artic">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="enclose" usage="opt">
                      <datatype>
                         <rng:ref name="data.ENCLOSURE"/>
@@ -4029,22 +4008,23 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.beam">
+            <classSpec type="atts" ident="att.anl.beam">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.beam">
+            <classSpec type="atts" ident="att.ges.beam">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.beam">
+            <classSpec type="atts" ident="att.log.beam">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="with" usage="opt">
                      <datatype>
                         <rng:ref name="data.PLACE"/>
@@ -4052,7 +4032,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.beam">
+            <classSpec type="atts" ident="att.vis.beam">
                <desc>Visual domain attributes: Secondary beams may be broken explicitly using
           the breaksec attribute. Its value should contain a space-separated list of
           rhythmic durations that form a single beat. For example,'8 8' indicates a
@@ -4077,23 +4057,24 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.beamspan">
+            <classSpec type="atts" ident="att.anl.beamspan">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.beamspan">
+            <classSpec type="atts" ident="att.ges.beamspan">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.beamspan">
+            <classSpec type="atts" ident="att.log.beamspan">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="with" usage="opt">
                      <datatype>
                         <rng:ref name="data.PLACE"/>
@@ -4101,7 +4082,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.beamspan">
+            <classSpec type="atts" ident="att.vis.beamspan">
                <desc>Visual domain attributes:</desc>
                <attList>
                   <attDef ident="breaksec" usage="opt"/>
@@ -4119,25 +4100,25 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.beatrpt">
+            <classSpec type="atts" ident="att.anl.beatrpt">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.beatrpt">
+            <classSpec type="atts" ident="att.ges.beatrpt">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.beatrpt">
+            <classSpec type="atts" ident="att.log.beatrpt">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.event"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.beatrpt">
+            <classSpec type="atts" ident="att.vis.beatrpt">
                <desc>Visual domain attributes: The expand attribute indicates whether to
           render the source measures or the usual repeated beat symbol. The rend attribute
           indicates the number of slashes required to render the appropriate beat repeat
@@ -4145,8 +4126,10 @@
           32nds=3, 64ths=4, 128ths=5. When the beat is comprised of mixed duration values,
           the symbol is always rendered as 2 slashes and 2 dots. See Read, pg.
           223-224.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -4157,7 +4140,8 @@
                         <rng:ref name="data.BOOLEAN"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="rend">req<valList type="closed">
+                  <attDef ident="rend" usage="req">
+                     <valList type="closed">
                         <valItem ident="4"/>
                         <valItem ident="8"/>
                         <valItem ident="16"/>
@@ -4169,13 +4153,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.bend">
+            <classSpec type="atts" ident="att.anl.bend">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.bend">
+            <classSpec type="atts" ident="att.ges.bend">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="amount" usage="opt">
@@ -4188,14 +4173,15 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.bend">
+            <classSpec type="atts" ident="att.log.bend">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.bend">
+            <classSpec type="atts" ident="att.vis.bend">
                <desc>Visual domain attributes: The bulge or, alternatively, the bezier
           attribute, describes the shape of the bend. The bulge attribute describes the
           curve as a set of distance values above or below an imaginary line connecting
@@ -4209,11 +4195,13 @@
           endvo and startho, startvo attribute pairs may be used to encode start and end
           points relative to their programmatic placement. For exact placement of the
           endpoints of the bend use the xy coordinate pairs.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+                  <memberOf key="att.xy2"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
-                  <rng:ref name="att.xy2"/>
                   <attDef ident="bezier" usage="opt">
                      <datatype>
                         <rng:data type="NMTOKENS"/>
@@ -4261,35 +4249,37 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.breath">
+            <classSpec type="atts" ident="att.anl.breath">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.breath">
+            <classSpec type="atts" ident="att.ges.breath">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.breath">
+            <classSpec type="atts" ident="att.log.breath">
                <desc>Logical domain attributes: Currently, the dur attribute encodes the
           logical and visual durations of the directive. If cases arise where the logical
           and visual durations differ, it may be necessary to add a dur.vis attribute.
           Please note that the dur attribute is not a true duration, but rather a time
           stamp for the end point of the directive.</desc>
-               <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.breath">
+            <classSpec type="atts" ident="att.vis.breath">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -4302,25 +4292,26 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.btrem">
+            <classSpec type="atts" ident="att.anl.btrem">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.btrem">
+            <classSpec type="atts" ident="att.ges.btrem">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.btrem">
+            <classSpec type="atts" ident="att.log.btrem">
                <desc>Logical domain attributes: The num attribute should be explicitly set for
           measured tremolandi. The stem modifier (slash or z) must also be explicity set
           on the child note or chord element for a complete visual
           representation.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="form" usage="opt">
                      <valList type="closed">
                         <valItem ident="meas"/>
@@ -4334,7 +4325,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.btrem">
+            <classSpec type="atts" ident="att.vis.btrem">
                <desc>Visual domain attributes:</desc>
                <attList>
                   <attDef ident="num.place" usage="opt">
@@ -4344,16 +4335,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.chord">
+            <classSpec type="atts" ident="att.anl.chord">
                <desc>Analytical domain attributes: hfunc = harmonic function, mfunc = melodic
           function.</desc>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.common.anl"/>
                   <attDef ident="hfunc" usage="opt"/>
                   <attDef ident="mfunc" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.chord">
+            <classSpec type="atts" ident="att.ges.chord">
                <desc>Gestural domain (performance) attributes: The artic.ges and dur.ges
           attributes record the articulation and duration information when the performed
           values differ from the written values. The dur.ges attribute (performed
@@ -4386,11 +4379,13 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.chord">
+            <classSpec type="atts" ident="att.log.chord">
                <desc>Logical domain attributes: The artic, dots, and dur attributes encode the
           *written* articulations, augmentation dots, and duration values.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="artic" usage="opt">
                      <datatype>
                         <rng:ref name="data.ARTICULATIONS"/>
@@ -4439,7 +4434,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.chord">
+            <classSpec type="atts" ident="att.vis.chord">
                <desc>Visual domain attributes: The altsym attribute indicates that the
           specified alternative visual symbol is to be displayed. The headshape attribute
           may be used to indicate a cluster notehead should be displayed instead of
@@ -4459,9 +4454,11 @@
           "normal" position while the dot.x and dot.y attributes record the precise
           position of the dot. The %att.visualoffset entity is expanded here in order to
           disallow a vertical offset.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -4576,19 +4573,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.clefchange">
+            <classSpec type="atts" ident="att.anl.clefchange">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.clefchange">
+            <classSpec type="atts" ident="att.ges.clefchange">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.clefchange.base">
+            <classSpec type="atts" ident="att.log.clefchange.base">
                <desc>Logical domain attributes:</desc>
                <attList>
                   <attDef ident="line" usage="opt">
@@ -4613,16 +4609,19 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.clefchange">
+            <classSpec type="atts" ident="att.log.clefchange">
                <desc/>
-               <attList>
-                  <rng:ref name="att.log.clefchange.base"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.log.clefchange.base"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.clefchange">
+            <classSpec type="atts" ident="att.vis.clefchange">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -4630,27 +4629,30 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.dir">
+            <classSpec type="atts" ident="att.anl.dir">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.dir">
+            <classSpec type="atts" ident="att.ges.dir">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.dir">
+            <classSpec type="atts" ident="att.log.dir">
                <desc>Logical domain attributes: Currently, the dur attribute encodes the
           logical and visual durations of the directive. If cases arise where the logical
           and visual durations differ, it may be necessary to add a dur.vis attribute.
           Please note that the dur attribute is not a true duration, but rather a time
           stamp for the end point of the directive.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="dur" usage="opt">
                      <datatype>
                         <rng:ref name="data.MEASUREBEAT"/>
@@ -4658,11 +4660,13 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.dir">
+            <classSpec type="atts" ident="att.vis.dir">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="endho" usage="opt">
                      <datatype>
                         <rng:ref name="data.VISUALOFFSET"/>
@@ -4690,13 +4694,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.dynam">
+            <classSpec type="atts" ident="att.anl.dynam">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.dynam">
+            <classSpec type="atts" ident="att.ges.dynam">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
@@ -4707,16 +4712,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.dynam">
+            <classSpec type="atts" ident="att.log.dynam">
                <desc>Logical domain attributes: The dur attribute encodes the logical and
           visual duration of the dynamic symbol or text while the dur.ges attribute
           encodes the performed duration. If logical and visual duration differ, it may be
           necessary to add a dur.vis attribute. Please note that the dur attribute is not
           a true duration, but rather a time stamp for the end point of the dynamic
           indication.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="dur" usage="opt">
                      <datatype>
                         <rng:ref name="data.MEASUREBEAT"/>
@@ -4724,11 +4731,13 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.dynam">
+            <classSpec type="atts" ident="att.vis.dynam">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="endho" usage="opt">
                      <datatype>
                         <rng:ref name="data.VISUALOFFSET"/>
@@ -4756,31 +4765,35 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.fermata">
+            <classSpec type="atts" ident="att.anl.fermata">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.fermata">
+            <classSpec type="atts" ident="att.ges.fermata">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.fermata">
+            <classSpec type="atts" ident="att.log.fermata">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.fermata">
+            <classSpec type="atts" ident="att.vis.fermata">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -4799,13 +4812,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.ftrem">
+            <classSpec type="atts" ident="att.anl.ftrem">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.ftrem">
+            <classSpec type="atts" ident="att.ges.ftrem">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="form" usage="opt">
@@ -4816,18 +4830,20 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.ftrem">
+            <classSpec type="atts" ident="att.log.ftrem">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.event"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.ftrem">
+            <classSpec type="atts" ident="att.vis.ftrem">
                <desc>Visual domain attributes: The rend attribute indicates the number of
           slashes required - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4,
           128ths=5.</desc>
                <attList>
-                  <attDef ident="slash">req<valList type="closed">
+                  <attDef ident="slash" usage="req">
+                     <valList type="closed">
                         <valItem ident="1"/>
                         <valItem ident="2"/>
                         <valItem ident="3"/>
@@ -4838,33 +4854,35 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.gliss">
+            <classSpec type="atts" ident="att.anl.gliss">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.gliss">
+            <classSpec type="atts" ident="att.ges.gliss">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.gliss">
+            <classSpec type="atts" ident="att.log.gliss">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.gliss">
+            <classSpec type="atts" ident="att.vis.gliss">
                <desc>Visual domain attributes: The text attribute may be used to record any
           text, such as 'gliss.' that accompanies the glissando mark.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+                  <memberOf key="att.xy2"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
-                  <rng:ref name="att.xy2"/>
                   <attDef ident="endho" usage="opt">
                      <datatype>
                         <rng:ref name="data.VISUALOFFSET"/>
@@ -4903,53 +4921,59 @@
                   <attDef ident="text" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.hairpin">
+            <classSpec type="atts" ident="att.anl.hairpin">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.hairpin">
+            <classSpec type="atts" ident="att.ges.hairpin">
                <desc>Gestural domain attributes: dur.ges represents the performed
           duration.</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.hairpin">
+            <classSpec type="atts" ident="att.log.hairpin">
                <desc>Logical domain attributes: The dur attribute encodes the logical and
           visual duration of the hairpin while the dur.ges attribute, if it is available,
           encodes the performed duration. If logical and visual duration differ, it may be
           necessary to add a dur.vis attribute. Please note that the dur attribute is not
           a true duration, but rather a time stamp for the end point of the
           hairpin.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="dur" usage="opt">
                      <datatype>
                         <rng:ref name="data.MEASUREBEAT"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="form">req<valList type="closed">
+                  <attDef ident="form" usage="req">
+                     <valList type="closed">
                         <valItem ident="cres"/>
                         <valItem ident="dim"/>
                      </valList>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.hairpin">
+            <classSpec type="atts" ident="att.vis.hairpin">
                <desc>Visual domain attributes: The startho and startvo attributes record the
           horizontal and vertical offsets of the left end, endho and endvo record the
           horizontal and vertical offsets of the right end, and the width attribute
           records the width of the opening on the open end in staff inter-line units. The
           x1 and y1 attributes give the absolute coordinates of the left side of the
           hairpin while x2 and y2 record the coordinates of the right side.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+                  <memberOf key="att.xy2"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
-                  <rng:ref name="att.xy2"/>
                   <attDef ident="endho" usage="opt">
                      <datatype>
                         <rng:ref name="data.VISUALOFFSET"/>
@@ -4965,7 +4989,8 @@
                         <rng:ref name="data.VISUALOFFSET"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="place">req<datatype>
+                  <attDef ident="place" usage="req">
+                     <datatype>
                         <rng:ref name="data.PLACE"/>
                      </datatype>
                   </attDef>
@@ -4991,22 +5016,23 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.halfmrpt">
+            <classSpec type="atts" ident="att.anl.halfmrpt">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.halfmrpt">
+            <classSpec type="atts" ident="att.ges.halfmrpt">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.halfmrpt">
+            <classSpec type="atts" ident="att.log.halfmrpt">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="dur" usage="opt">
                      <datatype>
                         <rng:ref name="data.DURATION"/>
@@ -5014,12 +5040,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.halfmrpt">
+            <classSpec type="atts" ident="att.vis.halfmrpt">
                <desc>Visual domain attributes: The expand attribute indicates whether or not
           to render the source material. How can it be pointed to?</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -5032,28 +5060,31 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.harm">
+            <classSpec type="atts" ident="att.anl.harm">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.harm">
+            <classSpec type="atts" ident="att.ges.harm">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.harm">
+            <classSpec type="atts" ident="att.log.harm">
                <desc>Logical domain attributes: The dur attribute encodes the logical and
           visual duration of the harmony while the dur.ges attribute, if it is available,
           encodes the performed duration. If logical and visual duration differ, it may be
           necessary to add a dur.vis attribute. Please note that the dur attribute here is
           not a true duration, but rather a time stamp for the end point of the
           directive.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="chordref" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -5066,16 +5097,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.harm">
+            <classSpec type="atts" ident="att.vis.harm">
                <desc>Visual domain attributes: If the rendgrid attribute is set to 'grid',
           then the chord tablature grid defined in the chordtable should be rendered
           instead of the text contents of the harm element; if rendgrid equals 'gridname',
           both the harm element's text and the grid should be displayed; otherwise, only
           the 'name' of the chord, i.e., the text content of the harm element, e.g. 'Cmaj'
           or 'V7/III', should be rendered.</desc>
+               <classes>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="endho" usage="opt">
                      <datatype>
                         <rng:ref name="data.VISUALOFFSET"/>
@@ -5114,23 +5147,26 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.harppedal">
+            <classSpec type="atts" ident="att.anl.harppedal">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.harppedal">
+            <classSpec type="atts" ident="att.ges.harppedal">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.harppedal">
+            <classSpec type="atts" ident="att.log.harppedal">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="c" usage="opt">
                      <defaultVal>n</defaultVal>
                      <valList type="closed">
@@ -5189,12 +5225,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.harppedal">
+            <classSpec type="atts" ident="att.vis.harppedal">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="place" usage="opt">
                      <datatype>
                         <rng:ref name="data.PLACE"/>
@@ -5202,19 +5240,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.lyrics">
+            <classSpec type="atts" ident="att.anl.lyrics">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.lyrics">
+            <classSpec type="atts" ident="att.ges.lyrics">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.lyrics">
+            <classSpec type="atts" ident="att.log.lyrics">
                <desc>Logical domain attributes: %att.controlevent is expanded here in order to
           allow only the staff and layer attributes from this class.</desc>
                <attList>
@@ -5223,16 +5260,19 @@
                         <rng:ref name="data.INTEGERPOSITIVE"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="staff">req<datatype>
+                  <attDef ident="staff" usage="req">
+                     <datatype>
                         <rng:ref name="data.INTEGERPOSITIVE"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.lyrics">
+            <classSpec type="atts" ident="att.vis.lyrics">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.typography"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.typography"/>
                   <attDef ident="place" usage="opt">
                      <datatype>
                         <rng:ref name="data.PLACE"/>
@@ -5240,19 +5280,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.measure">
+            <classSpec type="atts" ident="att.anl.measure">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.measure">
+            <classSpec type="atts" ident="att.ges.measure">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.measure">
+            <classSpec type="atts" ident="att.log.measure">
                <desc>Logical domain attributes: The complete attribute allows the encoding of
           whether a measure matches the prevailing meter: a value of 'c' indicates a
           metrically complete measure, 'i' indicates a measure with not enough beats,
@@ -5302,7 +5341,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.measure">
+            <classSpec type="atts" ident="att.vis.measure">
                <desc>Visual domain attributes: The taktplace attribute value must be a number
           between 1 and the number of stafflines. For example, a value of '5' puts the
           barline through the top line of a 5-line staff. The width attribute records a
@@ -5325,19 +5364,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.mordent">
+            <classSpec type="atts" ident="att.anl.mordent">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.mordent">
+            <classSpec type="atts" ident="att.ges.mordent">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.mordent">
+            <classSpec type="atts" ident="att.log.mordent">
                <desc>Logical domain attributes: In the form attribute, 'norm' signals the
           normal form, that is, the written note, followed by its lower neighbor, with a
           return to the written note, while 'inv' indicates the inverted form, that is,
@@ -5349,9 +5387,11 @@
           these signs is sometimes reversed. See Read, p. 245-246. Another attribute in
           the visual domain would be necessary in order to be completely explicit about
           which visual symbol is actually to be rendered.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="accidupper" usage="opt">
                      <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
@@ -5375,11 +5415,13 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.mordent">
+            <classSpec type="atts" ident="att.vis.mordent">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
                   <attDef ident="place" usage="opt">
                      <datatype>
                         <rng:ref name="data.PLACE"/>
@@ -5387,15 +5429,16 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.mrest">
+            <classSpec type="atts" ident="att.anl.mrest">
                <desc>Analytical domain attributes: The n attribute is used to explicitly
           encode this measure's position in a string of measures containing only mrest
           elements.</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.mrest">
+            <classSpec type="atts" ident="att.ges.mrest">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
@@ -5406,10 +5449,12 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.mrest">
+            <classSpec type="atts" ident="att.log.mrest">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="fermata" usage="opt">
                      <datatype>
                         <rng:ref name="data.PLACE"/>
@@ -5417,16 +5462,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.mrest">
+            <classSpec type="atts" ident="att.vis.mrest">
                <desc>Visual domain attributes: The altsym attribute indicates that the
           specified alternative visual symbol is to be displayed. When set to 'rest' the
           cutout attribute indicates that the staff lines are to be displayed but not the
           rest itself. When set to 'staff' even the staff lines should not be drawn for
           this measure. See _56 Songs You Like to Sing_, p. 32. The dur.vis attribute
           should be used to record the durational symbol used in the source.</desc>
+               <classes>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -5450,13 +5497,15 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.mrpt">
+            <classSpec type="atts" ident="att.anl.mrpt">
                <desc>Analytical domain attributes: The measref attribute is provided to
           explicitly indicate the measure whose contents are to be repeated here. The n
           attribute is used to explicitly encode this measure's position in a string of
           measures containing only mrpt elements.</desc>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.common.anl"/>
                   <attDef ident="measref" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -5464,23 +5513,24 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.mrpt">
+            <classSpec type="atts" ident="att.ges.mrpt">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.mrpt">
+            <classSpec type="atts" ident="att.log.mrpt">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.event"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.mrpt">
+            <classSpec type="atts" ident="att.vis.mrpt">
                <desc>Visual domain attributes: The expand attribute indicates whether or not
           to render the source measure.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -5493,12 +5543,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.mrpt2">
+            <classSpec type="atts" ident="att.anl.mrpt2">
                <desc>Analytical domain attributes: The measref attribute is provided to
           explicitly indicate the measures whose contents are to be repeated
           here.</desc>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.common.anl"/>
                   <attDef ident="measref" usage="opt">
                      <datatype>
                         <rng:data type="IDREFS"/>
@@ -5506,23 +5558,24 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.mrpt2">
+            <classSpec type="atts" ident="att.ges.mrpt2">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.mrpt2">
+            <classSpec type="atts" ident="att.log.mrpt2">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.event"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.mrpt2">
+            <classSpec type="atts" ident="att.vis.mrpt2">
                <desc>Visual domain attributes: The expand attribute indicates whether or not
           to render the source measures.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -5535,15 +5588,16 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.mspace">
+            <classSpec type="atts" ident="att.anl.mspace">
                <desc>Analytical domain attributes: The n attribute is used to explicitly
           encode this measure's position in a string of measures containing only mrest
           elements.</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.mspace">
+            <classSpec type="atts" ident="att.ges.mspace">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
@@ -5554,10 +5608,12 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.mspace">
+            <classSpec type="atts" ident="att.log.mspace">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="fermata" usage="opt">
                      <datatype>
                         <rng:ref name="data.PLACE"/>
@@ -5565,16 +5621,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.mspace">
+            <classSpec type="atts" ident="att.vis.mspace">
                <desc>Visual domain attributes: The altsym attribute indicates that the
           specified alternative visual symbol is to be displayed. When set to 'rest' the
           cutout attribute indicates that the staff lines are to be displayed but not the
           rest itself. When set to 'staff' even the staff lines should not be drawn for
           this measure. See _56 Songs You Like to Sing_, p. 32. The dur.vis attribute
           should be used to record the durational symbol used in the source.</desc>
+               <classes>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -5593,13 +5651,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.multirest">
+            <classSpec type="atts" ident="att.anl.multirest">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.multirest">
+            <classSpec type="atts" ident="att.ges.multirest">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
@@ -5610,18 +5669,21 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.multirest">
+            <classSpec type="atts" ident="att.log.multirest">
                <desc>Logical domain attributes: The num attribute contains the number of
           measures of rest.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
-                  <attDef ident="num">req<datatype>
+                  <attDef ident="num" usage="req">
+                     <datatype>
                         <rng:ref name="data.INTEGERPOSITIVE"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.multirest">
+            <classSpec type="atts" ident="att.vis.multirest">
                <desc>Visual domain attributes: When the block attribute is used, combinations
           of the 1, 2, &amp; 4 measure rest forms (Read, p. 104) should be rendered
           instead of the modern form.</desc>
@@ -5638,36 +5700,38 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.multirpt">
+            <classSpec type="atts" ident="att.anl.multirpt">
                <desc>Analytical domain attributes: The meas attribute is provided to
           explicitly reference the measures where the source content exists.</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.multirpt">
+            <classSpec type="atts" ident="att.ges.multirpt">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.multirpt">
+            <classSpec type="atts" ident="att.log.multirpt">
                <desc>Logical domain attributes: The num attribute contains the number of
           measures to be repeated.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="measref" usage="opt">
                      <datatype>
                         <rng:data type="IDREFS"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="num">req<datatype>
+                  <attDef ident="num" usage="req">
+                     <datatype>
                         <rng:ref name="data.INTEGERPOSITIVE"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.multirpt">
+            <classSpec type="atts" ident="att.vis.multirpt">
                <desc>Visual domain attributes: The expand attribute indicates whether or not
           to render the source measures.</desc>
                <attList>
@@ -5683,14 +5747,16 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.nota">
+            <classSpec type="atts" ident="att.anl.nota">
                <desc>Analytical domain attributes: accid.cautionary cautionary accidental
           accid.editorial editorial accidental or musica ficta hfunc harmonic function,
           e.g. root, 3rd, 5th inth harmonic interval from pitch in same chord intm melodic
           interval from previous pitch mfunc melodic function, e.g. appogg., N.T. pclass
           pitch class psolfa solfa, e.g. do, re, mi, etc.</desc>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.common.anl"/>
                   <attDef ident="accid.cautionary" usage="opt">
                      <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
@@ -5713,7 +5779,7 @@
                   <attDef ident="psolfa" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.nota.tablature">
+            <classSpec type="atts" ident="att.ges.nota.tablature">
                <desc>Gestural domain (performance) attributes: The artic.ges, dur.ges,
           oct.ges, pname.ges attributes record the articulation, duration, octave, and
           pitch name when the performed value differs from the written value. The
@@ -5741,7 +5807,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.nota.base">
+            <classSpec type="atts" ident="att.ges.nota.base">
                <desc/>
                <attList>
                   <attDef ident="num" usage="opt">
@@ -5803,14 +5869,15 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.nota">
+            <classSpec type="atts" ident="att.ges.nota">
                <desc/>
-               <attList>
-                  <rng:ref name="att.ges.nota.base"/>
-                  <rng:ref name="att.ges.nota.tablature"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.ges.nota.base"/>
+                  <memberOf key="att.ges.nota.tablature"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.nota">
+            <classSpec type="atts" ident="att.log.nota">
                <desc>Logical domain attributes: The pname, accid, oct, dur, dots, and artic
           attributes encode the *written* note name, accidental, octave, duration,
           articulations, augmentation dots, and articulations. The acci attribute records
@@ -5826,8 +5893,10 @@
           elements for visual rendition. Tablature information can be recorded in the
           tab.fret and tab.string attributes. fermata = corona in the mensural
           repertoire.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="accid" usage="opt">
                      <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
@@ -5867,7 +5936,7 @@
                   <attDef ident="syl" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.nota">
+            <classSpec type="atts" ident="att.vis.nota">
                <desc>Visual domain attributes: The distance between the accidental and the
           note it modifies should be recorded in the accid.ho attribute. The headshape
           attribute may be used to override the headshape normally used for the given
@@ -5880,9 +5949,11 @@
           dot.x and dot.y attributes record the precise position of the dot. The
           %att.visualoffset entity is expanded here in order to disallow a vertical
           offset.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="accid.ho" usage="opt">
                      <datatype>
                         <rng:ref name="data.NUMBER"/>
@@ -6022,14 +6093,16 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.note">
+            <classSpec type="atts" ident="att.anl.note">
                <desc>Analytical domain attributes: accid.cautionary cautionary accidental
           accid.editorial editorial accidental or musica ficta hfunc harmonic function,
           e.g. root, 3rd, 5th inth harmonic interval from pitch in same chord intm melodic
           interval from previous pitch mfunc melodic function, e.g. appogg., N.T. pclass
           pitch class psolfa solfa, e.g. do, re, mi, etc.</desc>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.common.anl"/>
                   <attDef ident="accid.cautionary" usage="opt">
                      <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
@@ -6052,7 +6125,7 @@
                   <attDef ident="psolfa" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.note.tablature">
+            <classSpec type="atts" ident="att.ges.note.tablature">
                <desc>Gestural domain (performance) attributes: The artic.ges, dur.ges,
           oct.ges, pname.ges attributes record the articulation, duration, octave, and
           pitch name when the performed value differs from the written value. The
@@ -6068,11 +6141,9 @@
           attribute holds a pitch-to-number mapping, a base-40 or MIDI note number, for
           example. Tablature information can be recorded in the tab.fret and tab.string
           attributes.</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.note.base">
+            <classSpec type="atts" ident="att.ges.note.base">
                <desc/>
                <attList>
                   <attDef ident="accid.ges" usage="opt">
@@ -6134,14 +6205,15 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.note">
+            <classSpec type="atts" ident="att.ges.note">
                <desc/>
-               <attList>
-                  <rng:ref name="att.ges.note.base"/>
-                  <rng:ref name="att.ges.note.tablature"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.ges.note.base"/>
+                  <memberOf key="att.ges.note.tablature"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.note">
+            <classSpec type="atts" ident="att.log.note">
                <desc>Logical domain attributes: The pname, accid, oct, dur, dots, and artic
           attributes encode the *written* note name, accidental, octave, duration,
           articulations, augmentation dots, and articulations. The acci attribute records
@@ -6155,8 +6227,10 @@
           participates. Software may render slur, tie, lv or tuplet indications based on
           these attributes or require separate slur, tie, generic curve, or tuplet
           elements for visual rendition.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="accid" usage="opt">
                      <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
@@ -6220,7 +6294,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.note">
+            <classSpec type="atts" ident="att.vis.note">
                <desc>Visual domain attributes: The distance between the accidental and the
           note it modifies should be recorded in the accid.ho attribute. The headshape
           attribute may be used to override the headshape normally used for the given
@@ -6233,9 +6307,11 @@
           dot.x and dot.y attributes record the precise position of the dot. The
           %att.visualoffset entity is expanded here in order to disallow a vertical
           offset.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="accid.ho" usage="opt">
                      <datatype>
                         <rng:ref name="data.NUMBER"/>
@@ -6370,19 +6446,20 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.octave">
+            <classSpec type="atts" ident="att.anl.octave">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.octave">
+            <classSpec type="atts" ident="att.ges.octave">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.octave">
+            <classSpec type="atts" ident="att.log.octave">
                <desc>Logical domain attributes: The dur attribute encodes the logical and
           visual duration of the octave displacement while the dur.ges attribute, if it is
           available, encodes the performed duration. If logical and visual duration
@@ -6394,15 +6471,18 @@
           dis attribute states the amount of displacement while coll (Read, p. 47-48)
           encodes whether the octave displacement should be performed simultaneously with
           the written notes.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="coll" usage="opt">
                      <valList type="closed">
                         <valItem ident="coll"/>
                      </valList>
                   </attDef>
-                  <attDef ident="dis">req<valList type="closed">
+                  <attDef ident="dis" usage="req">
+                     <valList type="closed">
                         <valItem ident="8"/>
                         <valItem ident="15"/>
                         <valItem ident="22"/>
@@ -6413,17 +6493,20 @@
                         <rng:ref name="data.MEASUREBEAT"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="place">req<datatype>
+                  <attDef ident="place" usage="req">
+                     <datatype>
                         <rng:ref name="data.PLACE"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.octave">
+            <classSpec type="atts" ident="att.vis.octave">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.xy"/>
+                  <memberOf key="att.visualoffset"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.xy"/>
-                  <rng:ref name="att.visualoffset"/>
                   <attDef ident="endho" usage="opt">
                      <datatype>
                         <rng:ref name="data.VISUALOFFSET"/>
@@ -6451,77 +6534,71 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.ossia">
+            <classSpec type="atts" ident="att.anl.ossia">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.ossia">
+            <classSpec type="atts" ident="att.ges.ossia">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.ossia">
+            <classSpec type="atts" ident="att.log.ossia">
                <desc>Logical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.ossia">
+            <classSpec type="atts" ident="att.vis.ossia">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.pad">
+            <classSpec type="atts" ident="att.anl.pad">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.pad">
+            <classSpec type="atts" ident="att.ges.pad">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.pad">
+            <classSpec type="atts" ident="att.log.pad">
                <desc>Logical domain attributes: The num attribute is the amount of horizontal
           space to be added, expressed in inter-line staff units.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
-                  <attDef ident="num">req<datatype>
+                  <attDef ident="num" usage="req">
+                     <datatype>
                         <rng:ref name="data.NUMBER"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.pad">
+            <classSpec type="atts" ident="att.vis.pad">
                <desc>Visual domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.pedal">
+            <classSpec type="atts" ident="att.anl.pedal">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.pedal">
+            <classSpec type="atts" ident="att.ges.pedal">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.pedal">
+            <classSpec type="atts" ident="att.log.pedal">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
-                  <attDef ident="dir">req<valList type="closed">
+                  <attDef ident="dir" usage="req">
+                     <valList type="closed">
                         <valItem ident="down"/>
                         <valItem ident="up"/>
                         <valItem ident="half"/>
@@ -6529,16 +6606,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.pedal">
+            <classSpec type="atts" ident="att.vis.pedal">
                <desc>Visual domain attributes: When style is set to 'line', the pedal mark is
           rendered with a continuous line. When it's set to pedstar, a pedal down is
           rendered with "Ped.", a pedal up is rendered as "*", and a pedal "bounce" is
           rendered with "Ped. *". When set to altpedstar pedal up and down indications are
           the same as with pedstar but a bounce is rendered with "Ped." only.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.xy"/>
+                  <memberOf key="att.visualoffset"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.xy"/>
-                  <rng:ref name="att.visualoffset"/>
                   <attDef ident="place" usage="opt">
                      <valList type="closed">
                         <valItem ident="below"/>
@@ -6553,12 +6632,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.phrase">
+            <classSpec type="atts" ident="att.anl.phrase">
                <desc>Analytical domain attributes: The join attribute should be used for
           linking visually separate phrase marks, sometimes necessary due to system
           breaks, that form a single musical phrase.</desc>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.common.anl"/>
                   <attDef ident="join" usage="opt">
                      <datatype>
                         <rng:data type="IDREFS"/>
@@ -6566,19 +6647,19 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.phrase">
+            <classSpec type="atts" ident="att.ges.phrase">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.phrase">
+            <classSpec type="atts" ident="att.log.phrase">
                <desc>Logical domain attributes: Phrase may either use tstamp and duration or
           startid and endid attributes. It is a semantic error not to specify one of these
           attribute combinations.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="dur" usage="opt">
                      <datatype>
                         <rng:ref name="data.MEASUREBEAT"/>
@@ -6586,7 +6667,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.phrase">
+            <classSpec type="atts" ident="att.vis.phrase">
                <desc>Visual domain attributes: The place attribute records general, relative
           placement only. The bulge or, alternatively, the bezier attribute, describes the
           shape of the phrase mark. The bulge attribute describes the curve as a set of
@@ -6596,11 +6677,13 @@
           attribute must contain one or more values of type %NUMBER. The vo attribute is
           the vertical offset (from its normal position) of the entire rendered phrase
           mark.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+                  <memberOf key="att.xy2"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
-                  <rng:ref name="att.xy2"/>
                   <attDef ident="bezier" usage="opt">
                      <datatype>
                         <rng:data type="NMTOKENS"/>
@@ -6653,19 +6736,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.reh">
+            <classSpec type="atts" ident="att.anl.reh">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.reh">
+            <classSpec type="atts" ident="att.ges.reh">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.reh">
+            <classSpec type="atts" ident="att.log.reh">
                <desc>Logical domain attributes: %att.controlevent is expanded here in order to
           disallow the plist and layer attributes. reh may use either a tstamp or start
           attribute. It is a semantic error not to include one of these attributes. The
@@ -6682,7 +6764,8 @@
                         <rng:data type="IDREFS"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="staff">req<datatype>
+                  <attDef ident="staff" usage="req">
+                     <datatype>
                         <rng:ref name="data.INTEGERPOSITIVE"/>
                      </datatype>
                   </attDef>
@@ -6708,13 +6791,15 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.reh">
+            <classSpec type="atts" ident="att.vis.reh">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.typography"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.typography"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="enclose" usage="opt">
                      <valList type="closed">
                         <valItem ident="box"/>
@@ -6729,13 +6814,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.rest">
+            <classSpec type="atts" ident="att.anl.rest">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.rest">
+            <classSpec type="atts" ident="att.ges.rest">
                <desc>Gestural domain (performance) attributes: The dur.ges attribute records
           the performed duration of the rest when it differs from the written
           duration.</desc>
@@ -6748,10 +6834,12 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.rest">
+            <classSpec type="atts" ident="att.log.rest">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="beam" usage="opt">
                      <datatype>
                         <rng:ref name="data.BEAMS"/>
@@ -6779,16 +6867,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.rest">
+            <classSpec type="atts" ident="att.vis.rest">
                <desc>Visual domain attributes: The altsym attribute indicates that the
           specified alternative visual symbol is to be displayed. See Read, ex. 7-14 for
           vertical offset example. The line attribute must contain a value from 1 to the
           number of stafflines. The value indicates the line upon which the rest stands.
           The spaces attribute states how many spaces are covered by the rest.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -6826,13 +6916,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.pausa">
+            <classSpec type="atts" ident="att.anl.pausa">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.pausa">
+            <classSpec type="atts" ident="att.ges.pausa">
                <desc>Gestural domain (performance) attributes: The dur.ges attribute records
           the performed duration of the rest when it differs from the written
           duration.</desc>
@@ -6855,11 +6946,13 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.pausa">
+            <classSpec type="atts" ident="att.log.pausa">
                <desc>Logical domain attributes: fermata = corona in the mensural
           repertoire.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="beam" usage="opt">
                      <datatype>
                         <rng:ref name="data.BEAMS"/>
@@ -6887,16 +6980,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.pausa">
+            <classSpec type="atts" ident="att.vis.pausa">
                <desc>Visual domain attributes: The altsym attribute indicates that the
           specified alternative visual symbol is to be displayed. See Read, ex. 7-14 for
           vertical offset example. The line attribute must contain a value from 1 to the
           number of stafflines. The value indicates the line upon which the rest stands.
           The spaces attribute states how many spaces are covered by the rest.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="altsym" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -6949,12 +7044,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.slur">
+            <classSpec type="atts" ident="att.anl.slur">
                <desc>Analytical domain attributes: The join attribute should be used for
           linking visually separate phrase marks, sometimes necessary due to system
           breaks, that form a single musical phrase.</desc>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.common.anl"/>
                   <attDef ident="join" usage="opt">
                      <datatype>
                         <rng:data type="IDREFS"/>
@@ -6962,13 +7059,11 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.slur">
+            <classSpec type="atts" ident="att.ges.slur">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.slur">
+            <classSpec type="atts" ident="att.log.slur">
                <desc>Logical domain attributes: The dur attribute encodes the logical and
           visual duration of the slur. If logical and visual duration differ, it may be
           necessary to add a dur.vis attribute. Please note that the dur attribute is not
@@ -6978,9 +7073,11 @@
           as "0m+3" or as simply "3". Slur may either use tstamp and dur or startid and
           endid attributes. It is a semantic error not to specify one of these attribute
           combinations.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="dur" usage="opt">
                      <datatype>
                         <rng:ref name="data.MEASUREBEAT"/>
@@ -6988,7 +7085,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.slur">
+            <classSpec type="atts" ident="att.vis.slur">
                <desc>Visual domain attributes: The bulge or, alternatively, the bezier
           attribute, describes the shape of the slur/phrase mark. The bulge attribute
           describes the curve as a set of distance values above or below an imaginary line
@@ -6997,11 +7094,13 @@
           coordinates, eg. 19 45 -32 118. The bulge attribute must contain one or more
           values of type %NUMBER. The vo attribute is the vertical offset (from its normal
           position) of the entire rendered slur/phrase mark.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+                  <memberOf key="att.xy2"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
-                  <rng:ref name="att.xy2"/>
                   <attDef ident="bezier" usage="opt">
                      <datatype>
                         <rng:data type="NMTOKENS"/>
@@ -7054,22 +7153,25 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.space">
+            <classSpec type="atts" ident="att.anl.space">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.space">
+            <classSpec type="atts" ident="att.ges.space">
                <desc>Gestural domain attributes:</desc>
                <attList>
                   <attDef ident="dur.ges" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.space">
+            <classSpec type="atts" ident="att.log.space">
                <desc>Logical domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="beam" usage="opt">
                      <datatype>
                         <rng:ref name="data.BEAMS"/>
@@ -7097,7 +7199,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.space">
+            <classSpec type="atts" ident="att.vis.space">
                <desc>Visual domain attributes:</desc>
                <attList>
                   <attDef ident="compressable" usage="opt">
@@ -7107,19 +7209,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.syl">
+            <classSpec type="atts" ident="att.anl.syl">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.syl">
+            <classSpec type="atts" ident="att.ges.syl">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.syl">
+            <classSpec type="atts" ident="att.log.syl">
                <desc>Logical domain attributes: Lyric syllable connectors: s (_s_pace) = word
           separator d (_d_ash) = syllable separator u (_u_nderscore) = syllable extension
           t (_t_ilde) = syllable elision wordpos attribute records the position of the
@@ -7142,14 +7243,16 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.syl">
+            <classSpec type="atts" ident="att.vis.syl">
                <desc>Visual domain attributes: The ho attribute allows any lyric syllable to
           be horizontally offset from its normal (centered below the note)
           position.</desc>
+               <classes>
+                  <memberOf key="att.typography"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.typography"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="halign" usage="opt">
                      <valList type="closed">
                         <valItem ident="left"/>
@@ -7165,13 +7268,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.tempo">
+            <classSpec type="atts" ident="att.anl.tempo">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.tempo">
+            <classSpec type="atts" ident="att.ges.tempo">
                <desc>Gestural domain attributes: The midi attribute must contain the number of
           quarter notes per minute in the range from 10 to 1000. The value attribute is
           for a beats-per-minute value.</desc>
@@ -7188,7 +7292,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.log.tempo">
+            <classSpec type="atts" ident="att.log.tempo">
                <desc>Logical domain attributes: The dur.vis attribute encodes visual duration.
           (Read, p. 276-281) If logical and visual durations differ, it may be necessary
           to add a dur attribute. Please note that the dur attribute here is expressed in
@@ -7196,8 +7300,10 @@
           duration, but rather a time stamp for the end point of the directive. The
           a.startendid entity is expanded here in order to disallow the end
           attribute.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
                   <attDef ident="start" usage="opt">
                      <datatype>
                         <rng:data type="IDREF"/>
@@ -7205,11 +7311,13 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.tempo">
+            <classSpec type="atts" ident="att.vis.tempo">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="dur.vis" usage="opt"/>
                   <attDef ident="endho" usage="opt">
                      <datatype>
@@ -7238,34 +7346,37 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.tie">
+            <classSpec type="atts" ident="att.anl.tie">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.tie">
+            <classSpec type="atts" ident="att.ges.tie">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.tie">
+            <classSpec type="atts" ident="att.log.tie">
                <desc>Logical domain attributes: The a.startendid entity is expanded here in
           order to make startid and endid attributes required.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <attDef ident="endid">req<datatype>
+                  <attDef ident="endid" usage="req">
+                     <datatype>
                         <rng:data type="IDREF"/>
                      </datatype>
                   </attDef>
-                  <attDef ident="startid">req<datatype>
+                  <attDef ident="startid" usage="req">
+                     <datatype>
                         <rng:data type="IDREF"/>
                      </datatype>
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.tie">
+            <classSpec type="atts" ident="att.vis.tie">
                <desc>Visual domain attributes: The bulge or, alternatively, the bezier
           attribute, describes the shape of the tie. The bulge attribute describes the
           curve as a set of distance values above or below an imaginary line connecting
@@ -7274,11 +7385,13 @@
           -32 118. The bulge attribute must contain one or more values of type %NUMBER.
           The vo attribute is the vertical offset (from its normal position) of the entire
           rendered tie.</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+                  <memberOf key="att.xy2"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
-                  <rng:ref name="att.xy2"/>
                   <attDef ident="bezier" usage="opt">
                      <datatype>
                         <rng:data type="NMTOKENS"/>
@@ -7326,29 +7439,30 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.trill">
+            <classSpec type="atts" ident="att.anl.trill">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.trill">
+            <classSpec type="atts" ident="att.ges.trill">
                <desc>Gestural domain attributes: The dur.ges attribute records the performed
           duration.</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.trill">
+            <classSpec type="atts" ident="att.log.trill">
                <desc>Logical domain attributes: The dur attribute encodes the logical and
           visual duration of the trill. If logical and visual duration differ, it may be
           necessary to add a dur.vis attribute. Please note that the dur attribute is not
           a true duration, but rather a time stamp for the end point of the directive.
           Alternatively, startid and endid attributes may be used. An accidental for the
           trill may be supplied in the accid attribute.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="accid" usage="opt">
                      <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
@@ -7361,12 +7475,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.trill">
+            <classSpec type="atts" ident="att.vis.trill">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="endho" usage="opt">
                      <datatype>
                         <rng:ref name="data.VISUALOFFSET"/>
@@ -7394,19 +7510,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.tuplet">
+            <classSpec type="atts" ident="att.anl.tuplet">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.tuplet">
+            <classSpec type="atts" ident="att.ges.tuplet">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.tuplet">
+            <classSpec type="atts" ident="att.log.tuplet">
                <desc>Logical domain attributes: The dur attribute is the time taken up by the
           tuplet. If dur is omitted, the default is to calculate the total duration of the
           included notes and use the next shorter un-dotted value. The dots attribute may
@@ -7414,8 +7529,10 @@
           They may be used for explicit labelling of the tuplet, i.e. '3' for an 8th-note
           triplet, '3:2' for a quarter-note triplet, etc. The rendering of the ratio,
           however, is dependent on the num.format attribute described below.</desc>
+               <classes>
+                  <memberOf key="att.event"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.event"/>
                   <attDef ident="dots" usage="opt">
                      <datatype>
                         <rng:ref name="data.AUGMENTDOT"/>
@@ -7443,7 +7560,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.tuplet">
+            <classSpec type="atts" ident="att.vis.tuplet">
                <desc>Visual domain attributes: The bracket.place attribute is used to state
           where the bracket will be placed in relation to the noteheads while the
           num.place attribute gives the placement of the number or ratio label for the
@@ -7485,25 +7602,26 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.tupletspan">
+            <classSpec type="atts" ident="att.anl.tupletspan">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.tupletspan">
+            <classSpec type="atts" ident="att.ges.tupletspan">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.tupletspan">
+            <classSpec type="atts" ident="att.log.tupletspan">
                <desc>Logical domain attributes: The dur attribute encodes the logical and
           visual duration of the tuplet. Unlike other control events where the dur
           attribute is expressed as a time stamp, dur here is a true duration.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+                  <memberOf key="att.startendid"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
-                  <rng:ref name="att.startendid"/>
                   <attDef ident="dots" usage="opt">
                      <datatype>
                         <rng:ref name="data.AUGMENTDOT"/>
@@ -7531,7 +7649,7 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.tupletspan">
+            <classSpec type="atts" ident="att.vis.tupletspan">
                <desc>Visual domain attributes: software defaults: bracket.visible 'yes' What
           about triplets? num.visible 'yes'</desc>
                <attList>
@@ -7568,26 +7686,27 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.turn">
+            <classSpec type="atts" ident="att.anl.turn">
                <desc/>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.turn">
+            <classSpec type="atts" ident="att.ges.turn">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.turn">
+            <classSpec type="atts" ident="att.log.turn">
                <desc>Logical domain attributes: Accidentals for the turn may be supplied in
           the accidupper and accidlower attributes. The a.startendid entity is expanded
           here in order to disallow the end attribute. When the delayed attribute is set
           to 'yes', the turn begins on the second half of the beat. See Read, p.
           246.</desc>
+               <classes>
+                  <memberOf key="att.controlevent"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.controlevent"/>
                   <attDef ident="accidupper" usage="opt">
                      <datatype>
                         <rng:ref name="data.ACCIDENTAL.EXPLICIT"/>
@@ -7616,12 +7735,14 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.turn">
+            <classSpec type="atts" ident="att.vis.turn">
                <desc>Visual domain attributes:</desc>
+               <classes>
+                  <memberOf key="att.color"/>
+                  <memberOf key="att.visualoffset"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.color"/>
-                  <rng:ref name="att.visualoffset"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="place" usage="opt">
                      <datatype>
                         <rng:ref name="data.PLACE"/>
@@ -7629,19 +7750,18 @@
                   </attDef>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.anl.verse">
+            <classSpec type="atts" ident="att.anl.verse">
                <desc>Analytical domain attributes:</desc>
-               <attList>
-                  <rng:ref name="att.common.anl"/>
-               </attList>
+               <classes>
+                  <memberOf key="att.common.anl"/>
+               </classes>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.ges.verse">
+            <classSpec type="atts" ident="att.ges.verse">
                <desc>Gestural domain attributes:</desc>
-               <attList>
-                  <rng:empty/>
-               </attList>
+               <attList/>
             </classSpec>
-            <classSpec type="dt" ident="att.log.verse">
+            <classSpec type="atts" ident="att.log.verse">
                <desc>Logical domain attributes: The n attribute should be used for verse
           numbers. Numbers need not be consecutive; they may be expressed as ranges, e.g.
           2-3,6. A value of 'true' may be used in the refrain attribute in order to
@@ -7657,12 +7777,14 @@
                   <attDef ident="rhythm" usage="opt"/>
                </attList>
             </classSpec>
-            <classSpec type="dt" ident="att.vis.verse">
+            <classSpec type="atts" ident="att.vis.verse">
                <desc>Visual domain attributes: The a.visualoffset entity is expanded here in
           order to disallow ho.</desc>
+               <classes>
+                  <memberOf key="att.typography"/>
+                  <memberOf key="att.xy"/>
+               </classes>
                <attList>
-                  <rng:ref name="att.typography"/>
-                  <rng:ref name="att.xy"/>
                   <attDef ident="to" usage="opt">
                      <datatype>
                         <rng:ref name="data.TSTAMPOFFSET"/>
