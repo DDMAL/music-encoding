@@ -3,7 +3,7 @@
 NAME:     Music Encoding Initiative (MEI) DTD
           File      = mei19b.dtd (version 1.9b) **DRAFT**
                       **DO NOT REDISTRIBUTE**
-          Vers Date = 2009/06/25
+          Vers Date = 2009/07/02
 
 NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
           of the University of Virginia.
@@ -957,6 +957,11 @@ unless the meiLinkAlign module is INCLUDEd. -->
 ]]>
 <!ENTITY % att.alignment ''>
 
+<!-- doc: The altsym attribute provides a way of pointing to a user-
+defined symbol. It must contain an ID of a symboldef element elsewhere
+in the document. -->
+<!ENTITY % att.altsym 'altsym            IDREF                 #IMPLIED'>
+
 <!-- doc: Bibliographic attributes: The analog attribute contains a
 reference to a field or element in another descriptive encoding system
 to which an MEI element is comparable. Mapping elements from one system
@@ -993,12 +998,10 @@ required to be a single token. -->
 example, a slur/phrase marking must be drawn between or over a group of
 notes. The slur is therefore a control event. The layer and staff
 attributes allow the control event to express its scope of influence.
-The next attribute may be used to point to the next control event(s) in
-a user-defined collection, while the prev attribute may point to the
-previous event(s). The plist (participant list) attribute may contain ID
-references or xPointer fragment identifiers (depending on how % PLIST is
-configured) that identify logical events that participate in the control
-event, e.g., notes under a phrase mark. The tstamp attribute encodes the
+The plist (participant list) attribute may contain ID references or
+xPointer fragment identifiers (depending on how % PLIST is configured)
+that identify logical events that participate in the control event,
+e.g., notes under a phrase mark. The tstamp attribute encodes the
 onset time of a musical feature in terms of musical time, i.e., beats.
 The tstamp.ges attribute may be used to record the onset time in pulses
 per quarter note (ppq, MusicXML divisions, or MIDI clicks) since the
@@ -1094,9 +1097,7 @@ tstamp.ges attribute may be used to record the onset time in pulses per
 quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
 of the measure, while the tstamp.real attribute records the onset time
 as a real-time offset, i.e., in HH:MM:SS.ss format, since the beginning
-of the file. The next attribute may be used to point to the next control
-event(s) in a user-defined collection, while the prev attribute may
-point to the previous event(s). -->
+of the file. -->
 <!ENTITY % att.event
                      'layer             %data.INTEGERPOSITIVE; #IMPLIED
                      next               IDREFS                 #IMPLIED
@@ -1172,6 +1173,18 @@ form of the name. -->
                      key                NMTOKEN               #IMPLIED
                      reg                CDATA                 #IMPLIED'>
 
+<!-- doc: The next attribute may be used to point to the next control
+event(s) in a user-defined collection, while the prev attribute may
+point to the previous event(s). -->
+<!ENTITY % att.nextprev
+                     'next              IDREFS                #IMPLIED
+                     prev               IDREFS                #IMPLIED'>
+                     
+<!-- doc: The place attribute captures the placement of the item with
+respect to the staff with which it is associated. -->
+<!ENTITY % att.placement
+                     'place             %data.PLACE;          #IMPLIED'>
+
 <!-- doc: These attributes record the IDs of a sequence of elements to
 which the current element is associated. startid holds a reference to
 the first element in the sequence, while endid indicates the final
@@ -1230,13 +1243,13 @@ location. The ho attribute records the horizontal offset. -->
 recorded in terms of offsets from their programmatically-determined
 location. The to attribute records a timestamp offset. -->
 <!ENTITY % att.visualoffset.to
-                     'to               %data.TSTAMPOFFSET;   #IMPLIED'>
+                     'to                %data.TSTAMPOFFSET;   #IMPLIED'>
 
 <!-- doc: Visual offset attributes: Some items may have their location
 recorded in terms of offsets from their programmatically-determined
 location. The vo attribute records the vertical offset. -->
 <!ENTITY % att.visualoffset.vo
-                     'vo               %data.VISUALOFFSET;   #IMPLIED'>
+                     'vo                %data.VISUALOFFSET;   #IMPLIED'>
                      
 <!-- doc: Visual offset attributes: Some items may have their location
 recorded in terms of offsets from their programmatically-determined
@@ -1405,13 +1418,11 @@ included in the clef symbol, such as an '8' above or below the clef. -->
                      shape              %data.CLEFSHAPE;      #REQUIRED
                      trans              %data.CLEFTRAN;       #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.clef
-                     '%att.color;
-                     altsym            IDREF                 #IMPLIED'>
+                     '%att.altsym;
+                     %att.color;'>
 ]]>
 <!ENTITY % att.vis.clef ''>
 
@@ -2551,18 +2562,15 @@ associated with the neume. -->
                      name               %data.UNEUMENAME;     #IMPLIED
                      syl                CDATA                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. Ho records the horizontal
-offset of the neume in interline units. The relative size of the neume
-is encoded in the size attribute. The visibility of the neume is
-captured in the visible attribute. -->
+<!-- doc: Visual domain attributes: The relative size of the neume is
+encoded in the size attribute. The visibility of the neume is captured
+in the visible attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.uneume
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
                      %att.visualoffset.ho;
                      %att.xy;
-                     altsym             IDREF                 #IMPLIED
                      size               %data.SIZE;           #IMPLIED
                      visible            %data.BOOLEAN;        #IMPLIED'>
 ]]>
@@ -2597,9 +2605,9 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.accid ''>
 
-<!-- doc: Logical domain attributes: If an accidental has an editorial
-function, its function may be captured in the func attribute. The value
-attribute records the accidental. -->
+<!-- doc: Logical domain attributes: If an accidental has an
+editorial or cautionary function, its function may be captured in
+the func attribute. The value attribute records the accidental. -->
 <!ENTITY % att.log.accid
                      'func              (caution|edit)        #IMPLIED
                      value              %data.ACCIDENTAL.EXPLICIT;
@@ -2633,7 +2641,8 @@ beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values, or MusicXML
 'divisions', etc. -->
 <![%meiAnalysis;[
   <!ENTITY % att.anl.annot
-                     'dur.anl           CDATA                 #IMPLIED'>
+                     '%att.common.anl;
+                     dur.anl           CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.anl.annot ''>
 
@@ -2654,9 +2663,8 @@ divisions, or MIDI clicks) since the start of the measure, while the
 tstamp.real attribute records the onset time as a real-time offset, i.e.,
 HH:MM:SS.ss, since the beginning of the file.-->
 <!ENTITY % att.log.annot
-                     'layer             %data.INTEGERPOSITIVE; #IMPLIED
-                     next               IDREFS                 #IMPLIED
-                     prev               IDREFS                 #IMPLIED
+                     '%att.nextprev;
+                     layer             %data.INTEGERPOSITIVE; #IMPLIED
                      staff              %data.INTEGERPOSITIVE; #IMPLIED
                      tstamp             %data.BEAT;            #IMPLIED
                      tstamp.ges         %data.INTEGERNONNEGATIVE;
@@ -2730,16 +2738,14 @@ name of the articulation symbol. -->
                      'value             %data.ARTICULATION;   #REQUIRED'>
 
 <!-- doc: Visual domain attributes: The character used to enclose an
-accidental may be recorded in the enclose attribute. The place attribute
-captures the placement of the articulation with respect to the note or
-chord with which it is associated. -->
+accidental may be recorded in the enclose attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.artic
                      '%att.color;
+                     %att.placement;
                      %att.visualoffset;
                      %att.xy;
-                     enclose            %data.ENCLOSURE;      #IMPLIED
-                     place              %data.PLACE;          #IMPLIED'>
+                     enclose            %data.ENCLOSURE;      #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.artic ''>
 
@@ -2849,19 +2855,17 @@ analysis attributes. -->
 <!ENTITY % att.log.beatrpt
                      '%att.event;'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The expand attribute
-indicates whether to render the repeated beat symbol or the source
-material. The rend attribute indicates the number of slashes required to
-render the appropriate beat repeat symbol when the beat is divided into
-even notes - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4, 128ths=5. When
-the beat is comprised of mixed duration values, the symbol is always
+<!-- doc: Visual domain attributes: The expand attribute indicates
+whether to render the repeated beat symbol or the source material. The
+rend attribute indicates the number of slashes required to render the
+appropriate beat repeat symbol when the beat is divided into even
+notes - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4, 128ths=5. When the
+beat is comprised of mixed duration values, the symbol is always
 rendered as 2 slashes and 2 dots. See Read, pg. 223-224. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.beatrpt
-                     '%att.color;
-                     altsym             IDREF                 #IMPLIED
+                     '%att.altsym;
+                     %att.color;
                      expand             %data.BOOLEAN;        #IMPLIED
                      rend               (4|8|16|32|64|128|mixed)
                                                               #REQUIRED'>
@@ -2937,27 +2941,19 @@ attributes. -->
 ]]>
 <!ENTITY % att.ges.breath ''>
 
-<!-- doc: Logical domain attributes: Currently, the dur attribute encodes
-both the logical and visual durations of the directive. If cases arise
-where the logical and visual durations differ, it may be necessary to add
-a dur.vis attribute. Please note that the dur attribute is not a true
-duration, but rather a time stamp for the end point of the directive. -->
+<!-- doc: Logical domain attributes: -->
 <!ENTITY % att.log.breath
                      '%att.controlevent;
                      %att.startendid;'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The place attribute
-captures the placement of the breath mark with respect to the staff with
-which it is associated. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.breath
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
+                     %att.placement;
                      %att.visualoffset;
-                     %att.xy;
-                     altsym             IDREF                 #IMPLIED
-                     place              %data.PLACE;          #IMPLIED'>
+                     %att.xy;'>
 ]]>
 <!ENTITY % att.vis.breath ''>
 
@@ -3056,9 +3052,7 @@ elements corresponding to these attributes should be employed. -->
                      tie                %data.TIE;            #IMPLIED
                      tuplet             %data.TUPLET;         #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The headshape attribute may
+<!-- doc: Visual domain attributes: The headshape attribute may
 be used to indicate a cluster notehead should be displayed instead of
 individual noteheads. See Read, p. 320-321 re: tone clusters. Processing
 of chords and notes will be easier if a distinction is made between
@@ -3080,11 +3074,11 @@ attributes record the precise rendered position of the dot. The
 vertical offset. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.chord
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
                      %att.visualoffset.ho;
                      %att.visualoffset.to;
                      %att.xy;
-                     altsym             IDREF                 #IMPLIED
                      beam.with          %data.PLACE;          #IMPLIED
                      coloration         (inverse)             #IMPLIED
                      dot.ho             %data.VISUALOFFSET;   #IMPLIED
@@ -3138,13 +3132,11 @@ change, then the value of octave.default is used. -->
 <!ENTITY % att.log.clefchange
                      '%att.log.clefchange.base;'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
 <!ENTITY % att.vis.clefchange
-                     '%att.color;
-                     altsym            IDREF                 #IMPLIED'>
+                     '%att.altsym;
+                     %att.color;'>
 ]]>
 <!ENTITY % att.vis.clefchange ''>
 
@@ -3180,16 +3172,14 @@ duration, but rather a time stamp for the end point of the directive. -->
                      %att.startendid;
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the directive with respect to the staff with which it is
-associated. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.dir
-                     '%att.visualoffset;
+                     '%att.placement;
+                     %att.visualoffset;
                      %att.visualoffset2.ho;
                      %att.visualoffset2.to;
-                     %att.xy;
-                     place              %data.PLACE;          #IMPLIED'>
+                     %att.xy;'>
 ]]>
 <!ENTITY % att.vis.dir ''>
 
@@ -3227,16 +3217,14 @@ stamp for the end point of the dynamic indication. -->
                      %att.startendid;
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the dynamic mark with respect to the staff with which it is
-associated. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.dynam
-                     '%att.visualoffset;
+                     '%att.placement;
+                     %att.visualoffset;
                      %att.visualoffset2.ho;
                      %att.visualoffset2.to;
-                     %att.xy;
-                     place              %data.PLACE;          #IMPLIED'>
+                     %att.xy;'>
 ]]>
 <!ENTITY % att.vis.dynam ''>
 
@@ -3267,19 +3255,15 @@ or MusicXML 'divisions', etc. -->
                      '%att.controlevent;
                      %att.startendid;'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The place attribute
-captures the placement of the fermata with respect to the staff with
-which it is associated. -->
+<!-- doc: Visual domain attributes:  -->
 <![%meiVisual;[
   <!ENTITY % att.vis.fermata
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
+                     %att.placement;
                      %att.visualoffset;
                      %att.xy;
-                     altsym             IDREF                 #IMPLIED
-                     form               (inv|norm)            #IMPLIED
-                     place              %data.PLACE;          #IMPLIED'>
+                     form               (inv|norm)            #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.fermata ''>
 
@@ -3391,18 +3375,16 @@ endvo record the horizontal and vertical offsets of the right end, and
 the width attribute records the width of the opening on the open end in
 one-half staff inter-line units. The x1 and y1 attributes give the
 absolute coordinates of the left side of the hairpin while x2 and y2
-record the coordinates of the right side. Place records the placement of
-the hairpin with respect to the staff with which it is associated. Width
-specifies the distance, in interline units, between the points of the
-open end of the mark. -->
+record the coordinates of the right side. Width specifies the distance,
+in interline units, between the points of the open end of the mark. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.hairpin
                      '%att.color;
+                     %att.placement;
                      %att.visualoffset;
                      %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
-                     place              %data.PLACE;          #REQUIRED
                      width              %data.NUMBER;         #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.hairpin ''>
@@ -3430,15 +3412,13 @@ logical duration of the repeat symbol. -->
                      '%att.event;
                      dur               %data.DURATION;        #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The expand attribute
-indicates whether or not to render the source material. -->
+<!-- doc: Visual domain attributes: The expand attribute indicates
+whether or not to render the source material. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.halfmrpt
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
                      %att.visualoffset;
-                     altsym             IDREF                 #IMPLIED
                      expand             %data.BOOLEAN;        #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.halfmrpt ''>
@@ -3482,19 +3462,18 @@ be rendered instead of the text contents of the harm element; if
 rendgrid equals 'gridname', both the harm element's text and the grid
 should be displayed; otherwise, only the 'name' of the chord, i.e., the
 text content of the harm element, e.g. 'Cmaj' or 'V7/III', should be
-rendered. Place captures the placement of the harmonic symbol with
-respect to the staff to which it is associated. The presence of an
-extension symbol, typically a dash or underscore, drawn from the end of
-the harmonic indication to the point indicated by the dur attribute, is
-indicated via the extender attribute. -->
+rendered. The presence of an extension symbol, typically a dash or
+underscore, drawn from the end of the harmonic indication to the point
+indicated by the dur attribute, is indicated via the extender attribute.
+-->
 <![%meiVisual;[
   <!ENTITY % att.vis.harm
-                     '%att.visualoffset;
+                     '%att.placement;
+                     %att.visualoffset;
                      %att.visualoffset2.ho;
                      %att.visualoffset2.to;
                      %att.xy;
                      extender           %data.BOOLEAN;        #IMPLIED
-                     place              %data.PLACE;          #IMPLIED
                      rendgrid           (grid|gridname)       #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.harm ''>
@@ -3535,15 +3514,13 @@ named attributes. -->
                      a                  (f|n|s)               "n"
                      b                  (f|n|s)               "n"'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the harp pedal indication with respect to the staff with
-which it is associated. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.harppedal
                      '%att.color;
+                     %att.placement;
                      %att.visualoffset;
-                     %att.xy;
-                     place              %data.PLACE;          #IMPLIED'>
+                     %att.xy;'>
 ]]>
 <!ENTITY % att.vis.harppedal ''>
 
@@ -3570,13 +3547,11 @@ order to allow only the staff and layer attributes from this class. -->
                      'layer             %data.INTEGERPOSITIVE; #IMPLIED
                      staff              %data.INTEGERPOSITIVE; #REQUIRED'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the content of the lyrics element with respect to the staff
-with which it is associated. -->
+<!-- doc: Visual domain attributes:  -->
 <![%meiVisual;[
   <!ENTITY % att.vis.lyrics
-                     '%att.typography;
-                     place              %data.PLACE;          #IMPLIED'>
+                     '%att.placement;
+                     %att.typography;'>
 ]]>
 <!ENTITY % att.vis.lyrics ''>
 
@@ -3688,14 +3663,12 @@ about which visual symbol is actually to be rendered. -->
                      form               (inv|norm)            #IMPLIED
                      long               %data.BOOLEAN;        #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the mordent with respect to the staff with which it is
-associated. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mordent
                      '%att.color;
-                     %att.visualoffset;
-                     place              %data.PLACE;          #IMPLIED'>
+                     %att.placement;
+                     %att.visualoffset;'>
 ]]>
 <!ENTITY % att.vis.mordent ''>
 
@@ -3732,20 +3705,18 @@ element should be employed. -->
                      '%att.event;
                      fermata            %data.PLACE;          #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. When set to 'rest' the
-cutout attribute indicates that the staff lines are to be displayed but
-not the rest itself. When set to 'staff' even the staff lines should not
+<!-- doc: Visual domain attributes: When set to 'rest' the cutout
+attribute indicates that the staff lines are to be displayed but not
+the rest itself. When set to 'staff' even the staff lines should not
 be drawn for this measure. See _56 Songs You Like to Sing_, p. 32. The
 dur.vis attribute should be used to record the durational symbol used in
 the source. The relative typographical size of the rest can be captured
 in the size attribute. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mrest
-                     '%att.visualoffset;
+                     '%att.altsym;
+                     %att.visualoffset;
                      %att.xy;
-                     altsym             IDREF                 #IMPLIED
                      cutout             (rest|staff)          #IMPLIED
                      dur.vis            %data.DURATION;       #IMPLIED
                      size               %data.SIZE;           #IMPLIED'>
@@ -3775,15 +3746,12 @@ content being repeated can be referenced using the measref attribute. -->
                      '%att.event;
                      measref            IDREF                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The expand attribute
-indicates whether to render the source measure instead of the repeat
-symbol. -->
+<!-- doc: Visual domain attributes: The expand attribute indicates
+whether to render the source measure instead of the repeat symbol. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mrpt
-                     '%att.color;
-                     altsym             IDREF                 #IMPLIED
+                     '%att.altsym;
+                     %att.color;
                      expand             %data.BOOLEAN;        #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.mrpt ''>
@@ -3812,15 +3780,12 @@ content being repeated can be referenced using the measref attribute. -->
                      '%att.event;
                      measref            IDREFS                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The expand attribute
-indicates whether to render the source measures instead of the repeat
-symbol. -->
+<!-- doc: Visual domain attributes: The expand attribute indicates
+whether to render the source measures instead of the repeat symbol. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mrpt2
-                     '%att.color;
-                     altsym             IDREF                 #IMPLIED
+                     '%att.altsym;
+                     %att.color;
                      expand             %data.BOOLEAN;        #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.mrpt2 ''>
@@ -3859,19 +3824,17 @@ element should be employed. -->
                      '%att.event;
                      fermata            %data.PLACE;          #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. When set to 'rest' the
-cutout attribute indicates that the staff lines are to be displayed but
-not the rest itself. When set to 'staff' even the staff lines should not
+<!-- doc: Visual domain attributes: When set to 'rest' the cutout
+attribute indicates that the staff lines are to be displayed but not
+the rest itself. When set to 'staff' even the staff lines should not
 be drawn for this measure. See _56 Songs You Like to Sing_, p. 32. The
 dur.vis attribute should be used to record the durational symbol used in
 the source. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.mspace
-                     '%att.visualoffset;
+                     '%att.altsym;
+                     %att.visualoffset;
                      %att.xy;
-                     altsym             IDREF                 #IMPLIED
                      cutout             (rest|staff)          #IMPLIED
                      dur.vis            %data.DURATION;       #IMPLIED'>
 ]]>
@@ -3906,15 +3869,13 @@ number of measures of rest. -->
                      '%att.event;
                      num                %data.INTEGERPOSITIVE; #REQUIRED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. When the block attribute is
-used, combinations of the 1, 2, &amp; 4 measure rest forms (Read, p.
-104) should be rendered instead of the modern form or the alternative
+<!-- doc: Visual domain attributes: When the block attribute is used,
+combinations of the 1, 2, &amp; 4 measure rest forms (Read, p. 104)
+should be rendered instead of the modern form or the alternative
 symbol. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.multirest
-                     'altsym            IDREF                 #IMPLIED
+                     '%att.altsym;
                      block              %data.BOOLEAN;        #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.multirest ''>
@@ -3945,13 +3906,12 @@ The num attribute contains the number of measures to be repeated. -->
                      num                %data.INTEGERPOSITIVE; #REQUIRED'>
 
 
-<!-- doc: Visual domain attributes: altsym contains a pointer to an
-alternative repeat symbol defined elsewhere in the document. The expand
-attribute indicates whether or not to render the source measures instead
-of the repeat marking. -->
+<!-- doc: Visual domain attributes: The expand attribute indicates
+whether or not to render the source measures instead of the repeat
+marking. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.multirpt
-                     'altsym            IDREF                 #IMPLIED
+                     '%att.altsym;
                      expand             %data.BOOLEAN;        #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.multirpt ''>
@@ -4064,9 +4024,7 @@ ligature. -->
                      pname              %data.PITCHNAME;      %PROPAGATED;
                      syl                CDATA                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The distance between the
+<!-- doc: Visual domain attributes: The distance between the
 accidental and the note it modifies should be recorded in the accid.ho
 attribute. The headshape attribute may be used to override the headshape
 normally used for the given duration. The enclose.accid and enclose.note
@@ -4081,12 +4039,12 @@ The %att.visualoffset entity is expanded here in order to disallow a
 vertical offset. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.nota
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
                      %att.visualoffset.ho;
                      %att.visualoffset.to;
                      %att.xy;
                      accid.ho           %data.NUMBER;         #IMPLIED
-                     altsym             IDREF                 #IMPLIED
                      beam.with          %data.PLACE;          #IMPLIED
                      coloration         (inverse)             #IMPLIED
                      colored            %data.BOOLEAN;        #IMPLIED
@@ -4216,9 +4174,7 @@ elements for visual rendition. -->
                      tie                %data.TIE;            #IMPLIED
                      tuplet             %data.TUPLET;         #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. The distance between the
+<!-- doc: Visual domain attributes: The distance between the
 accidental and the note it modifies should be recorded in the accid.ho
 attribute. The headshape attribute may be used to override the headshape
 normally used for the given duration. The enclose.accid and enclose.note
@@ -4233,12 +4189,12 @@ The %att.visualoffset entity is expanded here in order to disallow a
 vertical offset. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.note
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
                      %att.visualoffset.ho;
                      %att.visualoffset.to;
                      %att.xy;
                      accid.ho           %data.NUMBER;         #IMPLIED
-                     altsym             IDREF                 #IMPLIED
                      beam.with          %data.PLACE;          #IMPLIED
                      coloration         (inverse)             #IMPLIED
                      dot.ho             %data.VISUALOFFSET;   #IMPLIED
@@ -4294,11 +4250,10 @@ visually instantaneous. The place attribute indicates direction of
 displacement and display location and therefore is REQUIRED. The dis
 attribute states the amount of displacement while coll (Read, p. 47-48)
 encodes whether the octave displacement should be performed
-simultaneously with the written notes. The place attribute captures the
-placement of the octave sign with respect to the staff with which it is
-associated. -->
+simultaneously with the written notes. -->
 <!ENTITY % att.log.octave
                      '%att.controlevent;
+                     %att.placement;
                      %att.startendid;
                      coll               (coll)                #IMPLIED
                      dis                (8|15|22)             #REQUIRED
@@ -4403,13 +4358,15 @@ a pedal "bounce" is rendered with "Ped. *". When set to altpedstar pedal
 up and down indications are the same as with pedstar but a bounce is
 rendered with "Ped." only. The place attribute captures the placement of
 the pedal marking with respect to the staff with which it is associated.
--->
+Modern publishing standards require the place to be 'below'; however,
+for transcriptions of manuscript works, this attribute class allows the
+full range of values. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.pedal
                      '%att.color;
+                     %att.placement;
                      %att.xy;
                      %att.visualoffset;
-                     place              (below)               #IMPLIED
                      style              (line|pedstar|altpedstar)
                                                               #IMPLIED'>
 ]]>
@@ -4451,19 +4408,17 @@ attribute records the placement of Bezier control points as a series of
 space-separated xy coordinates, eg. 19 45 -32 118. The bulge attribute
 must contain one or more values of type %NUMBER. The vo attribute is the
 vertical offset (from its normal position) of the entire rendered phrase
-mark. The place attribute captures the placement of the phrase mark with
-respect to the staff with which it is associated. The rend attribute
-captures the appearance of the phrase mark. -->
+mark. The rend attribute captures the appearance of the phrase mark. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.phrase
                      '%att.color;
+                     %att.placement;
                      %att.visualoffset;
                      %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
                      bezier             NMTOKENS              #IMPLIED
                      bulge              NMTOKENS              #IMPLIED
-                     place              %data.PLACE;          #IMPLIED
                      rend               %data.CURVERENDITION; #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.phrase ''>
@@ -4491,26 +4446,23 @@ tstamp or start attribute. It is a semantic error not to include one of
 these attributes. The a.startendid entity is expanded here in order to
 disallow the end attribute. -->
 <!ENTITY % att.log.reh
-                     'next              IDREFS                 #IMPLIED
-                     prev               IDREFS                 #IMPLIED
+                     '%att.nextprev;
                      staff              %data.INTEGERPOSITIVE; #REQUIRED
-                     start              IDREF                  #IMPLIED
+                     startid            IDREF                  #IMPLIED
                      tstamp             %data.BEAT;            #IMPLIED
                      tstamp.ges         %data.INTEGERNONNEGATIVE;
                                                                #IMPLIED
                      tstamp.real        %data.ISOTIME;         #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the rehearsal mark with respect to the staff with which it
-is associated. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.reh
                      '%att.color;
+                     %att.placement;
                      %att.typography;
                      %att.visualoffset;
                      %att.xy;
-                     enclose            (box|circle|none)     #IMPLIED
-                     place              (above)               #IMPLIED'>
+                     enclose            (box|circle|none)     #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.reh ''>
 
@@ -4553,19 +4505,17 @@ required by a dotted duration. -->
                      fermata            %data.PLACE;          #IMPLIED
                      tuplet             %data.TUPLET;         #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. See Read, ex. 7-14 for
-vertical offset example. The line attribute must contain a value from 1
-to the number of stafflines. The value indicates the line upon which the
-rest stands. The spaces attribute states how many spaces are covered by
-the rest. -->
+<!-- doc: Visual domain attributes: See Read, ex. 7-14 for an example
+of vertical offset. The line attribute must contain a value from 1 to
+the number of stafflines. The value indicates the line upon which the
+rest stands. The spaces attribute states how many spaces are covered
+by the rest. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.rest
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
                      %att.visualoffset;
                      %att.xy;
-                     altsym             IDREF                 #IMPLIED
                      beam.with          %data.PLACE;          #IMPLIED
                      dot.ho             %data.VISUALOFFSET;   #IMPLIED
                      dot.vo             %data.VISUALOFFSET;   #IMPLIED
@@ -4615,19 +4565,16 @@ dotted duration. -->
                                                               %PROPAGATED;
                      tuplet             %data.TUPLET;         #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The altsym attribute provides a way
-of pointing to a user-defined symbol. It must contain an ID of a
-symboldef element elsewhere in the document. See Read, ex. 7-14 for
-vertical offset example. The line attribute must contain a value from 1
-to the number of stafflines. The value indicates the line upon which the
-rest stands. The spaces attribute states how many spaces are covered by
-the rest. -->
+<!-- doc: Visual domain attributes: The line attribute must contain a
+value from 1 to the number of stafflines. The value indicates the line
+upon which the rest stands. The spaces attribute states how many spaces
+are covered by the rest. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.pausa
-                     '%att.color;
+                     '%att.altsym;
+                     %att.color;
                      %att.visualoffset;
                      %att.xy;
-                     altsym             IDREF                  #IMPLIED
                      beam.with          %data.PLACE;           #IMPLIED
                      colored            %data.BOOLEAN;         #IMPLIED
                      dot.ho             %data.VISUALOFFSET;    #IMPLIED
@@ -4682,19 +4629,17 @@ placement of Bezier control points as a series of space-separated xy
 coordinates, eg. 19 45 -32 118. The bulge attribute must contain one or
 more values of type %NUMBER. The vo attribute is the vertical offset
 (from its normal position) of the entire rendered slur/phrase mark. The
-place attribute captures the placement of the slur with respect to the
-staff with which it is associated. The rend attribute captures the
-appearance of the slur mark. -->
+rend attribute captures the appearance of the slur mark. -->
 <![%meiVisual;[
   <!ENTITY % att.vis.slur
                      '%att.color;
+                     %att.placement;
                      %att.visualoffset;
                      %att.visualoffset2;
                      %att.xy;
                      %att.xy2;
                      bezier             NMTOKENS              #IMPLIED
                      bulge              NMTOKENS              #IMPLIED
-                     place              %data.PLACE;          #IMPLIED
                      rend               %data.CURVERENDITION; #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.slur ''>
@@ -4821,20 +4766,19 @@ stamp for the end point of the directive. The a.startendid entity is
 expanded here in order to disallow the end attribute. -->
 <!ENTITY % att.log.tempo
                      '%att.controlevent;
-                     start              IDREF                 #IMPLIED'>
+                     startid            IDREF                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the tempo marking with respect to the staff with which it
-is associated. The dur.vis attribute should be used to record the visual
-duration of the tempo marking in the source. -->
+<!-- doc: Visual domain attributes: The dur.vis attribute should be
+used to record the visual duration of the tempo marking in the source.
+-->
 <![%meiVisual;[
   <!ENTITY % att.vis.tempo
-                     '%att.visualoffset;
+                     '%att.placement;
+                     %att.visualoffset;
                      %att.visualoffset2.ho;
                      %att.visualoffset2.to;
                      %att.xy;
-                     dur.vis            CDATA                 #IMPLIED
-                     place              %data.PLACE;          #IMPLIED'>
+                     dur.vis            CDATA                 #IMPLIED'>
 ]]>
 <!ENTITY % att.vis.tempo ''>
 
@@ -4924,17 +4868,15 @@ supplied in the accid attribute. -->
                                                               #IMPLIED
                      dur                %data.MEASUREBEAT;    #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the trill with respect to the staff with which it is
-associated. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.trill
                      '%att.color;
+                     %att.placement;
                      %att.visualoffset;
                      %att.visualoffset2.ho;
                      %att.visualoffset2.to;
-                     %att.xy;
-                     place              %data.PLACE;          #IMPLIED'>
+                     %att.xy;'>
 ]]>
 <!ENTITY % att.vis.trill ''>
 
@@ -5094,17 +5036,15 @@ to disallow the end attribute. When the delayed attribute is set to
                                                               #IMPLIED
                      delayed            %data.BOOLEAN;        #IMPLIED
                      form               (inv|norm)            #IMPLIED
-                     start              IDREF                 #IMPLIED'>
+                     startid            IDREF                 #IMPLIED'>
 
-<!-- doc: Visual domain attributes: The place attribute captures the
-placement of the turn with respect to the staff with which it is
-associated. -->
+<!-- doc: Visual domain attributes: -->
 <![%meiVisual;[
   <!ENTITY % att.vis.turn
                      '%att.color;
+                     %att.placement;
                      %att.visualoffset;
-                     %att.xy;
-                     place              %data.PLACE;          #IMPLIED'>
+                     %att.xy;'>
 ]]>
 <!ENTITY % att.vis.turn ''>
 
@@ -5957,11 +5897,11 @@ att.events class. -->
 <!-- * Element Declarations (By Module)                           * -->
 <!-- ************************************************************** -->
 
-<!-- Shared Elements-->
+<!-- Shared Elements -->
 <!-- Basic text elements -->
 <!-- doc: abbr (abbreviation) contains an abbreviation of any sort. The
-     type attribute may be used to classify the abbreviation according
-     to some convenient typology. Sample values include:
+type attribute may be used to classify the abbreviation according to
+some convenient typology. Sample values include:
 
   suspension     the abbreviation provides the first letter(s) of the
                  word or phrase, omitting the remainder.
@@ -5975,20 +5915,19 @@ att.events class. -->
   organization   the abbreviation is for the name of an organization.
   geographic     the abbreviation is for a geographic name.
 
-This tag is the mirror image of the <expan> tag; both allow the
-encoder to transcribe both an abbreviation and its expansion. In
-<abbr>, however, the original is transcribed as the content of the
-element and the expansion as an attribute value; <expan> reverses
-this. The choice between the two is up to the user. The <abbr> tag is
-not required; if appropriate, the encoder may transcribe abbreviations
-in the source text silently, without tagging them. If abbreviations
-are not transcribed directly but expanded silently, then the MEI
-header should so indicate. The cert attribute signifies the degree of
-certainty ascribed to the expansion of the abbreviation. The expan
-attribute gives an expansion of the abbreviation. The resp attribute
-contains an ID reference to an element containing the name of the
-editor or transcriber responsible for supplying the expansion of the
-abbreviation.
+This tag is the mirror image of the <expan> tag; both allow the encoder
+to transcribe both an abbreviation and its expansion. In <abbr>,
+however, the original is transcribed as the content of the element and
+the expansion as an attribute value; <expan> reverses this. The choice
+between the two is up to the user. The <abbr> tag is not required; if
+appropriate, the encoder may transcribe abbreviations in the source text
+silently, without tagging them. If abbreviations are not transcribed
+directly but expanded silently, then the MEI header should so indicate.
+The cert attribute signifies the degree of certainty ascribed to the
+expansion of the abbreviation. The expan attribute gives an expansion of
+the abbreviation. The resp attribute contains an ID reference to an
+element containing the name of the editor or transcriber responsible for
+supplying the expansion of the abbreviation.
 Used by: model.editorialLike
 Module:  meiShared -->
 <!ENTITY % abbr 'IGNORE'>
@@ -6006,7 +5945,7 @@ Module:  meiShared -->
           expan              CDATA                 #IMPLIED>
 ]]>
 
-<!-- doc: A postal address 
+<!-- doc: A postal address. 
 Used by: model.addressLike 
 Module:  meiShared -->
 <!ENTITY % address 'IGNORE'>
@@ -6019,7 +5958,7 @@ Module:  meiShared -->
           %att.lang;>
 ]]>
 
-<!-- doc: Single line of an address 
+<!-- doc: Single line of a postal address. 
 Used by: address 
 Module:  meiShared -->
 <!ENTITY % addressline 'IGNORE'>
@@ -6033,11 +5972,11 @@ Module:  meiShared -->
           %att.lang;>
 ]]>
 
-<!-- doc: Page-anchored text. The content model here is similar to paragraph
-without %model.textcomponent and %n.pb sub-elements. If the startid attribute
-is present, then the xy coordinates are relative to the xy coordinates
-of the referenced element. Otherwise, they are assumed to be absolute
-page coordinate references. 
+<!-- doc: Page-anchored text. The content model here is similar to
+paragraph without %model.textcomponent and %n.pb sub-elements. If the
+startid attribute is present, then the xy coordinates are relative to
+the xy coordinates of the referenced element. Otherwise, they are
+assumed to be absolute page coordinate references.
 Used by: model.graphicprimitiveLike 
 Module:  meiShared -->
 <!ENTITY % anchoredtext 'IGNORE'>
@@ -6055,23 +5994,24 @@ Module:  meiShared -->
           startid            IDREF                 #IMPLIED>
 ]]>
 
-<!-- doc: The annot element provides a way to group participating *events*
-and/or *control events*, the notes that form a descending bass line or
-phrase marks, for example, and provide a label for or comment regarding
-the group. An enumerated list of event IDs may be given in the plist
-attribute. Alternatively, if only the start and/or end events in a
+<!-- doc: The annot element provides a way to group participating
+*events* and/or *control events*, the notes that form a descending bass
+line or phrase marks, for example, and provide a label for or comment
+regarding the group. An enumerated list of event IDs may be given in the
+plist attribute. Alternatively, if only the start and/or end events in a
 group are to be marked, then use the startid and endid attributes. An
 editorial or analytical comment or observation, encoded elsewhere, such
-as in the front or back matter, in score text elements, or in an external
-document may be pointed to using the link.common, link.internal, or
-link.external attributes. Alternatively, the observation may be included
-directly within the annot element. The annot element, along with other
-elements with %att.link.external attributes, may also be used to link/
-synchronize elements within the MEI file to external media such as images
-or sound recordings. The ID of the MEI element(s) to be linked from
-should be encoded in the plist attribute while the link to the external
-media may be encoded in the href or entityref attributes or in the body
-of the annotation using extref or extptr elements. 
+as in the front or back matter, in score text elements, or in an
+external document may be pointed to using the link.common,
+link.internal, or link.external attributes. Alternatively, the
+observation may be included directly within the annot element. The annot
+element, along with other elements with %att.link.external attributes,
+may also be used to link/synchronize elements within the MEI file to
+external media such as images or sound recordings. The ID of the MEI
+element(s) to be linked from should be encoded in the plist attribute
+while the link to the external media may be encoded in the href or
+entityref attributes or in the body of the annotation using extref or
+extptr elements.
 Used by: model.annotLike 
 Module:  meiShared -->
 <!ENTITY % annot 'IGNORE'>
@@ -6114,7 +6054,7 @@ Module:  meiShared -->
           %att.link.external;>
 ]]>
 
-<!-- doc: Date contains a date in any format. 
+<!-- doc: A date in any format. 
 Used by: model.dateLike 
 Module:  meiShared -->
 <!ENTITY % date 'IGNORE'>
@@ -6130,13 +6070,13 @@ Module:  meiShared -->
 ]]>
 
 <!-- doc: The edition designation is a word or text phrase that normally
-indicates a difference in either content or form between the item
-being described and a related item previously issued by the same
+indicates a difference in either content or form between the item being
+described and a related item previously issued by the same
 publisher/distributor (e.g. 2nd edition, version 2.0, etc.), or
 simultaneously issued by either the same publisher/distributor or
 another publisher/distributor (e.g. large print edition, British
-edition, etc.). The %model.textphraseLike.limited entity is used
-here in order to disallow the pb element. 
+edition, etc.). The %model.textphraseLike.limited entity is used here in
+order to disallow the pb element.
 Used by: model.biblPart editionstmt 
 Module:  meiShared
 -->
@@ -6149,22 +6089,22 @@ Module:  meiShared
           %att.bibl;>
 ]]>
 
-<!-- doc: expan (expansion) contains the expansion of an abbreviation. The
-type attribute may be used to classify the abbreviation according to
+<!-- doc: expan (expansion) contains the expansion of an abbreviation.
+The type attribute may be used to classify the abbreviation according to
 some convenient typology. See example values above. This tag is the
 mirror image of the <abbr> tag; both allow the encoder to transcribe
-both an abbreviation and its expansion. In <abbr>, however, the
-original is transcribed as the content of the element and the
-expansion as an attribute value; <expan> reverses this. The choice
-between the two is up to the user. The <expan> tag is not required; if
-appropriate, the encoder may expand abbreviations in the source text
-silently, without tagging them. If this is done, the MEI header should
-so indicate. The abbr attribute gives the abbreviation in its
-unexpanded form. The cert attribute signifies the degree of certainty
-ascribed to the expansion of the abbreviation. The resp attribute
-contains an ID reference to an element containing the name of the
-editor or transcriber responsible for supplying the expansion of the
-abbreviation held as the content of the <expan> element. 
+both an abbreviation and its expansion. In <abbr>, however, the original
+is transcribed as the content of the element and the expansion as an
+attribute value; <expan> reverses this. The choice between the two is up
+to the user. The <expan> tag is not required; if appropriate, the
+encoder may expand abbreviations in the source text silently, without
+tagging them. If this is done, the MEI header should so indicate. The
+abbr attribute gives the abbreviation in its unexpanded form. The cert
+attribute signifies the degree of certainty ascribed to the expansion of
+the abbreviation. The resp attribute contains an ID reference to an
+element containing the name of the editor or transcriber responsible for
+supplying the expansion of the abbreviation held as the content of the
+<expan> element.
 Used by: model.editorialLike 
 Module:  meiShared -->
 <!ENTITY % expan 'IGNORE'>
@@ -6182,12 +6122,12 @@ Module:  meiShared -->
           abbr               CDATA                 #IMPLIED>
 ]]>
 
-<!-- doc: Contains a brief prose description of the appearance or content of a
-graphic figure, for use when documenting an image without displaying it.
-Best practice suggests the use of controlled vocabulary. Don't confuse
-this element with a figure caption. A caption is text primarily intended
-for display with an illustration. It may or may not function as a
-description of the illustration. 
+<!-- doc: Contains a brief prose description of the appearance or
+content of a graphic figure, for use when documenting an image without
+displaying it. Best practice suggests the use of controlled vocabulary.
+Don't confuse this element with a figure caption. A caption is text
+primarily intended for display with an illustration. It may or may not
+function as a description of the illustration. 
 Used by: figure surface zone
 Module:  meiFigures -->
 <!ENTITY % figdesc 'IGNORE'>
@@ -6200,11 +6140,11 @@ Module:  meiFigures -->
           %att.lang;>
 ]]>
 
-<!-- doc: Forme work, e.g. header and footer. This element is intended for
-capture of header/footer material that is non-repeating; that is, it
+<!-- doc: Forme work, e.g. header and footer. This element is intended
+for capture of header/footer material that is non-repeating; that is, it
 occurs on isolated pages. For running headers and footers use pgheadN
-and pgfootN elements. Auto-generated page numbers may be included by using
-a processing instruction. 
+and pgfootN elements. Auto-generated page numbers may be included by
+using a processing instruction.
 Used by: model.pgmetaLike 
 Module:  meiShared -->
 <!ENTITY % fw 'IGNORE'>
@@ -6295,7 +6235,7 @@ Module:  meiShared -->
           %att.typed;>
 ]]>
 
-<!-- doc: A number in any form 
+<!-- doc: A number in any form.
 Used by: model.measurementLike 
 Module:  meiShared -->
 <!ENTITY % num 'IGNORE'>
@@ -6356,14 +6296,14 @@ Module:  meiShared -->
           source             IDREFS                #IMPLIED>
 ]]>
 
-<!-- doc: Contains a brief prose description of the appearance or description
-of the content of a physical page. Best practice suggests the use of
-controlled vocabulary. Don't confuse this element with a figure caption.
-A caption is text primarily intended for display with an illustration.
-It may or may not function as a description of the illustration. Perhaps
-a better model is (%model.locrefLike;)* with which one could force page-
-level meta-data to the header where it could be encoded in notesstmt
-elements. 
+<!-- doc: Contains a brief prose description of the appearance or
+description of the content of a physical page. Best practice suggests
+the use of controlled vocabulary. Don't confuse this element with a
+figure caption. A caption is text primarily intended for display with an
+illustration. It may or may not function as a description of the
+illustration. Perhaps a better model is (%model.locrefLike;)* with which
+one could force page-level meta-data to the header where it could be
+encoded in notesstmt elements. 
 Used by: pb 
 Module:  meiShared -->
 <!ENTITY % pgdesc 'IGNORE'>
@@ -6437,9 +6377,9 @@ Module:  meiShared -->
                                                    #IMPLIED>
 ]]>
 
-<!-- doc: Title of a bibliographic entity. The type attribute may be used
-to classify the title according to some convenient typology. Sample
-values include: 
+<!-- doc: Title of a bibliographic entity. The type attribute may be
+used to classify the title according to some convenient typology. Sample
+values include:
    main         main title 
    subordinate  subtitle, title of part 
    abbreviated  abbreviated form of title
@@ -6490,7 +6430,8 @@ Module:  meiShared -->
           %att.vis.clef;>
 ]]>
 
-<!-- doc: Custos 
+<!-- doc: Custos or direct. The symbol placed at the end of a staff to
+indicate the first note of the next staff.
 Used by: model.eventLike.common 
 Module:  meiShared -->
 <!ENTITY % custos 'IGNORE'>
@@ -6558,15 +6499,15 @@ Module:  meiShared -->
           %att.anl.space;>
 ]]>
 
-<!-- doc: Directives, e.g. text expressions that are on the score (typically
-above, below, or between staves), but not on the staff and not encoded
-elsewhere, such as in tempo or dynam elements. Examples include text
-strings, such as 'affettuoso' or fingerings and music symbols, such as
-segno and coda symbols, fermatas over a barline, etc. Unlike generic
-text elements, directives can be control elements. That is, they can be
-used as pointers to other events. The %model.textphraseLike.limited
-entity is employed here instead of %model.textphrase in order to
-disallow use of the pb sub-element. 
+<!-- doc: Directives, e.g. text expressions that are on the score
+(typically above, below, or between staves), but not on the staff and
+not encoded elsewhere, such as in tempo or dynam elements. Examples
+include text strings, such as 'affettuoso' or fingerings and music
+symbols, such as segno and coda symbols, fermatas over a barline, etc.
+Unlike generic text elements, directives can be control elements. That
+is, they can be used as pointers to other events. The
+%model.textphraseLike.limited entity is employed here instead of
+%model.textphrase in order to disallow use of the pb sub-element.
 Used by: model.controleventLike.common 
 Module:  meiShared -->
 <!ENTITY % dir 'IGNORE'>
@@ -6591,8 +6532,8 @@ Module:  meiShared -->
 textual dynamics, e.g. 'p', 'mf', or 'cresc. poco a poco'. See Read, p.
 250-255. The hairpin element should be used for graphical dynamic
 markings. The %model.textphraseLike.limited entity is employed here
-instead of %model.textphrase in order to disallow use of the pb
-sub-element. 
+instead of %model.textphrase in order to disallow use of the pb sub-
+element. 
 Used by: model.controleventLike.common 
 Module:  meiShared -->
 <!ENTITY % dynam 'IGNORE'>
@@ -6725,10 +6666,10 @@ Module:  meiShared -->
 ]]>
 
 <!-- Neume and CMN: -->
-<!-- doc: Articulation. This element provides an alternative to the artic
-attributes on the note and chord elements. The element should be used
-when when specific display info, such as size or color, needs to be
-recorded for the articulation. 
+<!-- doc: Articulation. This element provides an alternative to the
+artic attributes on the note and chord elements. The element should be
+used when when specific display info, such as size or color, needs to be
+recorded for the articulation.
 Used by: model.noteModifierLike model.notaModifierLike model.neumeModifierLike 
 Module:  meiShared -->
 <!ENTITY % artic 'IGNORE'>
@@ -6765,8 +6706,9 @@ Module:  meiShared -->
           value              %data.ACCIDENTAL.EXPLICIT; #REQUIRED>
 ]]>
 
-<!-- doc: Key signature. This element may be used as an alternative to the
-key.* attributes (especially key.sig.mixed) on scoredef and staffdef. 
+<!-- doc: Key signature. This element may be used as an alternative to
+the key.* attributes (especially key.sig.mixed) on scoredef and
+staffdef.
 Used by: model.keysigLike 
 Module:  meiShared -->
 <!ENTITY % keysig 'IGNORE'>
@@ -6782,10 +6724,10 @@ Module:  meiShared -->
 ]]>
 
 <!-- doc: Accidental. This element provides an alternative to the acci
-attributes on the note element. The element should be used when
-specific display info, such as size or color, needs to be recorded
-for the accidental. The func attribute can be used to differentiate
-different functions, such as 'cautionary' or 'editorial'. 
+attributes on the note element. The element should be used when specific
+display info, such as size or color, needs to be recorded for the
+accidental. The func attribute can be used to differentiate different
+functions, such as 'cautionary' or 'editorial'.
 Used by: model.noteModifierLike model.notaModifierLike model.neumeModifierLike model.eventLike.mensural-cmn 
 Module:  meiShared -->
 <!ENTITY % accid 'IGNORE'>
@@ -6943,7 +6885,7 @@ Module:  meiText -->
           %att.xy;>
 ]]>
 
-<!-- doc: Single item in a list 
+<!-- doc: Single item in a list. 
 Used by: list 
 Module:  meiText -->
 <!ENTITY % item 'IGNORE'>
@@ -6956,9 +6898,10 @@ Module:  meiText -->
           %att.facsimile;>
 ]]>
 
-<!-- doc: Line contains a single line of text. The n attribute should
-be used to record a label for the line, i.e., most likely a line
-number. 
+<!-- doc: The l element contains a single line of text. The n attribute
+should be used to record a label for the line, i.e., most likely a line
+number. Do not confuse this element with the line element, which is used
+for typographical lines.
 Used by: model.lLike 
 Module:  meiText -->
 <!ENTITY % l 'IGNORE'>
@@ -7004,7 +6947,7 @@ Module:  meiText -->
                                                    #IMPLIED>
 ]]>
 
-<!-- doc: Visual layout in tabular form 
+<!-- doc: Visual layout in tabular form. 
 Used by: model.tableLike 
 Module:  meiText -->
 <!ENTITY % table 'IGNORE'>
@@ -7018,7 +6961,7 @@ Module:  meiText -->
           %att.xy;>
 ]]>
 
-<!-- doc: Table cell containing data 
+<!-- doc: Table cell containing data. 
 Used by: tr 
 Module:  meiText -->
 <!ENTITY % td 'IGNORE'>
@@ -7035,7 +6978,7 @@ Module:  meiText -->
           rowspan            %data.INTEGERPOSITIVE; #IMPLIED>
 ]]>
 
-<!-- doc: Table cell containing header information 
+<!-- doc: Table cell containing header information.
 Used by: table 
 Module:  meiText -->
 <!ENTITY % th 'IGNORE'>
@@ -7052,7 +6995,7 @@ Module:  meiText -->
           rowspan            %data.INTEGERPOSITIVE; #IMPLIED>
 ]]>
 
-<!-- doc: Table row 
+<!-- doc: Table row. 
 Used by: table 
 Module:  meiText -->
 <!ENTITY % tr 'IGNORE'>
@@ -7067,9 +7010,9 @@ Module:  meiText -->
 ]]>
 
 <!-- Additional Names and Dates -->
-<!-- doc: Identifies an organization or group of people that acts as an
-entity. May contain name parts in corpname sub-elements since corpname
-is included in model.textphraseLike. 
+<!-- doc: Identifies an organization or group of people that acts as a
+single entity. May contain name parts in corpname sub-elements since
+corpname is included in model.textphraseLike.
 Used by: model.nameLike.agent 
 Module:  meiNamesDates -->
 <!ENTITY % corpname 'IGNORE'>
@@ -7087,9 +7030,9 @@ Module:  meiNamesDates -->
           <!-- role               CDATA                 #IMPLIED> -->
 ]]>
 
-<!-- doc: Geographic name. The proper noun designation for a place, natural
-feature, or political jurisdiction. May contain name sub-parts in
-geogname sub-elements since geogname is included in model.textphrase. 
+<!-- doc: Geographic name. The proper noun designation for a place,
+natural feature, or political jurisdiction. May contain name sub-parts
+in geogname sub-elements since geogname is included in model.textphrase.
 Used by: model.nameLike.place model.pubstmtPart 
 Module:  meiNamesDates -->
 <!ENTITY % geogname 'IGNORE'>
@@ -7247,11 +7190,12 @@ Module:  meiPtrRefs -->
           %att.link.internal;>
 ]]>
 
-<!-- doc: An internal linking element that provides for movement from one
-place in a MEI document to another point in the same document. Unlike
-the ptr element, ref may contain text and subelements to describe the
-destination. Don't confuse this element with extref which provides for
-linking to an electronic object that is external to the MEI document. 
+<!-- doc: An internal linking element that provides for movement from
+one place in a MEI document to another point in the same document.
+Unlike the ptr element, ref may contain text and subelements to describe
+the destination. Don't confuse this element with extref which provides
+for linking to an electronic object that is external to the MEI
+document.
 Used by: model.locrefLike 
 Module:  meiPtrRefs -->
 <!ENTITY % ref 'IGNORE'>
@@ -7267,12 +7211,12 @@ Module:  meiPtrRefs -->
 
 <!-- Default Structure -->
 <!-- doc: The body element contains the actual music data. When the
-music can be broken into high-level, discrete, linear segments, such
-as movements in the case of a symphony, there may be multiple mdiv
-elements within the body. This is the highest level indication of
-the structure of the music. The declaration of % content.body
-'(%model.mdivLike;)* allows the body element to be empty, which
-might be useful in some editing/creation situations. 
+music can be broken into high-level, discrete, linear segments, such as
+movements in the case of a symphony, there may be multiple mdiv elements
+within the body. This is the highest level indication of the structure
+of the music. The declaration of % content.body '(%model.mdivLike;)*
+allows the body element to be empty, which might be useful in some
+editing/creation situations.
 Used by: music 
 Module:  meiStructure -->
 <!ENTITY % body 'IGNORE'>
@@ -7314,8 +7258,8 @@ Module:  meiStructure -->
 ]]>
 
 <!-- doc: The group element enables the gathering of multiple documents
-into a single file. Because its model contains the music element,
-each of the documents can have its own front and back matter. 
+into a single file. Because its model contains the music element, each
+of the documents can have its own front and back matter.
 Used by: music group 
 Module:  meiStructure -->
 <!ENTITY % group 'IGNORE'>
@@ -7326,9 +7270,9 @@ Module:  meiStructure -->
           %att.common;>
 ]]>
 
-<!-- doc: Group symbol, i.e., a brace or bracket. This element may be used
-instead of the staffgrp element's symbol attribute when exact
-placement or editorial details for the brace must be recorded. 
+<!-- doc: Group symbol, i.e., a brace or bracket. This element may be
+used instead of the staffgrp element's symbol attribute when exact
+placement or editorial details for the brace must be recorded.
 Used by: staffgrp 
 Module:  meiStructure -->
 <!ENTITY % grpsym 'IGNORE'>
@@ -7364,7 +7308,7 @@ Module:  meiStructure -->
           midi.track         %data.INTEGERPOSITIVE; #IMPLIED>
 ]]>
 
-<!-- doc: Staff, staffgrp, or grpsym label 
+<!-- doc: Staff, staffgrp, or grpsym label. 
 Used by: model.labelLike 
 Module:  meiStructure -->
 <!ENTITY % label 'IGNORE'>
@@ -7378,12 +7322,14 @@ Module:  meiStructure -->
           source             IDREF                 #IMPLIED>
 ]]>
 
-<!-- doc: Layer (voice). The n attribute should be used to establish a
+<!-- doc: Layer (voice). An independent stream of events on a staff. The
+term 'layer' in used in order to avoid confusion between 'voice' and
+'voice leading'. The n attribute should be used to establish a
 connection back to the appropriate layerdef element. Usually, the
-topmost layer is "1", next is "2", etc. *regardless of voicing*). If
-the n attribute is omitted, encoding order is presumed to match the
-layer order. Of course, if data is supplied for only a subset of
-layers, the n attribute must be supplied. 
+topmost layer is "1", next is "2", etc. *regardless of voicing*). If the
+n attribute is omitted, encoding order is presumed to match the layer
+order. Of course, if data is supplied for only a subset of layers, the n
+attribute must be supplied.
 Used by: model.layerLike 
 Module:  meiStructure -->
 <!ENTITY % layer 'IGNORE'>
@@ -7554,10 +7500,10 @@ Module:  meiStructure -->
           %att.lang;>
 ]]>
 
-<!-- doc: A running header on the pages following the first. This element is
-a specialized form of the fw element. The pgheadN and pgfootN elements
-should *not* be used to encode textual notes! Auto-generated page
-numbers may be indicated with a processing instruction. 
+<!-- doc: A running header on the pages following the first. This
+element is a specialized form of the fw element. The pgheadN and pgfootN
+elements should *not* be used to encode textual notes! Auto-generated
+page numbers may be indicated with a processing instruction. 
 Used by: model.pgmetaLike.score 
 Module:  meiStructure -->
 <!ENTITY % pghead2 'IGNORE'>
@@ -7572,12 +7518,11 @@ Module:  meiStructure -->
           %att.lang;>
 ]]>
 
-<!-- doc: System break. Allowing staffdef content, i.e., <!ENTITY % content.sb ''>
-<!ELEMENT %n.sb;
-(staffdef)*>, here would make it possible to record layout changes
-without requiring these changes to be made at section boundaries.
-However, it would also allow meter and key changes, which is probably
-undesirable. 
+<!-- doc: System break. Allowing staffdef content, i.e., <!ENTITY %
+content.sb ''>. Allowing staffdef within content.sb would make it
+possible to record layout changes without requiring these changes to be
+made at section boundaries. However, it would also allow meter and key
+changes, which is probably undesirable. 
 Used by: model.milestoneLike.music 
 Module:  meiStructure -->
 <!ENTITY % sb 'IGNORE'>
@@ -7593,10 +7538,11 @@ Module:  meiStructure -->
           %att.anl.sb;>
 ]]>
 
-<!-- doc: Full score view of the mdiv. Since the measure element is optional,
-a score may consist entirely of pagebreaks, each of which points to a page
-image. Div elements are allowed preceding and following sections of music
-data in order to accommodate blocks of explanatory text. 
+<!-- doc: Full score view of the mdiv. Since the measure element is
+optional, a score may consist entirely of pagebreaks, each of which
+points to a page image. Div elements are allowed preceding and following
+sections of music data in order to accommodate blocks of explanatory
+text.
 Used by: model.scoreLike 
 Module:  meiStructure -->
 <!ENTITY % score 'IGNORE'>
@@ -7690,8 +7636,8 @@ Module:  meiStructure -->
 
 <!-- doc: Staff. The n attribute is a connection back to the appropriate
 staffdef element. If the n attribute is omitted, encoding order is
-presumed to match the staff order. Of course, if data is supplied
-for only a subset of staves, the n attribute must be supplied. 
+presumed to match the staff order. Of course, if data is supplied for
+only a subset of staves, the n attribute must be supplied.
 Used by: model.staffLike 
 Module:  meiStructure -->
 <!ENTITY % staff 'IGNORE'>
@@ -7753,8 +7699,8 @@ Module:  meiStructure -->
 ]]>
 
 <!-- Neumes -->
-<!-- doc: The syllable element is used only for neume notation. Most neume
-notation can be thought of as "neumed text". 
+<!-- doc: The syllable element is used only for neume notation. Most
+neume notation can be thought of as "neumed text".
 Used by: model.eventLike.neume 
 Module:  meiNeumes -->
 <!ENTITY % syllable 'IGNORE'>
@@ -7771,8 +7717,8 @@ Module:  meiNeumes -->
           %att.common;>
 ]]>
 
-<!-- doc: The interrupted neume element is provided for the encoding of neume
-notation.
+<!-- doc: The interrupted neume element is provided for the encoding of
+neume notation.
 Used by: model.eventLike.neume 
 Module:  meiNeumes -->
 <!ENTITY % ineume 'IGNORE'>
@@ -7791,9 +7737,10 @@ Module:  meiNeumes -->
           %att.anl.ineume;>
 ]]>
 
-<!-- doc: A single, uninterrupted neume sign. While ineume is allowed here as
-part of the model.events class, it is unlikely that an uninterrupted neume
-containing an interrupted neume is a meaningful construct. 
+<!-- doc: A single, uninterrupted neume sign. While ineume is allowed
+here as part of the model.events class, it is unlikely that an
+uninterrupted neume containing an interrupted neume is a meaningful
+construct. 
 Used by: model.eventLike.neume 
 Module:  meiNeumes -->
 <!ENTITY % uneume 'IGNORE'>
@@ -7813,13 +7760,13 @@ Module:  meiNeumes -->
 ]]>
 
 <!-- Mensural -->
-<!-- doc: A single pitched event in the mensural repertoire. The nota element
-is allowed to contain other events for situations where a single written
-note may be representative of a group of performed notes. The accid and
-artic sub-elements may be used instead of the note element's attributes
-when accid and artic represent first-class objects, e.g. when they
-require attributes, such as x and y location attributes. Similarly, the
-syl sub-element may be used instead of the syl attribute. The verse
+<!-- doc: A single pitched event in the mensural repertoire. The nota
+element is allowed to contain other events for situations where a single
+written note may be representative of a group of performed notes. The
+accid and artic sub-elements may be used instead of the note element's
+attributes when accid and artic represent first-class objects, e.g. when
+they require attributes, such as x and y location attributes. Similarly,
+the syl sub-element may be used instead of the syl attribute. The verse
 sub-element may be used to group text syllables by verse.
 Used by: model.eventLike.mensural 
 Module:  meiMensural -->
@@ -7855,15 +7802,15 @@ Module:  meiMensural -->
 ]]>
 
 <!-- CMN -->
-<!-- doc: Measure. "In Western notation a vertical line drawn through the
-staff to mark off metrical units. Hence also the metrical unit thus
+<!-- doc: Measure. "In Western notation a vertical line drawn through
+the staff to mark off metrical units. Hence also the metrical unit thus
 indicated, which in American usage is called 'measure'. English usage
 often relies on context alone to make the distinction clear (e.g. 'up to
 the double bar', 'the end of the bar'), but 'bar-line' is also common."
 (New Grove) In MEI, the measure element is also a linking element that
 uses attributes to connect the MEI document to an external electronic
 object or to another location within the MEI instance. Any number of
-alternative encodings for the measure (ossia) can be included. 
+alternative encodings for the measure (ossia) can be included.
 Used by: model.measureLike 
 Module:  meiCMN -->
 <!ENTITY % measure 'IGNORE'>
@@ -7889,12 +7836,12 @@ Module:  meiCMN -->
           %att.anl.measure;>
 ]]>
 
-<!-- doc: The term "ossia" indicates an alternative, usually simpler, version
-of a measure *present in the source being transcribed*. An ossia may be
-treated as a substitute for the measure, in which case it is rendered on
-the current staff, or it may be rendered in addition to the measure's
-contents, in which case it is rendered above the staff on a reduced-size
-staff. 
+<!-- doc: The term "ossia" indicates an alternative, usually simpler,
+version of a measure *present in the source being transcribed*. An ossia
+may be treated as a substitute for the measure, in which case it is
+rendered on the current staff, or it may be rendered in addition to the
+measure's contents, in which case it is rendered above the staff on a
+reduced-size staff. 
 Used by: model.ossiaLike 
 Module:  meiCMN -->
 <!ENTITY % ossia 'IGNORE'>
@@ -7916,13 +7863,13 @@ Module:  meiCMN -->
           %att.anl.ossia;>
 ]]>
 
-<!-- doc: Beam. A container for a series of explicitly beamed events (Read,
-p. 80-94) which begins and ends entirely within a measure. For beams
-which cross the barline, use the beamspan element. Beaming may be
+<!-- doc: Beam. A container for a series of explicitly beamed events
+(Read, p. 80-94) which begins and ends entirely within a measure. For
+beams which cross the barline, use the beamspan element. Beaming may be
 indicated for an entire score, part or section by using the beamgroup
 attribute on these elements. Secondary beams may be broken explicitly
 using the breaksec attribute. Stem direction determines whether beams
-are centered between notes with alternating stems (Read, p. 88-89). 
+are centered between notes with alternating stems (Read, p. 88-89).
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % beam 'IGNORE'>
@@ -7938,7 +7885,7 @@ Module:  meiCMN -->
           %att.anl.beam;>
 ]]>
 
-<!-- doc: A repeated single beat (Read, p. 223-224) 
+<!-- doc: A repeated single beat (Read, p. 223-224). 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % beatrpt 'IGNORE'>
@@ -7954,11 +7901,11 @@ Module:  meiCMN -->
           %att.anl.beatrpt;>
 ]]>
 
-<!-- doc: Bend (stretching a string to make it sound higher than normal). The
-bend element can also be used for scoop, plop, falloff, and doit
-performance effects. It should *not* be used for l.v. (laissez vibrer)
-indications. Precise performance data that differs from the logical
-events in a measure may be recorded within the bend element. 
+<!-- doc: Bend (stretching a string to make it sound higher than
+normal). The bend element can also be used for scoop, plop, falloff, and
+doit performance effects. It should *not* be used for l.v. (laissez
+vibrer) indications. Precise performance data that differs from the
+logical events in a measure may be recorded within the bend element.
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % bend 'IGNORE'>
@@ -7974,9 +7921,9 @@ Module:  meiCMN -->
           %att.anl.bend;>
 ]]>
 
-<!-- doc: Bowed tremolo (Read, p. 393-394) is a rapid alternation on a single
-pitch or chord. This element should also be used for wind double and
-triple tonguing and for flutter tonguing when these are expressed as
+<!-- doc: Bowed tremolo (Read, p. 393-394) is a rapid alternation on a
+single pitch or chord. This element should also be used for wind double
+and triple tonguing and for flutter tonguing when these are expressed as
 tremolandi. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
@@ -7993,8 +7940,8 @@ Module:  meiCMN -->
           %att.anl.btrem;>
 ]]>
 
-<!-- doc: Chord, a simultaneous sounding of 2 or more notes in the same voice
-*with the same duration*. (Read, p. 69) 
+<!-- doc: Chord, a simultaneous sounding of 2 or more notes in the same
+layer *with the same duration*. See Read, p. 69. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % chord 'IGNORE'>
@@ -8010,11 +7957,11 @@ Module:  meiCMN -->
           %att.anl.chord;>
 ]]>
 
-<!-- doc: Fingered tremolo (Read, p. 235-238) is a rapid alternation between
-a pair of notes (or chords or perhaps between a note and a chord) that
-are (usually) farther apart than a major second. For rapid alternation
-between notes on the same pitch (bowed tremolo, double &amp; triple
-tonguing, and flutter tonguing) use the btrem element. 
+<!-- doc: Fingered tremolo (Read, p. 235-238) is a rapid alternation
+between a pair of notes (or chords or perhaps between a note and a
+chord) that are (usually) farther apart than a major second. For rapid
+alternation between notes on the same pitch (bowed tremolo, double &amp;
+triple tonguing, and flutter tonguing) use the btrem element. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % ftrem 'IGNORE'>
@@ -8032,8 +7979,9 @@ Module:  meiCMN -->
           %att.anl.ftrem;>
 ]]>
 
-<!-- doc: Glissando (Read, p. 243-245, 397-398). Sometimes called a 'slide'.
-More precise performance data may be recorded within the gliss element. 
+<!-- doc: Glissando (Read, p. 243-245, 397-398). Sometimes called a
+'slide'. More precise performance data may be recorded within the gliss
+element.
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % gliss 'IGNORE'>
@@ -8049,7 +7997,7 @@ Module:  meiCMN -->
           %att.anl.gliss;>
 ]]>
 
-<!-- doc: Half-measure repeat sign 
+<!-- doc: A half-measure repeat in any meter.
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % halfmrpt 'IGNORE'>
@@ -8065,14 +8013,14 @@ Module:  meiCMN -->
           %att.anl.halfmrpt;>
 ]]>
 
-<!-- doc: Note (Read, p. 63), a single pitched event. The note element is
-allowed to contain other events for situations where a single written
+<!-- doc: Note (Read, p. 63), a single pitched event. The note element
+is allowed to contain other events for situations where a single written
 note may be representative of a group of performed notes. The accid and
 artic sub-elements may be used instead of the note element's attributes
 when accid and artic represent first-class objects, e.g. when they
 require attributes, such as x and y location attributes. Similarly, the
-syl sub-element may be used instead of the syl attribute. The verse
-sub-element may be used to group text syllables by verse. 
+syl sub-element may be used instead of the syl attribute. The verse sub-
+element may be used to group text syllables by verse. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % note 'IGNORE'>
@@ -8092,8 +8040,8 @@ Module:  meiCMN -->
 ]]>
 
 <!-- doc: Rest (Read, p. 96-102), i.e., a non-sounding event, found in
-the source being transcribed. Do not confuse this element with the
-space element which is used as an aid for visual alignment. 
+the source being transcribed. Do not confuse this element with the space
+element which is used as an aid for visual alignment.
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % rest 'IGNORE'>
@@ -8109,10 +8057,10 @@ Module:  meiCMN -->
           %att.anl.rest;>
 ]]>
 
-<!-- doc: Tuplet (Read, p. 187-215), bowed tremolo (Read, p. 394) and double,
-triple, or flutter tonguing (Read, p. 348-349). The beam sub-element is
-allowed so that custom beaming may be indicated, i.e., a septuplet may be
-divided into a group of 3 plus a group of 4 notes. 
+<!-- doc: Tuplet (Read, p. 187-215), bowed tremolo (Read, p. 394) and
+double, triple, or flutter tonguing (Read, p. 348-349). The beam sub-
+element is allowed so that custom beaming may be indicated, i.e., a
+septuplet may be divided into a group of 3 plus a group of 4 notes. 
 Used by: model.eventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % tuplet 'IGNORE'>
@@ -8128,9 +8076,9 @@ Module:  meiCMN -->
           %att.anl.tuplet;>
 ]]>
 
-<!-- doc: Complete measure rest in any meter (Read, p. 97-98). The numbering
-of consecutive measures of rest may be controlled via the multi.number
-attribute on the scoredef or staffdef elements. 
+<!-- doc: Complete measure rest in any meter (Read, p. 97-98). The
+numbering of consecutive measures of rest may be controlled via the
+multi.number attribute on the scoredef or staffdef elements.
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
 <!ENTITY % mrest 'IGNORE'>
@@ -8146,9 +8094,9 @@ Module:  meiCMN -->
           %att.anl.mrest;>
 ]]>
 
-<!-- doc: A repeated measure (Read, p. 224-225). The numbering of consecutive
-measures of rest may be controlled via the multi.number attribute on the
-scoredef or staffdef elements. 
+<!-- doc: A repeated measure (Read, p. 224-225). The numbering of
+consecutive measures of rest may be controlled via the multi.number
+attribute on the scoredef or staffdef elements. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
 <!ENTITY % mrpt 'IGNORE'>
@@ -8164,7 +8112,7 @@ Module:  meiCMN -->
           %att.anl.mrpt;>
 ]]>
 
-<!-- doc: 2-measure repeat sign 
+<!-- doc: 2-measure repeat sign. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
 <!ENTITY % mrpt2 'IGNORE'>
@@ -8180,9 +8128,9 @@ Module:  meiCMN -->
           %att.anl.mrpt2;>
 ]]>
 
-<!-- doc: Complete measure of space in any meter. The numbering of consecutive
-measures of space may be controlled via the multi.number attribute on the
-scoredef or staffdef elements. 
+<!-- doc: Complete measure of space in any meter. The numbering of
+consecutive measures of space may be controlled via the multi.number
+attribute on the scoredef or staffdef elements. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
 <!ENTITY % mspace 'IGNORE'>
@@ -8214,8 +8162,8 @@ Module:  meiCMN -->
           %att.anl.multirest;>
 ]]>
 
-<!-- doc: Multiple repeated measures. Read (p. 225-226) says repeats of more
-than 2 measures should be written out using repeat signs. 
+<!-- doc: Multiple repeated measures. Read (p. 225-226) says repeats of
+more than 2 measures should be written out using repeat signs. 
 Used by: model.eventLike.cmn.measureFilling 
 Module:  meiCMN -->
 <!ENTITY % multirpt 'IGNORE'>
@@ -8247,8 +8195,8 @@ Module:  meiCMN -->
           %att.anl.arpeg;>
 ]]>
 
-<!-- doc: Alternative element for encoding beams, especially useful for beams
-which extend across barlines. 
+<!-- doc: Alternative element for encoding beams, especially useful for
+beams which extend across barlines.
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % beamspan 'IGNORE'>
@@ -8264,8 +8212,9 @@ Module:  meiCMN -->
           %att.anl.beamspan;>
 ]]>
 
-<!-- doc: The breathmark element is a specialized form of, i.e., syntactic sugar
-for, dir/@type="breathmark" with "," as its PCDATA content. 
+<!-- doc: The breathmark element is a specialized form of, i.e.,
+syntactic sugar for, dir/@type="breathmark" with "," as its PCDATA
+content. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % breath 'IGNORE'>
@@ -8281,8 +8230,9 @@ Module:  meiCMN -->
           %att.anl.breath;>
 ]]>
 
-<!-- doc: The fermata element is a specialized form of, i.e., syntactic sugar
-for, dir/@type="fermata" with &ferm; or &uferm; as its PCDATA content. 
+<!-- doc: The fermata element is a specialized form of, i.e., syntactic
+sugar for, dir/@type="fermata" with &amp;ferm; or &amp;uferm; as its
+PCDATA content. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % fermata 'IGNORE'>
@@ -8298,8 +8248,8 @@ Module:  meiCMN -->
           %att.anl.fermata;>
 ]]>
 
-<!-- doc: Hairpin indicates continuous dynamics expressed on the score as
-graphics, e.g. < and >. See Read, p. 250-255. 
+<!-- doc: Hairpin. (Read, p. 250-255) Indicates continuous dynamics
+expressed on the score as graphics, e.g. &lt; and >.
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % hairpin 'IGNORE'>
@@ -8315,7 +8265,7 @@ Module:  meiCMN -->
           %att.anl.hairpin;>
 ]]>
 
-<!-- doc: Harp pedal diagram 
+<!-- doc: Harp pedal diagram. (Read, p. 325) 
 Used by: model.controleventLike.instruments 
 Module:  meiCMN -->
 <!ENTITY % harppedal 'IGNORE'>
@@ -8331,7 +8281,7 @@ Module:  meiCMN -->
           %att.anl.harppedal;>
 ]]>
 
-<!-- doc: Octave displacement. 
+<!-- doc: Octave displacement. (Read, p. 45)
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % octave 'IGNORE'>
@@ -8381,14 +8331,14 @@ Module:  meiCMN -->
           %att.anl.reh;>
 ]]>
 
-<!-- doc: Slur, 2 notes performed legato (Read, p. 265-266). The slur element
-will use either tstamp, duration, and place attributes or start, end,
-and bulge attributes. It is a semantic error not to specify one of these
-groups of attributes. The slur and tie elements may be used instead of
-the slur.* and tie.* attributes provided on chord and note elements when
-1) they are required by software, or 2) multiple, alternative slurs are
-needed. Normally, a slur has only 2 participating events - the starting
-and ending notes/chords. 
+<!-- doc: Slur, 2 notes performed legato (Read, p. 265-266). The slur
+element will use either tstamp, duration, and place attributes or start,
+end, and bulge attributes. It is a semantic error not to specify one of
+these groups of attributes. The slur and tie elements may be used
+instead of the slur.* and tie.* attributes provided on chord and note
+elements when 1) they are required by software, or 2) multiple,
+alternative slurs are needed. Normally, a slur has only 2 participating
+events - the starting and ending notes/chords.
 Used by: model.controleventLike.common 
 Module:  meiCMN -->
 <!ENTITY % slur 'IGNORE'>
@@ -8420,8 +8370,8 @@ Module:  meiCMN -->
           %att.anl.tie;>
 ]]>
 
-<!-- doc: Alternative element for encoding tuplets, especially useful for
-those which extend across barlines. 
+<!-- doc: Alternative element for encoding tuplets, especially useful
+for those which extend across barlines. 
 Used by: model.controleventLike.cmn 
 Module:  meiCMN -->
 <!ENTITY % tupletspan 'IGNORE'>
@@ -8438,10 +8388,10 @@ Module:  meiCMN -->
 ]]>
 
 <!-- Lyrics -->
-<!-- doc: Lyrics. The staff attribute gives the staff to which the lyrics
-are attached. The rhythm of the lyrics will be taken from the notes of
-that staff. If there is more than 1 layer on that staff, the layer
-attribute may be used to indicate the layer from which the rhythm
+<!-- doc: Lyrics. The staff attribute gives the staff to which the
+lyrics are attached. The rhythm of the lyrics will be taken from the
+notes of that staff. If there is more than 1 layer on that staff, the
+layer attribute may be used to indicate the layer from which the rhythm
 should be taken. 
 Used by: model.controleventLike.cmn 
 Module:  meiLyrics -->
@@ -8459,8 +8409,8 @@ Module:  meiLyrics -->
           %att.anl.lyrics;>
 ]]>
 
-<!-- doc: Lyric verse. The lb element is allowed here in order to facilitate
-karaoke applications. The func attribute on lb may be used to
+<!-- doc: Lyric verse. The lb element is allowed here in order to
+facilitate karaoke applications. The func attribute on lb may be used to
 distinguish true line ends from line group ends for these applications. 
 Used by: model.noteModifierLike model.notaModifierLike model.neumeModifierLike 
 Module:  meiLyrics -->
@@ -8497,8 +8447,8 @@ Module:  meiLyrics -->
 ]]>
 
 <!-- CMN Ornaments -->
-<!-- doc: Events may be contained within mordent in order to record precise
-performance data. (Read, p. 245-246) 
+<!-- doc: Mordent (Read, p. 245-246). Events may be contained within
+mordent in order to record precise performance data.
 Used by: model.ornamentLike.cmn 
 Module:  meiCMNOrnaments -->
 <!ENTITY % mordent 'IGNORE'>
@@ -8514,8 +8464,8 @@ Module:  meiCMNOrnaments -->
           %att.anl.mordent;>
 ]]>
 
-<!-- doc: Trill (Read, p. 232-235). Events may be contained within trill in
-order to record precise performance data. 
+<!-- doc: Trill (Read, p. 232-235). Events may be contained within trill
+in order to record precise performance data.
 Used by: model.ornamentLike.cmn 
 Module:  meiCMNOrnaments -->
 <!ENTITY % trill 'IGNORE'>
@@ -8531,10 +8481,10 @@ Module:  meiCMNOrnaments -->
           %att.anl.trill;>
 ]]>
 
-<!-- doc: Turn (Read, p. 246-247). Events may be contained within turn in
-order to record precise performance data. Whether the turn is accented
-or unaccented may be inferred from the timestamp - accented turns occur
-directly on the affected beat, unaccented ones do not. 
+<!-- doc: Turn (Read, p. 246-247). Events may be contained within turn
+in order to record precise performance data. Whether the turn is
+accented or unaccented may be inferred from the timestamp - accented
+turns occur directly on the affected beat, unaccented ones do not.
 Used by: model.ornamentLike.cmn 
 Module:  meiCMNOrnaments -->
 <!ENTITY % turn 'IGNORE'>
@@ -8583,12 +8533,12 @@ Module:  meiHarmony -->
           pos                CDATA                 #IMPLIED>
 ]]>
 
-<!-- doc: Chord member. An individual pitch in a chord. The fing and fret
-attributes are provided in order to create displayable chord tablature
-grids. The inth (harmonic interval) attribute gives the number of 1/2
+<!-- doc: Chord member. An individual pitch in a chord. The fing and
+fret attributes are provided in order to create displayable chord
+tablature grids. The inth (harmonic interval) attribute may be used to
+facilitate automated performance of a chord. It gives the number of 1/2
 steps above the bass. Of course, for the bass note itself, inth should
-be set to '0'. The inth attribute may be used to provide "playable"
-chords. 
+be set to '0'. 
 Used by: chordmember 
 Module:  meiHarmony -->
 <!ENTITY % chordmember 'IGNORE'>
@@ -8604,9 +8554,9 @@ Module:  meiHarmony -->
           pname              %data.PITCHNAME;           #REQUIRED>
 ]]>
 
-<!-- doc: Chord/tablature look-up table. A table may be shared between mei
-instances through the use of an external parsed entity containing the
-look-up table to be shared. 
+<!-- doc: Chord/tablature look-up table. A table may be shared between
+mei instances through the use of an external parsed entity containing
+the look-up table to be shared.
 Used by: model.chordtableLike 
 Module:  meiHarmony -->
 <!ENTITY % chordtable 'IGNORE'>
@@ -8617,10 +8567,10 @@ Module:  meiHarmony -->
           %att.common;>
 ]]>
 
-<!-- doc: Indication of harmony, e.g. chord names, tablature grids, harmonic
-analysis, figured bass. Read, p. 411. The %model.textphraseLike.limited
-entity is employed here instead of %model.textphrase in order to disallow
-the use of the pb sub-element. 
+<!-- doc: Indication of harmony, e.g. chord names, tablature grids,
+harmonic analysis, figured bass. Read, p. 411. The
+%model.textphraseLike.limited entity is employed here instead of
+%model.textphrase in order to disallow the use of the pb sub-element.
 Used by: model.controleventLike.cmn 
 Module:  meiHarmony -->
 <!ENTITY % harm 'IGNORE'>
@@ -8697,13 +8647,14 @@ Module:  meiUserSymbols -->
           rend               %data.LINERENDITION;  #IMPLIED>
 ]]>
 
-<!-- doc: A reference to a previously defined symbol. The x and y attributes
-identify the starting point, e.g. "hotspot" of the symbol. If the
-startid attribute is present, then the xy coordinates are relative to
-the xy coordinates of the referenced element. Otherwise, they are
+<!-- doc: A reference to a previously defined symbol. The x and y
+attributes identify the starting point, e.g. "hotspot" of the symbol. If
+the startid attribute is present, then the xy coordinates are relative
+to the xy coordinates of the referenced element. Otherwise, they are
 assumed to be absolute page coordinate references. The ref attribute
-must contain the id of a symboldef element. The scale attribute indicates
-that the printed output must be scaled by the specified percentage. 
+must contain the id of a symboldef element. The scale attribute
+indicates that the printed output must be scaled by the specified
+percentage.
 Used by: model.graphicprimitiveLike 
 Module:  meiUserSymbols -->
 <!ENTITY % symbol 'IGNORE'>
@@ -8722,7 +8673,7 @@ Module:  meiUserSymbols -->
           startid            IDREF                 #IMPLIED>
 ]]>
 
-<!-- doc: Declaration of an individual symbol. 
+<!-- doc: Declaration of an individual symbol in a symboltable. 
 Used by: symboltable 
 Module:  meiUserSymbols -->
 <!ENTITY % symboldef 'IGNORE'>
@@ -8733,10 +8684,10 @@ Module:  meiUserSymbols -->
           %att.common;>
 ]]>
 
-<!-- doc: Symboltable contains individual, user-defined symbols. Like
-a chord table, a symboltable may be shared between mei instances
-through the use of an external parsed entity containing the
-symboltable to be shared. 
+<!-- doc: Symboltable contains individual, user-defined symbols. Like a
+chord table, a symboltable may be shared between mei instances through
+the use of an external parsed entity containing the symboltable to be
+shared.
 Used by: model.symboltableLike 
 Module:  meiUserSymbols -->
 <!ENTITY % symboltable 'IGNORE'>
@@ -8754,8 +8705,7 @@ parallel. The type attribute may contain any convenient descriptive
 word, describing the extent of the variation (e.g. note, phrase,
 measure, etc.), its text-critical significance (e.g. significant,
 accidental, unclear), or the nature of the variation or the principles
-required to understand it (e.g. lectio difficilior, usus auctoris,
-etc.) 
+required to understand it (e.g. lectio difficilior, usus auctoris, etc.) 
 Used by: model.apparatusLike 
 Module:  meiCritApp -->
 <!ENTITY % app 'IGNORE'>
@@ -8768,11 +8718,11 @@ Module:  meiCritApp -->
 ]]>
 
 <!-- doc: Reading. Since a reading can be a multi-measure section, the
-scoredef element is allowed so that a reading may have its own meta-
-data without the overhead of child sections. The measure sub-element
-is declared in the meiBase DTD and the pb sub-element is declared in
-the meiShared DTD. The app sub-element is permitted in order to allow
-nested sub-variants. 
+scoredef element is allowed so that a reading may have its own meta-data
+without the overhead of child sections. The measure sub-element is
+declared in the meiBase DTD and the pb sub-element is declared in the
+meiShared DTD. The app sub-element is permitted in order to allow nested
+sub-variants. 
 Used by: app 
 Module:  meiCritApp -->
 <!ENTITY % rdg 'IGNORE'>
@@ -8845,8 +8795,8 @@ Module:  meiHeader -->
 
 <!-- doc: Appinfo (application information) groups information about
 applications which have acted upon the MEI file. This is not to be
-confused with applications which were used to create the MEI file.
-These are recorded in the projectdesc element. 
+confused with applications which were used to create the MEI file. These
+are recorded in the projectdesc element. 
 Used by: model.encodingPart 
 Module:  meiHeader -->
 <!ENTITY % appinfo 'IGNORE'>
@@ -8857,8 +8807,8 @@ Module:  meiHeader -->
           %att.common;>
 ]]>
 
-<!-- doc: Application provides information about an application which has acted
-upon the document. 
+<!-- doc: Application provides information about an application which
+has acted upon the document. 
 Used by: appinfo 
 Module:  meiHeader -->
 <!ENTITY % application 'IGNORE'>
@@ -8899,8 +8849,7 @@ Module:  meiHeader -->
           %att.bibl;>
 ]]>
 
-<!-- doc: Description of a revision. The p element is declared in the
-meiShared DTD. 
+<!-- doc: Description of a revision of the MEI file. 
 Used by: change 
 Module:  meiHeader -->
 <!ENTITY % changedesc 'IGNORE'>
@@ -8926,9 +8875,9 @@ Module:  meiHeader -->
           %att.bibl;>
 ]]>
 
-<!-- doc: The classification element groups information which describes the
-nature or topic of a musical work in terms of a standard classification
-scheme, thesaurus, etc. 
+<!-- doc: The classification element groups information which describes
+the nature or topic of a musical work in terms of a standard
+classification scheme, thesaurus, etc. 
 Used by: model.profiledescPart 
 Module:  meiHeader -->
 <!ENTITY % classification 'IGNORE'>
@@ -8957,8 +8906,8 @@ Module:  meiHeader -->
           %att.bibl;>
 ]]>
 
-<!-- doc: States how and under what circumstances corrections have been made
-in the music/text. 
+<!-- doc: States how and under what circumstances corrections have been
+made in the music/text. 
 Used by: model.editorialdeclPart 
 Module:  meiHeader -->
 <!ENTITY % correction 'IGNORE'>
@@ -8973,9 +8922,9 @@ Module:  meiHeader -->
                                                    #IMPLIED>
 ]]>
 
-<!-- doc: Non-bibliographic creation details for the work being encoded, in
-narrative form. The model.textcomponent class elements are declared in the
-meiShared DTD. 
+<!-- doc: Non-bibliographic creation details for the work being encoded,
+in narrative form. The model.textcomponent class elements are declared
+in the meiShared DTD. 
 Used by: model.profiledescPart 
 Module:  meiHeader -->
 <!ENTITY % creation 'IGNORE'>
@@ -8989,8 +8938,8 @@ Module:  meiHeader -->
 
 <!-- doc: Physical dimensions of a bibliographic source. The
 %model.textphraseLike.limited entity is used here in order to disallow
-the pb element. There are no height and width sub-elements; however,
-the num element may be used. 
+the pb element. There are no height and width sub-elements; however, the
+num element may be used. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
 <!ENTITY % dimensions 'IGNORE'>
@@ -9078,8 +9027,8 @@ Module:  meiHeader -->
           units              CDATA                 #IMPLIED>
 ]]>
 
-<!-- doc: Filedesc contains a full bibliographic description of the
-MEI file. Extent in this context is file size. 
+<!-- doc: Filedesc contains a full bibliographic description of the MEI
+file. Extent in this context is file size. 
 Used by: meihead 
 Module:  meiHeader -->
 <!ENTITY % filedesc 'IGNORE'>
@@ -9094,8 +9043,8 @@ Module:  meiHeader -->
           %att.common;>
 ]]>
 
-<!-- doc: Traditionally, an identifier constructed by combining groups of
-characters transcribed from specified pages of a printed item. For an
+<!-- doc: Traditionally, an identifier constructed by combining groups
+of characters transcribed from specified pages of a printed item. For an
 electronic item, however, the fingerprint should be a checksum. The
 checksum makes it possible to signal differences between copies of the
 item. 
@@ -9112,8 +9061,8 @@ Module:  meiHeader -->
 
 <!-- doc: The hand element is used to define each distinct scribe or
 handwriting style. The initial attribute indicates whether this is the
-first or main scribe of the document. The medium attribute describes
-the writing medium, e.g., 'pencil', or the tint or type of ink, e.g.
+first or main scribe of the document. The medium attribute describes the
+writing medium, e.g., 'pencil', or the tint or type of ink, e.g.
 'brown'. The resp attribute contains an ID reference to an element
 containing the name of the editor or transcriber responsible for
 identifying the hand. The characteristics of the hand, particularly
@@ -9133,8 +9082,8 @@ Module:  meiHeader -->
           resp               IDREF                 #IMPLIED>
 ]]>
 
-<!-- doc: The handlist element contains a series of <hand> elements listing
-the different hands of the source. 
+<!-- doc: The handlist element contains a series of <hand> elements
+listing the different hands of the source. 
 Used by: model.physdescPart 
 Module:  meiHeader -->
 <!ENTITY % handlist 'IGNORE'>
@@ -9162,8 +9111,8 @@ Module:  meiHeader -->
           %att.bibl;>
 ]]>
 
-<!-- doc: Describes the scope of any analytic or interpretive information
-added to the musical text in addition to the transcription. 
+<!-- doc: Describes the scope of any analytic or interpretive
+information added to the musical text in addition to the transcription. 
 Used by: model.editorialdeclPart 
 Module:  meiHeader -->
 <!ENTITY % interpretation 'IGNORE'>
@@ -9205,8 +9154,8 @@ Module:  meiHeader -->
           authority          CDATA                 #IMPLIED>
 ]]>
 
-<!-- doc: Langusage describes the languages, sublanguages, dialects, etc.,
-represented within the encoded work. 
+<!-- doc: Langusage describes the languages, sublanguages, dialects,
+etc., represented within the encoded work. 
 Used by: model.profiledescPart 
 Module:  meiHeader -->
 <!ENTITY % langusage 'IGNORE'>
@@ -9232,9 +9181,9 @@ Module:  meiHeader -->
           method             (silent|tags)         #IMPLIED>
 ]]>
 
-<!-- doc: Collects together any bibliographic notes providing information
-additional to that recorded in other parts of the bibliographic
-description. 
+<!-- doc: Collects together any bibliographic notes providing
+information additional to that recorded in other parts of the
+bibliographic description. 
 Used by: filedesc 
 Module:  meiHeader -->
 <!ENTITY % notesstmt 'IGNORE'>
@@ -9590,8 +9539,8 @@ Module:  meiHeader -->
           %att.bibl;>
 ]]>
 
-<!-- doc: Usage restrictions, e.g., copyright statement in the filedesc, or
-(re-)publication rights in the source element. The
+<!-- doc: Usage restrictions, e.g., copyright statement in the filedesc,
+or (re-)publication rights in the source element. The
 %model.textphraseLike.limited entity is used here in order to disallow
 the pb element. 
 Used by: model.availabilityPart 
@@ -9606,8 +9555,10 @@ Module:  meiHeader -->
 ]]>
 
 <!-- MIDI -->
-<!-- doc: Parameter/control change. The n attribute specifies parameter number,
-while val contains the parameter value. Each must fall in the range 0-127.
+<!-- doc: Parameter/control change. The num attribute specifies
+parameter number, while val contains the parameter value. Each must fall
+in the range 0-127.
+
 A sampling of controllers and their numbers:
 0   Bank Select MSB
 1   Modulation 
@@ -9638,7 +9589,7 @@ Module:  meiMIDI -->
           val                %data.MIDIVALUE;      #REQUIRED>
 ]]>
 
-<!-- doc: Channel assignment 
+<!-- doc: Channel assignment. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % chan 'IGNORE'>
@@ -9652,8 +9603,8 @@ Module:  meiMIDI -->
           num                %data.MIDICHANNEL;    #REQUIRED>
 ]]>
 
-<!-- doc: Channel pressure/after touch. The n attribute must be in the
-range 0-127. 
+<!-- doc: Channel pressure/after touch. The value of the num attribute
+must be in the range 0-127. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % chanpr 'IGNORE'>
@@ -9667,7 +9618,7 @@ Module:  meiMIDI -->
           num                %data.MIDIVALUE;      #REQUIRED>
 ]]>
 
-<!-- doc: Cue point 
+<!-- doc: Cue point. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % cue 'IGNORE'>
@@ -9680,7 +9631,7 @@ Module:  meiMIDI -->
           %att.midi.event;>
 ]]>
 
-<!-- doc: Arbitrary MIDI data in hex 
+<!-- doc: Arbitrary MIDI data in hex. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % hex 'IGNORE'>
@@ -9693,7 +9644,7 @@ Module:  meiMIDI -->
           %att.midi.event;>
 ]]>
 
-<!-- doc: Marker meta event
+<!-- doc: Marker meta event.
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % marker 'IGNORE'>
@@ -9706,7 +9657,7 @@ Module:  meiMIDI -->
           %att.midi.event;>
 ]]>
 
-<!-- doc: Text meta event 
+<!-- doc: Text meta event. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % metatext 'IGNORE'>
@@ -9719,9 +9670,9 @@ Module:  meiMIDI -->
           %att.midi.event;>
 ]]>
 
-<!-- doc: Container for a collection of elements which contain information
-useful when generating MIDI output. The n attribute can be used to
-differentiate between multiple MIDI data streams, e.g.
+<!-- doc: Container for a collection of elements which contain
+information useful when generating MIDI output. The n attribute can be
+used to differentiate between multiple MIDI data streams, e.g.
 quantized/unquantized, straight/swing, ornamented/as notated, etc. 
 Used by: model.midiLike 
 Module:  meiMIDI -->
@@ -9739,7 +9690,7 @@ Module:  meiMIDI -->
           %att.anl.midi;>
 ]]>
 
-<!-- doc: Note-off 
+<!-- doc: Note-off. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % noteoff 'IGNORE'>
@@ -9753,7 +9704,7 @@ Module:  meiMIDI -->
           num                %data.MIDIVALUE;      #REQUIRED>
 ]]>
 
-<!-- doc: Note-on 
+<!-- doc: Note-on. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % noteon 'IGNORE'>
@@ -9767,7 +9718,7 @@ Module:  meiMIDI -->
           num                %data.MIDIVALUE;      #REQUIRED>
 ]]>
 
-<!-- doc: MIDI port. The n attribute must be in the range 0-127. 
+<!-- doc: MIDI port. The num attribute must be in the range 0-127. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % port 'IGNORE'>
@@ -9781,8 +9732,8 @@ Module:  meiMIDI -->
           num                %data.MIDIVALUE;      #REQUIRED>
 ]]>
 
-<!-- doc: Program change/new instrument. The n attribute must be in the
-range 0-127. 
+<!-- doc: Program change/new instrument. The num attribute must be in
+the range 0-127. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % prog 'IGNORE'>
@@ -9796,7 +9747,8 @@ Module:  meiMIDI -->
           num                %data.MIDIVALUE;      #REQUIRED>
 ]]>
 
-<!-- doc: Sequence number. The n attribute must be in the range 0-65535 
+<!-- doc: Sequence number. The num attribute must be in the range 0-
+65535. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % seqnum 'IGNORE'>
@@ -9810,7 +9762,7 @@ Module:  meiMIDI -->
           num                %data.INTEGERNONNEGATIVE;  #REQUIRED>
 ]]>
 
-<!-- doc: Track/sequence name 
+<!-- doc: Track/sequence name. 
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % trkname 'IGNORE'>
@@ -9823,9 +9775,8 @@ Module:  meiMIDI -->
           %att.midi.event;>
 ]]>
 
-<!-- doc: Note-on/off velocity. For on velocity, the attribute must be in
-the range 1-127. For off velocity, the n attribute must be in the range
-0-127. 
+<!-- doc: Note-on/off velocity. The num attribute must be in the range
+1-127.
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % vel 'IGNORE'>
@@ -9867,7 +9818,13 @@ Module:  meiEditTrans -->
           %att.trans;>
 ]]>
 
-<!-- doc: Choice 
+<!-- doc: Choice groups a number of alternative encodings for the same
+point in a text. Because the children of a choice element all represent
+alternative ways of encoding the same sequence, it is natural to think
+of them as mutually exclusive. However, there may be cases where a full
+representation of a text requires the alternative encodings to be
+considered as parallel. Note also that choice elements may be
+recursively nested.
 Used by: model.editLike 
 Module:  meiEditTrans -->
 <!ENTITY % choice 'IGNORE'>
@@ -10022,7 +9979,10 @@ Module:  meiEditTrans -->
           old                IDREF                 #IMPLIED>
 ]]>
 
-<!--
+<!-- Orig (original form) contains a reading which is marked as
+following the original, rather than being normalized or corrected. An
+orig will often be combined with a regularized form within a choice
+element.
 Used by: model.transcriptionLike model.choicePart 
 Module:  meiEditTrans -->
 <!ENTITY % orig 'IGNORE'>
@@ -10041,7 +10001,10 @@ Module:  meiEditTrans -->
           %att.typed;>
 ]]>
 
-<!-- 
+<!-- Regularization. Contains a reading which has been regularized or
+normalized in some sense. It is possible to identify the individual
+responsible for the regularization, and, using the choice and orig
+elements, to provide both original and regularized readings.
 Used by: model.transcriptionLike model.choicePart 
 Module:  meiEditTrans -->
 <!ENTITY % reg 'IGNORE'>
@@ -10111,7 +10074,8 @@ Module:  meiEditTrans -->
           %att.facsimile;>
 ]]>
 
-<!-- doc: Substitution 
+<!-- doc: Substitution groups transcriptional elements when the
+combination is to be regarded as a single intervention in the text.
 Used by: model.editLike 
 Module:  meiEditTrans -->
 <!ENTITY % subst 'IGNORE'>
@@ -10122,17 +10086,17 @@ Module:  meiEditTrans -->
           meiform            CDATA                 #FIXED 'subst'>
 ]]>
 
-<!-- doc: Supplied contains musical material supplied by the transcriber or
-editor in place of text which cannot be read, either because of
+<!-- doc: Supplied contains musical material supplied by the transcriber
+or editor in place of text which cannot be read, either because of
 physical damage or loss in the original or because it is illegible for
 any reason. When the presumed loss of text arises from an identifiable
 cause, agent signifies the causative agent. When the presumed loss of
 text arises from action (partial deletion, etc.) assignable to an
-identifiable hand, the hand attribute signifies the hand responsible
-for the action. The reason attribute indicates why the text has to be
+identifiable hand, the hand attribute signifies the hand responsible for
+the action. The reason attribute indicates why the text has to be
 supplied, e.g. 'overbinding', 'faded ink', 'lost folio', 'omitted in
-original', etc. The source attribute contains the source of the
-supplied text. 
+original', etc. The source attribute contains the source of the supplied
+text.
 Used by: model.transcriptionLike 
 Module:  meiEditTrans -->
 <!ENTITY % supplied 'IGNORE'>
@@ -10170,17 +10134,17 @@ Module:  meiEditTrans -->
 ]]>
 
 <!-- doc: Unclear contains musical material which cannot be transcribed
-with certainty because it is illegible or inaudible in the source.
-Where the difficulty in transcription arises from an identifiable
-cause, the agent attribute signifies the causative agent. The cert
-attribute signifies the degree of certainty ascribed to the
-transcription of the text contained within the <unclear> element.
-Where the difficulty in transcription arises from action (partial
-deletion, etc.) assignable to an identifiable hand, the hand attribute
-signifies the hand responsible for the action. The reason attribute
-indicates why the material is difficult to transcribe. The resp
-attribute indicates the individual responsible for the transcription
-of the word, phrase, or passage contained with the <unclear> element. 
+with certainty because it is illegible or inaudible in the source. Where
+the difficulty in transcription arises from an identifiable cause, the
+agent attribute signifies the causative agent. The cert attribute
+signifies the degree of certainty ascribed to the transcription of the
+text contained within the <unclear> element. Where the difficulty in
+transcription arises from action (partial deletion, etc.) assignable to
+an identifiable hand, the hand attribute signifies the hand responsible
+for the action. The reason attribute indicates why the material is
+difficult to transcribe. The resp attribute indicates the individual
+responsible for the transcription of the word, phrase, or passage
+contained with the <unclear> element. 
 Used by: model.transcriptionLike model.choicePart 
 Module:  meiEditTrans -->
 <!ENTITY % unclear 'IGNORE'>
@@ -10203,11 +10167,11 @@ Module:  meiEditTrans -->
           reason             CDATA                 #IMPLIED>
 ]]>
 
-<!-- Facsimile                                                      -->
-<!-- doc: Facsimile contains a representation of some written source in the
-form of a set of images rather than as transcribed or encoded text. The
-source attribute may be used to link the collection of images with a
-particular source. 
+<!-- Facsimile -->
+<!-- doc: Facsimile contains a representation of some written source in
+the form of a set of images rather than as transcribed or encoded text.
+The source attribute may be used to link the collection of images with a
+particular source.
 Used by: model.facsimileLike 
 Module:  meiEditTrans -->
 <!ENTITY % facsimile 'IGNORE'>
@@ -10233,7 +10197,7 @@ Module:  meiEditTrans -->
 <!ATTLIST %n.surface;
           %att.common;
           %att.coordinated;
-          start              IDREF                 #IMPLIED>
+          startid            IDREF                 #IMPLIED>
 ]]>
 
 <!-- doc: The zone element defines a rectangular area contained within a
