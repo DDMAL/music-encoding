@@ -30,14 +30,14 @@
          recursive: copy children elements recursively.-->
     <xsl:template name="make-namespace-node">
         <xsl:param name="recursive"/>
-        
+            <xsl:if test="not(contains(@name, '_DUMMY'))">
             <xsl:element name="rng:{local-name(.)}">
                 <xsl:sequence select="@*"/>
                 <!-- recursive-->
                 <xsl:choose>
                     <!-- ON -->
-                    <xsl:when test="$recursive and (not(empty(.)) or text())">
-                        <xsl:for-each select="*">
+                    <xsl:when test="$recursive and *[not(self::text())]">
+                        <xsl:for-each select="*[not(self::text())]">
                             <xsl:call-template name="make-namespace-node">
                                 <xsl:with-param name="recursive" select="true()"/>
                             </xsl:call-template>
@@ -47,9 +47,9 @@
                     <xsl:otherwise>
                         <xsl:value-of select="."/>
                     </xsl:otherwise>
-                </xsl:choose>
+                    </xsl:choose>
             </xsl:element>
-        
+            </xsl:if>
     </xsl:template>
 
 
@@ -174,14 +174,22 @@
             Attributes found in RNG: @name
             Content found in RNG: data|ref|choice|value 
         -->
-        <classSpec type="dt" ident="{@name}">
+        <classSpec type="atts" ident="{@name}">
             <desc>
                 <xsl:value-of select="preceding-sibling::xhtml:div[1]//xhtml:div[@class='desc']/xhtml:p"/>
             </desc>
-            <attList>
-                <xsl:for-each select="ref | empty">
-                    <xsl:call-template name="make-namespace-node"/>
+            <!-- 
+                N.B. ignoring child::empty -> does it make sense to have an empty attribute?
+            -->
+            <xsl:if test="ref">
+                <classes>
+                <xsl:for-each select="ref">
+                    <memberOf key="{@name}"/>
                 </xsl:for-each>
+                </classes>
+            </xsl:if>
+            <xsl:if test="descendant::attribute">
+                <attList>
                 <xsl:for-each select="descendant::attribute">
                     
                     <attDef ident="{@name}">
@@ -189,7 +197,9 @@
                             <xsl:when test="parent::optional">
                                 <xsl:attribute name="usage">opt</xsl:attribute>
                             </xsl:when>
-                            <xsl:when test="parent::define">req</xsl:when>
+                            <xsl:when test="parent::define">
+                                <xsl:attribute name="usage">req</xsl:attribute>
+                            </xsl:when>
                         </xsl:choose>
                         <xsl:choose>
                             <xsl:when test="data | ref">
@@ -233,7 +243,8 @@
                         </xsl:choose>
                     </attDef>
                 </xsl:for-each>
-            </attList>
+                </attList>
+            </xsl:if>
         </classSpec>
     </xsl:template>
     
@@ -241,17 +252,24 @@
     <xsl:template match="//define[starts-with(@name, 'model.')]">
         <!-- 
             Attributes found in RNG: @name
-            Content found in RNG: data|ref|choice|value 
+            Content found in RNG: ref|choice|optional|zeroOrMore
         -->
         <macroSpec type="pe" ident="{@name}">
             <desc>
                 <xsl:value-of select="preceding-sibling::xhtml:div[1]//xhtml:div[@class='desc']/xhtml:p"/>
             </desc>
             <content>
+                <xsl:for-each select="*">
+                    <xsl:call-template name="make-namespace-node">
+                        <xsl:with-param name="recursive" select="true()"/>
+                    </xsl:call-template>
+                </xsl:for-each>
+            </content>
+            <!--<content>
                 <xsl:choose>
                     <xsl:when test="data | ref">
                         <datatype>
-                            <!-- N.B. attributes like @maxoccurs are available here, are they used for lists in PR's rng? -->
+                             N.B. attributes like @maxoccurs are available here, are they used for lists in PR's rng? 
                             <xsl:for-each select="data | ref">
                                 <xsl:call-template name="make-namespace-node">
                                     <xsl:with-param name="recursive"/>
@@ -260,7 +278,7 @@
                         </datatype>
                     </xsl:when>
                     
-                    <!-- N.B. even closed lists can have a <datatype> specified in ODD -->
+                     N.B. even closed lists can have a <datatype> specified in ODD 
                     <xsl:when test="value">
                         <defaultVal><xsl:value-of select="value"/></defaultVal>
                         <valList type="closed">
@@ -275,7 +293,7 @@
                             <xsl:attribute name="type">
                                 <xsl:choose>
                                     <xsl:when test="choice[not(text)]"><xsl:text>closed</xsl:text></xsl:when>
-                                    <!-- not present in attribute definitions... -->
+                                     not present in attribute definitions... 
                                     <xsl:when test="choice[text]"><xsl:text>semi</xsl:text></xsl:when>
                                 </xsl:choose>
                             </xsl:attribute>
@@ -288,7 +306,7 @@
                         </valList>
                     </xsl:when>
                 </xsl:choose>
-            </content>
+                </content>-->
         </macroSpec>
     </xsl:template>
     
@@ -303,14 +321,23 @@
             <desc>
                 <xsl:value-of select="preceding-sibling::xhtml:div[1]//xhtml:div[@class='desc']/xhtml:p"/>
             </desc>
+            <!-- 
+                N.B. ignoring child::empty -> does it make sense to have an empty attribute?
+            -->
+            <xsl:if test="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/ref">
+                <classes>
+                    <xsl:for-each select="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/ref">
+                        <memberOf key="{@name}"/>
+                    </xsl:for-each>
+                </classes>
+            </xsl:if>
+            <xsl:if test="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/descendant::attribute">
             <attList>
                 <!-- Pulled from attlist.{@name} -->
                 <!-- Check combine interleave - meaning? -->
                 <xsl:for-each select="ancestor::grammar//define[@name=concat('attlist.',$element-name)]">
-                    <xsl:for-each select="ref | empty">
-                        <xsl:call-template name="make-namespace-node"/>
-                    </xsl:for-each>
-                    <xsl:for-each select="descendant::attribute">
+                    
+                        <xsl:for-each select="descendant::attribute">
                         
                         <attDef ident="{@name}">
                             <xsl:choose>
@@ -360,9 +387,11 @@
                                 </xsl:when>
                             </xsl:choose>
                         </attDef>
-                    </xsl:for-each>
+                        </xsl:for-each>
                 </xsl:for-each>
             </attList>
+            </xsl:if>
+            
             <content>
                 <!-- Pulled from content.{@name} -->
                 <xsl:for-each select="ancestor::grammar//define[@name=concat('content.',$element-name)]/*">
