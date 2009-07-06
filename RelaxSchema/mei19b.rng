@@ -9,9 +9,10 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.alignment</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>The when attribute indicates a particular kind of correspondence; i.e.,
-          temporal correspondence. It should be used to point to when elements within one
-          or more timeline elements.</xhtml:p>
+        <xhtml:p>The when attribute indicates a particular kind, i.e., temporal,
+          correspondence. It should be used to point to when elements in one or more
+          timeline elements. This class of attributes is unavailable unless the
+          meiLinkAlign module is INCLUDEd.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.alignment">
@@ -29,9 +30,7 @@
           harvest selected data from the MEI file to build a basic catalog record. The
           encoding system from which fields are taken must be specified. When possible,
           subfields as well as fields should be specified, e.g., subfields within MARC
-          fields. A display label for an element can be supplied using the label attribute
-          when a meaningful label cannot be derived by a style sheet from the element name
-          or when a head element is not available.</xhtml:p>
+          fields.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.bibl">
@@ -44,7 +43,10 @@
   <div xml:id="att.color">
     <xhtml:div>
       <xhtml:h1 class="name">att.color</xhtml:h1>
-      <xhtml:div class="desc"/>
+      <xhtml:div class="desc">
+        <xhtml:p>The color attribute is used to indicate visual appearance. Do not confuse
+          this with the musical term 'color' as used in pre-CMN notation.</xhtml:p>
+      </xhtml:div>
     </xhtml:div>
     <define name="att.color">
       <optional>
@@ -60,8 +62,9 @@
       <xhtml:h1 class="name">att.common.anl</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>Common analytical attributes: corresp may be used to point to other
-          events or control events that correspond to this event in some
-          fashion.</xhtml:p>
+          events or control events that correspond to this event in some fashion. When the
+          meiLinkAlign module is INCLUDEd, the when attribute is also a member of this
+          attribute class.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.common.anl">
@@ -78,11 +81,11 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.common</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Common attributes: Each id within a document must have a unique value.
-          The id attribute regularizes the naming of the element and thus facilitates
-          building links between it and other resources. The n attribute may be used to
-          provide a label (name or number) for the element. Its value need not be
-          unique.</xhtml:p>
+        <xhtml:p>Common attributes: Each id attribute within a document must have a unique
+          value. The id attribute regularizes the naming of the element and thus
+          facilitates building links between it and other resources. The n attribute may
+          be used to provide a label (name or number) for the element. While its value
+          need not be unique, it is required to be a single token.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.common">
@@ -103,20 +106,18 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.controlevent</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Control events rely on other events for their existence. For example, a
-          slur/phrase marking must be drawn between or over a group of notes. The next
-          attribute may be used to point to the next control event(s) in a user-defined
-          collection while the prev attribute may point to the previous event(s). The
-          plist (participant list) attribute may contain ID references or xPointer
-          fragment identifiers (depending on how % PLIST is configured) which identify
-          logical events which participate in the control event, e.g., notes under a
-          phrase mark. The staff and layer attributes allow the control event to encode
-          its scope of influence. The tstamp attribute encodes the onset time of a musical
-          feature in terms of musical time, i.e., beats. The tstamp.ges attribute may be
-          used to record the onset time in pulses per quarter note (ppq, MusicXML
-          divisions, or MIDI clicks) since the start of the measure, while the tstamp.real
-          attribute records the onset time as a real-time offset, i.e., HH:MM:SS.ss, since
-          the beginning of the file.</xhtml:p>
+        <xhtml:p>Events which rely on other events for their existence: For example, a
+          slur/phrase marking must be drawn between or over a group of notes. The slur is
+          therefore a control event. The layer and staff attributes allow the control
+          event to express its scope of influence. The plist (participant list) attribute
+          may contain ID references or xPointer fragment identifiers (depending on how %
+          PLIST is configured) that identify logical events that participate in the
+          control event, e.g., notes under a phrase mark. The tstamp attribute encodes the
+          onset time of a musical feature in terms of musical time, i.e., beats. The
+          tstamp.ges attribute may be used to record the onset time in pulses per quarter
+          note (ppq, MusicXML divisions, or MIDI clicks) since the start of the measure,
+          while the tstamp.real attribute records the onset time as a real-time offset,
+          i.e., HH:MM:SS.ss, since the beginning of the file.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.controlevent">
@@ -168,12 +169,11 @@
         <xhtml:p>Attributes common to dates: calendar indicates the system or calendar to
           which the date belongs, for example, Gregorian, Julian, Roman, Mosaic,
           Revolutionary, Islamic; cert indicates the degree of precision to be attributed
-          to the date, e.g. ca., approx, after, before, etc.; from contains the starting
-          point of a date range; notafter should contain an upper boundary for an
-          uncertain date while notbefore should contain a lower boundary, e.g,
-          &amp;lt;date notbefore='1957' notafter='1960'&gt;Feb.
-          5&amp;lt;/date&gt;; reg gives the value of the date in standard ISO
-          form; to contains the end point of a date range.</xhtml:p>
+          to the date. from contains the starting point of a date range; notafter should
+          contain an upper boundary for an uncertain date while notbefore should contain a
+          lower boundary, e.g, &lt;date notbefore='1957' notafter='1960'&gt;Feb.
+          5&lt;/date&gt;; reg gives the value of the date in standard ISO form; to
+          contains the end point of a date range.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.date">
@@ -225,7 +225,7 @@
           supporting the reliability or accuracy of the intervention or interpretation.
           Suggested values include: 'internal', 'external', 'conjecture'. The resp
           attribute indicates responsibility for the identification or content within the
-          element to which it is attached. It must point to one of the identifiers
+          element to which it is attached. It must point to one or more of the identifiers
           declared in the document header, associated with a person asserted as
           responsible for some aspect of the text's creation, transcription, editing, or
           encoding. The source attribute contains a list of one or more pointers
@@ -260,13 +260,13 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.event</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Attributes that apply to all written events, e.g. beam, beatrpt, chord,
+        <xhtml:p>Attributes that apply to all written events, e.g., beam, beatrpt, chord,
           note, etc. The tstamp attribute encodes the onset time of a musical feature in
           terms of musical time, i.e., beats. The tstamp.ges attribute may be used to
           record the onset time in pulses per quarter note (ppq, MusicXML divisions, or
           MIDI clicks) since the start of the measure, while the tstamp.real attribute
-          records the onset time as a real-time offset, i.e., HH:MM:SS.ss, since the
-          beginning of the file.</xhtml:p>
+          records the onset time as a real-time offset, i.e., in HH:MM:SS.ss format, since
+          the beginning of the file.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.event">
@@ -313,8 +313,9 @@
       <xhtml:h1 class="name">att.facsimile</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>All elements subscribing to this class may include one or more ID
-          references to an image or to an image zone which corresponds with the
-          element.</xhtml:p>
+          references to an image or to an image zone which corresponds to the element.
+          This attribute class is unavailable unless the meiFacsimile module is
+          INCLUDEd.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.facsimile">
@@ -379,9 +380,9 @@
       <xhtml:div class="desc">
         <xhtml:p>Linking attributes for external referencing elements: entityref
           references a previously-declared entity which represents a complete document.
-          The href attribute allows the use of an undeclared URI. The fragment attribute
-          allows one to identify one or more sub-parts within the document being pointed
-          to.</xhtml:p>
+          The href attribute allows the use of an previously- undeclared URI. The fragment
+          attribute allows one to identify one or more sub-parts within the document being
+          pointed to.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.link.external">
@@ -407,7 +408,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.link.internal</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Linking attributes for internal referencing elements.</xhtml:p>
+        <xhtml:p>Linking attributes for internal referencing elements: plist contains an
+          ID reference for each of the participants in a collection of elements.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.link.internal">
@@ -445,12 +447,36 @@
     </define>
   </div>
 
+  <div xml:id="att.nextprev">
+    <xhtml:div>
+      <xhtml:h1 class="name">att.nextprev</xhtml:h1>
+      <xhtml:div class="desc">
+        <xhtml:p>The next attribute may be used to point to the next control event(s) in a
+          user-defined collection, while the prev attribute may point to the previous
+          event(s).</xhtml:p>
+      </xhtml:div>
+    </xhtml:div>
+    <define name="att.nextprev">
+      <optional>
+        <attribute name="next">
+          <data type="IDREFS"/>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="prev">
+          <data type="IDREFS"/>
+        </attribute>
+      </optional>
+    </define>
+  </div>
+
   <div xml:id="att.startendid">
     <xhtml:div>
       <xhtml:h1 class="name">att.startendid</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Start and end attributes record the IDs of other elements to which the
-          current element is associated.</xhtml:p>
+        <xhtml:p>These attributes record the IDs of a sequence of elements to which the
+          current element is associated. startid holds a reference to the first element in
+          the sequence, while endid indicates the final element in the sequence.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.startendid">
@@ -473,8 +499,8 @@
       <xhtml:div class="desc">
         <xhtml:p>Attributes common to text elements: The lang attribute should be used to
           identify the language of the word or text phrase marked. Its value must be the
-          identifier of a &lt;language&gt; element supplied in the MEI header of
-          the current document.</xhtml:p>
+          identifier of a language element supplied in the MEI header of the current
+          document.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.lang">
@@ -492,8 +518,8 @@
       <xhtml:div class="desc">
         <xhtml:p>Attributes for elements encoding authorial or scribal intervention when
           transcribing manuscript or similar sources: The hand attribute signifies the
-          hand of the agent which made the intervention. Its value must be the ID of hand
-          element declared in the header. The seq attribute may be used to assign a
+          hand of the agent which made the intervention. Its value must be the ID of a
+          hand element declared in the header. The seq attribute may be used to assign a
           sequence number related to the order in which the encoded features carrying this
           attribute are believed to have occurred.</xhtml:p>
       </xhtml:div>
@@ -517,7 +543,10 @@
       <xhtml:h1 class="name">att.typed</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>Attributes which can be used to classify or subclassify elements in any
-          way</xhtml:p>
+          way: type characterizes the element in some sense, using any convenient
+          classification scheme or typology. The subtype attribute may be used to provide
+          any sub-classification for the element, additional to that given by its type
+          attribute.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.typed">
@@ -538,7 +567,10 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.typography</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Typographical attributes</xhtml:p>
+        <xhtml:p>Typographical attributes: fontfam contains the name of a font- family.
+          fontname records the name of the font. fontsize indicates the size of the font
+          in points. fontstyle records the style of the font, i.e, italic, oblique, or
+          normal. fontweight may be used to indicate bold type.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.typography">
@@ -574,9 +606,10 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.xy</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Some elements may have their exact "output" coordinates recorded: x and y
-          indicate where to place the rendered output. Recording the coordinates of a
-          feature in a facsimile requires the use of the facs attribute.</xhtml:p>
+        <xhtml:p>Output coordinate attributes: Some elements may have their exact *output*
+          coordinates recorded. x and y indicate where to place the rendered output.
+          Recording the coordinates of a feature in a facsimile requires the use of the
+          facs attribute.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.xy">
@@ -596,7 +629,12 @@
   <div xml:id="att.xy.required">
     <xhtml:div>
       <xhtml:h1 class="name">att.xy.required</xhtml:h1>
-      <xhtml:div class="desc"/>
+      <xhtml:div class="desc">
+        <xhtml:p>Output coordinate attributes: Some elements must have their exact
+          *output* coordinates recorded. x and y indicate where to place the rendered
+          output. Recording the coordinates of a feature in a facsimile requires the use
+          of the facs attribute.</xhtml:p>
+      </xhtml:div>
     </xhtml:div>
     <define name="att.xy.required">
       <attribute name="x">
@@ -612,7 +650,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.barline</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: barline uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.barline">
@@ -636,7 +675,17 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.barline</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: The complete attribute allows the encoding of
+          whether the measure preceding this barline matches the prevailing meter: a value
+          of 'c' indicates a metrically complete measure, 'i' indicates a measure with not
+          enough beats, while 'o' is for measures with too many beats. The control
+          attribute indicates whether or not the barline is "controlling"; that is, if it
+          indicates a point of alignment across all the parts. Barlines within a score are
+          usually controlling' that is, they "line up". Barlines within parts may or may
+          not be controlling. When the preceding measure contents indicate a repetition of
+          a earlier measure's contents, the measref attribute may be employed to reference
+          the barline preceding the contents of this earlier measure. The rend attribute
+          records the appearance of the barline.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.barline">
@@ -655,13 +704,13 @@
         </attribute>
       </optional>
       <optional>
-        <attribute name="measref">
-          <data type="IDREF"/>
+        <attribute name="rend">
+          <ref name="data.BARRENDITION"/>
         </attribute>
       </optional>
       <optional>
-        <attribute name="rend">
-          <ref name="data.BARRENDITION"/>
+        <attribute name="measref">
+          <data type="IDREF"/>
         </attribute>
       </optional>
     </define>
@@ -671,7 +720,12 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.barline</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: The barplace attribute records the location of
+          the barline. If takt barlines are to be used, then the taktplace attribute may
+          be used to denote the staff location of the shortened barline. For rendering
+          purposes, some music data systems rely on measure width data. The width
+          attribute allows for the capture of this data in MEI for output back to these
+          systems.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.barline">
@@ -683,7 +737,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.clef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: clef uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.clef">
@@ -707,7 +762,11 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.clef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: The shape and line attributes capture the clef
+          symbol and its location on the staff. The default octave, used when the first
+          note of a measure provides no oct attribute, is set by the octave.default
+          attribute. trans encodes any octave offset included in the clef symbol, such as
+          an '8' above or below the clef.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.clef">
@@ -776,8 +835,7 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.custos</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes: The rend attribute indicates whether hash marks
-          should be rendered between systems. See Read, p. 436, ex. 26-3.</xhtml:p>
+        <xhtml:p>Visual domain attributes:</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.custos">
@@ -789,7 +847,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.dot</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: dot uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.dot">
@@ -813,7 +872,9 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.dot</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: The form attribute records the function of the
+          dot; that is dot of augmentation or dot of division. loc encodes the staff
+          location of the dot.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.dot">
@@ -849,7 +910,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.ending</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: ending uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.ending">
@@ -897,7 +959,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.grpsym</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: grpsym uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.grpsym">
@@ -921,9 +984,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.grpsym</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes: The staves attribute must be used when
-          multiple grpsym elements are present. The label.* attributes should be used
-          instead of n.</xhtml:p>
+        <xhtml:p>Logical domain attributes: symbol specifies the symbol used to group a
+          set of staves.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.grpsym">
@@ -953,7 +1015,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.layer</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: layer uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.layer">
@@ -989,7 +1052,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.layer</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: visible determines if the entire layer is to be
+          displayed.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.layer">
@@ -1001,7 +1065,9 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.layerdef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: Since the layer element carries analytical
+          attributes for the layer, no analysis attributes are defined for
+          layerdef.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.layerdef">
@@ -1013,7 +1079,15 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.ges.layerdef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Gestural domain attributes:</xhtml:p>
+        <xhtml:p>Gestural domain attributes: Setting the grace attribute here provides the
+          possibility of changing all the grace attribute values in a given layer without
+          having to individually change each note's grace attribute value. The midi.*
+          attributes function as default values when creating sounding output:
+          midi.channel sets the default MIDI channel, midi.duty specifies the 'on' part of
+          the duty cycle as a percentage, midi.instr sets the default MIDI instrument
+          number, midi.instrname provides a label for the MIDI instrument, midi.port sets
+          the default MIDI port value, and midi.track sets the default MIDI track
+          number.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.ges.layerdef">
@@ -1025,8 +1099,13 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.layerdef.mensural</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes: The n attribute is provided for explicit layer
-          numbering.</xhtml:p>
+        <xhtml:p>Logical domain attributes: The beam.group attribute contains an example
+          of how beaming (including secondary beams) is to be carried out, e.g.
+          '(4.,4.,4.)' indicates one outer beam per measure with secondary beams broken at
+          each dotted quarter duration. beam.rests determines whether rests are allowed
+          under a beam. A default duration is captured by dur.default for those situations
+          when the first note, rest, chord, etc. in a measure does not have a duration
+          specified. The octave.default attribute behaves in a similar fashion.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.layerdef.mensural">
@@ -1076,7 +1155,15 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.layerdef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: The beam.rend attribute captures whether a beam
+          is feathered and in which direction - 'acc' indicates that the secondary beams
+          get progressively closer together, coming together at the end of the beam, while
+          'rit' means that the secondary beams start at the same point and get
+          progressively more distant. The default value for the slope of beams is recorded
+          in beam.slope. The slur.rend and tie.rend attributes provide default values for
+          the appearance of slurs and ties when this information is not provided on the
+          individual elements. Similarly, the text.* attributes provide default values for
+          text associated with the layer.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.layerdef">
@@ -1088,7 +1175,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.ligature</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: ligature uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.ligature">
@@ -1112,7 +1200,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.ligature</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: The form attribute provides an indication of
+          the function of the ligature.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.ligature">
@@ -1140,7 +1229,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.mensur</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: mensur uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.mensur">
@@ -1164,7 +1254,12 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.mensur</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: The tempus, prolatio, modusmaior, and
+          modusminor attributes specify the relationship between the four principle levels
+          of note value, i.e., the long, breve, semibreve and minim, in mensural notation.
+          Modusminor describes the long-breve relationship, while tempus describes the
+          breve-semibreve, and prolatio the semibreve-minim relationship, respectively.
+          Modusmaior is for the maxima-long relationship.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.mensur">
@@ -1217,7 +1312,15 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.mensur</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: These attributes describe the physical
+          appearance of the mensuration sign/time signature of mensural notation. Sign is
+          the base symbol, while the dot, form, loc (location), orient, size, and slash
+          attributes describe the attributes of the sign. Dot records if a dot is added to
+          the base symbol, form indicates whether the base symbol is written vertically or
+          horizontally, and loc specifies the placement of the base symbol on the staff.
+          Orient describes the rotation or reflection of the base symbol, size its
+          relative size, and slash indicates the number of lines added to it, for example,
+          one slash is added for what we now call 'alla breve'.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.mensur">
@@ -1229,7 +1332,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.proport</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: proport uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.proport">
@@ -1253,7 +1357,10 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.proport</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: These attributes describe augmentation or
+          diminution of the normal value of the notes in mensural notation. Together, num
+          and numbase specify the change as a ratio, e.g., 1:3. Numbase is for the first
+          value in the ratio and numbase the second.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.proport">
@@ -1282,7 +1389,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.part</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: part uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.part">
@@ -1306,8 +1414,7 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.part</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes: The n attribute allows explicit numbering of
-          parts.</xhtml:p>
+        <xhtml:p>Logical domain attributes:</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.part">
@@ -1331,7 +1438,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.parts</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: parts uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.parts">
@@ -1379,7 +1487,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.sb</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: sb uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.sb">
@@ -1403,10 +1512,9 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.sb</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Adding the following attributes: leftmar %data.NUMBER; #IMPLIED rightmar
-          %data.NUMBER; #IMPLIED spacing.staff %data.NUMBER; #IMPLIED to a.log.sb would
-          make it possible to record layout changes without requiring them to be at
-          section boundaries.</xhtml:p>
+        <xhtml:p>Logical domain attributes: Source descriptions in the header may be
+          pointed to by putting their IDs in the source attribute. This allows system
+          breaks from multiple sources to be encoded.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.sb">
@@ -1435,7 +1543,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.score</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: score uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.score">
@@ -1483,9 +1592,7 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.scoredef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes: Since the score element carries analytical
-          attributes for the score, it is unlikely a.anl.scoredef will ever be
-          used.</xhtml:p>
+        <xhtml:p>Analytical domain attributes:</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.scoredef">
@@ -1497,15 +1604,26 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.ges.scoredef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Gestural domain attributes: Definitions and suggested default values:
-          grace do grace notes get time from the current (acc) or previous (unacc) main
-          note? 'acc' midi.channel '1' midi.div MIDI pulses per quarter note '96'
-          midi.duty specifies the 'on' part of the duty cycle as a percentage. '80'
-          midi.instr General MIDI instrument number '1' midi.instrname General MIDI
-          instrument name 'Acoustic Piano' midi.port MIDI port number '1' midi.tempo
-          quarter notes per minute '120' midi.track MIDI track number '1' tempo beats per
-          minute '120' tune.pname name of tuning reference pitch 'a' tune.Hz frequency of
-          tuning reference pitch '440' tune.temper temperament 'equal'</xhtml:p>
+        <xhtml:p>Gestural domain attributes: The values set in these attributes act as
+          score-wide defaults for attributes that are not set in descendant elements. For
+          example, the grace attribute value here applies to all the grace attribute
+          values in the score (or, more accurately, until the next scoredef element)
+          without having to individually set each note's grace attribute value. The midi.*
+          attributes function as default values when creating sounding output:
+          midi.channel sets the default MIDI channel, midi.duty specifies the 'on' part of
+          the duty cycle as a percentage, midi.instr sets the default MIDI instrument
+          number, midi.instrname provides a label for the MIDI instrument, midi.port sets
+          the default MIDI port value, and midi.track sets the default MIDI track number.
+          Tempo in beats (meter signature denominator) per minute can be set using the
+          tempo attribute. The tune.* attributes provide the capability of recording a
+          tuning reference pitch. tune.pname holds the pitch name, such as 'a', while
+          tune.Hz holds a value for cycles per second, i.e., Hertz, and tune.temper
+          provides a label for the tuning system, 'just', for example. Suggested software
+          default values are: grace - 'acc', midi.channel - '1', midi.div - '96',
+          midi.duty - '80', midi.instr - '1' (General MIDI instrument number 1),
+          midi.instrname - 'Acoustic Piano' (General MIDI instrument name), midi.port -
+          '1', midi.tempo - '120', midi.track - '1', tempo - beats per minute '120',
+          tune.pname - 'a', tune.Hz - '440', tune.temper - 'equal'</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.ges.scoredef">
@@ -1517,40 +1635,74 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.scoredef.mensural</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes: beam.group an example of how beaming
-          (including secondary beams) is to be done, e.g. (4.,4.,4.) indicates one outer
-          beam per measure with secondary beams broken at each dotted quarter duration, no
-          default beam.rests should beams include rests shorter than a quarter duration?,
-          'no' clef.line position of the clef, '2' clef.shape clef, 'G' clef.trans octave
-          shift indicated by the clef, '0' dur.default default duration, '4' key.accid
-          tonic accidental, i.e., 's' or 'f', no default key.mode mode, 'major' key.pname
-          tonic pitchname, no default key.sig effective key signature, no default
-          key.sig.mixed key signature contains both sharps and flats, no default
-          meter.count number of beats per measure, top number of the meter sig, no default
-          meter.sym display a symbol, e.g. C, instead of numbers, like 4/4, no default
-          meter.unit beat unit, bottom number of the meter sig, no default octave.default
-          default octave when octave isn't specified on the first note of the measure, '4'
-          trans.diat amount of diatonic pitch shift, e.g. C to C# = 0, C to Db = 1, '0'
-          trans.semi amount of pitch shift in semitones, e.g. C to C# = 1, C to Db = 1,
-          '0'. (Transposition requires both trans.diat and trans.semi.)</xhtml:p>
+        <xhtml:p>Logical domain attributes: The attributes in the class
+          att.log.scoredef.mensural are provided for mensural notation. The tempus,
+          prolatio, modusmaior, and modusminor attributes specify the relationship between
+          the four principle levels of note value, i.e., the long, breve, semibreve and
+          minim, in mensural notation. Modusminor describes the long-breve relationship,
+          while tempus describes the breve- semibreve, and prolatio the semibreve-minim
+          relationship, respectively. Modusmaior is for the maxima-long relationship. The
+          proport.* attributes describe augmentation or diminution of the normal value of
+          the notes in mensural notation. Together, proport.num and proport.numbase
+          specify the change as a ratio, e.g., 1:3. Proport.numbase is for the first value
+          in the ratio and proport.numbase the second. The attributes in the class
+          att.log.scoredef.base are provided for common Western music notation. The values
+          set in these attributes act as score-wide defaults for attributes that are not
+          set in descendant elements. The beam.group attribute provides an example of how
+          beaming (including secondary beams) is to be performed. It can be used to set a
+          default beaming pattern to be used when no beaming is indicated at the event
+          level. beam.group must contain a comma-separated list of time values that add up
+          to a measure, e.g., in 4/4 time '4,4,4,4' indicates each quarter note worth of
+          shorter notes would be beamed together. Parentheses can be used to indicate
+          sub-groupings of secondary beams. For example, '(4.,4.,4.)' in 9/8 meter
+          indicates one outer beam per measure with secondary beams broken at each dotted
+          quarter duration, while a measure of 16th notes in 4/4 with beam.group equal to
+          '(4,4),(4,4)' will result in a primary beam covering all the notes and secondary
+          beams each group of 4 notes. This beaming "directive" can be overridden by using
+          beam elements. If neither beam elements or the beam.group attribute is used,
+          then no beaming is rendered. Beaming can be 'turned off' by setting beam.group
+          to an empty string. The beam.rests attribute indicates whether beams should
+          include rests shorter than a quarter note duration. clef.line contains a default
+          value for the position of the clef, while clef.shape encodes a value for the
+          clef symbol and clef.trans records an octave shift to be applied to the clef.
+          The default duration is held by the dur.default attribute. The value here is
+          used to determine the duration value of the first note in a layer if it has no
+          dur attribute. The key.* attributes encode information regarding the key and key
+          signature. key.pname holds the pitch name of the tonic key, e.g. 'c' for the key
+          of C, while key.accid contains an accidental for the tonic key, if one is
+          required, e.g., if key.pname equals 'c' and key.accid equals 's', then a tonic
+          of C# is indicated. The mode in major-minor tonality is encoded in the key.mode
+          attribute. Key signature is normally indicated by a value in key.sig showing
+          where the key is in the circle of fifths. Mixed key signatures, e.g. those
+          consisting of a mixture of flats and sharps (Read, p. 143, ex. 9-39), and key
+          signatures with unorthodox placement of the accidentals (Read, p. 141) must be
+          indicated by setting the key.sig attribute to 'mixed' and providing explicit
+          keysig info in the key.sig.mixed attribute or in the keysig element. It is
+          intended that key.sig.mixed contain a series of tokens with each token
+          containing pitch name, accidental, and octave, such as 'As4 Cs5 Ef5' that
+          indicate what key accidentals should be rendered and where they should be
+          placed. The number of beats in a measure, that is, the top number of the meter
+          signature, should be captured in the meter.count attribute and the beat unit,
+          that is, the bottom number of the meter signature, should be placed in the
+          meter.unit attribute. If rendering of a meter symbol, such as 'C' for common
+          time, is desired instead of a numerical meter signature, the meter.sym attribute
+          should be used. octave.default functions similarly to dur.default. If the oct
+          attribute isn't given on the first note of a measure, then the value of
+          octave.default is used. The trans.* attributes accommodate transposing scores.
+          The amount of diatonic pitch shift, e.g. C to C# = 0, C to Db = 1, can be
+          recorded in trans.diat, while trans.semi holds the amount of pitch shift in
+          semitones, C to C# = 1, C to Db = 1. Transposition requires both trans.diat and
+          trans.semi attributes in order to distinguish the difference, for example,
+          between a transposition from C to C# and one from C to Db. Suggested software
+          default values: beam.group - empty string, beam.rests - 'no', clef.line - '2',
+          clef.shape - 'G', clef.trans - '0', dur.default - '4', key.accid -empty string,
+          key.mode - 'major', key.pname - empty string, key.sig - empty string,
+          key.sig.mixed - empty string, meter.count - empty string, meter.unit - empty
+          string, meter.sym - empty string, octave.default - '4', trans.diat - '0',
+          trans.semi -'0'.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.scoredef.mensural">
-      <optional>
-        <attribute name="mensur">
-          <ref name="data.MENSURATIONSIGN"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="mensur.dot">
-          <ref name="data.BOOLEAN"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="mensur.slash">
-          <ref name="data.INTEGERPOSITIVE"/>
-        </attribute>
-      </optional>
       <optional>
         <attribute name="modusmaior">
           <choice>
@@ -1684,6 +1836,11 @@
         </attribute>
       </optional>
       <optional>
+        <attribute name="source">
+          <data type="IDREFS"/>
+        </attribute>
+      </optional>
+      <optional>
         <attribute name="trans.diat">
           <ref name="data.NUMBER"/>
         </attribute>
@@ -1712,38 +1869,43 @@
       <xhtml:h1 class="name">att.vis.scoredef</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>Visual domain attributes: Definitions and suggested software default
-          values: mnum.visible are measure numbers visible?, 'no' bar.place placement of
-          barlines, 'norm' beam.rend encodes whether a beam is feathered and in which
-          direction, 'norm' beam.slope default beam slope, Mup uses '1.0, 25.0' clef.color
-          hexadecimal RGB/name color value clef.visible are clefs visible?, 'yes'
-          dynam.dist how far from staff to render dynamic marks, '2' ending.rend where to
-          draw ending marks, 'top' grid.show display chord grids?, 'no' harm.dist how far
-          from staff to render harmony, '2' key.sig.show display key signature?, 'yes'
-          key.sig.showchange display cautionary key signature change?, 'yes' lyric.align
-          alignment of lyrics beneath notes, Mup uses '0.25' lyric.fam font family for
-          lyrics, 'times' lyric.name font name for lyrics, 'rom' lyric.size point size of
-          lyrics, '12' meter.rend display meter normally (3/4), with symbol as denom, or
-          invis, 'norm' meter.sig.showchange display cautionary meter signature change?,
-          'yes' ontheline governs display of notes on a 1-line staff, 'yes' optimize
-          display only those staves with notes?, 'no' ** page.* attributes apply to the
-          entire score/part page.height height of page, '11' page.width width of page,
-          '8.5' page.units real-world measurement (inches, centimeters, millimeters), 'in'
-          page.topmar top page margin, '1' page.botmar bottom page margin, '1'
-          page.leftmar left page margin, '.5' page.rightmar right page margin, '.5'
-          page.panels number of logical pages to place on physical page, '1' page.scale
-          scale printed output by the specified percentage, '100' pedal.rend are piano
-          pedal marks drawn as lines or as terms (e.g. 'Ped.' &amp; '*'), 'term'
-          reh.enclose default look of rehearsal letters/numbers, 'box' slur.rend default
-          look of slurs, 'medium' spacing.packexp note spacing relative to its time value,
-          '0.8' spacing.packfact note spacing of output, '1' spacing.staff minimum amount
-          of space between staves in the same system, '2' spacing.system minimum and
-          maximum amount of space between systems, '12, 20' system.leftmar left system
-          margin relative to page.leftmar, '0' system.rightmar right system margin
-          relative to page.rightmar, '0' system.topmar distance from page's top edge to
-          the first system, used for first page only text.dist how far from staff to
-          render text, '2' text.fam font family for text, 'times' text.nam font name for
-          text, 'rom' text.size point size of text, '12' tie.rend default look of ties,
-          'medium'</xhtml:p>
+          values: bar.place placement of barlines, 'norm' beam.rend encodes whether a beam
+          is feathered and in which direction, 'norm' beam.slope default beam slope, Mup
+          uses '1.0, 25.0' clef.color hexadecimal RGB/name color value clef.visible are
+          clefs visible?, 'yes' dynam.dist how far from staff to render dynamic marks, '2'
+          ending.rend where to draw ending marks, 'top' grid.show display chord grids?,
+          'no' harm.dist how far from staff to render harmony, '2' key.sig.show display
+          key signature?, 'yes' key.sig.showchange display cautionary key signature
+          change?, 'yes' lyric.align alignment of lyrics beneath notes, Mup uses '0.25'
+          lyric.fam font family for lyrics, 'times' lyric.name font name for lyrics, 'rom'
+          lyric.size point size of lyrics, '12' lyric.style font style, e.g., 'ital',
+          'normal', 'oblique', no default lyric.weight weight value, e.g., 'bold', for
+          lyrics, no default meter.rend display meter normally (3/4), with symbol as
+          denom, or invis, 'norm' meter.sig.showchange display cautionary meter signature
+          change?, 'yes' mnum.visible are measure numbers visible?, 'no' multi.number
+          programmatically calculate number of consecutive measures of rest (mrest) and
+          whole measure repeats (mrpt)?, 'no' ontheline governs display of notes on a
+          1-line staff, 'yes' optimize display only those staves with notes?, 'no' **
+          page.* attributes apply to the entire score/part page.height height of page,
+          '11' page.width width of page, '8.5' page.units real-world measurement (inches,
+          centimeters, millimeters), 'in' page.topmar top page margin, '1' page.botmar
+          bottom page margin, '1' page.leftmar left page margin, '.5' page.rightmar right
+          page margin, '.5' page.panels number of logical pages to place on physical page,
+          '1' page.scale scale printed output by the specified percentage, '100'
+          pedal.rend are piano pedal marks drawn as lines or as terms (e.g. 'Ped.'
+          &amp;amp; '*'), 'term' reh.enclose default look of rehearsal
+          letters/numbers, 'box' slur.rend default look of slurs, 'medium' spacing.packexp
+          note spacing relative to its time value, '0.8' spacing.packfact note spacing of
+          output, '1' spacing.staff minimum amount of space between staves in the same
+          system, '2' spacing.system minimum and maximum amount of space between systems,
+          '12, 20' system.leftmar left system margin relative to page.leftmar, '0'
+          system.rightmar right system margin relative to page.rightmar, '0' system.topmar
+          distance from page's top edge to the first system, used for first page only
+          text.dist how far from staff to render text, '2' text.fam font family for text,
+          'times' text.nam font name for text, 'rom' text.size point size of text, '12'
+          text.style font style, e.g., 'ital', 'normal', 'oblique', no default text.weight
+          weight value, e.g., 'bold', for text other than lyrics, no default tie.rend
+          default look of ties, 'medium'</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.scoredef">
@@ -1755,7 +1917,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.section</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: section uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.section">
@@ -1769,7 +1932,7 @@
       <xhtml:div class="desc">
         <xhtml:p>Gestural domain attributes: The expan attribute contains a list of ids of
           child section, ending or app elements. This 'expansion list' indicates how the
-          section should be expanded into its 'through-composed' form. See Read, p. 226
+          section should be expanded into its 'through- composed' form. See Read, p. 226
           (ex. 12-10), 228-229 (ex. 12-16).</xhtml:p>
       </xhtml:div>
     </xhtml:div>
@@ -1806,7 +1969,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.staff</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: staff uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.staff">
@@ -1842,7 +2006,10 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.staff</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: The visible attribute may be used to indicate
+          if a staff should be displayed when the score is rendered. A staff with this
+          attribute set to 'false' should not be included in a sounded
+          rendition.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.staff">
@@ -1854,7 +2021,9 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.staffdef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: Since the staff element carries analytical
+          attributes for the staff, no analysis attributes are defined for
+          staffdef.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.staffdef">
@@ -1866,9 +2035,15 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.ges.staffdef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Gestural domain attributes: Adding tune.pname, tune.Hz, and tune.temper
-          attributes here would allow each staff to establish its own tuning
-          standard.</xhtml:p>
+        <xhtml:p>Gestural domain attributes: Setting the grace attribute here provides the
+          possibility of changing all the grace attribute values in a given layer without
+          having to individually change each note's grace attribute value. The tab.strings
+          attribute lists a written pitch and octave for each open string, e.g. "e3 a3 d4
+          g4 b4 e5" for standard guitar tuning. It should contain the number of tokens
+          indicated by the lines attribute. Chromatic alteration may be indicated with '-'
+          (flat) and '#' (sharp). Double sharps and flats are not permitted. Adding
+          tune.pname, tune.Hz, and tune.temper attributes here would allow each staff to
+          establish its own tuning standard.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.ges.staffdef">
@@ -1880,8 +2055,11 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.staffdef.mensural</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes: The n attribute is provided for explicit staff
-          numbering.</xhtml:p>
+        <xhtml:p>Logical domain attributes: The attributes in the class
+          att.log.scoredef.mensural are provided for mensural notation. The attributes in
+          the class att.log.scoredef.base are provided for common Western music notation.
+          For descriptions of the individual attributes in these classes, see the comments
+          associated with % att.log.scoredef.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.staffdef.mensural">
@@ -2067,15 +2245,11 @@
           number of stafflines. The lines.color attribute is structured; that is, it
           should have the same number of space-separated RGB values as indicated by the
           lines attribute. A line can be made invisible by assigning it the same RGB value
-          as the background, usually white. The tab.strings attribute lists a written
-          pitch and octave for each open string, e.g. "e3 a3 d4 g4 b4 e5" for standard
-          guitar tuning. It should contain the number of tokens indicated by the lines
-          attribute. Chromatic alteration may be indicated with '-' (flat) and '#'
-          (sharp). Double sharps and flats are not permitted. The spacing attribute should
-          be used to record the absolute distance (as opposed to the relative distances
-          recorded in scoredef elements) between this staff and the preceding one in the
-          same system. This value is meaningless for the first staff in a system since the
-          spacing.system attribute indicates the spacing between systems.</xhtml:p>
+          as the background, usually white. The spacing attribute should be used to record
+          the absolute distance (as opposed to the relative distances recorded in scoredef
+          elements) between this staff and the preceding one in the same system. This
+          value is meaningless for the first staff in a system since the spacing.system
+          attribute indicates the spacing between systems.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.staffdef">
@@ -2087,7 +2261,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.staffgrp</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: staffgrp uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.staffgrp">
@@ -2141,7 +2316,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.accid</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: accid uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.accid">
@@ -2165,20 +2341,12 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.accid</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes: %ACCIDENTAL.EXPLICIT is the super-set. The
-          value attribute should really be restricted to the subset given by the form
-          attribute.</xhtml:p>
+        <xhtml:p>Logical domain attributes: If an accidental has an editorial or
+          cautionary function, its function may be captured in the func attribute. The
+          value attribute records the accidental.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.accid">
-      <optional>
-        <attribute name="form">
-          <choice>
-            <value>implicit</value>
-            <value>explicit</value>
-          </choice>
-        </attribute>
-      </optional>
       <optional>
         <attribute name="func">
           <choice>
@@ -2197,7 +2365,12 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.accid</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: The enclose attribute records the characters
+          often used to mark the accidental as having an cautionary or editorial function.
+          The placement of the accidental, either above the staff, below the staff, or in
+          its usual place on the staff, is captured in the place attribute. The ho and vo
+          attributes encode the visual placement of the accidental in terms of interline
+          distance.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.accid">
@@ -2209,7 +2382,11 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.annot</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: The dur.anl attribute records the
+          durational scope of the annotation when it differs from the written values of
+          the participants. The dur.ges attribute (performed duration) may be expressed in
+          several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum
+          *recip values, or MusicXML 'divisions', etc.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.annot">
@@ -2246,19 +2423,10 @@
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.annot">
+      <ref name="att.nextprev"/>
       <optional>
         <attribute name="layer">
           <ref name="data.INTEGERPOSITIVE"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="next">
-          <data type="IDREFS"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="prev">
-          <data type="IDREFS"/>
         </attribute>
       </optional>
       <optional>
@@ -2301,7 +2469,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.artic</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: artic uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.artic">
@@ -2325,7 +2494,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.artic</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: The value attribute records the name of the
+          articulation symbol.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.artic">
@@ -2339,7 +2509,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.artic</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: The character used to enclose an accidental may
+          be recorded in the enclose attribute.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.artic">
@@ -2351,7 +2522,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.clefchange</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: clefchange uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.clefchange">
@@ -2375,7 +2547,11 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.clefchange.base</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: The line attribute records a value for the
+          position of the clef, while shape encodes a value for the clef symbol and trans
+          records an octave shift to be applied to the clef. If the oct attribute isn't
+          given on the first note following the clef change, then the value of
+          octave.default is used.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.clefchange.base">
@@ -2427,7 +2603,10 @@
   <div xml:id="att.anl.dir">
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.dir</xhtml:h1>
-      <xhtml:div class="desc"/>
+      <xhtml:div class="desc">
+        <xhtml:p>Analytical domain attributes: dir uses only common analysis
+          attributes.</xhtml:p>
+      </xhtml:div>
     </xhtml:div>
     <define name="att.anl.dir">
       <empty/>
@@ -2438,7 +2617,10 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.ges.dir</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Gestural domain attributes:</xhtml:p>
+        <xhtml:p>Gestural domain attributes: The dur.ges attribute encodes the gestural
+          duration of the directive when it differs from the logical and visual durations.
+          It may be expressed in several forms, such as measures[s]+ beat[s].beatpart, ppq
+          (MIDI clicks), Humdrum *recip values, or MusicXML 'divisions', etc.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.ges.dir">
@@ -2483,7 +2665,10 @@
   <div xml:id="att.anl.dynam">
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.dynam</xhtml:h1>
-      <xhtml:div class="desc"/>
+      <xhtml:div class="desc">
+        <xhtml:p>Analytical domain attributes: dynam uses only common analysis
+          attributes.</xhtml:p>
+      </xhtml:div>
     </xhtml:div>
     <define name="att.anl.dynam">
       <empty/>
@@ -2494,7 +2679,11 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.ges.dynam</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Gestural domain attributes:</xhtml:p>
+        <xhtml:p>Gestural domain attributes: The dur.ges attribute encodes the gestural
+          duration of the dynamic marking when it differs from the logical and visual
+          durations. It may be expressed in several forms, such as measures[s]+
+          beat[s].beatpart, ppq (MIDI clicks), Humdrum *recip values, or MusicXML
+          'divisions', etc.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.ges.dynam">
@@ -2541,7 +2730,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.pad</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Analytical domain attributes:</xhtml:p>
+        <xhtml:p>Analytical domain attributes: pad uses only common analysis
+          attributes.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.anl.pad">
@@ -2566,7 +2756,8 @@
       <xhtml:h1 class="name">att.log.pad</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>Logical domain attributes: The num attribute is the amount of horizontal
-          space to be added, expressed in inter-line staff units.</xhtml:p>
+          space to be added, expressed in one-half inter-line staff distance
+          units.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.pad">
@@ -2619,7 +2810,7 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.phrase</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes: Phrase may either use tstamp and duration or
+        <xhtml:p>Logical domain attributes: Phrase may either use tstamp and dur or
           startid and endid attributes. It is a semantic error not to specify one of these
           attribute combinations.</xhtml:p>
       </xhtml:div>
@@ -2639,15 +2830,15 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.phrase</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes: The place attribute records general, relative
-          placement only. The bulge or, alternatively, the bezier attribute, describes the
-          shape of the phrase mark. The bulge attribute describes the curve as a set of
-          distance values above or below an imaginary line connecting the endpoints of the
-          curve while the bezier attribute records the placement of Bezier control points
-          as a series of space-separated xy coordinates, eg. 19 45 -32 118. The bulge
-          attribute must contain one or more values of type %NUMBER. The vo attribute is
-          the vertical offset (from its normal position) of the entire rendered phrase
-          mark.</xhtml:p>
+        <xhtml:p>Visual domain attributes: The bulge or, alternatively, the bezier
+          attribute, describes the shape of the phrase mark. The bulge attribute describes
+          the curve as a set of distance values above or below an imaginary line
+          connecting the endpoints of the curve while the bezier attribute records the
+          placement of Bezier control points as a series of space-separated xy
+          coordinates, eg. 19 45 -32 118. The bulge attribute must contain one or more
+          values of type %NUMBER. The vo attribute is the vertical offset (from its normal
+          position) of the entire rendered phrase mark. The rend attribute captures the
+          appearance of the phrase mark.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.phrase">
@@ -2658,7 +2849,10 @@
   <div xml:id="att.anl.space">
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.space</xhtml:h1>
-      <xhtml:div class="desc"/>
+      <xhtml:div class="desc">
+        <xhtml:p>Analytical domain attributes: space uses only common analysis
+          attributes.</xhtml:p>
+      </xhtml:div>
     </xhtml:div>
     <define name="att.anl.space">
       <empty/>
@@ -2669,7 +2863,10 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.ges.space</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Gestural domain attributes:</xhtml:p>
+        <xhtml:p>Gestural domain attributes: The dur.ges attribute encodes the gestural
+          duration of the space when it differs from the logical and visual durations. It
+          may be expressed in several forms, such as measures[s]+ beat[s].beatpart, ppq
+          (MIDI clicks), Humdrum *recip values, or MusicXML 'divisions', etc.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.ges.space">
@@ -2681,7 +2878,13 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.log.space</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Logical domain attributes:</xhtml:p>
+        <xhtml:p>Logical domain attributes: The beam, fermata, and tuplet attributes may
+          be used to indicate the participation of this element in a beam or tuplet or
+          attachment of a fermata to this element. If visual information about these items
+          needs to be recorded, then the elements corresponding to these attributes should
+          be employed. The dots attribute records the number of augmentation dots required
+          by a dotted duration. The duration (in musical terms) of the space may be
+          recorded in the dur attribute.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.log.space">
@@ -2718,7 +2921,9 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.space</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: If the space is 'compressable', i.e., it may be
+          removed by processing software, then the compressable attribute may be
+          used.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.space">
@@ -2729,7 +2934,10 @@
   <div xml:id="att.anl.tempo">
     <xhtml:div>
       <xhtml:h1 class="name">att.anl.tempo</xhtml:h1>
-      <xhtml:div class="desc"/>
+      <xhtml:div class="desc">
+        <xhtml:p>Analytical domain attributes: tempo uses only common analysis
+          attributes.</xhtml:p>
+      </xhtml:div>
     </xhtml:div>
     <define name="att.anl.tempo">
       <empty/>
@@ -2757,7 +2965,7 @@
         <xhtml:p>Logical domain attributes: The dur.vis attribute encodes visual duration.
           (Read, p. 276-281) If logical and visual durations differ, it may be necessary
           to add a dur attribute. Please note that the dur attribute here is expressed in
-          musical time, i.e. beats or other time stamp. Therefore, it is not a true
+          musical time, i.e., beats or other time stamp. Therefore, it is not a true
           duration, but rather a time stamp for the end point of the directive. The
           a.startendid entity is expanded here in order to disallow the end
           attribute.</xhtml:p>
@@ -2766,7 +2974,7 @@
     <define name="att.log.tempo">
       <ref name="att.controlevent"/>
       <optional>
-        <attribute name="start">
+        <attribute name="startid">
           <data type="IDREF"/>
         </attribute>
       </optional>
@@ -2777,7 +2985,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">att.vis.tempo</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Visual domain attributes:</xhtml:p>
+        <xhtml:p>Visual domain attributes: The dur.vis attribute should be used to record
+          the visual duration of the tempo marking in the source.</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="att.vis.tempo">
@@ -3752,7 +3961,7 @@
     <xhtml:div>
       <xhtml:h1 class="name">address</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>A postal address Used by: model.addressLike Module: meiShared</xhtml:p>
+        <xhtml:p>A postal address. Used by: model.addressLike Module: meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="address">
@@ -3789,7 +3998,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">addressline</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Single line of an address Used by: address Module: meiShared</xhtml:p>
+        <xhtml:p>Single line of a postal address. Used by: address Module:
+          meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="addressline">
@@ -3895,9 +4105,9 @@
           or in an external document may be pointed to using the link.common,
           link.internal, or link.external attributes. Alternatively, the observation may
           be included directly within the annot element. The annot element, along with
-          other elements with %att.link.external attributes, may also be used to link/
-          synchronize elements within the MEI file to external media such as images or
-          sound recordings. The ID of the MEI element(s) to be linked from should be
+          other elements with %att.link.external attributes, may also be used to
+          link/synchronize elements within the MEI file to external media such as images
+          or sound recordings. The ID of the MEI element(s) to be linked from should be
           encoded in the plist attribute while the link to the external media may be
           encoded in the href or entityref attributes or in the body of the annotation
           using extref or extptr elements. Used by: model.annotLike Module:
@@ -4009,8 +4219,7 @@
     <xhtml:div>
       <xhtml:h1 class="name">date</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Date contains a date in any format. Used by: model.dateLike Module:
-          meiShared</xhtml:p>
+        <xhtml:p>A date in any format. Used by: model.dateLike Module: meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="date">
@@ -4351,7 +4560,7 @@
       <xhtml:h1 class="name">lb</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>Text line break. The n attribute should be used to record a label for the
-          line, i.e. most likely a line number. See comment on verse element for
+          line, i.e., most likely a line number. See comment on verse element for
           description of func attribute. Used by: model.milestoneLike.text
           model.textphraseLike.limited Module: meiShared</xhtml:p>
       </xhtml:div>
@@ -4407,8 +4616,7 @@
           identifiers or dates, associated with the name, i.e., birth and death in the
           case of persons or creation and dissolution in the case of a corporate entity or
           place. When name parts are needed, use name sub-elements. The recommended values
-          for the type attribute are: pers, corp, place, process. The role attribute may
-          be used to record the function of the person, corporate body, etc. Used by:
+          for the type attribute are: pers, corp, place, process. Used by:
           model.nameLike.agent Module: meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
@@ -4454,7 +4662,7 @@
     <xhtml:div>
       <xhtml:h1 class="name">num</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>A number in any form Used by: model.measurementLike Module:
+        <xhtml:p>A number in any form. Used by: model.measurementLike Module:
           meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
@@ -4607,7 +4815,7 @@
           vocabulary. Don't confuse this element with a figure caption. A caption is text
           primarily intended for display with an illustration. It may or may not function
           as a description of the illustration. Perhaps a better model is
-          (%model.locrefLike;)* with which one could force page- level meta-data to the
+          (%model.locrefLike;)* with which one could force page-level meta-data to the
           header where it could be encoded in notesstmt elements. Used by: pb Module:
           meiShared</xhtml:p>
       </xhtml:div>
@@ -4653,9 +4861,10 @@
       <xhtml:div class="desc">
         <xhtml:p>Special visual rendering of text. A positive value for rotation rotates
           the text in a counter-clockwise fashion, while negative values produce clockwise
-          rotation. The altrend attribute can be used to extend the values of the rend
-          attribute. One or the other of the rend and altrend attributes is required. Used
-          by: model.rendLike Module: meiShared</xhtml:p>
+          rotation. The rend attribute captures the appearance of the text. The altrend
+          attribute can be used to extend the values of the rend attribute. One or the
+          other of the rend and altrend attributes is required. Used by: model.rendLike
+          Module: meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="rend">
@@ -4937,7 +5146,9 @@
     <xhtml:div>
       <xhtml:h1 class="name">custos</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Custos Used by: model.eventLike.common Module: meiShared</xhtml:p>
+        <xhtml:p>Custos or direct. The symbol placed at the end of a staff to indicate the
+          first note of the next staff. Used by: model.eventLike.common Module:
+          meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="custos">
@@ -5154,7 +5365,7 @@
           dynamics, e.g. 'p', 'mf', or 'cresc. poco a poco'. See Read, p. 250-255. The
           hairpin element should be used for graphical dynamic markings. The
           %model.textphraseLike.limited entity is employed here instead of
-          %model.textphrase in order to disallow use of the pb sub-element. Used by:
+          %model.textphrase in order to disallow use of the pb sub- element. Used by:
           model.controleventLike.common Module: meiShared</xhtml:p>
       </xhtml:div>
     </xhtml:div>
@@ -5813,10 +6024,10 @@
         <xhtml:p>The body element contains the actual music data. When the music can be
           broken into high-level, discrete, linear segments, such as movements in the case
           of a symphony, there may be multiple mdiv elements within the body. This is the
-          highest level indication of the structure of the music. The model
-          &amp;lt;!ELEMENT %n.body; (%n.mdiv;)*&gt; allows the body element to be
-          empty, which might be useful in some editing/creation situations. Used by: music
-          Module: meiStructure</xhtml:p>
+          highest level indication of the structure of the music. The declaration of %
+          content.body '(%model.mdivLike;)* allows the body element to be empty, which
+          might be useful in some editing/creation situations. Used by: music Module:
+          meiStructure</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="body">
@@ -5852,11 +6063,11 @@
       <xhtml:h1 class="name">ending</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>Alternative ending. The scoredef element is allowed so that an ending may
-          have its own meta-data without the overhead of child
-          &amp;lt;section&gt;s. Div sub-elements are not allowed within ending in
-          order to avoid collisions with the brackets that are usually displayed over
-          endings. Endings may *not* contain endings. Used by: model.endingLike ending
-          Module: meiStructure</xhtml:p>
+          have its own meta-data without the overhead of child &lt;section&gt;s.
+          Div sub-elements are not allowed within ending in order to avoid collisions with
+          the brackets that are usually displayed over endings. Endings may *not* contain
+          other ending elements. Used by: model.endingLike ending Module:
+          meiStructure</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="ending">
@@ -6058,7 +6269,7 @@
     <xhtml:div>
       <xhtml:h1 class="name">label</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Staff, staffgrp, or grpsym label Used by: model.labelLike Module:
+        <xhtml:p>Staff, staffgrp, or grpsym label. Used by: model.labelLike Module:
           meiStructure</xhtml:p>
       </xhtml:div>
     </xhtml:div>
@@ -6105,12 +6316,14 @@
     <xhtml:div>
       <xhtml:h1 class="name">layer</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Layer (voice). The n attribute should be used to establish a connection
-          back to the appropriate layerdef element. Usually, the topmost layer is "1",
-          next is "2", etc. *regardless of voicing*). If the n attribute is omitted,
-          encoding order is presumed to match the layer order. Of course, if data is
-          supplied for only a subset of layers, the n attribute must be supplied. Used by:
-          model.layerLike Module: meiStructure</xhtml:p>
+        <xhtml:p>Layer (voice). An independent stream of events on a staff. The term
+          'layer' in used in order to avoid confusion between 'voice' and 'voice leading'.
+          The n attribute should be used to establish a connection back to the appropriate
+          layerdef element. Usually, the topmost layer is "1", next is "2", etc.
+          *regardless of voicing*). If the n attribute is omitted, encoding order is
+          presumed to match the layer order. Of course, if data is supplied for only a
+          subset of layers, the n attribute must be supplied. Used by: model.layerLike
+          Module: meiStructure</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="layer">
@@ -6204,19 +6417,15 @@
           directly within the body element because score and part characteristics may
           change from mdiv to mdiv. For example, the 2nd movement of a symphony may
           require different performing forces (and therefore different score and part
-          layout) than the other movements. Another possible model is &amp;lt;!ELEMENT
-          mdiv (score?, parts?, sourcedesc*)&gt; which allows meta-data to accompany
-          an mdiv. However, this creates a dependency between the meiBase DTD and the
-          meiHead DTD. The mdiv may be recursively nested in order to represent music
-          which exhibits this kind of structure. For example, an opera is normally divided
-          into acts, which are in turn divided into scenes. This may be represented by the
-          following markup: &amp;lt;mdiv&gt; &amp;lt;- the opera
-          &amp;lt;mdiv&gt; &amp;lt;- act I &amp;lt;mdiv&gt;
-          &amp;lt;- scene i &amp;lt;mdiv&gt; &amp;lt;- scene ii
-          &amp;lt;/mdiv&gt; &amp;lt;mdiv&gt; &amp;lt;- act II
-          &amp;lt;mdiv&gt; &amp;lt;- scene i &amp;lt;mdiv&gt;
-          &amp;lt;- scene ii &amp;lt;/mdiv&gt; &amp;lt;/mdiv&gt; Used
-          by: body mdiv Module: meiStructure</xhtml:p>
+          layout) than the other movements. The mdiv element may be recursively nested in
+          order to represent music which exhibits this kind of structure. For example, an
+          opera is normally divided into acts, which are in turn divided into scenes. This
+          may be represented by the following markup: &lt;mdiv&gt; &lt;- the
+          opera &lt;mdiv&gt; &lt;- act I &lt;mdiv&gt; &lt;- scene
+          i &lt;mdiv&gt; &lt;- scene ii &lt;/mdiv&gt;
+          &lt;mdiv&gt; &lt;- act II &lt;mdiv&gt; &lt;- scene i
+          &lt;mdiv&gt; &lt;- scene ii &lt;/mdiv&gt;
+          &lt;/mdiv&gt; Used by: body mdiv Module: meiStructure</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="mdiv">
@@ -6543,10 +6752,10 @@
       <xhtml:h1 class="name">sb</xhtml:h1>
       <xhtml:div class="desc">
         <xhtml:p>System break. Allowing staffdef content, i.e., &lt;!ENTITY %
-          content.sb ''&gt; &lt;!ELEMENT %n.sb; (staffdef)*&gt;, here would
-          make it possible to record layout changes without requiring these changes to be
-          made at section boundaries. However, it would also allow meter and key changes,
-          which is probably undesirable. Used by: model.milestoneLike.music Module:
+          content.sb ''&gt;. Allowing staffdef within content.sb would make it
+          possible to record layout changes without requiring these changes to be made at
+          section boundaries. However, it would also allow meter and key changes, which is
+          probably undesirable. Used by: model.milestoneLike.music Module:
           meiStructure</xhtml:p>
       </xhtml:div>
     </xhtml:div>
@@ -6637,7 +6846,20 @@
     <xhtml:div>
       <xhtml:h1 class="name">scoredef</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Container for score meta-information. Used by: model.scoredefLike Module:
+        <xhtml:p>Container for score meta-information. Score-level encoding strategies
+          for: a) alternating meter sig, e.g. 2/4 3/4 in alternating measures (Read, p.
+          164-165) and combined meters (Read, p.166-168): explicitly encode meters, make
+          them invisible, display both meter sigs at the start of the section b) compound
+          meter sig, e.g. 2+3+2/4 (Read, p. 168-170): set meter.count=2+3+2 c) polymeters,
+          e.g. different simultaneous meters (Read, p. 170-173): 1. where barlines
+          coincide, use beaming to elucidate the polymeter 2. where barlines sometimes
+          coincide, break into measures according to a common unit of time, draw barlines
+          where visually required 3. where barlines never coincide, encode as parts only
+          d) mixed meter sig, e.g. 2/4 + 3/16 in the same measure (Read, p. 173-174):
+          encode in common time base, e.g. 11/16, make meter invisible, display both meter
+          sigs at the start of the measure e) fractional meter sig, e.g. 3.5/4 (Read, p.
+          175-177): set meter.count=3.5 The beat count may be displayed as a fraction or
+          as its decimal equivalent. Used by: model.scoredefLike Module:
           meiStructure</xhtml:p>
       </xhtml:div>
     </xhtml:div>
@@ -7194,8 +7416,8 @@
     <xhtml:div>
       <xhtml:h1 class="name">changedesc</xhtml:h1>
       <xhtml:div class="desc">
-        <xhtml:p>Description of a revision. The p element is declared in the meiShared
-          DTD. Used by: change Module: meiHeader</xhtml:p>
+        <xhtml:p>Description of a revision of the MEI file. Used by: change Module:
+          meiHeader</xhtml:p>
       </xhtml:div>
     </xhtml:div>
     <define name="changedesc">
