@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
   <!--
-    This file contains definitions of datatypes.  It should be substituted
-    for the definitions created by Trang from mei19-all-test.dtd.
+    Either a decimal value or a token. The decimal values are limited
+    to .25, .5, .75, or 1, while the token values are restricted to
+    'full'.
   -->
+  <xs:simpleType name="data.BEND.AMOUNT">
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:decimal">
+          <xs:pattern value="1|\.25|\.5|\.75"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="full"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
+  </xs:simpleType>
   <!--
     A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must fall
     between 0 and the numerator of the time signature + 1, where 0
@@ -45,7 +60,7 @@
   <xs:simpleType name="data.INTEGERPOSITIVE">
     <xs:restriction base="xs:positiveInteger"/>
   </xs:simpleType>
-  <!-- ISO date format: YYYYMMDD -->
+  <!-- ISO date formats: -->
   <xs:simpleType name="data.ISODATE">
     <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime">
       <xs:simpleType>
@@ -100,6 +115,15 @@
   <xs:simpleType name="data.NUMBERPOSITIVE">
     <xs:restriction base="xs:decimal">
       <xs:minInclusive value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!--
+    The amount of octave displacement; that is, '8' (as in '8va' for
+    1 octave), '15' (for 2 octaves), or rarely '22' (for 3 octaves).
+  -->
+  <xs:simpleType name="data.OCTAVE.DIS">
+    <xs:restriction base="xs:integer">
+      <xs:pattern value="8|15|22"/>
     </xs:restriction>
   </xs:simpleType>
   <!-- positive decimal number plus '%', i.e., [0-9]+(\.?[0-9]*)?\% -->
@@ -428,11 +452,12 @@
   <xs:simpleType name="data.FONTNAME">
     <xs:restriction base="xs:token"/>
   </xs:simpleType>
-  <!-- Font style (for text) attribute values -->
+  <!-- Font style (for text) attribute values. 'normal' = 'rom' in Mup. -->
   <xs:simpleType name="data.FONTSTYLE">
     <xs:restriction base="xs:token">
       <xs:enumeration value="ital"/>
       <xs:enumeration value="normal"/>
+      <xs:enumeration value="oblique"/>
     </xs:restriction>
   </xs:simpleType>
   <!-- Font weight (for text) attribute values -->

@@ -4,6 +4,9 @@
   <xs:attributeGroup name="att.alignment">
     <xs:attribute name="when" type="xs:IDREFS"/>
   </xs:attributeGroup>
+  <xs:attributeGroup name="att.altsym">
+    <xs:attribute name="altsym" type="xs:IDREF"/>
+  </xs:attributeGroup>
   <xs:attributeGroup name="att.bibl">
     <xs:attribute name="analog"/>
   </xs:attributeGroup>
@@ -37,7 +40,7 @@
   <xs:attributeGroup name="att.crit">
     <xs:attribute name="cause" type="xs:NMTOKEN"/>
     <xs:attribute name="hand" type="xs:IDREF"/>
-    <xs:attribute name="resp" type="xs:IDREF"/>
+    <xs:attribute name="resp" type="xs:IDREFS"/>
     <xs:attribute name="seq" type="data.INTEGERPOSITIVE"/>
     <xs:attribute name="source" type="xs:IDREFS"/>
   </xs:attributeGroup>
@@ -112,6 +115,13 @@
     <xs:attribute name="key" type="xs:NMTOKEN"/>
     <xs:attribute name="reg"/>
   </xs:attributeGroup>
+  <xs:attributeGroup name="att.nextprev">
+    <xs:attribute name="next" type="xs:IDREFS"/>
+    <xs:attribute name="prev" type="xs:IDREFS"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.placement">
+    <xs:attribute name="place" type="data.PLACE"/>
+  </xs:attributeGroup>
   <xs:attributeGroup name="att.startendid">
     <xs:attribute name="endid" type="xs:IDREF"/>
     <xs:attribute name="startid" type="xs:IDREF"/>
@@ -134,10 +144,36 @@
     <xs:attribute name="fontstyle" type="data.FONTSTYLE"/>
     <xs:attribute name="fontweight" type="data.FONTWEIGHT"/>
   </xs:attributeGroup>
-  <xs:attributeGroup name="att.visualoffset">
+  <xs:attributeGroup name="att.visualoffset.ho">
     <xs:attribute name="ho" type="data.VISUALOFFSET"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.to">
     <xs:attribute name="to"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.vo">
     <xs:attribute name="vo" type="data.VISUALOFFSET"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset">
+    <xs:attributeGroup ref="att.visualoffset.ho"/>
+    <xs:attributeGroup ref="att.visualoffset.to"/>
+    <xs:attributeGroup ref="att.visualoffset.vo"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.ho">
+    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
+    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.to">
+    <xs:attribute name="startto"/>
+    <xs:attribute name="endto"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.vo">
+    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
+    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2">
+    <xs:attributeGroup ref="att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="att.visualoffset2.to"/>
+    <xs:attributeGroup ref="att.visualoffset2.vo"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.xy">
     <xs:attribute name="x" type="data.NUMBER"/>
@@ -172,8 +208,8 @@
       </xs:simpleType>
     </xs:attribute>
     <xs:attribute name="control" type="data.BOOLEAN"/>
-    <xs:attribute name="measref" type="xs:IDREF"/>
     <xs:attribute name="rend" type="data.BARRENDITION"/>
+    <xs:attribute name="measref" type="xs:IDREF"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.barline">
     <xs:attributeGroup ref="att.color"/>
@@ -191,8 +227,8 @@
     <xs:attribute name="trans" type="data.CLEFTRAN"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.clef">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.custos">
     <xs:attribute name="oct" use="required" type="data.OCTAVE"/>
@@ -429,9 +465,6 @@
     <xs:attribute name="tune.temper" type="data.TEMPERAMENT"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.scoredef.mensural">
-    <xs:attribute name="mensur" type="data.MENSURATIONSIGN"/>
-    <xs:attribute name="mensur.dot" type="data.BOOLEAN"/>
-    <xs:attribute name="mensur.slash" type="data.INTEGERPOSITIVE"/>
     <xs:attribute name="modusmaior">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -485,6 +518,7 @@
     <xs:attribute name="meter.sym" type="data.METERSIGN"/>
     <xs:attribute name="meter.unit" type="data.NUMBER"/>
     <xs:attribute name="octave.default" type="data.OCTAVE"/>
+    <xs:attribute name="source" type="xs:IDREFS"/>
     <xs:attribute name="trans.diat" type="data.NUMBER"/>
     <xs:attribute name="trans.semi" type="data.NUMBER"/>
   </xs:attributeGroup>
@@ -493,6 +527,8 @@
     <xs:attributeGroup ref="att.log.scoredef.mensural"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.scoredef.mensural">
+    <xs:attribute name="mensur" type="data.MENSURATIONSIGN"/>
+    <xs:attribute name="mensur.dot" type="data.BOOLEAN"/>
     <xs:attribute name="mensur.form">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -512,6 +548,7 @@
       </xs:simpleType>
     </xs:attribute>
     <xs:attribute name="mensur.size" type="data.SIZE"/>
+    <xs:attribute name="mensur.slash" type="data.INTEGERPOSITIVE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.scoredef.base">
     <xs:attribute name="bar.place" type="data.BARPLACE"/>
@@ -841,11 +878,10 @@
     <xs:attribute name="syl"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.uneume">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.visualoffset.ho"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="headshape" type="data.HEADSHAPE"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
     <xs:attribute name="size" type="data.SIZE"/>
     <xs:attribute name="visible" type="data.BOOLEAN"/>
   </xs:attributeGroup>
@@ -853,14 +889,6 @@
     <xs:attributeGroup ref="att.common.anl"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.accid">
-    <xs:attribute name="form">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="implicit"/>
-          <xs:enumeration value="explicit"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
     <xs:attribute name="func">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -873,9 +901,10 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.accid">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.visualoffset.ho"/>
+    <xs:attributeGroup ref="att.visualoffset.vo"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attribute name="enclose" type="data.ENCLOSURE"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
     <xs:attribute name="place">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -885,15 +914,14 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="vo" type="data.VISUALOFFSET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.annot">
+    <xs:attributeGroup ref="att.common.anl"/>
     <xs:attribute name="dur.anl"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.annot">
+    <xs:attributeGroup ref="att.nextprev"/>
     <xs:attribute name="layer" type="data.INTEGERPOSITIVE"/>
-    <xs:attribute name="next" type="xs:IDREFS"/>
-    <xs:attribute name="prev" type="xs:IDREFS"/>
     <xs:attribute name="staff" type="data.INTEGERPOSITIVE"/>
     <xs:attribute name="tstamp" type="data.BEAT"/>
     <xs:attribute name="tstamp.ges" type="data.INTEGERNONNEGATIVE"/>
@@ -929,10 +957,10 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.artic">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attribute name="enclose" type="data.ENCLOSURE"/>
-    <xs:attribute name="place" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.beam">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -982,8 +1010,8 @@
     <xs:attributeGroup ref="att.event"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.beatrpt">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="expand" type="data.BOOLEAN"/>
     <xs:attribute name="rend" use="required">
       <xs:simpleType>
@@ -1003,16 +1031,7 @@
     <xs:attributeGroup ref="att.common.anl"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.ges.bend">
-    <xs:attribute name="amount">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value=".25"/>
-          <xs:enumeration value=".5"/>
-          <xs:enumeration value=".75"/>
-          <xs:enumeration value="1"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
+    <xs:attribute name="amount" type="data.BEND.AMOUNT"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.bend">
     <xs:attributeGroup ref="att.controlevent"/>
@@ -1021,17 +1040,12 @@
   <xs:attributeGroup name="att.vis.bend">
     <xs:attributeGroup ref="att.color"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attributeGroup ref="att.xy2"/>
     <xs:attribute name="bezier" type="xs:NMTOKENS"/>
     <xs:attribute name="bulge" type="xs:NMTOKENS"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
     <xs:attribute name="rend" type="data.CURVERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.breath">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1041,11 +1055,11 @@
     <xs:attributeGroup ref="att.startendid"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.breath">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
-    <xs:attribute name="place" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.btrem">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1061,6 +1075,18 @@
       </xs:simpleType>
     </xs:attribute>
     <xs:attribute name="num" type="data.INTEGERPOSITIVE"/>
+    <xs:attribute name="slash">
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="3"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="5"/>
+          <xs:enumeration value="6"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.btrem">
     <xs:attribute name="num.place" type="data.PLACE"/>
@@ -1092,9 +1118,11 @@
     <xs:attribute name="tuplet" type="data.TUPLET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.chord">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.visualoffset.ho"/>
+    <xs:attributeGroup ref="att.visualoffset.to"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="beam.with" type="data.PLACE"/>
     <xs:attribute name="coloration">
       <xs:simpleType>
@@ -1108,7 +1136,6 @@
     <xs:attribute name="dot.x" type="data.NUMBER"/>
     <xs:attribute name="dot.y" type="data.NUMBER"/>
     <xs:attribute name="headshape" type="data.CLUSTER"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
     <xs:attribute name="size" type="data.SIZE"/>
     <xs:attribute name="slur.dir" type="data.SLURDIRECTION"/>
     <xs:attribute name="slur.rend">
@@ -1135,7 +1162,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="to"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.clefchange">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1150,8 +1176,8 @@
     <xs:attributeGroup ref="att.log.clefchange.base"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.clefchange">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.dir">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1165,13 +1191,11 @@
     <xs:attribute name="dur" type="data.MEASUREBEAT"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.dir">
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="att.visualoffset2.to"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="place" type="data.PLACE"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.dynam">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1186,13 +1210,11 @@
     <xs:attribute name="dur" type="data.MEASUREBEAT"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.dynam">
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="att.visualoffset2.to"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="place" type="data.PLACE"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.fermata">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1205,10 +1227,11 @@
     <xs:attributeGroup ref="att.startendid"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.fermata">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="form">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -1217,7 +1240,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="place" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.ftrem">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1259,15 +1281,10 @@
   <xs:attributeGroup name="att.vis.gliss">
     <xs:attributeGroup ref="att.color"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attributeGroup ref="att.xy2"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
     <xs:attribute name="rend" type="data.LINERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
     <xs:attribute name="text"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.hairpin">
@@ -1291,16 +1308,11 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.hairpin">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attributeGroup ref="att.xy2"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="place" use="required" type="data.PLACE"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
     <xs:attribute name="width" type="data.NUMBER"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.halfmrpt">
@@ -1311,9 +1323,9 @@
     <xs:attribute name="dur" type="data.DURATION"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.halfmrpt">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
     <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="expand" type="data.BOOLEAN"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.harm">
@@ -1329,12 +1341,12 @@
     <xs:attribute name="dur" type="data.MEASUREBEAT"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.harm">
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="att.visualoffset2.to"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
     <xs:attribute name="extender" type="data.BOOLEAN"/>
-    <xs:attribute name="place" type="data.PLACE"/>
     <xs:attribute name="rendgrid">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -1343,8 +1355,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.harppedal">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1421,9 +1431,9 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.harppedal">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="place" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.lyrics">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1433,8 +1443,8 @@
     <xs:attribute name="staff" use="required" type="data.INTEGERPOSITIVE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.lyrics">
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.typography"/>
-    <xs:attribute name="place" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.measure">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1479,8 +1489,8 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.mordent">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attribute name="place" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.mrest">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1494,9 +1504,9 @@
     <xs:attribute name="fermata" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.mrest">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="cutout">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -1510,26 +1520,26 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.mrpt">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="measref" type="xs:IDREF"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.mrpt">
     <xs:attributeGroup ref="att.event"/>
+    <xs:attribute name="measref" type="xs:IDREF"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.mrpt">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="expand" type="data.BOOLEAN"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.mrpt2">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attribute name="measref" type="xs:IDREFS"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.mrpt2">
     <xs:attributeGroup ref="att.event"/>
+    <xs:attribute name="measref" type="xs:IDREFS"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.mrpt2">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="expand" type="data.BOOLEAN"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.mspace">
@@ -1544,9 +1554,9 @@
     <xs:attribute name="fermata" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.mspace">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="cutout">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -1569,7 +1579,7 @@
     <xs:attribute name="num" use="required" type="data.INTEGERPOSITIVE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.multirest">
-    <xs:attribute name="altsym" type="xs:IDREF"/>
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attribute name="block" type="data.BOOLEAN"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.multirpt">
@@ -1581,7 +1591,7 @@
     <xs:attribute name="num" use="required" type="data.INTEGERPOSITIVE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.multirpt">
-    <xs:attribute name="altsym" type="xs:IDREF"/>
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attribute name="expand" type="data.BOOLEAN"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.nota">
@@ -1637,10 +1647,12 @@
     <xs:attribute name="syl"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.nota">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.visualoffset.ho"/>
+    <xs:attributeGroup ref="att.visualoffset.to"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attribute name="accid.ho" type="data.NUMBER"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="beam.with" type="data.PLACE"/>
     <xs:attribute name="coloration">
       <xs:simpleType>
@@ -1657,7 +1669,6 @@
     <xs:attribute name="enclose.accid" type="data.ENCLOSURE"/>
     <xs:attribute name="enclose.note" type="data.ENCLOSURE"/>
     <xs:attribute name="headshape" type="data.HEADSHAPE"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
     <xs:attribute name="size" type="data.SIZE"/>
     <xs:attribute name="slur.dir" type="data.SLURDIRECTION"/>
     <xs:attribute name="slur.rend">
@@ -1684,7 +1695,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="to"/>
     <xs:attribute name="visible" type="data.BOOLEAN"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.note">
@@ -1698,6 +1708,10 @@
     <xs:attribute name="pclass" type="data.PITCHCLASS"/>
     <xs:attribute name="psolfa"/>
   </xs:attributeGroup>
+  <xs:attributeGroup name="att.ges.note.tablature">
+    <xs:attribute name="tab.fret" type="data.FRETNUMBER"/>
+    <xs:attribute name="tab.string" type="data.STRINGNUMBER"/>
+  </xs:attributeGroup>
   <xs:attributeGroup name="att.ges.note.base">
     <xs:attribute name="accid.ges" type="data.ACCIDENTAL.IMPLICIT"/>
     <xs:attribute name="artic.ges" type="data.ARTICULATIONS"/>
@@ -1710,11 +1724,10 @@
     <xs:attribute name="oct.ges" type="data.OCTAVE"/>
     <xs:attribute name="pname.ges" type="data.PITCHNAME.GES"/>
     <xs:attribute name="pnum" type="data.PITCHNUMBER"/>
-    <xs:attribute name="tab.fret" type="data.FRETNUMBER"/>
-    <xs:attribute name="tab.string" type="data.STRINGNUMBER"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.ges.note">
     <xs:attributeGroup ref="att.ges.note.base"/>
+    <xs:attributeGroup ref="att.ges.note.tablature"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.note">
     <xs:attributeGroup ref="att.event"/>
@@ -1733,10 +1746,12 @@
     <xs:attribute name="tuplet" type="data.TUPLET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.note">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.visualoffset.ho"/>
+    <xs:attributeGroup ref="att.visualoffset.to"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attribute name="accid.ho" type="data.NUMBER"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="beam.with" type="data.PLACE"/>
     <xs:attribute name="coloration">
       <xs:simpleType>
@@ -1752,7 +1767,6 @@
     <xs:attribute name="enclose.accid" type="data.ENCLOSURE"/>
     <xs:attribute name="enclose.note" type="data.ENCLOSURE"/>
     <xs:attribute name="headshape" type="data.HEADSHAPE"/>
-    <xs:attribute name="ho" type="data.VISUALOFFSET"/>
     <xs:attribute name="size" type="data.SIZE"/>
     <xs:attribute name="slur.dir" type="data.SLURDIRECTION"/>
     <xs:attribute name="slur.rend">
@@ -1779,7 +1793,6 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="to"/>
     <xs:attribute name="visible" type="data.BOOLEAN"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.octave">
@@ -1798,26 +1811,16 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="dis" use="required">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="8"/>
-          <xs:enumeration value="15"/>
-          <xs:enumeration value="22"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
+    <xs:attribute name="dis" use="required" type="data.OCTAVE.DIS"/>
     <xs:attribute name="dur" type="data.MEASUREBEAT"/>
     <xs:attribute name="place" use="required" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.octave">
     <xs:attributeGroup ref="att.xy"/>
     <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
+    <xs:attributeGroup ref="att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="att.visualoffset2.to"/>
     <xs:attribute name="rend" type="data.LINERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.ossia">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -1844,15 +1847,9 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.pedal">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attribute name="place">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="below"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
     <xs:attribute name="style">
       <xs:simpleType>
         <xs:restriction base="xs:token">
@@ -1874,34 +1871,29 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.phrase">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attributeGroup ref="att.xy2"/>
     <xs:attribute name="bezier" type="xs:NMTOKENS"/>
     <xs:attribute name="bulge" type="xs:NMTOKENS"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="place" type="data.PLACE"/>
     <xs:attribute name="rend" type="data.CURVERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.reh">
     <xs:attributeGroup ref="att.common.anl"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.reh">
-    <xs:attribute name="next" type="xs:IDREFS"/>
-    <xs:attribute name="prev" type="xs:IDREFS"/>
+    <xs:attributeGroup ref="att.nextprev"/>
     <xs:attribute name="staff" use="required" type="data.INTEGERPOSITIVE"/>
-    <xs:attribute name="start" type="xs:IDREF"/>
+    <xs:attribute name="startid" type="xs:IDREF"/>
     <xs:attribute name="tstamp" type="data.BEAT"/>
     <xs:attribute name="tstamp.ges" type="data.INTEGERNONNEGATIVE"/>
     <xs:attribute name="tstamp.real" type="data.ISOTIME"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.reh">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.typography"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
@@ -1911,13 +1903,6 @@
           <xs:enumeration value="box"/>
           <xs:enumeration value="circle"/>
           <xs:enumeration value="none"/>
-        </xs:restriction>
-      </xs:simpleType>
-    </xs:attribute>
-    <xs:attribute name="place">
-      <xs:simpleType>
-        <xs:restriction base="xs:token">
-          <xs:enumeration value="above"/>
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
@@ -1938,10 +1923,10 @@
     <xs:attribute name="tuplet" type="data.TUPLET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.rest">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="beam.with" type="data.PLACE"/>
     <xs:attribute name="dot.ho" type="data.VISUALOFFSET"/>
     <xs:attribute name="dot.vo" type="data.VISUALOFFSET"/>
@@ -1967,10 +1952,10 @@
     <xs:attribute name="tuplet" type="data.TUPLET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.pausa">
+    <xs:attributeGroup ref="att.altsym"/>
     <xs:attributeGroup ref="att.color"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="altsym" type="xs:IDREF"/>
     <xs:attribute name="beam.with" type="data.PLACE"/>
     <xs:attribute name="colored" type="data.BOOLEAN"/>
     <xs:attribute name="dot.ho" type="data.VISUALOFFSET"/>
@@ -1992,19 +1977,14 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.slur">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attributeGroup ref="att.xy2"/>
     <xs:attribute name="bezier" type="xs:NMTOKENS"/>
     <xs:attribute name="bulge" type="xs:NMTOKENS"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
-    <xs:attribute name="place" type="data.PLACE"/>
     <xs:attribute name="rend" type="data.CURVERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.space">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -2072,17 +2052,15 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.tempo">
     <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attribute name="start" type="xs:IDREF"/>
+    <xs:attribute name="startid" type="xs:IDREF"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.tempo">
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="att.visualoffset2.to"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attribute name="dur.vis"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="place" type="data.PLACE"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.tie">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -2095,20 +2073,18 @@
   <xs:attributeGroup name="att.vis.tie">
     <xs:attributeGroup ref="att.color"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
     <xs:attributeGroup ref="att.xy2"/>
     <xs:attribute name="bezier" type="xs:NMTOKENS"/>
     <xs:attribute name="bulge" type="xs:NMTOKENS"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="endvo" type="data.VISUALOFFSET"/>
     <xs:attribute name="rend" type="data.CURVERENDITION"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
-    <xs:attribute name="startvo" type="data.VISUALOFFSET"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.trill">
     <xs:attributeGroup ref="att.common.anl"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ges.trill">
+    <xs:attribute name="dur.ges"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.log.trill">
     <xs:attributeGroup ref="att.controlevent"/>
@@ -2118,13 +2094,11 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.trill">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="att.visualoffset2.to"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="endho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="endto"/>
-    <xs:attribute name="place" type="data.PLACE"/>
-    <xs:attribute name="startho" type="data.VISUALOFFSET"/>
-    <xs:attribute name="startto"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.tuplet">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -2195,13 +2169,13 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="start" type="xs:IDREF"/>
+    <xs:attribute name="startid" type="xs:IDREF"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.turn">
     <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="place" type="data.PLACE"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.anl.verse">
     <xs:attributeGroup ref="att.common.anl"/>
@@ -2212,62 +2186,51 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.vis.verse">
     <xs:attributeGroup ref="att.typography"/>
+    <xs:attributeGroup ref="att.visualoffset.to"/>
+    <xs:attributeGroup ref="att.visualoffset.vo"/>
     <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="to"/>
-    <xs:attribute name="vo" type="data.VISUALOFFSET"/>
   </xs:attributeGroup>
-  <xs:element name="model.addressLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.address">
-          <xs:attributeGroup ref="attlist.address"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.annotLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.annot">
-          <xs:attributeGroup ref="attlist.annot"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.biblLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.bibl">
-          <xs:attributeGroup ref="attlist.bibl"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.dateLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.date">
-          <xs:attributeGroup ref="attlist.date"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.editionLike" abstract="true" substitutionGroup="model.biblPart"/>
-  <xs:element name="model.editorialLike" abstract="true"/>
-  <xs:element name="model.graphicLike" abstract="true">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.graphic"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.identifierLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.identifier">
-          <xs:attributeGroup ref="attlist.identifier"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="model.addressLike">
+    <xs:sequence>
+      <xs:element ref="address"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.annotLike">
+    <xs:sequence>
+      <xs:element ref="annot"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.biblLike">
+    <xs:sequence>
+      <xs:element ref="bibl"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.dateLike">
+    <xs:sequence>
+      <xs:element ref="date"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.editionLike">
+    <xs:sequence>
+      <xs:element ref="edition"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.editorialLike">
+    <xs:choice>
+      <xs:element ref="abbr"/>
+      <xs:element ref="expan"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.graphicLike">
+    <xs:sequence>
+      <xs:element ref="graphic"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.identifierLike">
+    <xs:sequence>
+      <xs:element ref="identifier"/>
+    </xs:sequence>
+  </xs:group>
   <xs:group name="model.lbLike">
     <xs:sequence>
       <xs:element ref="lb"/>
@@ -2279,54 +2242,49 @@
       <xs:element ref="pb"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="model.nameLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.name">
-          <xs:attributeGroup ref="attlist.name"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.noteModifierLike" abstract="true"/>
-  <xs:element name="model.numLike" abstract="true" substitutionGroup="model.measurementLike"/>
-  <xs:element name="model.pLike" abstract="true" substitutionGroup="model.textcomponentLike">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.p">
-          <xs:attributeGroup ref="attlist.p"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.pbLike" abstract="true" substitutionGroup="model.milestoneLike.music">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.pb">
-          <xs:attributeGroup ref="attlist.pb"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.rendLike" abstract="true"/>
-  <xs:element name="model.repositoryLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.repository">
-          <xs:attributeGroup ref="attlist.repository"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.titleLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.title">
-          <xs:attributeGroup ref="attlist.title"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="model.nameLike">
+    <xs:sequence>
+      <xs:element ref="name"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.noteModifierLike">
+    <xs:choice>
+      <xs:element ref="accid"/>
+      <xs:element ref="artic"/>
+      <xs:element ref="dot"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.numLike">
+    <xs:sequence>
+      <xs:element ref="num"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.pLike">
+    <xs:sequence>
+      <xs:element ref="p"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.pbLike">
+    <xs:sequence>
+      <xs:element ref="pb"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.rendLike">
+    <xs:choice>
+      <xs:element ref="rend"/>
+      <xs:element ref="stack"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.repositoryLike">
+    <xs:sequence>
+      <xs:element ref="repository"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.titleLike">
+    <xs:sequence>
+      <xs:element ref="title"/>
+    </xs:sequence>
+  </xs:group>
   <xs:complexType name="model.pgmetaLike">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="fw"/>
@@ -2341,237 +2299,204 @@
       <xs:element minOccurs="0" ref="pgfoot2"/>
     </xs:sequence>
   </xs:group>
-  <xs:element name="model.eventLike.common" abstract="true"/>
-  <xs:element name="model.eventLike.neume-mensural" abstract="true"/>
-  <xs:element name="model.eventLike.mensural-cmn" abstract="true"/>
-  <xs:element name="model.controleventLike.common" abstract="true" substitutionGroup="model.controleventLike"/>
-  <xs:element name="model.keyaccidLike" abstract="true">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.keyaccid"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.keysigLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.keysig">
-          <xs:attributeGroup ref="attlist.keysig"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.backLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.back">
-          <xs:attributeGroup ref="attlist.back"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.divLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.div">
-          <xs:attributeGroup ref="attlist.div"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.frontLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.front">
-          <xs:attributeGroup ref="attlist.front"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.headLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.head">
-          <xs:attributeGroup ref="attlist.head"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.lLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.l">
-          <xs:attributeGroup ref="attlist.l"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.listLike" abstract="true" substitutionGroup="model.textcomponentLike">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.list">
-          <xs:attributeGroup ref="attlist.list"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.quoteLike" abstract="true" substitutionGroup="model.textcomponentLike">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.blockquote">
-          <xs:attributeGroup ref="attlist.blockquote"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.tableLike" abstract="true" substitutionGroup="model.textcomponentLike">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.table">
-          <xs:attributeGroup ref="attlist.table"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.lgLike" abstract="true" substitutionGroup="model.textcomponentLike">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.lg">
-          <xs:attributeGroup ref="attlist.lg"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.labelLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.label">
-          <xs:attributeGroup ref="attlist.label"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.instrdefLike" abstract="true">
-    <xs:complexType>
-      <xs:attributeGroup ref="attlist.instrdef"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.layerLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.layer">
-          <xs:attributeGroup ref="attlist.layer"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.layerdefLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.layerdef">
-          <xs:attributeGroup ref="attlist.layerdef"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.mdivLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.mdiv">
-          <xs:attributeGroup ref="attlist.mdiv"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.milestoneLike.music" abstract="true"/>
+  <xs:group name="model.eventLike.common">
+    <xs:choice>
+      <xs:element ref="clefchange"/>
+      <xs:element ref="custos"/>
+      <xs:element ref="pad"/>
+      <xs:element ref="space"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.eventLike.neume-mensural">
+    <xs:choice>
+      <xs:element ref="ligature"/>
+      <xs:element ref="mensurchange"/>
+      <xs:element ref="proportchange"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.eventLike.mensural-cmn">
+    <xs:choice>
+      <xs:element ref="barline"/>
+      <xs:element ref="keychange"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.controleventLike.common">
+    <xs:choice>
+      <xs:element ref="dir"/>
+      <xs:element ref="dynam"/>
+      <xs:element ref="phrase"/>
+      <xs:element ref="tempo"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.keyaccidLike">
+    <xs:sequence>
+      <xs:element ref="keyaccid"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.keysigLike">
+    <xs:sequence>
+      <xs:element ref="keysig"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.backLike">
+    <xs:sequence>
+      <xs:element ref="back"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.divLike">
+    <xs:sequence>
+      <xs:element ref="div"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.frontLike">
+    <xs:sequence>
+      <xs:element ref="front"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.headLike">
+    <xs:sequence>
+      <xs:element ref="head"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.lLike">
+    <xs:sequence>
+      <xs:element ref="l"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.listLike">
+    <xs:sequence>
+      <xs:element ref="list"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.quoteLike">
+    <xs:sequence>
+      <xs:element ref="blockquote"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.tableLike">
+    <xs:sequence>
+      <xs:element ref="table"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.lgLike">
+    <xs:sequence>
+      <xs:element ref="lg"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.labelLike">
+    <xs:sequence>
+      <xs:element ref="label"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.endingLike">
+    <xs:sequence>
+      <xs:element ref="ending"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.instrdefLike">
+    <xs:sequence>
+      <xs:element ref="instrdef"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.layerLike">
+    <xs:sequence>
+      <xs:element ref="layer"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.layerdefLike">
+    <xs:sequence>
+      <xs:element ref="layerdef"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.mdivLike">
+    <xs:sequence>
+      <xs:element ref="mdiv"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.milestoneLike.music">
+    <xs:choice>
+      <xs:group ref="model.pbLike"/>
+      <xs:element ref="sb"/>
+    </xs:choice>
+  </xs:group>
   <xs:group name="model.musicPart">
     <xs:sequence>
-      <xs:element minOccurs="0" ref="model.frontLike"/>
+      <xs:group minOccurs="0" ref="model.frontLike"/>
       <xs:choice minOccurs="0">
         <xs:element ref="body"/>
         <xs:element ref="group"/>
       </xs:choice>
-      <xs:element minOccurs="0" ref="model.backLike"/>
+      <xs:group minOccurs="0" ref="model.backLike"/>
     </xs:sequence>
   </xs:group>
-  <xs:element name="model.partLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.part">
-          <xs:attributeGroup ref="attlist.part"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.partsLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.parts">
-          <xs:attributeGroup ref="attlist.parts"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.scoreLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.score">
-          <xs:attributeGroup ref="attlist.score"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.staffdefLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.staffdef">
-          <xs:attributeGroup ref="attlist.staffdef"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.staffgrpLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.staffgrp">
-          <xs:attributeGroup ref="attlist.staffgrp"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.nameLike.agent" abstract="true"/>
-  <xs:element name="model.nameLike.geogname" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.geogname">
-          <xs:attributeGroup ref="attlist.geogname"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="model.partLike">
+    <xs:sequence>
+      <xs:element ref="part"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.partsLike">
+    <xs:sequence>
+      <xs:element ref="parts"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.scoreLike">
+    <xs:sequence>
+      <xs:element ref="score"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.sectionLike">
+    <xs:sequence>
+      <xs:element ref="section"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.staffLike">
+    <xs:sequence>
+      <xs:element ref="staff"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.staffdefLike">
+    <xs:sequence>
+      <xs:element ref="staffdef"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.staffgrpLike">
+    <xs:sequence>
+      <xs:element ref="staffgrp"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.nameLike.agent">
+    <xs:choice>
+      <xs:element ref="corpname"/>
+      <xs:element ref="persname"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.nameLike.geogname">
+    <xs:sequence>
+      <xs:element ref="geogname"/>
+    </xs:sequence>
+  </xs:group>
   <xs:group name="model.nameLike.place">
     <xs:choice>
       <xs:element ref="geogname"/>
-      <xs:element ref="model.repositoryLike"/>
+      <xs:group ref="model.repositoryLike"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="model.nameLike.label" abstract="true"/>
-  <xs:element name="model.figureLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.fig">
-          <xs:attributeGroup ref="attlist.fig"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.captionLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.caption">
-          <xs:attributeGroup ref="attlist.caption"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="model.nameLike.label">
+    <xs:choice>
+      <xs:element ref="periodname"/>
+      <xs:element ref="stylename"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.figureLike">
+    <xs:sequence>
+      <xs:element ref="fig"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.captionLike">
+    <xs:sequence>
+      <xs:element ref="caption"/>
+    </xs:sequence>
+  </xs:group>
   <xs:complexType name="model.availabilityPart">
     <xs:sequence>
       <xs:sequence minOccurs="0" maxOccurs="unbounded">
@@ -2585,16 +2510,20 @@
       <xs:element minOccurs="0" ref="sysreq"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="model.biblPart" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.edition">
-          <xs:attributeGroup ref="attlist.edition"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.editorialdeclPart" abstract="true"/>
+  <xs:group name="model.biblPart">
+    <xs:sequence>
+      <xs:group ref="model.editionLike"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.editorialdeclPart">
+    <xs:choice>
+      <xs:element ref="correction"/>
+      <xs:element ref="interpretation"/>
+      <xs:element ref="normalization"/>
+      <xs:element ref="segmentation"/>
+      <xs:element ref="stdvals"/>
+    </xs:choice>
+  </xs:group>
   <xs:complexType name="model.encodingPart">
     <xs:sequence>
       <xs:element minOccurs="0" ref="appinfo"/>
@@ -2616,63 +2545,89 @@
       <xs:element ref="ptr"/>
     </xs:sequence>
   </xs:group>
-  <xs:element name="model.measurementLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.num">
-          <xs:attributeGroup ref="attlist.num"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.lyricsLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.lyrics">
-          <xs:attributeGroup ref="attlist.lyrics"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.sylLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.syl">
-          <xs:attributeGroup ref="attlist.syl"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.verseLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.verse">
-          <xs:attributeGroup ref="attlist.verse"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.ornamentLike.cmn" abstract="true" substitutionGroup="model.controleventLike.cmn"/>
+  <xs:group name="model.measurementLike">
+    <xs:sequence>
+      <xs:group ref="model.numLike"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.lyricsLike">
+    <xs:sequence>
+      <xs:element ref="lyrics"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.sylLike">
+    <xs:sequence>
+      <xs:element ref="syl"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.verseLike">
+    <xs:sequence>
+      <xs:element ref="verse"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.ornamentLike.cmn">
+    <xs:choice>
+      <xs:element ref="mordent"/>
+      <xs:element ref="trill"/>
+      <xs:element ref="turn"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.syllableLike">
+    <xs:sequence>
+      <xs:element ref="syllable"/>
+    </xs:sequence>
+  </xs:group>
   <xs:group name="model.neumeModifierLike">
     <xs:choice>
       <xs:element ref="accid"/>
       <xs:element ref="artic"/>
-      <xs:element ref="model.verseLike"/>
+      <xs:group ref="model.verseLike"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="model.eventLike.neume" abstract="true"/>
-  <xs:element name="model.eventLike.mensural" abstract="true"/>
-  <xs:element name="model.measureLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.measure">
-          <xs:attributeGroup ref="attlist.measure"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.controleventLike.instruments" abstract="true" substitutionGroup="model.controleventLike.cmn"/>
-  <xs:element name="model.controleventLike.cmn" abstract="true" substitutionGroup="model.controleventLike"/>
+  <xs:group name="model.eventLike.neume">
+    <xs:choice>
+      <xs:element ref="ineume"/>
+      <xs:element ref="uneume"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.eventLike.mensural">
+    <xs:choice>
+      <xs:element ref="nota"/>
+      <xs:element ref="pausa"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.measureLike">
+    <xs:sequence>
+      <xs:element ref="measure"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.ossiaLike">
+    <xs:sequence>
+      <xs:element ref="ossia"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.controleventLike.instruments">
+    <xs:choice>
+      <xs:element ref="harppedal"/>
+      <xs:element ref="pedal"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.controleventLike.cmn">
+    <xs:choice>
+      <xs:element ref="arpeg"/>
+      <xs:element ref="beamspan"/>
+      <xs:element ref="breath"/>
+      <xs:element ref="fermata"/>
+      <xs:element ref="hairpin"/>
+      <xs:element ref="octave"/>
+      <xs:group ref="model.ornamentLike.cmn"/>
+      <xs:element ref="reh"/>
+      <xs:element ref="slur"/>
+      <xs:group ref="model.controleventLike.instruments"/>
+      <xs:element ref="tie"/>
+      <xs:element ref="tupletspan"/>
+    </xs:choice>
+  </xs:group>
   <xs:group name="model.eventLike.cmn">
     <xs:choice>
       <xs:element ref="beam"/>
@@ -2688,64 +2643,76 @@
       <xs:element ref="tuplet"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="model.eventLike.cmn.measureFilling" abstract="true"/>
-  <xs:element name="model.chordtableLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.chordtable">
-          <xs:attributeGroup ref="attlist.chordtable"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.harmLike" abstract="true" substitutionGroup="model.controleventLike">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.harm">
-          <xs:attributeGroup ref="attlist.harm"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.graphicprimitiveLike" abstract="true"/>
-  <xs:element name="model.symboltableLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.symboltable">
-          <xs:attributeGroup ref="attlist.symboltable"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.apparatusLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.app">
-          <xs:attributeGroup ref="attlist.app"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.midiLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.midi">
-          <xs:attributeGroup ref="attlist.midi"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.frontPart" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.titlepage">
-          <xs:attributeGroup ref="attlist.titlepage"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.transcriptionLike" abstract="true"/>
-  <xs:element name="model.editLike" abstract="true"/>
+  <xs:group name="model.eventLike.cmn.measureFilling">
+    <xs:choice>
+      <xs:element ref="mrest"/>
+      <xs:element ref="mrpt"/>
+      <xs:element ref="mrpt2"/>
+      <xs:element ref="mspace"/>
+      <xs:element ref="multirest"/>
+      <xs:element ref="multirpt"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.chordtableLike">
+    <xs:sequence>
+      <xs:element ref="chordtable"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.harmLike">
+    <xs:sequence>
+      <xs:element ref="harm"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.graphicprimitiveLike">
+    <xs:choice>
+      <xs:element ref="curve"/>
+      <xs:element ref="line"/>
+      <xs:element ref="symbol"/>
+      <xs:element ref="anchoredtext"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.symboltableLike">
+    <xs:sequence>
+      <xs:element ref="symboltable"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.apparatusLike">
+    <xs:sequence>
+      <xs:element ref="app"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.midiLike">
+    <xs:sequence>
+      <xs:element ref="midi"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.frontPart">
+    <xs:sequence>
+      <xs:element ref="titlepage"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.transcriptionLike">
+    <xs:choice>
+      <xs:element ref="add"/>
+      <xs:element ref="corr"/>
+      <xs:element ref="damage"/>
+      <xs:element ref="del"/>
+      <xs:element ref="orig"/>
+      <xs:element ref="reg"/>
+      <xs:element ref="restore"/>
+      <xs:element ref="sic"/>
+      <xs:element ref="supplied"/>
+      <xs:element ref="unclear"/>
+    </xs:choice>
+  </xs:group>
+  <xs:group name="model.editLike">
+    <xs:choice>
+      <xs:element ref="choice"/>
+      <xs:element ref="handshift"/>
+      <xs:element ref="gap"/>
+      <xs:element ref="subst"/>
+    </xs:choice>
+  </xs:group>
   <xs:group name="model.choicePart">
     <xs:choice>
       <xs:element ref="corr"/>
@@ -2753,27 +2720,19 @@
       <xs:element ref="reg"/>
       <xs:element ref="sic"/>
       <xs:element ref="unclear"/>
-      <xs:element ref="model.editorialLike"/>
+      <xs:group ref="model.editorialLike"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="model.facsimileLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.facsimile">
-          <xs:attributeGroup ref="attlist.facsimile"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="model.alignLike" abstract="true">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="content.timeline">
-          <xs:attributeGroup ref="attlist.timeline"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
+  <xs:group name="model.facsimileLike">
+    <xs:sequence>
+      <xs:element ref="facsimile"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.alignLike">
+    <xs:sequence>
+      <xs:element ref="timeline"/>
+    </xs:sequence>
+  </xs:group>
   <xs:group name="model.headerPart">
     <xs:sequence>
       <xs:element minOccurs="0" ref="encodingdesc"/>
@@ -2792,7 +2751,7 @@
       <xs:element ref="physloc"/>
       <xs:element ref="provenance"/>
       <xs:element ref="repository"/>
-      <xs:element ref="model.frontPart"/>
+      <xs:group ref="model.frontPart"/>
       <xs:element ref="treatmenthist"/>
       <xs:element ref="treatmentsched"/>
     </xs:choice>
@@ -2806,10 +2765,10 @@
   </xs:complexType>
   <xs:group name="model.pubstmtPart">
     <xs:choice>
-      <xs:element ref="model.nameLike.geogname"/>
-      <xs:element ref="model.addressLike"/>
+      <xs:group ref="model.nameLike.geogname"/>
+      <xs:group ref="model.addressLike"/>
       <xs:element ref="respstmt"/>
-      <xs:element ref="model.dateLike"/>
+      <xs:group ref="model.dateLike"/>
       <xs:element ref="identifier"/>
       <xs:element ref="availability"/>
     </xs:choice>
@@ -2817,65 +2776,73 @@
   <xs:group name="model.textphraseLike">
     <xs:choice>
       <xs:group ref="model.locrefLike"/>
-      <xs:element ref="model.addressLike"/>
-      <xs:element ref="model.annotLike"/>
-      <xs:element ref="model.biblLike"/>
-      <xs:element ref="model.editorialLike"/>
-      <xs:element ref="model.nameLike"/>
-      <xs:element ref="model.nameLike.agent"/>
+      <xs:group ref="model.addressLike"/>
+      <xs:group ref="model.annotLike"/>
+      <xs:group ref="model.biblLike"/>
+      <xs:group ref="model.editorialLike"/>
+      <xs:group ref="model.nameLike"/>
+      <xs:group ref="model.nameLike.agent"/>
       <xs:group ref="model.nameLike.place"/>
-      <xs:element ref="model.nameLike.label"/>
-      <xs:element ref="model.dateLike"/>
-      <xs:element ref="model.rendLike"/>
-      <xs:element ref="model.measurementLike"/>
-      <xs:element ref="model.titleLike"/>
-      <xs:element ref="model.identifierLike"/>
-      <xs:element ref="model.figureLike"/>
+      <xs:group ref="model.nameLike.label"/>
+      <xs:group ref="model.dateLike"/>
+      <xs:group ref="model.rendLike"/>
+      <xs:group ref="model.measurementLike"/>
+      <xs:group ref="model.titleLike"/>
+      <xs:group ref="model.identifierLike"/>
+      <xs:group ref="model.figureLike"/>
       <xs:group ref="model.milestoneLike.text"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.textphraseLike.limited">
     <xs:choice>
       <xs:group ref="model.locrefLike"/>
-      <xs:element ref="model.addressLike"/>
-      <xs:element ref="model.biblLike"/>
-      <xs:element ref="model.editorialLike"/>
-      <xs:element ref="model.nameLike"/>
-      <xs:element ref="model.nameLike.agent"/>
+      <xs:group ref="model.addressLike"/>
+      <xs:group ref="model.biblLike"/>
+      <xs:group ref="model.editorialLike"/>
+      <xs:group ref="model.nameLike"/>
+      <xs:group ref="model.nameLike.agent"/>
       <xs:group ref="model.nameLike.place"/>
-      <xs:element ref="model.nameLike.label"/>
-      <xs:element ref="model.dateLike"/>
-      <xs:element ref="model.rendLike"/>
-      <xs:element ref="model.measurementLike"/>
-      <xs:element ref="model.titleLike"/>
-      <xs:element ref="model.identifierLike"/>
-      <xs:element ref="model.figureLike"/>
+      <xs:group ref="model.nameLike.label"/>
+      <xs:group ref="model.dateLike"/>
+      <xs:group ref="model.rendLike"/>
+      <xs:group ref="model.measurementLike"/>
+      <xs:group ref="model.titleLike"/>
+      <xs:group ref="model.identifierLike"/>
+      <xs:group ref="model.figureLike"/>
       <xs:group ref="model.lbLike"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.paracontentPart">
     <xs:choice>
-      <xs:element ref="model.quoteLike"/>
-      <xs:element ref="model.listLike"/>
-      <xs:element ref="model.tableLike"/>
+      <xs:group ref="model.quoteLike"/>
+      <xs:group ref="model.listLike"/>
+      <xs:group ref="model.tableLike"/>
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="model.textcomponentLike" abstract="true"/>
+  <xs:group name="model.textcomponentLike">
+    <xs:choice>
+      <xs:group ref="model.quoteLike"/>
+      <xs:group ref="model.listLike"/>
+      <xs:group ref="model.pLike"/>
+      <xs:group ref="model.tableLike"/>
+      <xs:group ref="model.lgLike"/>
+    </xs:choice>
+  </xs:group>
   <xs:group name="model.Incl">
     <xs:choice>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.divLike"/>
-      <xs:element ref="model.milestoneLike.music"/>
+      <xs:group ref="model.apparatusLike"/>
+      <xs:group ref="model.divLike"/>
+      <xs:group ref="model.milestoneLike.music"/>
       <xs:element ref="scoredef"/>
       <xs:element ref="staffdef"/>
       <xs:element ref="staffgrp"/>
-      <xs:element ref="model.annotLike"/>
-      <xs:element ref="model.graphicprimitiveLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.annotLike"/>
+      <xs:group ref="model.graphicprimitiveLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:group>
   <xs:complexType name="model.clefchangePart">
@@ -2883,83 +2850,100 @@
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="clef"/>
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="model.staffdefPart.multiplyDefinable" abstract="true"/>
+  <xs:group name="model.staffdefPart.multiplyDefinable">
+    <xs:choice>
+      <xs:element ref="clef"/>
+      <xs:element ref="mensur"/>
+      <xs:element ref="proport"/>
+    </xs:choice>
+  </xs:group>
   <xs:group name="model.eventLike">
     <xs:choice>
-      <xs:element ref="model.eventLike.common"/>
-      <xs:element ref="model.eventLike.neume"/>
-      <xs:element ref="model.eventLike.neume-mensural"/>
-      <xs:element ref="model.eventLike.mensural"/>
-      <xs:element ref="model.eventLike.mensural-cmn"/>
+      <xs:group ref="model.eventLike.common"/>
+      <xs:group ref="model.eventLike.neume"/>
+      <xs:group ref="model.eventLike.neume-mensural"/>
+      <xs:group ref="model.eventLike.mensural"/>
+      <xs:group ref="model.eventLike.mensural-cmn"/>
       <xs:group ref="model.eventLike.cmn"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="model.controleventLike" abstract="true"/>
+  <xs:group name="model.controleventLike">
+    <xs:choice>
+      <xs:group ref="model.controleventLike.common"/>
+      <xs:group ref="model.controleventLike.cmn"/>
+      <xs:group ref="model.harmLike"/>
+    </xs:choice>
+  </xs:group>
   <xs:group name="model.layerPart">
     <xs:choice>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="model.verseLike"/>
-      <xs:element ref="model.sylLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.verseLike"/>
+      <xs:group ref="model.sylLike"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.syllablePart">
     <xs:choice>
-      <xs:element ref="model.sylLike"/>
+      <xs:group ref="model.sylLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="model.verseLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.verseLike"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.staffPart">
     <xs:choice>
-      <xs:element ref="model.layerLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="syllable"/>
+      <xs:group ref="model.layerLike"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.syllableLike"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.measurePart">
     <xs:choice>
-      <xs:element ref="staff"/>
-      <xs:element ref="ossia"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.ossiaLike"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.sectionPart">
     <xs:choice>
-      <xs:element ref="section"/>
-      <xs:element ref="ending"/>
-      <xs:element ref="model.measureLike"/>
-      <xs:element ref="staff"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.endingLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="model.scorePart" abstract="true"/>
+  <xs:group name="model.scorePart">
+    <xs:choice>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.endingLike"/>
+    </xs:choice>
+  </xs:group>
   <xs:group name="model.rdgPart">
     <xs:choice>
       <xs:group ref="model.sectionPart"/>
-      <xs:element ref="ossia"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.layerLike"/>
-      <xs:element ref="syllable"/>
-      <xs:element ref="model.sylLike"/>
+      <xs:group ref="model.ossiaLike"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.layerLike"/>
+      <xs:group ref="model.syllableLike"/>
+      <xs:group ref="model.sylLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="model.verseLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.verseLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
     </xs:choice>
   </xs:group>
-  <xs:element name="abbr" substitutionGroup="model.editorialLike">
+  <xs:element name="abbr">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.abbr">
@@ -2971,8 +2955,8 @@
   <xs:complexType name="content.abbr" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.abbr">
@@ -2984,7 +2968,15 @@
     <xs:attributeGroup ref="att.typed"/>
     <xs:attribute name="expan"/>
   </xs:attributeGroup>
-  <xs:element name="address" substitutionGroup="model.addressLike"/>
+  <xs:element name="address">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.address">
+          <xs:attributeGroup ref="attlist.address"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.address">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="addressline"/>
@@ -3007,8 +2999,8 @@
   <xs:complexType name="content.addressline" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.addressline">
@@ -3016,7 +3008,7 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="anchoredtext" substitutionGroup="model.graphicprimitiveLike">
+  <xs:element name="anchoredtext">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.anchoredtext">
@@ -3028,8 +3020,8 @@
   <xs:complexType name="content.anchoredtext" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.anchoredtext">
@@ -3041,13 +3033,21 @@
     <xs:attributeGroup ref="att.xy.required"/>
     <xs:attribute name="startid" type="xs:IDREF"/>
   </xs:attributeGroup>
-  <xs:element name="annot" substitutionGroup="model.annotLike"/>
+  <xs:element name="annot">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.annot">
+          <xs:attributeGroup ref="attlist.annot"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.annot" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.annot">
@@ -3063,10 +3063,18 @@
     <xs:attribute name="resp" type="xs:IDREF"/>
     <xs:attribute name="source" type="xs:IDREFS"/>
   </xs:attributeGroup>
-  <xs:element name="bibl" substitutionGroup="model.biblLike"/>
+  <xs:element name="bibl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.bibl">
+          <xs:attributeGroup ref="attlist.bibl"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.bibl" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.biblPart"/>
+      <xs:group ref="model.biblPart"/>
       <xs:group ref="model.textphraseLike"/>
     </xs:choice>
   </xs:complexType>
@@ -3077,7 +3085,15 @@
     <xs:attributeGroup ref="att.link.common"/>
     <xs:attributeGroup ref="att.link.external"/>
   </xs:attributeGroup>
-  <xs:element name="date" substitutionGroup="model.dateLike"/>
+  <xs:element name="date">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.date">
+          <xs:attributeGroup ref="attlist.date"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.date" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
   </xs:complexType>
@@ -3088,7 +3104,15 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="edition" substitutionGroup="model.editionLike"/>
+  <xs:element name="edition">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.edition">
+          <xs:attributeGroup ref="attlist.edition"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.edition" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
   </xs:complexType>
@@ -3096,7 +3120,7 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
   </xs:attributeGroup>
-  <xs:element name="expan" substitutionGroup="model.editorialLike">
+  <xs:element name="expan">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.expan">
@@ -3108,8 +3132,8 @@
   <xs:complexType name="content.expan" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.expan">
@@ -3132,9 +3156,9 @@
   </xs:element>
   <xs:complexType name="content.figdesc" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.graphicprimitiveLike"/>
-      <xs:element ref="model.textcomponentLike"/>
-      <xs:element ref="model.annotLike"/>
+      <xs:group ref="model.graphicprimitiveLike"/>
+      <xs:group ref="model.textcomponentLike"/>
+      <xs:group ref="model.annotLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.figdesc">
@@ -3152,10 +3176,10 @@
   </xs:element>
   <xs:complexType name="content.fw" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.fw">
@@ -3164,7 +3188,11 @@
     <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="graphic" substitutionGroup="model.graphicLike"/>
+  <xs:element name="graphic">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.graphic"/>
+    </xs:complexType>
+  </xs:element>
   <xs:attributeGroup name="attlist.graphic">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
@@ -3173,12 +3201,20 @@
     <xs:attribute name="units"/>
     <xs:attribute name="width" type="data.INTEGERPOSITIVE"/>
   </xs:attributeGroup>
-  <xs:element name="identifier" substitutionGroup="model.identifierLike"/>
+  <xs:element name="identifier">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.identifier">
+          <xs:attributeGroup ref="attlist.identifier"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.identifier" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.identifier">
@@ -3206,12 +3242,20 @@
     </xs:attribute>
     <xs:attribute name="source" type="xs:IDREF"/>
   </xs:attributeGroup>
-  <xs:element name="name" substitutionGroup="model.nameLike"/>
+  <xs:element name="name">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.name">
+          <xs:attributeGroup ref="attlist.name"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.name" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.name">
@@ -3222,12 +3266,20 @@
     <xs:attributeGroup ref="att.name"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="num" substitutionGroup="model.numLike"/>
+  <xs:element name="num">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.num">
+          <xs:attributeGroup ref="attlist.num"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.num" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.num">
@@ -3236,7 +3288,15 @@
     <xs:attributeGroup ref="att.lang"/>
     <xs:attribute name="units"/>
   </xs:attributeGroup>
-  <xs:element name="p" substitutionGroup="model.pLike"/>
+  <xs:element name="p">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.p">
+          <xs:attributeGroup ref="attlist.p"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.p" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.paracontentPart"/>
   </xs:complexType>
@@ -3246,7 +3306,15 @@
     <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.xy"/>
   </xs:attributeGroup>
-  <xs:element name="pb" substitutionGroup="model.pbLike"/>
+  <xs:element name="pb">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pb">
+          <xs:attributeGroup ref="attlist.pb"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.pb">
     <xs:complexContent>
       <xs:extension base="model.pgmetaLike"/>
@@ -3278,9 +3346,9 @@
   </xs:element>
   <xs:complexType name="content.pgdesc" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.graphicprimitiveLike"/>
-      <xs:element ref="model.textcomponentLike"/>
-      <xs:element ref="model.annotLike"/>
+      <xs:group ref="model.graphicprimitiveLike"/>
+      <xs:group ref="model.textcomponentLike"/>
+      <xs:group ref="model.annotLike"/>
       <xs:group ref="model.locrefLike"/>
     </xs:choice>
   </xs:complexType>
@@ -3288,7 +3356,7 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="rend" substitutionGroup="model.rendLike">
+  <xs:element name="rend">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.rend">
@@ -3300,8 +3368,8 @@
   <xs:complexType name="content.rend" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.rend">
@@ -3333,7 +3401,15 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
-  <xs:element name="repository" substitutionGroup="model.repositoryLike"/>
+  <xs:element name="repository">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.repository">
+          <xs:attributeGroup ref="attlist.repository"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.repository" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
   </xs:complexType>
@@ -3345,7 +3421,7 @@
     <xs:attributeGroup ref="att.name"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="stack" substitutionGroup="model.rendLike">
+  <xs:element name="stack">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.stack">
@@ -3373,12 +3449,20 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
-  <xs:element name="title" substitutionGroup="model.titleLike"/>
+  <xs:element name="title">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.title">
+          <xs:attributeGroup ref="attlist.title"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.title" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.title">
@@ -3399,7 +3483,7 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
-  <xs:element name="clef" substitutionGroup="model.staffdefPart.multiplyDefinable">
+  <xs:element name="clef">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.clef"/>
     </xs:complexType>
@@ -3411,7 +3495,7 @@
     <xs:attributeGroup ref="att.log.clef"/>
     <xs:attributeGroup ref="att.vis.clef"/>
   </xs:attributeGroup>
-  <xs:element name="custos" substitutionGroup="model.eventLike.common">
+  <xs:element name="custos">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.custos"/>
     </xs:complexType>
@@ -3423,7 +3507,7 @@
     <xs:attributeGroup ref="att.vis.custos"/>
     <xs:attributeGroup ref="att.anl.sb"/>
   </xs:attributeGroup>
-  <xs:element name="clefchange" substitutionGroup="model.eventLike.common">
+  <xs:element name="clefchange">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.clefchange">
@@ -3445,7 +3529,7 @@
     <xs:attributeGroup ref="att.vis.clefchange"/>
     <xs:attributeGroup ref="att.anl.clefchange"/>
   </xs:attributeGroup>
-  <xs:element name="pad" substitutionGroup="model.eventLike.common">
+  <xs:element name="pad">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.pad"/>
     </xs:complexType>
@@ -3454,7 +3538,7 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.log.pad"/>
   </xs:attributeGroup>
-  <xs:element name="space" substitutionGroup="model.eventLike.common">
+  <xs:element name="space">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.space"/>
     </xs:complexType>
@@ -3467,7 +3551,7 @@
     <xs:attributeGroup ref="att.ges.space"/>
     <xs:attributeGroup ref="att.anl.space"/>
   </xs:attributeGroup>
-  <xs:element name="dir" substitutionGroup="model.controleventLike.common">
+  <xs:element name="dir">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.dir">
@@ -3479,9 +3563,9 @@
   <xs:complexType name="content.dir" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.graphicprimitiveLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.graphicprimitiveLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.dir">
@@ -3494,7 +3578,7 @@
     <xs:attributeGroup ref="att.ges.dir"/>
     <xs:attributeGroup ref="att.anl.dir"/>
   </xs:attributeGroup>
-  <xs:element name="dynam" substitutionGroup="model.controleventLike.common">
+  <xs:element name="dynam">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.dynam">
@@ -3506,8 +3590,8 @@
   <xs:complexType name="content.dynam" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.dynam">
@@ -3518,7 +3602,7 @@
     <xs:attributeGroup ref="att.ges.dynam"/>
     <xs:attributeGroup ref="att.anl.dynam"/>
   </xs:attributeGroup>
-  <xs:element name="phrase" substitutionGroup="model.controleventLike.common">
+  <xs:element name="phrase">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.phrase"/>
     </xs:complexType>
@@ -3530,7 +3614,7 @@
     <xs:attributeGroup ref="att.vis.phrase"/>
     <xs:attributeGroup ref="att.anl.phrase"/>
   </xs:attributeGroup>
-  <xs:element name="tempo" substitutionGroup="model.controleventLike.common">
+  <xs:element name="tempo">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.tempo">
@@ -3542,9 +3626,9 @@
   <xs:complexType name="content.tempo" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.graphicprimitiveLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.graphicprimitiveLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.tempo">
@@ -3556,7 +3640,7 @@
     <xs:attributeGroup ref="att.ges.tempo"/>
     <xs:attributeGroup ref="att.anl.tempo"/>
   </xs:attributeGroup>
-  <xs:element name="mensur" substitutionGroup="model.staffdefPart.multiplyDefinable">
+  <xs:element name="mensur">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.mensur"/>
     </xs:complexType>
@@ -3568,7 +3652,7 @@
     <xs:attributeGroup ref="att.vis.mensur"/>
     <xs:attributeGroup ref="att.anl.mensur"/>
   </xs:attributeGroup>
-  <xs:element name="proport" substitutionGroup="model.staffdefPart.multiplyDefinable">
+  <xs:element name="proport">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.proport"/>
     </xs:complexType>
@@ -3579,7 +3663,7 @@
     <xs:attributeGroup ref="att.log.proport"/>
     <xs:attributeGroup ref="att.anl.proport"/>
   </xs:attributeGroup>
-  <xs:element name="ligature" substitutionGroup="model.eventLike.neume-mensural">
+  <xs:element name="ligature">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.ligature">
@@ -3597,7 +3681,7 @@
     <xs:attributeGroup ref="att.log.ligature"/>
     <xs:attributeGroup ref="att.anl.ligature"/>
   </xs:attributeGroup>
-  <xs:element name="mensurchange" substitutionGroup="model.eventLike.neume-mensural">
+  <xs:element name="mensurchange">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.mensurchange">
@@ -3615,7 +3699,7 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
   </xs:attributeGroup>
-  <xs:element name="proportchange" substitutionGroup="model.eventLike.neume-mensural">
+  <xs:element name="proportchange">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.proportchange">
@@ -3633,7 +3717,7 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
   </xs:attributeGroup>
-  <xs:element name="artic" substitutionGroup="model.noteModifierLike">
+  <xs:element name="artic">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.artic"/>
     </xs:complexType>
@@ -3646,7 +3730,11 @@
     <xs:attributeGroup ref="att.vis.artic"/>
     <xs:attributeGroup ref="att.anl.artic"/>
   </xs:attributeGroup>
-  <xs:element name="keyaccid" substitutionGroup="model.keyaccidLike"/>
+  <xs:element name="keyaccid">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.keyaccid"/>
+    </xs:complexType>
+  </xs:element>
   <xs:attributeGroup name="attlist.keyaccid">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
@@ -3665,11 +3753,17 @@
     <xs:attribute name="staffloc" type="data.STAFFLOC"/>
     <xs:attribute name="value" use="required" type="data.ACCIDENTAL.EXPLICIT"/>
   </xs:attributeGroup>
-  <xs:element name="keysig" substitutionGroup="model.keysigLike"/>
+  <xs:element name="keysig">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.keysig">
+          <xs:attributeGroup ref="attlist.keysig"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.keysig">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.keyaccidLike"/>
-    </xs:sequence>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.keyaccidLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.keysig">
     <xs:attributeGroup ref="att.common"/>
@@ -3678,7 +3772,7 @@
     <xs:attribute name="mode" type="data.MODE"/>
     <xs:attribute name="pname" type="data.PITCHNAME"/>
   </xs:attributeGroup>
-  <xs:element name="accid" substitutionGroup="model.noteModifierLike">
+  <xs:element name="accid">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.accid"/>
     </xs:complexType>
@@ -3691,7 +3785,7 @@
     <xs:attributeGroup ref="att.vis.accid"/>
     <xs:attributeGroup ref="att.anl.accid"/>
   </xs:attributeGroup>
-  <xs:element name="barline" substitutionGroup="model.eventLike.mensural-cmn">
+  <xs:element name="barline">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.barline"/>
     </xs:complexType>
@@ -3707,7 +3801,7 @@
     <xs:attributeGroup ref="att.ges.barline"/>
     <xs:attributeGroup ref="att.anl.barline"/>
   </xs:attributeGroup>
-  <xs:element name="dot" substitutionGroup="model.noteModifierLike">
+  <xs:element name="dot">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.dot"/>
     </xs:complexType>
@@ -3719,7 +3813,7 @@
     <xs:attributeGroup ref="att.vis.dot"/>
     <xs:attributeGroup ref="att.anl.dot"/>
   </xs:attributeGroup>
-  <xs:element name="keychange" substitutionGroup="model.eventLike.mensural-cmn">
+  <xs:element name="keychange">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.keychange">
@@ -3729,19 +3823,25 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.keychange">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.keyaccidLike"/>
-    </xs:sequence>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.keyaccidLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.keychange">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
   </xs:attributeGroup>
-  <xs:element name="back" substitutionGroup="model.backLike"/>
+  <xs:element name="back">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.back">
+          <xs:attributeGroup ref="attlist.back"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.back">
     <xs:sequence>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.milestoneLike.text"/>
-      <xs:element maxOccurs="unbounded" ref="model.divLike"/>
+      <xs:group maxOccurs="unbounded" ref="model.divLike"/>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.milestoneLike.text"/>
     </xs:sequence>
   </xs:complexType>
@@ -3750,11 +3850,19 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="blockquote" substitutionGroup="model.quoteLike"/>
+  <xs:element name="blockquote">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.blockquote">
+          <xs:attributeGroup ref="attlist.blockquote"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.blockquote">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.textcomponentLike"/>
-      <xs:element minOccurs="0" ref="model.biblLike"/>
+      <xs:group maxOccurs="unbounded" ref="model.textcomponentLike"/>
+      <xs:group minOccurs="0" ref="model.biblLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:attributeGroup name="attlist.blockquote">
@@ -3763,14 +3871,22 @@
     <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.xy"/>
   </xs:attributeGroup>
-  <xs:element name="div" substitutionGroup="model.divLike"/>
+  <xs:element name="div">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.div">
+          <xs:attributeGroup ref="attlist.div"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.div">
     <xs:sequence>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.milestoneLike.text"/>
-      <xs:element minOccurs="0" ref="model.headLike"/>
+      <xs:group minOccurs="0" ref="model.headLike"/>
       <xs:choice maxOccurs="unbounded">
-        <xs:element ref="model.divLike"/>
-        <xs:element ref="model.textcomponentLike"/>
+        <xs:group ref="model.divLike"/>
+        <xs:group ref="model.textcomponentLike"/>
       </xs:choice>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.milestoneLike.text"/>
     </xs:sequence>
@@ -3781,13 +3897,21 @@
     <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="front" substitutionGroup="model.frontLike"/>
+  <xs:element name="front">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.front">
+          <xs:attributeGroup ref="attlist.front"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.front">
     <xs:sequence>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.milestoneLike.text"/>
       <xs:choice maxOccurs="unbounded">
-        <xs:element ref="model.divLike"/>
-        <xs:element ref="model.frontPart"/>
+        <xs:group ref="model.divLike"/>
+        <xs:group ref="model.frontPart"/>
       </xs:choice>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.milestoneLike.text"/>
     </xs:sequence>
@@ -3797,12 +3921,20 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="head" substitutionGroup="model.headLike"/>
+  <xs:element name="head">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.head">
+          <xs:attributeGroup ref="attlist.head"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.head" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.head">
@@ -3822,22 +3954,30 @@
   </xs:element>
   <xs:complexType name="content.item" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.item">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
   </xs:attributeGroup>
-  <xs:element name="l" substitutionGroup="model.lLike"/>
+  <xs:element name="l">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.l">
+          <xs:attributeGroup ref="attlist.l"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.l" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.l">
@@ -3845,11 +3985,19 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="lg" substitutionGroup="model.lgLike"/>
+  <xs:element name="lg">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.lg">
+          <xs:attributeGroup ref="attlist.lg"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.lg">
     <xs:sequence>
-      <xs:element minOccurs="0" ref="model.headLike"/>
-      <xs:element maxOccurs="unbounded" ref="model.lLike"/>
+      <xs:group minOccurs="0" ref="model.headLike"/>
+      <xs:group maxOccurs="unbounded" ref="model.lLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:attributeGroup name="attlist.lg">
@@ -3858,10 +4006,18 @@
     <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.xy"/>
   </xs:attributeGroup>
-  <xs:element name="list" substitutionGroup="model.listLike"/>
+  <xs:element name="list">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.list">
+          <xs:attributeGroup ref="attlist.list"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.list">
     <xs:sequence>
-      <xs:element minOccurs="0" ref="model.headLike"/>
+      <xs:group minOccurs="0" ref="model.headLike"/>
       <xs:element maxOccurs="unbounded" ref="item"/>
     </xs:sequence>
   </xs:complexType>
@@ -3880,10 +4036,18 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
-  <xs:element name="table" substitutionGroup="model.tableLike"/>
+  <xs:element name="table">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.table">
+          <xs:attributeGroup ref="attlist.table"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.table">
     <xs:sequence>
-      <xs:element minOccurs="0" ref="model.captionLike"/>
+      <xs:group minOccurs="0" ref="model.captionLike"/>
       <xs:element maxOccurs="unbounded" ref="tr"/>
     </xs:sequence>
   </xs:complexType>
@@ -3904,10 +4068,10 @@
   </xs:element>
   <xs:complexType name="content.td" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.td">
@@ -3929,10 +4093,10 @@
   </xs:element>
   <xs:complexType name="content.th" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.th">
@@ -3964,7 +4128,7 @@
     <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.xy"/>
   </xs:attributeGroup>
-  <xs:element name="corpname" substitutionGroup="model.nameLike.agent">
+  <xs:element name="corpname">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.corpname">
@@ -3976,8 +4140,8 @@
   <xs:complexType name="content.corpname" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.corpname">
@@ -3988,12 +4152,20 @@
     <xs:attributeGroup ref="att.name"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="geogname" substitutionGroup="model.nameLike.geogname"/>
+  <xs:element name="geogname">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.geogname">
+          <xs:attributeGroup ref="attlist.geogname"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.geogname" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.geogname">
@@ -4004,7 +4176,7 @@
     <xs:attributeGroup ref="att.name"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="periodname" substitutionGroup="model.nameLike.label">
+  <xs:element name="periodname">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.periodname">
@@ -4016,8 +4188,8 @@
   <xs:complexType name="content.periodname" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.periodname">
@@ -4028,7 +4200,7 @@
     <xs:attributeGroup ref="att.name"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="persname" substitutionGroup="model.nameLike.agent">
+  <xs:element name="persname">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.persname">
@@ -4040,8 +4212,8 @@
   <xs:complexType name="content.persname" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.persname">
@@ -4052,7 +4224,7 @@
     <xs:attributeGroup ref="att.name"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="stylename" substitutionGroup="model.nameLike.label">
+  <xs:element name="stylename">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.stylename">
@@ -4064,8 +4236,8 @@
   <xs:complexType name="content.stylename" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.stylename">
@@ -4076,12 +4248,20 @@
     <xs:attributeGroup ref="att.name"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="caption" substitutionGroup="model.captionLike"/>
+  <xs:element name="caption">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.caption">
+          <xs:attributeGroup ref="attlist.caption"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.caption" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.caption">
@@ -4089,12 +4269,20 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="fig" substitutionGroup="model.figureLike"/>
+  <xs:element name="fig">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.fig">
+          <xs:attributeGroup ref="attlist.fig"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.fig">
     <xs:sequence>
       <xs:element minOccurs="0" ref="caption"/>
       <xs:element minOccurs="0" ref="figdesc"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:attributeGroup name="attlist.fig">
@@ -4170,14 +4358,12 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.body">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.mdivLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.mdivLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.body">
     <xs:attributeGroup ref="att.common"/>
   </xs:attributeGroup>
-  <xs:element name="ending" substitutionGroup="model.scorePart">
+  <xs:element name="ending">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.ending">
@@ -4238,9 +4424,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.grpsym">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
-    </xs:sequence>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.grpsym">
     <xs:attributeGroup ref="att.common"/>
@@ -4249,7 +4433,11 @@
     <xs:attributeGroup ref="att.vis.grpsym"/>
     <xs:attributeGroup ref="att.anl.grpsym"/>
   </xs:attributeGroup>
-  <xs:element name="instrdef" substitutionGroup="model.instrdefLike"/>
+  <xs:element name="instrdef">
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.instrdef"/>
+    </xs:complexType>
+  </xs:element>
   <xs:attributeGroup name="attlist.instrdef">
     <xs:attributeGroup ref="att.common"/>
     <xs:attribute name="midi.channel" type="data.MIDICHANNEL"/>
@@ -4259,12 +4447,20 @@
     <xs:attribute name="midi.port" type="data.MIDIVALUE"/>
     <xs:attribute name="midi.track" type="data.INTEGERPOSITIVE"/>
   </xs:attributeGroup>
-  <xs:element name="label" substitutionGroup="model.labelLike"/>
+  <xs:element name="label">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.label">
+          <xs:attributeGroup ref="attlist.label"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.label" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.label">
@@ -4272,7 +4468,15 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attribute name="source" type="xs:IDREF"/>
   </xs:attributeGroup>
-  <xs:element name="layer" substitutionGroup="model.layerLike"/>
+  <xs:element name="layer">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.layer">
+          <xs:attributeGroup ref="attlist.layer"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.layer">
     <xs:sequence>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
@@ -4288,11 +4492,17 @@
     <xs:attributeGroup ref="att.vis.layer"/>
     <xs:attributeGroup ref="att.anl.layer"/>
   </xs:attributeGroup>
-  <xs:element name="layerdef" substitutionGroup="model.layerdefLike"/>
+  <xs:element name="layerdef">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.layerdef">
+          <xs:attributeGroup ref="attlist.layerdef"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.layerdef">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.instrdefLike"/>
-    </xs:sequence>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.instrdefLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.layerdef">
     <xs:attributeGroup ref="att.common"/>
@@ -4300,14 +4510,22 @@
     <xs:attributeGroup ref="att.vis.layerdef"/>
     <xs:attributeGroup ref="att.ges.layerdef"/>
   </xs:attributeGroup>
-  <xs:element name="mdiv" substitutionGroup="model.mdivLike"/>
+  <xs:element name="mdiv">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.mdiv">
+          <xs:attributeGroup ref="attlist.mdiv"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.mdiv">
     <xs:choice>
       <xs:sequence>
-        <xs:element minOccurs="0" ref="model.scoreLike"/>
-        <xs:element minOccurs="0" ref="model.partsLike"/>
+        <xs:group minOccurs="0" ref="model.scoreLike"/>
+        <xs:group minOccurs="0" ref="model.partsLike"/>
       </xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.mdivLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.mdivLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.mdiv">
@@ -4315,22 +4533,34 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="part" substitutionGroup="model.partLike"/>
+  <xs:element name="part">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.part">
+          <xs:attributeGroup ref="attlist.part"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.part">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.scorePart"/>
-    </xs:sequence>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.scorePart"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.part">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.typed"/>
     <xs:attributeGroup ref="att.anl.part"/>
   </xs:attributeGroup>
-  <xs:element name="parts" substitutionGroup="model.partsLike"/>
+  <xs:element name="parts">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.parts">
+          <xs:attributeGroup ref="attlist.parts"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.parts">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.partLike"/>
-    </xs:sequence>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.partLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.parts">
     <xs:attributeGroup ref="att.common"/>
@@ -4348,10 +4578,10 @@
   </xs:element>
   <xs:complexType name="content.pgfoot1" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.pgfoot1">
@@ -4370,10 +4600,10 @@
   </xs:element>
   <xs:complexType name="content.pgfoot2" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.pgfoot2">
@@ -4392,10 +4622,10 @@
   </xs:element>
   <xs:complexType name="content.pghead1" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.pghead1">
@@ -4414,10 +4644,10 @@
   </xs:element>
   <xs:complexType name="content.pghead2" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.pghead2">
@@ -4425,7 +4655,7 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="sb" substitutionGroup="model.milestoneLike.music">
+  <xs:element name="sb">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.sb">
@@ -4446,12 +4676,20 @@
     <xs:attributeGroup ref="att.vis.sb"/>
     <xs:attributeGroup ref="att.anl.sb"/>
   </xs:attributeGroup>
-  <xs:element name="score" substitutionGroup="model.scoreLike"/>
+  <xs:element name="score">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.score">
+          <xs:attributeGroup ref="attlist.score"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.score">
     <xs:sequence>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
       <xs:sequence minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="model.scorePart"/>
+        <xs:group ref="model.scorePart"/>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
       </xs:sequence>
     </xs:sequence>
@@ -4472,14 +4710,14 @@
   </xs:element>
   <xs:complexType name="content.scoredef">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.alignLike"/>
-      <xs:element minOccurs="0" ref="model.chordtableLike"/>
-      <xs:element minOccurs="0" ref="model.symboltableLike"/>
-      <xs:element minOccurs="0" ref="model.keysigLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.alignLike"/>
+      <xs:group minOccurs="0" ref="model.chordtableLike"/>
+      <xs:group minOccurs="0" ref="model.symboltableLike"/>
+      <xs:group minOccurs="0" ref="model.keysigLike"/>
       <xs:group ref="model.pgmetaLike.score"/>
       <xs:choice>
-        <xs:element minOccurs="0" ref="model.staffgrpLike"/>
-        <xs:element minOccurs="0" ref="model.staffdefLike"/>
+        <xs:group minOccurs="0" ref="model.staffgrpLike"/>
+        <xs:group minOccurs="0" ref="model.staffdefLike"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -4489,7 +4727,7 @@
     <xs:attributeGroup ref="att.vis.scoredef"/>
     <xs:attributeGroup ref="att.ges.scoredef"/>
   </xs:attributeGroup>
-  <xs:element name="section" substitutionGroup="model.scorePart">
+  <xs:element name="section">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.section">
@@ -4541,15 +4779,23 @@
     <xs:attributeGroup ref="att.vis.staff"/>
     <xs:attributeGroup ref="att.anl.staff"/>
   </xs:attributeGroup>
-  <xs:element name="staffdef" substitutionGroup="model.staffdefLike"/>
+  <xs:element name="staffdef">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.staffdef">
+          <xs:attributeGroup ref="attlist.staffdef"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.staffdef">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
-      <xs:element minOccurs="0" ref="model.keysigLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
+      <xs:group minOccurs="0" ref="model.keysigLike"/>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="model.instrdefLike"/>
-        <xs:element ref="model.layerdefLike"/>
-        <xs:element ref="model.staffdefPart.multiplyDefinable"/>
+        <xs:group ref="model.instrdefLike"/>
+        <xs:group ref="model.layerdefLike"/>
+        <xs:group ref="model.staffdefPart.multiplyDefinable"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -4559,15 +4805,23 @@
     <xs:attributeGroup ref="att.vis.staffdef"/>
     <xs:attributeGroup ref="att.ges.staffdef"/>
   </xs:attributeGroup>
-  <xs:element name="staffgrp" substitutionGroup="model.staffgrpLike"/>
+  <xs:element name="staffgrp">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.staffgrp">
+          <xs:attributeGroup ref="attlist.staffgrp"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.staffgrp">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="grpsym"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.instrdefLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.labelLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.instrdefLike"/>
       <xs:choice maxOccurs="unbounded">
-        <xs:element ref="model.staffgrpLike"/>
-        <xs:element ref="model.staffdefLike"/>
+        <xs:group ref="model.staffgrpLike"/>
+        <xs:group ref="model.staffdefLike"/>
       </xs:choice>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="grpsym"/>
     </xs:sequence>
@@ -4599,7 +4853,7 @@
   <xs:attributeGroup name="attlist.syllable">
     <xs:attributeGroup ref="att.common"/>
   </xs:attributeGroup>
-  <xs:element name="ineume" substitutionGroup="model.eventLike.neume">
+  <xs:element name="ineume">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.ineume">
@@ -4612,9 +4866,9 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.eventLike"/>
       <xs:group ref="model.neumeModifierLike"/>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.apparatusLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.ineume">
@@ -4625,7 +4879,7 @@
     <xs:attributeGroup ref="att.vis.ineume"/>
     <xs:attributeGroup ref="att.anl.ineume"/>
   </xs:attributeGroup>
-  <xs:element name="uneume" substitutionGroup="model.eventLike.neume">
+  <xs:element name="uneume">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.uneume">
@@ -4638,9 +4892,9 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.eventLike"/>
       <xs:group ref="model.neumeModifierLike"/>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.apparatusLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.uneume">
@@ -4651,7 +4905,7 @@
     <xs:attributeGroup ref="att.vis.uneume"/>
     <xs:attributeGroup ref="att.anl.uneume"/>
   </xs:attributeGroup>
-  <xs:element name="nota" substitutionGroup="model.eventLike.mensural">
+  <xs:element name="nota">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.nota">
@@ -4663,12 +4917,12 @@
   <xs:complexType name="content.nota">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="model.sylLike"/>
-      <xs:element ref="model.verseLike"/>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sylLike"/>
+      <xs:group ref="model.verseLike"/>
+      <xs:group ref="model.apparatusLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.nota">
@@ -4679,7 +4933,7 @@
     <xs:attributeGroup ref="att.ges.nota"/>
     <xs:attributeGroup ref="att.anl.nota"/>
   </xs:attributeGroup>
-  <xs:element name="pausa" substitutionGroup="model.eventLike.mensural">
+  <xs:element name="pausa">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.pausa"/>
     </xs:complexType>
@@ -4692,7 +4946,15 @@
     <xs:attributeGroup ref="att.ges.pausa"/>
     <xs:attributeGroup ref="att.anl.pausa"/>
   </xs:attributeGroup>
-  <xs:element name="measure" substitutionGroup="model.measureLike"/>
+  <xs:element name="measure">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.measure">
+          <xs:attributeGroup ref="attlist.measure"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.measure">
     <xs:sequence>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.Incl"/>
@@ -4747,7 +5009,7 @@
   </xs:element>
   <xs:complexType name="content.beam">
     <xs:choice maxOccurs="unbounded">
-      <xs:element ref="model.eventLike.common"/>
+      <xs:group ref="model.eventLike.common"/>
       <xs:group ref="model.eventLike.cmn"/>
     </xs:choice>
   </xs:complexType>
@@ -4928,12 +5190,12 @@
   <xs:complexType name="content.note">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="model.verseLike"/>
-      <xs:element ref="model.sylLike"/>
-      <xs:element ref="model.apparatusLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.verseLike"/>
+      <xs:group ref="model.sylLike"/>
+      <xs:group ref="model.apparatusLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.note">
@@ -4968,7 +5230,7 @@
   </xs:element>
   <xs:complexType name="content.tuplet">
     <xs:choice maxOccurs="unbounded">
-      <xs:element ref="model.eventLike.common"/>
+      <xs:group ref="model.eventLike.common"/>
       <xs:group ref="model.eventLike.cmn"/>
     </xs:choice>
   </xs:complexType>
@@ -4979,7 +5241,7 @@
     <xs:attributeGroup ref="att.vis.tuplet"/>
     <xs:attributeGroup ref="att.anl.tuplet"/>
   </xs:attributeGroup>
-  <xs:element name="mrest" substitutionGroup="model.eventLike.cmn.measureFilling">
+  <xs:element name="mrest">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.mrest"/>
     </xs:complexType>
@@ -4992,7 +5254,7 @@
     <xs:attributeGroup ref="att.ges.mrest"/>
     <xs:attributeGroup ref="att.anl.mrest"/>
   </xs:attributeGroup>
-  <xs:element name="mrpt" substitutionGroup="model.eventLike.cmn.measureFilling">
+  <xs:element name="mrpt">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.mrpt"/>
     </xs:complexType>
@@ -5004,7 +5266,7 @@
     <xs:attributeGroup ref="att.vis.mrpt"/>
     <xs:attributeGroup ref="att.anl.mrpt"/>
   </xs:attributeGroup>
-  <xs:element name="mrpt2" substitutionGroup="model.eventLike.cmn.measureFilling">
+  <xs:element name="mrpt2">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.mrpt2"/>
     </xs:complexType>
@@ -5016,7 +5278,7 @@
     <xs:attributeGroup ref="att.vis.mrpt2"/>
     <xs:attributeGroup ref="att.anl.mrpt2"/>
   </xs:attributeGroup>
-  <xs:element name="mspace" substitutionGroup="model.eventLike.cmn.measureFilling">
+  <xs:element name="mspace">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.mspace"/>
     </xs:complexType>
@@ -5029,7 +5291,7 @@
     <xs:attributeGroup ref="att.ges.mspace"/>
     <xs:attributeGroup ref="att.anl.mspace"/>
   </xs:attributeGroup>
-  <xs:element name="multirest" substitutionGroup="model.eventLike.cmn.measureFilling">
+  <xs:element name="multirest">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.multirest"/>
     </xs:complexType>
@@ -5042,7 +5304,7 @@
     <xs:attributeGroup ref="att.ges.multirest"/>
     <xs:attributeGroup ref="att.anl.multirest"/>
   </xs:attributeGroup>
-  <xs:element name="multirpt" substitutionGroup="model.eventLike.cmn.measureFilling">
+  <xs:element name="multirpt">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.multirpt"/>
     </xs:complexType>
@@ -5054,7 +5316,7 @@
     <xs:attributeGroup ref="att.vis.multirpt"/>
     <xs:attributeGroup ref="att.anl.multirpt"/>
   </xs:attributeGroup>
-  <xs:element name="arpeg" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="arpeg">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.arpeg"/>
     </xs:complexType>
@@ -5066,7 +5328,7 @@
     <xs:attributeGroup ref="att.vis.arpeg"/>
     <xs:attributeGroup ref="att.anl.arpeg"/>
   </xs:attributeGroup>
-  <xs:element name="beamspan" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="beamspan">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.beamspan"/>
     </xs:complexType>
@@ -5078,7 +5340,7 @@
     <xs:attributeGroup ref="att.vis.beamspan"/>
     <xs:attributeGroup ref="att.anl.beamspan"/>
   </xs:attributeGroup>
-  <xs:element name="breath" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="breath">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.breath"/>
     </xs:complexType>
@@ -5090,7 +5352,7 @@
     <xs:attributeGroup ref="att.vis.breath"/>
     <xs:attributeGroup ref="att.anl.breath"/>
   </xs:attributeGroup>
-  <xs:element name="fermata" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="fermata">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.fermata"/>
     </xs:complexType>
@@ -5103,7 +5365,7 @@
     <xs:attributeGroup ref="att.ges.fermata"/>
     <xs:attributeGroup ref="att.anl.fermata"/>
   </xs:attributeGroup>
-  <xs:element name="hairpin" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="hairpin">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.hairpin"/>
     </xs:complexType>
@@ -5116,7 +5378,7 @@
     <xs:attributeGroup ref="att.ges.hairpin"/>
     <xs:attributeGroup ref="att.anl.hairpin"/>
   </xs:attributeGroup>
-  <xs:element name="harppedal" substitutionGroup="model.controleventLike.instruments">
+  <xs:element name="harppedal">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.harppedal"/>
     </xs:complexType>
@@ -5129,7 +5391,7 @@
     <xs:attributeGroup ref="att.ges.harppedal"/>
     <xs:attributeGroup ref="att.anl.harppedal"/>
   </xs:attributeGroup>
-  <xs:element name="octave" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="octave">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.octave"/>
     </xs:complexType>
@@ -5142,7 +5404,7 @@
     <xs:attributeGroup ref="att.ges.octave"/>
     <xs:attributeGroup ref="att.anl.octave"/>
   </xs:attributeGroup>
-  <xs:element name="pedal" substitutionGroup="model.controleventLike.instruments">
+  <xs:element name="pedal">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.pedal"/>
     </xs:complexType>
@@ -5154,7 +5416,7 @@
     <xs:attributeGroup ref="att.vis.pedal"/>
     <xs:attributeGroup ref="att.anl.pedal"/>
   </xs:attributeGroup>
-  <xs:element name="reh" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="reh">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.reh">
@@ -5166,7 +5428,7 @@
   <xs:complexType name="content.reh" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element ref="lb"/>
-      <xs:element ref="model.rendLike"/>
+      <xs:group ref="model.rendLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.reh">
@@ -5176,7 +5438,7 @@
     <xs:attributeGroup ref="att.vis.reh"/>
     <xs:attributeGroup ref="att.anl.reh"/>
   </xs:attributeGroup>
-  <xs:element name="slur" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="slur">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.slur"/>
     </xs:complexType>
@@ -5188,7 +5450,7 @@
     <xs:attributeGroup ref="att.vis.slur"/>
     <xs:attributeGroup ref="att.anl.slur"/>
   </xs:attributeGroup>
-  <xs:element name="tie" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="tie">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.tie"/>
     </xs:complexType>
@@ -5200,7 +5462,7 @@
     <xs:attributeGroup ref="att.vis.tie"/>
     <xs:attributeGroup ref="att.anl.tie"/>
   </xs:attributeGroup>
-  <xs:element name="tupletspan" substitutionGroup="model.controleventLike.cmn">
+  <xs:element name="tupletspan">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.tupletspan"/>
     </xs:complexType>
@@ -5212,7 +5474,15 @@
     <xs:attributeGroup ref="att.vis.tupletspan"/>
     <xs:attributeGroup ref="att.anl.tupletspan"/>
   </xs:attributeGroup>
-  <xs:element name="lyrics" substitutionGroup="model.lyricsLike"/>
+  <xs:element name="lyrics">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.lyrics">
+          <xs:attributeGroup ref="attlist.lyrics"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.lyrics">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="verse"/>
@@ -5226,7 +5496,15 @@
     <xs:attributeGroup ref="att.vis.lyrics"/>
     <xs:attributeGroup ref="att.anl.lyrics"/>
   </xs:attributeGroup>
-  <xs:element name="verse" substitutionGroup="model.verseLike"/>
+  <xs:element name="verse">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.verse">
+          <xs:attributeGroup ref="attlist.verse"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.verse">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -5247,12 +5525,20 @@
     <xs:attributeGroup ref="att.vis.verse"/>
     <xs:attributeGroup ref="att.anl.verse"/>
   </xs:attributeGroup>
-  <xs:element name="syl" substitutionGroup="model.sylLike"/>
+  <xs:element name="syl">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.syl">
+          <xs:attributeGroup ref="attlist.syl"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.syl" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.syl">
@@ -5262,7 +5548,7 @@
     <xs:attributeGroup ref="att.vis.syl"/>
     <xs:attributeGroup ref="att.anl.syl"/>
   </xs:attributeGroup>
-  <xs:element name="mordent" substitutionGroup="model.ornamentLike.cmn">
+  <xs:element name="mordent">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.mordent">
@@ -5281,7 +5567,7 @@
     <xs:attributeGroup ref="att.vis.mordent"/>
     <xs:attributeGroup ref="att.anl.mordent"/>
   </xs:attributeGroup>
-  <xs:element name="trill" substitutionGroup="model.ornamentLike.cmn">
+  <xs:element name="trill">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.trill">
@@ -5298,9 +5584,10 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.log.trill"/>
     <xs:attributeGroup ref="att.vis.trill"/>
+    <xs:attributeGroup ref="att.ges.trill"/>
     <xs:attributeGroup ref="att.anl.trill"/>
   </xs:attributeGroup>
-  <xs:element name="turn" substitutionGroup="model.ornamentLike.cmn">
+  <xs:element name="turn">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.turn">
@@ -5394,7 +5681,15 @@
     <xs:attribute name="inth" type="data.INTEGERNONNEGATIVE"/>
     <xs:attribute name="pname" use="required" type="data.PITCHNAME"/>
   </xs:attributeGroup>
-  <xs:element name="chordtable" substitutionGroup="model.chordtableLike"/>
+  <xs:element name="chordtable">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.chordtable">
+          <xs:attributeGroup ref="attlist.chordtable"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.chordtable">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="chorddef"/>
@@ -5403,13 +5698,21 @@
   <xs:attributeGroup name="attlist.chordtable">
     <xs:attributeGroup ref="att.common"/>
   </xs:attributeGroup>
-  <xs:element name="harm" substitutionGroup="model.harmLike"/>
+  <xs:element name="harm">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.harm">
+          <xs:attributeGroup ref="attlist.harm"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.harm" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.graphicprimitiveLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.graphicprimitiveLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.harm">
@@ -5420,7 +5723,7 @@
     <xs:attributeGroup ref="att.ges.harm"/>
     <xs:attributeGroup ref="att.anl.harm"/>
   </xs:attributeGroup>
-  <xs:element name="curve" substitutionGroup="model.graphicprimitiveLike">
+  <xs:element name="curve">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.curve"/>
     </xs:complexType>
@@ -5438,7 +5741,7 @@
     <xs:attribute name="bulge" type="xs:NMTOKENS"/>
     <xs:attribute name="rend" type="data.CURVERENDITION"/>
   </xs:attributeGroup>
-  <xs:element name="line" substitutionGroup="model.graphicprimitiveLike">
+  <xs:element name="line">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.line">
@@ -5461,7 +5764,7 @@
     <xs:attributeGroup ref="att.xy2.required"/>
     <xs:attribute name="rend" type="data.LINERENDITION"/>
   </xs:attributeGroup>
-  <xs:element name="symbol" substitutionGroup="model.graphicprimitiveLike">
+  <xs:element name="symbol">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.symbol"/>
     </xs:complexType>
@@ -5487,14 +5790,20 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.symboldef">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.graphicprimitiveLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.graphicprimitiveLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.symboldef">
     <xs:attributeGroup ref="att.common"/>
   </xs:attributeGroup>
-  <xs:element name="symboltable" substitutionGroup="model.symboltableLike"/>
+  <xs:element name="symboltable">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.symboltable">
+          <xs:attributeGroup ref="attlist.symboltable"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.symboltable">
     <xs:sequence>
       <xs:element maxOccurs="unbounded" ref="symboldef"/>
@@ -5503,7 +5812,15 @@
   <xs:attributeGroup name="attlist.symboltable">
     <xs:attributeGroup ref="att.common"/>
   </xs:attributeGroup>
-  <xs:element name="app" substitutionGroup="model.apparatusLike"/>
+  <xs:element name="app">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.app">
+          <xs:attributeGroup ref="attlist.app"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.app">
     <xs:sequence>
       <xs:element ref="rdg"/>
@@ -5622,7 +5939,7 @@
       <xs:element maxOccurs="unbounded" ref="name"/>
       <xs:choice>
         <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.ptrLike"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -5663,7 +5980,7 @@
     <xs:sequence>
       <xs:element ref="respstmt"/>
       <xs:element ref="changedesc"/>
-      <xs:element ref="model.dateLike"/>
+      <xs:group ref="model.dateLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:attributeGroup name="attlist.change">
@@ -5680,9 +5997,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.changedesc">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.changedesc">
     <xs:attributeGroup ref="att.common"/>
@@ -5732,7 +6047,7 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
   </xs:attributeGroup>
-  <xs:element name="correction" substitutionGroup="model.editorialdeclPart">
+  <xs:element name="correction">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.correction">
@@ -5742,9 +6057,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.correction">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.correction">
     <xs:attributeGroup ref="att.common"/>
@@ -5778,9 +6091,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.creation">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.textcomponentLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.textcomponentLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.creation">
     <xs:attributeGroup ref="att.common"/>
@@ -5833,10 +6144,10 @@
   </xs:element>
   <xs:complexType name="content.editorialdecl">
     <xs:choice>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
+      <xs:group maxOccurs="unbounded" ref="model.pLike"/>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="model.editorialdeclPart"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
+        <xs:group maxOccurs="unbounded" ref="model.editorialdeclPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
       </xs:sequence>
     </xs:choice>
   </xs:complexType>
@@ -5978,15 +6289,15 @@
   <xs:complexType name="content.inscription" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike.limited"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.inscription">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
   </xs:attributeGroup>
-  <xs:element name="interpretation" substitutionGroup="model.editorialdeclPart">
+  <xs:element name="interpretation">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.interpretation">
@@ -5996,9 +6307,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.interpretation">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.interpretation">
     <xs:attributeGroup ref="att.common"/>
@@ -6057,7 +6366,7 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
   </xs:attributeGroup>
-  <xs:element name="normalization" substitutionGroup="model.editorialdeclPart">
+  <xs:element name="normalization">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.normalization">
@@ -6067,9 +6376,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.normalization">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.normalization">
     <xs:attributeGroup ref="att.common"/>
@@ -6093,9 +6400,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.notesstmt">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.annotLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.annotLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.notesstmt">
     <xs:attributeGroup ref="att.common"/>
@@ -6195,9 +6500,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.projectdesc">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.projectdesc">
     <xs:attributeGroup ref="att.common"/>
@@ -6214,7 +6517,7 @@
   </xs:element>
   <xs:complexType name="content.provenance" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.listLike"/>
+      <xs:group ref="model.listLike"/>
       <xs:group ref="model.textphraseLike.limited"/>
     </xs:choice>
   </xs:complexType>
@@ -6261,8 +6564,8 @@
   <xs:complexType name="content.respstmt">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element ref="resp"/>
-      <xs:element ref="model.nameLike"/>
-      <xs:element ref="model.nameLike.agent"/>
+      <xs:group ref="model.nameLike"/>
+      <xs:group ref="model.nameLike.agent"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.respstmt">
@@ -6297,15 +6600,13 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.samplingdecl">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.samplingdecl">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
   </xs:attributeGroup>
-  <xs:element name="segmentation" substitutionGroup="model.editorialdeclPart">
+  <xs:element name="segmentation">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.segmentation">
@@ -6315,9 +6616,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.segmentation">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.segmentation">
     <xs:attributeGroup ref="att.common"/>
@@ -6338,7 +6637,7 @@
       <xs:element minOccurs="0" ref="respstmt"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="identifier"/>
       <xs:choice>
-        <xs:element ref="model.listLike"/>
+        <xs:group ref="model.listLike"/>
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="seriesstmt"/>
       </xs:choice>
     </xs:sequence>
@@ -6391,7 +6690,7 @@
   <xs:attributeGroup name="attlist.sourcedesc">
     <xs:attributeGroup ref="att.common"/>
   </xs:attributeGroup>
-  <xs:element name="stdvals" substitutionGroup="model.editorialdeclPart">
+  <xs:element name="stdvals">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.stdvals">
@@ -6401,9 +6700,7 @@
     </xs:complexType>
   </xs:element>
   <xs:complexType name="content.stdvals">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="model.pLike"/>
-    </xs:sequence>
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
   </xs:complexType>
   <xs:attributeGroup name="attlist.stdvals">
     <xs:attributeGroup ref="att.common"/>
@@ -6595,7 +6892,15 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.midi.event"/>
   </xs:attributeGroup>
-  <xs:element name="midi" substitutionGroup="model.midiLike"/>
+  <xs:element name="midi">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.midi">
+          <xs:attributeGroup ref="attlist.midi"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.midi">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element ref="cc"/>
@@ -6703,7 +7008,7 @@
     </xs:attribute>
     <xs:attribute name="num" use="required"/>
   </xs:attributeGroup>
-  <xs:element name="add" substitutionGroup="model.transcriptionLike">
+  <xs:element name="add">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.add">
@@ -6716,17 +7021,17 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.add">
@@ -6735,7 +7040,7 @@
     <xs:attributeGroup ref="att.edit"/>
     <xs:attributeGroup ref="att.trans"/>
   </xs:attributeGroup>
-  <xs:element name="choice" substitutionGroup="model.editLike">
+  <xs:element name="choice">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.choice">
@@ -6753,7 +7058,7 @@
   <xs:attributeGroup name="attlist.choice">
     <xs:attributeGroup ref="att.common"/>
   </xs:attributeGroup>
-  <xs:element name="corr" substitutionGroup="model.transcriptionLike">
+  <xs:element name="corr">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.corr">
@@ -6766,17 +7071,17 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.corr">
@@ -6784,7 +7089,7 @@
     <xs:attributeGroup ref="att.edit"/>
     <xs:attributeGroup ref="att.trans"/>
   </xs:attributeGroup>
-  <xs:element name="damage" substitutionGroup="model.transcriptionLike">
+  <xs:element name="damage">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.damage">
@@ -6797,17 +7102,17 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.damage">
@@ -6819,7 +7124,7 @@
     <xs:attribute name="extent"/>
     <xs:attribute name="hand" type="xs:IDREF"/>
   </xs:attributeGroup>
-  <xs:element name="del" substitutionGroup="model.transcriptionLike">
+  <xs:element name="del">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.del">
@@ -6832,17 +7137,17 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.del">
@@ -6851,7 +7156,7 @@
     <xs:attributeGroup ref="att.trans"/>
     <xs:attribute name="rend"/>
   </xs:attributeGroup>
-  <xs:element name="gap" substitutionGroup="model.editLike">
+  <xs:element name="gap">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.gap"/>
     </xs:complexType>
@@ -6864,7 +7169,7 @@
     <xs:attribute name="reason"/>
     <xs:attribute name="unit"/>
   </xs:attributeGroup>
-  <xs:element name="handshift" substitutionGroup="model.editLike">
+  <xs:element name="handshift">
     <xs:complexType>
       <xs:attributeGroup ref="attlist.handshift"/>
     </xs:complexType>
@@ -6878,7 +7183,7 @@
     <xs:attribute name="new" type="xs:IDREF"/>
     <xs:attribute name="old" type="xs:IDREF"/>
   </xs:attributeGroup>
-  <xs:element name="orig" substitutionGroup="model.transcriptionLike">
+  <xs:element name="orig">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.orig">
@@ -6891,17 +7196,17 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.orig">
@@ -6910,7 +7215,7 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.typed"/>
   </xs:attributeGroup>
-  <xs:element name="reg" substitutionGroup="model.transcriptionLike">
+  <xs:element name="reg">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.reg">
@@ -6923,24 +7228,24 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.reg">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.edit"/>
   </xs:attributeGroup>
-  <xs:element name="restore" substitutionGroup="model.transcriptionLike">
+  <xs:element name="restore">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.restore">
@@ -6953,17 +7258,17 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.restore">
@@ -6973,7 +7278,7 @@
     <xs:attributeGroup ref="att.typed"/>
     <xs:attribute name="desc"/>
   </xs:attributeGroup>
-  <xs:element name="sic" substitutionGroup="model.transcriptionLike">
+  <xs:element name="sic">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.sic">
@@ -6986,24 +7291,24 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.sic">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.facsimile"/>
   </xs:attributeGroup>
-  <xs:element name="subst" substitutionGroup="model.editLike">
+  <xs:element name="subst">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.subst">
@@ -7014,8 +7319,8 @@
   </xs:element>
   <xs:complexType name="content.subst">
     <xs:sequence>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element maxOccurs="unbounded" ref="model.transcriptionLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group maxOccurs="unbounded" ref="model.transcriptionLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:attributeGroup name="attlist.subst">
@@ -7027,7 +7332,7 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:attributeGroup>
-  <xs:element name="supplied" substitutionGroup="model.transcriptionLike">
+  <xs:element name="supplied">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.supplied">
@@ -7040,17 +7345,17 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.supplied">
@@ -7060,10 +7365,18 @@
     <xs:attribute name="agent"/>
     <xs:attribute name="reason"/>
   </xs:attributeGroup>
-  <xs:element name="titlepage" substitutionGroup="model.frontPart"/>
+  <xs:element name="titlepage">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.titlepage">
+          <xs:attributeGroup ref="attlist.titlepage"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.titlepage">
     <xs:choice maxOccurs="unbounded">
-      <xs:element ref="model.textcomponentLike"/>
+      <xs:group ref="model.textcomponentLike"/>
       <xs:group ref="model.milestoneLike.text"/>
     </xs:choice>
   </xs:complexType>
@@ -7072,7 +7385,7 @@
     <xs:attributeGroup ref="att.facsimile"/>
     <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
-  <xs:element name="unclear" substitutionGroup="model.transcriptionLike">
+  <xs:element name="unclear">
     <xs:complexType>
       <xs:complexContent>
         <xs:extension base="content.unclear">
@@ -7085,17 +7398,17 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:group ref="model.textphraseLike"/>
       <xs:group ref="model.eventLike"/>
-      <xs:element ref="model.controleventLike"/>
-      <xs:element ref="model.lyricsLike"/>
-      <xs:element ref="model.midiLike"/>
-      <xs:element ref="model.editLike"/>
-      <xs:element ref="model.transcriptionLike"/>
-      <xs:element ref="model.eventLike.cmn.measureFilling"/>
-      <xs:element ref="model.noteModifierLike"/>
-      <xs:element ref="section"/>
-      <xs:element ref="measure"/>
-      <xs:element ref="staff"/>
-      <xs:element ref="layer"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.eventLike.cmn.measureFilling"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.sectionLike"/>
+      <xs:group ref="model.measureLike"/>
+      <xs:group ref="model.staffLike"/>
+      <xs:group ref="model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:attributeGroup name="attlist.unclear">
@@ -7106,10 +7419,18 @@
     <xs:attribute name="hand" type="xs:IDREF"/>
     <xs:attribute name="reason"/>
   </xs:attributeGroup>
-  <xs:element name="facsimile" substitutionGroup="model.facsimileLike"/>
+  <xs:element name="facsimile">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.facsimile">
+          <xs:attributeGroup ref="attlist.facsimile"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.facsimile">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="model.graphicLike"/>
+      <xs:group ref="model.graphicLike"/>
       <xs:element ref="surface"/>
     </xs:choice>
   </xs:complexType>
@@ -7129,14 +7450,14 @@
   <xs:complexType name="content.surface">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="figdesc"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="zone"/>
     </xs:sequence>
   </xs:complexType>
   <xs:attributeGroup name="attlist.surface">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.coordinated"/>
-    <xs:attribute name="start" type="xs:IDREF"/>
+    <xs:attribute name="startid" type="xs:IDREF"/>
   </xs:attributeGroup>
   <xs:element name="zone">
     <xs:complexType>
@@ -7150,14 +7471,22 @@
   <xs:complexType name="content.zone">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="figdesc"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:attributeGroup name="attlist.zone">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.coordinated"/>
   </xs:attributeGroup>
-  <xs:element name="timeline" substitutionGroup="model.alignLike"/>
+  <xs:element name="timeline">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.timeline">
+          <xs:attributeGroup ref="attlist.timeline"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
   <xs:complexType name="content.timeline">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" ref="when"/>
@@ -7254,7 +7583,7 @@
   <xs:element name="music">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="model.facsimileLike"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.facsimileLike"/>
         <xs:group ref="model.musicPart"/>
       </xs:sequence>
       <xs:attributeGroup ref="attlist.music"/>

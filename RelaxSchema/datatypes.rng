@@ -4,11 +4,27 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
 
   <!--
-  A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must fall
-  between 0 and the numerator of the time signature + 1, where 0
-  represents the left barline and the upper bound represents the right
-  barline.  For example, in 12/8 the value must be in the range from 0 to
-  13.
+    Either a decimal value or a token. The decimal values are limited
+    to .25, .5, .75, or 1, while the token values are restricted to
+    'full'.
+  -->
+  <define name="data.BEND.AMOUNT">
+    <choice>
+      <data type="decimal">
+        <param name="pattern">1|\.25|\.5|\.75</param>
+      </data>
+      <data type="token">
+        <param name="pattern">full</param>
+      </data>
+    </choice>
+  </define>
+
+  <!--
+    A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must fall
+    between 0 and the numerator of the time signature + 1, where 0
+    represents the left barline and the upper bound represents the right
+    barline.  For example, in 12/8 the value must be in the range from 0 to
+    13.
   -->
   <define name="data.BEAT">
     <data type="decimal">
@@ -124,6 +140,16 @@
   <define name="data.NUMBERPOSITIVE">
     <data type="decimal">
       <param name="minInclusive">1</param>
+    </data>
+  </define>
+  
+  <!--
+    The amount of octave displacement; that is, '8' (as in '8va' for
+    1 octave), '15' (for 2 octaves), or rarely '22' (for 3 octaves).
+  -->
+  <define name="data.OCTAVE.DIS">
+    <data type="integer">
+      <param name="pattern">8|15|22</param>
     </data>
   </define>
 

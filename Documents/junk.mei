@@ -1,26 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE score SYSTEM "../DTD/mei19b.dtd" [
+<!-- <!DOCTYPE mei SYSTEM "../DTD/mei19b-all.dtd" [
   <!ENTITY % meiCMN 'INCLUDE'>
   <!ENTITY % meiEditTrans 'INCLUDE'>
-]>
-<score>
-  <section>
-    <measure>
-      <staff>
-        <layer>
-          <note/>
-        </layer>
-      </staff>
-    </measure>
-    <add>
-      <measure/>
-    </add>
-    <choice>
-      <orig>
-        <staff>
-          <staffdef/>
-        </staff>
-      </orig>
-    </choice>
-  </section>
-</score>
+]> -->
+
+<?oxygen RNGSchema="../RelaxSchema/mei19b-all.rng" type="xml"?>
+<mei>
+  <meihead>
+    <filedesc>
+      <titlestmt>
+        <title/>
+      </titlestmt>
+      <pubstmt/>
+    </filedesc>
+  </meihead>
+  <music>
+    <body>
+      <mdiv>
+        <score>
+          <section>
+            <measure>
+              <staff>
+                <layer>
+                  <note/>
+                  <bend staff="1" amount=".5"/>
+                  <octave staff="1" place="above" dis="8"/>
+                </layer>
+              </staff>
+            </measure>
+            <add>
+              <measure/>
+            </add>
+            <choice>
+              <orig>
+                <staff>
+                  <staffdef/>
+                </staff>
+              </orig>
+            </choice>
+          </section>
+        </score>
+      </mdiv>
+    </body>
+  </music>
+</mei>
