@@ -22,8 +22,8 @@
     </filedesc>
     <encodingdesc>
       <projectdesc>
-        <p>Transcoded from a MusicXML version 1.0 file on <date>2009-7-19</date> using an XSLT
-          stylesheet (2mei v. 2.2).</p>
+        <p>Transcoded from a MusicXML version 1.0 file on <date>2009-7-19</date> using an
+          XSLT stylesheet (2mei v. 2.2).</p>
         <p>The MusicXML file was generated using SharpEye Music Reader 2.</p>
       </projectdesc>
     </encodingdesc>
@@ -38,10 +38,15 @@
       <mdiv>
         <score>
           <scoredef meter.count="4" meter.unit="4" key.sig="0" midi.div="1">
-            <staffgrp id="P1" symbol="brace" label.full="Part_1">
-              <staffdef n="1" clef.line="2" clef.shape="G"/>
-              <staffdef n="2" clef.line="4" clef.shape="F"/>
-              <staffdef n="3" clef.line="2" clef.shape="G"/> 
+            <!-- Dashed barline between staves not encoded -->
+            <!-- @barthru on inner staffgrp indicates that barline should be drawn
+            across these 2 staves -->
+            <staffgrp id="P1" symbol="line" label.full="Part_1">
+              <staffgrp symbol="brace" barthru="true">
+                <staffdef n="1" clef.line="2" clef.shape="G"/>
+                <staffdef n="2" clef.line="4" clef.shape="F"/>
+              </staffgrp>
+              <staffdef n="3" clef.line="2" clef.shape="G"/>
             </staffgrp>
           </scoredef>
           <section>
@@ -79,14 +84,15 @@
                   </chord>
                 </layer>
               </staff>
+              <!-- Non-rhythmic staff showing tonerow encoded as though it were
+              rhythmic, stemless notes encoded using @stem.len, Different accidental
+              syntax -->
               <staff n="3">
                 <layer n="1">
-                  <note id="d1e667" pname="b" oct="4" dur="4" stem.dir="down"
-                    accid.ges="f"/>
-                  <note id="d1e688" pname="f" oct="5" dur="4" stem.dir="down" accid.ges="n"/>
-                  <note id="d1e705" pname="c" oct="5" dur="4" stem.dir="down" accid.ges="n"/>
-                  <note id="d1e728" pname="b" oct="4" dur="4" stem.dir="down"
-                  accid.ges="n"/>
+                  <note id="d1e667" pname="b" oct="4" dur="4" stem.len="0" accid.ges="f"/>
+                  <note id="d1e688" pname="f" oct="5" dur="4" stem.len="0" accid.ges="n"/>
+                  <note id="d1e705" pname="c" oct="5" dur="4" stem.len="0" accid.ges="n"/>
+                  <note id="d1e728" pname="b" oct="4" dur="4" stem.len="0" accid.ges="n"/>
                   <note id="x1" pname="a" oct="4" dur="4" stem.len="0" accid.ges="n"/>
                   <note id="x2" pname="f" oct="4" dur="4" stem.len="0" accid="s"/>
                   <note id="x3" pname="c" oct="5" dur="4" stem.len="0" accid="s"/>
@@ -97,9 +103,19 @@
                   <note id="x8" pname="e" oct="5" dur="4" stem.len="0" accid.ges="n"/>
                 </layer>
               </staff>
-              <tempo tstamp="1" place="above" staff="1" lang="it">Mässig &note4;=120</tempo>
+              <!-- Character reference used for quarter note in tempo marking -->
+              <tempo tstamp="1" place="above" staff="1" lang="it">Mässig
+                &note4;=120</tempo>
               <dynam tstamp="3" place="below" staff="1">p</dynam>
+              <hairpin tstamp="3"  place="below" staff="1" form="cres" dur="1m+1"/>
               <dir tstamp="1" place="above" staff="3">P-0</dir>
+              <!-- Several possibilities for phrase mark -->
+              <!-- rely completely on the rendering engine for placement -->
+              <phrase staff="1" tstamp="2" dur="1m+3"/>
+              <!-- use start and end IDs and @bezier (or @bulge) to indicate shape -->
+              <phrase staff="1" startid="d1e64" endid="d1e466" bezier="3 2 1 3" bulge="10" />
+              <!-- use place, startvo, and endvo to indicate shape -->
+              <phrase staff="1" tstamp="2" dur="1m+3" place="above" startvo="-3" endvo="0"/>
             </measure>
             <measure n="2" id="d1e368">
               <staff n="1">
@@ -149,6 +165,8 @@
                   <note id="x20" pname="d" oct="5" dur="4" stem.len="0" accid="s"/>
                 </layer>
               </staff>
+              <hairpin place="above" staff="1" form="cres" tstamp="1" dur="1.25"/>
+              <hairpin place="above" staff="1" form="dim" tstamp="1.25" dur="1.5"/>
               <dir tstamp="1" place="above" staff="3">RI-5</dir>
             </measure>
           </section>
