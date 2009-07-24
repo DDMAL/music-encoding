@@ -26,7 +26,8 @@
   </meihead>
   <music>
     <body>
-      <!-- Encoding 1: above-the-staff duration values not explicitly encoded -->
+      <!-- Encoding 1: above-the-staff duration values not explicitly encoded
+      They can be implied from the @dur attributes on chord/note. -->
       <mdiv>
         <score>
           <scoredef meter.count="2" meter.unit="2" meter.sym="cut" key.sig="0">
@@ -65,7 +66,7 @@
       </mdiv>
 
       <!-- Encoding 2: above-the-staff duration values explicitly encoded
-      This is probably bad practice as it puts stuff that ought to be in the view in the model. -->
+      This is probably bad practice as it puts stuff in the model (the MEI) that ought to be in the view. -->
       <mdiv>
         <score>
           <scoredef meter.count="2" meter.unit="2" meter.sym="cut" key.sig="0">
