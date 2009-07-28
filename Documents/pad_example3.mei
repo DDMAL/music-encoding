@@ -67,7 +67,7 @@ to restriction/extend some attribute values. -->
                   </td>
                   <td n="composer">
                     <!-- The del element is used for indicating a textual/musical deletion. -->
-                    <!-- <del rend="strike">L. v. Beethoven</del> -->
+                    <del rend="strike">L. v. Beethoven</del>
                   </td>
                 </tr>
               </table>
@@ -240,40 +240,42 @@ to restriction/extend some attribute values. -->
               </staff>
               <staff n="2">
                 <!-- What do the repeat signs refer to: the printed or the performed notes? -->
-                <!-- <choice>
-                  <orig>
-                    <halfmrpt altsym="usersym1"/>
-                    <halfmrpt altsym="usersym1"/>
-                  </orig>
+                <layer>
                   <choice>
-                    <reg n="print">
-                      <chord dur="2" stem.mod="1slash">
-                        <note pname="b" oct="2"/>
-                        <note pname="g" oct="3"/>
-                      </chord>
-                      <chord dur="2" stem.mod="1slash">
-                        <note pname="b" oct="2" dur="4"/>
-                        <note pname="g" oct="3" dur="2"/>
-                      </chord>
-                    </reg>
-                    <reg n="performance">
-                      <chord dur="8">
-                        <note pname="b" oct="2"/>
-                        <note pname="g" oct="3"/>
-                      </chord>
-                      <chord/>
-                      <chord/>
-                      <chord/>
-                      <chord dur="8">
-                        <note pname="b" oct="2"/>
-                        <note pname="g" oct="3"/>
-                      </chord>
-                      <chord/>
-                      <chord/>
-                      <chord/>
-                    </reg>
+                    <orig>
+                      <halfmrpt altsym="usersym1"/>
+                      <halfmrpt altsym="usersym1"/>
+                    </orig>
+                    <choice>
+                      <reg n="print">
+                        <chord dur="2" stem.mod="1slash">
+                          <note pname="b" oct="2"/>
+                          <note pname="g" oct="3"/>
+                        </chord>
+                        <chord dur="2" stem.mod="1slash">
+                          <note pname="b" oct="2" dur="4"/>
+                          <note pname="g" oct="3" dur="2"/>
+                        </chord>
+                      </reg>
+                      <reg n="performance">
+                        <chord dur="8">
+                          <note pname="b" oct="2"/>
+                          <note pname="g" oct="3"/>
+                        </chord>
+                        <chord/>
+                        <chord/>
+                        <chord/>
+                        <chord dur="8">
+                          <note pname="b" oct="2"/>
+                          <note pname="g" oct="3"/>
+                        </chord>
+                        <chord/>
+                        <chord/>
+                        <chord/>
+                      </reg>
+                    </choice>
                   </choice>
-                </choice> -->
+                </layer>
               </staff>
               <phrase place="above" staff="1" tstamp="1" dur="0m+3"/>
 
