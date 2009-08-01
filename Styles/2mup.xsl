@@ -2418,23 +2418,23 @@ CHANGES:
         <xsl:value-of select="replace(replace(@accid,'f','&#x0026;'),'s','#')"/>
       </xsl:when>
       <xsl:when test="@accid.editorial and not(@accid)">
-        <!-- <xsl:if test="@accid.enclose"> -->
-        <xsl:text>(</xsl:text>
-        <!-- </xsl:if> -->
+        <xsl:if test="@accid.enclose">
+          <xsl:text>(</xsl:text>
+        </xsl:if>
         <xsl:value-of
           select="replace(replace(@accid.editorial,'f','&#x0026;'),'s','#')"/>
-        <!-- <xsl:if test="@accid.enclose"> -->
-        <xsl:text>)</xsl:text>
-        <!-- </xsl:if> -->
+        <xsl:if test="@accid.enclose">
+          <xsl:text>)</xsl:text>
+        </xsl:if>
       </xsl:when>
       <xsl:when test="accid">
-        <!-- <xsl:if test="accid/@enclose"> -->
-        <xsl:text>(</xsl:text>
-        <!-- </xsl:if> -->
+        <xsl:if test="accid/@enclose">
+          <xsl:text>(</xsl:text>
+        </xsl:if>
         <xsl:value-of select="replace(replace(accid/@value,'f','&#x0026;'),'s','#')"/>
-        <!-- <xsl:if test="accid/@enclose"> -->
-        <xsl:text>)</xsl:text>
-        <!-- </xsl:if> -->
+        <xsl:if test="accid/@enclose">
+          <xsl:text>)</xsl:text>
+        </xsl:if>
       </xsl:when>
     </xsl:choose>
 
@@ -3223,8 +3223,7 @@ CHANGES:
   </xsl:template>
 
   <xsl:template name="beaming">
-    <xsl:if test="parent::beam">
-    <!-- <xsl:if test="ancestor::beam"> -->
+    <xsl:if test="parent::beam or ancestor::beam">
       <xsl:if test="position()=1 and not(@grace)">
         <xsl:text> bm</xsl:text>
         <xsl:if test="parent::beam/@with">
