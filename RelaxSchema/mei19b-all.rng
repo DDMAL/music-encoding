@@ -1785,18 +1785,12 @@
     <define name="att.log.mensur">
       <optional>
         <attribute name="modusmaior">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.MODUSMAIOR"/>
         </attribute>
       </optional>
       <optional>
         <attribute name="modusminor">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.MODUSMINOR"/>
         </attribute>
       </optional>
       <optional>
@@ -1811,18 +1805,12 @@
       </optional>
       <optional>
         <attribute name="prolatio">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.PROLATIO"/>
         </attribute>
       </optional>
       <optional>
         <attribute name="tempus">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.TEMPUS"/>
         </attribute>
       </optional>
     </define>
@@ -1864,11 +1852,12 @@
       </optional>
       <optional>
         <attribute name="orient">
-          <choice>
+          <ref name="data.ORIENTATION"/>
+          <!-- <choice>
             <value>reversed</value>
             <value>90CW</value>
             <value>90CCW</value>
-          </choice>
+          </choice> -->
         </attribute>
       </optional>
       <optional>
@@ -2436,18 +2425,12 @@
     <define name="att.log.scoredef.mensural">
       <optional>
         <attribute name="modusmaior">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.MODUSMAIOR"/>
         </attribute>
       </optional>
       <optional>
         <attribute name="modusminor">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.MODUSMINOR"/>
         </attribute>
       </optional>
       <optional>
@@ -2462,10 +2445,7 @@
       </optional>
       <optional>
         <attribute name="prolatio">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.PROLATIO"/>
         </attribute>
       </optional>
       <optional>
@@ -2480,10 +2460,7 @@
       </optional>
       <optional>
         <attribute name="tempus">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.TEMPUS"/>
         </attribute>
       </optional>
     </define>
@@ -2661,11 +2638,12 @@
       </optional>
       <optional>
         <attribute name="mensur.orient">
-          <choice>
+          <ref name="data.ORIENTATION"/>
+          <!-- <choice>
             <value>reversed</value>
             <value>90CW</value>
             <value>90CCW</value>
-          </choice>
+          </choice> -->
         </attribute>
       </optional>
       <optional>
@@ -2861,10 +2839,11 @@
       </optional>
       <optional>
         <attribute name="page.panels">
-          <choice>
+          <ref name="data.PAGE.PANELS"/>
+          <!-- <choice>
             <value>1</value>
             <value>2</value>
-          </choice>
+          </choice> -->
         </attribute>
       </optional>
       <optional>
@@ -3206,18 +3185,12 @@
       </optional>
       <optional>
         <attribute name="modusmaior">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.MODUSMAIOR"/>
         </attribute>
       </optional>
       <optional>
         <attribute name="modusminor">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.MODUSMINOR"/>
         </attribute>
       </optional>
       <optional>
@@ -3232,10 +3205,7 @@
       </optional>
       <optional>
         <attribute name="prolatio">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.PROLATIO"/>
         </attribute>
       </optional>
       <optional>
@@ -3250,10 +3220,7 @@
       </optional>
       <optional>
         <attribute name="tempus">
-          <choice>
-            <value>2</value>
-            <value>3</value>
-          </choice>
+          <ref name="data.TEMPUS"/>
         </attribute>
       </optional>
     </define>
@@ -3393,11 +3360,12 @@
       </optional>
       <optional>
         <attribute name="mensur.orient">
-          <choice>
+          <ref name="data.ORIENTATION"/>
+          <!-- <choice>
             <value>reversed</value>
             <value>90CW</value>
             <value>90CCW</value>
-          </choice>
+          </choice> -->
         </attribute>
       </optional>
       <optional>
@@ -4336,15 +4304,7 @@
         </attribute>
       </optional>
       <attribute name="rend">
-        <choice>
-          <value>4</value>
-          <value>8</value>
-          <value>16</value>
-          <value>32</value>
-          <value>64</value>
-          <value>128</value>
-          <value>mixed</value>
-        </choice>
+        <ref name="data.BEATRPT.REND"/>
       </attribute>
     </define>
   </div>
@@ -4540,14 +4500,7 @@
       </optional>
       <optional>
         <attribute name="slash">
-          <choice>
-            <value>1</value>
-            <value>2</value>
-            <value>3</value>
-            <value>4</value>
-            <value>5</value>
-            <value>6</value>
-          </choice>
+          <ref name="data.SLASH"/>
         </attribute>
       </optional>
     </define>
@@ -16322,13 +16275,7 @@
       <define name="attlist.barre" combine="interleave">
         <ref name="att.common"/>
         <attribute name="fret">
-          <choice>
-            <value>1</value>
-            <value>2</value>
-            <value>3</value>
-            <value>4</value>
-            <value>5</value>
-          </choice>
+          <ref name="data.FRET"/>
         </attribute>
         <attribute name="from">
           <data type="IDREF"/>
@@ -16425,26 +16372,12 @@
         </optional>
         <optional>
           <attribute name="fing">
-            <choice>
-              <value>x</value>
-              <value>o</value>
-              <value>1</value>
-              <value>2</value>
-              <value>3</value>
-              <value>4</value>
-              <value>5</value>
-            </choice>
+            <ref name="data.FINGER.FRET"/>
           </attribute>
         </optional>
         <optional>
           <attribute name="fret">
-            <choice>
-              <value>1</value>
-              <value>2</value>
-              <value>3</value>
-              <value>4</value>
-              <value>5</value>
-            </choice>
+            <ref name="data.FRET"/>
           </attribute>
         </optional>
         <optional>

@@ -258,6 +258,13 @@ CHANGES:
       <xsl:value-of select="$nl"/>
     </xsl:if>
     <xsl:value-of select="$nl"/>
+    <xsl:text>header</xsl:text>
+    <xsl:value-of select="$nl"/>
+    <xsl:value-of select="$indent"/>
+    <xsl:text>title </xsl:text>
+    <xsl:value-of select="concat('&quot;',filedesc/titlestmt/title[1],'&quot;')"/>
+    <xsl:value-of select="$nl"/>
+    <xsl:value-of select="$nl"/>
   </xsl:template>
 
   <!-- MEI work element -->
@@ -1308,6 +1315,45 @@ CHANGES:
     </xsl:if>
     <xsl:apply-templates/>
   </xsl:template>
+  
+  <xsl:template match="fermata">
+    <xsl:if test="not(@source) or contains(string(@source),$source)">
+      <xsl:value-of select="$indent"/>
+      <xsl:text>mussym </xsl:text>
+      <xsl:value-of select="@place"/>
+      <xsl:text> </xsl:text>
+      <xsl:value-of select="@staff"/>
+      <!-- Vertical offset -->
+      <xsl:if test="@vo">
+        <xsl:text> dist </xsl:text>
+        <xsl:value-of select="@vo"/>
+        <xsl:text>!</xsl:text>
+      </xsl:if>
+      <xsl:text>: </xsl:text>
+      <xsl:choose>
+        <xsl:when test="not(@tstamp)">
+          <xsl:text>1</xsl:text>
+        </xsl:when>
+        <xsl:when test="@tstamp=0">
+          <xsl:text>1</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="round-half-to-even(@tstamp,3)"/>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:text> "</xsl:text>
+      <xsl:choose>
+        <xsl:when test="@form='inv' or @place='below'">
+          <xsl:text>\(uferm)</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:text>\(ferm)</xsl:text>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:text>";</xsl:text>
+      <xsl:value-of select="$nl"/>
+    </xsl:if>
+  </xsl:template>
 
   <xsl:template match="tempo|dir">
     <xsl:if test="not(@source) or contains(string(@source),$source)">
@@ -1480,7 +1526,7 @@ CHANGES:
 
     <xsl:apply-templates select="staff"/>
     <xsl:apply-templates
-      select="annot|arpeg|dir|dynam|hairpin|phrase|reh|slur|tempo|mordent|trill|turn"/>
+      select="annot|arpeg|dir|dynam|fermata|hairpin|phrase|reh|slur|tempo|mordent|trill|turn"/>
     <xsl:apply-templates select="staff//halfmrpt" mode="draw"/>
     <xsl:apply-templates select="pedal">
       <xsl:sort select="@tstamp" data-type="number"/>

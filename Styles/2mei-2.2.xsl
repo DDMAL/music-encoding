@@ -306,7 +306,7 @@ CHANGES:  (v. 1.1)
             <p>Transcoded from a MusicXML <xsl:if test="@version"> version <xsl:value-of
                   select="@version"/>
               </xsl:if> file on <date>
-                <xsl:value-of select="format-date(current-date(), '[Y]-[M]-[D]')"/>
+                <xsl:value-of select="format-date(current-date(), '[Y]-[M02]-[D02]')"/>
               </date> using an XSLT stylesheet (<xsl:value-of select="$progname"/><xsl:text> </xsl:text>
               <xsl:value-of select="$progversion"/>).</p>
             <xsl:if test="identification/encoding/software">
@@ -391,6 +391,11 @@ CHANGES:  (v. 1.1)
                     />
                   </xsl:variable>
                   <xsl:choose>
+                    <xsl:when test="$keysig=''">
+                      <xsl:attribute name="key.sig">
+                        <xsl:text>0</xsl:text>
+                      </xsl:attribute>
+                    </xsl:when>
                     <xsl:when test="$keysig=0">
                       <xsl:attribute name="key.sig">
                         <xsl:value-of select="$keysig"/>

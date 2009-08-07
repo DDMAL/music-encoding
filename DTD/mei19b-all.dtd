@@ -2017,12 +2017,21 @@ such as 'a', while tune.Hz holds a value for cycles per second, i.e.,
 Hertz, and tune.temper provides a label for the tuning system, 'just',
 for example.
 
-Suggested software default values are: grace - 'acc', midi.channel -
-'1', midi.div - '96', midi.duty - '80', midi.instr - '1' (General MIDI
-instrument number 1), midi.instrname - 'Acoustic Piano' (General MIDI
-instrument name), midi.port - '1', midi.tempo - '120', midi.track - '1',
-tempo - beats per minute '120', tune.pname - 'a', tune.Hz - '440',
-tune.temper - 'equal' -->
+   Suggested software default values are: 
+   grace - 'acc',
+   midi.channel - '1', 
+   midi.div - '96', 
+   midi.duty - '80', 
+   midi.instr - '1' (General MIDI instrument number 1), 
+   midi.instrname - 'Acoustic Piano' (General MIDI instrument name),
+   midi.port - '1', 
+   midi.tempo - '120', 
+   midi.track - '1',
+   tempo - beats per minute '120', 
+   tune.pname - 'a', 
+   tune.Hz - '440',
+   tune.temper - 'equal'
+-->
 <![%meiGestural;[
   <!ENTITY % att.ges.scoredef
                      'grace             %data.GRACE;           #IMPLIED
@@ -2110,12 +2119,25 @@ trans.diat and trans.semi attributes in order to distinguish the
 difference, for example, between a transposition from C to C# and one
 from C to Db.
 
-Suggested software default values: beam.group - empty string, beam.rests
-- 'no', clef.line - '2', clef.shape - 'G', clef.trans - '0', dur.default
-- '4', key.accid -empty string, key.mode - 'major', key.pname - empty
-string, key.sig - empty string, key.sig.mixed - empty string,
-meter.count - empty string, meter.unit - empty string, meter.sym - empty
-string, octave.default - '4', trans.diat - '0', trans.semi -'0'. -->
+    Suggested software default values:
+    beam.group - empty string, 
+    beam.rests - 'no', 
+    clef.line - '2', 
+    clef.shape - 'G', 
+    clef.trans - '0', 
+    dur.default - '4', 
+    key.accid - empty string, 
+    key.mode - 'major', 
+    key.pname - empty string, 
+    key.sig - empty string, 
+    key.sig.mixed - empty string,
+    meter.count - empty string, 
+    meter.unit - empty string, 
+    meter.sym - empty string, 
+    octave.default - '4', 
+    trans.diat - '0', 
+    trans.semi -'0'
+-->
 <!ENTITY % att.log.scoredef.mensural
                      'modusmaior        (2|3)                  #IMPLIED
                      modusminor         (2|3)                  #IMPLIED
@@ -9566,22 +9588,23 @@ Module:  meiHeader -->
 parameter number, while val contains the parameter value. Each must fall
 in the range 0-127.
 
-A sampling of controllers and their numbers:
-0   Bank Select MSB
-1   Modulation 
-2   Breath Control
-5   Portamento Time
-7   Main Volume
-10  Pan
-11  Expression
-32  Bank Select LSB
-64  Sustain Pedal (0=up, 127=down)
-65  Portamento Pedal (0=off, 127=on)
-91  Reverb
-93  Chorus Depth
-120 All Sounds Off (0)
-121 Reset All Controllers (0)
-123 All Notes Off (0) 
+  A sampling of controllers and their numbers:
+  0   Bank Select MSB
+  1   Modulation 
+  2   Breath Control
+  5   Portamento Time
+  7   Main Volume
+  10  Pan
+  11  Expression
+  32  Bank Select LSB
+  64  Sustain Pedal (0=up, 127=down)
+  65  Portamento Pedal (0=off, 127=on)
+  91  Reverb
+  93  Chorus Depth
+  120 All Sounds Off (0)
+  121 Reset All Controllers (0)
+  123 All Notes Off (0)
+  
 Used by: model.midieventLike 
 Module:  meiMIDI -->
 <!ENTITY % cc 'IGNORE'>

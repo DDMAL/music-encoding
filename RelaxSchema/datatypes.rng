@@ -4,6 +4,15 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
 
   <!--
+    This version of MEI.
+  -->
+  <define name="meiVersion">
+    <data type="token">
+      <param name="pattern">1.9b</param>
+    </data>
+  </define>
+
+  <!--
     Either a decimal value or a token. The decimal values are limited
     to .25, .5, .75, or 1, while the token values are restricted to
     'full'.
@@ -33,6 +42,24 @@
   </define>
 
   <!--
+    The rend attribute indicates the number of slashes required to render
+    the appropriate beat repeat symbol when the beat is divided into even
+    notes - 4ths or 8ths=1, 16ths=2, 32nds=3, 64ths=4, 128ths=5. When the
+    beat is comprised of mixed duration values, the symbol is always
+    rendered as 2 slashes and 2 dots. See Read, pg. 223-224.
+  -->
+  <define name="data.BEATRPT.REND">
+    <choice>
+      <data type="positiveInteger">
+        <param name="pattern">4|8|16|32|64|128</param>
+      </data>
+      <data type="token">
+        <param name="pattern">mixed</param>
+      </data>
+    </choice>
+  </define>
+
+  <!--
     EITHER a hexadecimal color value, ie., x[0-9A-Fa-f]{6,6} OR a
     descriptive word, i.e., aqua, black, blue, fuchsia, gray, green, lime,
     maroon, navy, olive, purple, red, silver, teal, white, or yellow, for
@@ -53,6 +80,37 @@
   -->
   <define name="data.DEGREES">
     <data type="decimal"/>
+  </define>
+  
+  <!--
+    In a guitar chord diagram, a label indicating which finger, if any,
+    should be used to play an individual string.  The labels 'x' and 'o'
+    are normally displayed above the appropriate guitar string.
+  -->
+  <define name="data.FINGER.FRET">
+    <choice>
+      <data type="positiveInteger">
+        <param name="minInclusive">1</param>
+        <param name="maxInclusive">4</param>
+      </data>
+      <data type="token">
+        <param name="pattern">x|o</param>
+      </data>
+    </choice>
+  </define>
+
+  <!--
+    In a guitar chord diagram, the fret where the finger should be
+    placed.  Since guitar chord diagrams are limited to the range of
+    frets that fall under the hand, the value here is also limited.  The
+    pos attribute on the chorddef element must be used to indicate at
+    which fret this range begins.
+  -->
+  <define name="data.FRET">
+    <data type="positiveInteger">
+      <param name="minInclusive">1</param>
+      <param name="maxInclusive">5</param>
+    </data>
   </define>
 
   <!--
@@ -126,6 +184,20 @@
     </data>
   </define>
 
+  <define name="data.MODUSMAIOR">
+    <data type="positiveInteger">
+      <param name="minInclusive">2</param>
+      <param name="maxInclusive">3</param>
+    </data>
+  </define>
+
+  <define name="data.MODUSMINOR">
+    <data type="positiveInteger">
+      <param name="minInclusive">2</param>
+      <param name="maxInclusive">3</param>
+    </data>
+  </define>
+
   <!--
     optionally signed decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)?
   -->
@@ -142,14 +214,27 @@
       <param name="minInclusive">1</param>
     </data>
   </define>
-  
+
   <!--
     The amount of octave displacement; that is, '8' (as in '8va' for
     1 octave), '15' (for 2 octaves), or rarely '22' (for 3 octaves).
   -->
   <define name="data.OCTAVE.DIS">
-    <data type="integer">
+    <data type="positiveInteger">
       <param name="pattern">8|15|22</param>
+    </data>
+  </define>
+
+  <define name="data.ORIENTATION">
+    <data type="token">
+      <param name="pattern">reversed|90CW|90CCW</param>
+    </data>
+  </define>
+
+  <define name="data.PAGE.PANELS">
+    <data type="positiveInteger">
+      <param name="minInclusive">1</param>
+      <param name="maxInclusive">2</param>
     </data>
   </define>
 
@@ -162,6 +247,13 @@
     </data>
   </define>
 
+  <define name="data.PROLATIO">
+    <data type="positiveInteger">
+      <param name="minInclusive">2</param>
+      <param name="maxInclusive">3</param>
+    </data>
+  </define>
+
   <!--
      a ratio, i.e., [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?  For example,
     "40:7.2319"
@@ -169,6 +261,13 @@
   <define name="data.RATIO">
     <data type="token">
       <param name="pattern">[0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?</param>
+    </data>
+  </define>
+
+  <define name="data.SLASH">
+    <data type="positiveInteger">
+      <param name="minInclusive">1</param>
+      <param name="maxInclusive">6</param>
     </data>
   </define>
 
@@ -185,6 +284,13 @@
   -->
   <define name="data.TEMPOVALUE">
     <data type="positiveInteger"/>
+  </define>
+
+  <define name="data.TEMPUS">
+    <data type="positiveInteger">
+      <param name="minInclusive">2</param>
+      <param name="maxInclusive">3</param>
+    </data>
   </define>
 
   <!--
