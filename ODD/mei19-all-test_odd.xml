@@ -3387,7 +3387,9 @@ Number of definitions found in original RNG: 350
                 indicate what key accidentals should be rendered and where they should be
                 placed.</desc>
               <datatype>
-                <rng:data type="NMTOKENS"/>
+                <rng:data type="NMTOKENS">
+                  <rng:param name="pattern">[A-G](s|f|n|x|ff)[0-9]</rng:param>
+                </rng:data>
               </datatype>
             </attDef>
             <attDef ident="meter.count" usage="opt">
@@ -4333,6 +4335,11 @@ Number of definitions found in original RNG: 350
                 each token containing pitch name, accidental, and octave, such as 'As4 Cs5 Ef5' that
                 indicate what key accidentals should be rendered and where they should be
                 placed.</desc>
+              <datatype>
+                <rng:data type="NMTOKENS">
+                  <rng:param name="pattern">[A-G](s|f|n|x|ff)[0-9]</rng:param>
+                </rng:data>
+              </datatype>
             </attDef>
             <attDef ident="meter.count" usage="opt">
               <desc>captures the number of beats in a measure, that is, the top number of the meter
