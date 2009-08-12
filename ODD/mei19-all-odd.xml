@@ -3438,9 +3438,13 @@ Number of definitions found in original RNG: 350
                 name, accidental, and octave, such as 'As4 Cs5 Ef5' that indicate what key
                 accidentals should be rendered and where they should be placed.</desc>
               <datatype>
-                <rng:data type="NMTOKENS">
-                  <rng:param name="pattern">[A-G](s|f|n|x|ff)[0-9]</rng:param>
-                </rng:data>
+                <rng:list>
+                  <rng:oneOrMore>
+                    <rng:data type="NMTOKEN">
+                      <rng:param name="pattern">[A-G](s|f|n|x|ff)[0-9]</rng:param>
+                    </rng:data>
+                  </rng:oneOrMore>
+                </rng:list>
               </datatype>
             </attDef>
             <attDef ident="meter.count" usage="opt">
@@ -4400,9 +4404,13 @@ Number of definitions found in original RNG: 350
                 name, accidental, and octave, such as 'As4 Cs5 Ef5' that indicate what key
                 accidentals should be rendered and where they should be placed.</desc>
               <datatype>
-                <rng:data type="NMTOKENS">
-                  <rng:param name="pattern">[A-G](s|f|n|x|ff)[0-9]</rng:param>
-                </rng:data>
+                <rng:list>
+                  <rng:oneOrMore>
+                    <rng:data type="NMTOKEN">
+                      <rng:param name="pattern">[A-G](s|f|n|x|ff)[0-9]</rng:param>
+                    </rng:data>
+                  </rng:oneOrMore>
+                </rng:list>
               </datatype>
             </attDef>
             <attDef ident="meter.count" usage="opt">
@@ -7010,7 +7018,8 @@ Number of definitions found in original RNG: 350
               </valList>
             </attDef>
             <attDef ident="colored" usage="opt">
-              <desc>indicates this note is 'colored' in the mensural notation sense.</desc>
+              <desc>indicates this note is 'colored' in the mensural notation
+                sense.</desc>
               <datatype>
                 <rng:ref name="data.BOOLEAN"/>
               </datatype>
@@ -12785,7 +12794,8 @@ Number of definitions found in original RNG: 237
           </content>
           <attList>
             <attDef ident="ref" usage="req">
-              <desc>contains a reference to a previously-declared user-defined symbol.</desc>
+              <desc>contains a reference to a previously-declared user-defined
+                symbol.</desc>
               <datatype>
                 <rng:data type="IDREF"/>
               </datatype>
