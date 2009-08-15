@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" 
+  xmlns:xi="http://www.w3.org/2001/XInclude"
+  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+  xmlns:teix="http://www.tei-c.org/ns/Examples">
+ <teiHeader>
+  <fileDesc>
+   <titleStmt>
+    <title>TEI with ODD elements</title>
+    <author>Sebastian Rahtz</author>
+   </titleStmt>
+   <publicationStmt>
+    <p> </p>
+   </publicationStmt>
+   <sourceDesc>
+    <p>authored from scratch</p>
+   </sourceDesc>
+  </fileDesc>
+ </teiHeader>
+ <text>
+  <body>
+   <schemaSpec 
+       ident="oddschema" prefix="TEI_"
+       start="TEI schemaSpec elementSpec classSpec macroSpec div">
+    <moduleRef key="header"/>
+    <moduleRef key="core"/>
+    <moduleRef key="tei"/>
+    <moduleRef key="gaiji"/>
+    <moduleRef key="namesdates"/>
+    <moduleRef key="textstructure"/>
+    <moduleRef key="tagdocs"/>
+    <moduleRef key="linking"/>
+    <moduleRef key="figures"/>
+    <elementSpec xmlns="http://www.tei-c.org/ns/1.0" 
+		 module="tagdocs" 
+		 mode="change"
+		 ident="schemaSpec">
+      <content>
+	<rng:group>
+	  <rng:zeroOrMore>
+	  <rng:ref name="model.glossLike"/>
+	  </rng:zeroOrMore>
+	  <rng:zeroOrMore>
+	    <rng:choice>
+	      <rng:ref name="moduleRef"/>
+	      <rng:ref name="specGrpRef"/>
+	      <rng:ref name="model.oddDecl"/>
+	    </rng:choice>
+	  </rng:zeroOrMore>
+	</rng:group>
+	<rng:zeroOrMore>
+	  <rng:ref name="anySchematron"/>
+	</rng:zeroOrMore>
+      </content>
+    </elementSpec>
+
+      
+      <macroSpec ident="anySchematron" mode="add">
+	<content>
+	  <element xmlns="http://relaxng.org/ns/structure/1.0">
+	    <nsName ns="http://www.ascc.net/xml/schematron"/>
+	    <zeroOrMore>
+	      <choice>
+		<attribute>
+		  <anyName/>
+		</attribute>
+		<ref name="anySchematron"/>
+		<text/>
+	      </choice>
+	    </zeroOrMore>
+	  </element>
+	</content>
+      </macroSpec>
+      
+    <moduleRef url="relaxng.rng"/>
+    
+    
+    <macroSpec ident="macro.schemaPattern" mode="change" module="tagdocs">
+	<content>
+	  <group xmlns="http://relaxng.org/ns/structure/1.0">
+	    <choice>
+	      <text/>
+	      <oneOrMore>
+		<choice>
+		  <ref name="pattern"/>
+		  <ref name="define"/>
+		</choice>
+	      </oneOrMore>
+	    </choice>
+	    <zeroOrMore>
+	      <ref name="anySchematron"/>
+	    </zeroOrMore>
+	  </group>
+	</content>
+      </macroSpec>
+      
+      <macroSpec ident="anyThing" mode="add">
+	<content>
+	  <element xmlns="http://relaxng.org/ns/structure/1.0"
+		   ns="http://www.tei-c.org/ns/Examples">
+	    <anyName/>
+	    <ref name="att.global.attribute.xmlid"/>
+	    <ref name="att.global.attribute.xmllang"/>
+	    <zeroOrMore>
+	      <attribute>
+		<anyName>
+		  <except>
+		    <name>xml:id</name>
+		    <name>xml:lang</name>
+		  </except>
+		</anyName>
+	      </attribute>
+	    </zeroOrMore>
+	    <zeroOrMore>
+	      <choice>
+		<text/>
+		<ref name="anyThing"/>
+	      </choice>
+	    </zeroOrMore>
+	  </element>
+	</content>
+      </macroSpec>
+
+      <elementSpec ident="egXML" mode="change" module="tagdocs"
+		   ns="http://www.tei-c.org/ns/Examples">
+	<content>
+	  <oneOrMore xmlns="http://relaxng.org/ns/structure/1.0">
+	    <choice>
+	      <text/>
+		<ref name="anyThing"/>
+	    </choice>
+	  </oneOrMore>
+	</content>
+      </elementSpec>
+
+      <classSpec type="atts" ident="att.global" mode="change">
+	<attList>
+	  <attDef ident="xml:id" mode="change">
+	    <datatype>
+	      <rng:data type="string"/>
+	    </datatype>
+	  </attDef>
+	  <attDef ident="xml:lang" mode="change">
+	    <datatype>
+	      <rng:data type="string"/>
+	    </datatype>
+	  </attDef>
+	</attList>
+      </classSpec>
+   </schemaSpec>
+  </body>
+ </text>
+</TEI>
