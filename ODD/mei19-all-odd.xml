@@ -39,6 +39,11 @@
         elementSpec</change>
       <change who="#PR" when="2009-08-12">Moved documentation for attributes from
         classSpec/desc to individual attDef/desc elements</change>
+      <change who="#PR" when="2009-08-17">Removed att.lang class on fingerprint</change>
+      <change who="#PR" when="2009-08-18">Removed arcrole attribute from att.link.common
+        attribute class</change>
+      <change who="#PR" when="2009-08-18">Made model.pgmetaLike and model.pgmetaLike.score
+        optional in the content models of pb and scoredef.</change>
     </revisionDesc>
   </teiHeader>
   <text>
@@ -86,7 +91,7 @@
         </macroSpec>
         <macroSpec module="mei" xml:id="analysis" type="pe" ident="MEI.analysis">
           <gloss>MEI.analysis module - contains definitions supporting the encoding of
-            analytical data.</gloss>
+            analytical attributes.</gloss>
           <desc/>
           <content>
             <rng:ref xmlns:rng="http://relaxng.org/ns/structure/1.0" name="'INCLUDE'"/>
@@ -97,7 +102,7 @@
         </macroSpec>
         <macroSpec module="mei" xml:id="gestural" type="pe" ident="MEI.gestural">
           <gloss>MEI.gestural module - contains definitions supporting the encoding of
-            gestural/performance data.</gloss>
+            gestural/performance attributes.</gloss>
           <desc/>
           <content>
             <rng:ref xmlns:rng="http://relaxng.org/ns/structure/1.0" name="'INCLUDE'"/>
@@ -106,9 +111,9 @@
             <p>Usage remarks</p>
           </remarks>
         </macroSpec>
-        <macroSpec xml:id="visual" type="pe" ident="MEI.visual">
+        <macroSpec module="mei" xml:id="visual" type="pe" ident="MEI.visual">
           <gloss>MEI.visual module - contains definitions supporting the encoding of
-            visual data.</gloss>
+            visual attributes.</gloss>
           <desc/>
           <content>
             <rng:ref xmlns:rng="http://relaxng.org/ns/structure/1.0" name="'INCLUDE'"/>
@@ -1425,7 +1430,7 @@ Defintion of Attribute Classes
 Number of definitions found in original RNG: 350
 ****
 -->
-        <classSpec type="atts" ident="att.alignment">
+        <classSpec type="atts" ident="att.alignment" module="linkalign">
           <desc>Temporal alignment attributes</desc>
           <attList>
             <attDef ident="when" usage="opt">
@@ -1437,7 +1442,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.altsym">
+        <classSpec type="atts" ident="att.altsym" module="usersymbols">
           <desc>Pointers to user-defined symbols</desc>
           <attList>
             <attDef ident="altsym" usage="opt">
@@ -1449,7 +1454,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.bibl">
+        <classSpec type="atts" ident="att.bibl" module="shared">
           <desc>Bibliographic attributes</desc>
           <attList>
             <attDef ident="analog" usage="opt">
@@ -1463,7 +1468,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.color">
+        <classSpec type="atts" ident="att.color" module="visual">
           <desc>Color attributes</desc>
           <attList>
             <attDef ident="color" usage="opt">
@@ -1475,7 +1480,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.common.anl">
+        <classSpec type="atts" ident="att.common.anl" module="analysis">
           <desc>Common analytical attributes. When the meiLinkAlign module is available,
             the when attribute is also a member of this attribute class.</desc>
           <classes>
@@ -1491,7 +1496,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.common">
+        <classSpec type="atts" ident="att.common" module="mei">
           <desc>Common attributes</desc>
           <attList>
             <attDef ident="id" usage="opt">
@@ -1511,7 +1516,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.controlevent">
+        <classSpec type="atts" ident="att.controlevent" module="mei">
           <desc>Attributes shared by events which rely on other events for their
             existence. For example, a slur/phrase marking must be drawn between or over a
             group of notes. The slur is therefore a control event.</desc>
@@ -1571,7 +1576,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.coordinated">
+        <classSpec type="atts" ident="att.coordinated" module="facsimile">
           <desc>This attribute class records the position of the entity within a
             two-dimensional coordinate system.</desc>
           <attList>
@@ -1601,7 +1606,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.crit">
+        <classSpec type="atts" ident="att.crit" module="critapp">
           <desc>Attributes common to all elements representing variant readings</desc>
           <attList>
             <attDef ident="cause" usage="opt">
@@ -1647,7 +1652,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.date">
+        <classSpec type="atts" ident="att.date" module="mei">
           <desc>Attributes common to dates</desc>
           <attList>
             <attDef ident="calendar" usage="opt">
@@ -1702,7 +1707,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.edit">
+        <classSpec type="atts" ident="att.edit" module="edittrans">
           <desc>Attributes describing the nature of an encoded scholarly intervention or
             interpretation</desc>
           <attList>
@@ -1740,7 +1745,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.event">
+        <classSpec type="atts" ident="att.event" module="mei">
           <desc>Attributes that apply to all written events, e.g., beam, beatrpt, chord,
             note, etc.</desc>
           <attList>
@@ -1791,7 +1796,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.facsimile">
+        <classSpec type="atts" ident="att.facsimile" module="facsimile">
           <desc>Facsimile references. This attribute class is unavailable unless the
             meiFacsimile module is available.</desc>
           <attList>
@@ -1804,7 +1809,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.link.common">
+        <classSpec type="atts" ident="att.link.common" module="ptrrefs">
           <desc>Attributes common to all linking elements</desc>
           <attList>
             <attDef ident="actuate" usage="opt">
@@ -1818,8 +1823,20 @@ Number of definitions found in original RNG: 350
                 <valItem ident="none"/>
               </valList>
             </attDef>
-            <attDef ident="arcrole" usage="opt"/>
-            <attDef ident="role" usage="opt"/>
+            <!-- <attDef ident="arcrole" usage="opt">
+              
+            </attDef> -->
+            <attDef ident="role" usage="opt">
+              <desc>indicates a property that the entire link has. The value of the role
+                attribute must be a URI reference as defined in [IETF RFC 2396], except
+                that if the URI scheme used is allowed to have absolute and relative
+                forms, the URI portion must be absolute. The URI reference identifies some
+                resource that describes the intended property. When no value is supplied,
+                no particular role value is to be inferred.</desc>
+              <datatype>
+                <rng:data type="anyURI"/>
+              </datatype>
+            </attDef>
             <attDef ident="show" usage="opt">
               <desc>defines whether a remote resource that is the target of a link appears
                 at the point of the link, replaces the existing link, or appears in a new
@@ -1832,16 +1849,25 @@ Number of definitions found in original RNG: 350
               </valList>
             </attDef>
             <attDef ident="targettype" usage="opt">
-              <desc>allows the target resource to be characterized, using any convenient
-                classification scheme or typology.</desc>
+              <desc>in contrast with the role attribute, allows the target resource to be
+                characterized, using any convenient classification scheme or
+                typology.</desc>
               <datatype>
                 <rng:data type="NMTOKEN"/>
               </datatype>
             </attDef>
-            <attDef ident="title" usage="opt"/>
+            <attDef ident="title" usage="opt">
+              <desc>contains a human-readable description of the entire link. A value is
+                optional; if a value is supplied, it should contain a string that
+                describes the resource. The use of this information is highly dependent on
+                the type of processing being done. It may be used, for example, to make
+                titles available to applications used by visually impaired users, or to
+                create a table of links, or to present help text that appears when a user
+                lets a mouse pointer hover over a starting resource.</desc>
+            </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.link.external">
+        <classSpec type="atts" ident="att.link.external" module="ptrrefs">
           <desc>Linking attributes for external referencing elements</desc>
           <attList>
             <attDef ident="entityref" usage="opt">
@@ -1865,7 +1891,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.link.internal">
+        <classSpec type="atts" ident="att.link.internal" module="ptrrefs">
           <desc>Linking attributes for internal referencing elements</desc>
           <attList>
             <attDef ident="plist" usage="opt">
@@ -1877,7 +1903,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.midi.event">
+        <classSpec type="atts" ident="att.midi.event" module="midi">
           <desc>Attributes common to MIDI events</desc>
           <attList>
             <attDef ident="layer" usage="opt">
@@ -1901,7 +1927,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.name">
+        <classSpec type="atts" ident="att.name" module="mei">
           <desc>Attributes shared by names</desc>
           <attList>
             <attDef ident="authority" usage="opt">
@@ -1920,7 +1946,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.nextprev">
+        <classSpec type="atts" ident="att.nextprev" module="mei">
           <desc>Attributes for indicating a sequential relationship that is not implied by
             encoding order.</desc>
           <attList>
@@ -1939,7 +1965,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.placement">
+        <classSpec type="atts" ident="att.placement" module="mei">
           <desc>Attributes capturing placement information</desc>
           <attList>
             <attDef ident="place" usage="opt">
@@ -1951,7 +1977,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.startendid">
+        <classSpec type="atts" ident="att.startendid" module="mei">
           <desc>Attributes recording the IDs of a sequence of elements to which the
             current element is associated</desc>
           <attList>
@@ -1969,7 +1995,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.lang">
+        <classSpec type="atts" ident="att.lang" module="shared">
           <desc>Attributes common to text elements</desc>
           <attList>
             <attDef ident="lang" usage="opt">
@@ -1982,7 +2008,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.trans">
+        <classSpec type="atts" ident="att.trans" module="shared">
           <desc>Attributes for elements encoding authorial or scribal intervention when
             transcribing manuscript or similar sources</desc>
           <attList>
@@ -2003,7 +2029,7 @@ Number of definitions found in original RNG: 350
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" ident="att.typed">
+        <classSpec type="atts" ident="att.typed" module="mei">
           <desc>Attributes which can be used to classify or subclassify elements</desc>
           <attList>
             <attDef ident="type" usage="opt">
@@ -9925,13 +9951,10 @@ Number of definitions found in original RNG: 237
           </content>
         </elementSpec>
         <elementSpec ident="pb" module="shared">
-          <desc>Page break. Meta-data about an accompanying page image may be recorded in
-            the pgdesc element. The n attribute records the page number in the source. It
-            need not be an integer, e.g. 'iv', or 'p17-3'. The logical page number can be
-            calculated by counting previous pb ancestor elements. The source attribute is
-            provided for linking to the bibliographic description of the source(s) that
-            contains the page break. When used in a score context, a page break implies an
-            accompanying system break.</desc>
+          <desc>Page break. The n attribute records the page number in the source. It need
+            not be an integer, e.g. 'iv', or 'p17-3'. The logical page number can be
+            calculated by counting previous pb ancestor elements. When used in a score
+            context, a page break implies an accompanying system break.</desc>
           <classes>
             <memberOf key="att.common"/>
             <memberOf key="att.facsimile"/>
@@ -9941,7 +9964,9 @@ Number of definitions found in original RNG: 237
             <memberOf key="model.pbLike"/>
           </classes>
           <content>
-            <rng:ref name="model.pgmetaLike"/>
+            <rng:optional>
+              <rng:ref name="model.pgmetaLike"/>
+            </rng:optional>
           </content>
           <attList>
             <attDef ident="func" usage="opt">
@@ -9951,9 +9976,9 @@ Number of definitions found in original RNG: 237
               </valList>
             </attDef>
             <attDef ident="source" usage="opt">
-              <desc>Source descriptions in the header may be pointed to by putting their
-                IDs in the source attribute. This allows page breaks from multiple sources
-                to be encoded with a single pb element.</desc>
+              <desc>provided for linking to the bibliographic description of the source(s)
+                that contains the page break. This allows page breaks from multiple
+                sources to be encoded with a single pb element.</desc>
               <datatype>
                 <rng:data type="IDREFS"/>
               </datatype>
@@ -11563,7 +11588,9 @@ Number of definitions found in original RNG: 237
             <rng:optional>
               <rng:ref name="model.keysigLike"/>
             </rng:optional>
-            <rng:ref name="model.pgmetaLike.score"/>
+            <rng:optional>
+              <rng:ref name="model.pgmetaLike.score"/>
+            </rng:optional>
             <rng:choice>
               <rng:optional>
                 <rng:ref name="model.staffgrpLike"/>
@@ -13262,7 +13289,7 @@ Number of definitions found in original RNG: 237
             to signal differences between copies of the item.</desc>
           <classes>
             <memberOf key="att.common"/>
-            <memberOf key="att.lang"/>
+            <!-- <memberOf key="att.lang"/> -->
           </classes>
           <content>
             <rng:text/>
