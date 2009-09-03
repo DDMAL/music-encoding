@@ -45,7 +45,15 @@
       <change who="#PR" when="2009-08-18">Made model.pgmetaLike and model.pgmetaLike.score
         optional in the content models of pb and scoredef.</change>
       <change who="#PR" when="2009-08-29">Added missing midieventLike class</change>
-      <change who="#PR" when="2009-09-02">Changed 'meiCorpus' to 'meicorpus'</change>
+      <change who="#PR" when="2009-09-02">Changed all 'meiCorpus' to 'meicorpus'</change>
+      <change who="#PR" when="2009-09-02">Removed original attempts to declare modules
+        with macroSpec elements</change>
+      <change who="#PR" when="2009-09-03">added '_sequenceOptional' to references to
+        model.pgmetaLike.score, model.headerPart, and model.profiledescPart</change>
+      <change who="#PR" when="2009-09-03">Made model.clefchangePart optional within
+        content of clefchange element</change>
+      <change who="#PR" when="2009-09-03">Made staff attribute optional in att.event
+        class</change>
     </revisionDesc>
   </teiHeader>
   <text>
@@ -1180,7 +1188,7 @@
           <rng:ref name="data.NUMBER"/>
         </content>
       </macroSpec>
-      
+
       <!--
         ****
         Defintion of Attribute Classes
@@ -9200,7 +9208,7 @@
       <classSpec type="model" ident="model.rdgPart" module="mei">
         <desc>groups elements that may appear as part of a textual variant.</desc>
       </classSpec>
-      
+
       <!--
       ****
       Defintion of Elements
@@ -9923,7 +9931,9 @@
           <memberOf key="model.eventLike.common"/>
         </classes>
         <content>
-          <rng:ref name="model.clefchangePart"/>
+          <rng:optional>
+            <rng:ref name="model.clefchangePart"/>
+          </rng:optional>
         </content>
       </elementSpec>
       <elementSpec ns="http://www.mei-c.org/" ident="pad" module="shared">
@@ -11305,9 +11315,9 @@
           <rng:optional>
             <rng:ref name="model.keysigLike"/>
           </rng:optional>
-          <rng:optional>
-            <rng:ref name="model.pgmetaLike.score"/>
-          </rng:optional>
+          <!-- <rng:optional> -->
+          <rng:ref name="model.pgmetaLike.score_sequenceOptional"/>
+          <!-- </rng:optional> -->
           <rng:choice>
             <rng:optional>
               <rng:ref name="model.staffgrpLike"/>
@@ -13257,7 +13267,7 @@
           <memberOf key="model.headerPart"/>
         </classes>
         <content>
-          <rng:ref name="model.profiledescPart"/>
+          <rng:ref name="model.profiledescPart_sequenceOptional"/>
         </content>
       </elementSpec>
       <elementSpec ns="http://www.mei-c.org/" ident="projectdesc" module="header">
@@ -14676,7 +14686,7 @@
             <rng:ref name="altmeiid"/>
           </rng:zeroOrMore>
           <rng:ref name="filedesc"/>
-          <rng:ref name="model.headerPart"/>
+          <rng:ref name="model.headerPart_sequenceOptional"/>
           <rng:optional>
             <rng:ref name="revisiondesc"/>
           </rng:optional>
