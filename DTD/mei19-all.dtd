@@ -1,6 +1,91 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!-- ************************************************************** -->
+<!--
+  NAME:     Music Encoding Initiative (MEI) DTD
+            File      = mei19b.dtd (version 1.9b) **DRAFT**
+                        **DO NOT REDISTRIBUTE**
+            Vers Date = 2009/09/16
+  
+  NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
+            of the University of Virginia.
+  
+            Licensed under the Educational Community License version 1.0.
+  
+            This Original Work, including software, source code,
+            documents, or other related items, is being provided by the
+            copyright holder(s) subject to the terms of the Educational
+            Community License. By obtaining, using and/or copying this
+            Original Work, you agree that you have read, understand, and
+            will comply with the following terms and conditions of the
+            Educational Community License:
+  
+            Permission to use, copy, modify, merge, publish, distribute,
+            and sublicense this Original Work and its documentation, with
+            or without modification, for any purpose, and without fee or
+            royalty to the copyright holder(s) is hereby granted, provided
+            that you include the following on ALL copies of the Original
+            Work or portions thereof, including modifications or
+            derivatives, that you make:
+  
+            The full text of the Educational Community License in a
+            location viewable to users of the redistributed or derivative
+            work. 
+  
+            Any pre-existing intellectual property disclaimers, notices,
+            or terms and conditions. 
+  
+            Notice of any changes or modifications to the Original Work,
+            including the date the changes were made. 
+  
+            Any modifications of the Original Work must be distributed in
+            such a manner as to avoid any confusion with the Original Work
+            of the copyright holders.
+  
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+            KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+            WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+            PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+            COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+            OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+            SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  
+            The name and trademarks of copyright holder(s) may NOT be used
+            in advertising or publicity pertaining to the Original or
+            Derivative Works without specific, written prior permission.
+            Title to copyright in the Original Work and any associated
+            documentation will at all times remain with the copyright
+            holders.
+  
+  PURPOSE:  This XML DTD is intended for the representation and exchange
+            of mensural, neume, and common music notation (CMN).
+  
+            The semantic information contained in the MEI file may be
+            related to, and/or synchronized with, external digital image,
+            audio, or MIDI files.
+  
+            In addition to music notation, this DTD provides the means to
+            transcribe the additional text typically found in a critical
+            or historical music edition. The DTD also facilitates the
+            encoding of multiple versions of a musical work in a single
+            file.
+  
+  AUTHOR:   Perry Roland
+            pdr4h@virginia.edu
+            University of Virginia
+            Charlottesville, VA 22903
+  
+  NOTE:     This is a beta version XML DTD. Comments and suggestions
+            are welcome.
+                                                                    -->
+<!-- ************************************************************** -->
 
-<!-- Modules -->
+<!-- ************************************************************** -->
+<!-- * Default parameter entity values                            * -->
+<!-- ************************************************************** -->
+
+<!-- Module inclusion -->
+<!-- The meiShared, meiHeader, and meiStructure modules should always
+be included -->
 <!ENTITY % meiShared        'INCLUDE'>
 <!ENTITY % meiHeader        'INCLUDE'>
 <!ENTITY % meiStructure     'INCLUDE'>
@@ -148,6 +233,7 @@
 <!ENTITY % n.group 'group'>
 <!ENTITY % n.grpsym 'grpsym'>
 <!ENTITY % n.instrdef 'instrdef'>
+<!ENTITY % n.instrgrp 'instrgrp'>
 <!ENTITY % n.label 'label'>
 <!ENTITY % n.layer 'layer'>
 <!ENTITY % n.layerdef 'layerdef'>
@@ -381,6 +467,37 @@ measure of a piece containing 6 measures in 6/8, the measure number must
 be between 0 to 5 and the beat number must be within the range from 0 to
 7, e.g., "4m+3". -->
 <!ENTITY % data.MEASUREBEAT 'CDATA'>
+
+<!-- doc: General MIDI instrument names -->
+<!ENTITY % data.MIDINAMES '(Acoustic_Grand_Piano | Bright_Acoustic_Piano |
+          Electric_Grand_Piano | Honky-tonk_Piano | Electric_Piano_1 |
+          Electric_Piano_2 | Harpsichord | Clavi | Celesta | Glockenspiel |
+          Music_Box | Vibraphone | Marimba | Xylophone | Tubular_Bells | Dulcimer
+          | Drawbar_Organ | Percussive_Organ | Rock_Organ | Church_Organ |
+          Reed_Organ | Accordion | Harmonica | Tango_Accordion |
+          Acoustic_Guitar_nylon | Acoustic_Guitar_steel | Electric_Guitar_jazz |
+          Electric_Guitar_clean | Electric_Guitar_muted | Overdriven_Guitar |
+          Distortion_Guitar | Guitar_harmonics | Acoustic_Bass |
+          Electric_Bass_finger | Electric_Bass_pick | Fretless_Bass | Slap_Bass_1
+          | Slap_Bass_2 | Synth_Bass_1 | Synth_Bass_2 | Violin | Viola | Cello |
+          Contrabass | Tremolo_Strings | Pizzicato_Strings | Orchestral_Harp |
+          Timpani | String_Ensemble_1 | String_Ensemble_2 | SynthStrings_1 |
+          SynthStrings_2 | Choir_Aahs | Voice_Oohs | Synth_Voice | Orchestra_Hit |
+          Trumpet | Trombone | Tuba | Muted_Trumpet | French_Horn | Brass_Section
+          | SynthBrass_1 | SynthBrass_2 | Soprano_Sax | Alto_Sax | Tenor_Sax |
+          Baritone_Sax | Oboe | English_Horn | Bassoon | Clarinet | Piccolo |
+          Flute | Recorder | Pan_Flute | Blown_Bottle | Shakuhachi | Whistle |
+          Ocarina | Lead_1_square | Lead_2_sawtooth | Lead_3_calliope |
+          Lead_4_chiff | Lead_5_charang | Lead_6_voice | Lead_7_fifths |
+          Lead_8_bass_and_lead | Pad_1_new_age | Pad_2_warm | Pad_3_polysynth |
+          Pad_4_choir | Pad_5_bowed | Pad_6_metallic | Pad_7_halo | Pad_8_sweep |
+          FX_1_rain | FX_2_soundtrack | FX_3_crystal | FX_4_atmosphere |
+          FX_5_brightness | FX_6_goblins | FX_7_echoes | FX_8_sci-fi | Sitar |
+          Banjo | Shamisen | Koto | Kalimba | Bagpipe | Fiddle | Shanai |
+          Tinkle_Bell | Agogo | Steel_Drums | Woodblock | Taiko_Drum | Melodic_Tom
+          | Synth_Drum | Reverse_Cymbal | Guitar_Fret_Noise | Breath_Noise |
+          Seashore | Bird_Tweet | Telephone_Ring |  Helicopter | Applause |
+          Gunshot)'>
 
 <!-- doc: MIDI quarter notes per minute, i.e., a positive integer in the
 range 10-1000 -->
@@ -1502,12 +1619,7 @@ MIDI port value, and midi.track sets the default MIDI track number. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.layerdef
                      'grace             %data.GRACE;           %INHERITED;
-                     midi.channel       %data.MIDICHANNEL;     %INHERITED;
-                     midi.duty          %data.PERCENT;         %INHERITED;
-                     midi.instr         %data.MIDIVALUE;       %INHERITED;
-                     midi.instrname     CDATA                  %INHERITED;
-                     midi.port          %data.MIDIVALUE;       %INHERITED;
-                     midi.track         %data.INTEGERPOSITIVE; %INHERITED;'>
+                     instr              IDREFS                 #IMPLIED'>
 
 ]]>
 <!ENTITY % att.ges.layerdef ''>
@@ -1890,14 +2002,8 @@ for example.
 <![%meiGestural;[
   <!ENTITY % att.ges.scoredef
                      'grace             %data.GRACE;           #IMPLIED
-                     midi.channel       %data.MIDICHANNEL;     #IMPLIED
                      midi.div           %data.INTEGERPOSITIVE; #IMPLIED
-                     midi.duty          %data.PERCENT;         #IMPLIED
-                     midi.instr         %data.MIDIVALUE;       #IMPLIED
-                     midi.instrname     CDATA                  #IMPLIED
-                     midi.port          %data.MIDIVALUE;       #IMPLIED
                      midi.tempo         %data.MIDITEMPO;       #IMPLIED
-                     midi.track         %data.INTEGERPOSITIVE; #IMPLIED
                      tempo              %data.TEMPOVALUE;      #IMPLIED
                      tune.pname         %data.PITCHNAME;       #IMPLIED
                      tune.Hz            %data.NUMBER;          #IMPLIED
@@ -2246,13 +2352,8 @@ staff to establish its own tuning standard. -->
                      'tab.strings       CDATA                 #IMPLIED'>
   <!ENTITY % att.ges.staffdef.base
                      'grace             %data.GRACE;           %INHERITED;
-                     midi.channel       %data.MIDICHANNEL;     %INHERITED;
-                     midi.div           %data.INTEGERPOSITIVE; %INHERITED;
-                     midi.duty          %data.PERCENT;         %INHERITED;
-                     midi.instr         %data.MIDIVALUE;       %INHERITED;
-                     midi.instrname     CDATA                  %INHERITED;
-                     midi.port          %data.MIDIVALUE;       %INHERITED;
-                     midi.track         %data.INTEGERPOSITIVE; %INHERITED;'>
+                     instr              IDREFS                 #IMPLIED
+                     midi.div           %data.INTEGERPOSITIVE; %INHERITED;'>
 
   <!ENTITY % att.ges.staffdef '%att.ges.staffdef.base;
                                %att.ges.staffdef.tablature;'>
@@ -2379,7 +2480,8 @@ analysis attributes. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.staffgrp
                      'midi.div           %data.INTEGERPOSITIVE;
-                                                              %INHERITED;'>
+                                                               %INHERITED;
+                     instr               IDREFS                #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.staffgrp ''>
 
@@ -2914,7 +3016,7 @@ contain the ID of an instrdef element elsewhere in the document. -->
                      dur.ges            CDATA                 #IMPLIED
                      grace              %data.GRACE;          #IMPLIED
                      grace.time         %data.PERCENT;        #IMPLIED
-                     instr              IDREF                 #IMPLIED'>
+                     instr              IDREFS                #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.chord ''>
 
@@ -3578,7 +3680,7 @@ instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.mrest
                      'dur.ges           CDATA                 #IMPLIED
-                     instr              IDREF                 #IMPLIED'>
+                     instr              IDREFS                #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.mrest ''>
 
@@ -3697,7 +3799,7 @@ instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.mspace
                      'dur.ges           CDATA                 #IMPLIED
-                     instr              IDREF                 #IMPLIED'>
+                     instr              IDREFS                #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.mspace ''>
 
@@ -3744,7 +3846,7 @@ an instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.multirest
                      'dur.ges           CDATA                 #IMPLIED
-                     instr              IDREF                 #IMPLIED'>
+                     instr              IDREFS                #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.multirest ''>
 
@@ -3869,7 +3971,7 @@ attributes. -->
                      gliss              %data.GLISSANDO;       #IMPLIED
                      grace              %data.GRACE;           #IMPLIED
                      grace.time         %data.PERCENT;         #IMPLIED
-                     instr              IDREF                  #IMPLIED
+                     instr              IDREFS                 #IMPLIED
                      oct.ges            %data.OCTAVE;          #IMPLIED
                      pname.ges          %data.PITCHNAME.GES;   #IMPLIED
                      pnum               %data.PITCHNUMBER;     #IMPLIED'>
@@ -4019,7 +4121,7 @@ element elsewhere in the document. -->
                      gliss              %data.GLISSANDO;      #IMPLIED
                      grace              %data.GRACE;          #IMPLIED
                      grace.time         %data.PERCENT;        #IMPLIED
-                     instr              IDREF                 #IMPLIED
+                     instr              IDREFS                #IMPLIED
                      oct.ges            %data.OCTAVE;         #IMPLIED
                      pname.ges          %data.PITCHNAME.GES;  #IMPLIED
                      pnum               %data.PITCHNUMBER;    #IMPLIED'>
@@ -4371,7 +4473,7 @@ an instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.rest
                      'dur.ges           CDATA                 #IMPLIED
-                     instr              IDREF                 #IMPLIED'>
+                     instr              IDREFS                #IMPLIED'>
 ]]>
 <!ENTITY % att.ges.rest ''>
 
@@ -4428,7 +4530,7 @@ instrdef element elsewhere in the document. -->
 <![%meiGestural;[
   <!ENTITY % att.ges.pausa
                      'dur.ges           CDATA                  #IMPLIED
-                     instr              IDREF                  #IMPLIED
+                     instr              IDREFS                 #IMPLIED
                      num                %data.INTEGERPOSITIVE; #IMPLIED
                      numbase            %data.INTEGERPOSITIVE; #IMPLIED'>
 ]]>
@@ -5146,6 +5248,7 @@ staff. -->
   <!ENTITY % group 'INCLUDE'>
   <!ENTITY % grpsym 'INCLUDE'>
   <!ENTITY % instrdef 'INCLUDE'>
+  <!ENTITY % instrgrp 'INCLUDE'>
   <!ENTITY % label 'INCLUDE'>
   <!ENTITY % layer 'INCLUDE'>
   <!ENTITY % layerdef 'INCLUDE'>
@@ -7063,10 +7166,16 @@ Module:  meiStructure -->
           %att.anl.grpsym;>
 ]]>
 
-<!-- doc: Default MIDI instrument declaration. This element provides a
-starting or default instrument declaration for a staff, a group of
-staves, or a layer. MIDI prog elements may then change the instrument
-as necessary. 
+<!-- doc: -->
+<!ENTITY % instrgrp 'IGNORE'>
+<![%instrgrp;[
+<!ENTITY % content.instrgrp '(%model.instrdefLike;)+'>
+<!ELEMENT %n.instrgrp; %content.instrgrp;>
+<!ATTLIST %n.instrgrp;
+          %att.common;>
+]]>
+
+<!-- doc: MIDI instrument declaration.
 Used by: instrdefLike 
 Module:  meiStructure -->
 <!ENTITY % instrdef 'IGNORE'>
@@ -7078,7 +7187,7 @@ Module:  meiStructure -->
           midi.channel       %data.MIDICHANNEL;     #IMPLIED
           midi.duty          %data.PERCENT;         #IMPLIED
           midi.instr         %data.MIDIVALUE;       #IMPLIED
-          midi.instrname     CDATA                  #IMPLIED
+          midi.instrname     %data.MIDINAMES;       #IMPLIED
           midi.port          %data.MIDIVALUE;       #IMPLIED
           midi.track         %data.INTEGERPOSITIVE; #IMPLIED>
 ]]>
@@ -7186,7 +7295,7 @@ Used by: model.partLike
 Module:  meiStructure -->
 <!ENTITY % part 'IGNORE'>
 <![%part;[
-<!ENTITY % content.part '(%model.scorePart;)*'>
+<!ENTITY % content.part '(%model.Incl;|%model.scorePart;)*'>
 <!ELEMENT %n.part; %content.part;>
 <!ATTLIST %n.part;
           %att.common;
@@ -7358,7 +7467,8 @@ Module:  meiStructure -->
                                (%model.alignLike;)*, (%model.chordtableLike;)?,
                                (%model.symboltableLike;)?, (%model.keysigLike;)?,
                                %model.metaLike.score;,
-                               ((%model.staffgrpLike;)?|(%model.staffdefLike;)?)
+                               ((%model.staffgrpLike;)?|(%model.staffdefLike;)?),
+                               (%n.instrgrp;)?
                              )'>
 <!ELEMENT %n.scoredef; %content.scoredef;>
 <!ATTLIST %n.scoredef;
@@ -7437,8 +7547,11 @@ Used by: staffgrpLike staffgrp
 Module:  meiStructure -->
 <!ENTITY % staffgrp 'IGNORE'>
 <![%staffgrp;[
-<!ENTITY % content.staffgrp '((%n.grpsym;)*, (%model.labelLike;)*, (%model.instrdefLike;)*,
-                         (%model.staffgrpLike;|%model.staffdefLike;)+, (%n.grpsym;)*)'>
+<!ENTITY % content.staffgrp '(
+                              (%n.grpsym;)*, (%model.labelLike;)*,
+                              (%model.staffgrpLike;|%model.staffdefLike;)+,
+                              (%n.grpsym;)*
+                            )'>
 <!ELEMENT %n.staffgrp; %content.staffgrp;>
 <!ATTLIST %n.staffgrp;
           %att.common;
