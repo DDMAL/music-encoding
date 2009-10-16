@@ -1,40 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- <!DOCTYPE mei SYSTEM "../DTD/mei19b-all.dtd" [
-  <!ENTITY % meiCMN 'INCLUDE'>
-  <!ENTITY % meiEditTrans 'INCLUDE'>
-]> -->
-
-<?oxygen RNGSchema="../RelaxSchema/mei19b-all.rng" type="xml"?>
-<mei>
+<?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
+<?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
+<mei xml:id="m1">
   <meihead>
     <filedesc>
       <titlestmt>
         <title/>
       </titlestmt>
       <pubstmt/>
+      <sourcedesc>
+        <source xml:id="s1">
+          <pubstmt/>
+          <physdesc>
+            <handlist>
+              <hand xml:id="h1"/>
+            </handlist>
+          </physdesc>
+        </source>
+      </sourcedesc>
     </filedesc>
+    <profiledesc/>
+    <revisiondesc>
+      <change>
+        <respstmt/>
+        <changedesc>
+          <p xml:id="m2"/>
+        </changedesc>
+        <date/>
+      </change>
+    </revisiondesc>
   </meihead>
   <music>
+    <facsimile source="s1"/>
     <body>
       <mdiv>
-        <score><scoredef key.sig.mixed="As4 Bf5" key.sig="mixed"></scoredef>
+        <score>
+          <scoredef key.sig.mixed="As4 Bf5" key.sig="mixed">
+            <timeline origin="w0">
+              <when xml:id="w0"/>
+              <when xml:id="w12" since="w0" unit="sec" interval="12"/>
+              <when xml:id="w36" since="w12" unit="sec" interval="24"
+              />
+            </timeline>
+            <chordtable>
+              <chorddef xml:id="Emajor">
+                <chordmember pname="e" fing="o" xml:id="E1"/>
+                <chordmember pname="b" fing="3" fret="2" xml:id="E2"/>
+                <chordmember pname="e" fret="2" fing="2" xml:id="E3"/>
+                <chordmember pname="g" accid="s" fing="1" fret="2"
+                  xml:id="E4"/>
+                <chordmember pname="b" fing="o" xml:id="E5"/>
+                <chordmember pname="e" fing="o" xml:id="E6"/>
+                <barre fret="2" from="E1" to="E4"/>
+              </chorddef>
+              <chorddef xml:id="Emajor2">
+                <chordmember pname="e" fing="o" xml:id="E21"/>
+                <chordmember pname="b" fing="3" fret="2" xml:id="E22"/>
+                <chordmember pname="e" fret="2" fing="2" xml:id="E23"/>
+                <chordmember pname="g" accid="s" fing="1" fret="2"
+                  xml:id="E24"/>
+                <chordmember pname="b" fing="o" xml:id="E25"/>
+                <chordmember pname="e" fing="o" xml:id="E26"/>
+                <barre fret="2" from="E21" to="E22"/>
+              </chorddef>
+            </chordtable>
+            <keysig>
+              <keyaccid pname="a" value="f" staffloc="4"/>
+            </keysig>
+            <staffgrp>
+              <staffdef n="1" lines="5">
+                <clef line="3" shape="G"/>
+              </staffdef>
+              <staffdef n="2" lines="7" clef.line="2" clef.shape="G"/>
+              <staffdef n="3" lines="9" clef.line="4" clef.shape="F"/>
+            </staffgrp>
+            <instrgrp>
+              <instrdef xml:id="i1"/>
+            </instrgrp>
+          </scoredef>
           <section>
             <measure>
-              <staff>
+              <staff n="3">
                 <layer>
-                  <note/>
-                  <bend staff="1" amount=".5"/>
-                  <octave staff="1" dis="8" layer="1" place="above"/>
+                  <note syl="a" instr="i1"/>
+                  <clefchange line="8" shape="F"/>
+                  <bend staff="1" amount=".5" startid="m1"/>
+                  <octave staff="1" dis="8" layer="1" place="above"
+                    tstamp="1" dur="3"/>
+                  <custos oct="4" pname="a" target="n1"/>
+                  <barline taktplace="17"/>
                 </layer>
               </staff>
+              <staff n="1"/>
+              <staff n="2">
+                <layer>
+                  <note xml:id="n1" syl="a"/>
+                  <clefchange line="6" shape="F"/>
+                  <bend staff="1" amount=".5" startid="m1"/>
+                  <octave staff="1" dis="8" layer="1" place="above"
+                    tstamp="1" dur="3"/>
+                </layer>
+              </staff>
+              <slur staff="1" tstamp="2" endid="m1"/>
+              <arpeg staff="1"/>
+              <harm staff="1" tstamp="3" chordref="Emajor" when="w12"
+              />
             </measure>
-            <add>
+            <add hand="h1">
               <measure/>
             </add>
             <choice>
               <orig>
                 <staff>
-                  <staffdef/>
+                  <staffdef n="2">
+                    <clef line="1" shape="F"/>
+                  </staffdef>
                 </staff>
               </orig>
             </choice>
