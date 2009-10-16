@@ -4,7 +4,7 @@
   NAME:     Music Encoding Initiative (MEI) DTD
             File      = mei19b-all (version 1.9b) **DRAFT**
                         **DO NOT REDISTRIBUTE**
-            Vers Date = 2009/09/25
+            Vers Date = 2009/10/16
   
   NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
             of the University of Virginia.
@@ -88,162 +88,261 @@
   <!-- ************************************************************** -->
   <!-- * Schematron constraints                                     * -->
   <!-- ************************************************************** -->
-  <sch:pattern
-    name="attributes marking start of some control events are required">
-    <sch:rule
-      context="bend|dir|dynam|fermata|gliss|harm|harppedal|mordent|pedal|trill">
-      <sch:assert
-        test="@startid or @tstamp or @tstamp.ges or @tstamp.real">
-        Must have one of the attributes: startid, tstamp, tstamp.ges
-        or tstamp.real</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="attributes marking start and end of some control events are required">
-    <sch:rule context="beamspan|hairpin|octave|phrase|slur|tupletspan">
-      <sch:assert
-        test="@startid or @tstamp or @tstamp.ges or @tstamp.real">
-        Must have one of the attributes: startid, tstamp, tstamp.ges
-        or tstamp.real</sch:assert>
-      <sch:assert test="@endid or @dur">Must have one of the
-        attributes: dur or endid</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern name="(@x and @y) or @staffloc attributes required">
-    <sch:rule context="keyaccid">
-      <sch:assert
-        test="(@x and @y and not(@staffloc)) or (@staffloc and not(@x or @y))"
-        >Must have either x and y attributes or staffloc attribute
-      </sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern name="one of @xml:id or meihead/altmeiid is required">
-    <sch:rule context="mei">
-      <sch:assert test="@xml:id or meihead/altmeiid/node()">Must have
-        either an xml:id attribute or a non-empty altmeiid element in
-        meihead</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern name="staffdef must have an n attribute">
-    <sch:rule context="staffdef">
-      <sch:let name="thisstaff" value="@n"/>
-      <sch:assert test="@n">A staffdef must have an n
-        attribute.</sch:assert>
-      <sch:assert
-        test="@lines or preceding::staffdef[@n=$thisstaff and @lines]"
-        >The first occurrence of a staff must declare the number of
-        staff lines.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="clef position in staffdef must be less than or equal to the number of lines on the staff">
-    <sch:rule context="staffdef[@clef.line and @lines]">
-      <sch:assert test="number(@clef.line) &lt;= number(@lines)"
-        >The clef position must be less than or equal to the number of
-        lines on the staff.</sch:assert>
-    </sch:rule>
-    <sch:rule context="staffdef[@clef.line and not(@lines)]">
-      <sch:let name="thisstaff" value="@n"/>
-      <sch:let name="stafflines"
-        value="preceding::staffdef[@n=$thisstaff and @lines][1]/@lines"/>
-      <sch:assert
-        test="number(@clef.line) &lt;= number($stafflines)">The
-        clef position must be less than or equal to the number of
-        lines on the staff.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="clef position in clefchange must be less than or equal to the number of lines on the staff">
-    <sch:rule context="clefchange[@line]">
-      <sch:let name="staff" value="ancestor::staff/@n"/>
-      <sch:let name="staffpos"
-        value="count(ancestor::staff/preceding-sibling::staff) + 1"/>
-      <sch:assert
-        test="number(@line) &lt;= number(preceding::staffdef[@n=$staff and @lines][1]/@lines) or 
+  <sch:schema xmlns="http://purl.oclc.org/dsdl/schematron"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    <sch:pattern
+      name="check start-type attributes on some control events">
+      <sch:rule
+        context="bend|dir|dynam|fermata|gliss|harm|harppedal|mordent|pedal|trill">
+        <sch:assert
+          test="@startid or @tstamp or @tstamp.ges or @tstamp.real">
+          Must have one of the attributes: startid, tstamp, tstamp.ges
+          or tstamp.real</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern
+      name="check start and end attributes on some control events">
+      <sch:rule
+        context="beamspan|hairpin|octave|phrase|slur|tupletspan">
+        <sch:assert
+          test="@startid or @tstamp or @tstamp.ges or @tstamp.real">
+          Must have one of the attributes: startid, tstamp, tstamp.ges
+          or tstamp.real</sch:assert>
+        <sch:assert test="@endid or @dur">Must have one of the
+          attributes: dur or endid</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern
+      name="(@x and @y) or @staffloc attributes required on keyaccid">
+      <sch:rule context="keyaccid">
+        <sch:assert
+          test="(@x and @y and not(@staffloc)) or (@staffloc and not(@x or @y))"
+          >Must have either x and y attributes or staffloc attribute
+        </sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="markup instance must have an identifier">
+      <sch:rule context="mei">
+        <sch:assert test="@xml:id or meihead/altmeiid/node()">Must
+          have either an xml:id attribute on mei or a non-empty
+          altmeiid element in meihead</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check staffdef @n">
+      <sch:rule context="staffdef">
+        <sch:let name="thisstaff" value="@n"/>
+        <sch:assert test="@n">A staffdef must have an n
+          attribute.</sch:assert>
+        <sch:assert
+          test="@lines or preceding::staffdef[@n=$thisstaff and @lines]"
+          >The first occurrence of a staff must declare the number of
+          staff lines.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check clef position (staffdef)">
+      <sch:rule context="staffdef[@clef.line and @lines]">
+        <sch:assert test="number(@clef.line) &lt;= number(@lines)"
+          >The clef position must be less than or equal to the number
+          of lines on the staff.</sch:assert>
+      </sch:rule>
+      <sch:rule context="staffdef[@clef.line and not(@lines)]">
+        <sch:let name="thisstaff" value="@n"/>
+        <sch:let name="stafflines"
+          value="preceding::staffdef[@n=$thisstaff and @lines][1]/@lines"/>
+        <sch:assert
+          test="number(@clef.line) &lt;= number($stafflines)">The
+          clef position must be less than or equal to the number of
+          lines on the staff.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check clef position (clefchange)">
+      <sch:rule context="clefchange[@line]">
+        <sch:let name="staff" value="ancestor::staff/@n"/>
+        <sch:let name="staffpos"
+          value="count(ancestor::staff/preceding-sibling::staff) + 1"/>
+        <sch:assert
+          test="number(@line) &lt;= number(preceding::staffdef[@n=$staff and @lines][1]/@lines) or 
         number(@line) &lt;= number(preceding::staffdef[@n=$staffpos and @lines][1]/@lines)"
-        >The clef position must be less than or equal to the number of
-        lines on the staff.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="value of pausa @line must be less than or equal to the number of lines on the staff">
-    <sch:rule context="pausa[@line]">
-      <sch:let name="staff" value="ancestor::staff/@n"/>
-      <sch:let name="staffpos"
-        value="count(ancestor::staff/preceding-sibling::staff) + 1"/>
-      <sch:assert
-        test="number(@line) &lt;= number(preceding::staffdef[@n=$staff and @lines][1]/@lines) or 
+          >The clef position must be less than or equal to the number
+          of lines on the staff.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check clef position">
+      <sch:rule context="clef[ancestor::staffdef[@lines]]">
+        <sch:let name="staff" value="ancestor::staffdef/@n"/>
+        <sch:assert
+          test="number(@line) &lt;= number(ancestor::staffdef[@n=$staff and @lines][1]/@lines)"
+          >The clef position must be less than or equal to the number
+          of lines on the staff.</sch:assert>
+      </sch:rule>
+      <sch:rule context="clef[ancestor::staffdef[not(@lines)]]">
+        <sch:let name="staff" value="ancestor::staffdef/@n"/>
+        <sch:assert
+          test="number(@line) &lt;= number(preceding::staffdef[@n=$staff and @lines][1]/@lines)"
+          >The clef position must be less than or equal to the number
+          of lines on the staff.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check pausa @line">
+      <sch:rule context="pausa[@line]">
+        <sch:let name="staff" value="ancestor::staff/@n"/>
+        <sch:let name="staffpos"
+          value="count(ancestor::staff/preceding-sibling::staff) + 1"/>
+        <sch:assert
+          test="number(@line) &lt;= number(preceding::staffdef[@n=$staff and @lines][1]/@lines) or 
         number(@line) &lt;= number(preceding::staffdef[@n=$staffpos and @lines][1]/@lines)"
-        >The value of @line must be less than or equal to the number
-        of lines on the staff.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern name="value of @when must be the ID of a when element">
-    <sch:rule context="*[@when]">
-      <sch:let name="thiswhen" value="@when"/>
-      <sch:assert
-        test="@when = preceding::when[@xml:id=$thiswhen]/@xml:id">The
-        value of @when must be the ID of a when element.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="value of @altsym must be the ID of a symboldef element">
-    <sch:rule context="*[@altsym]">
-      <sch:let name="thisaltsym" value="@altsym"/>
-      <sch:assert
-        test="@altsym = preceding::symboldef[@xml:id=$thisaltsym]/@xml:id"
-        >The value of @altsym must be the ID of a symboldef
-        element.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="value of @lang must be the ID of a language element">
-    <sch:rule context="*[@lang]">
-      <sch:let name="thislang" value="@lang"/>
-      <sch:assert
-        test="@lang = preceding::language[@xml:id=$thislang]/@xml:id"
-        >The value of @lang must be the ID of a language
-        element.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="value of measure/@join must be the ID of another measure element">
-    <sch:rule context="measure[@join]">
-      <sch:let name="thisjoin" value="@join"/>
-      <sch:assert test="@join = //measure[@xml:id=$thisjoin]/@xml:id"
-        >The value of @join must be the ID of a measure
-        element.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="value of @classcode must be the ID of a classcode element">
-    <sch:rule context="*[@classcode]">
-      <sch:let name="thisclasscode" value="@classcode"/>
-      <sch:assert
-        test="@classcode = preceding::classcode[@xml:id=$thisclasscode]/@xml:id"
-        >The value of @classcode must be the ID of a classcode
-        element.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="value of handshift/@old must be the ID of a hand element">
-    <sch:rule context="handshift[@old]">
-      <sch:let name="thisold" value="@old"/>
-      <sch:assert
-        test="@old = preceding::hand[@xml:id=$thisold]/@xml:id">The
-        value of @old must be the ID of a hand element.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-  <sch:pattern
-    name="value of handshift/@new must be the ID of a hand element">
-    <sch:rule context="handshift[@new]">
-      <sch:let name="thisnew" value="@new"/>
-      <sch:assert
-        test="@new = preceding::hand[@xml:id=$thisnew]/@xml:id">The
-        value of @new must be the ID of a hand element.</sch:assert>
-    </sch:rule>
-  </sch:pattern>
-
+          >The value of @line must be less than or equal to the number
+          of lines on the staff.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check barline/@taktplace">
+      <sch:rule context="barline[@taktplace]">
+        <sch:let name="staff" value="ancestor::staff/@n"/>
+        <sch:let name="staffpos"
+          value="count(ancestor::staff/preceding-sibling::staff) + 1"/>
+        <sch:assert
+          test="number(@taktplace) &lt;= number(2 * preceding::staffdef[@n=$staff and @lines][1]/@lines) or
+        number(@taktplace) &lt;= number(2 * preceding::staffdef[@n=$staffpos and @lines][1]/@lines)"
+        />
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern
+      name="value of @when must be the ID of a when element">
+      <sch:rule context="*[@when]">
+        <sch:let name="thiswhen" value="@when"/>
+        <sch:assert
+          test="@when = preceding::when[@xml:id=$thiswhen]/@xml:id"
+          >The value of @when must be the ID of a when
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check when/@since">
+      <sch:rule context="when[@since]">
+        <sch:let name="thissince" value="@since"/>
+        <sch:assert
+          test="@since = preceding-sibling::when[@xml:id=$thissince]/@xml:id"
+          >The value of @since must be the ID of a preceding sibling
+          when element.</sch:assert>
+        <sch:assert test="@interval and @unit">If @since is present,
+          @interval and @unit are also required.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check @altsym">
+      <sch:rule context="*[@altsym]">
+        <sch:let name="thisaltsym" value="@altsym"/>
+        <sch:assert
+          test="@altsym = preceding::symboldef[@xml:id=$thisaltsym]/@xml:id"
+          >The value of @altsym must be the ID of a symboldef
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check @lang">
+      <sch:rule context="*[@lang]">
+        <sch:let name="thislang" value="@lang"/>
+        <sch:assert
+          test="@lang = preceding::language[@xml:id=$thislang]/@xml:id"
+          >The value of @lang must be the ID of a language
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check measure/@join">
+      <sch:rule context="measure[@join]">
+        <sch:let name="thisjoin" value="@join"/>
+        <sch:assert
+          test="@join = //measure[@xml:id=$thisjoin]/@xml:id">The
+          value of @join must be the ID of a measure
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern
+      name="value of @classcode must be the ID of a classcode element">
+      <sch:rule context="*[@classcode]">
+        <sch:let name="thisclasscode" value="@classcode"/>
+        <sch:assert
+          test="@classcode = preceding::classcode[@xml:id=$thisclasscode]/@xml:id"
+          >The value of @classcode must be the ID of a classcode
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check handshift/@old">
+      <sch:rule context="handshift[@old]">
+        <sch:let name="thisold" value="@old"/>
+        <sch:assert
+          test="@old = preceding::hand[@xml:id=$thisold]/@xml:id">The
+          value of @old must be the ID of a hand element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check handshift/@new">
+      <sch:rule context="handshift[@new]">
+        <sch:let name="thisnew" value="@new"/>
+        <sch:assert
+          test="@new = preceding::hand[@xml:id=$thisnew]/@xml:id">The
+          value of @new must be the ID of a hand element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check harm/@chordref">
+      <sch:rule context="harm[@chordref]">
+        <sch:let name="thischordref" value="@chordref"/>
+        <sch:assert
+          test="@chordref = preceding::chorddef[@xml:id=$thischordref]/@xml:id"
+          >The value of @chordref must be the ID of a chorddef
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check @hand">
+      <sch:rule context="*[@hand]">
+        <sch:let name="thishand" value="@hand"/>
+        <sch:assert
+          test="@hand = preceding::hand[@xml:id=$thishand]/@xml:id"
+          >The value of @hand must be the ID of a hand
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check custos/@target">
+      <sch:rule context="custos[@target]">
+        <sch:let name="thistarget" value="@target"/>
+        <sch:assert
+          test="@target = following::note[@xml:id=$thistarget]/@xml:id or
+          @target = following::nota[@xml:id=$thistarget]/@xml:id"
+          >The value of @target must be the ID of a note or nota
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check facsimile/@source">
+      <sch:rule context="facsimile[@source]">
+        <sch:let name="thissource" value="@source"/>
+        <sch:assert
+          test="@source = preceding::source[@xml:id=$thissource]/@xml:id"
+          >The value of @source must be the ID of a source
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check @instr">
+      <sch:rule
+        context="chord[@instr]|mrest[@instr]|mspace[@instr]|multirest[@instr]|
+        nota[@instr]|note[@instr]|rest[@instr]|pausa[@instr]">
+        <sch:let name="thisinstr" value="@instr"/>
+        <sch:assert
+          test="@instr = preceding::instrdef[@xml:id=$thisinstr]/@xml:id"
+          >The value of @instr must be the ID of an instrdef
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check barre/@from and @to">
+      <sch:rule context="barre">
+        <sch:let name="thisfrom" value="@from"/>
+        <sch:let name="thisto" value="@to"/>
+        <sch:assert
+          test="@from = preceding-sibling::chordmember[@xml:id=$thisfrom]/@xml:id"
+          >The value of @from must be the ID of a chordmember
+          element.</sch:assert>
+        <sch:assert
+          test="@to = preceding-sibling::chordmember[@xml:id=$thisto]/@xml:id"
+          >The value of @to must be the ID of a chordmember
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+  </sch:schema>
 
   <!-- ************************************************************** -->
   <!-- * MEI datatypes                                              * -->
@@ -262,7 +361,7 @@
         <a:documentation xml:lang="eng">indicates the point of
           occurrence along a timeline. Its value must be the ID of a
           &lt;when&gt; element.</a:documentation>
-        <data type="IDREFS"/>
+        <data type="IDREF"/>
       </attribute>
     </optional>
   </define>
@@ -681,8 +780,8 @@
     <optional>
       <attribute name="facs">
         <a:documentation xml:lang="eng">permits the current element to
-          reference an image or image zone which corresponds to
-          it.</a:documentation>
+          reference a facsimile image or image zone which corresponds
+          to it.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
     </optional>
@@ -1275,7 +1374,14 @@
       <attribute name="taktplace">
         <a:documentation xml:lang="eng">If takt barlines are to be
           used, then the taktplace attribute may be used to denote the
-          staff location of the shortened barline.</a:documentation>
+          staff location of the shortened barline. The location may
+          include staff lines, spaces, and the spaces directly above
+          and below the staff. The value ranges between 0 (just below
+          the staff) to 2 * number of staff lines (directly above the
+          staff). For example, on a 5-line staff the lines would be
+          numbered 1,3,5,7, and 9 while the spaces would be numbered
+          0,2,4,6,8,10. For example, a value of '9' puts the barline
+          through the top line of a 5-line staff.</a:documentation>
         <ref name="data.STAFFLOC"/>
       </attribute>
     </optional>
@@ -1379,13 +1485,13 @@
         <a:documentation xml:lang="eng">contains a list of one or more
           pointers indicating the sources which contain the
           custos.</a:documentation>
-        <data type="IDREF"/>
+        <data type="IDREFS"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="target">
-        <a:documentation xml:lang="eng">encodes the target pitch when
-          it differs from the pitch at which the custos
+        <a:documentation xml:lang="eng">encodes the target note when
+          its pitch differs from the pitch at which the custos
           appears.</a:documentation>
         <data type="IDREF"/>
       </attribute>
@@ -5933,10 +6039,16 @@
     </optional>
     <optional>
       <attribute name="taktplace">
-        <a:documentation xml:lang="eng">must be a number between 1 and
-          the number of stafflines. For example, a value of '5' puts
-          the barline through the top line of a 5-line
-          staff.</a:documentation>
+        <a:documentation xml:lang="eng">If takt barlines are to be
+          used, then the taktplace attribute may be used to denote the
+          staff location of the shortened barline. The location may
+          include staff lines, spaces, and the spaces directly above
+          and below the staff. The value ranges between 0 (just below
+          the staff) to 2 * number of staff lines (directly above the
+          staff). For example, on a 5-line staff the lines would be
+          numbered 1,3,5,7, and 9 while the spaces would be numbered
+          0,2,4,6,8,10. For example, a value of '9' puts the barline
+          through the top line of a 5-line staff.</a:documentation>
         <ref name="data.STAFFLOC"/>
       </attribute>
     </optional>
@@ -7447,7 +7559,9 @@
       <attribute name="join">
         <a:documentation xml:lang="eng">used for linking visually
           separate phrase marks, sometimes necessary due to system
-          breaks, that form a single musical phrase.</a:documentation>
+          breaks, that form a single musical phrase. Record the IDs of
+          the separately encoded phrase marks, excluding this
+          one.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
     </optional>
@@ -7899,7 +8013,9 @@
       <attribute name="join">
         <a:documentation xml:lang="eng">used for linking visually
           separate slurs, sometimes necessary due to system breaks,
-          that form a single musical phrase.</a:documentation>
+          that form a single musical phrase. Record the IDs of the
+          separately encoded slurs, excluding this
+          one.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
     </optional>
@@ -9792,7 +9908,7 @@
           in the document header, associated with a person asserted as
           responsible for some aspect of the text's creation,
           transcription, editing, or encoding.</a:documentation>
-        <data type="IDREF"/>
+        <data type="IDREFS"/>
       </attribute>
     </optional>
     <optional>
@@ -10110,7 +10226,7 @@
           attribute. This allows line breaks from multiple sources to
           be encoded with a single &lt;lb&gt;
           element.</a:documentation>
-        <data type="IDREF"/>
+        <data type="IDREFS"/>
       </attribute>
     </optional>
   </define>
@@ -12036,7 +12152,7 @@
           header may be pointed to by putting their IDs in the source
           attribute. This allows labels from multiple sources to be
           encoded with a single label element.</a:documentation>
-        <data type="IDREF"/>
+        <data type="IDREFS"/>
       </attribute>
     </optional>
   </define>
@@ -14852,7 +14968,7 @@
           associated with a person asserted as responsible for some
           aspect of the text's creation, transcription, editing, or
           encoding.</a:documentation>
-        <data type="IDREF"/>
+        <data type="IDREFS"/>
       </attribute>
     </optional>
   </define>
@@ -16797,10 +16913,9 @@
     <ref name="att.common"/>
     <optional>
       <attribute name="source">
-        <a:documentation xml:lang="eng">Source descriptions in the
-          header may be pointed to by putting their IDs in the source
-          attribute. This allows facsimiles of multiple sources to be
-          encoded with a single facsimile element.</a:documentation>
+        <a:documentation xml:lang="eng">A source description in the
+          header may be pointed to by putting its ID in the source
+          attribute.</a:documentation>
         <data type="IDREF"/>
       </attribute>
     </optional>
