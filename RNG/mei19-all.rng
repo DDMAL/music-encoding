@@ -83,7 +83,8 @@
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   xmlns:tei="http://www.tei-c.org/ns/1.0"
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
-  xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <!-- ************************************************************** -->
   <!-- * Schematron constraints                                     * -->
@@ -340,6 +341,14 @@
           test="@to = preceding-sibling::chordmember[@xml:id=$thisto]/@xml:id"
           >The value of @to must be the ID of a chordmember
           element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern name="check @expan">
+      <sch:rule context="*[@expan]">
+        <sch:assert
+          test="descendant::section|descendant::ending|descendant::rdg"
+          >Must have descendant section, ending, or rdg elements that
+          can be pointed to.</sch:assert>
       </sch:rule>
     </sch:pattern>
   </sch:schema>
@@ -791,7 +800,7 @@
     <a:documentation xml:lang="eng">Attributes common to all linking
       elements</a:documentation>
     <optional>
-      <attribute name="actuate">
+      <attribute name="actuate" ns="http://www.w3.org/1999/xlink">
         <a:documentation xml:lang="eng">defines whether a link occurs
           automatically or must be requested by the user. It is used
           in conjunction with the show attribute to determine link
@@ -805,7 +814,7 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="role">
+      <attribute name="role" ns="http://www.w3.org/1999/xlink">
         <a:documentation xml:lang="eng">indicates a property of the
           entire link. The value of the role attribute must be a URI
           reference as defined in [IETF RFC 2396], except that if the
@@ -818,7 +827,7 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="show">
+      <attribute name="show" ns="http://www.w3.org/1999/xlink">
         <a:documentation xml:lang="eng">defines whether a remote
           resource that is the target of a link appears at the point
           of the link, replaces the existing link, or appears in a new
@@ -841,7 +850,7 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="title">
+      <attribute name="title" ns="http://www.w3.org/1999/xlink">
         <a:documentation xml:lang="eng">contains a human-readable
           description of the entire link. A value is optional; if a
           value is supplied, it should contain a string that describes
@@ -876,7 +885,7 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="href">
+      <attribute name="href" ns="http://www.w3.org/1999/xlink">
         <a:documentation xml:lang="eng">allows the use of an
           previously-undeclared URI to identify an external electronic
           object.</a:documentation>
@@ -10372,7 +10381,7 @@
         <a:documentation xml:lang="eng">provided for linking to the
           bibliographic description of the source(s) that contains the
           page break. This allows page breaks from multiple sources to
-          be encoded with a single &lt;pb&gt;
+          be encoded using a single &lt;pb&gt;
           element.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
