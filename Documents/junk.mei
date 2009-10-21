@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
 <?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
-<mei xml:id="m1">
+<mei xml:id="m1" version="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink">
   <meihead>
     <filedesc>
       <titlestmt>
@@ -16,6 +16,9 @@
               <hand xml:id="h1"/>
             </handlist>
           </physdesc>
+        </source>
+        <source xml:id="s2">
+          <pubstmt/>
         </source>
       </sourcedesc>
     </filedesc>
@@ -78,8 +81,8 @@
               <instrdef xml:id="i1"/>
             </instrgrp>
           </scoredef>
-          <section>
-            <measure>
+          <section xml:id="section1" expan="section1a">
+            <section xml:id="section1a"><measure>
               <staff n="3">
                 <layer>
                   <note syl="a" instr="i1"/>
@@ -88,7 +91,7 @@
                   <octave staff="1" dis="8" layer="1" place="above"
                     tstamp="1" dur="3"/>
                   <custos oct="4" pname="a" target="n1"/>
-                  <barline taktplace="17"/>
+                  <barline taktplace="17"/><pb source="s1 s2"/>
                 </layer>
               </staff>
               <staff n="1"/>
@@ -105,9 +108,9 @@
               <arpeg staff="1"/>
               <harm staff="1" tstamp="3" chordref="Emajor" when="w12"
               />
-            </measure>
+            </measure></section>
             <add hand="h1">
-              <measure/>
+              <measure/><ptr xlink:actuate="onLoad"/>
             </add>
             <choice>
               <orig>
