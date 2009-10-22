@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
 <?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
-<mei xml:id="m1" version="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink">
+<mei xml:id="m1" version="1.9b"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
   <meihead>
     <filedesc>
       <titlestmt>
@@ -71,46 +72,49 @@
               <keyaccid pname="a" value="f" staffloc="4"/>
             </keysig>
             <staffgrp>
+              <instrdef xml:id="i1"/>
+              <instrdef xml:id="i1-1"/>
               <staffdef n="1" lines="5">
                 <clef line="3" shape="G"/>
               </staffdef>
               <staffdef n="2" lines="7" clef.line="2" clef.shape="G"/>
               <staffdef n="3" lines="9" clef.line="4" clef.shape="F"/>
             </staffgrp>
-            <instrgrp>
-              <instrdef xml:id="i1"/>
-            </instrgrp>
           </scoredef>
           <section xml:id="section1" expan="section1a">
-            <section xml:id="section1a"><measure>
-              <staff n="3">
-                <layer>
-                  <note syl="a" instr="i1"/>
-                  <clefchange line="8" shape="F"/>
-                  <bend staff="1" amount=".5" startid="m1"/>
-                  <octave staff="1" dis="8" layer="1" place="above"
-                    tstamp="1" dur="3"/>
-                  <custos oct="4" pname="a" target="n1"/>
-                  <barline taktplace="17"/><pb source="s1 s2"/>
-                </layer>
-              </staff>
-              <staff n="1"/>
-              <staff n="2">
-                <layer>
-                  <note xml:id="n1" syl="a"/>
-                  <clefchange line="6" shape="F"/>
-                  <bend staff="1" amount=".5" startid="m1"/>
-                  <octave staff="1" dis="8" layer="1" place="above"
-                    tstamp="1" dur="3"/>
-                </layer>
-              </staff>
-              <slur staff="1" tstamp="2" endid="m1"/>
-              <arpeg staff="1"/>
-              <harm staff="1" tstamp="3" chordref="Emajor" when="w12"
-              />
-            </measure></section>
+            <section xml:id="section1a">
+              <measure>
+                <staff n="3">
+                  <layer>
+                    <note syl="a" instr="i1"/>
+                    <clefchange line="8" shape="F"/>
+                    <bend staff="1" amount=".5" startid="m1"/>
+                    <octave staff="1" dis="8" layer="1" place="above"
+                      tstamp="1" dur="3"/>
+                    <custos oct="4" pname="a" target="n1"/>
+                    <barline taktplace="17"/>
+                    <pb source="s1 s2"/>
+                  </layer>
+                </staff>
+                <staff n="1"/>
+                <staff n="2">
+                  <layer>
+                    <note xml:id="n1" syl="a"/>
+                    <clefchange line="6" shape="F"/>
+                    <bend staff="1" amount=".5" startid="m1"/>
+                    <octave staff="1" dis="8" layer="1" place="above"
+                      tstamp="1" dur="3"/>
+                  </layer>
+                </staff>
+                <slur staff="1" tstamp="2" endid="m1"/>
+                <arpeg staff="1"/>
+                <harm staff="1" tstamp="3" chordref="Emajor"
+                  when="w12"/>
+              </measure>
+            </section>
             <add hand="h1">
-              <measure/><ptr xlink:actuate="onLoad"/>
+              <measure/>
+              <ptr xlink:actuate="onLoad"/>
             </add>
             <choice>
               <orig>
