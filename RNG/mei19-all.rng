@@ -4,7 +4,7 @@
   NAME:     Music Encoding Initiative (MEI) DTD
             File      = mei19b-all (version 1.9b) **DRAFT**
                         **DO NOT REDISTRIBUTE**
-            Vers Date = 2009/10/16
+            Vers Date = 2009/10/22
   
   NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and Visitors
             of the University of Virginia.
@@ -124,9 +124,9 @@
     </sch:pattern>
     <sch:pattern name="markup instance must have an identifier">
       <sch:rule context="mei">
-        <sch:assert test="@xml:id or meihead/altmeiid/node()">Must
+        <!-- <sch:assert test="@xml:id or meihead/altmeiid/node()">Must
           have either an xml:id attribute on mei or a non-empty
-          altmeiid element in meihead</sch:assert>
+          altmeiid element in meihead</sch:assert> -->
       </sch:rule>
     </sch:pattern>
     <sch:pattern name="check staffdef @n">
@@ -344,7 +344,7 @@
       </sch:rule>
     </sch:pattern>
     <sch:pattern name="check @expan">
-      <sch:rule context="*[@expan]">
+      <sch:rule context="section[@expan]">
         <sch:assert
           test="descendant::section|descendant::ending|descendant::rdg"
           >Must have descendant section, ending, or rdg elements that
@@ -12520,6 +12520,9 @@
       <ref name="model.keysigLike"/>
     </optional>
     <ref name="model.metaLike.score"/>
+    <optional>
+      <ref name="instrgrp"/>
+    </optional>
     <choice>
       <optional>
         <ref name="model.staffgrpLike"/>
@@ -12528,9 +12531,6 @@
         <ref name="model.staffdefLike"/>
       </optional>
     </choice>
-    <optional>
-      <ref name="instrgrp"/>
-    </optional>
   </define>
   <define name="scoredef">
     <element name="scoredef">
