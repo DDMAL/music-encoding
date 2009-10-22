@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <xs:simpleType name="meiVersion">
     <xs:annotation>
@@ -11,8 +12,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.BEND.AMOUNT">
     <xs:annotation>
-      <xs:documentation>Either a decimal value or a token. The decimal values are limited to .25, .5,
-      .75, or 1, while the token values are restricted to 'full'.</xs:documentation>
+      <xs:documentation>Either a decimal value or a token. The decimal
+      values are limited to .25, .5, .75, or 1, while the token values
+      are restricted to 'full'.</xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
@@ -29,10 +31,11 @@
   </xs:simpleType>
   <xs:simpleType name="data.BEAT">
     <xs:annotation>
-      <xs:documentation>A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must fall between 0 and the
-      numerator of the time signature + 1, where 0 represents the left barline and the upper bound
-      represents the right barline. For example, in 12/8 the value must be in the range from 0 to
-      13.</xs:documentation>
+      <xs:documentation>A beat location, i.e., [0-9]+(\.?[0-9]*)? The
+      value must fall between 0 and the numerator of the time
+      signature + 1, where 0 represents the left barline and the upper
+      bound represents the right barline. For example, in 12/8 the
+      value must be in the range from 0 to 13.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:decimal">
       <xs:minInclusive value="0"/>
@@ -40,8 +43,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.BEATRPT.REND">
     <xs:annotation>
-      <xs:documentation>Visual and performance information for a repeated beat
-      symbol.</xs:documentation>
+      <xs:documentation>Visual and performance information for a repeated
+      beat symbol.</xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
@@ -58,9 +61,11 @@
   </xs:simpleType>
   <xs:simpleType name="data.COLOR">
     <xs:annotation>
-      <xs:documentation>Either a hexadecimal color value, ie., x[0-9A-Fa-f]{6,6} OR a descriptive word,
-      i.e., aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver,
-      teal, white, or yellow, for colors defined by the HTML 4.01 specification.</xs:documentation>
+      <xs:documentation>Either a hexadecimal color value, ie.,
+      x[0-9A-Fa-f]{6,6} OR a descriptive word, i.e., aqua, black,
+      blue, fuchsia, gray, green, lime, maroon, navy, olive, purple,
+      red, silver, teal, white, or yellow, for colors defined by the
+      HTML 4.01 specification.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="(x[0-9A-Fa-f]{6,6}|aqua|black|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)"/>
@@ -68,16 +73,18 @@
   </xs:simpleType>
   <xs:simpleType name="data.DEGREES">
     <xs:annotation>
-      <xs:documentation>360th-unit measure of a cirle's circumference; optionally signed decimal
-      number, i.e., [+-]?[0-9]+(\.?[0-9]*)?</xs:documentation>
+      <xs:documentation>360th-unit measure of a cirle's circumference;
+      optionally signed decimal number, i.e.,
+      [+-]?[0-9]+(\.?[0-9]*)?</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:decimal"/>
   </xs:simpleType>
   <xs:simpleType name="data.FINGER.FRET">
     <xs:annotation>
-      <xs:documentation>In a guitar chord diagram, a label indicating which finger, if any, should be
-      used to play an individual string. The values 'x' and 'o' indicated stopped and open strings,
-      respectively.</xs:documentation>
+      <xs:documentation>In a guitar chord diagram, a label indicating
+      which finger, if any, should be used to play an individual
+      string. The values 'x' and 'o' indicated stopped and open
+      strings, respectively.</xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
@@ -95,10 +102,12 @@
   </xs:simpleType>
   <xs:simpleType name="data.FRET">
     <xs:annotation>
-      <xs:documentation>In a guitar chord diagram, the fret where the finger should be placed. Since
-      guitar chord diagrams are limited to the range of frets that fall under the hand, the value
-      here is also limited. The pos (position) attribute on the chorddef element must be used to
-      indicate at which fret this range begins.</xs:documentation>
+      <xs:documentation>In a guitar chord diagram, the fret where the
+      finger should be placed. Since guitar chord diagrams are limited
+      to the range of frets that fall under the hand, the value here
+      is also limited. The pos (position) attribute on the chorddef
+      element must be used to indicate at which fret this range
+      begins.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger">
       <xs:minInclusive value="1"/>
@@ -107,14 +116,15 @@
   </xs:simpleType>
   <xs:simpleType name="data.INTEGERNONNEGATIVE">
     <xs:annotation>
-      <xs:documentation>Unsigned positive integer values including '0', i.e., [0-9]+</xs:documentation>
+      <xs:documentation>Unsigned positive integer values including '0',
+      i.e., [0-9]+</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:nonNegativeInteger"/>
   </xs:simpleType>
   <xs:simpleType name="data.INTEGERPOSITIVE">
     <xs:annotation>
-      <xs:documentation>Unsigned positive integer values excluding '0', i.e., 1 to
-      infinity.</xs:documentation>
+      <xs:documentation>Unsigned positive integer values excluding '0',
+      i.e., 1 to infinity.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger"/>
   </xs:simpleType>
@@ -140,14 +150,17 @@
   </xs:simpleType>
   <xs:simpleType name="data.MEASUREBEAT">
     <xs:annotation>
-      <xs:documentation>A duration expressed as a count of measures plus a beat location, i.e., [0-9]+m
-      *\+ *[0-9]+(\.?[0-9]*)?, e.g., dur="1m + 3.5" indicates a duration of 1 measure plus 3 and one
-      half beats or, in other words, on the 2nd half of the 3rd beat of the next measure. The
-      measure number must be in the range of 0 to the number of remaining measures and the beat
-      number must be in the range from 0 to the numerator of the time signature plus 1. For example,
-      for an event starting in the first measure of a piece containing 6 measures in 6/8, the
-      measure number must be between 0 to 5 and the beat number must be within the range from 0 to
-      7, e.g., "4m+3".</xs:documentation>
+      <xs:documentation>A duration expressed as a count of measures plus
+      a beat location, i.e., [0-9]+m *\+ *[0-9]+(\.?[0-9]*)?, e.g.,
+      dur="1m + 3.5" indicates a duration of 1 measure plus 3 and one
+      half beats or, in other words, on the 2nd half of the 3rd beat
+      of the next measure. The measure number must be in the range of
+      0 to the number of remaining measures and the beat number must
+      be in the range from 0 to the numerator of the time signature
+      plus 1. For example, for an event starting in the first measure
+      of a piece containing 6 measures in 6/8, the measure number must
+      be between 0 to 5 and the beat number must be within the range
+      from 0 to 7, e.g., "4m+3".</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="([0-9]+m *\+ *)?[0-9]+(\.?[0-9]*)?"/>
@@ -290,8 +303,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.MIDITEMPO">
     <xs:annotation>
-      <xs:documentation>MIDI quarter notes per minute: positive integer in the range
-      10-1000</xs:documentation>
+      <xs:documentation>MIDI quarter notes per minute: positive integer
+      in the range 10-1000</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger">
       <xs:minInclusive value="10"/>
@@ -300,7 +313,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.MODUSMAIOR">
     <xs:annotation>
-      <xs:documentation>Maxima-long relationship values.</xs:documentation>
+      <xs:documentation>Maxima-long relationship
+      values.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger">
       <xs:minInclusive value="2"/>
@@ -325,8 +339,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.NUMBERPOSITIVE">
     <xs:annotation>
-      <xs:documentation>Unsigned positive decimal values excluding '0', i.e., 1 to
-      infinity.</xs:documentation>
+      <xs:documentation>Unsigned positive decimal values excluding '0',
+      i.e., 1 to infinity.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:decimal">
       <xs:minInclusive value="1"/>
@@ -334,8 +348,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.OCTAVE.DIS">
     <xs:annotation>
-      <xs:documentation>The amount of octave displacement; that is, '8' (as in '8va' for 1 octave),
-      '15' (for 2 octaves), or rarely '22' (for 3 octaves).</xs:documentation>
+      <xs:documentation>The amount of octave displacement; that is, '8'
+      (as in '8va' for 1 octave), '15' (for 2 octaves), or rarely '22'
+      (for 3 octaves).</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger">
       <xs:pattern value="8|15|22"/>
@@ -343,7 +358,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.ORIENTATION">
     <xs:annotation>
-      <xs:documentation>Rotation or reflection of base symbol values.</xs:documentation>
+      <xs:documentation>Rotation or reflection of base symbol
+      values.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="reversed|90CW|90CCW"/>
@@ -360,7 +376,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.PERCENT">
     <xs:annotation>
-      <xs:documentation>Positive decimal number plus '%', i.e., [0-9]+(\.?[0-9]*)?\%</xs:documentation>
+      <xs:documentation>Positive decimal number plus '%', i.e.,
+      [0-9]+(\.?[0-9]*)?\%</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[0-9]+(\.?[0-9]*)?%"/>
@@ -368,7 +385,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.PROLATIO">
     <xs:annotation>
-      <xs:documentation>Semibreve-minim relationship values.</xs:documentation>
+      <xs:documentation>Semibreve-minim relationship
+      values.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger">
       <xs:minInclusive value="2"/>
@@ -377,7 +395,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.RATIO">
     <xs:annotation>
-      <xs:documentation>A ratio, i.e., [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)? For example,
+      <xs:documentation>A ratio, i.e.,
+      [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)? For example,
       "40:7.2319"</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
@@ -386,7 +405,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.SLASH">
     <xs:annotation>
-      <xs:documentation>The number of slashes to be rendered for tremolandi.</xs:documentation>
+      <xs:documentation>The number of slashes to be rendered for
+      tremolandi.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger">
       <xs:minInclusive value="1"/>
@@ -395,20 +415,22 @@
   </xs:simpleType>
   <xs:simpleType name="data.STRINGNUMBER">
     <xs:annotation>
-      <xs:documentation>In string tablature, the number of the string to be played, i.e.,
-      [1-9]+.</xs:documentation>
+      <xs:documentation>In string tablature, the number of the string to
+      be played, i.e., [1-9]+.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger"/>
   </xs:simpleType>
   <xs:simpleType name="data.TEMPOVALUE">
     <xs:annotation>
-      <xs:documentation>Beats (meter signature denominator) per minute, e.g. 120.</xs:documentation>
+      <xs:documentation>Beats (meter signature denominator) per minute,
+      e.g. 120.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger"/>
   </xs:simpleType>
   <xs:simpleType name="data.TEMPUS">
     <xs:annotation>
-      <xs:documentation>Breve-semibreve relationship values</xs:documentation>
+      <xs:documentation>Breve-semibreve relationship
+      values</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:positiveInteger">
       <xs:minInclusive value="2"/>
@@ -417,19 +439,23 @@
   </xs:simpleType>
   <xs:simpleType name="data.URI">
     <xs:annotation>
-      <xs:documentation>a Uniform Resource Identifier, see [RFC2396]</xs:documentation>
+      <xs:documentation>a Uniform Resource Identifier, see
+      [RFC2396]</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:anyURI"/>
   </xs:simpleType>
   <xs:simpleType name="data.ACCIDENTAL.EXPLICIT">
     <xs:annotation>
-      <xs:documentation>Accidental attribute values: s = sharp, f = flat, ss = dblsharp, x=dblsharp, ff
-      = dblflat, xs = triple sharp, tb = triple flat, n = natural, nf = naturalflat, ns =
-      naturalsharp. ss indicates the use of 2 sharp signs, while x indicates the use of a single
-      double sharp. nf and ns are used to cancel dbflats and dblsharps, respectively. su = sharp
-      note qtr. tone up, sd = sharp note qtr. tone down, fu = flat note qtr. tone up, fd = flat note
-      qtr. tone down, nu = natural note qtr. tone up, nd = natural note quarter tone down.
-      Quarter-tone accidentals listed in Read, p. 145.</xs:documentation>
+      <xs:documentation>Accidental attribute values: s = sharp, f = flat,
+      ss = dblsharp, x=dblsharp, ff = dblflat, xs = triple sharp, tb =
+      triple flat, n = natural, nf = naturalflat, ns = naturalsharp.
+      ss indicates the use of 2 sharp signs, while x indicates the use
+      of a single double sharp. nf and ns are used to cancel dbflats
+      and dblsharps, respectively. su = sharp note qtr. tone up, sd =
+      sharp note qtr. tone down, fu = flat note qtr. tone up, fd =
+      flat note qtr. tone down, nu = natural note qtr. tone up, nd =
+      natural note quarter tone down. Quarter-tone accidentals listed
+      in Read, p. 145.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="s"/>
@@ -452,13 +478,16 @@
   </xs:simpleType>
   <xs:simpleType name="data.ACCIDENTAL.IMPLICIT">
     <xs:annotation>
-      <xs:documentation>Accidental attribute values: s = sharp, f = flat, ss = dblsharp, x=dblsharp, ff
-      = dblflat, xs = triple sharp, tb = triple flat, n = natural, nf = naturalflat, ns =
-      naturalsharp. ss indicates the use of 2 sharp signs, while x indicates the use of a single
-      double sharp. nf and ns are used to cancel dbflats and dblsharps, respectively. su = sharp
-      note qtr. tone up, sd = sharp note qtr. tone down, fu = flat note qtr. tone up, fd = flat note
-      qtr. tone down, nu = natural note qtr. tone up, nd = natural note quarter tone down.
-      Quarter-tone accidentals listed in Read, p. 145.</xs:documentation>
+      <xs:documentation>Accidental attribute values: s = sharp, f = flat,
+      ss = dblsharp, x=dblsharp, ff = dblflat, xs = triple sharp, tb =
+      triple flat, n = natural, nf = naturalflat, ns = naturalsharp.
+      ss indicates the use of 2 sharp signs, while x indicates the use
+      of a single double sharp. nf and ns are used to cancel dbflats
+      and dblsharps, respectively. su = sharp note qtr. tone up, sd =
+      sharp note qtr. tone down, fu = flat note qtr. tone up, fd =
+      flat note qtr. tone down, nu = natural note qtr. tone up, nd =
+      natural note quarter tone down. Quarter-tone accidentals listed
+      in Read, p. 145.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="s"/>
@@ -470,10 +499,12 @@
   </xs:simpleType>
   <xs:simpleType name="data.ARTICULATION">
     <xs:annotation>
-      <xs:documentation>The following list of articulations mostly corresponds to symbols 1D110-1D111,
-      1D17B-1D182, 1D185-1D189, 1D1AA-1D1AD, 1D1B3-1D1B5 from the Western Musical Symbols portion of
-      the Unicode Standard, v. 3.1. The dot and stroke values may be used in cases where
-      interpretation is not desirable.</xs:documentation>
+      <xs:documentation>The following list of articulations mostly
+      corresponds to symbols 1D110-1D111, 1D17B-1D182, 1D185-1D189,
+      1D1AA-1D1AD, 1D1B3-1D1B5 from the Western Musical Symbols
+      portion of the Unicode Standard, v. 3.1. The dot and stroke
+      values may be used in cases where interpretation is not
+      desirable.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="acc"/>
@@ -513,15 +544,15 @@
   </xs:simpleType>
   <xs:simpleType name="data.ARTICULATIONS">
     <xs:annotation>
-      <xs:documentation>One or more values from the list given in the definition of
-      data.ARTICULATION.</xs:documentation>
+      <xs:documentation>One or more values from the list given in the
+      definition of data.ARTICULATION.</xs:documentation>
     </xs:annotation>
     <xs:list itemType="data.ARTICULATION"/>
   </xs:simpleType>
   <xs:simpleType name="data.AUGMENTDOT">
     <xs:annotation>
-      <xs:documentation>Dots attribute values (number of augmentation dots) (Read, 113-119, ex.
-      8-21)</xs:documentation>
+      <xs:documentation>Dots attribute values (number of augmentation
+      dots) (Read, 113-119, ex. 8-21)</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:nonNegativeInteger">
       <xs:maxInclusive value="4"/>
@@ -529,9 +560,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.BARPLACE">
     <xs:annotation>
-      <xs:documentation>Placement of barlines: 'mensur' = between staves only, 'staff' = between and
-      across staves as necessary, 'takt' = short line above staff or through top
-      line</xs:documentation>
+      <xs:documentation>Placement of barlines: 'mensur' = between staves
+      only, 'staff' = between and across staves as necessary, 'takt' =
+      short line above staff or through top line</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="mensur"/>
@@ -559,8 +590,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.BEAM">
     <xs:annotation>
-      <xs:documentation>Beam attribute values: initial, medial, terminal. Nested beaming is
-      permitted.</xs:documentation>
+      <xs:documentation>Beam attribute values: initial, medial, terminal.
+      Nested beaming is permitted.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[i|m|t][1-6]"/>
@@ -568,8 +599,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.BEAMS">
     <xs:annotation>
-      <xs:documentation>One or more from the list given in the definition of the BEAM
-      entity.</xs:documentation>
+      <xs:documentation>One or more from the list given in the definition
+      of the BEAM entity.</xs:documentation>
     </xs:annotation>
     <xs:restriction>
       <xs:simpleType>
@@ -606,7 +637,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.CLEFSHAPE">
     <xs:annotation>
-      <xs:documentation>Clef shape attribute values (Read, p.53-56)</xs:documentation>
+      <xs:documentation>Clef shape attribute values (Read,
+      p.53-56)</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="G"/>
@@ -649,8 +681,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.DURATION.BASE">
     <xs:annotation>
-      <xs:documentation>Logical, that is, written, duration attribute values for the CMN repertoire.
-      Whole note duration = '1'.</xs:documentation>
+      <xs:documentation>Logical, that is, written, duration attribute
+      values for the CMN repertoire. Whole note duration =
+      '1'.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="long"/>
@@ -671,8 +704,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.DURATION.MEN">
     <xs:annotation>
-      <xs:documentation>Logical, that is, written, duration attribute values for the mensural
-      repertoire.</xs:documentation>
+      <xs:documentation>Logical, that is, written, duration attribute
+      values for the mensural repertoire.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="maxima"/>
@@ -696,7 +729,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.ENCLOSURE">
     <xs:annotation>
-      <xs:documentation>Enclosures for editorial notes and accidentals</xs:documentation>
+      <xs:documentation>Enclosures for editorial notes and
+      accidentals</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="paren"/>
@@ -705,22 +739,24 @@
   </xs:simpleType>
   <xs:simpleType name="data.FONTFAMILY">
     <xs:annotation>
-      <xs:documentation>Font family (for text) attribute values. Mup-acceptable values: avantgarde,
-      bookman, courier, helvetica, newcentury, palatino, times.</xs:documentation>
+      <xs:documentation>Font family (for text) attribute values.
+      Mup-acceptable values: avantgarde, bookman, courier, helvetica,
+      newcentury, palatino, times.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token"/>
   </xs:simpleType>
   <xs:simpleType name="data.FONTNAME">
     <xs:annotation>
-      <xs:documentation>Font name (for text) attribute values. Mup-acceptable values: rom, ital, bold,
+      <xs:documentation>Font name (for text) attribute values.
+      Mup-acceptable values: rom, ital, bold,
       boldital</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token"/>
   </xs:simpleType>
   <xs:simpleType name="data.FONTSTYLE">
     <xs:annotation>
-      <xs:documentation>Font style (for text) attribute values. 'normal' = 'rom' in
-      Mup.</xs:documentation>
+      <xs:documentation>Font style (for text) attribute values. 'normal'
+      = 'rom' in Mup.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="ital"/>
@@ -730,7 +766,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.FONTWEIGHT">
     <xs:annotation>
-      <xs:documentation>Font weight (for text) attribute values</xs:documentation>
+      <xs:documentation>Font weight (for text) attribute
+      values</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="bold"/>
@@ -756,8 +793,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.FRETNUMBER">
     <xs:annotation>
-      <xs:documentation>In string tablature, the fret number, i.e., [0-9]+. The value '0' indicates the
-      open string.</xs:documentation>
+      <xs:documentation>In string tablature, the fret number, i.e.,
+      [0-9]+. The value '0' indicates the open
+      string.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:nonNegativeInteger">
       <xs:maxInclusive value="9"/>
@@ -765,8 +803,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.GLISSANDO">
     <xs:annotation>
-      <xs:documentation>Analytical glissando attribute values: i(nitial), m(edial),
-      t(erminal)</xs:documentation>
+      <xs:documentation>Analytical glissando attribute values: i(nitial),
+      m(edial), t(erminal)</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="i"/>
@@ -776,8 +814,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.GRACE">
     <xs:annotation>
-      <xs:documentation>Do grace notes get time from the current (acc) or previous (unacc)
-      one?</xs:documentation>
+      <xs:documentation>Do grace notes get time from the current (acc) or
+      previous (unacc) one?</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="acc"/>
@@ -825,7 +863,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.INEUMENAME">
     <xs:annotation>
-      <xs:documentation>Interrupted neume, i.e. neume written as 2 or more sub-neumes</xs:documentation>
+      <xs:documentation>Interrupted neume, i.e. neume written as 2 or
+      more sub-neumes</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="pessubpunctis"/>
@@ -853,8 +892,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.KEYSIGTOKEN">
     <xs:annotation>
-      <xs:documentation>A token describing the pitch name, inflection, and octave number of an altered
-      pitch in a key signature.</xs:documentation>
+      <xs:documentation>A token describing the pitch name, inflection,
+      and octave number of an altered pitch in a key
+      signature.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[a-g][s|f|ss|x|ff|n|nf|ns|su|sd|fu|fd|nu|nd][0-9]"/>
@@ -862,11 +902,13 @@
   </xs:simpleType>
   <xs:simpleType name="data.KEYSIGNATURE">
     <xs:annotation>
-      <xs:documentation>Key signature may be indicated by a value showing where the key is in the
-      circle of fifths. Mixed key signatures, e.g. those consisting of a mixture of flats and
-      sharps, and key signatures with unorthodox placement of the accidentals (Read, p. 143) must be
-      indicated by setting the key.sig attribute to 'mixed' and providing explicit keysig info in
-      the key.sig.mixed attribute.</xs:documentation>
+      <xs:documentation>Key signature may be indicated by a value showing
+      where the key is in the circle of fifths. Mixed key signatures,
+      e.g. those consisting of a mixture of flats and sharps, and key
+      signatures with unorthodox placement of the accidentals (Read,
+      p. 143) must be indicated by setting the key.sig attribute to
+      'mixed' and providing explicit keysig info in the key.sig.mixed
+      attribute.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="mixed|0|[1-7][f|s]"/>
@@ -874,13 +916,16 @@
   </xs:simpleType>
   <xs:simpleType name="data.LAYERSCHEME">
     <xs:annotation>
-      <xs:documentation>Indicates how stems should be drawn when more than one layer is present and
-      stem directions are not indicated on the notes/chords themselves. '1' indicates that there is
-      only a single layer on a staff. '2o' means there are two layers with opposing stems. '2f'
-      indicates two 'free' layers; that is, opposing stems will be drawn unless one of the layers
-      has 'space'. In that case, stem direction in the remaining layer will be determined as if
-      there were only one layer. '3o' and '3f' are analogous to '2o' and '2f' with three layers
-      allowed. What about more than 3 layers?</xs:documentation>
+      <xs:documentation>Indicates how stems should be drawn when more
+      than one layer is present and stem directions are not indicated
+      on the notes/chords themselves. '1' indicates that there is only
+      a single layer on a staff. '2o' means there are two layers with
+      opposing stems. '2f' indicates two 'free' layers; that is,
+      opposing stems will be drawn unless one of the layers has
+      'space'. In that case, stem direction in the remaining layer
+      will be determined as if there were only one layer. '3o' and
+      '3f' are analogous to '2o' and '2f' with three layers allowed.
+      What about more than 3 layers?</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="1"/>
@@ -923,7 +968,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.METERSIGN">
     <xs:annotation>
-      <xs:documentation>Meter.sym attribute values for CMN notation</xs:documentation>
+      <xs:documentation>Meter.sym attribute values for CMN
+      notation</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="common"/>
@@ -940,7 +986,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.MIDIVALUE">
     <xs:annotation>
-      <xs:documentation>MIDI values are in the following range</xs:documentation>
+      <xs:documentation>MIDI values are in the following
+      range</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:nonNegativeInteger">
       <xs:maxInclusive value="127"/>
@@ -969,8 +1016,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.OCTAVE">
     <xs:annotation>
-      <xs:documentation>Oct attribute values. The default values conform to Acoustical Society of
-      America representation. Read, p. 44.</xs:documentation>
+      <xs:documentation>Oct attribute values. The default values conform
+      to Acoustical Society of America representation. Read, p.
+      44.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:nonNegativeInteger">
       <xs:maxInclusive value="9"/>
@@ -978,15 +1026,16 @@
   </xs:simpleType>
   <xs:simpleType name="data.PGSCALE">
     <xs:annotation>
-      <xs:documentation>Page scale factor. Page.scale may be expressed as a percentage of a
-      programmatically-determined "usual" size or as a ratio of virtual units to real-world
-      units.</xs:documentation>
+      <xs:documentation>Page scale factor. Page.scale may be expressed as
+      a percentage of a programmatically-determined "usual" size or as
+      a ratio of virtual units to real-world units.</xs:documentation>
     </xs:annotation>
     <xs:union memberTypes="data.PERCENT data.RATIO"/>
   </xs:simpleType>
   <xs:simpleType name="data.PGUNITS">
     <xs:annotation>
-      <xs:documentation>Values for real-world unit attributes</xs:documentation>
+      <xs:documentation>Values for real-world unit
+      attributes</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="in"/>
@@ -996,7 +1045,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.PITCHCLASS">
     <xs:annotation>
-      <xs:documentation>Pclass (pitch class) attribute values</xs:documentation>
+      <xs:documentation>Pclass (pitch class) attribute
+      values</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:nonNegativeInteger">
       <xs:maxInclusive value="11"/>
@@ -1004,8 +1054,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.PITCHNAME">
     <xs:annotation>
-      <xs:documentation>The pitch names (gamut) used within a single octave. The default values conform
-      to Acoustical Society of America representation.</xs:documentation>
+      <xs:documentation>The pitch names (gamut) used within a single
+      octave. The default values conform to Acoustical Society of
+      America representation.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[a-g]"/>
@@ -1013,8 +1064,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.PITCHNAME.GES">
     <xs:annotation>
-      <xs:documentation>Gestural pitch names need an additional value for when the notated pitch is not
-      to be sounded.</xs:documentation>
+      <xs:documentation>Gestural pitch names need an additional value for
+      when the notated pitch is not to be sounded.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[a-g]|none"/>
@@ -1022,20 +1073,22 @@
   </xs:simpleType>
   <xs:simpleType name="data.PITCHNUMBER">
     <xs:annotation>
-      <xs:documentation>Pnum (pitch number, e.g. MIDI) attribute values</xs:documentation>
+      <xs:documentation>Pnum (pitch number, e.g. MIDI) attribute
+      values</xs:documentation>
     </xs:annotation>
     <xs:restriction base="data.INTEGERNONNEGATIVE"/>
   </xs:simpleType>
   <xs:simpleType name="data.PLIST">
     <xs:annotation>
-      <xs:documentation>Participant list referencing method.</xs:documentation>
+      <xs:documentation>Participant list referencing
+      method.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:IDREFS"/>
   </xs:simpleType>
   <xs:simpleType name="data.PLACE">
     <xs:annotation>
-      <xs:documentation>Place, i.e., location of musical material relative to a
-      staff.</xs:documentation>
+      <xs:documentation>Place, i.e., location of musical material
+      relative to a staff.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="above"/>
@@ -1053,10 +1106,12 @@
   </xs:simpleType>
   <xs:simpleType name="data.SLUR">
     <xs:annotation>
-      <xs:documentation>i=initial, m=medial, t=terminal. Number is used to match endpoints of the slur
-      when slurs are nested or overlap, e.g. &lt;note slur='i1 i2'/&gt;&lt;note
-      slur='t1'/&gt;&lt;note slur='t2'/&gt; encodes the fact that two slurs begin on
-      note 1, one which terminates on note 2 and one which terminates on note 3.</xs:documentation>
+      <xs:documentation>i=initial, m=medial, t=terminal. Number is used
+      to match endpoints of the slur when slurs are nested or overlap,
+      e.g. &lt;note slur='i1 i2'/&gt;&lt;note
+      slur='t1'/&gt;&lt;note slur='t2'/&gt; encodes the
+      fact that two slurs begin on note 1, one which terminates on
+      note 2 and one which terminates on note 3.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[i|m|t][1-6]"/>
@@ -1064,8 +1119,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.SLURS">
     <xs:annotation>
-      <xs:documentation>One or more from the list given in the definition of the SLUR
-      entity.</xs:documentation>
+      <xs:documentation>One or more from the list given in the definition
+      of the SLUR entity.</xs:documentation>
     </xs:annotation>
     <xs:restriction>
       <xs:simpleType>
@@ -1085,10 +1140,12 @@
   </xs:simpleType>
   <xs:simpleType name="data.STAFFLOC">
     <xs:annotation>
-      <xs:documentation>Staff location. Staff location includes staff lines, spaces, and the spaces
-      directly above and below the staff. The value ranges between 0 (just below the staff) to 2 *
-      number of staff lines (directly above the staff). For example, on a 5-line staff the lines
-      would be numbered 1,3,5,7, and 9 while the spaces would be numbered
+      <xs:documentation>Staff location. Staff location includes staff
+      lines, spaces, and the spaces directly above and below the
+      staff. The value ranges between 0 (just below the staff) to 2 *
+      number of staff lines (directly above the staff). For example,
+      on a 5-line staff the lines would be numbered 1,3,5,7, and 9
+      while the spaces would be numbered
       0,2,4,6,8,10.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="data.INTEGERNONNEGATIVE"/>
@@ -1135,6 +1192,7 @@
       <xs:enumeration value="equal"/>
       <xs:enumeration value="just"/>
       <xs:enumeration value="mean"/>
+      <xs:enumeration value="pythagorean"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="data.TEXTRENDITION">
@@ -1156,7 +1214,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.TIE">
     <xs:annotation>
-      <xs:documentation>Tie attribute values: initial, medial, terminal</xs:documentation>
+      <xs:documentation>Tie attribute values: initial, medial,
+      terminal</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[i|m|t]"/>
@@ -1173,7 +1232,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.TUPLET">
     <xs:annotation>
-      <xs:documentation>Tuplet attribute values: initial, medial, terminal</xs:documentation>
+      <xs:documentation>Tuplet attribute values: initial, medial,
+      terminal</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:pattern value="[i|m|t][1-6]"/>
@@ -1181,7 +1241,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.UNEUMENAME">
     <xs:annotation>
-      <xs:documentation>Basic, i.e., single, uninterrupted, neume names</xs:documentation>
+      <xs:documentation>Basic, i.e., single, uninterrupted, neume
+      names</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="punctum"/>
@@ -1198,7 +1259,8 @@
   </xs:simpleType>
   <xs:simpleType name="data.UNEUMEFORM">
     <xs:annotation>
-      <xs:documentation>Basic, i.e., single, uninterrupted, neume forms</xs:documentation>
+      <xs:documentation>Basic, i.e., single, uninterrupted, neume
+      forms</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="liquescent1"/>
@@ -1212,8 +1274,9 @@
   </xs:simpleType>
   <xs:simpleType name="data.VISUALOFFSET">
     <xs:annotation>
-      <xs:documentation>Visual, i.e. ho and vo, offsets are expressed in terms of staff interline
-      distance; that is, in "stepsizes", which are half the distance between staff
+      <xs:documentation>Visual, i.e. ho and vo, offsets are expressed in
+      terms of staff interline distance; that is, in "stepsizes",
+      which are half the distance between staff
       lines.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="data.NUMBER"/>
