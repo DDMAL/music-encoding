@@ -794,13 +794,22 @@
   <xs:simpleType name="data.FRETNUMBER">
     <xs:annotation>
       <xs:documentation>In string tablature, the fret number, i.e.,
-      [0-9]+. The value '0' indicates the open
-      string.</xs:documentation>
+      [1-9]. The value 'o' may be used instead of a numerica value to
+      indicate the open string.</xs:documentation>
     </xs:annotation>
-    <xs:restriction base="xs:nonNegativeInteger">
-      <xs:minInclusive value="0"/>
-      <xs:maxInclusive value="9"/>
-    </xs:restriction>
+    <xs:union>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:minInclusive value="1"/>
+          <xs:maxInclusive value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="o"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:union>
   </xs:simpleType>
   <xs:simpleType name="data.GLISSANDO">
     <xs:annotation>

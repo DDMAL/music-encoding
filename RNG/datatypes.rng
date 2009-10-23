@@ -762,12 +762,17 @@
 
   <define name="data.FRETNUMBER">
     <a:documentation>In string tablature, the fret number, i.e.,
-      [0-9]+. The value '0' indicates the open
-      string.</a:documentation>
-    <data type="nonNegativeInteger">
-      <param name="minInclusive">0</param>
-      <param name="maxInclusive">9</param>
-    </data>
+      [1-9]. The value 'o' may be used instead of a numerica value to
+      indicate the open string.</a:documentation>
+    <choice>
+      <data type="nonNegativeInteger">
+        <param name="minInclusive">1</param>
+        <param name="maxInclusive">9</param>
+      </data>
+      <data type="token">
+        <param name="pattern">o</param>
+      </data>
+    </choice>
   </define>
 
   <define name="data.GLISSANDO">
