@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mei SYSTEM "../DTD/mei19b.dtd" [
-  <!ENTITY % meiCMN 'INCLUDE'>
-  <!ENTITY % meiEditTrans 'INCLUDE'>
-  <!ENTITY % meiText 'INCLUDE'>
-  <!ENTITY % meiFacsimile 'INCLUDE'>
-  <!ENTITY % meiVisual 'INCLUDE'>
-  <!ENTITY % meiCritApp 'INCLUDE'>
-  <!ENTITY % meiPtrRefs 'INCLUDE'>
-  <!ENTITY % meiNamesDates 'INCLUDE'>
+<!DOCTYPE mei [
+  <!ENTITY % ISOlat1 SYSTEM 
+   'http://text.lib.virginia.edu/charent/iso-lat1.ent'> %ISOlat1;
 ]>
-<mei version="1.9b">
+<?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
+<?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
+<mei version="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink">
   <meihead>
     <altmeiid/>
     <filedesc>
@@ -18,8 +14,8 @@
         <!-- Multiple titles are permitted; specialized functions may be
           indicated with the type attribute. -->
         <title>Gran Concerto in Fa b:-</title>
-        <title type="uniform">Concertos, clarinet, orchestra, no. 2, op. 73, F
-          minor</title>
+        <title type="uniform">Concertos, clarinet, orchestra, no. 2,
+          op. 73, F minor</title>
         <respstmt>
 
           <!-- Catalogers will probably put the authorized version of a name
@@ -41,7 +37,7 @@
       </seriesstmt>
 
       <sourcedesc>
-        <source id="a1">
+        <source xml:id="a1">
 
           <!-- Publication status is indicated by the presence of a
             pubstmt or unpub element. -->
@@ -56,9 +52,10 @@
             physical description. -->
             <titlepage>
               <p>Gran Concerto in Fa. b:-<lb/>per il<lb/>Clarinetto
-                Principale<lb/>composto per uso<lb/>dell suo Amico, <rend rend="strike"
-                  >il</rend> Signore Baermann<lb/>di<lb/>Carlo Maria de Weber<lb/>Monaco
-                il <date reg="1811-05-17">17:t Majo 1811</date>.</p>
+                Principale<lb/>composto per uso<lb/>dell suo Amico,
+                  <rend rend="strike">il</rend> Signore
+                Baermann<lb/>di<lb/>Carlo Maria de Weber<lb/>Monaco il
+                  <date reg="1811-05-17">17:t Majo 1811</date>.</p>
             </titlepage>
 
             <!-- Physical location of the source -->
@@ -71,42 +68,50 @@
             <physloc>Mus. ms. autogr. C. M. v. Weber WFN 11</physloc>
 
             <!-- Prose description of the medium, i.e., paper and ink. -->
-            <physmedium>Autograph (score) with pencil inscriptions of Friedrich Wilhelm
-              J&auml;hns. The inscriptions follow the additions of Henrich Baermann in
-              Autograph II.</physmedium>
+            <physmedium>Autograph (score) with pencil inscriptions of
+              Friedrich Wilhelm J&auml;hns. The inscriptions
+              follow the additions of Henrich Baermann in Autograph
+              II.</physmedium>
 
             <!-- "Size" in terms other than physical dimensions. -->
-            <extent>22 sheets with 43 inscribed pages, page 44 empty;</extent>
+            <extent>22 sheets with 43 inscribed pages, page 44
+              empty;</extent>
 
             <!-- Physical dimensions -->
             <dimensions>24 x 34 cm. paper with 12 staves.</dimensions>
             <!-- or perhaps in a more explicit fashion:-->
-            <dimensions><num n="height" units="cm">24</num> x <num n="width" units="cm"
-                >34</num> paper with 12 staves.</dimensions>
+            <dimensions><num n="height" unit="cm">24</num> x <num
+                n="width" unit="cm">34</num> paper with 12
+              staves.</dimensions>
 
             <!-- Physdesc sub-elements are optional and repeatable in order
             to accommodate already existing descriptions. -->
-            <physmedium>On pages 1-19 and 26-43 eleven staves are used, on page 20 and 25
-              only nine. Notation in ink. Autographic pagination with pencil counting
-              pages 2-44. On top of the sheet stands "No. 10"; written in red chalk by a
-              foreigner. At the bottom of the sheet F. W. J&auml;hns added "op 73"
-              with a pencil. At the end of the composition (p. 43) is a note by Weber:
-              "Vollendet d. 17. May 1811 in M&uuml;nchen".</physmedium>
+            <physmedium>On pages 1-19 and 26-43 eleven staves are
+              used, on page 20 and 25 only nine. Notation in ink.
+              Autographic pagination with pencil counting pages 2-44.
+              On top of the sheet stands "No. 10"; written in red
+              chalk by a foreigner. At the bottom of the sheet F. W.
+              J&auml;hns added "op 73" with a pencil. At the end
+              of the composition (p. 43) is a note by Weber:
+              "Vollendet d. 17. May 1811 in
+              M&uuml;nchen".</physmedium>
 
-            <physmedium n="watermark">The source carries as a watermark the lettering "H.
-              OSER".</physmedium>
+            <physmedium n="watermark">The source carries as a
+              watermark the lettering "H. OSER".</physmedium>
             <!-- Perhaps adding a watermark element would be a good idea. -->
 
             <!-- Record of ownership -->
-            <provenance>It was up to the year 1986 in the possession of the Weber family
-              and was afterwards given to the <repository>Berlin State
-                Library</repository> as a gift. It has been there since 1986.</provenance>
+            <provenance>It was up to the year 1986 in the possession
+              of the Weber family and was afterwards given to the
+                <repository>Berlin State Library</repository> as a
+              gift. It has been there since 1986.</provenance>
 
             <!-- Alternative encoding of same data in a more machine-processable
             fashion. Uncertain dates may have notbefore and/or notafter attributes. -->
             <provenance>
               <list form="ordered">
-                <item>Weber family <date notafter="1985">until 1986</date></item>
+                <item>Weber family <date notafter="1985">until
+                    1986</date></item>
                 <item>
                   <repository>Berlin State Library</repository>
                   <date notbefore="1986">1986-</date>
@@ -118,32 +123,34 @@
           in the source. Encoding order is not significant. Both medium (ink)
           and character (brighter, small, shaky, etc.) may be described. -->
             <handlist>
-              <hand id="FWJ" medium="pencil"/>
-              <hand id="CMW1" medium="ink"/>
-              <hand id="CMW2" medium="pencil"/>
-              <hand id="unknown" medium="red chalk"/>
+              <hand xml:id="FWJ" medium="pencil"/>
+              <hand xml:id="CMW1" medium="ink"/>
+              <hand xml:id="CMW2" medium="pencil"/>
+              <hand xml:id="unknown" medium="red chalk"/>
             </handlist>
           </physdesc>
 
         </source>
 
-        <source id="a2">
+        <source xml:id="a2">
           <pubstmt>
             <unpub/>
           </pubstmt>
 
           <physdesc>
             <titlepage>
-              <p>Gran Concerto<lb/> per il<lb/> Clarinetto Principale.<lb/> composto per
-                uso<lb/> [Rasuren]<lb/> di<lb/> Carlo Maria de Weber<lb/> Monaco. <date
+              <p>Gran Concerto<lb/> per il<lb/> Clarinetto
+                Principale.<lb/> composto per uso<lb/> [Rasuren]<lb/>
+                di<lb/> Carlo Maria de Weber<lb/> Monaco. <date
                   reg="1811-05">Majo 1811</date>. </p>
             </titlepage>
             <repository>
 
               <!-- Corpname elements may be nested in order to indicate sub-units within
               a repository. -->
-              <corpname><corpname>Library of Congress</corpname>, <corpname>Gertrude
-                  Clarke Whittall Foundation Collection</corpname></corpname>
+              <corpname><corpname>Library of Congress</corpname>,
+                  <corpname>Gertrude Clarke Whittall Foundation
+                  Collection</corpname></corpname>
 
               <identifier>RISM: US-Wc</identifier>
             </repository>
@@ -156,8 +163,8 @@
                 <item>Hermione Wittgenstein</item>
                 <item>Wittgenstein family</item>
                 <item>
-                  <repository>Library of Congress, Gertrude Clarke Whittall Foundation
-                    Collection</repository>
+                  <repository>Library of Congress, Gertrude Clarke
+                    Whittall Foundation Collection</repository>
                   <date notbefore="1948">1948-</date>
                 </item>
               </list>
@@ -170,37 +177,41 @@
 
   <music>
     <facsimile source="a1">
-      <graphic width="1446" height="416" href="Weber_A1.jpg"/>
+      <graphic width="1446" height="416" xlink:href="Weber_A1.jpg"/>
     </facsimile>
     <facsimile source="a2">
       <surface>
-        <graphic width="987" height="436" href="Weber_A2.jpg"/>
-        <zone id="p10box" lrx="388" lry="115" ulx="91" uly="32"/>
+        <graphic width="987" height="436" xlink:href="Weber_A2.jpg"/>
+        <zone xml:id="p10box" lrx="388" lry="115" ulx="91" uly="32"/>
       </surface>
     </facsimile>
 
     <body>
       <mdiv type="movement">
         <score>
-          <scoredef key.sig="0" meter.count="2" meter.unit="2" key.mode="minor"
-            meter.sym="cut">
+          <scoredef key.sig="0" meter.count="2" meter.unit="2"
+            key.mode="minor" meter.sym="cut">
             <staffgrp barthru="true">
               <grpsym symbol="bracket"/>
               <label/>
               <!-- The staffdef, staffgrp, and grpsym elements may contain
                    labels or @label.full and @label.abbr may be used: -->
-              <staffdef n="1" clef.line="2" clef.shape="G" key.sig="2s" trans.diat="-1"
-                trans.semi="-2" label.full="Clarinetto Principale/Clarinetto">
+              <staffdef n="1" lines="5" clef.line="2" clef.shape="G"
+                key.sig="2s" trans.diat="-1" trans.semi="-2"
+                label.full="Clarinetto Principale/Clarinetto">
                 <label>Clarinetto Principale</label>
                 <label>Clarinetto</label>
               </staffdef>
 
               <staffgrp>
                 <label>Violini</label>
-                <staffdef n="2" clef.line="2" clef.shape="G" key.sig="0"/>
-                <staffdef n="3" clef.line="2" clef.shape="G" key.sig="0"/>
+                <staffdef n="2" lines="5" clef.line="2" clef.shape="G"
+                  key.sig="0"/>
+                <staffdef n="3" lines="5" clef.line="2" clef.shape="G"
+                  key.sig="0"/>
               </staffgrp>
-              <staffdef n="4" clef.line="3" clef.shape="C" key.sig="0" label.full="Viole">
+              <staffdef n="4" lines="5" clef.line="3" clef.shape="C"
+                key.sig="0" label.full="Viole">
                 <label>Viole</label>
               </staffdef>
             </staffgrp>
@@ -225,7 +236,7 @@
                     <note pname="e" oct="4"/>
                     <note pname="g" oct="3"/>
                   </beam>
-                  <halfmrpt id="r1"/>
+                  <halfmrpt xml:id="r1"/>
                 </layer>
               </staff>
               <staff n="3">
@@ -236,7 +247,7 @@
                     <note pname="c" oct="4"/>
                     <note pname="g" oct="3"/>
                   </beam>
-                  <halfmrpt id="r2"/>
+                  <halfmrpt xml:id="r2"/>
                 </layer>
               </staff>
               <staff n="4">
@@ -247,7 +258,7 @@
                     <note pname="g" oct="3" dur="8"/>
                     <note pname="c" oct="4"/>
                   </beam>
-                  <halfmrpt id="r3"/>
+                  <halfmrpt xml:id="r3"/>
                 </layer>
               </staff>
 
@@ -262,23 +273,35 @@
                   actually contains a timestamp.  Here it is a timestamp (beat 2)
                   in the next measure (1m). CRAIG SAYS: need example which shows
                   beat = time sig denominator -->
-                  <phrase id="p1" place="below" staff="2" tstamp="1" dur="1m+2"/>
-                  <phrase id="p2" place="below" staff="3" tstamp="1" dur="0m+2.5"/>
-                  <phrase id="p3" place="below" staff="4" tstamp="1" dur="0m+2.5"/>
+                  <phrase xml:id="p1" place="below" staff="2"
+                    tstamp="1" dur="1m+2"/>
+                  <phrase xml:id="p2" place="below" staff="3"
+                    tstamp="1" dur="0m+2.5"/>
+                  <phrase xml:id="p3" place="below" staff="4"
+                    tstamp="1" dur="0m+2.5"/>
                   <!-- dynamic markings found in a1 -->
-                  <dynam place="below" staff="2" tstamp="1" ho="-4">pp:</dynam>
-                  <dynam place="below" staff="3" tstamp="1" ho="-4">po:</dynam>
-                  <dynam place="below" staff="4" tstamp="1" ho="-4">po:</dynam>
+                  <dynam place="below" staff="2" tstamp="1" ho="-4"
+                    >pp:</dynam>
+                  <dynam place="below" staff="3" tstamp="1" ho="-4"
+                    >po:</dynam>
+                  <dynam place="below" staff="4" tstamp="1" ho="-4"
+                    >po:</dynam>
                 </rdg>
                 <rdg source="a2">
                   <!-- phrase marks in a2 -->
-                  <phrase id="p4" place="above" staff="2" tstamp="1" dur="1m+2.5"/>
-                  <phrase id="p5" place="above" staff="3" tstamp="1" dur="1m+2.5"/>
-                  <phrase id="p6" place="below" staff="4" tstamp="1" dur="0m+2.5"/>
+                  <phrase xml:id="p4" place="above" staff="2"
+                    tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p5" place="above" staff="3"
+                    tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p6" place="below" staff="4"
+                    tstamp="1" dur="0m+2.5"/>
                   <!-- dynamic markings found in a2 -->
-                  <dynam place="below" staff="2" tstamp="1" ho="-4">pp.</dynam>
-                  <dynam place="below" staff="3" tstamp="1" ho="-4">pp.</dynam>
-                  <dynam place="below" staff="4" tstamp="1" ho="-4">pp.</dynam>
+                  <dynam place="below" staff="2" tstamp="1" ho="-4"
+                    >pp.</dynam>
+                  <dynam place="below" staff="3" tstamp="1" ho="-4"
+                    >pp.</dynam>
+                  <dynam place="below" staff="4" tstamp="1" ho="-4"
+                    >pp.</dynam>
                 </rdg>
               </app>
 
@@ -334,11 +357,13 @@
               <app>
                 <rdg source="a1">
                   <!-- phrase marks only in a1 -->
-                  <phrase id="p7" place="below" staff="3" tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p7" place="below" staff="3"
+                    tstamp="1" dur="1m+2.5"/>
                 </rdg>
                 <rdg source="a1 a2">
                   <!-- phrase marks in all sources -->
-                  <phrase id="p8" place="below" staff="4" tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p8" place="below" staff="4"
+                    tstamp="1" dur="1m+2.5"/>
                 </rdg>
               </app>
 
@@ -361,10 +386,10 @@
               <staff n="2">
                 <layer n="1">
                   <ftrem slash="1">
-                    <note id="n1" pname="e" oct="4" dur="2"/>
+                    <note xml:id="n1" pname="e" oct="4" dur="2"/>
                     <note pname="g" oct="3"/>
                   </ftrem>
-                  <halfmrpt id="r4"/>
+                  <halfmrpt xml:id="r4"/>
                 </layer>
               </staff>
               <staff n="3">
@@ -373,7 +398,7 @@
                     <note pname="c" oct="4" dur="2"/>
                     <note pname="g" oct="3"/>
                   </ftrem>
-                  <halfmrpt id="r5"/>
+                  <halfmrpt xml:id="r5"/>
                 </layer>
               </staff>
               <staff n="4">
@@ -385,18 +410,21 @@
                     <note pname="f" oct="4" stem.dir="down"/>
                   </ftrem>
 
-                  <halfmrpt id="r6"/>
+                  <halfmrpt xml:id="r6"/>
                 </layer>
               </staff>
               <app>
                 <rdg source="a1">
                   <!-- phrase marks in a1 -->
-                  <phrase id="p9" place="above" staff="2" tstamp="1" dur="3"/>
+                  <phrase xml:id="p9" place="above" staff="2"
+                    tstamp="1" dur="3"/>
                 </rdg>
                 <rdg source="a2">
                   <!-- phrase marks in a2 -->
-                  <phrase id="p10" place="above" staff="2" tstamp="1" dur="1m+3"/>
-                  <phrase id="p11" place="above" staff="3" tstamp="1" dur="1m+3"/>
+                  <phrase xml:id="p10" place="above" staff="2"
+                    tstamp="1" dur="1m+3"/>
+                  <phrase xml:id="p11" place="above" staff="3"
+                    tstamp="1" dur="1m+3"/>
                 </rdg>
               </app>
 
@@ -405,24 +433,28 @@
               the annotation points to the bounding box of the phrase mark
               as given in an external .svg file that contains a reference
               to the page image and defines overlays. -->
-              <annot plist="p10" href="imageboxes.svg" fragment="xpath:id(p10)">
-                <p>Since this phrase mark ends at the barline, it could be associated with
-                  the last note of measure 3 as well as the first one of measure 4.</p>
+              <annot plist="p10" xlink:href="imageboxes.svg"
+                fragment="xpath:id(p10)">
+                <p>Since this phrase mark ends at the barline, it
+                  could be associated with the last note of measure 3
+                  as well as the first one of measure 4.</p>
               </annot>
               <!-- Alternatively, the facs attribute may be used to point to a
                 zone within a graphic element.  The zone element's attributes should
                 define the phrase mark's bounding box. -->
-              <annot plist="p10" href="Weber_A2.jpg" facs="p10box"/>
+              <annot plist="p10" xlink:href="Weber_A2.jpg"
+                facs="p10box"/>
 
               <!-- This annotation comments on the set of all phrase marks, which
                 are in this case explicitly-named. -->
               <annot
                 plist="p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13
                 p14 p15 p16 p17 p18 p19 p20 p21 p22 p23">
-                <p>All slurs must be understood as <rend fontstyle="ital">sempre
-                    legato</rend> even though this instruction is not written in the
-                  sources, but instead is derived from the irregularities and variants of
-                  both sources.</p>
+                <p>All slurs must be understood as <rend
+                    fontstyle="ital">sempre legato</rend> even though
+                  this instruction is not written in the sources, but
+                  instead is derived from the irregularities and
+                  variants of both sources.</p>
               </annot>
 
               <!-- In the following alternative encoding, the phrase marks are
@@ -435,10 +467,12 @@
               and actuate this set of many-to-many links. -->
               <annot>
                 <p>
-                  <extptr href="imageboxes.svg" fragment="id(starts-with(name(),'p')"/>All
-                  slurs must be understood as <rend fontstyle="ital">sempre legato</rend>
-                  even though this instruction is not written in the sources, but instead
-                  is derived from the irregularities and variants of both sources.</p>
+                  <extptr xlink:href="imageboxes.svg"
+                    fragment="id(starts-with(name(),'p')"/>All slurs
+                  must be understood as <rend fontstyle="ital">sempre
+                    legato</rend> even though this instruction is not
+                  written in the sources, but instead is derived from
+                  the irregularities and variants of both sources.</p>
               </annot>
 
             </measure>
@@ -458,7 +492,7 @@
               <staff n="2">
                 <layer n="1">
                   <ftrem slash="1">
-                    <note id="n2" pname="f" oct="4" dur="4"/>
+                    <note xml:id="n2" pname="f" oct="4" dur="4"/>
                     <note pname="a" oct="3"/>
                   </ftrem>
                   <ftrem slash="1">
@@ -494,7 +528,8 @@
                     <note pname="d" oct="4" stem.dir="down"/>
                   </ftrem>
                   <ftrem slash="1">
-                    <note pname="a" accid="f" oct="3" dur="2" stem.dir="down"/>
+                    <note pname="a" accid="f" oct="3" dur="2"
+                      stem.dir="down"/>
                     <note pname="d" oct="4" stem.dir="down"/>
                   </ftrem>
                   <ftrem slash="1">
@@ -507,13 +542,17 @@
               <app>
                 <!-- phrase marks in a1 -->
                 <rdg source="a1">
-                  <phrase id="p12" place="above" staff="2" tstamp="1" dur="1m+2.5"/>
-                  <phrase id="p13" place="above" staff="3" tstamp="1" dur="2m+2.5"/>
-                  <phrase id="p14" place="above" staff="4" tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p12" place="above" staff="2"
+                    tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p13" place="above" staff="3"
+                    tstamp="1" dur="2m+2.5"/>
+                  <phrase xml:id="p14" place="above" staff="4"
+                    tstamp="1" dur="1m+2.5"/>
                 </rdg>
                 <!-- phrase marks in a2 -->
                 <rdg source="a2">
-                  <phrase id="p15" place="below" staff="4" tstamp="1" dur="2m+2"/>
+                  <phrase xml:id="p15" place="below" staff="4"
+                    tstamp="1" dur="2m+2"/>
                 </rdg>
               </app>
 
@@ -536,7 +575,7 @@
                     <note pname="e" oct="4" dur="2"/>
                     <note pname="g" oct="3"/>
                   </ftrem>
-                  <halfmrpt id="r7"/>
+                  <halfmrpt xml:id="r7"/>
                 </layer>
               </staff>
               <staff n="3">
@@ -545,7 +584,7 @@
                     <note pname="c" oct="4" dur="2"/>
                     <note pname="g" oct="3"/>
                   </ftrem>
-                  <halfmrpt id="r8"/>
+                  <halfmrpt xml:id="r8"/>
                 </layer>
               </staff>
               <staff n="4">
@@ -554,24 +593,28 @@
                     <note pname="g" oct="3" dur="2" stem.dir="down"/>
                     <note pname="e" oct="4" stem.dir="down"/>
                   </ftrem>
-                  <halfmrpt id="r9"/>
+                  <halfmrpt xml:id="r9"/>
                 </layer>
               </staff>
 
               <app>
                 <!-- phrase marks in a1 -->
                 <rdg source="a1">
-                  <phrase id="p16" place="below" staff="4" tstamp="1" dur="3m+1"/>
+                  <phrase xml:id="p16" place="below" staff="4"
+                    tstamp="1" dur="3m+1"/>
                 </rdg>
                 <!-- phrase marks in a2 -->
                 <rdg source="a2">
-                  <phrase id="p17" place="above" staff="2" tstamp="1" dur="1m+2.5"/>
-                  <phrase id="p18" place="above" staff="3" tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p17" place="above" staff="2"
+                    tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p18" place="above" staff="3"
+                    tstamp="1" dur="1m+2.5"/>
                 </rdg>
               </app>
 
               <!-- slur mark in both sources -->
-              <slur id="s1" place="above" staff="1" tstamp="1" dur="0m+2"/>
+              <slur xml:id="s1" place="above" staff="1" tstamp="1"
+                dur="0m+2"/>
 
             </measure>
             <measure n="6">
@@ -583,7 +626,7 @@
               </staff>
               <staff n="2">
                 <layer n="1">
-                  <halfmrpt id="r10"/>
+                  <halfmrpt xml:id="r10"/>
                   <ftrem slash="1">
                     <note pname="e" oct="4" dur="2"/>
                     <note pname="c" accid="s"/>
@@ -592,7 +635,7 @@
               </staff>
               <staff n="3">
                 <layer n="1">
-                  <halfmrpt id="r11"/>
+                  <halfmrpt xml:id="r11"/>
                   <ftrem slash="1">
                     <note pname="c" accid="s" oct="4" dur="2"/>
                     <note pname="g" oct="3"/>
@@ -601,10 +644,11 @@
               </staff>
               <staff n="4">
                 <layer n="1">
-                  <halfmrpt id="r12"/>
+                  <halfmrpt xml:id="r12"/>
                   <ftrem slash="1">
                     <note pname="g" oct="3" dur="2" stem.dir="down"/>
-                    <note pname="c" accid="s" oct="4" stem.dir="down"/>
+                    <note pname="c" accid="s" oct="4" stem.dir="down"
+                    />
                   </ftrem>
                 </layer>
               </staff>
@@ -612,7 +656,8 @@
               <app>
                 <!-- phrase marks in a1 only -->
                 <rdg source="a1">
-                  <phrase id="p19" place="above" staff="2" tstamp="1" dur="1m+2.5"/>
+                  <phrase xml:id="p19" place="above" staff="2"
+                    tstamp="1" dur="1m+2.5"/>
                 </rdg>
               </app>
 
@@ -635,7 +680,7 @@
                     <note pname="f" oct="4" dur="2"/>
                     <note pname="d"/>
                   </ftrem>
-                  <halfmrpt id="r13"/>
+                  <halfmrpt xml:id="r13"/>
                 </layer>
               </staff>
               <staff n="3">
@@ -670,7 +715,8 @@
               <app>
                 <!-- phrase marks in a1 only -->
                 <rdg source="a1">
-                  <phrase id="p20" place="below" staff="3" tstamp="1" dur="0m+2.5"/>
+                  <phrase xml:id="p20" place="below" staff="3"
+                    tstamp="1" dur="0m+2.5"/>
                 </rdg>
               </app>
 
@@ -739,9 +785,12 @@
               <app>
                 <rdg source="a1">
                   <!-- phrase marks in a1 only -->
-                  <phrase id="p21" place="above" staff="2" tstamp="1" dur="1m+1"/>
-                  <phrase id="p22" place="below" staff="3" tstamp="1" dur="0m+2.75"/>
-                  <phrase id="p23" place="above" staff="4" tstamp="1" dur="1m+1"/>
+                  <phrase xml:id="p21" place="above" staff="2"
+                    tstamp="1" dur="1m+1"/>
+                  <phrase xml:id="p22" place="below" staff="3"
+                    tstamp="1" dur="0m+2.75"/>
+                  <phrase xml:id="p23" place="above" staff="4"
+                    tstamp="1" dur="1m+1"/>
                 </rdg>
               </app>
 

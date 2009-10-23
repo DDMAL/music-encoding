@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- <!DOCTYPE mei SYSTEM "../DTD/mei19b.dtd" [
-  <!ENTITY % meiCMN 'INCLUDE'>
-  <!ENTITY % meiCMNOrnaments 'INCLUDE'>
-  <!ENTITY % meiVisual 'INCLUDE'>
-  <!ENTITY % meiText 'INCLUDE'>
-  <!ENTITY % meiGestural 'INCLUDE'>
-]> -->
-<?oxygen RNGSchema="../RelaxSchema/mei19b-all.rng" type="xml"?>
+<?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
+<?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
 <mei version="1.9b">
   <meihead>
     <filedesc>
@@ -20,7 +14,7 @@
     </filedesc>
     <profiledesc>
       <langusage>
-        <language id="it"/>
+        <language xml:id="it"/>
       </langusage>
     </profiledesc>
   </meihead>
@@ -28,15 +22,17 @@
     <body>
       <mdiv>
         <score>
-          <scoredef key.sig="3f" meter.count="4" meter.unit="4" meter.sym="common">
+          <scoredef key.sig="3f" meter.count="4" meter.unit="4"
+            meter.sym="common">
             <staffgrp barthru="true" symbol="bracket">
               <!-- staff 1 *displays* a different time sig. Use proport.num and .numbase
               to give a proportion relative to the meter in scoredef? -->
-              <staffdef n="1" clef.line="2" clef.shape="G" meter.count="12" meter.unit="8"
-                proport.num="3" proport.numbase="2"/>
-              <staffdef n="2" clef.line="2" clef.shape="G"/>
-              <staffdef n="3" clef.line="4" clef.shape="F"/>
-              <staffdef n="4" clef.line="4" clef.shape="F"/>
+              <staffdef n="1" lines="5" clef.line="2" clef.shape="G"
+                meter.count="12" meter.unit="8" proport.num="3"
+                proport.numbase="2"/>
+              <staffdef n="2" lines="5" clef.line="2" clef.shape="G"/>
+              <staffdef n="3" lines="5" clef.line="4" clef.shape="F"/>
+              <staffdef n="4" lines="5" clef.line="4" clef.shape="F"/>
             </staffgrp>
           </scoredef>
           <section>

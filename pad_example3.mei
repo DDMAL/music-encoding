@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mei SYSTEM "..\DTD\mei19b-all.dtd" [
+<!DOCTYPE mei [
 
 <!-- Overriding an entity declaration in the internal subset makes it possible
 to restriction/extend some attribute values. -->
 <!ENTITY % ARTICULATIONS '(dot|stroke)'>
+<!ENTITY % ISOlat1 SYSTEM 
+   'http://text.lib.virginia.edu/charent/iso-lat1.ent'> %ISOlat1;
 ]>
-
+<?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
+<?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
 <mei version="1.9b">
   <meihead>
     <altmeiid/>
     <filedesc>
       <titlestmt>
         <title>Sonata grande</title>
-        <title type="uniform">Sonatas, piano, no. 21, op. 53, C major</title>
+        <title type="uniform">Sonatas, piano, no. 21, op. 53, C
+          major</title>
         <respstmt>
           <name>Beethoven, Ludwig van, 1770-1827</name>
         </respstmt>
@@ -38,21 +42,21 @@ to restriction/extend some attribute values. -->
     <body>
       <mdiv type="movement">
         <score>
-          <scoredef key.sig="0" meter.count="4" meter.unit="4" key.mode="major"
-            meter.sym="common">
+          <scoredef key.sig="0" meter.count="4" meter.unit="4"
+            key.mode="major" meter.sym="common">
 
             <!-- User-defined symbols -->
             <symboltable>
-              <symboldef id="usersym1">
-                <line x="" y="" x2="" y2="" rend="narrow"/>
+              <symboldef xml:id="usersym1">
+                <line x="0" y="0" x2="0" y2="0" rend="narrow"/>
                 <!-- Structured content, i.e., some combination of curve,
                   line, symbol, and anchoredtext elements, is preferred;
                   however, processing instructions may be used, e.g.,
                   <? processorName PostScript commands/SVG markup ?> -->
               </symboldef>
-              <symboldef id="usersym2">
-                <line x="" y="" x2="" y2="" rend="narrow"/>
-                <line x="" y="" x2="" y2="" rend="narrow"/>
+              <symboldef xml:id="usersym2">
+                <line x="0" y="0" x2="0" y2="0" rend="narrow"/>
+                <line x="0" y="0" x2="0" y2="0" rend="narrow"/>
               </symboldef>
             </symboltable>
 
@@ -74,8 +78,10 @@ to restriction/extend some attribute values. -->
             </pghead1>
 
             <staffgrp barthru="true">
-              <staffdef n="1" clef.line="2" clef.shape="G" key.sig="0"/>
-              <staffdef n="2" clef.line="4" clef.shape="F" key.sig="0"/>
+              <staffdef n="1" lines="5" clef.line="2" clef.shape="G"
+                key.sig="0"/>
+              <staffdef n="2" lines="5" clef.line="4" clef.shape="F"
+                key.sig="0"/>
             </staffgrp>
           </scoredef>
           <section>
@@ -136,9 +142,10 @@ to restriction/extend some attribute values. -->
                   </chord>
                 </layer>
               </staff>
-              <tempo place="above" staff="1" tstamp="1"><title type="mvt">Allegro con
-                  Brio</title>.</tempo>
-              <dynam place="above" staff="2" tstamp="1" vo="-5" ho="-7">
+              <tempo place="above" staff="1" tstamp="1"><title
+                  type="mvt">Allegro con Brio</title>.</tempo>
+              <dynam place="above" staff="2" tstamp="1" vo="-5"
+                ho="-7">
 
                 <!-- The rend element is used for capturing typographic
                 details of text. -->
@@ -226,7 +233,8 @@ to restriction/extend some attribute values. -->
             <measure n="4">
               <staff n="1">
                 <layer>
-                  <note id="n1" grace="acc" pname="c" accid="s" oct="6" dur="16"/>
+                  <note xml:id="n1" grace="acc" pname="c" accid="s"
+                    oct="6" dur="16"/>
                   <note pname="d" dur="4" tie="i"/>
                   <beam>
                     <note pname="d" dur="16" tie="t"/>
@@ -281,8 +289,9 @@ to restriction/extend some attribute values. -->
 
               <!-- Page-anchored text, rotated, containing a line break.
               The x and y attributes are required, but may be left empty. -->
-              <anchoredtext n="directive" x="" y="">
-                <rend rotation="90">D&auml;mpfung<lb/> augehoben</rend>
+              <anchoredtext n="directive" x="0" y="0">
+                <rend rotation="90">D&auml;mpfung<lb/>
+                  augehoben</rend>
               </anchoredtext>
             </measure>
           </section>
