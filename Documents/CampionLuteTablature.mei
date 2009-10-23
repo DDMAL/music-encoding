@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE mei SYSTEM "../DTD/mei19b-all.dtd">
-<?oxygen RNGSchema="../RelaxSchema/mei19b-all.rng" type="xml"?>
+<?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
+<?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
 <mei version="1.9b">
   <meihead>
     <filedesc>
@@ -30,11 +30,13 @@
       They can be implied from the @dur attributes on chord/note. -->
       <mdiv>
         <score>
-          <scoredef meter.count="2" meter.unit="2" meter.sym="cut" key.sig="0">
+          <scoredef meter.count="2" meter.unit="2" meter.sym="cut"
+            key.sig="0">
             <staffgrp>
               <!-- Tab "staff" has same number of lines as tokens in tab.strings -->
               <!-- String pitches (written) given from highest to lowest -->
-              <staffdef n="1" tab.strings="e5 b4 g4 d4 a3 e3"/>
+              <staffdef n="1" lines="6"
+                tab.strings="e5 b4 g4 d4 a3 e3"/>
             </staffgrp>
           </scoredef>
           <section>
@@ -69,11 +71,14 @@
       This is probably bad practice as it puts stuff in the model (the MEI) that ought to be in the view. -->
       <mdiv>
         <score>
-          <scoredef meter.count="2" meter.unit="2" meter.sym="cut" key.sig="0">
+          <scoredef meter.count="2" meter.unit="2" meter.sym="cut"
+            key.sig="0">
             <staffgrp>
               <!-- A single-line staff where the line is invisible, all notes placed 'on the line' -->
-              <staffdef n="1" lines="1" lines.visible="false" ontheline="true"/>
-              <staffdef n="2" tab.strings="e a d g b e"/>
+              <staffdef n="1" lines="1" lines.visible="false"
+                ontheline="true"/>
+              <staffdef n="2" lines="6"
+                tab.strings="e5 b4 g4 d4 a3 e3"/>
             </staffgrp>
           </scoredef>
           <section>

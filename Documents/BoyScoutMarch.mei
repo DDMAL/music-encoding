@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mei SYSTEM "../DTD/mei19b.dtd" [
+<!DOCTYPE mei [
   <!ENTITY % meiCMN 'INCLUDE'>
   <!ENTITY % meiEditTrans     'INCLUDE'>
   <!ENTITY % meiText 'INCLUDE'>
@@ -12,8 +12,12 @@
   <!ENTITY Ellsworth_page4 SYSTEM "page4" NDATA uvaBitonal>
   <!ENTITY Ellsworth_page5 SYSTEM "page5" NDATA uvaBitonal>
   <!ENTITY Ellsworth_back  SYSTEM "back"  NDATA uvaBitonal>
+  <!ENTITY % ISOpub  SYSTEM 
+   'http://text.lib.virginia.edu/charent/iso-pub.ent'>  %ISOpub;
 ]>
-<mei version="1.9b">
+<?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
+<?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
+<mei version="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink">
   <meihead>
     <altmeiid/>
     <filedesc>
@@ -26,11 +30,12 @@
       </titlestmt>
       <pubstmt>
         <respstmt>
-          <name id="pdr4h">Perry Roland</name>
+          <name xml:id="pdr4h">Perry Roland</name>
         </respstmt>
         <availability>
-          <userestrict>&copy; 2007 Rector and Board of Visitors of the University of
-            Virginia. All rights reserved.</userestrict>
+          <userestrict>&copy; 2007 Rector and Board of Visitors of
+            the University of Virginia. All rights
+            reserved.</userestrict>
         </availability>
       </pubstmt>
       <sourcedesc>
@@ -55,16 +60,16 @@
           <physdesc>
             <extent>cover, 5 pgs music, advertisement</extent>
             <dimensions>[width] x [height] cm</dimensions>
-            <condition>poor condition: corner severely torn, although no content
-              loss</condition>
+            <condition>poor condition: corner severely torn, although
+              no content loss</condition>
           </physdesc>
         </source>
       </sourcedesc>
     </filedesc>
     <profiledesc>
       <langusage>
-        <language id="ita">Italian</language>
-        <language id="eng">English</language>
+        <language xml:id="ita">Italian</language>
+        <language xml:id="eng">English</language>
       </langusage>
       <classification>
         <keywords>
@@ -77,21 +82,22 @@
   <music>
     <!-- Cover may be transcribed using front/titlepage: -->
     <front>
-      <pb n="cover" href="URLtoCoverImage" entityref="Ellsworth_cover"/>
+      <pb n="cover" xlink:href="URLtoCoverImage"
+        entityref="Ellsworth_cover"/>
       <titlepage>
         <p>The United States Boy Scouts<lb/> Official March</p>
         <table>
           <tr>
-            <td>INSCRIBED<lb/> TO THE<lb/> CHIEF SCOUT<lb/> MAJOR GEN.<lb/> E. A.
-              McALPIN</td>
+            <td>INSCRIBED<lb/> TO THE<lb/> CHIEF SCOUT<lb/> MAJOR
+              GEN.<lb/> E. A. McALPIN</td>
             <td>
               <fig entityref="Ellsworth_cover">
                 <caption>CHIEF SCOUT</caption>
                 <figdesc>Image of Major Gen. E. A. McAlpin</figdesc>
               </fig>
             </td>
-            <td>COMPOSED<lb/> .....BY<lb/> W. W. ELLSWORTH<lb/> AUTHOR OF<lb/> "LOVES
-              GARDEN<lb/> OF ROSES" ETC</td>
+            <td>COMPOSED<lb/> .....BY<lb/> W. W. ELLSWORTH<lb/> AUTHOR
+              OF<lb/> "LOVES GARDEN<lb/> OF ROSES" ETC</td>
           </tr>
         </table>
       </titlepage>
@@ -100,77 +106,89 @@
 
       <!-- The mdiv element is used to hold multiple, progressively more detailed
         versions of the encoding -->
-      <mdiv id="encodingversion1">
+      <mdiv xml:id="encodingversion1">
         <!-- Page image only markup -->
         <score>
-          <pb n="cover" href="URLtoCoverImage" entityref="Ellsworth_cover"/>
-          <pb n="2" href="URLtoPageImage2" entityref="Ellsworth_page2"/>
-          <pb n="3" href="URLtoPageImage3" entityref="Ellsworth_page3"/>
-          <pb n="4" href="URLtoPageImage4" entityref="Ellsworth_page4"/>
-          <pb n="5" href="URLtoPageImage5" entityref="Ellsworth_page5"/>
-          <pb n="cover" href="URLtoCoverImage" entityref="Ellsworth_back"/>
+          <pb n="cover" xlink:href="URLtoCoverImage"
+            entityref="Ellsworth_cover"/>
+          <pb n="2" xlink:href="URLtoPageImage2"
+            entityref="Ellsworth_page2"/>
+          <pb n="3" xlink:href="URLtoPageImage3"
+            entityref="Ellsworth_page3"/>
+          <pb n="4" xlink:href="URLtoPageImage4"
+            entityref="Ellsworth_page4"/>
+          <pb n="5" xlink:href="URLtoPageImage5"
+            entityref="Ellsworth_page5"/>
+          <pb n="cover" xlink:href="URLtoCoverImage"
+            entityref="Ellsworth_back"/>
         </score>
       </mdiv>
 
-      <mdiv id="encodingversion2">
+      <mdiv xml:id="encodingversion2">
         <!-- Page image + score-level description -->
         <score>
           <scoredef key.sig="3f" meter.count="2" meter.unit="4">
             <staffgrp>
-              <staffdef clef.line="2" clef.shape="G"/>
-              <staffdef clef.line="4" clef.shape="F"/>
+              <staffdef n="1" lines="5" clef.line="2" clef.shape="G"/>
+              <staffdef n="2" lines="5" clef.line="4" clef.shape="F"/>
             </staffgrp>
           </scoredef>
-          <pb href="URLtoCoverImage" entityref="Ellsworth_cover"/>
-          <pb n="2" href="URLtoPageImage2" entityref="Ellsworth_page2"/>
-          <pb n="3" href="URLtoPageImage3" entityref="Ellsworth_page3"/>
-          <pb n="4" href="URLtoPageImage4" entityref="Ellsworth_page4"/>
-          <pb n="5" href="URLtoPageImage5" entityref="Ellsworth_page5"/>
-          <pb href="URLtoBackCover" entityref="Ellsworth_back"/>
+          <pb xlink:href="URLtoCoverImage" entityref="Ellsworth_cover"/>
+          <pb n="2" xlink:href="URLtoPageImage2"
+            entityref="Ellsworth_page2"/>
+          <pb n="3" xlink:href="URLtoPageImage3"
+            entityref="Ellsworth_page3"/>
+          <pb n="4" xlink:href="URLtoPageImage4"
+            entityref="Ellsworth_page4"/>
+          <pb n="5" xlink:href="URLtoPageImage5"
+            entityref="Ellsworth_page5"/>
+          <pb xlink:href="URLtoBackCover" entityref="Ellsworth_back"/>
         </score>
       </mdiv>
 
-      <mdiv id="encodingversion3">
+      <mdiv xml:id="encodingversion3">
         <!-- Page image + score-level description + segmentation -->
         <score>
           <scoredef key.sig="3f" meter.count="2" meter.unit="4">
             <staffgrp>
-              <staffdef clef.line="2" clef.shape="G"/>
-              <staffdef clef.line="4" clef.shape="F"/>
+              <staffdef n="1" clef.line="2" clef.shape="G"/>
+              <staffdef n="2" clef.line="4" clef.shape="F"/>
             </staffgrp>
           </scoredef>
-          <pb href="URLtoCoverImage" entityref="Ellsworth_cover"/>
-          <pb n="2" href="URLtoPageImage2"/>
-          <section id="introduction"/>
-          <section id="strain1" expan="strain1-main end1 strain1-main end2">
-            <section id="strain1-main"/>
-            <ending id="end1" n="1"/>
-            <ending id="end2" n="2"/>
+          <pb xlink:href="URLtoCoverImage" entityref="Ellsworth_cover"/>
+          <pb n="2" xlink:href="URLtoPageImage2"/>
+          <section xml:id="introduction"/>
+          <section xml:id="strain1"
+            expan="strain1-main end1 strain1-main end2">
+            <section xml:id="strain1-main"/>
+            <ending xml:id="end1" n="1"/>
+            <ending xml:id="end2" n="2"/>
           </section>
-          <section id="strain2">
-            <pb n="3" href="URLtoPageImage3"/>
+          <section xml:id="strain2">
+            <pb n="3" xlink:href="URLtoPageImage3"/>
           </section>
-          <section id="trio">
-            <pb n="4" href="URLtoPageImage4"/>
-            <pb n="5" href="URLtoPageImage5"/>
+          <section xml:id="trio">
+            <pb n="4" xlink:href="URLtoPageImage4"/>
+            <pb n="5" xlink:href="URLtoPageImage5"/>
           </section>
-          <pb href="URLtoBackCover"/>
+          <pb xlink:href="URLtoBackCover"/>
         </score>
       </mdiv>
 
-      <mdiv id="encodingversion4">
+      <mdiv xml:id="encodingversion4">
         <!-- Page image + score-level description + segmentation + measure-level
           markup -->
         <score>
-          <scoredef key.sig="3f" key.mode="major" meter.count="2" meter.unit="4">
+          <scoredef key.sig="3f" key.mode="major" meter.count="2"
+            meter.unit="4">
             <staffgrp>
-              <staffdef clef.line="2" clef.shape="G"/>
-              <staffdef clef.line="4" clef.shape="F"/>
+              <staffdef n="1" clef.line="2" clef.shape="G"/>
+              <staffdef n="2" clef.line="4" clef.shape="F"/>
             </staffgrp>
           </scoredef>
-          <pb href="URLtoCoverImage" entityref="Ellsworth_cover"/>
+          <pb xlink:href="URLtoCoverImage" entityref="Ellsworth_cover"/>
           <section>
-            <pb n="2" href="URLtoPageImage2"/>
+            <pb n="2" xlink:href="URLtoPageImage2"/>
             <!-- measures 1-8, with or without explicit measure numbers,
                  i.e. <measure/>  or <measure n="1"/>
             -->
@@ -189,7 +207,7 @@
           <section>
             <scoredef key.sig="4f" key.mode="minor"/>
             <!-- 9 measures -->
-            <pb n="3" href="URLtoPageImage3"/>
+            <pb n="3" xlink:href="URLtoPageImage3"/>
             <!-- 23 measures -->
           </section>
           <section>
@@ -197,7 +215,7 @@
             <!-- 16 measures -->
           </section>
           <section>
-            <pb n="4" href="URLtoPageImage4"/>
+            <pb n="4" xlink:href="URLtoPageImage4"/>
             <section>
               <scoredef key.sig="4f" key.mode="major"/>
               <!-- 2 measures -->
@@ -208,7 +226,7 @@
             <section>
               <scoredef key.mode="minor"/>
               <!-- 9 measures -->
-              <pb n="5" href="URLtoPageImage5"/>
+              <pb n="5" xlink:href="URLtoPageImage5"/>
               <!-- 3 measures -->
             </section>
             <section>
@@ -219,19 +237,19 @@
         </score>
       </mdiv>
 
-      <mdiv id="encodingversion5">
+      <mdiv xml:id="encodingversion5">
         <!-- Page image + score-level description + segmentation + measure-level
           markup + layout info -->
         <score>
-          <scoredef key.sig="3f" key.mode="major" meter.count="2" meter.unit="4">
+          <scoredef key.sig="3f" key.mode="major" meter.count="2"
+            meter.unit="4">
             <pghead1>
               <table>
                 <tr>
-                  <td>United States Boy Scouts.<lb/>OFFICIAL MARCH.</td>
+                  <td>United States Boy Scouts.<lb/>OFFICIAL
+                    MARCH.</td>
                 </tr>
                 <tr>
-                  <td/>
-                  <td/>
                   <td>W. W. ELLSWORTH.</td>
                 </tr>
               </table>
@@ -244,13 +262,13 @@
               </table>
             </pgfoot1>
             <staffgrp>
-              <staffdef clef.line="2" clef.shape="G"/>
-              <staffdef clef.line="4" clef.shape="F"/>
+              <staffdef n="1" clef.line="2" clef.shape="G"/>
+              <staffdef n="2" clef.line="4" clef.shape="F"/>
             </staffgrp>
           </scoredef>
-          <pb href="URLtoCoverImage" entityref="Ellsworth_cover"/>
+          <pb xlink:href="URLtoCoverImage" entityref="Ellsworth_cover"/>
           <section>
-            <pb n="2" href="URLtoPageImage2"/>
+            <pb n="2" xlink:href="URLtoPageImage2"/>
             <measure n="1"/>
             <measure n="2"/>
             <!-- measures 3-7 -->
@@ -277,7 +295,7 @@
             <!-- measures 26-28 -->
             <sb/>
             <!-- measures 29-34 -->
-            <pb n="3" href="URLtoPageImage3">
+            <pb n="3" xlink:href="URLtoPageImage3">
               <fw>
                 <rend halign="left">United States Boy Scouts 4</rend>
               </fw>
@@ -300,7 +318,7 @@
             <sb/>
           </section>
           <section>
-            <pb n="4" href="URLtoPageImage4">
+            <pb n="4" xlink:href="URLtoPageImage4">
               <fw>
                 <rend halign="left">United States Boy Scouts 4</rend>
               </fw>
@@ -325,9 +343,10 @@
               <!-- measures 109-111 -->
               <sb/>
               <!-- measures 112-117 -->
-              <pb n="5" href="URLtoPageImage5">
+              <pb n="5" xlink:href="URLtoPageImage5">
                 <fw>
-                  <rend halign="left">United States Boy Scouts 4</rend>
+                  <rend halign="left">United States Boy Scouts
+                    4</rend>
                   <rend halign="right">F. J. LAWSON CO. NY.</rend>
                 </fw>
               </pb>
@@ -349,19 +368,19 @@
         </score>
       </mdiv>
 
-      <mdiv id="encodingversion6">
+      <mdiv xml:id="encodingversion6">
         <!-- Page image + score-level description + segmentation + measure-level
           markup + layout info + note-level markup (measure 1) -->
         <score>
-          <scoredef key.sig="3f" key.mode="major" meter.count="2" meter.unit="4">
+          <scoredef key.sig="3f" key.mode="major" meter.count="2"
+            meter.unit="4">
             <pghead1>
               <table>
                 <tr>
-                  <td>United States Boy Scouts.<lb/>OFFICIAL MARCH.</td>
+                  <td>United States Boy Scouts.<lb/>OFFICIAL
+                    MARCH.</td>
                 </tr>
                 <tr>
-                  <td/>
-                  <td/>
                   <td>W. W. ELLSWORTH.</td>
                 </tr>
               </table>
@@ -374,13 +393,13 @@
               </table>
             </pgfoot1>
             <staffgrp>
-              <staffdef clef.line="2" clef.shape="G"/>
-              <staffdef clef.line="4" clef.shape="F"/>
+              <staffdef n="1" clef.line="2" clef.shape="G"/>
+              <staffdef n="2" clef.line="4" clef.shape="F"/>
             </staffgrp>
           </scoredef>
-          <pb href="URLtoCoverImage" entityref="Ellsworth_cover"/>
+          <pb xlink:href="URLtoCoverImage" entityref="Ellsworth_cover"/>
           <section>
-            <pb n="2" href="URLtoPageImage2"/>
+            <pb n="2" xlink:href="URLtoPageImage2"/>
             <measure n="1">
               <staff n="1">
                 <layer>
@@ -440,7 +459,7 @@
             <!-- measures 26-28 -->
             <sb/>
             <!-- measures 29-34 -->
-            <pb n="3" href="URLtoPageImage3">
+            <pb n="3" xlink:href="URLtoPageImage3">
               <fw>
                 <rend halign="left">United States Boy Scouts 4</rend>
               </fw>
@@ -463,7 +482,7 @@
             <sb/>
           </section>
           <section>
-            <pb n="4" href="URLtoPageImage4">
+            <pb n="4" xlink:href="URLtoPageImage4">
               <fw>
                 <rend halign="left">United States Boy Scouts 4</rend>
               </fw>
@@ -488,9 +507,10 @@
               <!-- measures 109-111 -->
               <sb/>
               <!-- measures 112-117 -->
-              <pb n="5" href="URLtoPageImage5">
+              <pb n="5" xlink:href="URLtoPageImage5">
                 <fw>
-                  <rend halign="left">United States Boy Scouts 4</rend>
+                  <rend halign="left">United States Boy Scouts
+                    4</rend>
                   <rend halign="right">F. J. LAWSON CO. NY.</rend>
                 </fw>
               </pb>
@@ -514,9 +534,10 @@
     </body>
     <!-- Back "cover" may be transcribed in back/div (following last mdiv): -->
     <back>
-      <pb href="URLToBackCover"/>
+      <pb xlink:href="URLToBackCover"/>
       <div>
-        <p>This March is played on<lb/> Aristo Piano Rolls &mdash; Pathe Records</p>
+        <p>This March is played on<lb/> Aristo Piano Rolls &mdash;
+          Pathe Records</p>
       </div>
     </back>
   </music>
