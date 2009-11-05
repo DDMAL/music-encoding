@@ -5478,11 +5478,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:variable>
           <xsl:choose>
             <xsl:when test="($endtimestamp - $now) &gt; 0">
-              <!-- Commented out until an MEI duration can be calculated 
-              <xsl:attribute name="dur">
+                <xsl:attribute name="dur">
                 <xsl:text>0m+</xsl:text>
                 <xsl:value-of select="$endtimestamp"/>
-                </xsl:attribute> -->
+                </xsl:attribute>
 
               <xsl:attribute name="endid">
                 <xsl:value-of select="generate-id()"/>
@@ -5557,12 +5556,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                       </xsl:for-each>
                     </xsl:variable>
 
-                    <!-- Commented out until an MEI dur can be calculated
                     <xsl:attribute name="dur">
                       <xsl:value-of select="$endmeasurepos - $startmeasurepos"/>
                       <xsl:text>m+</xsl:text>
                       <xsl:call-template name="gettstamp.ges"/>
-                      </xsl:attribute> -->
+                      </xsl:attribute>
 
                     <xsl:attribute name="endid">
                       <xsl:value-of select="generate-id()"/>
@@ -5660,12 +5658,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </xsl:for-each>
           </xsl:variable>
 
-          <!-- Commented out until an MEI dur can be calculated
           <xsl:attribute name="dur">
             <xsl:value-of select="$endmeasurepos - $startmeasurepos"/>
             <xsl:text>m+</xsl:text>
             <xsl:call-template name="gettstamp.ges"/>
-            </xsl:attribute> -->
+            </xsl:attribute>
 
           <xsl:attribute name="endid">
             <xsl:value-of select="generate-id()"/>
