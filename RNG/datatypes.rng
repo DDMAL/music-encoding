@@ -11,9 +11,9 @@
   </define>
 
   <define name="data.BEND.AMOUNT">
-    <a:documentation>Either a decimal value or a token. The decimal
-      values are limited to .25, .5, .75, or 1, while the token values
-      are restricted to 'full'.</a:documentation>
+    <a:documentation>Either a decimal value or a token. The decimal values are
+      limited to .25, .5, .75, or 1, while the token values are restricted to
+      'full'.</a:documentation>
     <choice>
       <data type="decimal">
         <param name="pattern">1|\.25|\.5|\.75</param>
@@ -25,19 +25,19 @@
   </define>
 
   <define name="data.BEAT">
-    <a:documentation>A beat location, i.e., [0-9]+(\.?[0-9]*)? The
-      value must fall between 0 and the numerator of the time
-      signature + 1, where 0 represents the left barline and the upper
-      bound represents the right barline. For example, in 12/8 the
-      value must be in the range from 0 to 13.</a:documentation>
+    <a:documentation>A beat location, i.e., [0-9]+(\.?[0-9]*)? The value must
+      fall between 0 and the numerator of the time signature + 1, where 0
+      represents the left barline and the upper bound represents the right
+      barline. For example, in 12/8 the value must be in the range from 0 to
+      13.</a:documentation>
     <data type="decimal">
       <param name="minInclusive">0</param>
     </data>
   </define>
 
   <define name="data.BEATRPT.REND">
-    <a:documentation>Visual and performance information for a repeated
-      beat symbol.</a:documentation>
+    <a:documentation>Visual and performance information for a repeated beat
+      symbol.</a:documentation>
     <choice>
       <data type="positiveInteger">
         <param name="pattern">4|8|16|32|64|128</param>
@@ -49,11 +49,10 @@
   </define>
 
   <define name="data.COLOR">
-    <a:documentation>Either a hexadecimal color value, ie.,
-      x[0-9A-Fa-f]{6,6} OR a descriptive word, i.e., aqua, black,
-      blue, fuchsia, gray, green, lime, maroon, navy, olive, purple,
-      red, silver, teal, white, or yellow, for colors defined by the
-      HTML 4.01 specification.</a:documentation>
+    <a:documentation>Either a hexadecimal color value, ie., x[0-9A-Fa-f]{6,6} OR
+      a descriptive word, i.e., aqua, black, blue, fuchsia, gray, green, lime,
+      maroon, navy, olive, purple, red, silver, teal, white, or yellow, for
+      colors defined by the HTML 4.01 specification.</a:documentation>
     <choice>
       <data type="token">
         <param name="pattern"
@@ -63,17 +62,15 @@
   </define>
 
   <define name="data.DEGREES">
-    <a:documentation>360th-unit measure of a cirle's circumference;
-      optionally signed decimal number, i.e.,
-      [+-]?[0-9]+(\.?[0-9]*)?</a:documentation>
+    <a:documentation>360th-unit measure of a cirle's circumference; optionally
+      signed decimal number, i.e., [+-]?[0-9]+(\.?[0-9]*)?</a:documentation>
     <data type="decimal"/>
   </define>
 
   <define name="data.FINGER.FRET">
-    <a:documentation>In a guitar chord diagram, a label indicating
-      which finger, if any, should be used to play an individual
-      string. The values 'x' and 'o' indicated stopped and open
-      strings, respectively.</a:documentation>
+    <a:documentation>In a guitar chord diagram, a label indicating which finger,
+      if any, should be used to play an individual string. The values 'x' and
+      'o' indicated stopped and open strings, respectively.</a:documentation>
     <choice>
       <data type="positiveInteger">
         <param name="minInclusive">1</param>
@@ -86,12 +83,11 @@
   </define>
 
   <define name="data.FRET">
-    <a:documentation>In a guitar chord diagram, the fret where the
-      finger should be placed. Since guitar chord diagrams are limited
-      to the range of frets that fall under the hand, the value here
-      is also limited. The pos (position) attribute on the chorddef
-      element must be used to indicate at which fret this range
-      begins.</a:documentation>
+    <a:documentation>In a guitar chord diagram, the fret where the finger should
+      be placed. Since guitar chord diagrams are limited to the range of frets
+      that fall under the hand, the value here is also limited. The pos
+      (position) attribute on the chorddef element must be used to indicate at
+      which fret this range begins.</a:documentation>
     <data type="positiveInteger">
       <param name="minInclusive">1</param>
       <param name="maxInclusive">5</param>
@@ -99,14 +95,14 @@
   </define>
 
   <define name="data.INTEGERNONNEGATIVE">
-    <a:documentation>Unsigned positive integer values including '0',
-      i.e., [0-9]+</a:documentation>
+    <a:documentation>Unsigned positive integer values including '0', i.e.,
+      [0-9]+</a:documentation>
     <data type="nonNegativeInteger"/>
   </define>
 
   <define name="data.INTEGERPOSITIVE">
-    <a:documentation>Unsigned positive integer values excluding '0',
-      i.e., 1 to infinity.</a:documentation>
+    <a:documentation>Unsigned positive integer values excluding '0', i.e., 1 to
+      infinity.</a:documentation>
     <data type="positiveInteger"/>
   </define>
 
@@ -137,17 +133,16 @@
   </define>
 
   <define name="data.MEASUREBEAT">
-    <a:documentation>A duration expressed as a count of measures plus
-      a beat location, i.e., [0-9]+m *\+ *[0-9]+(\.?[0-9]*)?, e.g.,
-      dur="1m + 3.5" indicates a duration of 1 measure plus 3 and one
-      half beats or, in other words, on the 2nd half of the 3rd beat
-      of the next measure. The measure number must be in the range of
-      0 to the number of remaining measures and the beat number must
-      be in the range from 0 to the numerator of the time signature
-      plus 1. For example, for an event starting in the first measure
-      of a piece containing 6 measures in 6/8, the measure number must
-      be between 0 to 5 and the beat number must be within the range
-      from 0 to 7, e.g., "4m+3".</a:documentation>
+    <a:documentation>A duration expressed as a count of measures plus a beat
+      location, i.e., [0-9]+m *\+ *[0-9]+(\.?[0-9]*)?, e.g., dur="1m + 3.5"
+      indicates a duration of 1 measure plus 3 and one half beats or, in other
+      words, on the 2nd half of the 3rd beat of the next measure. The measure
+      number must be in the range of 0 to the number of remaining measures and
+      the beat number must be in the range from 0 to the numerator of the time
+      signature plus 1. For example, for an event starting in the first measure
+      of a piece containing 6 measures in 6/8, the measure number must be
+      between 0 to 5 and the beat number must be within the range from 0 to 7,
+      e.g., "4m+3".</a:documentation>
     <data type="token">
       <param name="pattern">([0-9]+m *\+ *)?[0-9]+(\.?[0-9]*)?</param>
     </data>
@@ -288,8 +283,8 @@
   </define>
 
   <define name="data.MIDITEMPO">
-    <a:documentation>MIDI quarter notes per minute: positive integer
-      in the range 10-1000</a:documentation>
+    <a:documentation>MIDI quarter notes per minute: positive integer in the
+      range 10-1000</a:documentation>
     <data type="positiveInteger">
       <param name="minInclusive">10</param>
       <param name="maxInclusive">1000</param>
@@ -297,8 +292,7 @@
   </define>
 
   <define name="data.MODUSMAIOR">
-    <a:documentation>Maxima-long relationship
-      values.</a:documentation>
+    <a:documentation>Maxima-long relationship values.</a:documentation>
     <data type="positiveInteger">
       <param name="minInclusive">2</param>
       <param name="maxInclusive">3</param>
@@ -320,17 +314,17 @@
   </define>
 
   <define name="data.NUMBERPOSITIVE">
-    <a:documentation>Unsigned positive decimal values excluding '0',
-      i.e., 1 to infinity.</a:documentation>
+    <a:documentation>Unsigned positive decimal values excluding '0', i.e., 1 to
+      infinity.</a:documentation>
     <data type="decimal">
       <param name="minInclusive">1</param>
     </data>
   </define>
 
   <define name="data.OCTAVE.DIS">
-    <a:documentation>The amount of octave displacement; that is, '8'
-      (as in '8va' for 1 octave), '15' (for 2 octaves), or rarely '22'
-      (for 3 octaves).</a:documentation>
+    <a:documentation>The amount of octave displacement; that is, '8' (as in
+      '8va' for 1 octave), '15' (for 2 octaves), or rarely '22' (for 3
+      octaves).</a:documentation>
     <data type="positiveInteger">
       <param name="pattern">8|15|22</param>
     </data>
@@ -361,8 +355,7 @@
   </define>
 
   <define name="data.PROLATIO">
-    <a:documentation>Semibreve-minim relationship
-      values.</a:documentation>
+    <a:documentation>Semibreve-minim relationship values.</a:documentation>
     <data type="positiveInteger">
       <param name="minInclusive">2</param>
       <param name="maxInclusive">3</param>
@@ -370,12 +363,10 @@
   </define>
 
   <define name="data.RATIO">
-    <a:documentation>A ratio, i.e.,
-      [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)? For example,
-      "40:7.2319"</a:documentation>
+    <a:documentation>A ratio, i.e., [0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)? For
+      example, "40:7.2319"</a:documentation>
     <data type="token">
-      <param name="pattern"
-        >[0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?</param>
+      <param name="pattern">[0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?</param>
     </data>
   </define>
 
@@ -389,20 +380,19 @@
   </define>
 
   <define name="data.STRINGNUMBER">
-    <a:documentation>In string tablature, the number of the string to
-      be played, i.e., [1-9]+.</a:documentation>
+    <a:documentation>In string tablature, the number of the string to be played,
+      i.e., [1-9]+.</a:documentation>
     <data type="positiveInteger"/>
   </define>
 
   <define name="data.TEMPOVALUE">
-    <a:documentation>Beats (meter signature denominator) per minute,
-      e.g. 120.</a:documentation>
+    <a:documentation>Beats (meter signature denominator) per minute, e.g.
+      120.</a:documentation>
     <data type="positiveInteger"/>
   </define>
 
   <define name="data.TEMPUS">
-    <a:documentation>Breve-semibreve relationship
-      values</a:documentation>
+    <a:documentation>Breve-semibreve relationship values</a:documentation>
     <data type="positiveInteger">
       <param name="minInclusive">2</param>
       <param name="maxInclusive">3</param>
@@ -410,10 +400,9 @@
   </define>
 
   <define name="data.TSTAMPOFFSET">
-    <a:documentation>A positive or negative offset from the value
-      given in the tstamp attribute. The datatype of this attribute
-      must be the same as that of the tstamp, tstamp.ges, or
-      tstamp.real attribute.</a:documentation>
+    <a:documentation>A positive or negative offset from the value given in the
+      tstamp attribute. The datatype of this attribute must be the same as that
+      of the tstamp, tstamp.ges, or tstamp.real attribute.</a:documentation>
     <text/>
   </define>
 
@@ -424,16 +413,15 @@
   </define>
 
   <define name="data.ACCIDENTAL.EXPLICIT">
-    <a:documentation>Accidental attribute values: s = sharp, f = flat,
-      ss = dblsharp, x=dblsharp, ff = dblflat, xs = triple sharp, tb =
-      triple flat, n = natural, nf = naturalflat, ns = naturalsharp.
-      ss indicates the use of 2 sharp signs, while x indicates the use
-      of a single double sharp. nf and ns are used to cancel dbflats
-      and dblsharps, respectively. su = sharp note qtr. tone up, sd =
-      sharp note qtr. tone down, fu = flat note qtr. tone up, fd =
-      flat note qtr. tone down, nu = natural note qtr. tone up, nd =
-      natural note quarter tone down. Quarter-tone accidentals listed
-      in Read, p. 145.</a:documentation>
+    <a:documentation>Accidental attribute values: s = sharp, f = flat, ss =
+      dblsharp, x=dblsharp, ff = dblflat, xs = triple sharp, tb = triple flat, n
+      = natural, nf = naturalflat, ns = naturalsharp. ss indicates the use of 2
+      sharp signs, while x indicates the use of a single double sharp. nf and ns
+      are used to cancel dbflats and dblsharps, respectively. su = sharp note
+      qtr. tone up, sd = sharp note qtr. tone down, fu = flat note qtr. tone up,
+      fd = flat note qtr. tone down, nu = natural note qtr. tone up, nd =
+      natural note quarter tone down. Quarter-tone accidentals listed in Read,
+      p. 145.</a:documentation>
     <choice>
       <value>s</value>
       <value>f</value>
@@ -455,16 +443,15 @@
   </define>
 
   <define name="data.ACCIDENTAL.IMPLICIT">
-    <a:documentation>Accidental attribute values: s = sharp, f = flat,
-      ss = dblsharp, x=dblsharp, ff = dblflat, xs = triple sharp, tb =
-      triple flat, n = natural, nf = naturalflat, ns = naturalsharp.
-      ss indicates the use of 2 sharp signs, while x indicates the use
-      of a single double sharp. nf and ns are used to cancel dbflats
-      and dblsharps, respectively. su = sharp note qtr. tone up, sd =
-      sharp note qtr. tone down, fu = flat note qtr. tone up, fd =
-      flat note qtr. tone down, nu = natural note qtr. tone up, nd =
-      natural note quarter tone down. Quarter-tone accidentals listed
-      in Read, p. 145.</a:documentation>
+    <a:documentation>Accidental attribute values: s = sharp, f = flat, ss =
+      dblsharp, x=dblsharp, ff = dblflat, xs = triple sharp, tb = triple flat, n
+      = natural, nf = naturalflat, ns = naturalsharp. ss indicates the use of 2
+      sharp signs, while x indicates the use of a single double sharp. nf and ns
+      are used to cancel dbflats and dblsharps, respectively. su = sharp note
+      qtr. tone up, sd = sharp note qtr. tone down, fu = flat note qtr. tone up,
+      fd = flat note qtr. tone down, nu = natural note qtr. tone up, nd =
+      natural note quarter tone down. Quarter-tone accidentals listed in Read,
+      p. 145.</a:documentation>
     <choice>
       <value>s</value>
       <value>f</value>
@@ -475,11 +462,10 @@
   </define>
 
   <define name="data.ARTICULATION">
-    <a:documentation>The following list of articulations mostly
-      corresponds to symbols 1D110-1D111, 1D17B-1D182, 1D185-1D189,
-      1D1AA-1D1AD, 1D1B3-1D1B5 from the Western Musical Symbols
-      portion of the Unicode Standard, v. 3.1. The dot and stroke
-      values may be used in cases where interpretation is not
+    <a:documentation>The following list of articulations mostly corresponds to
+      symbols 1D110-1D111, 1D17B-1D182, 1D185-1D189, 1D1AA-1D1AD, 1D1B3-1D1B5
+      from the Western Musical Symbols portion of the Unicode Standard, v. 3.1.
+      The dot and stroke values may be used in cases where interpretation is not
       desirable.</a:documentation>
     <choice>
       <value>acc</value>
@@ -519,8 +505,8 @@
   </define>
 
   <define name="data.ARTICULATIONS">
-    <a:documentation>One or more values from the list given in the
-      definition of data.ARTICULATION.</a:documentation>
+    <a:documentation>One or more values from the list given in the definition of
+      data.ARTICULATION.</a:documentation>
     <list>
       <zeroOrMore>
         <ref name="data.ARTICULATION"/>
@@ -529,17 +515,18 @@
   </define>
 
   <define name="data.AUGMENTDOT">
-    <a:documentation>Dots attribute values (number of augmentation
-      dots) (Read, 113-119, ex. 8-21)</a:documentation>
+    <a:documentation>Dots attribute values (number of augmentation dots) (Read,
+      113-119, ex. 8-21)</a:documentation>
     <data type="nonNegativeInteger">
       <param name="maxInclusive">4</param>
     </data>
   </define>
 
   <define name="data.BARPLACE">
-    <a:documentation>Placement of barlines: 'mensur' = between staves
-      only, 'staff' = between and across staves as necessary, 'takt' =
-      short line above staff or through top line</a:documentation>
+    <a:documentation>Placement of barlines: 'mensur' = between staves only,
+      'staff' = between and across staves as necessary, 'takt' = short line
+      above staff or through top line. The default value is
+      'staff'.</a:documentation>
     <choice>
       <value>mensur</value>
       <value>staff</value>
@@ -565,16 +552,16 @@
   </define>
 
   <define name="data.BEAM">
-    <a:documentation>Beam attribute values: initial, medial, terminal.
-      Nested beaming is permitted.</a:documentation>
+    <a:documentation>Beam attribute values: initial, medial, terminal. Nested
+      beaming is permitted.</a:documentation>
     <data type="token">
       <param name="pattern">[i|m|t][1-6]</param>
     </data>
   </define>
 
   <define name="data.BEAMS">
-    <a:documentation>One or more from the list given in the definition
-      of the BEAM entity.</a:documentation>
+    <a:documentation>One or more from the list given in the definition of the
+      BEAM entity.</a:documentation>
     <list>
       <oneOrMore>
         <ref name="data.BEAM"/>
@@ -646,9 +633,8 @@
   </define>
 
   <define name="data.DURATION.BASE">
-    <a:documentation>Logical, that is, written, duration attribute
-      values for the CMN repertoire. Whole note duration =
-      '1'.</a:documentation>
+    <a:documentation>Logical, that is, written, duration attribute values for
+      the CMN repertoire. Whole note duration = '1'.</a:documentation>
     <choice>
       <value>long</value>
       <value>breve</value>
@@ -668,8 +654,8 @@
   </define>
 
   <define name="data.DURATION.MEN">
-    <a:documentation>Logical, that is, written, duration attribute
-      values for the mensural repertoire.</a:documentation>
+    <a:documentation>Logical, that is, written, duration attribute values for
+      the mensural repertoire.</a:documentation>
     <choice>
       <value>maxima</value>
       <value>longa</value>
@@ -711,22 +697,21 @@
   </define>
 
   <define name="data.FONTFAMILY">
-    <a:documentation>Font family (for text) attribute values.
-      Mup-acceptable values: avantgarde, bookman, courier, helvetica,
-      newcentury, palatino, times.</a:documentation>
+    <a:documentation>Font family (for text) attribute values. Mup-acceptable
+      values: avantgarde, bookman, courier, helvetica, newcentury, palatino,
+      times.</a:documentation>
     <data type="token"/>
   </define>
 
   <define name="data.FONTNAME">
-    <a:documentation>Font name (for text) attribute values.
-      Mup-acceptable values: rom, ital, bold,
-      boldital</a:documentation>
+    <a:documentation>Font name (for text) attribute values. Mup-acceptable
+      values: rom, ital, bold, boldital</a:documentation>
     <data type="token"/>
   </define>
 
   <define name="data.FONTSTYLE">
-    <a:documentation>Font style (for text) attribute values. 'normal'
-      = 'rom' in Mup.</a:documentation>
+    <a:documentation>Font style (for text) attribute values. 'normal' = 'rom' in
+      Mup.</a:documentation>
     <choice>
       <value>ital</value>
       <value>normal</value>
@@ -735,8 +720,7 @@
   </define>
 
   <define name="data.FONTWEIGHT">
-    <a:documentation>Font weight (for text) attribute
-      values</a:documentation>
+    <a:documentation>Font weight (for text) attribute values</a:documentation>
     <choice>
       <value>bold</value>
     </choice>
@@ -761,9 +745,9 @@
   </define>
 
   <define name="data.FRETNUMBER">
-    <a:documentation>In string tablature, the fret number, i.e.,
-      [1-9]. The value 'o' may be used instead of a numerica value to
-      indicate the open string.</a:documentation>
+    <a:documentation>In string tablature, the fret number, i.e., [1-9]. The
+      value 'o' may be used instead of a numerica value to indicate the open
+      string.</a:documentation>
     <choice>
       <data type="nonNegativeInteger">
         <param name="minInclusive">1</param>
@@ -776,8 +760,8 @@
   </define>
 
   <define name="data.GLISSANDO">
-    <a:documentation>Analytical glissando attribute values: i(nitial),
-      m(edial), t(erminal)</a:documentation>
+    <a:documentation>Analytical glissando attribute values: i(nitial), m(edial),
+      t(erminal)</a:documentation>
     <choice>
       <value>i</value>
       <value>m</value>
@@ -786,8 +770,8 @@
   </define>
 
   <define name="data.GRACE">
-    <a:documentation>Do grace notes get time from the current (acc) or
-      previous (unacc) one?</a:documentation>
+    <a:documentation>Do grace notes get time from the current (acc) or previous
+      (unacc) one?</a:documentation>
     <choice>
       <value>acc</value>
       <value>unacc</value>
@@ -833,8 +817,8 @@
   </define>
 
   <define name="data.INEUMENAME">
-    <a:documentation>Interrupted neume, i.e. neume written as 2 or
-      more sub-neumes</a:documentation>
+    <a:documentation>Interrupted neume, i.e. neume written as 2 or more
+      sub-neumes</a:documentation>
     <choice>
       <value>pessubpunctis</value>
       <value>climacus</value>
@@ -860,9 +844,8 @@
   </define>
 
   <define name="data.KEYSIGTOKEN">
-    <a:documentation>A token describing the pitch name, inflection,
-      and octave number of an altered pitch in a key
-      signature.</a:documentation>
+    <a:documentation>A token describing the pitch name, inflection, and octave
+      number of an altered pitch in a key signature.</a:documentation>
     <data type="token">
       <param name="pattern"
         >[a-g][s|f|ss|x|ff|n|nf|ns|su|sd|fu|fd|nu|nd][0-9]</param>
@@ -870,29 +853,27 @@
   </define>
 
   <define name="data.KEYSIGNATURE">
-    <a:documentation>Key signature may be indicated by a value showing
-      where the key is in the circle of fifths. Mixed key signatures,
-      e.g. those consisting of a mixture of flats and sharps, and key
-      signatures with unorthodox placement of the accidentals (Read,
-      p. 143) must be indicated by setting the key.sig attribute to
-      'mixed' and providing explicit keysig info in the key.sig.mixed
-      attribute.</a:documentation>
+    <a:documentation>Key signature may be indicated by a value showing where the
+      key is in the circle of fifths. Mixed key signatures, e.g. those
+      consisting of a mixture of flats and sharps, and key signatures with
+      unorthodox placement of the accidentals (Read, p. 143) must be indicated
+      by setting the key.sig attribute to 'mixed' and providing explicit keysig
+      info in the key.sig.mixed attribute.</a:documentation>
     <data type="token">
       <param name="pattern">mixed|0|[1-7][f|s]</param>
     </data>
   </define>
 
   <define name="data.LAYERSCHEME">
-    <a:documentation>Indicates how stems should be drawn when more
-      than one layer is present and stem directions are not indicated
-      on the notes/chords themselves. '1' indicates that there is only
-      a single layer on a staff. '2o' means there are two layers with
-      opposing stems. '2f' indicates two 'free' layers; that is,
-      opposing stems will be drawn unless one of the layers has
-      'space'. In that case, stem direction in the remaining layer
-      will be determined as if there were only one layer. '3o' and
-      '3f' are analogous to '2o' and '2f' with three layers allowed.
-      What about more than 3 layers?</a:documentation>
+    <a:documentation>Indicates how stems should be drawn when more than one
+      layer is present and stem directions are not indicated on the notes/chords
+      themselves. '1' indicates that there is only a single layer on a staff.
+      '2o' means there are two layers with opposing stems. '2f' indicates two
+      'free' layers; that is, opposing stems will be drawn unless one of the
+      layers has 'space'. In that case, stem direction in the remaining layer
+      will be determined as if there were only one layer. '3o' and '3f' are
+      analogous to '2o' and '2f' with three layers allowed. What about more than
+      3 layers?</a:documentation>
     <choice>
       <value>1</value>
       <value>2o</value>
@@ -947,8 +928,7 @@
   </define>
 
   <define name="data.MIDIVALUE">
-    <a:documentation>MIDI values are in the following
-      range</a:documentation>
+    <a:documentation>MIDI values are in the following range</a:documentation>
     <data type="nonNegativeInteger">
       <param name="maxInclusive">127</param>
     </data>
@@ -974,8 +954,8 @@
   </define>
 
   <define name="data.OCTAVE">
-    <a:documentation>Oct attribute values. The default values conform
-      to Acoustical Society of America representation. Read, p.
+    <a:documentation>Oct attribute values. The default values conform to
+      Acoustical Society of America representation. Read, p.
       44.</a:documentation>
     <data type="nonNegativeInteger">
       <param name="maxInclusive">9</param>
@@ -983,9 +963,9 @@
   </define>
 
   <define name="data.PGSCALE">
-    <a:documentation>Page scale factor. Page.scale may be expressed as
-      a percentage of a programmatically-determined "usual" size or as
-      a ratio of virtual units to real-world units.</a:documentation>
+    <a:documentation>Page scale factor. Page.scale may be expressed as a
+      percentage of a programmatically-determined "usual" size or as a ratio of
+      virtual units to real-world units.</a:documentation>
     <choice>
       <ref name="data.PERCENT"/>
       <ref name="data.RATIO"/>
@@ -993,8 +973,7 @@
   </define>
 
   <define name="data.PGUNITS">
-    <a:documentation>Values for real-world unit
-      attributes</a:documentation>
+    <a:documentation>Values for real-world unit attributes</a:documentation>
     <choice>
       <value>in</value>
       <value>cm</value>
@@ -1003,25 +982,24 @@
   </define>
 
   <define name="data.PITCHCLASS">
-    <a:documentation>Pclass (pitch class) attribute
-      values</a:documentation>
+    <a:documentation>Pclass (pitch class) attribute values</a:documentation>
     <data type="nonNegativeInteger">
       <param name="maxInclusive">11</param>
     </data>
   </define>
 
   <define name="data.PITCHNAME">
-    <a:documentation>The pitch names (gamut) used within a single
-      octave. The default values conform to Acoustical Society of
-      America representation.</a:documentation>
+    <a:documentation>The pitch names (gamut) used within a single octave. The
+      default values conform to Acoustical Society of America
+      representation.</a:documentation>
     <data type="token">
       <param name="pattern">[a-g]</param>
     </data>
   </define>
 
   <define name="data.PITCHNAME.GES">
-    <a:documentation>Gestural pitch names need an additional value for
-      when the notated pitch is not to be sounded.</a:documentation>
+    <a:documentation>Gestural pitch names need an additional value for when the
+      notated pitch is not to be sounded.</a:documentation>
     <data type="token">
       <param name="pattern">[a-g]|none</param>
     </data>
@@ -1034,8 +1012,7 @@
   </define>
 
   <define name="data.PLIST">
-    <a:documentation>Participant list referencing
-      method.</a:documentation>
+    <a:documentation>Participant list referencing method.</a:documentation>
     <data type="IDREFS"/>
     <!-- Use xPath and xPointer in addition to IDREFS? 
     <choice>
@@ -1046,8 +1023,8 @@
   </define>
 
   <define name="data.PLACE">
-    <a:documentation>Place, i.e., location of musical material
-      relative to a staff.</a:documentation>
+    <a:documentation>Place, i.e., location of musical material relative to a
+      staff.</a:documentation>
     <choice>
       <value>above</value>
       <value>below</value>
@@ -1063,20 +1040,20 @@
   </define>
 
   <define name="data.SLUR">
-    <a:documentation>i=initial, m=medial, t=terminal. Number is used
-      to match endpoints of the slur when slurs are nested or overlap,
-      e.g. &lt;note slur='i1 i2'/&gt;&lt;note
-      slur='t1'/&gt;&lt;note slur='t2'/&gt; encodes the
-      fact that two slurs begin on note 1, one which terminates on
-      note 2 and one which terminates on note 3.</a:documentation>
+    <a:documentation>i=initial, m=medial, t=terminal. Number is used to match
+      endpoints of the slur when slurs are nested or overlap, e.g. &lt;note
+      slur='i1 i2'/&gt;&lt;note slur='t1'/&gt;&lt;note
+      slur='t2'/&gt; encodes the fact that two slurs begin on note 1, one
+      which terminates on note 2 and one which terminates on note
+      3.</a:documentation>
     <data type="token">
       <param name="pattern">[i|m|t][1-6]</param>
     </data>
   </define>
 
   <define name="data.SLURS">
-    <a:documentation>One or more from the list given in the definition
-      of the SLUR entity.</a:documentation>
+    <a:documentation>One or more from the list given in the definition of
+      data.SLUR.</a:documentation>
     <list>
       <oneOrMore>
         <ref name="data.SLUR"/>
@@ -1093,12 +1070,11 @@
   </define>
 
   <define name="data.STAFFLOC">
-    <a:documentation>Staff location. Staff location includes staff
-      lines, spaces, and the spaces directly above and below the
-      staff. The value ranges between 0 (just below the staff) to 2 *
-      number of staff lines (directly above the staff). For example,
-      on a 5-line staff the lines would be numbered 1,3,5,7, and 9
-      while the spaces would be numbered
+    <a:documentation>Staff location. Staff location includes staff lines,
+      spaces, and the spaces directly above and below the staff. The value
+      ranges between 0 (just below the staff) to 2 * number of staff lines
+      (directly above the staff). For example, on a 5-line staff the lines would
+      be numbered 1,3,5,7, and 9 while the spaces would be numbered
       0,2,4,6,8,10.</a:documentation>
     <ref name="data.INTEGERNONNEGATIVE"/>
   </define>
@@ -1176,12 +1152,32 @@
     </choice>
   </define>
 
+  <define name="data.TIES">
+    <a:documentation>One or more from the list given in the definition of
+      data.TIE.</a:documentation>
+    <list>
+      <oneOrMore>
+        <ref name="data.TIE"/>
+      </oneOrMore>
+    </list>
+  </define>
+
   <define name="data.TUPLET">
     <a:documentation>Tuplet attribute values: initial, medial,
       terminal</a:documentation>
     <data type="token">
       <param name="pattern">[i|m|t][1-6]</param>
     </data>
+  </define>
+
+  <define name="data.TUPLETS">
+    <a:documentation>One or more from the list given in the definition of
+      data.TUPLET.</a:documentation>
+    <list>
+      <oneOrMore>
+        <ref name="data.TUPLET"/>
+      </oneOrMore>
+    </list>
   </define>
 
   <define name="data.UNEUMENAME">
@@ -1216,10 +1212,9 @@
   </define>
 
   <define name="data.VISUALOFFSET">
-    <a:documentation>Visual, i.e. ho and vo, offsets are expressed in
-      terms of staff interline distance; that is, in "stepsizes",
-      which are half the distance between staff
-      lines.</a:documentation>
+    <a:documentation>Visual, i.e. ho and vo, offsets are expressed in terms of
+      staff interline distance; that is, in "stepsizes", which are half the
+      distance between staff lines.</a:documentation>
     <ref name="data.NUMBER"/>
   </define>
 
