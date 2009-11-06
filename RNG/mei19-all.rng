@@ -7999,7 +7999,18 @@
   </define>
   <define name="att.ges.tuplet">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <empty/>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from the written values. Its value may be expressed in
+          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions', etc. In the
+          case of irrational durations, such as such as 2 quarter notes in the
+          time of 5 8th notes in a measure of 5/8 time, decimal values may be
+          used. In this case, the dur.ges attribute would take the value "2.5"
+          if the midi.div attribute's value was "1".</a:documentation>
+      </attribute>
+    </optional>
   </define>
   <define name="att.log.tuplet">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
@@ -8017,9 +8028,16 @@
           tuplet. Unlike other control events where the dur attribute is
           expressed as a time stamp, dur here is a true duration. If dur is
           omitted, the default is to calculate the total duration of the
-          included notes and use the next shorter un-dotted
-          value.</a:documentation>
-        <ref name="data.DURATION"/>
+          included notes and use the next shorter un-dotted value. Irrational
+          durations, such as 2 quarter notes in the time of 5 8th notes in a
+          measure of 5/8 time, may be expressed as a list of durations which are
+          to be added together to form the total duration. In this case, the dur
+          attribute could take the value "2 8" or "8 8 8 8 8".</a:documentation>
+        <list>
+          <oneOrMore>
+            <ref name="data.DURATION"/>
+          </oneOrMore>
+        </list>
       </attribute>
     </optional>
     <optional>
@@ -8138,9 +8156,16 @@
           tuplet. Unlike other control events where the dur attribute is
           expressed as a time stamp, dur here is a true duration. If dur is
           omitted, the default is to calculate the total duration of the
-          included notes and use the next shorter un-dotted
-          value.</a:documentation>
-        <ref name="data.DURATION"/>
+          included notes and use the next shorter un-dotted value. Irrational
+          durations, such as 2 quarter notes in the time of 5 8th notes in a
+          measure of 5/8 time, may be expressed as a list of durations which are
+          to be added together to form the total duration. In this case, the dur
+          attribute could take the value "2 8" or "8 8 8 8 8".</a:documentation>
+        <list>
+          <oneOrMore>
+            <ref name="data.DURATION"/>
+          </oneOrMore>
+        </list>
       </attribute>
     </optional>
     <optional>

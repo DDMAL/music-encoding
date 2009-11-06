@@ -160,8 +160,7 @@ CHANGES:  (v. 1.1)
   <xsl:strip-space elements="*"/>
 
   <xsl:variable name="nl">
-    <xsl:text>
-</xsl:text>
+    <xsl:text>&#xa;</xsl:text>
   </xsl:variable>
 
   <xsl:variable name="progname">
