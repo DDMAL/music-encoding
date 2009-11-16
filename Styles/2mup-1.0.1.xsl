@@ -2593,7 +2593,7 @@ CHANGES:
       <xsl:if test="position()=1 and not(@grace)">
         <xsl:text> alt </xsl:text>
         <xsl:value-of select="parent::ftrem/@slash"/>
-        <xsl:call-template name="makedots"/>
+        <!-- <xsl:call-template name="makedots"/> -->
       </xsl:if>
     </xsl:if>
   </xsl:template>
