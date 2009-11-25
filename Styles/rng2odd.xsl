@@ -37,7 +37,9 @@
     <xsl:template name="make-namespace-node">
         <xsl:param name="handle-models" select="false()"/>
         <xsl:param name="recursive"/>
-        <xsl:if test="not(contains(@name, '_DUMMY'))">
+        <!-- Ignoring _DUMMY models (may be osbolete) -->
+        <!-- Ignoring leftover xhtml documentation -->
+        <xsl:if test="not(contains(@name, '_DUMMY')) and not(self::*[namespace-uri()='http://www.w3.org/1999/xhtml'])">
             <xsl:element name="rng:{local-name(.)}">
                 <xsl:choose>
                     <!-- Handle ODD suffix if required -->
@@ -50,11 +52,12 @@
                                         <!-- Determine suffix -->
                                         <xsl:choose>
                                             <!-- one element (no suffix) -->
-                                            <xsl:when test="ref"><xsl:value-of select="@name"/></xsl:when>
-                                            <!-- only one of the members (alternation)-->
+                                            <!-- Problem: alternation doesn't seem to be handled by roma, so it won't have suffix for now. -->
+                                            <xsl:when test="ref or choice"><xsl:value-of select="@name"/></xsl:when>
+                                            <!-- only one of the members (alternation)
                                             <xsl:when test="choice">
                                                 <xsl:value-of select="@name"/><xsl:text>_alternation</xsl:text>
-                                            </xsl:when>
+                                            </xsl:when>-->
                                             <!-- members may be provided, in sequence, but are optional (sequenceOptional) -->
                                             <xsl:when test="optional and not(optional/*[not(self::ref)]) and not(zeroOrMore)">
                                                 <xsl:value-of select="@name"/><xsl:text>_sequenceOptional</xsl:text>
@@ -172,7 +175,7 @@
                 <body>
                     <p>MEI</p>
 
-                    <schemaSpec ident="mei" start="mei" ns="http://www.edirom.de/ns/mei">
+                    <schemaSpec ident="mei" start="mei" ns="http://www.mei-c.org/ns/mei">
 
                         <!-- DATA -->
                         <xsl:value-of select="$nl"/>
@@ -418,7 +421,7 @@
         <elementSpec ident="{@name}">
             <desc>
                 <xsl:value-of
-                    select="preceding-sibling::xhtml:div[1]//xhtml:div[@class='desc']/xhtml:p"/>
+                    select="a:description"/>
             </desc>
             <!-- 
                 N.B. ignoring child::empty -> does it make sense to have an empty attribute?
@@ -511,7 +514,7 @@
             <content>
                 <!-- Pulled from content.{@name} -->
                 <xsl:for-each
-                    select="ancestor::grammar//define[@name=concat('content.',$element-name)]/*">
+                    select="ancestor::grammar//define[@name=concat('content.',$element-name)]/*[not(self::a:documentation)]">
                     <!-- copy the rng <ref>s but handle ODD suffixes for references to models. -->
                     <xsl:call-template name="make-namespace-node">
                         <xsl:with-param name="handle-models" select="true()"/>
@@ -520,7 +523,7 @@
                 </xsl:for-each>
                 <!-- other refs in element declaration that are not contained in content.{@name} -->
                 <xsl:for-each
-                    select="element/*[not(self::ref[starts-with(@name, 'attlist.') or starts-with(@name, 'content.')]) and not(a:documentation)]">
+                    select="element/*[not(self::ref[starts-with(@name, 'attlist.') or starts-with(@name, 'content.')]) and not(self::a:documentation)]">
                     <xsl:call-template name="make-namespace-node">
                         <xsl:with-param name="handle-models" select="true()"/>
                         <xsl:with-param name="recursive" select="true()"/>
