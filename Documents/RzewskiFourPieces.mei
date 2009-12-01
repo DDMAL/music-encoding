@@ -42,7 +42,7 @@
     <body>
       <mdiv>
         <score>
-          <scoredef meter.count="21" meter.unit="8" key.sig="0">
+          <scoredef meter.count="21" meter.unit="8" key.sig="0" meter.rend="invis">
             <staffgrp xml:id="P1" symbol="brace" label.full="Part_1">
               <staffdef n="1" lines="5" clef.line="4" clef.shape="F"
                 midi.div="2" key.sig="0"/>
@@ -51,7 +51,6 @@
             </staffgrp>
           </scoredef>
           <section>
-            <scoredef meter.count="21" meter.unit="8" key.sig="0"/>
             <measure n="1" xml:id="d1e12" left="rptstart"
               right="rptboth">
               <!-- Cross-staff beaming - 2 possibilities -->
@@ -225,7 +224,7 @@
               <!-- 2 more lines are necessary to draw a bracket. -->
             </measure>
           </section>
-          <section>
+          <section restart="true">
             <measure n="2" xml:id="d1e634" left="rptboth"
               right="rptend">
               <staff n="1">
@@ -318,10 +317,7 @@
                   </beam>
                 </layer>
               </staff>
-              <dir tstamp="2" place="below" staff="1" xml:lang="it">
-                <rend fontstyle="ital">sempre <rend fontweight="bold"
-                    >ppp</rend></rend>
-              </dir>
+              <dynam tstamp="2" place="below" staff="1" xml:lang="it">sempre ppp</dynam>
             </measure>
           </section>
         </score>

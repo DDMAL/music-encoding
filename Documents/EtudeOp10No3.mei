@@ -52,7 +52,7 @@
             spacing.system="121" system.topmar="70" spacing.staff="93"
             music.name="Maestro" music.size="20.5"
             text.name="Times New Roman" text.size="10.25">
-            <pghead1>
+            <!-- <pghead1>
               <table>
                 <tr y="1440">
                   <td x="597">
@@ -69,8 +69,8 @@
                   </td>
                 </tr>
               </table>
-            </pghead1>
-            <staffgrp xml:id="P1" symbol="brace" label.full="Piano">
+            </pghead1> -->
+            <staffgrp xml:id="P1" symbol="brace" label.full="Piano" barthru="true">
               <instrdef xml:id="P1-I1" midi.channel="1" midi.instr="0"
                 midi.instrname="Acoustic_Grand_Piano"/>
               <staffdef n="1" lines="5" clef.line="2" clef.shape="G"
@@ -80,9 +80,6 @@
             </staffgrp>
           </scoredef>
           <section>
-            <scoredef meter.count="2" meter.unit="4" key.sig="4s"
-              key.mode="major" system.leftmar="70" system.rightmar="0"
-              system.topmar="211"/>
             <measure n="1" xml:id="d1e67" width="179">
               <staff n="1">
                 <layer n="1">
@@ -169,9 +166,9 @@
                 </layer>
                 <layer n="3">
                   <note xml:id="d1e547" pname="e" oct="2" dur="4"
-                    dur.ges="8" stem.dir="up" stem.y="1.4"/>
+                    dur.ges="8" stem.dir="up" stem.y="1.4" ho="0"/>
                   <note xml:id="d1e563" pname="b" oct="1" dur="4"
-                    dur.ges="8" stem.dir="up" stem.y="1.9"/>
+                    dur.ges="8" stem.dir="up" stem.y="1.9" ho="0"/>
                 </layer>
               </staff>
             </measure>
@@ -258,9 +255,9 @@
                 </layer>
                 <layer n="3">
                   <note xml:id="d1e1051" pname="b" oct="1" dur="4"
-                    dur.ges="8" stem.dir="up" stem.y="1.9"/>
+                    dur.ges="8" stem.dir="up" stem.y="1.9" ho="0"/>
                   <note xml:id="d1e1067" pname="e" oct="2" dur="4"
-                    dur.ges="8" stem.dir="up" stem.y="1.4"/>
+                    dur.ges="8" stem.dir="up" stem.y="1.4" ho="0"/>
                 </layer>
               </staff>
               <slur tstamp="1" dur="0m+2" place="above"
@@ -381,7 +378,7 @@
                     <note xml:id="d1e1739" pname="b" oct="3" dur="16"
                       dur.ges="2" stem.dir="down" stem.y="100"/>
                   </beam>
-                  <rest vo="-6" xml:id="d1e1759" dur="4" dur.ges="8"/>
+                  <rest vo="-8" xml:id="d1e1759" dur="4" dur.ges="8"/>
                 </layer>
               </staff>
               <staff n="2">
@@ -443,7 +440,7 @@
                     dur.ges="8" stem.dir="up" stem.y="1.9"/>
                 </layer>
               </staff>
-              <hairpin tstamp="2" dur="0m+2" form="cres" place="below"
+              <hairpin tstamp="2" dur="0m+2.75" form="cres" place="below"
                 staff="1" width="1.5"/>
               <slur tstamp="2" dur="1m+1.5" place="below"
                 startid="d1e1792" endid="d1e2295" staff="2"/>
@@ -1628,7 +1625,7 @@
               </staff>
               <slur tstamp="1" dur="0m+2.75" place="above"
                 startid="d1e7666" endid="d1e8108" staff="1"/>
-              <dynam tstamp="1.5" place="above" startto="-4" staff="1"
+              <dynam tstamp="1.5" place="below" startto="-4" staff="1"
                 >fz</dynam>
             </measure>
             <measure n="18" xml:id="d1e8790" width="165">
