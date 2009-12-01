@@ -3,7 +3,7 @@
 <!-- ************************************************************** -->
 <!--
 NAME:     File      = 2mup.xsl (version 1.0.1)
-          Vers Date = 2009/11/12
+          Vers Date = 2009/12/01
 
 NOTICE:   Copyright (c) 2007-2009 Perry Roland and the Rector and
           Visitors of the University of Virginia.
@@ -213,12 +213,12 @@ CHANGES:
 
   <!-- MEI header -->
   <xsl:template match="meihead">
-    <xsl:value-of select="$nl"/>
+    <!-- <xsl:value-of select="$nl"/>
     <xsl:text>// transcoded from mei v. </xsl:text>
     <xsl:value-of select="../@version"/>
-    <xsl:value-of select="$nl"/>
+    <xsl:value-of select="$nl"/> -->
     <xsl:if test="filedesc/titlestmt/title/text()">
-      <xsl:text>// </xsl:text>
+      <xsl:text>// title: </xsl:text>
       <xsl:for-each select="filedesc/titlestmt/title">
         <xsl:value-of select="normalize-space(.)"/>
         <xsl:if test="position() !=last()">
@@ -227,30 +227,32 @@ CHANGES:
       </xsl:for-each>
       <xsl:value-of select="$nl"/>
     </xsl:if>
-    <xsl:if test="filedesc/titlestmt/respstmt/agent">
-      <xsl:text>// </xsl:text>
-      <xsl:for-each select="filedesc/titlestmt/respstmt/agent">
-        <xsl:value-of select="normalize-space(.)"/>
-        <xsl:if test="@type">
-          <xsl:text> (</xsl:text>
-          <xsl:value-of select="@type"/>
-          <xsl:text>)</xsl:text>
-        </xsl:if>
-        <xsl:if test="position() !=last()">
-          <xsl:text>, </xsl:text>
-        </xsl:if>
-      </xsl:for-each>
+    <xsl:for-each select="filedesc/titlestmt/respstmt">
+      <xsl:text>// responsibility statement: </xsl:text>
+      <xsl:value-of select="."/>
       <xsl:value-of select="$nl"/>
-    </xsl:if>
+    </xsl:for-each>
     <xsl:if test="filedesc/pubstmt/*">
-      <xsl:text>// </xsl:text>
+      <xsl:text>// publication statement: </xsl:text>
       <xsl:value-of select="normalize-space(filedesc/pubstmt)"/>
       <xsl:value-of select="$nl"/>
     </xsl:if>
-    <xsl:if test="profiledesc/langusage/language">
+    <xsl:if test="encodingdesc/projectdesc//text()">
+      <xsl:text>// project description:</xsl:text>
+      <xsl:value-of select="normalize-space(encodingdesc/projectdesc)"/>
+      <xsl:value-of select="$nl"/>
+    </xsl:if>
+    <xsl:if test="profiledesc/langusage/language[@xml:id]">
       <xsl:text>// languages: </xsl:text>
-      <xsl:for-each select="profiledesc/langusage/language">
-        <xsl:value-of select="@xml:id"/>
+      <xsl:for-each select="profiledesc/langusage/language[@xml:id]">
+        <xsl:choose>
+          <xsl:when test="text()">
+            <xsl:value-of select="."/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="@xml:id"/>
+          </xsl:otherwise>
+        </xsl:choose>
         <xsl:if test="position() != last()">
           <xsl:text>, </xsl:text>
         </xsl:if>
@@ -258,13 +260,20 @@ CHANGES:
       <xsl:value-of select="$nl"/>
     </xsl:if>
     <xsl:value-of select="$nl"/>
-    <xsl:text>header</xsl:text>
-    <xsl:value-of select="$nl"/>
-    <xsl:value-of select="$indent"/>
-    <xsl:text>title </xsl:text>
-    <xsl:value-of
-      select="concat('&quot;',filedesc/titlestmt/title[1],'&quot;')"/>
-    <xsl:value-of select="$nl"/>
+    <xsl:if test="not(following::scoredef/pghead1)">
+      <xsl:text>header</xsl:text>
+      <xsl:value-of select="$nl"/>
+      <xsl:value-of select="$indent"/>
+      <xsl:text>title </xsl:text>
+      <xsl:value-of
+        select="concat('&quot;',normalize-space(filedesc/titlestmt/title[1]),'&quot;')"/>
+      <xsl:value-of select="$nl"/>
+      <xsl:value-of select="$indent"/>
+      <xsl:text>title </xsl:text>
+      <xsl:value-of
+        select="concat('&quot;',normalize-space(filedesc/titlestmt/respstmt/*[1]),'&quot;')"/>
+      <xsl:value-of select="$nl"/>
+    </xsl:if>
     <xsl:value-of select="$nl"/>
   </xsl:template>
 
@@ -462,6 +471,14 @@ CHANGES:
       <xsl:value-of select="$nl"/>
     </xsl:if>
 
+    <!-- barlines through staffgrps? -->
+    <xsl:if test="descendant::staffgrp[@barthru='true']">
+      <xsl:value-of select="$indent"/>
+      <xsl:text>barstyle=</xsl:text>
+      <xsl:apply-templates select="staffgrp" mode="barlines"/>
+      <xsl:value-of select="$nl"/>
+    </xsl:if>
+
     <!-- Indicate brackets and braces -->
     <xsl:variable name="brackets">
       <xsl:apply-templates select="staffgrp" mode="bracket"/>
@@ -484,6 +501,19 @@ CHANGES:
     <xsl:value-of select="$nl"/>
     <xsl:apply-templates select="staffgrp|staffdef" mode="def"/>
     <xsl:apply-templates select="pghead1|pghead2|pgfoot1|pgfoot2"/>
+  </xsl:template>
+
+  <xsl:template match="staffgrp" mode="barlines">
+    <xsl:if test="@barthru='true'">
+      <xsl:value-of select="staffdef[1]/@n"/>
+      <xsl:text>-</xsl:text>
+      <xsl:value-of select="staffdef[last()]/@n"/>
+      <xsl:if
+        test="following-sibling::staffgrp[@barthru='true']|staffgrp[@barthru='true']">
+        <xsl:text>,</xsl:text>
+      </xsl:if>
+    </xsl:if>
+    <xsl:apply-templates select="staffgrp[@barthru='true']" mode="barlines"/>
   </xsl:template>
 
   <xsl:template match="scoredef" mode="MIDI">
@@ -1527,6 +1557,11 @@ CHANGES:
       test="contains(name(preceding-sibling::*[not(comment())][1]), 'def') or count(preceding-sibling::measure)=0">
       <xsl:text>music</xsl:text>
       <xsl:value-of select="$nl"/>
+      <xsl:if test="ancestor::section[1]/@restart='true'">
+        <xsl:value-of select="$indent"/>
+        <xsl:text>restart</xsl:text>
+        <xsl:value-of select="$nl"/>
+      </xsl:if>
     </xsl:if>
     <xsl:value-of select="$indent"/>
     <xsl:text>// m. </xsl:text>
@@ -1925,7 +1960,7 @@ CHANGES:
           <!-- don't do anything here! all cross-staff slurs are included in the last measure. -->
         </xsl:when>
         <xsl:when test="preceding::*[@xml:id=$start and @grace]">
-          <!-- Phrase|slur contains groupetto -->
+          <!-- Phrase|slur starts on groupetto -->
           <xsl:variable name="end">
             <xsl:value-of select="@endid"/>
           </xsl:variable>
@@ -1945,18 +1980,23 @@ CHANGES:
               select="count(preceding::note[@xml:id=$start]/following::note[@grace and following::note[@xml:id=$end]]) + 1"/>
             <xsl:text>)</xsl:text>
             <xsl:text> til </xsl:text>
-            <xsl:if test="contains(@dur, '+')">
-              <xsl:value-of select="substring-before(@dur, '+')"/>
-              <xsl:text> + </xsl:text>
-            </xsl:if>
             <xsl:choose>
               <xsl:when test="contains(@dur, '+')">
+                <xsl:value-of select="substring-before(@dur, '+')"/>
+                <xsl:text> + </xsl:text>
                 <xsl:value-of
                   select="round-half-to-even(number(substring-after(@dur, '+')),3)"
                 />
               </xsl:when>
               <xsl:otherwise>
-                <xsl:value-of select="round-half-to-even(@dur,3)"/>
+                <xsl:choose>
+                  <xsl:when test="@dur">
+                    <xsl:value-of select="round-half-to-even(@dur,3)"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="@tstamp"/>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:otherwise>
             </xsl:choose>
             <xsl:text>;</xsl:text>
@@ -2020,7 +2060,7 @@ CHANGES:
           </xsl:choose>
           <xsl:value-of select="$nl"/>
         </xsl:when>
-        <xsl:when test="@startid and @endid">
+        <xsl:when test="(@startid and @endid) and not(@tstamp or @dur)">
           <!-- Draw phrase|slur using Mup curve statement -->
           <xsl:value-of select="$indent"/>
           <xsl:text>medium curve (_</xsl:text>
@@ -2227,11 +2267,9 @@ CHANGES:
   <xsl:template match="measure" mode="ending_start_next_measure">
     <xsl:if test="@xml:id=parent::ending/measure[1]/@xml:id">
       <xsl:text> ending</xsl:text>
-      <xsl:if test="parent::ending/@label">
-        <xsl:text> "</xsl:text>
-        <xsl:value-of select="parent::ending/@label"/>
-        <xsl:text>"</xsl:text>
-      </xsl:if>
+      <xsl:text> "</xsl:text>
+      <xsl:value-of select="parent::ending/@n"/>
+      <xsl:text>"</xsl:text>
     </xsl:if>
   </xsl:template>
 
@@ -2259,7 +2297,7 @@ CHANGES:
       </xsl:when>
       <xsl:when test="app">
         <xsl:apply-templates
-          select="app|beam|chord|clefchange|ftrem|halfmrpt|mrest|mrpt|mspace|note|pad|rest|space|tuplet"/>
+          select="app|beam|chord|clefchange|ftrem|groupetto|halfmrpt|mrest|mrpt|mspace|note|pad|rest|space|tuplet"/>
         <xsl:value-of select="$nl"/>
       </xsl:when>
       <xsl:otherwise>
@@ -2267,7 +2305,7 @@ CHANGES:
         <xsl:value-of select="@n"/>
         <xsl:text>: </xsl:text>
         <xsl:apply-templates
-          select="beam|chord|clefchange|ftrem|halfmrpt|mrest|mrpt|mspace|note|pad|rest|space|tuplet"/>
+          select="beam|chord|clefchange|ftrem|groupetto|halfmrpt|mrest|mrpt|mspace|note|pad|rest|space|tuplet"/>
         <xsl:value-of select="$nl"/>
       </xsl:otherwise>
     </xsl:choose>
@@ -2310,7 +2348,7 @@ CHANGES:
         <xsl:value-of select="ancestor::staff/@n"/>
         <xsl:text>: </xsl:text>
         <xsl:apply-templates
-          select="beam|chord|clefchange|ftrem|halfmrpt|mrest|mrpt|mspace|note|pad|rest|space|tuplet"
+          select="beam|chord|clefchange|ftrem|groupetto|halfmrpt|mrest|mrpt|mspace|note|pad|rest|space|tuplet"
         />
       </xsl:otherwise>
     </xsl:choose>
@@ -2330,7 +2368,7 @@ CHANGES:
     </xsl:choose>
     <xsl:text>: </xsl:text>
     <xsl:apply-templates
-      select="beam|chord|clefchange|ftrem|halfmrpt|mrest|mrpt|mspace|note|pad|rest|space|tuplet|choice|subst"/>
+      select="beam|chord|clefchange|ftrem|groupetto|halfmrpt|mrest|mrpt|mspace|note|pad|rest|space|tuplet|choice|subst"/>
     <xsl:value-of select="$nl"/>
   </xsl:template>
 
@@ -2599,13 +2637,13 @@ CHANGES:
   </xsl:template>
 
   <xsl:template name="tupletstart">
-    <xsl:if test="starts-with(@tuplet, 'i')">
+    <xsl:if test="starts-with(@tuplet, 'i') and not(ancestor::tuplet)">
       <xsl:text>{</xsl:text>
     </xsl:if>
   </xsl:template>
 
   <xsl:template name="tupletend">
-    <xsl:if test="starts-with(@tuplet, 't')">
+    <xsl:if test="starts-with(@tuplet, 't') and not(ancestor::tuplet)">
       <xsl:text>}</xsl:text>
       <xsl:variable name="id">
         <xsl:value-of select="@xml:id"/>
@@ -2614,29 +2652,36 @@ CHANGES:
         <xsl:text> </xsl:text>
         <xsl:value-of select="following::tupletspan[@endid=$id]/@num.place"/>
       </xsl:if>
-      <xsl:if
-        test="following::tupletspan[@endid=$id]/@num">
+      <xsl:if test="following::tupletspan[@endid=$id]/@num">
         <xsl:text> </xsl:text>
+        <xsl:value-of select="following::tupletspan[@endid=$id]/@num"/>
         <xsl:choose>
-          <xsl:when test="following::tupletspan[@endid=$id]/@num">
-            <xsl:value-of select="following::tupletspan[@endid=$id]/@num"/>
-            <!-- <xsl:if test="following::tupletspan[@endid=$id]/@numbase">
-              <xsl:text>:</xsl:text>
-              <xsl:value-of select="following::tupletspan[@endid=$id]/@numbase"
-              />
-            </xsl:if> -->
-          </xsl:when>
-          <xsl:when test="following::tupletspan[@endid=$id]/@dur">
-            <xsl:text> </xsl:text>
-            <xsl:value-of select="following::tupletspan[@endid=$id]/@dur"/>
-            <xsl:if test="following::tupletspan[@endid=$id]/@dots">
-              <xsl:call-template name="makedots"/>
+          <xsl:when
+            test="following::tupletspan[@endid=$id]/@num.visible!='false'">
+            <xsl:if
+              test="following::tupletspan[@endid=$id]/@bracket.visible!='true'">
+              <xsl:text>num</xsl:text>
             </xsl:if>
           </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>n</xsl:text>
+          </xsl:otherwise>
         </xsl:choose>
-      </xsl:if>
-      <xsl:if test="following::tupletspan[@endid=$id]/@num.visible='no'">
-        <xsl:text>n</xsl:text>
+        <xsl:if test="following::tupletspan[@endid=$id]/@dur">
+          <xsl:choose>
+            <xsl:when test="following::tupletspan[@endid=$id]/@dots">
+              <xsl:text> </xsl:text>
+              <xsl:value-of select="following::tupletspan[@endid=$id]/@dur"/>
+              <xsl:call-template name="makedots"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>,</xsl:text>
+              <xsl:value-of
+                select="replace(normalize-space(following::tupletspan[@endid=$id]/@dur), ' ','+')"
+              />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:if>
       </xsl:if>
       <xsl:text>; </xsl:text>
     </xsl:if>
@@ -2651,7 +2696,8 @@ CHANGES:
       <xsl:if test="following::tupletspan[@endid=$id]/@num">
         <xsl:text> </xsl:text>
         <xsl:value-of
-          select="substring-before(following::tupletspan[@endid=$id]/@num,':')"/>
+          select="substring-before(following::tupletspan[@endid=$id]/@num,':')"
+        />
       </xsl:if>
       <xsl:if test="following::tupletspan[@endid=$id]/@num.visible='no'">
         <xsl:text>n</xsl:text>
@@ -2741,34 +2787,13 @@ CHANGES:
           <xsl:text>-,</xsl:text>
         </xsl:when>
         <xsl:when test="@artic='stacciss'">
-          <xsl:choose>
-            <xsl:when test="@place='above'">
-              <xsl:text>"\(wedge)",</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>"\(uwedge)",</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
+          <xsl:text>"\(wedge)",</xsl:text>
         </xsl:when>
         <xsl:when test="@artic='marc'">
-          <xsl:choose>
-            <xsl:when test="@place='above'">
-              <xsl:text>^,</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>"\(acc_uhat)",</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
+          <xsl:text>^,</xsl:text>
         </xsl:when>
         <xsl:when test="@artic='marc-stacc'">
-          <xsl:choose>
-            <xsl:when test="@place='above'">
-              <xsl:text>.,^,</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>.,"\(acc_uhat)",</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
+          <xsl:text>.,^,</xsl:text>
         </xsl:when>
         <xsl:when test="@artic='loure'">
           <xsl:text>-,</xsl:text>
@@ -2817,34 +2842,13 @@ CHANGES:
             <xsl:text>-,</xsl:text>
           </xsl:when>
           <xsl:when test="@value='stacciss'">
-            <xsl:choose>
-              <xsl:when test="@place='above'">
-                <xsl:text>"\(wedge)",</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>"\(uwedge)",</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
+            <xsl:text>"\(wedge)",</xsl:text>
           </xsl:when>
           <xsl:when test="@value='marc'">
-            <xsl:choose>
-              <xsl:when test="@place='above'">
-                <xsl:text>^,</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>"\(acc_uhat)",</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
+            <xsl:text>^,</xsl:text>
           </xsl:when>
           <xsl:when test="@value='marc-stacc'">
-            <xsl:choose>
-              <xsl:when test="@place='above'">
-                <xsl:text>.,^,</xsl:text>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>.,"\(acc_uhat)",</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
+            <xsl:text>.,^,</xsl:text>
           </xsl:when>
           <xsl:when test="@value='loure'">
             <xsl:text>-,</xsl:text>
@@ -3335,6 +3339,9 @@ CHANGES:
             <xsl:text> with staff </xsl:text>
             <xsl:value-of select="parent::beam/@with"/>
           </xsl:if>
+        </xsl:when>
+        <xsl:when test="@breaksec">
+          <xsl:text> esbm</xsl:text>
         </xsl:when>
         <xsl:when test="position()=last() and not(@grace)">
           <xsl:text> ebm</xsl:text>

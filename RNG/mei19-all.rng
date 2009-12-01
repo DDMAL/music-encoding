@@ -3340,7 +3340,13 @@
   </define>
   <define name="att.vis.section">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <empty/>
+    <optional>
+      <attribute name="restart">
+        <a:documentation>indicates that staves begin again with this
+          section.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
   </define>
 
   <!-- ************************************************************** -->
@@ -4471,16 +4477,6 @@
   <define name="att.vis.beam">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
-      <attribute name="breaksec">
-        <a:documentation xml:lang="eng">encodes the explicit breaking of
-          secondary beams. The value should contain a space-separated list of
-          rhythmic durations that form a single beat. For example,'8 8'
-          indicates a division of the beam into two 8th-note
-          groups.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="rend">
         <a:documentation xml:lang="eng">captures whether a beam is feathered and
           in which direction: 'acc' indicates that the secondary beams get
@@ -4546,16 +4542,6 @@
   </define>
   <define name="att.vis.beamspan">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="breaksec">
-        <a:documentation xml:lang="eng">encodes the explicit breaking of
-          secondary beams. The value should contain a space-separated list of
-          rhythmic durations that form a single beat. For example,'8 8'
-          indicates a division of the beam into two 8th-note
-          groups.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="rend">
         <a:documentation xml:lang="eng">captures whether a beam is feathered and
@@ -4929,6 +4915,15 @@
           with attribute is used to indicate which staff the beam is connected
           to; that is, the staff above or the staff below.</a:documentation>
         <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="breaksec">
+        <a:documentation xml:lang="eng">presence of this attribute indicates
+          that the secondary beam should be broken following this note/chord.
+          The value of the attribute records the number of beams which should
+          remain unbroken.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
       </attribute>
     </optional>
     <optional>
@@ -6842,6 +6837,15 @@
           with attribute is used to indicate which staff the beam is connected
           to; that is, the staff above or the staff below.</a:documentation>
         <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="breaksec">
+        <a:documentation xml:lang="eng">presence of this attribute indicates
+          that the secondary beam should be broken following this note/chord.
+          The value of the attribute records the number of beams which should
+          remain unbroken.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
       </attribute>
     </optional>
     <optional>
@@ -10300,6 +10304,7 @@
     <define name="attlist.dynam" combine="interleave">
       <ref name="att.common"/>
       <ref name="att.facsimile"/>
+      <ref name="att.lang"/>
       <ref name="att.log.dynam"/>
       <ref name="att.vis.dynam"/>
       <ref name="att.ges.dynam"/>
@@ -12360,9 +12365,10 @@
           entirely within a measure. For beams that cross the barline, use the
           beamspan element. Beaming may be indicated for an entire score, part
           or section by using the beamgroup attribute on these elements.
-          Secondary beams may be broken explicitly using the breaksec attribute.
-          Stem direction determines whether beams are centered between notes
-          with alternating stems (Read, p. 88-89).</a:documentation>
+          Secondary beams may be broken explicitly using the breaksec attribute
+          on the notes or chords under the beam. Stem direction determines
+          whether beams are centered between notes with alternating stems (Read,
+          p. 88-89).</a:documentation>
         <ref name="attlist.beam"/>
         <ref name="content.beam"/>
       </element>
@@ -15090,74 +15096,73 @@
       <element name="cc">
         <a:documentation xml:lang="eng">control change ― MIDI parameter/control
           change. The num attribute specifies parameter number, while val
-          contains the parameter value. Each must fall in the range
-          0-127.</a:documentation>
-        <xhtml:div>
-          <xhtml:table>
-            <xhtml:caption>A sampling of controllers and their
-              numbers</xhtml:caption>
-            <xhtml:tr>
-              <xhtml:td>0</xhtml:td>
-              <xhtml:td>Bank Select MSB</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>1</xhtml:td>
-              <xhtml:td>Modulation</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>2</xhtml:td>
-              <xhtml:td>Breath Control</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>5</xhtml:td>
-              <xhtml:td>Portamento Time</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>7</xhtml:td>
-              <xhtml:td>Main Volume</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>10</xhtml:td>
-              <xhtml:td>Pan</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>11</xhtml:td>
-              <xhtml:td>Expression</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>32</xhtml:td>
-              <xhtml:td>Bank Select LSB</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>64</xhtml:td>
-              <xhtml:td>Sustain Pedal (0=up, 127=down)</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>65</xhtml:td>
-              <xhtml:td>Portamento Pedal (0=off, 127=on)</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>91</xhtml:td>
-              <xhtml:td>Reverb</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>93</xhtml:td>
-              <xhtml:td>Chorus Depth</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>120</xhtml:td>
-              <xhtml:td>All Sounds Off (0)</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>121</xhtml:td>
-              <xhtml:td>Reset All Controllers (0)</xhtml:td>
-            </xhtml:tr>
-            <xhtml:tr>
-              <xhtml:td>123</xhtml:td>
-              <xhtml:td>All Notes Off (0)</xhtml:td>
-            </xhtml:tr>
-          </xhtml:table>
-        </xhtml:div>
+          contains the parameter value. Each must fall in the range 0-127. <xhtml:div>
+            <xhtml:table>
+              <xhtml:caption>A sampling of controllers and their
+                numbers</xhtml:caption>
+              <xhtml:tr>
+                <xhtml:td>0</xhtml:td>
+                <xhtml:td>Bank Select MSB</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>1</xhtml:td>
+                <xhtml:td>Modulation</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>2</xhtml:td>
+                <xhtml:td>Breath Control</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>5</xhtml:td>
+                <xhtml:td>Portamento Time</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>7</xhtml:td>
+                <xhtml:td>Main Volume</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>10</xhtml:td>
+                <xhtml:td>Pan</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>11</xhtml:td>
+                <xhtml:td>Expression</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>32</xhtml:td>
+                <xhtml:td>Bank Select LSB</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>64</xhtml:td>
+                <xhtml:td>Sustain Pedal (0=up, 127=down)</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>65</xhtml:td>
+                <xhtml:td>Portamento Pedal (0=off, 127=on)</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>91</xhtml:td>
+                <xhtml:td>Reverb</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>93</xhtml:td>
+                <xhtml:td>Chorus Depth</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>120</xhtml:td>
+                <xhtml:td>All Sounds Off (0)</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>121</xhtml:td>
+                <xhtml:td>Reset All Controllers (0)</xhtml:td>
+              </xhtml:tr>
+              <xhtml:tr>
+                <xhtml:td>123</xhtml:td>
+                <xhtml:td>All Notes Off (0)</xhtml:td>
+              </xhtml:tr>
+            </xhtml:table>
+          </xhtml:div>
+        </a:documentation>
         <ref name="attlist.cc"/>
         <ref name="content.cc"/>
       </element>
