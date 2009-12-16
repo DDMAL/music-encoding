@@ -6080,38 +6080,38 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
   </xsl:template>
 
   <!-- When the starting or ending note of a tuplet is part of a chord,
-       repair the @start and @end attributes so that they point to the
+       repair the @startid and @endid attributes so that they point to the
        chord's id, not the note's id. -->
   <xsl:template match="tupletspan" priority="2" mode="stage2">
     <tupletspan>
       <xsl:copy-of
-        select="@*[not(name()='meiform' or name()='start' or name()='end')]"/>
+        select="@*[not(name()='meiform' or name()='startid' or name()='endid')]"/>
       <xsl:variable name="start">
-        <xsl:value-of select="@start"/>
+        <xsl:value-of select="@startid"/>
       </xsl:variable>
       <xsl:choose>
         <xsl:when test="preceding::note[@xml:id=$start]/parent::chord">
-          <xsl:attribute name="start">
+          <xsl:attribute name="startid">
             <xsl:value-of
               select="preceding::note[@xml:id=$start]/parent::chord/@xml:id"/>
           </xsl:attribute>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:copy-of select="@start"/>
+          <xsl:copy-of select="@startid"/>
         </xsl:otherwise>
       </xsl:choose>
       <xsl:variable name="end">
-        <xsl:value-of select="@end"/>
+        <xsl:value-of select="@endid"/>
       </xsl:variable>
       <xsl:choose>
         <xsl:when test="preceding::note[@xml:id=$end]/parent::chord">
-          <xsl:attribute name="end">
+          <xsl:attribute name="endid">
             <xsl:value-of
               select="preceding::note[@xml:id=$end]/parent::chord/@xml:id"/>
           </xsl:attribute>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:copy-of select="@end"/>
+          <xsl:copy-of select="@endid"/>
         </xsl:otherwise>
       </xsl:choose>
     </tupletspan>
