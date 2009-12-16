@@ -3,7 +3,7 @@
 <!-- ************************************************************** -->
 <!--
 NAME:     File      = 2mup.xsl (version 1.0.1)
-          Vers Date = 2009/12/01
+          Vers Date = 2009/12/09
 
 NOTICE:   Copyright (c) 2007-2009 Perry Roland and the Rector and
           Visitors of the University of Virginia.
@@ -213,67 +213,131 @@ CHANGES:
 
   <!-- MEI header -->
   <xsl:template match="meihead">
-    <!-- <xsl:value-of select="$nl"/>
-    <xsl:text>// transcoded from mei v. </xsl:text>
-    <xsl:value-of select="../@version"/>
-    <xsl:value-of select="$nl"/> -->
-    <xsl:if test="filedesc/titlestmt/title/text()">
-      <xsl:text>// title: </xsl:text>
-      <xsl:for-each select="filedesc/titlestmt/title">
+    <xsl:for-each select="filedesc/titlestmt[descendant::text()]">
+      <xsl:text>// </xsl:text>
+      <xsl:for-each select="title">
         <xsl:value-of select="normalize-space(.)"/>
         <xsl:if test="position() !=last()">
           <xsl:text>, </xsl:text>
         </xsl:if>
       </xsl:for-each>
       <xsl:value-of select="$nl"/>
-    </xsl:if>
-    <xsl:for-each select="filedesc/titlestmt/respstmt">
-      <xsl:text>// responsibility statement: </xsl:text>
-      <xsl:value-of select="."/>
-      <xsl:value-of select="$nl"/>
-    </xsl:for-each>
-    <xsl:if test="filedesc/pubstmt/*">
-      <xsl:text>// publication statement: </xsl:text>
-      <xsl:value-of select="normalize-space(filedesc/pubstmt)"/>
-      <xsl:value-of select="$nl"/>
-    </xsl:if>
-    <xsl:if test="encodingdesc/projectdesc//text()">
-      <xsl:text>// project description:</xsl:text>
-      <xsl:value-of select="normalize-space(encodingdesc/projectdesc)"/>
-      <xsl:value-of select="$nl"/>
-    </xsl:if>
-    <xsl:if test="profiledesc/langusage/language[@xml:id]">
-      <xsl:text>// languages: </xsl:text>
-      <xsl:for-each select="profiledesc/langusage/language[@xml:id]">
-        <xsl:choose>
-          <xsl:when test="text()">
-            <xsl:value-of select="."/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:value-of select="@xml:id"/>
-          </xsl:otherwise>
-        </xsl:choose>
-        <xsl:if test="position() != last()">
-          <xsl:text>, </xsl:text>
-        </xsl:if>
+      <xsl:for-each select="respstmt[descendant::text()]">
+        <xsl:text>// </xsl:text>
+        <xsl:for-each select="*">
+          <xsl:value-of select="normalize-space(.)"/>
+          <xsl:if test="position()!=last()">
+            <xsl:text> </xsl:text>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:value-of select="$nl"/>
       </xsl:for-each>
       <xsl:value-of select="$nl"/>
-    </xsl:if>
-    <xsl:value-of select="$nl"/>
-    <xsl:if test="not(following::scoredef/pghead1)">
-      <xsl:text>header</xsl:text>
+    </xsl:for-each>
+
+    <xsl:for-each select="filedesc/pubstmt[descendant::text()]">
+      <xsl:for-each select="*">
+        <xsl:text>// </xsl:text>
+        <xsl:value-of select="normalize-space(.)"/>
+        <xsl:value-of select="$nl"/>
+      </xsl:for-each>
       <xsl:value-of select="$nl"/>
-      <xsl:value-of select="$indent"/>
-      <xsl:text>title </xsl:text>
-      <xsl:value-of
-        select="concat('&quot;',normalize-space(filedesc/titlestmt/title[1]),'&quot;')"/>
+    </xsl:for-each>
+
+    <xsl:for-each select="filedesc/sourcedesc[descendant::text()]">
       <xsl:value-of select="$nl"/>
-      <xsl:value-of select="$indent"/>
-      <xsl:text>title </xsl:text>
-      <xsl:value-of
-        select="concat('&quot;',normalize-space(filedesc/titlestmt/respstmt/*[1]),'&quot;')"/>
+      <xsl:for-each select="source">
+        <xsl:text>// Source </xsl:text>
+        <xsl:value-of select="position()"/>
+        <xsl:text>: </xsl:text>
+        <xsl:for-each select="titlestmt">
+          <xsl:for-each select="title">
+            <xsl:value-of select="normalize-space(.)"/>
+            <xsl:if test="position() !=last()">
+              <xsl:text>, </xsl:text>
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:value-of select="$nl"/>
+          <xsl:for-each select="respstmt">
+            <xsl:text>// </xsl:text>
+            <xsl:for-each select="*">
+              <xsl:value-of select="normalize-space(.)"/>
+              <xsl:if test="position()!=last()">
+                <xsl:text> </xsl:text>
+              </xsl:if>
+            </xsl:for-each>
+            <xsl:value-of select="$nl"/>
+          </xsl:for-each>
+        </xsl:for-each>
+        <xsl:for-each select="pubstmt">
+          <xsl:for-each select="*">
+            <xsl:text>// </xsl:text>
+            <xsl:value-of select="normalize-space(.)"/>
+            <xsl:value-of select="$nl"/>
+          </xsl:for-each>
+        </xsl:for-each>
+      </xsl:for-each>
       <xsl:value-of select="$nl"/>
-    </xsl:if>
+    </xsl:for-each>
+
+    <xsl:for-each select="encodingdesc/projectdesc[descendant::text()]">
+      <xsl:for-each select="p">
+        <xsl:text>// </xsl:text>
+        <xsl:value-of select="normalize-space(.)"/>
+        <xsl:value-of select="$nl"/>
+      </xsl:for-each>
+      <xsl:value-of select="$nl"/>
+    </xsl:for-each>
+
+    <xsl:for-each select="profiledesc[descendant::text()]">
+      <xsl:for-each select="langusage">
+        <xsl:value-of select="$nl"/>
+        <xsl:text>// Languages: </xsl:text>
+        <xsl:for-each select="language">
+          <xsl:choose>
+            <xsl:when test="text()">
+              <xsl:value-of select="."/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@xml:id"/>
+            </xsl:otherwise>
+          </xsl:choose>
+          <xsl:if test="position() != last()">
+            <xsl:text>, </xsl:text>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:value-of select="$nl"/>
+      </xsl:for-each>
+      <xsl:for-each select="classification">
+        <xsl:for-each select="classcode[descendant::text()]">
+          <xsl:text>// Class. code </xsl:text>
+          <xsl:value-of select="position()"/>
+          <xsl:text>: </xsl:text>
+          <xsl:value-of select="normalize-space(.)"/>
+          <xsl:value-of select="$nl"/>
+        </xsl:for-each>
+        <xsl:for-each select="keywords[descendant::text()]">
+          <xsl:text>// </xsl:text>
+          <xsl:for-each select="term[descendant::text()]">
+            <xsl:value-of select="normalize-space(.)"/>
+            <xsl:if test="@classcode">
+              <xsl:variable name="thisclasscode">
+                <xsl:value-of select="@classcode"/>
+              </xsl:variable>
+              <xsl:text> [</xsl:text>
+              <xsl:for-each select="//classcode[@xml:id=$thisclasscode]">
+                <xsl:value-of select="count(preceding-sibling::classcode) + 1"/>
+              </xsl:for-each>
+              <xsl:text>]</xsl:text>
+            </xsl:if>
+            <xsl:if test="position() != last()">
+              <xsl:text>, </xsl:text>
+            </xsl:if>
+          </xsl:for-each>
+          <xsl:value-of select="$nl"/>
+        </xsl:for-each>
+      </xsl:for-each>
+    </xsl:for-each>
     <xsl:value-of select="$nl"/>
   </xsl:template>
 
@@ -500,7 +564,42 @@ CHANGES:
     </xsl:if>
     <xsl:value-of select="$nl"/>
     <xsl:apply-templates select="staffgrp|staffdef" mode="def"/>
-    <xsl:apply-templates select="pghead1|pghead2|pgfoot1|pgfoot2"/>
+    <xsl:choose>
+      <xsl:when test="pghead1|pghead2|pgfoot1|pgfoot2">
+        <xsl:apply-templates select="pghead1|pghead2|pgfoot1|pgfoot2"/>
+      </xsl:when>
+      <xsl:when test="preceding::filedesc/titlestmt/title[descendant::text()]">
+        <xsl:text>header</xsl:text>
+        <xsl:value-of select="$nl"/>
+        <xsl:value-of select="$indent"/>
+        <xsl:text>title </xsl:text>
+        <xsl:value-of
+          select="concat('&quot;',normalize-space(preceding::filedesc/titlestmt/title[descendant::text()][1]),'&quot;')"/>
+        <xsl:value-of select="$nl"/>
+        <xsl:value-of select="$indent"/>
+        <xsl:text>title </xsl:text>
+        <xsl:value-of
+          select="concat('&quot;',normalize-space(preceding::filedesc/titlestmt/respstmt/*[name()='name' or name()='corpname' or name()='persname'][1]),'&quot;')"/>
+        <xsl:value-of select="$nl"/>
+        <xsl:value-of select="$nl"/>
+      </xsl:when>
+    </xsl:choose>
+
+    <xsl:if
+      test="//note[@coloration='inverse']|//chord[@coloration='inverse']|//nota[@coloration='inverse']">
+      <xsl:value-of select="$indent"/>
+      <xsl:text>headshapes</xsl:text>
+      <xsl:value-of select="$nl"/>
+      <xsl:value-of select="$indent"/>
+      <xsl:value-of select="$indent"/>
+      <xsl:text>"mei:blk" "4n 4n 4n 4n"</xsl:text>
+      <xsl:value-of select="$nl"/>
+      <xsl:value-of select="$indent"/>
+      <xsl:value-of select="$indent"/>
+      <xsl:text>"mei:wht" "2n 2n 2n 2n"</xsl:text>
+      <xsl:value-of select="$nl"/>
+      <xsl:value-of select="$nl"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="staffgrp" mode="barlines">
@@ -1656,11 +1755,11 @@ CHANGES:
       <xsl:value-of select="$nl"/>
     </xsl:for-each>
 
-    <!-- Process all cross-staff slurs in the last measure. -->
+    <!-- Process all slurs in the last measure, looking for cross-staff,
+      grace to grace-note, or non-grace to grace-note slurs. -->
     <xsl:if test="count(following::measure)=0">
       <xsl:apply-templates
-        select="preceding::*[name()='phrase' or name()='slur']"
-        mode="cross-staff"/>
+        select="preceding::*[name()='phrase' or name()='slur']" mode="special"/>
     </xsl:if>
 
     <xsl:value-of select="$indent"/>
@@ -1907,11 +2006,86 @@ CHANGES:
   </xsl:template>
 
   <xsl:template match="arpeg">
+    <!-- roll 1 1 to 1 2: 1; -->
     <xsl:value-of select="$indent"/>
     <xsl:text>roll </xsl:text>
-    <xsl:value-of select="@staff"/>
-    <xsl:text> </xsl:text>
-    <xsl:value-of select="@layer"/>
+    <xsl:choose>
+      <xsl:when test="@dir='up'">
+        <xsl:text>up </xsl:text>
+      </xsl:when>
+      <xsl:when test="@dir='down'">
+        <xsl:text>down </xsl:text>
+      </xsl:when>
+    </xsl:choose>
+    <!-- start staff and layer -->
+    <xsl:choose>
+      <xsl:when test="count(tokenize(distinct-values(@staff),' ')) = 1">
+        <xsl:value-of select="@staff"/>
+        <xsl:choose>
+          <xsl:when test="count(tokenize(distinct-values(@layer), ' ')) = 1">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="@layer"/>
+          </xsl:when>
+          <xsl:when
+            test="count(tokenize(distinct-values(@layer), ' ')) &gt; 1">
+            <xsl:text> </xsl:text>
+            <xsl:value-of
+              select="substring-before(string(distinct-values(@layer)),' ')"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:when test="count(tokenize(distinct-values(@staff),' ')) &gt; 1">
+        <xsl:value-of
+          select="substring-before(string(distinct-values(@staff)),' ')"/>
+        <xsl:choose>
+          <xsl:when test="count(tokenize(distinct-values(@layer), ' ')) = 1">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="@layer"/>
+          </xsl:when>
+          <xsl:when
+            test="count(tokenize(distinct-values(@layer), ' ')) &gt; 1">
+            <xsl:text> </xsl:text>
+            <xsl:value-of
+              select="substring-before(string(distinct-values(@layer)),' ')"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:when>
+    </xsl:choose>
+    <xsl:text> to </xsl:text>
+    <!-- end staff and layer -->
+    <xsl:choose>
+      <xsl:when test="count(tokenize(distinct-values(@staff),' ')) = 1">
+        <xsl:value-of select="@staff"/>
+        <xsl:choose>
+          <xsl:when test="count(tokenize(distinct-values(@layer), ' ')) = 1">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="@layer"/>
+          </xsl:when>
+          <xsl:when
+            test="count(tokenize(distinct-values(@layer), ' ')) &gt; 1">
+            <xsl:text> </xsl:text>
+            <xsl:value-of
+              select="substring-after(string(distinct-values(@layer)),' ')"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:when test="count(tokenize(distinct-values(@staff),' ')) &gt; 1">
+        <xsl:value-of
+          select="substring-after(string(distinct-values(@staff)),' ')"/>
+        <xsl:choose>
+          <xsl:when test="count(tokenize(distinct-values(@layer), ' ')) = 1">
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="@layer"/>
+          </xsl:when>
+          <xsl:when
+            test="count(tokenize(distinct-values(@layer), ' ')) &gt; 1">
+            <xsl:text> </xsl:text>
+            <xsl:value-of
+              select="substring-after(string(distinct-values(@layer)),' ')"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:when>
+    </xsl:choose>
     <xsl:text>: </xsl:text>
     <xsl:value-of select="round-half-to-even(@tstamp,3)"/>
     <xsl:text>;</xsl:text>
@@ -1919,195 +2093,222 @@ CHANGES:
   </xsl:template>
 
   <xsl:template match="phrase|slur">
-    <xsl:if test="not(@source) or contains(string(@source),$source)">
-      <xsl:variable name="start">
-        <xsl:value-of select="@startid"/>
-      </xsl:variable>
-      <xsl:choose>
-        <xsl:when test="@tstamp and @dur and @dur!='0'">
-          <!-- Use tstamp and duration values -->
-          <xsl:value-of select="$indent"/>
-          <xsl:text>phrase </xsl:text>
-          <xsl:value-of select="@place"/>
-          <xsl:text> </xsl:text>
-          <xsl:value-of select="@staff"/>
-          <xsl:text>: </xsl:text>
-          <xsl:value-of select="round-half-to-even(@tstamp,3)"/>
-          <xsl:text> til </xsl:text>
-          <xsl:if test="contains(@dur, '+')">
-            <xsl:value-of select="substring-before(@dur, '+')"/>
-            <xsl:text> + </xsl:text>
-          </xsl:if>
-          <xsl:choose>
-            <xsl:when test="contains(@dur, '+')">
-              <xsl:value-of
-                select="round-half-to-even(number(substring-after(@dur, '+')),3)"
-              />
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="round-half-to-even(@dur,3)"/>
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:text>;</xsl:text>
-          <xsl:value-of select="$nl"/>
-        </xsl:when>
-        <xsl:when test="@dur='0'">
-          <!-- dur='0' is used on phrase or slur to indicate a MusicXML slur of type='continue'.
-               These might be useful for drawing slurs using curve statements, but they're not
-               handled right now. -->
-        </xsl:when>
-        <xsl:when test="count(tokenize(@staff, '\s+')) &gt; 1">
-          <!-- don't do anything here! all cross-staff slurs are included in the last measure. -->
-        </xsl:when>
-        <xsl:when test="preceding::*[@xml:id=$start and @grace]">
-          <!-- Phrase|slur starts on groupetto -->
-          <xsl:variable name="end">
-            <xsl:value-of select="@endid"/>
-          </xsl:variable>
-          <xsl:if
-            test="not(preceding::*[@xml:id=$start]/following::note[1]/@xml:id = $end)">
-            <!-- the slur/phrase begins on a grace note, but doesn't end on the next note, e.g. groupetto -->
+    <xsl:choose>
+      <xsl:when test="count(tokenize(@staff, '\s+')) &gt; 1">
+        <!-- Slur must be drawn using startid and endid in last measure -->
+        <xsl:value-of select="$indent"/>
+        <xsl:text>// cross-staff slur encoded in last measure</xsl:text>
+        <xsl:value-of select="$nl"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- Inspect notes of attachment -->
+        <xsl:variable name="thisstart">
+          <xsl:value-of select="@startid"/>
+        </xsl:variable>
+        <xsl:variable name="thisend">
+          <xsl:value-of select="@endid"/>
+        </xsl:variable>
+        <xsl:variable name="starttype">
+          <xsl:value-of select="//note[@xml:id=$thisstart]/@grace"/>
+        </xsl:variable>
+        <xsl:variable name="endtype">
+          <xsl:value-of select="//note[@xml:id=$thisend]/@grace"/>
+        </xsl:variable>
+        <xsl:choose>
+          <xsl:when test="$starttype != '' and $endtype != ''">
+            <!-- Slur must be drawn using startid and endid in last measure -->
+            <xsl:value-of select="$indent"/>
+            <xsl:text>// grace to grace note slur encoded in last measure</xsl:text>
+            <xsl:value-of select="$nl"/>
+          </xsl:when>
+          <xsl:when test="$starttype != '' and $endtype = ''">
+            <!-- grace to non-grace note, using @dur, counting grace
+            notes preceding the non-grace note -->
             <xsl:value-of select="$indent"/>
             <xsl:text>phrase </xsl:text>
             <xsl:value-of select="@place"/>
             <xsl:text> </xsl:text>
             <xsl:value-of select="@staff"/>
             <xsl:text>: </xsl:text>
-            <xsl:value-of select="round-half-to-even(@tstamp,3)"/>
+            <xsl:choose>
+              <xsl:when test="@tstamp">
+                <xsl:value-of select="round-half-to-even(@tstamp, 3)"/>
+              </xsl:when>
+              <xsl:when test="@dur">
+                <xsl:value-of select="round-half-to-even(@dur, 3)"/>
+              </xsl:when>
+            </xsl:choose>
             <xsl:text>(-</xsl:text>
-            <!-- count grace notes between start of slur and first non-grace note -->
+            <xsl:variable name="thislayer">
+              <xsl:value-of select="generate-id(preceding::note[@xml:id=$thisend]/ancestor::layer)"/>
+            </xsl:variable>
             <xsl:value-of
-              select="count(preceding::note[@xml:id=$start]/following::note[@grace and following::note[@xml:id=$end]]) + 1"/>
-            <xsl:text>)</xsl:text>
+              select="count(preceding::note[@xml:id=$thisend]/preceding::note[@grace][ancestor::layer[generate-id()=$thislayer]][preceding::note[@xml:id=$thisstart]]) + 1"/>
+            <xsl:text>) til </xsl:text>
+            <xsl:choose>
+              <xsl:when test="@dur">
+                <xsl:choose>
+                  <xsl:when test="contains(@dur, '+')">
+                    <xsl:value-of select="substring-before(@dur, '+')"/>
+                    <xsl:text> + </xsl:text>
+                    <xsl:value-of
+                      select="round-half-to-even(number(substring-after(@dur, '+')),3)"
+                    />
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="round-half-to-even(@dur,3)"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="@tstamp">
+                <xsl:value-of select="@tstamp"/>
+              </xsl:when>
+            </xsl:choose>
+            <xsl:text>;</xsl:text>
+            <xsl:value-of select="$nl"/>
+          </xsl:when>
+          <xsl:when test="$starttype = '' and $endtype = ''">
+            <!-- non-grace to non-grace note, use @tstamp and @dur -->
+            <xsl:value-of select="$indent"/>
+            <xsl:text>phrase </xsl:text>
+            <xsl:value-of select="@place"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="@staff"/>
+            <xsl:text>: </xsl:text>
+            <xsl:value-of select="round-half-to-even(@tstamp, 3)"/>
             <xsl:text> til </xsl:text>
+            <xsl:if test="contains(@dur, '+')">
+              <xsl:value-of select="substring-before(@dur, '+')"/>
+              <xsl:text> + </xsl:text>
+            </xsl:if>
             <xsl:choose>
               <xsl:when test="contains(@dur, '+')">
-                <xsl:value-of select="substring-before(@dur, '+')"/>
-                <xsl:text> + </xsl:text>
                 <xsl:value-of
-                  select="round-half-to-even(number(substring-after(@dur, '+')),3)"
+                  select="round-half-to-even(number(substring-after(@dur, '+')), 3)"
                 />
               </xsl:when>
               <xsl:otherwise>
-                <xsl:choose>
-                  <xsl:when test="@dur">
-                    <xsl:value-of select="round-half-to-even(@dur,3)"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="@tstamp"/>
-                  </xsl:otherwise>
-                </xsl:choose>
+                <xsl:value-of select="round-half-to-even(@dur, 3)"/>
               </xsl:otherwise>
             </xsl:choose>
             <xsl:text>;</xsl:text>
             <xsl:value-of select="$nl"/>
-          </xsl:if>
-        </xsl:when>
-        <xsl:when test="@startid and @endid">
-          <!-- Do nothing here!  These slurs will be drawn in the last measure -->
-        </xsl:when>
-      </xsl:choose>
-    </xsl:if>
+          </xsl:when>
+          <xsl:when test="$starttype = '' and $endtype != ''">
+            <xsl:choose>
+              <xsl:when
+                test="count(preceding::note[@xml:id=$thisend]/following-sibling::note[not(@grace)]) = 0">
+                <!-- Mup doesn't support grace notes as the last items in a measure -->
+                <xsl:value-of select="$indent"/>
+                <xsl:text>// Mup doesn't support grace notes as the last items in a measure; slur not encoded</xsl:text>
+                <xsl:value-of select="$nl"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <!-- Slur must be drawn using startid and endid in last measure -->
+                <xsl:value-of select="$indent"/>
+                <xsl:text>// non-grace to grace note slur encoded in last measure</xsl:text>
+                <xsl:value-of select="$nl"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="phrase|slur" mode="cross-staff">
-    <xsl:if test="not(@source) or contains(string(@source),$source)">
-      <xsl:choose>
-        <xsl:when test="@dur='0'">
-          <!-- dur='0' is used on phrase or slur to indicate a MusicXML slur of type='continue'.
-             These might be useful for drawing slurs using curve statements, but they're not
-             handled right now. -->
-        </xsl:when>
-        <xsl:when test="count(tokenize(@staff, '\s+')) &gt; 1">
-          <xsl:value-of select="$indent"/>
-          <xsl:text>medium curve (_</xsl:text>
-          <xsl:value-of select="@startid"/>
-          <xsl:text>.x, _</xsl:text>
-          <xsl:value-of select="@startid"/>
-          <xsl:text>.y</xsl:text>
-          <xsl:choose>
-            <xsl:when test="@place='below'">
-              <xsl:text>-3</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>+3</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:text>) to (_</xsl:text>
-          <xsl:value-of select="@endid"/>
-          <xsl:text>.x, _</xsl:text>
-          <xsl:value-of select="@endid"/>
-          <xsl:text>.y</xsl:text>
-          <xsl:choose>
-            <xsl:when test="@place='below'">
-              <xsl:text>-3</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>+3</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:text>) bulge </xsl:text>
-          <xsl:if test="@place='below'">
-            <xsl:text>-</xsl:text>
-          </xsl:if>
-          <xsl:choose>
-            <xsl:when test="@bulge">
-              <xsl:value-of select="@bulge"/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>10</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:value-of select="$nl"/>
-        </xsl:when>
-        <xsl:when test="(@startid and @endid) and not(@tstamp or @dur)">
-          <!-- Draw phrase|slur using Mup curve statement -->
-          <xsl:value-of select="$indent"/>
-          <xsl:text>medium curve (_</xsl:text>
-          <xsl:value-of select="@startid"/>
-          <xsl:text>.x, _</xsl:text>
-          <xsl:value-of select="@startid"/>
-          <xsl:text>.y</xsl:text>
-          <xsl:choose>
-            <xsl:when test="@place='below'">
-              <xsl:text>-3</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>+3</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:text>) to (_</xsl:text>
-          <xsl:value-of select="@endid"/>
-          <xsl:text>.x, _</xsl:text>
-          <xsl:value-of select="@endid"/>
-          <xsl:text>.y</xsl:text>
-          <xsl:choose>
-            <xsl:when test="@place='below'">
-              <xsl:text>-3</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>+3</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:text>) bulge </xsl:text>
-          <xsl:if test="@place='below'">
-            <xsl:text>-</xsl:text>
-          </xsl:if>
-          <xsl:choose>
-            <xsl:when test="@bulge">
-              <xsl:value-of select="@bulge"/>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>10</xsl:text>
-            </xsl:otherwise>
-          </xsl:choose>
-          <xsl:value-of select="$nl"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <!-- Do nothing here!  Single-staff slurs have already been processed. -->
-        </xsl:otherwise>
-      </xsl:choose>
+  <xsl:template match="phrase|slur" mode="special">
+    <xsl:variable name="thisstart">
+      <xsl:value-of select="@startid"/>
+    </xsl:variable>
+    <xsl:variable name="thisend">
+      <xsl:value-of select="@endid"/>
+    </xsl:variable>
+    <xsl:variable name="starttype">
+      <xsl:value-of select="//note[@xml:id=$thisstart]/@grace"/>
+    </xsl:variable>
+    <xsl:variable name="endtype">
+      <xsl:value-of select="//note[@xml:id=$thisend]/@grace"/>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="count(tokenize(@staff, '\s+')) &gt; 1">
+        <!-- Slur must be drawn using startid and endid in last measure -->
+        <xsl:call-template name="drawslur"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- Inspect notes of attachment -->
+        <xsl:choose>
+          <xsl:when test="$starttype != '' and $endtype != ''">
+            <!-- Slur must be drawn using startid and endid in last measure -->
+            <xsl:call-template name="drawslur"/>
+          </xsl:when>
+          <xsl:when test="$starttype != '' and $endtype = ''">
+            <!-- grace to non-grace note, using @dur, counting grace
+            notes preceding the non-grace note -->
+            <!-- Do nothing!  Slur already handled in phrase|slur template -->
+          </xsl:when>
+          <xsl:when test="$starttype = '' and $endtype = ''">
+            <!-- non-grace to non-grace note, use @tstamp and @dur -->
+            <!-- Do nothing!  Slur already handled in phrase|slur template -->
+          </xsl:when>
+          <xsl:when test="$starttype = '' and $endtype != ''">
+            <xsl:choose>
+              <xsl:when
+                test="count(preceding::note[@xml:id=$thisend]/following-sibling::note[not(@grace)]) = 0">
+                <!-- Mup doesn't support grace notes as the last items in a measure -->
+                <!-- Do nothing!  Slur already handled in phrase|slur template -->
+              </xsl:when>
+              <xsl:otherwise>
+                <!-- Slur must be drawn using startid and endid in last measure -->
+                <xsl:call-template name="drawslur"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="drawslur">
+    <xsl:value-of select="$indent"/>
+    <xsl:text>medium curve (_</xsl:text>
+    <xsl:value-of select="@startid"/>
+    <xsl:text>.x, _</xsl:text>
+    <xsl:value-of select="@startid"/>
+    <xsl:text>.y</xsl:text>
+    <xsl:choose>
+      <xsl:when test="@place='below'">
+        <xsl:text>-3</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>+3</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:text>) to (_</xsl:text>
+    <xsl:value-of select="@endid"/>
+    <xsl:text>.x, _</xsl:text>
+    <xsl:value-of select="@endid"/>
+    <xsl:text>.y</xsl:text>
+    <xsl:choose>
+      <xsl:when test="@place='below'">
+        <xsl:text>-3</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>+3</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:text>) bulge </xsl:text>
+    <xsl:if test="@place='below'">
+      <xsl:text>-</xsl:text>
     </xsl:if>
+    <xsl:choose>
+      <xsl:when test="@bulge">
+        <xsl:value-of select="@bulge"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text>8</xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
+    <xsl:value-of select="$nl"/>
   </xsl:template>
 
   <xsl:template match="pedal">
@@ -2590,7 +2791,7 @@ CHANGES:
       <xsl:text> </xsl:text>
     </xsl:if>
 
-    <xsl:if test="@grace">
+    <!-- <xsl:if test="@grace">
       <xsl:variable name="id">
         <xsl:value-of select="@xml:id"/>
       </xsl:variable>
@@ -2615,8 +2816,22 @@ CHANGES:
           </xsl:when>
         </xsl:choose>
       </xsl:if>
-    </xsl:if>
+    </xsl:if> -->
     <xsl:call-template name="ftrem"/>
+    <xsl:if test="@coloration='inverse'">
+      <xsl:call-template name="coloration">
+        <xsl:with-param name="dur">
+          <xsl:choose>
+            <xsl:when test="@dur">
+              <xsl:value-of select="@dur"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="ancestor::*[@dur][1]/@dur"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
     <xsl:if test="not(name(..)='chord')">
       <xsl:call-template name="beaming"/>
     </xsl:if>
@@ -2624,6 +2839,18 @@ CHANGES:
       <xsl:text>;</xsl:text>
     </xsl:if>
     <xsl:call-template name="tupletend"/>
+  </xsl:template>
+
+  <xsl:template name="coloration">
+    <xsl:param name="dur"/>
+    <xsl:choose>
+      <xsl:when test="$dur='2' or $dur='1'">
+        <xsl:text> hs "mei:blk" </xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:text> hs "mei:wht" </xsl:text>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="ftrem">
@@ -2725,13 +2952,30 @@ CHANGES:
           <xsl:text>;</xsl:text>
         </xsl:if>
       </xsl:if>
+      <xsl:if test="@coloration='inverse'">
+        <xsl:call-template name="coloration">
+          <xsl:with-param name="dur">
+            <xsl:choose>
+              <xsl:when test="@dur">
+                <xsl:value-of select="@dur"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="ancestor::*[@dur][1]/@dur"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:with-param>
+        </xsl:call-template>
+        <xsl:text>;</xsl:text>
+      </xsl:if>
       <xsl:if test="@stem.len=0">
         <xsl:text>len 0</xsl:text>
       </xsl:if>
+
       <!-- non-zero stem lengths have to be converted to mup units -->
       <!-- <xsl:if test="@stem.len>0">
         <xsl:text>len X</xsl:text>
-      </xsl:if> -->
+        </xsl:if> -->
+
     </xsl:variable>
     <xsl:if test="$chord_style != ''">
       <xsl:text>[</xsl:text>
@@ -2747,7 +2991,12 @@ CHANGES:
       </xsl:if>
       <!-- <xsl:if test="@size='cue'">
         <xsl:text>cue;</xsl:text>
-      </xsl:if> -->
+        </xsl:if> -->
+      <xsl:if test="@ho">
+        <xsl:text>ho </xsl:text>
+        <xsl:value-of select="@ho"/>
+        <xsl:text>;</xsl:text>
+      </xsl:if>
       <xsl:if test="contains(@stem.mod,'slash')">
         <xsl:text>slash </xsl:text>
         <xsl:value-of select="substring-before(@stem.mod,'slash')"/>
