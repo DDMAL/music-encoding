@@ -102,7 +102,7 @@
     <sch:pattern>
       <sch:title>check start and end attributes on some control
         events</sch:title>
-      <sch:rule context="beamspan|hairpin|octave|phrase|slur|tupletspan">
+      <sch:rule context="beamspan|hairpin|octave|phrase|slur|tie|tupletspan">
         <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real">
           Must have one of the attributes: startid, tstamp, tstamp.ges or
           tstamp.real</sch:assert>
@@ -3166,7 +3166,7 @@
     <optional>
       <attribute name="page.panels">
         <a:documentation xml:lang="eng">indicates the number of logical pages to
-        be rendered on a single physical page.</a:documentation>
+          be rendered on a single physical page.</a:documentation>
         <ref name="data.PAGE.PANELS"/>
         <!-- <choice>
           <value>1</value>
@@ -3462,7 +3462,7 @@
     <optional>
       <attribute name="modusmaior">
         <a:documentation xml:lang="eng">describes the maxima-long
-        relationship.</a:documentation>
+          relationship.</a:documentation>
         <ref name="data.MODUSMAIOR"/>
         <!-- <choice>
           <value>2</value>
@@ -3473,7 +3473,7 @@
     <optional>
       <attribute name="modusminor">
         <a:documentation xml:lang="eng">describes the long-breve
-        relationship.</a:documentation>
+          relationship.</a:documentation>
         <ref name="data.MODUSMINOR"/>
         <!-- <choice>
           <value>2</value>
@@ -3500,7 +3500,7 @@
     <optional>
       <attribute name="prolatio">
         <a:documentation xml:lang="eng">describes the semibreve-minim
-        relationship.</a:documentation>
+          relationship.</a:documentation>
         <ref name="data.PROLATIO"/>
         <!-- <choice>
           <value>2</value>
@@ -3528,7 +3528,7 @@
     <optional>
       <attribute name="tempus">
         <a:documentation xml:lang="eng">describes the breve-semibreve
-        relationship.</a:documentation>
+          relationship.</a:documentation>
         <ref name="data.TEMPUS"/>
         <!-- <choice>
           <value>2</value>
@@ -3735,7 +3735,7 @@
     <optional>
       <attribute name="mensur.orient">
         <a:documentation xml:lang="eng">describes the rotation or reflection of
-        the base symbol.</a:documentation>
+          the base symbol.</a:documentation>
         <ref name="data.ORIENTATION"/>
         <!-- <choice>
           <value>reversed</value>
@@ -7919,6 +7919,7 @@
       terms of interline distance. Startto and endto describe the start and end
       points in terms of time; that is, beats.</a:documentation>
     <ref name="att.color"/>
+    <ref name="att.placement"/>
     <ref name="att.visualoffset"/>
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
@@ -13405,6 +13406,13 @@
         <attribute name="inth">
           <a:documentation xml:lang="eng">encodes the harmonic interval from a
             pitch occuring at the same time.</a:documentation>
+        </attribute>
+      </optional>
+      <optional>
+        <attribute name="oct">
+          <a:documentation xml:lang="eng">captures written octave
+            information.</a:documentation>
+          <ref name="data.OCTAVE"/>
         </attribute>
       </optional>
       <attribute name="pname">
