@@ -6,14 +6,21 @@
     author: Raffaele Viglianti
     
     description: This script converts ../RelaxSchema/mei19-all.rng into a valid TEI ODD file
+
+    
 -->
 
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
-    xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns="http://www.tei-c.org/ns/1.0"
+    xmlns:rng="http://relaxng.org/ns/structure/1.0"
     xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
     xmlns:xhtml="http://www.w3.org/1000/xhtml" xml:lang="en"
     xpath-default-namespace="http://relaxng.org/ns/structure/1.0">
-
+     
+    <!-- Dependencies --> 
+    <xsl:import href="TEI/xhtml2tei.xsl" xpath-default-namespace="http://www.tei-c.org/ns/1.0" exclude-result-prefixes="#all"/>
+    
     <xsl:output encoding="UTF-8" indent="yes" method="xml"/>
 
     <!-- Variables -->
@@ -89,6 +96,7 @@
                 <!-- recursive? -->
                 <xsl:choose>
                     <!-- ON -->
+                    <!-- not(self::text()) condition is redundant and produces a warning with Saxon. -->
                     <xsl:when test="$recursive and *[not(self::text())]">
                         <xsl:for-each select="*[not(self::text())]">
                             <xsl:choose>
@@ -252,7 +260,7 @@
         <!-- in TEI's ODD, *all* datatype macros have module="tei" -->
         <macroSpec module="mei" type="dt" ident="{@name}">
             <desc>
-                <xsl:value-of select="a:documentation"/>
+                <xsl:apply-templates select="a:documentation"/>
             </desc>
             <content>
                 <xsl:for-each select="* except a:documentation">
@@ -272,7 +280,7 @@
         -->
         <classSpec type="atts" ident="{@name}">
             <desc>
-                <xsl:value-of
+                <xsl:apply-templates
                     select="a:documentation"/>
             </desc>
             <!-- 
@@ -288,8 +296,25 @@
             <xsl:if test="descendant::attribute">
                 <attList>
                     <xsl:for-each select="descendant::attribute">
-
-                        <attDef ident="{@name}">
+                        
+                        <attDef>
+                            <!-- Convert 
+                                att.common.attribute.id -> att.common.attribute.xml:id
+                                att.lang.attribute.lang -> att.lang.attribute.xml:lang 
+                            when found -->
+                            <xsl:attribute name="ident">
+                                <xsl:choose>
+                                    <xsl:when test="@name='id'">
+                                        <xsl:text>xml:id</xsl:text>
+                                    </xsl:when>
+                                    <xsl:when test="@name='lang'">
+                                        <xsl:text>xml:lang</xsl:text>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                        <xsl:value-of select="@name"/>
+                                    </xsl:otherwise>
+                                </xsl:choose>
+                            </xsl:attribute>
                             <xsl:choose>
                                 <xsl:when test="parent::optional">
                                     <xsl:attribute name="usage">opt</xsl:attribute>
@@ -376,7 +401,7 @@
                 <classSpec type="model" ident="{@name}">
                     <xsl:variable name="model-name" select="@name"/>
                     <desc>
-                        <xsl:value-of select="a:description"/>
+                        <xsl:apply-templates select="a:documentation"/>
                     </desc>
                     <!-- 
                         Memebrship to other Model Classes
@@ -392,7 +417,7 @@
             <xsl:otherwise>
                 <macroSpec type="pe" ident="macro.{substring-after(@name, 'model.')}">
                     <desc>
-                        <xsl:value-of select="a:description"/>
+                        <xsl:apply-templates select="a:documentation"/>
                     </desc>
                     <content>
                         <xsl:for-each
@@ -420,8 +445,8 @@
         <xsl:variable name="element-name" select="@name"/>
         <elementSpec ident="{@name}">
             <desc>
-                <xsl:value-of
-                    select="a:description"/>
+                <xsl:apply-templates
+                    select="a:documentation"/>
             </desc>
             <!-- 
                 N.B. ignoring child::empty -> does it make sense to have an empty attribute?
@@ -450,7 +475,21 @@
 
                         <xsl:for-each select="descendant::attribute">
 
-                            <attDef ident="{@name}">
+                            <attDef>
+                                <!-- Convert 
+                                    mei.attribute.id -> mei.attribute.xml:id
+                                    meicorpus.attribute.id -> meicorpus.attribute.xml:id
+                                    when found -->
+                                <xsl:attribute name="ident">
+                                    <xsl:choose>
+                                        <xsl:when test="@name='id'">
+                                            <xsl:text>xml:id</xsl:text>
+                                        </xsl:when>
+                                        <xsl:otherwise>
+                                            <xsl:value-of select="@name"/>
+                                        </xsl:otherwise>
+                                    </xsl:choose>
+                                </xsl:attribute>
                                 <xsl:choose>
                                     <xsl:when test="parent::optional">
                                         <xsl:attribute name="usage">opt</xsl:attribute>
@@ -531,6 +570,8 @@
                 </xsl:for-each>
             </content>
         </elementSpec>
+        
+        
     </xsl:template>
 
 </xsl:stylesheet>
