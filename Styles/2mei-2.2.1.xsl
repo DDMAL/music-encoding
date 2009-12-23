@@ -2,8 +2,8 @@
 
 <!-- ************************************************************** -->
 <!--
-NAME:     File      = 2mei.xsl (version 2.2.1)
-          Vers Date = 2009/11/05
+NAME:     File      = 2mei.xsl (version 2.2.2)
+          Vers Date = 2009/12/23
 
 NOTICE:   Copyright (c) 2009 Perry Roland and the Rector and
           Visitors of the University of Virginia.
@@ -70,8 +70,7 @@ NOTES:    Not all MusicXML constructs are converted, but enough to create
           features.  Since not all features are dealt with, some manual
           revision of the MEI file may be necessary.
 
-TO DO:    1. Bug in handling clef changes when they are the last event in
-          the measure
+TO DO:    
 
 CHANGES:  (v. 1.1)
           1. Fixed bug that kept horizontal offsets of hairpins from
@@ -97,6 +96,7 @@ CHANGES:  (v. 1.1)
           2. Revised header output
           3. vertical offset on rests is now handled correctly
              when the clef is treble, bass, alto, or tenor.
+          4. Fixed bug in handling end-of-measure clef changes
                                                                     -->
 <!-- ************************************************************** -->
 
@@ -1825,7 +1825,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                         </xsl:attribute>
                         <!-- <xsl:for-each select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*"> -->
                         <xsl:for-each
-                          select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*[name()='note' or name()='chord' or name()='rest' or name()='pad' or name()='space']">
+                          select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*[name()='note' or name()='chord' or name()='rest' or name()='pad' or name()='space' or name()='clefchange']">
                           <!-- Fill the unused time on 'the other staff' with space -->
                           <xsl:choose>
                             <xsl:when test="@staff=$thisstaff">
@@ -1882,7 +1882,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                   <xsl:for-each select="layer">
                     <xsl:sort select="@n"/>
                     <layer>
-                      <xsl:copy-of select="@*[not(name()='def')]"/>
+                      <xsl:copy-of select="@*[not(name()='n')]"/>
                       <xsl:attribute name="n">
                         <xsl:value-of select="position()"/>
                       </xsl:attribute>
@@ -3530,19 +3530,165 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
 
   <!-- Process mid-measure MusicXML attributes -->
   <xsl:template match="attributes" mode="stage1">
+    
+    <xsl:choose>
+      <xsl:when test="count(following-sibling::*[not(name()='barline')])=0">
+        <xsl:variable name="messageText">A mid-measure clef change has been
+          detected at the end of measure <xsl:value-of
+            select="ancestor::measure/@number"/>.</xsl:variable>
+        <xsl:message terminate="no">
+          <xsl:value-of select="normalize-space($messageText)"/>
+        </xsl:message>
+        <xsl:for-each select="clef">
+          <clefchange>
+            <xsl:variable name="partID">
+              <xsl:value-of select="ancestor::part[1]/@id"/>
+            </xsl:variable>
+            <xsl:variable name="partstaff">
+              <xsl:choose>
+                <xsl:when test="@number">
+                  <xsl:value-of select="@number"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:attribute name="part">
+              <xsl:value-of select="$partID"/>
+            </xsl:attribute>
+            <xsl:attribute name="layer">
+              <xsl:choose>
+                <xsl:when test="preceding::note[1]/voice">
+                  <xsl:value-of select="preceding::note[1]/voice"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>1</xsl:text>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="staff">
+              <xsl:call-template name="getstaffnum">
+                <xsl:with-param name="partID">
+                  <xsl:value-of select="$partID"/>
+                </xsl:with-param>
+                <xsl:with-param name="partstaff">
+                  <xsl:value-of select="$partstaff"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="tstamp.ges">
+              <xsl:call-template name="gettstamp.ges"/>
+            </xsl:attribute>
+            <xsl:attribute name="shape">
+              <xsl:choose>
+                <xsl:when test="sign='percussion'">
+                  <xsl:text>perc</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="sign"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="line">
+              <xsl:value-of select="line"/>
+            </xsl:attribute>
+            <xsl:if test="clef-octave-change">
+              <xsl:if test="abs(number(clef-octave-change)) != 0">
+                <xsl:attribute name="trans">
+                  <xsl:choose>
+                    <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
+                    <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
+                    <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
+                    <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                  </xsl:choose>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:if>
+          </clefchange>
+        </xsl:for-each>        
+      </xsl:when>
+      <xsl:when
+        test="preceding-sibling::note | preceding-sibling::forward | preceding-sibling::chord">
+        <!-- Mid-measure attributes -->
+        <xsl:for-each select="clef">
+          <clefchange>
+            <xsl:variable name="partID">
+              <xsl:value-of select="ancestor::part[1]/@id"/>
+            </xsl:variable>
+            <xsl:variable name="partstaff">
+              <xsl:choose>
+                <xsl:when test="@number">
+                  <xsl:value-of select="@number"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:attribute name="part">
+              <xsl:value-of select="$partID"/>
+            </xsl:attribute>
+            <xsl:attribute name="layer">
+              <xsl:choose>
+                <xsl:when test="following::note[1]/voice">
+                  <xsl:value-of select="following::note[1]/voice"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>1</xsl:text>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="staff">
+              <xsl:call-template name="getstaffnum">
+                <xsl:with-param name="partID">
+                  <xsl:value-of select="$partID"/>
+                </xsl:with-param>
+                <xsl:with-param name="partstaff">
+                  <xsl:value-of select="$partstaff"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="tstamp.ges">
+              <xsl:call-template name="gettstamp.ges"/>
+            </xsl:attribute>
+            <xsl:attribute name="shape">
+              <xsl:choose>
+                <xsl:when test="sign='percussion'">
+                  <xsl:text>perc</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="sign"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="line">
+              <xsl:value-of select="line"/>
+            </xsl:attribute>
+            <xsl:if test="clef-octave-change">
+              <xsl:if test="abs(number(clef-octave-change)) != 0">
+                <xsl:attribute name="trans">
+                  <xsl:choose>
+                    <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
+                    <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
+                    <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
+                    <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                  </xsl:choose>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:if>
+          </clefchange>
+        </xsl:for-each>
+      </xsl:when>
+    </xsl:choose>
 
-    <xsl:if test="not(following-sibling::*)">
+    <!-- <xsl:if test="not(following-sibling::*)">
       <xsl:variable name="messageText">A mid-measure clef change has been
         detected at the end of measure <xsl:value-of
           select="ancestor::measure/@number"/>.</xsl:variable>
       <xsl:message terminate="no">
         <xsl:value-of select="normalize-space($messageText)"/>
       </xsl:message>
-    </xsl:if>
+    </xsl:if> -->
 
-    <xsl:if
+    <!-- <xsl:if
       test="preceding-sibling::note | preceding-sibling::forward | preceding-sibling::chord">
-      <!-- Mid-measure attributes -->
       <xsl:for-each select="clef">
         <clefchange>
           <xsl:variable name="partID">
@@ -3564,7 +3710,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:when test="following::note[1]/voice">
                 <xsl:value-of select="following::note[1]/voice"/>
               </xsl:when>
-              <xsl:otherwise>1</xsl:otherwise>
+              <xsl:otherwise>
+                <xsl:text>1</xsl:text>
+              </xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
           <xsl:attribute name="staff">
@@ -3607,7 +3755,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:if>
         </clefchange>
       </xsl:for-each>
-    </xsl:if>
+    </xsl:if> -->
   </xsl:template>
 
   <xsl:template match="forward" mode="stage1">
@@ -5477,10 +5625,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:variable>
           <xsl:choose>
             <xsl:when test="($endtimestamp - $now) &gt; 0">
-                <xsl:attribute name="dur">
+              <xsl:attribute name="dur">
                 <xsl:text>0m+</xsl:text>
                 <xsl:value-of select="$endtimestamp"/>
-                </xsl:attribute>
+              </xsl:attribute>
 
               <xsl:attribute name="endid">
                 <xsl:value-of select="generate-id()"/>
@@ -5559,7 +5707,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                       <xsl:value-of select="$endmeasurepos - $startmeasurepos"/>
                       <xsl:text>m+</xsl:text>
                       <xsl:call-template name="gettstamp.ges"/>
-                      </xsl:attribute>
+                    </xsl:attribute>
 
                     <xsl:attribute name="endid">
                       <xsl:value-of select="generate-id()"/>
@@ -5661,7 +5809,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             <xsl:value-of select="$endmeasurepos - $startmeasurepos"/>
             <xsl:text>m+</xsl:text>
             <xsl:call-template name="gettstamp.ges"/>
-            </xsl:attribute>
+          </xsl:attribute>
 
           <xsl:attribute name="endid">
             <xsl:value-of select="generate-id()"/>
@@ -6877,6 +7025,10 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
               <xsl:choose>
                 <xsl:when test="$clefshape='G' and $clefline='2'">
                   <xsl:choose>
+                    <xsl:when test="$display-step='C' and $display-octave='3'"
+                      >-13</xsl:when>
+                    <xsl:when test="$display-step='D' and $display-octave='3'"
+                      >-12</xsl:when>
                     <xsl:when test="$display-step='E' and $display-octave='3'"
                       >-11</xsl:when>
                     <xsl:when test="$display-step='F' and $display-octave='3'"

@@ -2301,7 +2301,7 @@ CHANGES:
         <xsl:value-of select="abs(@bulge)"/>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:text>8</xsl:text>
+        <xsl:text>1</xsl:text>
       </xsl:otherwise>
     </xsl:choose>
     <xsl:value-of select="$nl"/>
@@ -3701,17 +3701,22 @@ CHANGES:
   </xsl:template>
 
   <xsl:template name="makedots">
+    <!-- Mup doesn't allow dotted grace notes -->
+    <xsl:if test="@dots and @grace">
+      <xsl:message>Dots on grace notes in measure <xsl:value-of
+          select="ancestor::measure/@n"/> ignored.</xsl:message>
+    </xsl:if>
     <xsl:choose>
-      <xsl:when test="@dots=1">
+      <xsl:when test="@dots=1 and not(@grace)">
         <xsl:text>.</xsl:text>
       </xsl:when>
-      <xsl:when test="@dots=2">
+      <xsl:when test="@dots=2 and not(@grace)">
         <xsl:text>..</xsl:text>
       </xsl:when>
-      <xsl:when test="@dots=3">
+      <xsl:when test="@dots=3 and not(@grace)">
         <xsl:text>...</xsl:text>
       </xsl:when>
-      <xsl:when test="@dots=4">
+      <xsl:when test="@dots=4 and not(@grace)">
         <xsl:text>....</xsl:text>
       </xsl:when>
     </xsl:choose>
