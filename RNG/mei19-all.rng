@@ -669,9 +669,8 @@
     <optional>
       <attribute name="notafter">
         <a:documentation xml:lang="eng">contains an upper boundary for an
-          uncertain date. <xhtml:div>
+          uncertain date.
             <xhtml:p><![CDATA[<date notbefore="1957" notafter="1960">Feb. 5th</date>]]></xhtml:p>
-          </xhtml:div>
         </a:documentation>
         <ref name="data.ISODATE"/>
       </attribute>
@@ -679,9 +678,8 @@
     <optional>
       <attribute name="notbefore">
         <a:documentation xml:lang="eng">contains a lower boundary for an
-          uncertain date. <xhtml:div>
+          uncertain date.
             <xhtml:p><![CDATA[<date notbefore="1957" notafter="1960">Feb. 5th</date>]]></xhtml:p>
-          </xhtml:div>
         </a:documentation>
         <ref name="data.ISODATE"/>
       </attribute>
@@ -1854,21 +1852,15 @@
     <optional>
       <attribute name="modusmaior">
         <a:documentation xml:lang="eng">describes the maxima-long
-          relationship.</a:documentation>
-        <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice>
+        relationship.</a:documentation>
+        <ref name="data.MODUSMAIOR"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="modusminor">
         <a:documentation xml:lang="eng">describes the long-breve
           relationship.</a:documentation>
-        <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice>
+        <ref name="data.MODUSMINOR"/>
       </attribute>
     </optional>
     <optional>
@@ -1891,20 +1883,14 @@
       <attribute name="prolatio">
         <a:documentation xml:lang="eng">describes the semibreve-minim
           relationship.</a:documentation>
-        <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice>
+        <ref name="data.PROLATIO"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="tempus">
         <a:documentation xml:lang="eng">describes the breve-semibreve
           relationship.</a:documentation>
-        <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice>
+        <ref name="data.TEMPUS"/>
       </attribute>
     </optional>
   </define>
@@ -1941,11 +1927,7 @@
       <attribute name="orient">
         <a:documentation xml:lang="eng">describes the rotation or reflection of
           the base symbol.</a:documentation>
-        <choice>
-          <value>reversed</value>
-          <value>90CW</value>
-          <value>90CCW</value>
-        </choice>
+        <ref name="data.ORIENTATION"/>
       </attribute>
     </optional>
     <optional>
@@ -2187,7 +2169,7 @@
       having to individually set each note's grace attribute value. The midi.*
       attributes function as default values when creating sounding output. The
       tune.* attributes provide the capability of recording a tuning reference
-      pitch. <xhtml:div xml:lang="eng">
+      pitch. 
         <xhtml:table>
           <xhtml:caption>Suggested software default values</xhtml:caption>
           <xhtml:tr>
@@ -2243,7 +2225,6 @@
             <xhtml:td>'equal'</xhtml:td>
           </xhtml:tr>
         </xhtml:table>
-      </xhtml:div>
     </a:documentation>
     <optional>
       <attribute name="grace">
@@ -2320,21 +2301,15 @@
     <optional>
       <attribute name="modusmaior">
         <a:documentation xml:lang="eng">describes the maxima-long
-          relationship.</a:documentation>
-        <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice>
+        relationship.</a:documentation>
+        <ref name="data.MODUSMAIOR"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="modusminor">
         <a:documentation xml:lang="eng">describes the long-breve
           relationship.</a:documentation>
-        <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice>
+        <ref name="data.MODUSMINOR"/>
       </attribute>
     </optional>
     <optional>
@@ -2357,10 +2332,7 @@
       <attribute name="prolatio">
         <a:documentation xml:lang="eng">describes the semibreve-minim
           relationship.</a:documentation>
-        <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice>
+        <ref name="data.PROLATIO"/>
       </attribute>
     </optional>
     <optional>
@@ -2384,10 +2356,7 @@
       <attribute name="tempus">
         <a:documentation xml:lang="eng">describes the breve-semibreve
           relationship.</a:documentation>
-        <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice>
+        <ref name="data.TEMPUS"/>
       </attribute>
     </optional>
   </define>
@@ -2395,7 +2364,7 @@
   <define name="att.log.scoredef.base">
     <a:documentation xml:lang="eng">Logical domain attributes for scoredef in
       the CMN repertoire. The values set in these attributes act as score-wide
-      defaults for attributes that are not set in descendant elements. <xhtml:div>
+      defaults for attributes that are not set in descendant elements.
         <xhtml:table>
           <xhtml:caption>Suggested software default values</xhtml:caption>
           <xhtml:tr>
@@ -2467,7 +2436,6 @@
             <xhtml:td>'0'</xhtml:td>
           </xhtml:tr>
         </xhtml:table>
-      </xhtml:div>
     </a:documentation>
     <optional>
       <attribute name="beam.group">
@@ -2689,11 +2657,7 @@
       <attribute name="mensur.orient">
         <a:documentation xml:lang="eng">describes the rotation or reflection of
           the base symbol.</a:documentation>
-        <choice>
-          <value>reversed</value>
-          <value>90CW</value>
-          <value>90CCW</value>
-        </choice>
+        <ref name="data.ORIENTATION"/>
       </attribute>
     </optional>
     <optional>
@@ -2715,7 +2679,7 @@
 
   <define name="att.vis.scoredef.base">
     <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
-      CMN repertoire <xhtml:div>
+      CMN repertoire
         <xhtml:table>
           <xhtml:caption>Suggested software default values</xhtml:caption>
           <xhtml:tr>
@@ -2919,7 +2883,6 @@
             <xhtml:td>'medium'</xhtml:td>
           </xhtml:tr>
         </xhtml:table>
-      </xhtml:div>
     </a:documentation>
     <optional>
       <attribute name="bar.place">
@@ -3168,10 +3131,6 @@
         <a:documentation xml:lang="eng">indicates the number of logical pages to
           be rendered on a single physical page.</a:documentation>
         <ref name="data.PAGE.PANELS"/>
-        <!-- <choice>
-          <value>1</value>
-          <value>2</value>
-        </choice> -->
       </attribute>
     </optional>
     <optional>
@@ -3464,10 +3423,6 @@
         <a:documentation xml:lang="eng">describes the maxima-long
           relationship.</a:documentation>
         <ref name="data.MODUSMAIOR"/>
-        <!-- <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice> -->
       </attribute>
     </optional>
     <optional>
@@ -3475,10 +3430,6 @@
         <a:documentation xml:lang="eng">describes the long-breve
           relationship.</a:documentation>
         <ref name="data.MODUSMINOR"/>
-        <!-- <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice> -->
       </attribute>
     </optional>
     <optional>
@@ -3502,10 +3453,6 @@
         <a:documentation xml:lang="eng">describes the semibreve-minim
           relationship.</a:documentation>
         <ref name="data.PROLATIO"/>
-        <!-- <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice> -->
       </attribute>
     </optional>
     <optional>
@@ -3530,10 +3477,6 @@
         <a:documentation xml:lang="eng">describes the breve-semibreve
           relationship.</a:documentation>
         <ref name="data.TEMPUS"/>
-        <!-- <choice>
-          <value>2</value>
-          <value>3</value>
-        </choice> -->
       </attribute>
     </optional>
   </define>
@@ -3737,11 +3680,6 @@
         <a:documentation xml:lang="eng">describes the rotation or reflection of
           the base symbol.</a:documentation>
         <ref name="data.ORIENTATION"/>
-        <!-- <choice>
-          <value>reversed</value>
-          <value>90CW</value>
-          <value>90CCW</value>
-        </choice> -->
       </attribute>
     </optional>
     <optional>
@@ -13310,14 +13248,8 @@
       <ref name="att.common"/>
       <attribute name="fret">
         <a:documentation xml:lang="eng">indicates the fret at which the barre
-          should be created.</a:documentation>
-        <choice>
-          <value>1</value>
-          <value>2</value>
-          <value>3</value>
-          <value>4</value>
-          <value>5</value>
-        </choice>
+        should be created.</a:documentation>
+        <ref name="data.FRET"/>
       </attribute>
       <attribute name="from">
         <a:documentation xml:lang="eng">captures the starting note of the
@@ -15110,7 +15042,7 @@
       <element name="cc">
         <a:documentation xml:lang="eng">control change ― MIDI parameter/control
           change. The num attribute specifies parameter number, while val
-          contains the parameter value. Each must fall in the range 0-127. <xhtml:div>
+          contains the parameter value. Each must fall in the range 0-127.
             <xhtml:table>
               <xhtml:caption>A sampling of controllers and their
                 numbers</xhtml:caption>
@@ -15175,7 +15107,6 @@
                 <xhtml:td>All Notes Off (0)</xhtml:td>
               </xhtml:tr>
             </xhtml:table>
-          </xhtml:div>
         </a:documentation>
         <ref name="attlist.cc"/>
         <ref name="content.cc"/>
@@ -16402,10 +16333,10 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="version" a:defaultValue="1.9b">
+      <attribute name="version" a:defaultValue="v1.9b">
         <a:documentation xml:lang="eng">names the version of the schema used by
           the instance.</a:documentation>
-        <value type="NMTOKEN">1.9b</value>
+        <value type="NMTOKEN">v1.9b</value>
       </attribute>
     </optional>
   </define>
@@ -16437,8 +16368,8 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="version" a:defaultValue="1.9b">
-        <value type="NMTOKEN">1.9b</value>
+      <attribute name="version" a:defaultValue="v1.9b">
+        <value type="NMTOKEN">v1.9b</value>
       </attribute>
     </optional>
   </define>
@@ -16485,8 +16416,8 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="version" a:defaultValue="1.9b">
-        <value type="NMTOKEN">1.9b</value>
+      <attribute name="version" a:defaultValue="v1.9b">
+        <value type="NMTOKEN">v1.9b</value>
       </attribute>
     </optional>
   </define>
@@ -16505,8 +16436,8 @@
   <define name="attlist.music" combine="interleave">
     <ref name="att.common"/>
     <optional>
-      <attribute name="version" a:defaultValue="1.9b">
-        <value type="NMTOKEN">1.9b</value>
+      <attribute name="version" a:defaultValue="v1.9b">
+        <value type="NMTOKEN">v1.9b</value>
       </attribute>
     </optional>
   </define>
