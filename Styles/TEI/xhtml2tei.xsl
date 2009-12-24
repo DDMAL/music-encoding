@@ -345,9 +345,9 @@ end -->
   
 <!-- Changed by RV -->
 <xsl:template match="h:table">
-  <p><table>
+  <table>
     <xsl:apply-templates/>
-  </table></p>
+  </table>
 </xsl:template>
 <!-- end -->  
 
