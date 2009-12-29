@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  
+  <start>
+    <ref name="facsimile"/>
+  </start>
+
+  <define name="model.graphicLike">
+    <empty/>
+  </define>
+
+  <define name="model.figdescLike">
+    <empty/>
+  </define>
+
+  <define name="content.facsimile">
+    <zeroOrMore>
+      <choice>
+        <ref name="surface"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="facsimile">
+    <element name="facsimile">
+      <a:documentation xml:lang="eng">facsimile ― Contains a representation of
+        some written source in the form of a set of images rather than as
+        transcribed or encoded text. The source attribute may be used to link
+        the collection of images with a particular source.</a:documentation>
+      <ref name="content.facsimile"/>
+    </element>
+  </define>
+
+  <define name="content.surface">
+    <zeroOrMore>
+      <ref name="model.figdescLike"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="model.graphicLike"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="zone"/>
+    </zeroOrMore>
+  </define>
+  <define name="surface">
+    <element name="surface">
+      <a:documentation xml:lang="eng">surface ― Defines a written surface in
+        terms of a rectangular coordinate space, optionally grouping one or more
+        graphic representations of that space, and rectangular zones of interest
+        within it.</a:documentation>
+      <ref name="content.surface"/>
+    </element>
+  </define>
+
+  <define name="content.zone">
+    <zeroOrMore>
+      <ref name="model.figdescLike"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="model.graphicLike"/>
+    </zeroOrMore>
+  </define>
+  <define name="zone">
+    <element name="zone">
+      <a:documentation xml:lang="eng">zone ― Defines a rectangular area
+        contained within a surface.</a:documentation>
+      <ref name="content.zone"/>
+    </element>
+  </define>
+
+  <!-- Figure module
+  <define name="model.graphicLike" combine="interleave">
+    <ref name="graphic"/>
+  </define>
+
+  <define name="model.figdescLike" combine="interleave">
+    <ref name="figdesc"/>
+  </define>
+
+  <define name="content.graphic">
+    <empty/>
+  </define>
+  <define name="graphic">
+    <element name="graphic">
+      <a:documentation xml:lang="eng">graphic ― Indicates the location of an
+        inline graphic, illustration, or figure.</a:documentation>
+      <ref name="content.graphic"/>
+    </element>
+  </define>
+
+  <define name="content.figdesc">
+    <zeroOrMore>
+      <choice>
+        <text/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="figdesc">
+    <element name="figdesc">
+      <a:documentation xml:lang="eng">figure description ― Contains a brief
+        prose description of the appearance or content of a graphic figure, for
+        use when documenting an image without displaying it. Best practice
+        suggests the use of controlled vocabulary. Don't confuse this element
+        with a figure caption. A caption is text primarily intended for display
+        with an illustration. It may or may not function as a description of the
+        illustration.</a:documentation>
+      <ref name="content.figdesc"/>
+    </element>
+    </define> -->
+
+</grammar>
