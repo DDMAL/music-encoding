@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar 
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  
+  <!-- Analysis module -->
+  <define name="att.anl.common" combine="interleave">
+    <a:documentation xml:lang="eng">Common analytical attributes. When the
+      meiLinkAlign module is used, the when attribute is also a member of this
+      attribute class.</a:documentation>
+    <optional>
+      <attribute name="copyof">
+        <a:documentation xml:lang="eng">points to an element of which the
+          current element is a copy.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="corresp">
+        <a:documentation xml:lang="eng">used to point to other elements that
+          correspond to this one in a generic fashion.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="next">
+        <a:documentation xml:lang="eng">used to point to the next event(s) in a
+          user-defined collection.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="prev">
+        <a:documentation xml:lang="eng">points to the previous event(s) in a
+          user-defined collection.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="sameas">
+        <a:documentation xml:lang="eng">points to an element that is the same as
+          the current element but is not a literal copy of the current
+          element.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="synch">
+        <a:documentation xml:lang="eng">points to elements that are synchronous
+          with the current element.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <ref name="att.alignment"/>
+  </define>
+  <define name="att.anl.note" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <optional>
+      <attribute name="accid.cautionary">
+        <a:documentation xml:lang="eng">indicates a cautionary accidental
+          accompanying the note.</a:documentation>
+        <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accid.editorial">
+        <a:documentation xml:lang="eng">indicates an editorial accidental
+          accompanying the note.</a:documentation>
+        <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="hfunc">
+        <a:documentation xml:lang="eng">contains an indication of the harmonic
+          function of this note.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="inth">
+        <a:documentation xml:lang="eng">encodes the harmonic interval from a
+          pitch occuring at the same time.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="intm">
+        <a:documentation xml:lang="eng">encodes the melodic interval from the
+          previous note.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mfunc">
+        <a:documentation xml:lang="eng">contains an indication of the melodic
+          function of this note.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pclass">
+        <a:documentation xml:lang="eng">holds pitch class
+          information.</a:documentation>
+        <ref name="data.PITCHCLASS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="psolfa">
+        <a:documentation xml:lang="eng">contains solfa designation, e.g., do,
+          re, mi, etc., in either fixed or movable Do systems.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  
+</grammar>

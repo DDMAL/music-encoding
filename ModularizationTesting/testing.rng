@@ -3,9 +3,104 @@
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   
+  <include href="../RNG/datatypes.rng"/>
+  
+  <define name="att.alignment">
+    <empty/>
+  </define>
+  
+  <define name="att.anl.common">
+    <empty/>
+  </define>
+  
+  <define name="att.common">
+    <a:documentation xml:lang="eng">Common attributes</a:documentation>
+    <optional>
+      <attribute name="id" ns="http://www.w3.org/XML/1998/namespace">
+        <a:documentation xml:lang="eng">regularizes the naming of an element and
+          thus facilitates building links between it and other resources. Each
+          id attribute within a document must have a unique
+          value.</a:documentation>
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="n">
+        <a:documentation xml:lang="eng">provides a label (name or number) for an
+          element. While its value need not be unique, it is required to be a
+          single token.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.event">
+    <empty/>
+  </define>
+  
+  <define name="att.facsimile">
+    <empty/>
+  </define>
+
+  <define name="model.startLike">
+    <ref name="mei"/>
+  </define>
+
   <start>
-    <ref name="facsimile"/>
+    <ref name="model.startLike"/>
   </start>
+
+  <define name="mei">
+    <element name="mei">
+      <zeroOrMore>
+        <ref name="model.facsimileLike"/>
+      </zeroOrMore>
+      <optional>
+        <ref name="score"/>
+      </optional>
+    </element>
+  </define>
+
+  <define name="score">
+    <element name="score">
+      <zeroOrMore>
+        <ref name="note"/>
+      </zeroOrMore>
+      <ref name="att.anl.common"/>
+    </element>
+  </define>
+  
+  <define name="note">
+    <element name="note">
+      <empty/>
+      <ref name="attlist.note"/>
+    </element>
+  </define>
+  <define name="attlist.note">
+    <ref name="att.anl.common"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.note"/>
+    <ref name="att.vis.note"/>
+    <ref name="att.ges.note"/>
+    <ref name="att.anl.note"/>
+  </define>
+  <define name="att.log.note">
+    <empty/>
+  </define>
+  <define name="att.vis.note">
+    <empty/>
+  </define>
+  <define name="att.ges.note">
+    <empty/>
+  </define>
+  <define name="att.anl.note">
+    <empty/>
+  </define>
+
+  <define name="model.facsimileLike">
+    <empty/>
+  </define>
 
   <define name="model.graphicLike">
     <empty/>
@@ -14,99 +109,10 @@
   <define name="model.figdescLike">
     <empty/>
   </define>
-
-  <define name="content.facsimile">
-    <zeroOrMore>
-      <choice>
-        <ref name="surface"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="facsimile">
-    <element name="facsimile">
-      <a:documentation xml:lang="eng">facsimile ― Contains a representation of
-        some written source in the form of a set of images rather than as
-        transcribed or encoded text. The source attribute may be used to link
-        the collection of images with a particular source.</a:documentation>
-      <ref name="content.facsimile"/>
-    </element>
-  </define>
-
-  <define name="content.surface">
-    <zeroOrMore>
-      <ref name="model.figdescLike"/>
-    </zeroOrMore>
-    <zeroOrMore>
-      <ref name="model.graphicLike"/>
-    </zeroOrMore>
-    <zeroOrMore>
-      <ref name="zone"/>
-    </zeroOrMore>
-  </define>
-  <define name="surface">
-    <element name="surface">
-      <a:documentation xml:lang="eng">surface ― Defines a written surface in
-        terms of a rectangular coordinate space, optionally grouping one or more
-        graphic representations of that space, and rectangular zones of interest
-        within it.</a:documentation>
-      <ref name="content.surface"/>
-    </element>
-  </define>
-
-  <define name="content.zone">
-    <zeroOrMore>
-      <ref name="model.figdescLike"/>
-    </zeroOrMore>
-    <zeroOrMore>
-      <ref name="model.graphicLike"/>
-    </zeroOrMore>
-  </define>
-  <define name="zone">
-    <element name="zone">
-      <a:documentation xml:lang="eng">zone ― Defines a rectangular area
-        contained within a surface.</a:documentation>
-      <ref name="content.zone"/>
-    </element>
-  </define>
-
-  <!-- Figure module
-  <define name="model.graphicLike" combine="interleave">
-    <ref name="graphic"/>
-  </define>
-
-  <define name="model.figdescLike" combine="interleave">
-    <ref name="figdesc"/>
-  </define>
-
-  <define name="content.graphic">
-    <empty/>
-  </define>
-  <define name="graphic">
-    <element name="graphic">
-      <a:documentation xml:lang="eng">graphic ― Indicates the location of an
-        inline graphic, illustration, or figure.</a:documentation>
-      <ref name="content.graphic"/>
-    </element>
-  </define>
-
-  <define name="content.figdesc">
-    <zeroOrMore>
-      <choice>
-        <text/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="figdesc">
-    <element name="figdesc">
-      <a:documentation xml:lang="eng">figure description ― Contains a brief
-        prose description of the appearance or content of a graphic figure, for
-        use when documenting an image without displaying it. Best practice
-        suggests the use of controlled vocabulary. Don't confuse this element
-        with a figure caption. A caption is text primarily intended for display
-        with an illustration. It may or may not function as a description of the
-        illustration.</a:documentation>
-      <ref name="content.figdesc"/>
-    </element>
-    </define> -->
+  
+  <include href="logical_Module.rng"/>
+  <include href="analysis_Module.rng"/>
+  <include href="facsimile_Module.rng"/>
+  <include href="figure_Module.rng"/>
 
 </grammar>

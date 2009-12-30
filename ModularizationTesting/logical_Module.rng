@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar 
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <!-- Logical module -->
+  <define name="att.log.note" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.event"/>
+    <optional>
+      <attribute name="accid">
+        <a:documentation xml:lang="eng">captures a written accidental
+          symbol.</a:documentation>
+        <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="artic">
+        <a:documentation xml:lang="eng">encodes the written articulation(s).
+          Articulations are normally encoded in order from the notehead outward;
+          that is, away from the stem. See additional notes at att.vis.note.
+          Only articulations should be encoded in the artic attribute;
+          fingerings should be encoded using the &lt;dir&gt;
+          element.</a:documentation>
+        <ref name="data.ARTICULATIONS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam">
+        <a:documentation xml:lang="eng">indicates that this event is "under a
+          beam".</a:documentation>
+        <ref name="data.BEAMS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dots">
+        <a:documentation xml:lang="eng">encodes the number of written dots of
+          augmentation.</a:documentation>
+        <ref name="data.AUGMENTDOT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes logical; that is, written,
+          duration.</a:documentation>
+        <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fermata">
+        <a:documentation xml:lang="eng">used to indicate the attachment of a
+          fermata to this element. If visual information about the fermata needs
+          to be recorded, then a fermata &lt;element&gt; should be
+          employed.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lv">
+        <a:documentation xml:lang="eng">indicates the attachment of an l.v.
+          (laissez vibrer) sign to this element.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="oct">
+        <a:documentation xml:lang="eng">captures written octave
+          information.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pname">
+        <a:documentation xml:lang="eng">contains the written pitch
+          name.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a slur.</a:documentation>
+        <ref name="data.SLURS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="syl">
+        <a:documentation xml:lang="eng">holds an associated sung text
+          syllable.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tie.</a:documentation>
+        <ref name="data.TIE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tuplet">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tuplet.</a:documentation>
+        <ref name="data.TUPLETS"/>
+      </attribute>
+    </optional>
+  </define>
+  
+</grammar>
