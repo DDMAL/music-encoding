@@ -2,18 +2,62 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
-  
+
+  <!-- Include datatypes -->
   <include href="../RNG/datatypes.rng"/>
-  
+
+  <!-- Define all attr classes as empty, even the ones used in shared module -->
   <define name="att.alignment">
     <empty/>
   </define>
-  
+
   <define name="att.anl.common">
     <empty/>
   </define>
   
   <define name="att.common">
+    <empty/>
+  </define>
+
+  <define name="att.event">
+    <empty/>
+  </define>
+
+  <define name="att.facsimile">
+    <empty/>
+  </define>
+
+  <define name="att.log.note">
+    <empty/>
+  </define>
+
+  <define name="att.vis.note">
+    <empty/>
+  </define>
+
+  <define name="att.ges.note">
+    <empty/>
+  </define>
+
+  <define name="att.anl.note">
+    <empty/>
+  </define>
+
+  <!-- Define all model classes as empty -->
+  <define name="model.facsimileLike">
+    <empty/>
+  </define>
+
+  <define name="model.graphicLike">
+    <empty/>
+  </define>
+
+  <define name="model.figdescLike">
+    <empty/>
+  </define>
+
+  <!-- Define attr classes for shared module -->
+  <define name="att.common" combine="interleave">
     <a:documentation xml:lang="eng">Common attributes</a:documentation>
     <optional>
       <attribute name="id" ns="http://www.w3.org/XML/1998/namespace">
@@ -34,14 +78,50 @@
     </optional>
   </define>
   
-  <define name="att.event">
-    <empty/>
-  </define>
-  
-  <define name="att.facsimile">
-    <empty/>
+  <define name="att.event" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that apply to all written events,
+      e.g., beam, beatrpt, chord, note, etc.</a:documentation>
+    <optional>
+      <attribute name="layer">
+        <a:documentation xml:lang="eng">signifies the layer within which the
+          event is active.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="staff">
+        <a:documentation xml:lang="eng">signifies the staff within which the
+          event is active.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp">
+        <a:documentation xml:lang="eng">encodes the onset time of the event in
+          terms of musical time, i.e., beats[.fractional beat
+          part]</a:documentation>
+        <ref name="data.BEAT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.ges">
+        <a:documentation xml:lang="eng">records the onset time in pulses per
+          quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
+          of the measure.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.real">
+        <a:documentation xml:lang="eng">records the onset time as a real-time
+          offset, i.e., in HH:MM:SS.ss format, since the beginning of the
+          file.</a:documentation>
+        <ref name="data.ISOTIME"/>
+      </attribute>
+    </optional>
   </define>
 
+  <!-- Start elements -->
   <define name="model.startLike">
     <ref name="mei"/>
   </define>
@@ -61,6 +141,7 @@
     </element>
   </define>
 
+  <!-- Declare shared module elements -->
   <define name="score">
     <element name="score">
       <zeroOrMore>
@@ -69,7 +150,7 @@
       <ref name="att.anl.common"/>
     </element>
   </define>
-  
+
   <define name="note">
     <element name="note">
       <empty/>
@@ -85,31 +166,37 @@
     <ref name="att.ges.note"/>
     <ref name="att.anl.note"/>
   </define>
-  <define name="att.log.note">
-    <empty/>
-  </define>
-  <define name="att.vis.note">
-    <empty/>
-  </define>
-  <define name="att.ges.note">
-    <empty/>
-  </define>
-  <define name="att.anl.note">
-    <empty/>
-  </define>
-
-  <define name="model.facsimileLike">
-    <empty/>
-  </define>
-
-  <define name="model.graphicLike">
-    <empty/>
-  </define>
-
-  <define name="model.figdescLike">
-    <empty/>
-  </define>
   
+  <define name="att.log.note" combine="interleave">
+    <ref name="att.event"/>
+    <optional>
+      <attribute name="pname">
+        <a:documentation xml:lang="eng">contains the written pitch
+          name.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <!-- Tablature module -->
+  <define name="att.ges.note" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="tab.fret">
+        <a:documentation xml:lang="eng">records the fret at which a string
+          should be stopped.</a:documentation>
+        <ref name="data.FRETNUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tab.string">
+        <a:documentation xml:lang="eng">records which string is to be
+          played.</a:documentation>
+        <ref name="data.STRINGNUMBER"/>
+      </attribute>
+    </optional>
+  </define>
+
   <include href="logical_Module.rng"/>
   <include href="analysis_Module.rng"/>
   <include href="facsimile_Module.rng"/>
