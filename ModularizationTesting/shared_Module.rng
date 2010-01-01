@@ -2,7 +2,7 @@
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
-  
+
   <!-- Declare module attr classes -->
   <define name="att.bibl">
     <a:documentation xml:lang="eng">Bibliographic attributes</a:documentation>
@@ -17,7 +17,7 @@
         specified, e.g., subfields within MARC fields.</a:documentation>
     </optional>
   </define>
-  
+
   <define name="att.common" combine="interleave">
     <a:documentation xml:lang="eng">Common attributes</a:documentation>
     <optional>
@@ -81,7 +81,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.lang">
     <a:documentation xml:lang="eng">Language attributes common to text
       elements</a:documentation>
@@ -95,7 +95,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.anl.ending">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -113,7 +113,7 @@
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.anl.layer">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -136,6 +136,125 @@
           'false' should also not be included in a sounded
           rendition.</a:documentation>
         <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.measure">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.measure">
+    <a:documentation xml:lang="eng">Gestural domain attributes. The tstamp.ges
+      and tstamp.real attributes encode the onset time of the measure. In
+      reality, this is usually the same as the onset time of the first event in
+      the measure.</a:documentation>
+    <optional>
+      <attribute name="tstamp.ges">
+        <a:documentation xml:lang="eng">used to record the onset time in pulses
+          per quarter note (ppq, MusicXML divisions, or MIDI clicks) since the
+          start of the file.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.real">
+        <a:documentation xml:lang="eng">holds the onset time as a real-time
+          offset, i.e., HH:MM:SS.ss, since the beginning of the
+          file.</a:documentation>
+        <ref name="data.ISOTIME"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.measure">
+    <a:documentation xml:lang="eng">Logical domain attributes. The n attribute
+      contains a name or number associated with the measure (Read, p. 445).
+      Often, this is an integer, but not always. For example, some measures,
+      especially incomplete measures or those under an ending mark, may have
+      labels that contain an integer plus a suffix, such as '12a'. Measures may
+      even have labels, especially in editorial or analytical uses of MEI, that
+      are entirely non-numeric strings. Measure numbers may be machine-generated
+      instead of encoding them in the markup. However, an explicit measure
+      number should restart numbering with the given value.</a:documentation>
+    <optional>
+      <attribute name="complete">
+        <a:documentation xml:lang="eng">allows the encoding of whether a measure
+          matches the prevailing meter: a value of 'c' indicates a metrically
+          complete measure, 'i' indicates a measure with not enough beats, while
+          'o' is for measures with too many beats.</a:documentation>
+        <choice>
+          <value>c</value>
+          <value>i</value>
+          <value>o</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="control">
+        <a:documentation xml:lang="eng">indicates whether or not the right
+          barline is "controlling", that is, indicates a point of alignment
+          across all the parts. Barlines within a score are usually
+          'controlling'; that is, they 'line up'. Barlines within a part may or
+          may not be 'controlling' with respect to other
+          parts.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="join">
+        <a:documentation xml:lang="eng">indicates a measure which metrically
+          completes the current one.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="left">
+        <a:documentation xml:lang="eng">indicates the visual rendition of the
+          left barline. It is present here only for facilitation of translation
+          from legacy encodings which use it. Usually, it can be safely
+          ignored.</a:documentation>
+        <ref name="data.BARRENDITION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="right">
+        <a:documentation xml:lang="eng">indicates the function of the right
+          barline and is structurally important.</a:documentation>
+        <ref name="data.BARRENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.measure">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="barplace">
+        <a:documentation xml:lang="eng">describes the placement of the right
+          barline.</a:documentation>
+        <ref name="data.BARPLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="taktplace">
+        <a:documentation xml:lang="eng">If takt barlines are to be used, then
+          the taktplace attribute may be used to denote the staff location of
+          the shortened barline. The location may include staff lines, spaces,
+          and the spaces directly above and below the staff. The value ranges
+          between 0 (just below the staff) to 2 * number of staff lines
+          (directly above the staff). For example, on a 5-line staff the lines
+          would be numbered 1,3,5,7, and 9 while the spaces would be numbered
+          0,2,4,6,8,10. For example, a value of '9' puts the barline through the
+          top line of a 5-line staff.</a:documentation>
+        <ref name="data.STAFFLOC"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <a:documentation xml:lang="eng">For rendering purposes, some music data
+          systems rely on measure width data. The width attribute allows for the
+          capture of this data in MEI for output back to these
+          systems.</a:documentation>
+        <ref name="data.NUMBER"/>
       </attribute>
     </optional>
   </define>
@@ -183,7 +302,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.anl.part">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -201,7 +320,7 @@
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.anl.parts">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -219,7 +338,7 @@
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.anl.score">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -237,7 +356,7 @@
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.anl.section">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -270,7 +389,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.anl.staff">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -295,7 +414,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.typed" combine="interleave">
     <a:documentation xml:lang="eng">Attributes which can be used to classify or
       subclassify elements</a:documentation>
@@ -323,16 +442,16 @@
       endings.</a:documentation>
     <ref name="ending"/>
   </define>
-  
+
   <define name="model.layerLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that function as notational
       layers within a staff.</a:documentation>
     <ref name="layer"/>
   </define>
-  
+
   <define name="model.layerPart" combine="interleave">
     <a:documentation xml:lang="eng">groups notated events at the layer
-    level.</a:documentation>
+      level.</a:documentation>
     <empty/>
     <!-- <choice>
       <ref name="model.eventLike"/>
@@ -345,13 +464,19 @@
       <ref name="model.sylLike"/>
     </choice> -->
   </define>
-  
+
   <define name="model.mdivLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements used to represent generic
       structural divisions of music notation.</a:documentation>
     <ref name="mdiv"/>
   </define>
-  
+
+  <define name="model.measureLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups measure-like
+      elements.</a:documentation>
+    <ref name="measure"/>
+  </define>
+
   <define name="model.musicPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       music element.</a:documentation>
@@ -368,61 +493,63 @@
       <ref name="model.backLike"/>
     </optional>
   </define>
-  
+
   <define name="model.partLike">
     <a:documentation xml:lang="eng">groups elements that represent a separate
       performer part.</a:documentation>
     <ref name="part"/>
   </define>
-  
+
   <define name="model.partsLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that group separate
       performer parts.</a:documentation>
     <ref name="parts"/>
   </define>
-  
+
   <define name="model.scoreLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that represent a
       score.</a:documentation>
     <ref name="score"/>
   </define>
-  
+
   <define name="model.scorePart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
-    score.</a:documentation>
+      score.</a:documentation>
     <choice>
       <ref name="model.sectionLike"/>
       <ref name="model.endingLike"/>
     </choice>
   </define>
-  
+
   <define name="model.sectionLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that represent a segment of
       music notation.</a:documentation>
     <ref name="section"/>
   </define>
-  
+
   <define name="model.sectionPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       section.</a:documentation>
-    <choice>
-      <ref name="model.sectionLike"/>
-      <ref name="model.endingLike"/>
+    <zeroOrMore>
+      <choice>
+        <ref name="model.sectionLike"/>
+        <ref name="model.endingLike"/>
+        <!-- model.staffLike must be added here because it's needed by both Neumes
+        and Mensural modules. -->
+        <ref name="model.staffLike"/>
+      </choice>
       <!-- Added by CMN module 
         <ref name="model.measureLike"/>
       -->
-      <!-- Added by Mensural module 
-        <ref name="model.staffLike"/>
-      -->
-    </choice>
+    </zeroOrMore>
   </define>
-  
+
   <define name="model.staffLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that function like
       staves.</a:documentation>
     <ref name="staff"/>
   </define>
-  
+
   <define name="model.staffPart" combine="interleave">
     <choice>
       <ref name="model.layerLike"/>
@@ -439,9 +566,9 @@
     <element name="body">
       <a:documentation xml:lang="eng">body ― This element contains the actual
         music data. When the music can be broken into high-level, discrete,
-        linear segments, such as movements in the case of a symphony, there
-        may be multiple mdiv elements within this element. This is the highest
-        level indication of the structure of the music.</a:documentation>
+        linear segments, such as movements in the case of a symphony, there may
+        be multiple mdiv elements within this element. This is the highest level
+        indication of the structure of the music.</a:documentation>
       <ref name="attlist.body"/>
       <ref name="content.body"/>
     </element>
@@ -449,7 +576,7 @@
   <define name="attlist.body">
     <ref name="att.common"/>
   </define>
-  
+
   <define name="content.ending">
     <zeroOrMore>
       <choice>
@@ -460,12 +587,12 @@
   </define>
   <define name="ending">
     <element name="ending">
-      <a:documentation xml:lang="eng">ending ― Alternative ending. The
-        scoredef element is allowed so that an ending may have its own
-        meta-data without the overhead of child &lt;section&gt;s. Div
-        sub-elements are not allowed within ending in order to avoid
-        collisions with the brackets that are usually displayed over endings.
-        Endings may *not* contain other ending elements.</a:documentation>
+      <a:documentation xml:lang="eng">ending ― Alternative ending. The scoredef
+        element is allowed so that an ending may have its own meta-data without
+        the overhead of child &lt;section&gt;s. Div sub-elements are not
+        allowed within ending in order to avoid collisions with the brackets
+        that are usually displayed over endings. Endings may *not* contain other
+        ending elements.</a:documentation>
       <ref name="attlist.ending"/>
       <ref name="content.ending"/>
     </element>
@@ -482,7 +609,7 @@
     <ref name="att.log.ending"/>
     <ref name="att.vis.ending"/>
   </define>
-  
+
   <define name="content.group">
     <choice>
       <ref name="music"/>
@@ -497,9 +624,9 @@
   </define>
   <define name="group">
     <element name="group">
-      <a:documentation xml:lang="eng">group ― Enables the gathering of
-        multiple documents into a single file. Because its model contains the
-        music element, each of the documents can have its own front and back
+      <a:documentation xml:lang="eng">group ― Enables the gathering of multiple
+        documents into a single file. Because its model contains the music
+        element, each of the documents can have its own front and back
         matter.</a:documentation>
       <ref name="attlist.group"/>
       <ref name="content.group"/>
@@ -508,7 +635,7 @@
   <define name="attlist.group">
     <ref name="att.common"/>
   </define>
-  
+
   <define name="content.layer">
     <zeroOrMore>
       <choice>
@@ -519,10 +646,10 @@
   </define>
   <define name="layer">
     <element name="layer">
-      <a:documentation xml:lang="eng">layer ― An independent stream of events
-        on a staff. The term 'layer' in used instead of 'voice' in order to
-        avoid confusion between 'voice' and 'voice leading'. The n attribute
-        is used to establish a connection back to the appropriate layerdef
+      <a:documentation xml:lang="eng">layer ― An independent stream of events on
+        a staff. The term 'layer' in used instead of 'voice' in order to avoid
+        confusion between 'voice' and 'voice leading'. The n attribute is used
+        to establish a connection back to the appropriate layerdef
         element.</a:documentation>
       <ref name="attlist.layer"/>
       <ref name="content.layer"/>
@@ -536,7 +663,7 @@
     <ref name="att.ges.layer"/>
     <ref name="att.anl.layer"/>
   </define>
-  
+
   <define name="content.mdiv">
     <choice>
       <group>
@@ -555,22 +682,22 @@
   <define name="mdiv">
     <element name="mdiv">
       <a:documentation xml:lang="eng">musical division ― The mdiv element may
-        contain one or both of 2 possible views of the music. The score view
-        is the traditional full and open score while the parts view contains
-        each performer's view of the score; that is, his part. These 2 views
-        are necessary because it is not always possible or desirable to
-        generate one from the other. The score and parts elements are placed
-        here and not directly within the body element because score and part
-        characteristics may change from mdiv to mdiv. For example, the 2nd
-        movement of a symphony may require different performing forces (and
-        therefore different score and part layout) than the other movements.
-        The mdiv element may be recursively nested in order to represent music
-        which exhibits this kind of structure. For example, an opera is
-        normally divided into acts, which are in turn divided into scenes.
-        This may be represented by the following markup: &lt;mdiv&gt;
-        &lt;- the opera &lt;mdiv&gt; &lt;- act I
-        &lt;mdiv&gt; &lt;- scene i &lt;mdiv&gt; &lt;-
-        scene ii &lt;/mdiv&gt; &lt;mdiv&gt; &lt;- act II
+        contain one or both of 2 possible views of the music. The score view is
+        the traditional full and open score while the parts view contains each
+        performer's view of the score; that is, his part. These 2 views are
+        necessary because it is not always possible or desirable to generate one
+        from the other. The score and parts elements are placed here and not
+        directly within the body element because score and part characteristics
+        may change from mdiv to mdiv. For example, the 2nd movement of a
+        symphony may require different performing forces (and therefore
+        different score and part layout) than the other movements. The mdiv
+        element may be recursively nested in order to represent music which
+        exhibits this kind of structure. For example, an opera is normally
+        divided into acts, which are in turn divided into scenes. This may be
+        represented by the following markup: &lt;mdiv&gt; &lt;- the
+        opera &lt;mdiv&gt; &lt;- act I &lt;mdiv&gt;
+        &lt;- scene i &lt;mdiv&gt; &lt;- scene ii
+        &lt;/mdiv&gt; &lt;mdiv&gt; &lt;- act II
         &lt;mdiv&gt; &lt;- scene i &lt;mdiv&gt; &lt;-
         scene ii &lt;/mdiv&gt; &lt;/mdiv&gt;</a:documentation>
       <ref name="attlist.mdiv"/>
@@ -582,7 +709,43 @@
     <ref name="att.facsimile"/>
     <ref name="att.typed"/>
   </define>
-  
+
+  <define name="content.measure">
+    <zeroOrMore>
+      <choice>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.measurePart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="measure">
+    <element name="measure">
+      <a:documentation xml:lang="eng">measure ― "In Western notation a vertical
+        line drawn through the staff to mark off metrical units. Hence also the
+        metrical unit thus indicated, which in American usage is called
+        'measure'. English usage often relies on context alone to make the
+        distinction clear (e.g. 'up to the double bar', 'the end of the bar'),
+        but 'bar-line' is also common." (New Grove) In MEI, the measure element
+        is also a linking element that uses attributes to connect the MEI
+        document to an external electronic object or to another location within
+        the MEI instance.</a:documentation>
+      <ref name="attlist.measure"/>
+      <ref name="content.measure"/>
+    </element>
+  </define>
+  <define name="attlist.measure">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.internal"/>
+    <ref name="att.link.external"/>
+    <ref name="att.log.measure"/>
+    <ref name="att.vis.measure"/>
+    <ref name="att.ges.measure"/>
+    <ref name="att.anl.measure"/>
+  </define>
+
   <define name="mei">
     <element name="mei">
       <a:documentation xml:lang="eng">mei ― The document element for a single
@@ -613,7 +776,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="music">
     <element name="music">
       <a:documentation xml:lang="eng">music ― Container for everything else in
@@ -653,7 +816,7 @@
     <define name="_ABSTRACTmodel.eventLike.neume-cmn" combine="interleave">
     <notAllowed/>
     </define> -->
-  
+
   <define name="content.parts">
     <zeroOrMore>
       <ref name="model.partLike"/>
@@ -675,7 +838,7 @@
     <ref name="att.ges.parts"/>
     <ref name="att.anl.parts"/>
   </define>
-  
+
   <define name="content.part">
     <zeroOrMore>
       <ref name="model.scorePart"/>
@@ -683,19 +846,18 @@
   </define>
   <define name="part">
     <element name="part">
-      <a:documentation xml:lang="eng">part ― An alternative visual rendition
-        of the score from a particular performer's point of view. Part
-        elements are not used in the score to indicate voice leading. Next
-        attributes on event elements should be used for this purpose. Part
-        elements are useful for encoding individual parts when there is no
-        score, such as early music part books, when the music has non-aligning
-        barlines, when different layout, such as page turns, are needed for
-        the score and parts, or for accommodating software that requires
-        part-by-part encoding. When assembly of the parts into a score is
-        desired and there are non-aligning barlines, barlines which indicate
-        points of alignment across all the parts may be marked as
-        'controlling', while non-aligning ones may be marked as
-        'non-controlling'.</a:documentation>
+      <a:documentation xml:lang="eng">part ― An alternative visual rendition of
+        the score from a particular performer's point of view. Part elements are
+        not used in the score to indicate voice leading. Next attributes on
+        event elements should be used for this purpose. Part elements are useful
+        for encoding individual parts when there is no score, such as early
+        music part books, when the music has non-aligning barlines, when
+        different layout, such as page turns, are needed for the score and
+        parts, or for accommodating software that requires part-by-part
+        encoding. When assembly of the parts into a score is desired and there
+        are non-aligning barlines, barlines which indicate points of alignment
+        across all the parts may be marked as 'controlling', while non-aligning
+        ones may be marked as 'non-controlling'.</a:documentation>
       <ref name="attlist.part"/>
       <ref name="content.part"/>
     </element>
@@ -719,8 +881,8 @@
   </define>
   <define name="score">
     <element name="score">
-      <a:documentation xml:lang="eng">score ― Full score view of the mdiv.
-        Since the measure element is optional, a score may consist entirely of
+      <a:documentation xml:lang="eng">score ― Full score view of the mdiv. Since
+        the measure element is optional, a score may consist entirely of
         pagebreaks, each of which points to a page image. Div elements are
         allowed preceding and following sections of music data in order to
         accommodate blocks of explanatory text.</a:documentation>
@@ -736,7 +898,7 @@
     <ref name="att.ges.score"/>
     <ref name="att.anl.score"/>
   </define>
-  
+
   <define name="content.section">
     <zeroOrMore>
       <choice>
@@ -747,10 +909,10 @@
   </define>
   <define name="section">
     <element name="section">
-      <a:documentation xml:lang="eng">section ― Container for actual music
-        data. The linking attributes are available here so that this element
-        can point to external media objects or to related internal elements,
-        such as annotations.</a:documentation>
+      <a:documentation xml:lang="eng">section ― Container for actual music data.
+        The linking attributes are available here so that this element can point
+        to external media objects or to related internal elements, such as
+        annotations.</a:documentation>
       <ref name="attlist.section"/>
       <ref name="content.section"/>
     </element>
@@ -767,7 +929,7 @@
     <ref name="att.ges.section"/>
     <ref name="att.anl.section"/>
   </define>
-  
+
   <define name="content.staff">
     <zeroOrMore>
       <choice>
@@ -779,10 +941,10 @@
   <define name="staff">
     <element name="staff">
       <a:documentation xml:lang="eng">staff ― The n attribute is a connection
-        back to the appropriate staffdef element. If the n attribute is
-        omitted, encoding order is presumed to match the staff order. Of
-        course, if data is supplied for only a subset of staves, the n
-        attribute must be supplied.</a:documentation>
+        back to the appropriate staffdef element. If the n attribute is omitted,
+        encoding order is presumed to match the staff order. Of course, if data
+        is supplied for only a subset of staves, the n attribute must be
+        supplied.</a:documentation>
       <ref name="attlist.staff"/>
       <ref name="content.staff"/>
     </element>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <define name="model.measurePart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of a
+      measure.</a:documentation>
+    <choice>
+      <ref name="model.staffLike"/>
+      <!-- <ref name="model.ossiaLike"/>
+        <ref name="model.controleventLike"/>
+        <ref name="model.lyricsLike"/>
+        <ref name="model.midiLike"/> -->
+    </choice>
+  </define>
+
+  <define name="model.sectionPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of a
+      section.</a:documentation>
+    <zeroOrMore>
+      <ref name="model.measureLike"/>
+    </zeroOrMore>
+  </define>
+
+</grammar>
