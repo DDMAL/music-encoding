@@ -1,0 +1,819 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  
+  <!-- Declare module attr classes -->
+  <define name="att.bibl">
+    <a:documentation xml:lang="eng">Bibliographic attributes</a:documentation>
+    <optional>
+      <attribute name="analog"/>
+      <a:documentation xml:lang="eng">contains a reference to a field or element
+        in another descriptive encoding system to which an MEI element is
+        comparable. Mapping elements from one system to another may help a
+        repository harvest selected data from the MEI file to build a basic
+        catalog record. The encoding system from which fields are taken must be
+        specified. When possible, subfields as well as fields should be
+        specified, e.g., subfields within MARC fields.</a:documentation>
+    </optional>
+  </define>
+  
+  <define name="att.common" combine="interleave">
+    <a:documentation xml:lang="eng">Common attributes</a:documentation>
+    <optional>
+      <attribute name="id" ns="http://www.w3.org/XML/1998/namespace">
+        <a:documentation xml:lang="eng">regularizes the naming of an element and
+          thus facilitates building links between it and other resources. Each
+          id attribute within a document must have a unique
+          value.</a:documentation>
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="n">
+        <a:documentation xml:lang="eng">provides a label (name or number) for an
+          element. While its value need not be unique, it is required to be a
+          single token.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.event" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that apply to all written events,
+      e.g., beam, beatrpt, chord, note, etc.</a:documentation>
+    <optional>
+      <attribute name="layer">
+        <a:documentation xml:lang="eng">signifies the layer within which the
+          event is active.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="staff">
+        <a:documentation xml:lang="eng">signifies the staff within which the
+          event is active.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp">
+        <a:documentation xml:lang="eng">encodes the onset time of the event in
+          terms of musical time, i.e., beats[.fractional beat
+          part]</a:documentation>
+        <ref name="data.BEAT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.ges">
+        <a:documentation xml:lang="eng">records the onset time in pulses per
+          quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
+          of the measure.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.real">
+        <a:documentation xml:lang="eng">records the onset time as a real-time
+          offset, i.e., in HH:MM:SS.ss format, since the beginning of the
+          file.</a:documentation>
+        <ref name="data.ISOTIME"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.lang">
+    <a:documentation xml:lang="eng">Language attributes common to text
+      elements</a:documentation>
+    <optional>
+      <attribute name="lang" ns="http://www.w3.org/XML/1998/namespace">
+        <a:documentation xml:lang="eng">identifies the language of the word or
+          text phrase marked. Its value must be the identifier of a
+          &lt;language&gt; element supplied in the MEI header of the
+          current document.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.anl.ending">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.ending">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.ending">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.ending">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.anl.layer">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.layer">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.layer">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.layer">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="visible">
+        <a:documentation xml:lang="eng">indicates if a layer should be displayed
+          when the notation is rendered. A layer with this attribute set to
+          'false' should also not be included in a sounded
+          rendition.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.log.note" combine="interleave">
+    <optional>
+      <attribute name="accid">
+        <a:documentation xml:lang="eng">captures a written accidental
+          symbol.</a:documentation>
+        <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dots">
+        <a:documentation xml:lang="eng">encodes the number of written dots of
+          augmentation.</a:documentation>
+        <ref name="data.AUGMENTDOT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes logical; that is, written,
+          duration.</a:documentation>
+        <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="oct">
+        <a:documentation xml:lang="eng">captures written octave
+          information.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pname">
+        <a:documentation xml:lang="eng">contains the written pitch
+          name.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="syl">
+        <a:documentation xml:lang="eng">holds an associated sung text
+          syllable.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.anl.part">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.part">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.part">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.part">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.anl.parts">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.parts">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.parts">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.parts">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.anl.score">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.score">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.score">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.score">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.anl.section">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.section">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="expan">
+        <a:documentation xml:lang="eng">contains a list of ids of child
+          &lt;section&gt;, &lt;ending&gt; or &lt;app&gt;
+          elements. This 'expansion list' indicates how the section should be
+          expanded into its 'through-composed' form. See Read, p. 226 (ex.
+          12-10), 228-229 (ex. 12-16).</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.section">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.section">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="restart">
+        <a:documentation>indicates that staves begin again with this
+          section.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.anl.staff">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.staff">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.staff">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.staff">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="visible">
+        <a:documentation xml:lang="eng">indicates if a staff should be displayed
+          when the score is rendered. A staff with this attribute set to 'false'
+          should also not be included in a sounded rendition.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.typed" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes which can be used to classify or
+      subclassify elements</a:documentation>
+    <optional>
+      <attribute name="type">
+        <a:documentation xml:lang="eng">characterizes the element in some sense,
+          using any convenient classification scheme or
+          typology.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="subtype">
+        <a:documentation xml:lang="eng">provide any sub-classification for the
+          element, additional to that given by its type
+          attribute.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <!-- Declare module model classes -->
+  <define name="model.endingLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that represent alternative
+      endings.</a:documentation>
+    <ref name="ending"/>
+  </define>
+  
+  <define name="model.layerLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that function as notational
+      layers within a staff.</a:documentation>
+    <ref name="layer"/>
+  </define>
+  
+  <define name="model.layerPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups notated events at the layer
+    level.</a:documentation>
+    <empty/>
+    <!-- <choice>
+      <ref name="model.eventLike"/>
+      <ref name="model.eventLike.cmn.measureFilling"/>
+      <ref name="model.midiLike"/>
+      <ref name="model.controleventLike"/>
+      <ref name="model.lyricsLike"/>
+      <ref name="model.noteModifierLike"/>
+      <ref name="model.verseLike"/>
+      <ref name="model.sylLike"/>
+    </choice> -->
+  </define>
+  
+  <define name="model.mdivLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements used to represent generic
+      structural divisions of music notation.</a:documentation>
+    <ref name="mdiv"/>
+  </define>
+  
+  <define name="model.musicPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of a
+      music element.</a:documentation>
+    <optional>
+      <ref name="model.frontLike"/>
+    </optional>
+    <optional>
+      <choice>
+        <ref name="body"/>
+        <ref name="group"/>
+      </choice>
+    </optional>
+    <optional>
+      <ref name="model.backLike"/>
+    </optional>
+  </define>
+  
+  <define name="model.partLike">
+    <a:documentation xml:lang="eng">groups elements that represent a separate
+      performer part.</a:documentation>
+    <ref name="part"/>
+  </define>
+  
+  <define name="model.partsLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that group separate
+      performer parts.</a:documentation>
+    <ref name="parts"/>
+  </define>
+  
+  <define name="model.scoreLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that represent a
+      score.</a:documentation>
+    <ref name="score"/>
+  </define>
+  
+  <define name="model.scorePart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of a
+    score.</a:documentation>
+    <choice>
+      <ref name="model.sectionLike"/>
+      <ref name="model.endingLike"/>
+    </choice>
+  </define>
+  
+  <define name="model.sectionLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that represent a segment of
+      music notation.</a:documentation>
+    <ref name="section"/>
+  </define>
+  
+  <define name="model.sectionPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of a
+      section.</a:documentation>
+    <choice>
+      <ref name="model.sectionLike"/>
+      <ref name="model.endingLike"/>
+      <!-- Added by CMN module 
+        <ref name="model.measureLike"/>
+      -->
+      <!-- Added by Mensural module 
+        <ref name="model.staffLike"/>
+      -->
+    </choice>
+  </define>
+  
+  <define name="model.staffLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that function like
+      staves.</a:documentation>
+    <ref name="staff"/>
+  </define>
+  
+  <define name="model.staffPart" combine="interleave">
+    <choice>
+      <ref name="model.layerLike"/>
+    </choice>
+  </define>
+
+  <!-- Declare module elements -->
+  <define name="content.body">
+    <oneOrMore>
+      <ref name="model.mdivLike"/>
+    </oneOrMore>
+  </define>
+  <define name="body">
+    <element name="body">
+      <a:documentation xml:lang="eng">body ― This element contains the actual
+        music data. When the music can be broken into high-level, discrete,
+        linear segments, such as movements in the case of a symphony, there
+        may be multiple mdiv elements within this element. This is the highest
+        level indication of the structure of the music.</a:documentation>
+      <ref name="attlist.body"/>
+      <ref name="content.body"/>
+    </element>
+  </define>
+  <define name="attlist.body">
+    <ref name="att.common"/>
+  </define>
+  
+  <define name="content.ending">
+    <zeroOrMore>
+      <choice>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.sectionPart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="ending">
+    <element name="ending">
+      <a:documentation xml:lang="eng">ending ― Alternative ending. The
+        scoredef element is allowed so that an ending may have its own
+        meta-data without the overhead of child &lt;section&gt;s. Div
+        sub-elements are not allowed within ending in order to avoid
+        collisions with the brackets that are usually displayed over endings.
+        Endings may *not* contain other ending elements.</a:documentation>
+      <ref name="attlist.ending"/>
+      <ref name="content.ending"/>
+    </element>
+  </define>
+  <define name="attlist.ending">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.external"/>
+    <ref name="att.link.internal"/>
+    <ref name="att.anl.ending"/>
+    <ref name="att.ges.ending"/>
+    <ref name="att.log.ending"/>
+    <ref name="att.vis.ending"/>
+  </define>
+  
+  <define name="content.group">
+    <choice>
+      <ref name="music"/>
+      <ref name="group"/>
+    </choice>
+    <zeroOrMore>
+      <choice>
+        <ref name="music"/>
+        <ref name="group"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="group">
+    <element name="group">
+      <a:documentation xml:lang="eng">group ― Enables the gathering of
+        multiple documents into a single file. Because its model contains the
+        music element, each of the documents can have its own front and back
+        matter.</a:documentation>
+      <ref name="attlist.group"/>
+      <ref name="content.group"/>
+    </element>
+  </define>
+  <define name="attlist.group">
+    <ref name="att.common"/>
+  </define>
+  
+  <define name="content.layer">
+    <zeroOrMore>
+      <choice>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.layerPart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="layer">
+    <element name="layer">
+      <a:documentation xml:lang="eng">layer ― An independent stream of events
+        on a staff. The term 'layer' in used instead of 'voice' in order to
+        avoid confusion between 'voice' and 'voice leading'. The n attribute
+        is used to establish a connection back to the appropriate layerdef
+        element.</a:documentation>
+      <ref name="attlist.layer"/>
+      <ref name="content.layer"/>
+    </element>
+  </define>
+  <define name="attlist.layer">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.layer"/>
+    <ref name="att.vis.layer"/>
+    <ref name="att.ges.layer"/>
+    <ref name="att.anl.layer"/>
+  </define>
+  
+  <define name="content.mdiv">
+    <choice>
+      <group>
+        <optional>
+          <ref name="model.scoreLike"/>
+        </optional>
+        <optional>
+          <ref name="model.partsLike"/>
+        </optional>
+      </group>
+      <zeroOrMore>
+        <ref name="model.mdivLike"/>
+      </zeroOrMore>
+    </choice>
+  </define>
+  <define name="mdiv">
+    <element name="mdiv">
+      <a:documentation xml:lang="eng">musical division ― The mdiv element may
+        contain one or both of 2 possible views of the music. The score view
+        is the traditional full and open score while the parts view contains
+        each performer's view of the score; that is, his part. These 2 views
+        are necessary because it is not always possible or desirable to
+        generate one from the other. The score and parts elements are placed
+        here and not directly within the body element because score and part
+        characteristics may change from mdiv to mdiv. For example, the 2nd
+        movement of a symphony may require different performing forces (and
+        therefore different score and part layout) than the other movements.
+        The mdiv element may be recursively nested in order to represent music
+        which exhibits this kind of structure. For example, an opera is
+        normally divided into acts, which are in turn divided into scenes.
+        This may be represented by the following markup: &lt;mdiv&gt;
+        &lt;- the opera &lt;mdiv&gt; &lt;- act I
+        &lt;mdiv&gt; &lt;- scene i &lt;mdiv&gt; &lt;-
+        scene ii &lt;/mdiv&gt; &lt;mdiv&gt; &lt;- act II
+        &lt;mdiv&gt; &lt;- scene i &lt;mdiv&gt; &lt;-
+        scene ii &lt;/mdiv&gt; &lt;/mdiv&gt;</a:documentation>
+      <ref name="attlist.mdiv"/>
+      <ref name="content.mdiv"/>
+    </element>
+  </define>
+  <define name="attlist.mdiv">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+  </define>
+  
+  <define name="mei">
+    <element name="mei">
+      <a:documentation xml:lang="eng">mei ― The document element for a single
+        document, containing a header and data. The &lt;mei&gt; element
+        defines a particular instance of a document encoded with the MEI schema.
+        The name of this element should not be changed in order to assure an
+        absolute minimum level of MEI compliance.</a:documentation>
+      <ref name="attlist.mei"/>
+      <ref name="meihead"/>
+      <ref name="music"/>
+    </element>
+  </define>
+  <define name="attlist.mei">
+    <optional>
+      <attribute name="id" ns="http://www.w3.org/XML/1998/namespace">
+        <a:documentation xml:lang="eng">regularizes the naming of an element and
+          thus facilitates building links between it and other resources. Each
+          id attribute within a document must have a unique
+          value.</a:documentation>
+        <data type="ID"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="version" a:defaultValue="1.9b">
+        <a:documentation xml:lang="eng">names the version of the schema used by
+          the instance.</a:documentation>
+        <ref name="meiVersion"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="music">
+    <element name="music">
+      <a:documentation xml:lang="eng">music ― Container for everything else in
+        the document apart from the header.</a:documentation>
+      <ref name="attlist.music"/>
+      <zeroOrMore>
+        <ref name="model.facsimileLike"/>
+      </zeroOrMore>
+      <ref name="model.musicPart"/>
+    </element>
+  </define>
+  <define name="attlist.music">
+    <ref name="att.common"/>
+    <optional>
+      <attribute name="version" a:defaultValue="1.9b">
+        <ref name="meiVersion"/>
+      </attribute>
+    </optional>
+  </define>
+  <!-- <define name="_ABSTRACTmodel.controleventLike.mensural" combine="interleave">
+    <notAllowed/>
+    </define>
+    <define name="_ABSTRACTmodel.controleventLike.mensural-cmn"
+    combine="interleave">
+    <notAllowed/>
+    </define>
+    <define name="_ABSTRACTmodel.controleventLike.neume" combine="interleave">
+    <notAllowed/>
+    </define>
+    <define name="_ABSTRACTmodel.controleventLike.neume-cmn" combine="interleave">
+    <notAllowed/>
+    </define>
+    <define name="_ABSTRACTmodel.controleventLike.neume-mensural"
+    combine="interleave">
+    <notAllowed/>
+    </define>
+    <define name="_ABSTRACTmodel.eventLike.neume-cmn" combine="interleave">
+    <notAllowed/>
+    </define> -->
+  
+  <define name="content.parts">
+    <zeroOrMore>
+      <ref name="model.partLike"/>
+    </zeroOrMore>
+  </define>
+  <define name="parts">
+    <element name="parts">
+      <a:documentation xml:lang="eng">parts ― Gathers performers'
+        parts.</a:documentation>
+      <ref name="attlist.parts"/>
+      <ref name="content.parts"/>
+    </element>
+  </define>
+  <define name="attlist.parts">
+    <ref name="att.common"/>
+    <ref name="att.typed"/>
+    <ref name="att.log.parts"/>
+    <ref name="att.vis.parts"/>
+    <ref name="att.ges.parts"/>
+    <ref name="att.anl.parts"/>
+  </define>
+  
+  <define name="content.part">
+    <zeroOrMore>
+      <ref name="model.scorePart"/>
+    </zeroOrMore>
+  </define>
+  <define name="part">
+    <element name="part">
+      <a:documentation xml:lang="eng">part ― An alternative visual rendition
+        of the score from a particular performer's point of view. Part
+        elements are not used in the score to indicate voice leading. Next
+        attributes on event elements should be used for this purpose. Part
+        elements are useful for encoding individual parts when there is no
+        score, such as early music part books, when the music has non-aligning
+        barlines, when different layout, such as page turns, are needed for
+        the score and parts, or for accommodating software that requires
+        part-by-part encoding. When assembly of the parts into a score is
+        desired and there are non-aligning barlines, barlines which indicate
+        points of alignment across all the parts may be marked as
+        'controlling', while non-aligning ones may be marked as
+        'non-controlling'.</a:documentation>
+      <ref name="attlist.part"/>
+      <ref name="content.part"/>
+    </element>
+  </define>
+  <define name="attlist.part">
+    <ref name="att.common"/>
+    <ref name="att.typed"/>
+    <ref name="att.log.part"/>
+    <ref name="att.vis.part"/>
+    <ref name="att.ges.part"/>
+    <ref name="att.anl.part"/>
+  </define>
+
+  <define name="content.score">
+    <zeroOrMore>
+      <choice>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.scorePart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="score">
+    <element name="score">
+      <a:documentation xml:lang="eng">score ― Full score view of the mdiv.
+        Since the measure element is optional, a score may consist entirely of
+        pagebreaks, each of which points to a page image. Div elements are
+        allowed preceding and following sections of music data in order to
+        accommodate blocks of explanatory text.</a:documentation>
+      <ref name="attlist.score"/>
+      <ref name="content.score"/>
+    </element>
+  </define>
+  <define name="attlist.score">
+    <ref name="att.common"/>
+    <ref name="att.typed"/>
+    <ref name="att.log.score"/>
+    <ref name="att.vis.score"/>
+    <ref name="att.ges.score"/>
+    <ref name="att.anl.score"/>
+  </define>
+  
+  <define name="content.section">
+    <zeroOrMore>
+      <choice>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.sectionPart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="section">
+    <element name="section">
+      <a:documentation xml:lang="eng">section ― Container for actual music
+        data. The linking attributes are available here so that this element
+        can point to external media objects or to related internal elements,
+        such as annotations.</a:documentation>
+      <ref name="attlist.section"/>
+      <ref name="content.section"/>
+    </element>
+  </define>
+  <define name="attlist.section">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.external"/>
+    <ref name="att.link.internal"/>
+    <ref name="att.log.section"/>
+    <ref name="att.vis.section"/>
+    <ref name="att.ges.section"/>
+    <ref name="att.anl.section"/>
+  </define>
+  
+  <define name="content.staff">
+    <zeroOrMore>
+      <choice>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.staffPart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="staff">
+    <element name="staff">
+      <a:documentation xml:lang="eng">staff ― The n attribute is a connection
+        back to the appropriate staffdef element. If the n attribute is
+        omitted, encoding order is presumed to match the staff order. Of
+        course, if data is supplied for only a subset of staves, the n
+        attribute must be supplied.</a:documentation>
+      <ref name="attlist.staff"/>
+      <ref name="content.staff"/>
+    </element>
+  </define>
+  <define name="attlist.staff">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.staff"/>
+    <ref name="att.vis.staff"/>
+    <ref name="att.ges.staff"/>
+    <ref name="att.anl.staff"/>
+  </define>
+
+  <define name="content.note">
+    <empty/>
+  </define>
+  <define name="note">
+    <element name="note">
+      <ref name="content.note"/>
+      <ref name="attlist.note"/>
+    </element>
+  </define>
+  <define name="attlist.note">
+    <ref name="att.common.anl"/>
+    <ref name="att.common"/>
+    <ref name="att.event"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.note"/>
+    <ref name="att.vis.note"/>
+    <ref name="att.ges.note"/>
+    <ref name="att.anl.note"/>
+  </define>
+
+</grammar>

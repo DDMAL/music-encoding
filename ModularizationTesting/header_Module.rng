@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <define name="content.meihead">
+    <empty/>
+    <!-- <zeroOrMore>
+      <ref name="altmeiid"/>
+    </zeroOrMore>
+    <ref name="filedesc"/>
+    <ref name="model.headerPart"/>
+    <optional>
+      <ref name="revisiondesc"/>
+    </optional> -->
+  </define>
+  <define name="meihead">
+    <element name="meihead">
+      <a:documentation xml:lang="eng">meihead ― A wrapper for general
+        bibliographic and descriptive information about the encoded file. This
+        information is often essential in a machine-readable environment. Five
+        sub-elements must be encoded in the following order:
+        &lt;altmeiid&gt;(optional), &lt;filedesc&gt;(required),
+        &lt;encodingdesc&gt;(optional),
+        &lt;profiledesc;&gt;(optional), and
+        &lt;revisiondesc&gt;(optional). These elements and their
+        sub-elements provide: a unique identifier for the MEI file,
+        bibliographic information about the MEI file and its sources,
+        information about the encoding process, information about the creation
+        of the work being encoded, and statements regarding significant
+        revisions of the file.</a:documentation>
+      <ref name="attlist.meihead"/>
+    </element>
+  </define>
+  <define name="attlist.meihead">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.lang"/>
+    <optional>
+      <attribute name="type">
+        <a:documentation xml:lang="eng">specifies the kind of document to which
+          the header is attached, that is, whether it is a corpus or an
+          individual text.</a:documentation>
+        <choice>
+          <value>music</value>
+          <value>corpus</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="version" a:defaultValue="1.9b">
+        <ref name="meiVersion"/>
+      </attribute>
+    </optional>
+  </define>
+
+</grammar>

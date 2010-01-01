@@ -6,15 +6,15 @@
   <!-- Include datatypes -->
   <include href="../RNG/datatypes.rng"/>
 
-  <!-- Define all attr classes as empty, even the ones used in shared module -->
+  <!-- Define all attr classes as empty -->
   <define name="att.alignment">
     <empty/>
   </define>
 
-  <define name="att.anl.common">
+  <define name="att.common.anl">
     <empty/>
   </define>
-  
+
   <define name="att.common">
     <empty/>
   </define>
@@ -24,6 +24,18 @@
   </define>
 
   <define name="att.facsimile">
+    <empty/>
+  </define>
+
+  <define name="att.link.common">
+    <empty/>
+  </define>
+
+  <define name="att.link.external">
+    <empty/>
+  </define>
+
+  <define name="att.link.internal">
     <empty/>
   </define>
 
@@ -43,8 +55,24 @@
     <empty/>
   </define>
 
+  <define name="att.typed">
+    <empty/>
+  </define>
+
   <!-- Define all model classes as empty -->
+  <define name="model.backLike">
+    <empty/>
+  </define>
+
+  <define name="model.endingLike">
+    <empty/>
+  </define>
+
   <define name="model.facsimileLike">
+    <empty/>
+  </define>
+
+  <define name="model.frontLike">
     <empty/>
   </define>
 
@@ -52,73 +80,56 @@
     <empty/>
   </define>
 
-  <define name="model.figdescLike">
+  <define name="model.figLike">
     <empty/>
   </define>
 
-  <!-- Define attr classes for shared module -->
-  <define name="att.common" combine="interleave">
-    <a:documentation xml:lang="eng">Common attributes</a:documentation>
-    <optional>
-      <attribute name="id" ns="http://www.w3.org/XML/1998/namespace">
-        <a:documentation xml:lang="eng">regularizes the naming of an element and
-          thus facilitates building links between it and other resources. Each
-          id attribute within a document must have a unique
-          value.</a:documentation>
-        <data type="ID"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="n">
-        <a:documentation xml:lang="eng">provides a label (name or number) for an
-          element. While its value need not be unique, it is required to be a
-          single token.</a:documentation>
-        <data type="NMTOKEN"/>
-      </attribute>
-    </optional>
+  <define name="model.figdescLike">
+    <empty/>
   </define>
   
-  <define name="att.event" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes that apply to all written events,
-      e.g., beam, beatrpt, chord, note, etc.</a:documentation>
-    <optional>
-      <attribute name="layer">
-        <a:documentation xml:lang="eng">signifies the layer within which the
-          event is active.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="staff">
-        <a:documentation xml:lang="eng">signifies the staff within which the
-          event is active.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp">
-        <a:documentation xml:lang="eng">encodes the onset time of the event in
-          terms of musical time, i.e., beats[.fractional beat
-          part]</a:documentation>
-        <ref name="data.BEAT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.ges">
-        <a:documentation xml:lang="eng">records the onset time in pulses per
-          quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
-          of the measure.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.real">
-        <a:documentation xml:lang="eng">records the onset time as a real-time
-          offset, i.e., in HH:MM:SS.ss format, since the beginning of the
-          file.</a:documentation>
-        <ref name="data.ISOTIME"/>
-      </attribute>
-    </optional>
+  <define name="model.layerLike">
+    <empty/>
+  </define>
+  
+  <define name="model.layerPart">
+    <empty/>
+  </define>
+
+  <define name="model.mdivLike">
+    <empty/>
+  </define>
+
+  <define name="model.musicPart">
+    <empty/>
+  </define>
+
+  <define name="model.partsLike">
+    <empty/>
+  </define>
+
+  <define name="model.scoreLike">
+    <empty/>
+  </define>
+
+  <define name="model.scorePart">
+    <empty/>
+  </define>
+
+  <define name="model.sectionLike">
+    <empty/>
+  </define>
+
+  <define name="model.sectionPart">
+    <empty/>
+  </define>
+
+  <define name="model.staffLike">
+    <empty/>
+  </define>
+  
+  <define name="model.staffPart">
+    <empty/>
   </define>
 
   <!-- Start elements -->
@@ -130,74 +141,9 @@
     <ref name="model.startLike"/>
   </start>
 
-  <define name="mei">
-    <element name="mei">
-      <zeroOrMore>
-        <ref name="model.facsimileLike"/>
-      </zeroOrMore>
-      <optional>
-        <ref name="score"/>
-      </optional>
-    </element>
-  </define>
-
-  <!-- Declare shared module elements -->
-  <define name="score">
-    <element name="score">
-      <zeroOrMore>
-        <ref name="note"/>
-      </zeroOrMore>
-      <ref name="att.anl.common"/>
-    </element>
-  </define>
-
-  <define name="note">
-    <element name="note">
-      <empty/>
-      <ref name="attlist.note"/>
-    </element>
-  </define>
-  <define name="attlist.note">
-    <ref name="att.anl.common"/>
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-    <ref name="att.log.note"/>
-    <ref name="att.vis.note"/>
-    <ref name="att.ges.note"/>
-    <ref name="att.anl.note"/>
-  </define>
-  
-  <define name="att.log.note" combine="interleave">
-    <ref name="att.event"/>
-    <optional>
-      <attribute name="pname">
-        <a:documentation xml:lang="eng">contains the written pitch
-          name.</a:documentation>
-        <ref name="data.PITCHNAME"/>
-      </attribute>
-    </optional>
-  </define>
-
-  <!-- Tablature module -->
-  <define name="att.ges.note" combine="interleave">
-    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="tab.fret">
-        <a:documentation xml:lang="eng">records the fret at which a string
-          should be stopped.</a:documentation>
-        <ref name="data.FRETNUMBER"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tab.string">
-        <a:documentation xml:lang="eng">records which string is to be
-          played.</a:documentation>
-        <ref name="data.STRINGNUMBER"/>
-      </attribute>
-    </optional>
-  </define>
-
-  <include href="logical_Module.rng"/>
+  <!-- Include other modules -->
+  <include href="shared_Module.rng"/>
+  <include href="header_Module.rng"/>
   <include href="analysis_Module.rng"/>
   <include href="facsimile_Module.rng"/>
   <include href="figure_Module.rng"/>

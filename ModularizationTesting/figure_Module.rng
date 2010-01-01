@@ -5,6 +5,10 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
   
   <!-- Figure module -->
+  <define name="model.figLike" combine="interleave">
+    <ref name="fig"/>
+  </define>
+  
   <define name="model.graphicLike" combine="interleave">
     <ref name="graphic"/>
   </define>
@@ -22,6 +26,33 @@
         inline graphic, illustration, or figure.</a:documentation>
       <ref name="content.graphic"/>
     </element>
+  </define>
+  
+  <define name="content.fig">
+    <!-- <optional>
+      <ref name="caption"/>
+    </optional> -->
+    <optional>
+      <ref name="figdesc"/>
+    </optional>
+    <zeroOrMore>
+      <ref name="model.graphicLike"/>
+    </zeroOrMore>
+  </define>
+  <define name="fig">
+    <element name="fig">
+      <a:documentation xml:lang="eng">figure ― An
+        illustration.</a:documentation>
+      <ref name="attlist.fig"/>
+      <ref name="content.fig"/>
+    </element>
+  </define>
+  <define name="attlist.fig">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <!-- <ref name="att.link.common"/>
+    <ref name="att.link.external"/>
+    <ref name="att.xy"/> -->
   </define>
   
   <define name="content.figdesc">
