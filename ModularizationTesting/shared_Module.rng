@@ -364,8 +364,9 @@
   </define>
   <define name="att.ges.section">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="expan">
+    <empty/>
+    <!-- <optional>
+      <attribute name="expsec">
         <a:documentation xml:lang="eng">contains a list of ids of child
           &lt;section&gt;, &lt;ending&gt; or &lt;app&gt;
           elements. This 'expansion list' indicates how the section should be
@@ -373,7 +374,7 @@
           12-10), 228-229 (ex. 12-16).</a:documentation>
         <data type="IDREFS"/>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
   <define name="att.log.section">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
@@ -527,20 +528,18 @@
     <ref name="section"/>
   </define>
 
-  <define name="model.sectionPart" combine="interleave">
+  <define name="model.sectionPart" combine="choice">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       section.</a:documentation>
     <zeroOrMore>
       <choice>
         <ref name="model.sectionLike"/>
         <ref name="model.endingLike"/>
-        <!-- model.staffLike must be added here because it's needed by both Neumes
-        and Mensural modules. -->
-        <ref name="model.staffLike"/>
+        <!-- added by Neumes and Mensural modules. -->
+        <!-- <ref name="model.staffLike"/> -->
+        <!-- Added by CMN module -->
+        <!-- <ref name="model.measureLike"/> -->
       </choice>
-      <!-- Added by CMN module 
-        <ref name="model.measureLike"/>
-      -->
     </zeroOrMore>
   </define>
 
@@ -579,6 +578,9 @@
 
   <define name="content.ending">
     <zeroOrMore>
+      <ref name="expsec"/>
+    </zeroOrMore>
+    <zeroOrMore>
       <choice>
         <!-- <ref name="model.Incl"/> -->
         <ref name="model.sectionPart"/>
@@ -608,6 +610,40 @@
     <ref name="att.ges.ending"/>
     <ref name="att.log.ending"/>
     <ref name="att.vis.ending"/>
+  </define>
+
+  <define name="content.expsec">
+    <empty/>
+  </define>
+  <define name="expsec">
+    <element name="expsec">
+      <ref name="attlist.expsec"/>
+      <ref name="content.expsec"/>
+    </element>
+  </define>
+  <define name="attlist.expsec">
+    <ref name="att.common"/>
+    <ref name="att.typed"/>
+    <optional>
+      <attribute name="plist">
+        <a:documentation xml:lang="eng">contains a list of ids of child
+          &lt;section&gt;, &lt;ending&gt; or &lt;app&gt;
+          elements. This 'expansion list' indicates how the section should be
+          expanded into its 'through-composed' form. See Read, p. 226 (ex.
+          12-10), 228-229 (ex. 12-16).</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">contains a list of one or more pointers
+          indicating the sources that follow the expansion given in the plist
+          attribute. Each value should correspond to the ID of a
+          &lt;source&gt; element given elsewhere in the
+          document.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
   </define>
 
   <define name="content.group">
@@ -900,6 +936,9 @@
   </define>
 
   <define name="content.section">
+    <zeroOrMore>
+      <ref name="expsec"/>
+    </zeroOrMore>
     <zeroOrMore>
       <choice>
         <!-- <ref name="model.Incl"/> -->

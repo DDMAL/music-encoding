@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar 
+  xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+  <!-- Neumes Module -->
+  <!-- Declare module attr classes -->
+
+  <!-- Declare module model classes -->
+  <define name="model.sectionPart" combine="choice">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of a
+      section.</a:documentation>
+    <zeroOrMore>
+      <ref name="model.staffLike"/>
+    </zeroOrMore>
+  </define>
+
+</grammar>

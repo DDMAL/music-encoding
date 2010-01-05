@@ -3,23 +3,15 @@
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
 
-  <define name="model.measurePart" combine="interleave">
-    <a:documentation xml:lang="eng">groups elements that may appear as part of a
-      measure.</a:documentation>
-    <choice>
-      <ref name="model.staffLike"/>
-      <!-- <ref name="model.ossiaLike"/>
-        <ref name="model.controleventLike"/>
-        <ref name="model.lyricsLike"/>
-        <ref name="model.midiLike"/> -->
-    </choice>
-  </define>
+  <!-- Mensural module -->
+  <!-- Declare module attr classes -->
 
+  <!-- Declare module model classes -->
   <define name="model.sectionPart" combine="choice">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       section.</a:documentation>
     <zeroOrMore>
-      <ref name="model.measureLike"/>
+      <ref name="model.staffLike"/>
     </zeroOrMore>
   </define>
 
