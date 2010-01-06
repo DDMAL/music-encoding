@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!-- NamesDates module -->
+  <!-- Declare module attr classes -->
+
+  <!-- Declare module model classes -->
+  <define name="model.nameLike.agent" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements which contain names of
+      individuals or corporate bodies.</a:documentation>
+    <choice>
+      <ref name="corpname"/>
+      <ref name="persname"/>
+    </choice>
+  </define>
+
+  <define name="model.nameLike.geogname" combine="interleave">
+    <a:documentation xml:lang="eng">groups geographic name
+      elements.</a:documentation>
+    <ref name="geogname"/>
+  </define>
+
+  <define name="model.nameLike.place" combine="interleave">
+    <a:documentation xml:lang="eng">groups place name and repository
+      elements.</a:documentation>
+    <choice>
+      <ref name="geogname"/>
+      <ref name="model.repositoryLike"/>
+    </choice>
+  </define>
+
+  <define name="model.nameLike.label" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that serve as stylistic
+      labels.</a:documentation>
+    <choice>
+      <ref name="periodname"/>
+      <ref name="stylename"/>
+    </choice>
+  </define>
+
+  <!-- Declare module elements -->
+  <define name="content.corpname">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="corpname">
+    <element name="corpname">
+      <a:documentation xml:lang="eng">corporate name ― Identifies an
+        organization or group of people that acts as a single entity. Examples
+        include names of associations, institutions, business firms, non-profit
+        enterprises, governments, government agencies, projects, programs,
+        religious bodies, churches, conferences, athletic contests, exhibitions,
+        expeditions, fairs, and ships. Secondary name parts may be encoded in
+        nested &lt;corpname&gt; sub-elements.</a:documentation>
+      <ref name="attlist.corpname"/>
+      <ref name="content.corpname"/>
+    </element>
+  </define>
+  <define name="attlist.corpname">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.name"/>
+    <ref name="att.typed"/>
+  </define>
+
+  <define name="content.geogname">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="geogname">
+    <element name="geogname">
+      <a:documentation xml:lang="eng">geographic name ― The proper noun
+        designation for a place, natural feature, or political jurisdiction.
+        Examples include Black Forest; Baltimore, Maryland; and Quartier Latin,
+        Paris. May contain name sub-parts in &lt;geogname&gt;
+        sub-elements.</a:documentation>
+      <ref name="attlist.geogname"/>
+      <ref name="content.geogname"/>
+    </element>
+  </define>
+  <define name="attlist.geogname">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.name"/>
+    <ref name="att.typed"/>
+  </define>
+
+  <define name="content.periodname">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="periodname">
+    <element name="periodname">
+      <a:documentation xml:lang="eng">period name ― A label that describes a
+        period of time, such as 'Baroque' or '3rd Style
+        period'.</a:documentation>
+      <ref name="attlist.periodname"/>
+      <ref name="content.periodname"/>
+    </element>
+  </define>
+  <define name="attlist.periodname">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.name"/>
+    <ref name="att.typed"/>
+  </define>
+
+  <define name="content.persname">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="persname">
+    <element name="persname">
+      <a:documentation xml:lang="eng">personal name ― Designation for an
+        individual, including any or all of that individual's forenames,
+        surnames, honorific titles, and added names. May contain name parts in
+        &lt;persname&gt; sub-elements.</a:documentation>
+      <ref name="attlist.persname"/>
+      <ref name="content.persname"/>
+    </element>
+  </define>
+  <define name="attlist.persname">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.name"/>
+    <ref name="att.typed"/>
+  </define>
+
+  <define name="content.stylename">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="stylename">
+    <element name="stylename">
+      <a:documentation xml:lang="eng">style name ― A label for a characteristic
+        style of writing or performance, such as 'bebop' or 'rock-n-roll'. Do
+        not confuse this element with the &lt;periodname&gt;
+        element.</a:documentation>
+      <ref name="attlist.stylename"/>
+      <ref name="content.stylename"/>
+    </element>
+  </define>
+  <define name="attlist.stylename">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.name"/>
+    <ref name="att.typed"/>
+  </define>
+
+</grammar>

@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
 
+  <!-- Shared Module -->
   <!-- Declare module attr classes -->
   <define name="att.bibl">
     <a:documentation xml:lang="eng">Bibliographic attributes</a:documentation>
@@ -15,6 +20,18 @@
         catalog record. The encoding system from which fields are taken must be
         specified. When possible, subfields as well as fields should be
         specified, e.g., subfields within MARC fields.</a:documentation>
+    </optional>
+  </define>
+
+  <define name="att.color">
+    <a:documentation xml:lang="eng">Color attributes</a:documentation>
+    <optional>
+      <attribute name="color">
+        <a:documentation xml:lang="eng">used to indicate visual appearance. Do
+          not confuse this with the musical term 'color' as used in pre-CMN
+          notation.</a:documentation>
+        <ref name="data.COLOR"/>
+      </attribute>
     </optional>
   </define>
 
@@ -35,6 +52,60 @@
           element. While its value need not be unique, it is required to be a
           single token.</a:documentation>
         <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.date">
+    <a:documentation xml:lang="eng">Attributes common to dates</a:documentation>
+    <optional>
+      <attribute name="calendar">
+        <a:documentation xml:lang="eng">indicates the system or calendar to
+          which the date belongs, for example, Gregorian, Julian, Roman, Mosaic,
+          Revolutionary, Islamic, etc.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="cert">
+        <a:documentation xml:lang="eng">indicates the degree of precision to be
+          attributed to the date.</a:documentation>
+        <ref name="data.CERTAINTY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="from">
+        <a:documentation xml:lang="eng">contains the starting point of a date
+          range.</a:documentation>
+        <ref name="data.ISODATE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="notafter">
+        <a:documentation xml:lang="eng">contains an upper boundary for an
+          uncertain date.</a:documentation>
+        <ref name="data.ISODATE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="notbefore">
+        <a:documentation xml:lang="eng">contains a lower boundary for an
+          uncertain date.</a:documentation>
+        <ref name="data.ISODATE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="reg">
+        <a:documentation xml:lang="eng">gives the value of a date in standard
+          ISO form.</a:documentation>
+        <ref name="data.ISODATE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="to">
+        <a:documentation xml:lang="eng">contains the end point of a date
+          range.</a:documentation>
+        <ref name="data.ISODATE"/>
       </attribute>
     </optional>
   </define>
@@ -94,6 +165,227 @@
         <data type="IDREF"/>
       </attribute>
     </optional>
+  </define>
+
+  <define name="att.link.common" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes common to all linking
+      elements</a:documentation>
+    <optional>
+      <attribute name="actuate" ns="http://www.w3.org/1999/xlink">
+        <a:documentation xml:lang="eng">defines whether a link occurs
+          automatically or must be requested by the user. It is used in
+          conjunction with the show attribute to determine link
+          behavior.</a:documentation>
+        <choice>
+          <value>onLoad</value>
+          <value>onRequest</value>
+          <value>other</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="role" ns="http://www.w3.org/1999/xlink">
+        <a:documentation xml:lang="eng">indicates a property of the entire link.
+          The value of the role attribute must be a URI reference as defined in
+          [IETF RFC 2396], except that if the URI scheme used is allowed to have
+          absolute and relative forms, the URI portion must be absolute. The URI
+          reference identifies some resource that describes the intended
+          property. When no value is supplied, no particular role value is to be
+          inferred.</a:documentation>
+        <data type="anyURI"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="show" ns="http://www.w3.org/1999/xlink">
+        <a:documentation xml:lang="eng">defines whether a remote resource that
+          is the target of a link appears at the point of the link, replaces the
+          existing link, or appears in a new window.</a:documentation>
+        <choice>
+          <value>new</value>
+          <value>replace</value>
+          <value>other</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="targettype">
+        <a:documentation xml:lang="eng">in contrast with the role attribute,
+          allows the target resource to be characterized, using any convenient
+          classification scheme or typology.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="title" ns="http://www.w3.org/1999/xlink">
+        <a:documentation xml:lang="eng">contains a human-readable description of
+          the entire link. A value is optional; if a value is supplied, it
+          should contain a string that describes the resource. The use of this
+          information is highly dependent on the type of processing being done.
+          It may be used, for example, to make titles available to applications
+          used by visually impaired users, or to create a table of links, or to
+          present help text that appears when a user lets a mouse pointer hover
+          over a starting resource.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.link.external" combine="interleave">
+    <a:documentation xml:lang="eng">Linking attributes for external referencing
+      elements</a:documentation>
+    <optional>
+      <attribute name="entityref">
+        <a:documentation xml:lang="eng">uses a previously-declared entity to
+          identify an external electronic object.</a:documentation>
+        <data type="ENTITY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fragment">
+        <a:documentation xml:lang="eng">permits identification of one or more
+          sub-parts within the object being pointed to.</a:documentation>
+        <ref name="data.FRAGMENT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="href" ns="http://www.w3.org/1999/xlink">
+        <a:documentation xml:lang="eng">allows the use of an
+          previously-undeclared URI to identify an external electronic
+          object.</a:documentation>
+        <ref name="data.URI"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.link.internal" combine="interleave">
+    <a:documentation xml:lang="eng">Linking attributes for internal referencing
+      elements</a:documentation>
+    <optional>
+      <attribute name="plist">
+        <a:documentation xml:lang="eng">contains an ID reference for each of the
+          participants in a collection of elements.</a:documentation>
+        <ref name="data.PLIST"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.name">
+    <a:documentation xml:lang="eng">Attributes shared by names</a:documentation>
+    <optional>
+      <attribute name="authority">
+        <a:documentation xml:lang="eng">contains the name of the list from which
+          a controlled value is taken, such as the Thesaurus of Geographic Names
+          (TGN), etc.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key">
+        <a:documentation xml:lang="eng">used to record a value which serves as a
+          primary key in an external database.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="reg">
+        <a:documentation xml:lang="eng">used to record a regularized form of the
+          name.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.startendid">
+    <a:documentation xml:lang="eng">Attributes recording the IDs of a sequence
+      of elements to which the current element is associated.</a:documentation>
+    <optional>
+      <attribute name="startid">
+        <a:documentation xml:lang="eng">holds a reference to the first element
+          in the sequence.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="endid">
+        <a:documentation xml:lang="eng">indicates the final element in the
+          sequence.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.annot" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.annot" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records the durational scope of the
+          annotation when it differs from the written values of the
+          participants. Its value may be expressed in one of several forms, such
+          as measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum **recip
+          values, or MusicXML 'divisions', etc.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.annot" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes for annot. Values
+      for the type attribute can be taken from any convenient typology of
+      annotation suitable to the work in hand; e.g. annotation, gloss, citation,
+      digression, preliminary, temporary, etc.</a:documentation>
+    <ref name="att.startendid"/>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">records the durational scope of the
+          annotation. Please note that the dur attribute is not a true duration,
+          but rather a time stamp for the end point of the
+          directive.</a:documentation>
+        <ref name="data.MEASUREBEAT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="layer">
+        <a:documentation xml:lang="eng">signifies the layer to which an
+          annotation applies.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="staff">
+        <a:documentation xml:lang="eng">signifies the staff to which an
+          annotation applies.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp">
+        <a:documentation xml:lang="eng">encodes the onset time in terms of
+          musical time, i.e., beats[.fractional beat part]</a:documentation>
+        <ref name="data.BEAT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.ges">
+        <a:documentation xml:lang="eng">records the onset time in pulses per
+          quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
+          of the measure.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.real">
+        <a:documentation xml:lang="eng">records the onset time as a real-time
+          offset, i.e., in HH:MM:SS.ss format, since the beginning of the
+          file.</a:documentation>
+        <ref name="data.ISOTIME"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.annot" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <empty/>
   </define>
 
   <define name="att.anl.ending">
@@ -437,11 +729,98 @@
     </optional>
   </define>
 
+  <define name="att.typography">
+    <a:documentation xml:lang="eng">Typographical attributes</a:documentation>
+    <optional>
+      <attribute name="fontfam">
+        <a:documentation xml:lang="eng">contains the name of a
+          font-family.</a:documentation>
+        <ref name="data.FONTFAMILY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fontname">
+        <a:documentation xml:lang="eng">records the name of the
+          font.</a:documentation>
+        <ref name="data.FONTNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fontsize">
+        <a:documentation xml:lang="eng">indicates the size of the font in
+          printers' points, i.e., 1/72ths of an inch.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fontstyle">
+        <a:documentation xml:lang="eng">records the style of the font, i.e,
+          italic, oblique, or normal.</a:documentation>
+        <ref name="data.FONTSTYLE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fontweight">
+        <a:documentation xml:lang="eng">used to indicate bold
+          type.</a:documentation>
+        <ref name="data.FONTWEIGHT"/>
+      </attribute>
+    </optional>
+  </define>
+
   <!-- Declare module model classes -->
+  <define name="model.addressLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements used to represent a postal
+      address.</a:documentation>
+    <ref name="address"/>
+  </define>
+
+  <define name="model.annotLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups annotation-like
+      elements.</a:documentation>
+    <ref name="annot"/>
+  </define>
+
+  <define name="model.biblLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements containing a bibliographic
+      description.</a:documentation>
+    <ref name="bibl"/>
+  </define>
+
+  <define name="model.biblPart">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of a
+      bibliographic description.</a:documentation>
+    <ref name="model.editionLike"/>
+  </define>
+
+  <define name="model.captionLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that contain the text of a
+      caption or other text displayed along with a figure.</a:documentation>
+    <ref name="caption"/>
+  </define>
+
+  <define name="model.dateLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements containing date
+      expressions.</a:documentation>
+    <ref name="date"/>
+  </define>
+
+  <define name="model.editionLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements containing bibliographic
+      edition information.</a:documentation>
+    <ref name="edition"/>
+  </define>
+
   <define name="model.endingLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that represent alternative
       endings.</a:documentation>
     <ref name="ending"/>
+  </define>
+
+  <define name="model.identifierLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups identifier-like
+      elements.</a:documentation>
+    <ref name="identifier"/>
   </define>
 
   <define name="model.layerLike" combine="interleave">
@@ -466,6 +845,12 @@
     </choice> -->
   </define>
 
+  <define name="model.lbLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that function like line
+      breaks.</a:documentation>
+    <ref name="lb"/>
+  </define>
+
   <define name="model.mdivLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements used to represent generic
       structural divisions of music notation.</a:documentation>
@@ -476,6 +861,21 @@
     <a:documentation xml:lang="eng">groups measure-like
       elements.</a:documentation>
     <ref name="measure"/>
+  </define>
+
+  <define name="model.measurementLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that represent a
+      measurement.</a:documentation>
+    <ref name="model.numLike"/>
+  </define>
+
+  <define name="model.milestoneLike.text" combine="interleave">
+    <a:documentation xml:lang="eng">groups milestone-style elements found in
+      text.</a:documentation>
+    <choice>
+      <ref name="lb"/>
+      <ref name="pb"/>
+    </choice>
   </define>
 
   <define name="model.musicPart" combine="interleave">
@@ -495,6 +895,18 @@
     </optional>
   </define>
 
+  <define name="model.nameLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that contain
+      names.</a:documentation>
+    <ref name="name"/>
+  </define>
+
+  <define name="model.numLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that denote a number or a
+      quantity.</a:documentation>
+    <ref name="num"/>
+  </define>
+
   <define name="model.partLike">
     <a:documentation xml:lang="eng">groups elements that represent a separate
       performer part.</a:documentation>
@@ -505,6 +917,21 @@
     <a:documentation xml:lang="eng">groups elements that group separate
       performer parts.</a:documentation>
     <ref name="parts"/>
+  </define>
+
+  <define name="model.rendLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that mark typographical
+      features.</a:documentation>
+    <choice>
+      <ref name="rend"/>
+      <ref name="stack"/>
+    </choice>
+  </define>
+
+  <define name="model.repositoryLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that denote a corporate
+      entity that holds a bibliographic item.</a:documentation>
+    <ref name="repository"/>
   </define>
 
   <define name="model.scoreLike" combine="interleave">
@@ -555,7 +982,209 @@
     </choice>
   </define>
 
+  <define name="model.textphraseLike" combine="interleave">
+    <a:documentation xml:lang="eng">Phrase-level text
+      elements.</a:documentation>
+    <choice>
+      <ref name="model.locrefLike"/>
+      <ref name="model.addressLike"/>
+      <ref name="model.annotLike"/>
+      <ref name="model.biblLike"/>
+      <ref name="model.editorialLike"/>
+      <ref name="model.nameLike"/>
+      <ref name="model.nameLike.agent"/>
+      <ref name="model.nameLike.place"/>
+      <ref name="model.nameLike.label"/>
+      <ref name="model.dateLike"/>
+      <ref name="model.rendLike"/>
+      <ref name="model.measurementLike"/>
+      <ref name="model.titleLike"/>
+      <ref name="model.identifierLike"/>
+      <ref name="model.figureLike"/>
+      <ref name="model.milestoneLike.text"/>
+    </choice>
+  </define>
+
+  <define name="model.textphraseLike.limited" combine="interleave">
+    <a:documentation xml:lang="eng">groups textual elements that occur as part
+      of the representation of the score, as opposed to the textual matter which
+      accompanies it. This class is equivalent to the model.textphraseLike class
+      without the pb element.</a:documentation>
+    <choice>
+      <ref name="model.locrefLike"/>
+      <ref name="model.addressLike"/>
+      <ref name="model.biblLike"/>
+      <ref name="model.editorialLike"/>
+      <ref name="model.nameLike"/>
+      <ref name="model.nameLike.agent"/>
+      <ref name="model.nameLike.place"/>
+      <ref name="model.nameLike.label"/>
+      <ref name="model.dateLike"/>
+      <ref name="model.rendLike"/>
+      <ref name="model.measurementLike"/>
+      <ref name="model.titleLike"/>
+      <ref name="model.identifierLike"/>
+      <ref name="model.figureLike"/>
+      <ref name="model.lbLike"/>
+    </choice>
+  </define>
+
+  <define name="model.titleLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that denote names of a
+      bibliographic item.</a:documentation>
+    <ref name="title"/>
+  </define>
+
   <!-- Declare module elements -->
+  <define name="content.address">
+    <oneOrMore>
+      <ref name="addressline"/>
+    </oneOrMore>
+  </define>
+  <define name="address">
+    <element name="address">
+      <a:documentation xml:lang="eng">address ― A postal
+        address.</a:documentation>
+      <ref name="attlist.address"/>
+      <ref name="content.address"/>
+    </element>
+  </define>
+  <define name="attlist.address">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.addressline">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="addressline">
+    <element name="addressline">
+      <a:documentation xml:lang="eng">addressline ― Single line of a postal
+        address. This element may be repeated as many times as necessary to
+        enter all available lines of an address.</a:documentation>
+      <ref name="attlist.addressline"/>
+      <ref name="content.addressline"/>
+    </element>
+  </define>
+  <define name="attlist.addressline">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.annot">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="annot">
+    <element name="annot">
+      <a:documentation xml:lang="eng">annotation ― Provides a short statement
+        explaining the text or indicating the basis for an assertion. It is used
+        for both general comments and for an annotation of the musical text.
+        &lt;annot&gt; provides a way to group participating *events*
+        and/or *control events*, the notes that form a descending bass line or
+        phrase marks, for example, and provide a label for or comment regarding
+        the group. A list of event IDs may be given in the plist attribute. An
+        editorial or analytical comment or observation, encoded elsewhere, such
+        as in the front or back matter, in score text elements, or in an
+        external document may be pointed to using the link.common,
+        link.internal, or link.external attributes. Alternatively, the
+        observation may be included directly within the &lt;annot&gt;
+        element. The &lt;annot&gt; element, along with other elements
+        with attributes from the att.link.external class, may also be used to
+        link/synchronize elements within the MEI file to external media such as
+        images or sound recordings. The ID of the MEI element(s) to be linked
+        from should be encoded in the plist attribute while the link to the
+        external media may be encoded in the href or entityref attributes or in
+        the body of the annotation using &lt;extref&gt; or
+        &lt;extptr&gt; elements. The starting point of the annotation
+        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
+        attribute, while the ending point may be recorded by either a dur,
+        dur.ges or endid attribute.</a:documentation>
+      <ref name="attlist.annot"/>
+      <ref name="content.annot"/>
+    </element>
+  </define>
+  <define name="attlist.annot">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.typed"/>
+    <ref name="att.log.annot"/>
+    <ref name="att.vis.annot"/>
+    <ref name="att.ges.annot"/>
+    <ref name="att.anl.annot"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.internal"/>
+    <ref name="att.link.external"/>
+    <optional>
+      <attribute name="resp">
+        <a:documentation xml:lang="eng">records the editor(s) responsible for
+          identifying or creating the annotation. Its value must point to one or
+          more of the identifiers declared in the document header, associated
+          with a person asserted as responsible for some aspect of the text's
+          creation, transcription, editing, or encoding.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">contains a list of one or more pointers
+          indicating the sources that contain a given annotation. Each value
+          should correspond to the ID of a &lt;source&gt; element given
+          elsewhere in the document.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.bibl">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.biblPart"/>
+        <ref name="model.textphraseLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="bibl">
+    <element name="bibl">
+      <a:documentation xml:lang="eng">bibliographic reference ― Provides a
+        citation for a published work. &lt;bibref&gt; may contain a mix
+        of text and more specific elements such as &lt;title&gt;,
+        &lt;edition&gt;, &lt;persname&gt;, and
+        &lt;corpname&gt;. This element may also function as a hypertext
+        reference to an external electronic resource. Do not confuse this
+        element with &lt;ref&gt;, which is an internal link from one
+        place in the MEI document to another place in the same
+        document.</a:documentation>
+      <ref name="attlist.bibl"/>
+      <ref name="content.bibl"/>
+    </element>
+  </define>
+  <define name="attlist.bibl">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.external"/>
+  </define>
+
   <define name="content.body">
     <oneOrMore>
       <ref name="model.mdivLike"/>
@@ -574,6 +1203,80 @@
   </define>
   <define name="attlist.body">
     <ref name="att.common"/>
+  </define>
+
+  <define name="content.caption">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="caption">
+    <element name="caption">
+      <a:documentation xml:lang="eng">caption ― A label which accompanies an
+        illustration or a table.</a:documentation>
+      <ref name="attlist.caption"/>
+      <ref name="content.caption"/>
+    </element>
+  </define>
+  <define name="attlist.caption">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.date">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="date">
+    <element name="date">
+      <a:documentation xml:lang="eng">date ― A date in any
+        format.</a:documentation>
+      <ref name="attlist.date"/>
+      <ref name="content.date"/>
+    </element>
+  </define>
+  <define name="attlist.date">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.date"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.edition">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="edition">
+    <element name="edition">
+      <a:documentation xml:lang="eng">edition ― The edition designation is a
+        word or text phrase that normally indicates a difference in either
+        content or form between the item being described and a related item
+        previously issued by the same publisher/distributor (e.g. 2nd edition,
+        version 2.0, etc.), or simultaneously issued by either the same
+        publisher/distributor or another publisher/distributor (e.g. large print
+        edition, British edition, etc.).</a:documentation>
+      <ref name="attlist.edition"/>
+      <ref name="content.edition"/>
+    </element>
+  </define>
+  <define name="attlist.edition">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
   </define>
 
   <define name="content.ending">
@@ -672,6 +1375,33 @@
     <ref name="att.common"/>
   </define>
 
+  <define name="content.identifier">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="identifier">
+    <element name="identifier">
+      <a:documentation xml:lang="eng">identifier ― Bibliographic, e.g.,
+        International Standard Book/Music Number, Library of Congress Control
+        Number, publisher's number, plate number, or personal
+        identifier.</a:documentation>
+      <ref name="attlist.identifier"/>
+      <ref name="content.identifier"/>
+    </element>
+  </define>
+  <define name="attlist.identifier">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+  </define>
+
   <define name="content.layer">
     <zeroOrMore>
       <choice>
@@ -698,6 +1428,47 @@
     <ref name="att.vis.layer"/>
     <ref name="att.ges.layer"/>
     <ref name="att.anl.layer"/>
+  </define>
+
+  <define name="content.lb">
+    <empty/>
+  </define>
+  <define name="lb">
+    <element name="lb">
+      <a:documentation xml:lang="eng">line break ― An empty formatting element
+        that forces text to begin on a new line. The n attribute should be used
+        to record a label for the line, i.e., most likely a line number. See
+        comment on &lt;verse&gt; element for description of func
+        attribute. Do not confuse this element with the &lt;sb&gt;
+        element, which performs a similar function for musical
+        notation.</a:documentation>
+      <ref name="attlist.lb"/>
+      <ref name="content.lb"/>
+    </element>
+  </define>
+  <define name="attlist.lb">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+    <optional>
+      <attribute name="func">
+        <a:documentation xml:lang="eng">states whether the line break follows a
+          single line or a line group.</a:documentation>
+        <choice>
+          <value>line</value>
+          <value>group</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">Source descriptions in the header may be
+          pointed to by putting their IDs in the source attribute. This allows
+          line breaks from multiple sources to be encoded with a single
+          &lt;lb&gt; element.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
   </define>
 
   <define name="content.mdiv">
@@ -832,26 +1603,79 @@
       </attribute>
     </optional>
   </define>
-  <!-- <define name="_ABSTRACTmodel.controleventLike.mensural" combine="interleave">
-    <notAllowed/>
-    </define>
-    <define name="_ABSTRACTmodel.controleventLike.mensural-cmn"
-    combine="interleave">
-    <notAllowed/>
-    </define>
-    <define name="_ABSTRACTmodel.controleventLike.neume" combine="interleave">
-    <notAllowed/>
-    </define>
-    <define name="_ABSTRACTmodel.controleventLike.neume-cmn" combine="interleave">
-    <notAllowed/>
-    </define>
-    <define name="_ABSTRACTmodel.controleventLike.neume-mensural"
-    combine="interleave">
-    <notAllowed/>
-    </define>
-    <define name="_ABSTRACTmodel.eventLike.neume-cmn" combine="interleave">
-    <notAllowed/>
-    </define> -->
+
+  <define name="content.name">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="name">
+    <element name="name">
+      <a:documentation xml:lang="eng">name ― Contains the name of an entity that
+        is difficult to tag more specifically as a &lt;corpname&gt;,
+        &lt;geogname&gt;, &lt;persname&gt;, or
+        &lt;title&gt;. The &lt;name&gt; element may be used in
+        place of the more specific elements when it is not known what kind of
+        name is being described or when a high degree of precision is not
+        necessary. For example, the &lt;name&gt; element might be used
+        when it is not clear whether the name "Bach" refers to a person or a
+        geographic feature. The &lt;name&gt; element may be used for an
+        individual, such as 'Henry VIII, King of England'; a corporate body,
+        such as 'The Beatles'; a geographical place; or a generative mechanical
+        process. When name parts are needed, use &lt;name&gt;
+        sub-elements. The recommended values for the type attribute are: pers,
+        corp, place, process. The &lt;date&gt; sub-element is available
+        within &lt;name&gt; in order to record any dates, associated
+        with the name, i.e., birth and death in the case of persons or creation
+        and dissolution in the case of a corporate entity or
+        place.</a:documentation>
+      <ref name="attlist.name"/>
+      <ref name="content.name"/>
+    </element>
+  </define>
+  <define name="attlist.name">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.name"/>
+    <ref name="att.typed"/>
+  </define>
+
+  <define name="content.num">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="num">
+    <element name="num">
+      <a:documentation xml:lang="eng">number ― Numeric information in any form
+        occurring in text.</a:documentation>
+      <ref name="attlist.num"/>
+      <ref name="content.num"/>
+    </element>
+  </define>
+  <define name="attlist.num">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <optional>
+      <attribute name="unit">
+        <a:documentation xml:lang="eng">indicates the units of measurement of
+          the numeric value.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
 
   <define name="content.parts">
     <zeroOrMore>
@@ -905,6 +1729,176 @@
     <ref name="att.vis.part"/>
     <ref name="att.ges.part"/>
     <ref name="att.anl.part"/>
+  </define>
+
+  <define name="content.pb">
+    <ref name="model.metaLike"/>
+  </define>
+  <define name="pb">
+    <element name="pb">
+      <a:documentation xml:lang="eng">page break ― The n attribute records the
+        page number in the source. It need not be an integer, e.g. 'iv', or
+        'p17-3'. The logical page number can be calculated by counting previous
+        &lt;pb&gt; ancestor elements. When used in a score context, a
+        page break implies an accompanying system break.</a:documentation>
+      <ref name="attlist.pb"/>
+      <ref name="content.pb"/>
+    </element>
+  </define>
+  <define name="attlist.pb">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.external"/>
+    <optional>
+      <attribute name="func">
+        <a:documentation xml:lang="eng">states the side of a leaf (as in a
+          manuscript) on which the content following the &lt;pb&gt;
+          element occurs.</a:documentation>
+        <choice>
+          <value>verso</value>
+          <value>recto</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">provided for linking to the
+          bibliographic description of the source(s) that contains the page
+          break. This allows page breaks from multiple sources to be encoded
+          using a single &lt;pb&gt; element.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.pgdesc">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.annotLike"/>
+        <ref name="model.locrefLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="pgdesc">
+    <element name="pgdesc">
+      <a:documentation xml:lang="eng">page description ― Contains a brief prose
+        description of the appearance or description of the content of a
+        physical page. Best practice suggests the use of controlled vocabulary.
+        Don't confuse this element with a figure caption. A caption is text
+        primarily intended for display with an illustration. It may or may not
+        function as a description of the illustration.</a:documentation>
+      <ref name="attlist.pgdesc"/>
+      <ref name="content.pgdesc"/>
+    </element>
+  </define>
+  <define name="attlist.pgdesc">
+    <ref name="att.common"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.rend">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="rend">
+    <element name="rend">
+      <a:documentation xml:lang="eng">rend ― A formatting element indicating
+        special visual rendering, e.g., bold or italicized, of a text word or
+        phrase. When an entire element should be rendered in a special way, a
+        style sheet function should be used instead of the &lt;rend&gt;
+        element.</a:documentation>
+      <ref name="attlist.rend"/>
+      <ref name="content.rend"/>
+    </element>
+  </define>
+  <define name="attlist.rend">
+    <ref name="att.color"/>
+    <ref name="att.common"/>
+    <ref name="att.lang"/>
+    <ref name="att.typography"/>
+    <optional>
+      <attribute name="altrend">
+        <a:documentation xml:lang="eng">used to extend the values of the rend
+          attribute. One or the other of the rend and altrend attributes is
+          required.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="halign">
+        <a:documentation xml:lang="eng">specifies the horizontal alignment of
+          the element content.</a:documentation>
+        <choice>
+          <value>left</value>
+          <value>right</value>
+          <value>center</value>
+          <value>justify</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">captures the appearance of the text. One
+          or the other of the rend and altrend attributes is
+          required.</a:documentation>
+        <ref name="data.TEXTRENDITION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rotation">
+        <a:documentation xml:lang="eng">A positive value for rotation rotates
+          the text in a counter-clockwise fashion, while negative values produce
+          clockwise rotation. </a:documentation>
+        <ref name="data.DEGREES"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="valign">
+        <a:documentation xml:lang="eng">specifies the vertical alignment of the
+          element content.</a:documentation>
+        <choice>
+          <value>top</value>
+          <value>middle</value>
+          <value>bottom</value>
+          <value>baseline</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.repository">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="repository">
+    <element name="repository">
+      <a:documentation xml:lang="eng">repository ― Institution or agency which
+        holds a bibliographic item. Sub-units of the institution may be marked
+        with nested &lt;repository&gt; elements.</a:documentation>
+      <ref name="attlist.repository"/>
+      <ref name="content.repository"/>
+    </element>
+  </define>
+  <define name="attlist.repository">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.name"/>
+    <ref name="att.typed"/>
   </define>
 
   <define name="content.score">
@@ -969,6 +1963,46 @@
     <ref name="att.anl.section"/>
   </define>
 
+  <define name="content.stack">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="stack">
+    <element name="stack">
+      <a:documentation xml:lang="eng">stacked text ― An inline table with a
+        single column.</a:documentation>
+      <ref name="attlist.stack"/>
+      <ref name="content.stack"/>
+    </element>
+  </define>
+  <define name="attlist.stack">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <optional>
+      <attribute name="delim">
+        <a:documentation xml:lang="eng">gives the delimiter used to mark the
+          portions of text that are to be stacked.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="align">
+        <a:documentation xml:lang="eng">specifies how the stacked text should be
+          aligned.</a:documentation>
+        <choice>
+          <value>left</value>
+          <value>right</value>
+          <value>center</value>
+          <value>rightdigit</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="content.staff">
     <zeroOrMore>
       <choice>
@@ -1015,6 +2049,56 @@
     <ref name="att.vis.note"/>
     <ref name="att.ges.note"/>
     <ref name="att.anl.note"/>
+  </define>
+
+  <define name="content.title">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="title">
+    <element name="title">
+      <a:documentation xml:lang="eng">title ― Title of a bibliographic entity.
+        The type attribute may be used to classify the title according to some
+        convenient typology. Sample values include: main (main title),
+        subordinate (subtitle, title of part), abbreviated (abbreviated form of
+        title), alternative (alternate title by which the work is also known),
+        translated (translated form of title), uniform (collective title). The
+        type attribute is provided for convenience in analysing titles and
+        processing them according to their type; where such specialized
+        processing is not necessary, there is no need for such analysis, and the
+        entire title, including subtitles and any parallel titles, may be
+        enclosed within a single &lt;title&gt; element. Title parts may
+        be encoded in &lt;title&gt; sub-elements</a:documentation>
+      <ref name="attlist.title"/>
+      <ref name="content.title"/>
+    </element>
+  </define>
+  <define name="attlist.title">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.name"/>
+    <ref name="att.typed"/>
+    <optional>
+      <attribute name="level">
+        <a:documentation xml:lang="eng">indicates whether this is the title of
+          an article, monograph, journal, series, or unpublished
+          material.</a:documentation>
+        <choice>
+          <value>a</value>
+          <value>m</value>
+          <value>j</value>
+          <value>s</value>
+          <value>u</value>
+        </choice>
+      </attribute>
+    </optional>
   </define>
 
 </grammar>

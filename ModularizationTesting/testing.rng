@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <!-- Include datatypes -->
   <include href="../RNG/datatypes.rng"/>
@@ -39,19 +43,29 @@
     <empty/>
   </define>
 
-  <define name="att.log.note">
+  <define name="att.anl.annot">
     <empty/>
   </define>
-
-  <define name="att.vis.note">
+  <define name="att.ges.annot">
     <empty/>
   </define>
-
-  <define name="att.ges.note">
+  <define name="att.log.annot">
+    <empty/>
+  </define>
+  <define name="att.vis.annot">
     <empty/>
   </define>
 
   <define name="att.anl.note">
+    <empty/>
+  </define>
+  <define name="att.log.note">
+    <empty/>
+  </define>
+  <define name="att.ges.note">
+    <empty/>
+  </define>
+  <define name="att.vis.note">
     <empty/>
   </define>
 
@@ -60,7 +74,39 @@
   </define>
 
   <!-- Define all model classes as empty -->
+  <define name="model.addressLike">
+    <empty/>
+  </define>
+
+  <define name="model.annotLike">
+    <empty/>
+  </define>
+
+  <define name="model.availabilityPart">
+    <empty/>
+  </define>
+
   <define name="model.backLike">
+    <empty/>
+  </define>
+
+  <define name="model.biblLike">
+    <empty/>
+  </define>
+
+  <define name="model.captionLike">
+    <empty/>
+  </define>
+
+  <define name="model.dateLike">
+    <empty/>
+  </define>
+
+  <define name="model.editionLike">
+    <empty/>
+  </define>
+
+  <define name="model.editorialLike">
     <empty/>
   </define>
 
@@ -68,7 +114,15 @@
     <empty/>
   </define>
 
+  <define name="model.editLike">
+    <empty/>
+  </define>
+
   <define name="model.facsimileLike">
+    <empty/>
+  </define>
+
+  <define name="model.figureLike">
     <empty/>
   </define>
 
@@ -87,24 +141,60 @@
   <define name="model.figdescLike">
     <empty/>
   </define>
-  
+
+  <define name="model.graphicprimitiveLike">
+    <empty/>
+  </define>
+
+  <define name="model.headerPart">
+    <empty/>
+  </define>
+
+  <define name="model.identifierLike">
+    <empty/>
+  </define>
+
   <define name="model.layerLike">
     <empty/>
   </define>
-  
+
   <define name="model.layerPart">
+    <empty/>
+  </define>
+
+  <define name="model.lbLike">
+    <empty/>
+  </define>
+
+  <define name="model.listLike">
+    <empty/>
+  </define>
+
+  <define name="model.locrefLike">
     <empty/>
   </define>
 
   <define name="model.mdivLike">
     <empty/>
   </define>
-  
+
+  <define name="model.metaLike">
+    <empty/>
+  </define>
+
   <define name="model.measureLike">
     <empty/>
   </define>
-  
+
+  <define name="model.measurementLike">
+    <empty/>
+  </define>
+
   <define name="model.measurePart">
+    <empty/>
+  </define>
+
+  <define name="model.milestoneLike.text">
     <empty/>
   </define>
 
@@ -112,7 +202,55 @@
     <empty/>
   </define>
 
+  <define name="model.nameLike">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike.agent">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike.geogname">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike.label">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike.place">
+    <empty/>
+  </define>
+
+  <define name="model.numLike">
+    <empty/>
+  </define>
+
+  <define name="model.pLike">
+    <empty/>
+  </define>
+
   <define name="model.partsLike">
+    <empty/>
+  </define>
+
+  <define name="model.physdescPart">
+    <empty/>
+  </define>
+
+  <define name="model.ptrLike">
+    <empty/>
+  </define>
+
+  <define name="model.pubstmtPart">
+    <empty/>
+  </define>
+
+  <define name="model.rendLike">
+    <empty/>
+  </define>
+
+  <define name="model.repositoryLike">
     <empty/>
   </define>
 
@@ -135,8 +273,28 @@
   <define name="model.staffLike">
     <empty/>
   </define>
-  
+
   <define name="model.staffPart">
+    <empty/>
+  </define>
+
+  <define name="model.textcomponentLike">
+    <empty/>
+  </define>
+
+  <define name="model.textphraseLike">
+    <empty/>
+  </define>
+
+  <define name="model.textphraseLike.limited">
+    <empty/>
+  </define>
+
+  <define name="model.titleLike">
+    <empty/>
+  </define>
+
+  <define name="model.transcriptionLike">
     <empty/>
   </define>
 
@@ -158,5 +316,7 @@
   <include href="analysis_Module.rng"/>
   <include href="facsimile_Module.rng"/>
   <include href="figure_Module.rng"/>
+  <include href="ptrref_Module.rng"/>
+  <include href="namesdates_Module.rng"/>
 
 </grammar>

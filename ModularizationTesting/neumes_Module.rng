@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<grammar 
-  xmlns="http://relaxng.org/ns/structure/1.0"
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <!-- Neumes Module -->
   <!-- Declare module attr classes -->
@@ -15,5 +18,7 @@
       <ref name="model.staffLike"/>
     </zeroOrMore>
   </define>
+  
+  <!-- Declare module elements -->
 
 </grammar>

@@ -1,18 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
-  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
 
+  <!-- Header Module -->
+  <!-- Declare module attr classes -->
+
+  <!-- Declare module model classes -->
+  <define name="model.availabilityPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of a
+      description of the availability of and access to a bibliographic
+      item.</a:documentation>
+    <zeroOrMore>
+      <ref name="acqsource"/>
+      <zeroOrMore>
+        <ref name="accessdesc"/>
+        <optional>
+          <ref name="price"/>
+        </optional>
+      </zeroOrMore>
+    </zeroOrMore>
+    <optional>
+      <ref name="userestrict"/>
+    </optional>
+    <optional>
+      <ref name="sysreq"/>
+    </optional>
+  </define>
+
+  <define name="model.pubstmtPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of
+      the publication statement for a bibliographic item.</a:documentation>
+    <choice>
+      <ref name="model.nameLike.geogname"/>
+      <ref name="model.addressLike"/>
+      <ref name="respstmt"/>
+      <ref name="model.dateLike"/>
+      <ref name="identifier"/>
+      <ref name="availability"/>
+    </choice>
+  </define>
+
+  <!-- Declare module elements -->
   <define name="content.meihead">
-    <empty/>
-    <!-- <zeroOrMore>
+    <zeroOrMore>
       <ref name="altmeiid"/>
     </zeroOrMore>
     <ref name="filedesc"/>
     <ref name="model.headerPart"/>
     <optional>
       <ref name="revisiondesc"/>
-    </optional> -->
+    </optional>
   </define>
   <define name="meihead">
     <element name="meihead">
@@ -30,6 +72,7 @@
         of the work being encoded, and statements regarding significant
         revisions of the file.</a:documentation>
       <ref name="attlist.meihead"/>
+      <ref name="content.meihead"/>
     </element>
   </define>
   <define name="attlist.meihead">
@@ -52,6 +95,793 @@
         <ref name="meiVersion"/>
       </attribute>
     </optional>
+  </define>
+
+  <define name="content.accessdesc">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="accessdesc">
+    <element name="accessdesc">
+      <a:documentation xml:lang="eng">access description ― Describes the
+        conditions that affect the accessibility of a bibliographic item. May
+        indicate the nature of restrictions or the lack of
+        restrictions.</a:documentation>
+      <ref name="attlist.accessdesc"/>
+      <ref name="content.accessdesc"/>
+    </element>
+  </define>
+  <define name="attlist.accessdesc">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.acqsource">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="acqsource">
+    <element name="acqsource">
+      <a:documentation xml:lang="eng">acquisition source ― Post-publication
+        source from which access to a bibliographic item may be obtained, e.g.
+        vendor, distributor, etc.</a:documentation>
+      <ref name="attlist.acqsource"/>
+      <ref name="content.acqsource"/>
+    </element>
+  </define>
+  <define name="attlist.acqsource">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.altmeiid">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="altmeiid">
+    <element name="altmeiid">
+      <a:documentation xml:lang="eng">alternative MEI id ― May contain a
+        bibliographic identifier that does not fit within the meihead id
+        attribute, for example because the id does not fit the definition of an
+        XML id or because multiple identifiers are needed. One or the other of
+        &lt;altmeiid&gt; or the id attribute on &lt;mei&gt; is
+        required when applicable.</a:documentation>
+      <ref name="attlist.altmeiid"/>
+      <ref name="content.altmeiid"/>
+    </element>
+  </define>
+  <define name="attlist.altmeiid">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.typed"/>
+  </define>
+
+  <define name="content.availability">
+    <ref name="model.availabilityPart"/>
+  </define>
+  <define name="availability">
+    <element name="availability">
+      <a:documentation xml:lang="eng">availability ― Groups elements that
+        describe the availability of and access to a bibliographic
+        item.</a:documentation>
+      <ref name="attlist.availability"/>
+      <ref name="content.availability"/>
+    </element>
+  </define>
+  <define name="attlist.availability">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.change">
+    <ref name="respstmt"/>
+    <ref name="changedesc"/>
+    <ref name="model.dateLike"/>
+  </define>
+  <define name="change">
+    <element name="change">
+      <a:documentation xml:lang="eng">change ― Individual change within the
+        revision description. Additions, deletions, and significant recoding
+        should be noted, but not correction of minor typographical errors. It is
+        recommended that revisions should be entered in reverse chronological
+        order, with the most recent &lt;change&gt; first. The resp
+        attribute contains a pointer to an element containing info about the
+        person/entity responsible for change. The edition element can be used to
+        designate an MEI encoding that has been so substantively changed that it
+        constitutes a new version that supersedes earlier
+        versions.</a:documentation>
+      <ref name="attlist.change"/>
+      <ref name="content.change"/>
+    </element>
+  </define>
+  <define name="attlist.change">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.changedesc">
+    <oneOrMore>
+      <ref name="model.pLike"/>
+    </oneOrMore>
+  </define>
+  <define name="changedesc">
+    <element name="changedesc">
+      <a:documentation xml:lang="eng">change description ― Description of a
+        revision of the MEI file.</a:documentation>
+      <ref name="attlist.changedesc"/>
+      <ref name="content.changedesc"/>
+    </element>
+  </define>
+  <define name="attlist.changedesc">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.classcode">
+    <text/>
+  </define>
+  <define name="classcode">
+    <element name="classcode">
+      <a:documentation xml:lang="eng">classification code ― LC subject or call
+        number, or a thesaurus or ontology citation. The source of
+        controlled-vocabulary terms used in the keywords
+        element.</a:documentation>
+      <ref name="attlist.classcode"/>
+      <ref name="content.classcode"/>
+    </element>
+  </define>
+  <define name="attlist.classcode">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.classification">
+    <oneOrMore>
+      <choice>
+        <ref name="classcode"/>
+        <ref name="keywords"/>
+      </choice>
+    </oneOrMore>
+  </define>
+  <define name="classification">
+    <element name="classification">
+      <a:documentation xml:lang="eng">classification ― Groups information which
+        describes the nature or topic of a musical work. Although use of names
+        and terms from locally controlled vocabularies is possible, terms used
+        here should come from standard national or international vocabularies
+        whenever they are available in order to enable searches in systems that
+        include multiple MEI documents, or MEI documents and bibliographic
+        records from many institutions.</a:documentation>
+      <ref name="attlist.classification"/>
+      <ref name="content.classification"/>
+    </element>
+  </define>
+  <define name="attlist.classification">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.editionstmt">
+    <oneOrMore>
+      <ref name="edition"/>
+      <zeroOrMore>
+        <ref name="respstmt"/>
+      </zeroOrMore>
+    </oneOrMore>
+  </define>
+  <define name="editionstmt">
+    <element name="editionstmt">
+      <a:documentation xml:lang="eng">edition statement ― Container for
+        meta-data pertaining to a particular edition of the material being
+        described.</a:documentation>
+      <ref name="attlist.editionstmt"/>
+      <ref name="content.editionstmt"/>
+    </element>
+  </define>
+  <define name="attlist.editionstmt">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.extent">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="extent">
+    <element name="extent">
+      <a:documentation xml:lang="eng">extent ― Used to express size in terms
+        other than physical dimensions, such as number of pages, number of
+        records in file, number of bytes, performance duration for music, audio
+        recordings and visual projections, etc. Use the
+        &lt;dimensions&gt; element when it is necessary to specify the
+        physical size of materials being described, for example, height and
+        width.</a:documentation>
+      <ref name="attlist.extent"/>
+      <ref name="content.extent"/>
+    </element>
+  </define>
+  <define name="attlist.extent">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+    <optional>
+      <attribute name="unit">
+        <a:documentation xml:lang="eng">indicates the unit of measurement of the
+          extent.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.filedesc">
+    <ref name="titlestmt"/>
+    <optional>
+      <ref name="editionstmt"/>
+    </optional>
+    <optional>
+      <ref name="extent"/>
+    </optional>
+    <optional>
+      <ref name="fingerprint"/>
+    </optional>
+    <ref name="pubstmt"/>
+    <optional>
+      <ref name="seriesstmt"/>
+    </optional>
+    <optional>
+      <ref name="notesstmt"/>
+    </optional>
+    <optional>
+      <ref name="sourcedesc"/>
+    </optional>
+  </define>
+  <define name="filedesc">
+    <element name="filedesc">
+      <a:documentation xml:lang="eng">file description ― Contains a full
+        bibliographic description of the MEI file. Extent in this context is
+        file size.</a:documentation>
+      <ref name="attlist.filedesc"/>
+      <ref name="content.filedesc"/>
+    </element>
+  </define>
+  <define name="attlist.filedesc">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.fingerprint">
+    <text/>
+  </define>
+  <define name="fingerprint">
+    <element name="fingerprint">
+      <a:documentation xml:lang="eng">fingerprint ― Traditionally, an identifier
+        constructed by combining groups of characters transcribed from specified
+        pages of a printed item. For an electronic item, however, the
+        fingerprint should be a checksum. The checksum makes it possible to
+        signal differences between copies of the item.</a:documentation>
+      <ref name="attlist.fingerprint"/>
+      <ref name="content.fingerprint"/>
+    </element>
+  </define>
+  <define name="attlist.fingerprint">
+    <ref name="att.common"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.keywords">
+    <oneOrMore>
+      <ref name="term"/>
+    </oneOrMore>
+  </define>
+  <define name="keywords">
+    <element name="keywords">
+      <a:documentation xml:lang="eng">keywords ― Collection of keywords or text
+        phrases which describe the work.</a:documentation>
+      <ref name="attlist.keywords"/>
+      <ref name="content.keywords"/>
+    </element>
+  </define>
+  <define name="attlist.keywords">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.language">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="language">
+    <element name="language">
+      <a:documentation xml:lang="eng">language ― The name of a language. The
+        language of text elements may be related to this element via its id,
+        which normally takes the form of a code, drawn from a coded list, such
+        as RFC3066 or iso639-2b.</a:documentation>
+      <ref name="attlist.language"/>
+      <ref name="content.language"/>
+    </element>
+  </define>
+  <define name="attlist.language">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+    <optional>
+      <attribute name="authority">
+        <a:documentation xml:lang="eng">contains the name of the list from which
+          the language ID value is taken.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.langusage">
+    <oneOrMore>
+      <ref name="language"/>
+    </oneOrMore>
+  </define>
+  <define name="langusage">
+    <element name="langusage">
+      <a:documentation xml:lang="eng">language usage ― Langusage groups elements
+        describing the languages, sublanguages, dialects, etc., represented
+        within the encoded work.</a:documentation>
+      <ref name="attlist.langusage"/>
+      <ref name="content.langusage"/>
+    </element>
+  </define>
+  <define name="attlist.langusage">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.notesstmt">
+    <oneOrMore>
+      <ref name="model.annotLike"/>
+    </oneOrMore>
+  </define>
+  <define name="notesstmt">
+    <element name="notesstmt">
+      <a:documentation xml:lang="eng">notes statement ― Groups bibliographic
+        annotations, each of which provides descriptive information in addition
+        to that recorded in other parts of the bibliographic description. These
+        annotations are similar to "general notes" in traditional bibliographic
+        descriptions.</a:documentation>
+      <ref name="attlist.notesstmt"/>
+      <ref name="content.notesstmt"/>
+    </element>
+  </define>
+  <define name="attlist.notesstmt">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.physdesc">
+    <oneOrMore>
+      <ref name="model.physdescPart"/>
+    </oneOrMore>
+  </define>
+  <define name="physdesc">
+    <element name="physdesc">
+      <a:documentation xml:lang="eng">physical description ― Container for
+        information about the location, appearance, construction, or handling of
+        physical materials, such as their dimension, quantity, color, style, and
+        technique of creation. Dedicatory text and title page features may also
+        be encoded here when they are not transcribed as part of the front or
+        back matter; i.e., when they are considered to be meta-data rather than
+        a transcription.</a:documentation>
+      <ref name="attlist.physdesc"/>
+      <ref name="content.physdesc"/>
+    </element>
+  </define>
+  <define name="attlist.physdesc">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.physloc">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="physloc">
+    <element name="physloc">
+      <a:documentation xml:lang="eng">physical location ― Location of the source
+        within a repository, e.g., shelf mark or other locational
+        information.</a:documentation>
+      <ref name="attlist.physloc"/>
+      <ref name="content.physloc"/>
+    </element>
+  </define>
+  <define name="attlist.physloc">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.physmedium">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="physmedium">
+    <element name="physmedium">
+      <a:documentation xml:lang="eng">physical medium ― Records the physical
+        materials used in the source, such as ink and paper. All materials may
+        be described in a single &lt;physmedium&gt; element or multiple
+        elements may be used, one for each medium.</a:documentation>
+      <ref name="attlist.physmedium"/>
+      <ref name="content.physmedium"/>
+    </element>
+  </define>
+  <define name="attlist.physmedium">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+    <optional>
+      <attribute name="authority">
+        <a:documentation xml:lang="eng">contains the name of the list from which
+          a controlled value is taken.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.price">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="price">
+    <element name="price">
+      <a:documentation xml:lang="eng">price ― The cost of access to a
+        bibliographic item.</a:documentation>
+      <ref name="attlist.price"/>
+      <ref name="content.price"/>
+    </element>
+  </define>
+  <define name="attlist.price">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+    <optional>
+      <attribute name="unit">
+        <a:documentation xml:lang="eng">indicates the currency of the
+          price.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.pubstmt">
+    <choice>
+      <optional>
+        <ref name="unpub"/>
+      </optional>
+      <zeroOrMore>
+        <ref name="model.pubstmtPart"/>
+      </zeroOrMore>
+    </choice>
+  </define>
+  <define name="pubstmt">
+    <element name="pubstmt">
+      <a:documentation xml:lang="eng">publication statement ― Container for
+        information regarding the publication or distribution of a bibliographic
+        item, including the publisher's name and address, the date of
+        publication, and other relevant details. When an item is unpublished,
+        use only the &lt;unpub&gt; sub-element.</a:documentation>
+      <ref name="attlist.pubstmt"/>
+      <ref name="content.pubstmt"/>
+    </element>
+  </define>
+  <define name="attlist.pubstmt">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.resp">
+    <text/>
+  </define>
+  <define name="resp">
+    <element name="resp">
+      <a:documentation xml:lang="eng">responsibility ― A phrase describing the
+        nature of a person's intellectual responsibility.</a:documentation>
+      <ref name="attlist.resp"/>
+      <ref name="content.resp"/>
+    </element>
+  </define>
+  <define name="attlist.resp">
+    <optional>
+      <attribute name="authority">
+        <a:documentation xml:lang="eng">contains the name of the list from which
+          a controlled value is taken.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.respstmt">
+    <zeroOrMore>
+      <choice>
+        <ref name="resp"/>
+        <ref name="model.nameLike"/>
+        <ref name="model.nameLike.agent"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="respstmt">
+    <element name="respstmt">
+      <a:documentation xml:lang="eng">responsibility statement ― Names one or
+        more individuals, groups, or in rare cases, mechanical processes,
+        responsible for creation or realization of the intellectual or artistic
+        content.</a:documentation>
+      <ref name="attlist.respstmt"/>
+      <ref name="content.respstmt"/>
+    </element>
+  </define>
+  <define name="attlist.respstmt">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.revisiondesc">
+    <oneOrMore>
+      <ref name="change"/>
+    </oneOrMore>
+  </define>
+  <define name="revisiondesc">
+    <element name="revisiondesc">
+      <a:documentation xml:lang="eng">revision description ― Container for
+        information about alterations that have been made to an MEI file. It is
+        recommended that changes be recorded in reverse chronological order,
+        with the most recent alteration first.</a:documentation>
+      <ref name="attlist.revisiondesc"/>
+      <ref name="content.revisiondesc"/>
+    </element>
+  </define>
+  <define name="attlist.revisiondesc">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.seriesstmt">
+    <oneOrMore>
+      <ref name="title"/>
+    </oneOrMore>
+    <optional>
+      <ref name="respstmt"/>
+    </optional>
+    <zeroOrMore>
+      <ref name="identifier"/>
+    </zeroOrMore>
+    <choice>
+      <ref name="model.listLike"/>
+      <zeroOrMore>
+        <ref name="seriesstmt"/>
+      </zeroOrMore>
+    </choice>
+  </define>
+  <define name="seriesstmt">
+    <element name="seriesstmt">
+      <a:documentation xml:lang="eng">series statement ― Groups information
+        about the series, if any, to which a publication belongs. In this
+        context, the title element records the series title, the respStmt
+        element records the person or group responsible for the series, and the
+        identifier element contains a series identifier. The list element should
+        be used when it is necessary to enumerate the contents of the series.
+        The seriesstmt is provided within seriesstmt for the description of a
+        sub-series.</a:documentation>
+      <ref name="attlist.seriesstmt"/>
+      <ref name="content.seriesstmt"/>
+    </element>
+  </define>
+  <define name="attlist.seriesstmt">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.source">
+    <zeroOrMore>
+      <ref name="identifier"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="titlestmt"/>
+    </optional>
+    <optional>
+      <ref name="editionstmt"/>
+    </optional>
+    <ref name="pubstmt"/>
+    <optional>
+      <ref name="physdesc"/>
+    </optional>
+    <optional>
+      <ref name="seriesstmt"/>
+    </optional>
+    <optional>
+      <ref name="notesstmt"/>
+    </optional>
+    <optional>
+      <ref name="langusage"/>
+    </optional>
+    <optional>
+      <ref name="classification"/>
+    </optional>
+  </define>
+  <define name="source">
+    <element name="source">
+      <a:documentation xml:lang="eng">source ― A bibliographic description of a
+        source for the electronic file. Within source, the extent element may be
+        used when only a portion of the source, pages 1-3 for example, are
+        encoded. If extent is absent, then the entire source is presumed to have
+        been encoded. Multiple physdesc sub-elements may be used to describe the
+        physically separate parts of a single source.</a:documentation>
+      <ref name="attlist.source"/>
+      <ref name="content.source"/>
+    </element>
+  </define>
+  <define name="attlist.source">
+    <optional>
+      <attribute name="data">
+        <a:documentation xml:lang="eng">used to link the source description to a
+          particular data element, i.e., mdiv, part, section, ending, reading,
+          measure, staff or layer, when there are multiple
+          sources.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.sourcedesc">
+    <oneOrMore>
+      <ref name="source"/>
+    </oneOrMore>
+  </define>
+  <define name="sourcedesc">
+    <element name="sourcedesc">
+      <a:documentation xml:lang="eng">source description ― A container for the
+        descriptions of the source(s) used in the creation of the electronic
+        file. This element is recommended where the MEI file is a transcription
+        of existing music, but is not required when the data is originally
+        created in MEI form.</a:documentation>
+      <ref name="attlist.sourcedesc"/>
+      <ref name="content.sourcedesc"/>
+    </element>
+  </define>
+  <define name="attlist.sourcedesc">
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.sysreq">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="sysreq">
+    <element name="sysreq">
+      <a:documentation xml:lang="eng">system requirements ― System requirements
+        for using the electronic item.</a:documentation>
+      <ref name="attlist.sysreq"/>
+      <ref name="content.sysreq"/>
+    </element>
+  </define>
+  <define name="attlist.sysreq">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.term">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="term"/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="term">
+    <element name="term">
+      <a:documentation xml:lang="eng">term ― Single keyword or phrase which
+        describes the work. The classcode attribute may be used to link the term
+        to a terminological source given in a classcode element. The term
+        element may include other term elements in order to allow the creation
+        of coordinated terms; i.e., terms created from a combination of other,
+        independent terms.</a:documentation>
+      <ref name="attlist.term"/>
+      <ref name="content.term"/>
+    </element>
+  </define>
+  <define name="attlist.term">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+    <optional>
+      <attribute name="classcode">
+        <a:documentation xml:lang="eng">contains a reference to the controlled
+          vocabulary from which the term is drawn. The value must match the
+          value of an ID attribute on a classcode element given elsewhere in the
+          document.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.titlestmt">
+    <oneOrMore>
+      <ref name="title"/>
+    </oneOrMore>
+    <optional>
+      <ref name="respstmt"/>
+    </optional>
+  </define>
+  <define name="titlestmt">
+    <element name="titlestmt">
+      <a:documentation xml:lang="eng">title statement ― Container for title and
+        responsibility meta-data.</a:documentation>
+      <ref name="attlist.titlestmt"/>
+      <ref name="content.titlestmt"/>
+    </element>
+  </define>
+  <define name="attlist.titlestmt">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.unpub">
+    <empty/>
+  </define>
+  <define name="unpub">
+    <element name="unpub">
+      <a:documentation xml:lang="eng">unpublished ― Used to explicitly indicate
+        that a bibliographic source is unpublished.</a:documentation>
+      <ref name="attlist.unpub"/>
+      <ref name="content.unpub"/>
+    </element>
+  </define>
+  <define name="attlist.unpub">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
+  </define>
+
+  <define name="content.userestrict">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="userestrict">
+    <element name="userestrict">
+      <a:documentation xml:lang="eng">usage restrictions ― Copyright statement
+        in the filedesc, or (re-)publication rights in the source
+        element.</a:documentation>
+      <ref name="attlist.userestrict"/>
+      <ref name="content.userestrict"/>
+    </element>
+  </define>
+  <define name="attlist.userestrict">
+    <ref name="att.common"/>
+    <ref name="att.bibl"/>
   </define>
 
 </grammar>
