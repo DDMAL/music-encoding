@@ -366,7 +366,7 @@
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
     <!-- <optional>
-      <attribute name="expsec">
+      <attribute name="expan">
         <a:documentation xml:lang="eng">contains a list of ids of child
           &lt;section&gt;, &lt;ending&gt; or &lt;app&gt;
           elements. This 'expansion list' indicates how the section should be
@@ -578,7 +578,7 @@
 
   <define name="content.ending">
     <zeroOrMore>
-      <ref name="expsec"/>
+      <ref name="expansion"/>
     </zeroOrMore>
     <zeroOrMore>
       <choice>
@@ -612,16 +612,16 @@
     <ref name="att.vis.ending"/>
   </define>
 
-  <define name="content.expsec">
+  <define name="content.expansion">
     <empty/>
   </define>
-  <define name="expsec">
-    <element name="expsec">
-      <ref name="attlist.expsec"/>
-      <ref name="content.expsec"/>
+  <define name="expansion">
+    <element name="expansion">
+      <ref name="attlist.expansion"/>
+      <ref name="content.expansion"/>
     </element>
   </define>
-  <define name="attlist.expsec">
+  <define name="attlist.expansion">
     <ref name="att.common"/>
     <ref name="att.typed"/>
     <optional>
@@ -937,7 +937,7 @@
 
   <define name="content.section">
     <zeroOrMore>
-      <ref name="expsec"/>
+      <ref name="expansion"/>
     </zeroOrMore>
     <zeroOrMore>
       <choice>
