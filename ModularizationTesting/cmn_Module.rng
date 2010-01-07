@@ -11,16 +11,28 @@
   <!-- Declare module attr classes -->
 
   <!-- Declare module model classes -->
+  <define name="model.measureLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups measure-like
+      elements.</a:documentation>
+    <ref name="measure"/>
+  </define>
+  
   <define name="model.measurePart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       measure.</a:documentation>
     <choice>
       <ref name="model.staffLike"/>
-      <!-- <ref name="model.ossiaLike"/>
-        <ref name="model.controleventLike"/>
-        <ref name="model.lyricsLike"/>
-        <ref name="model.midiLike"/> -->
+      <ref name="model.ossiaLike"/>
+      <ref name="model.controleventLike"/>
+      <ref name="model.lyricsLike"/>
+      <ref name="model.midiLike"/>
     </choice>
+  </define>
+  
+  <define name="model.ossiaLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that function like
+      ossia.</a:documentation>
+    <ref name="ossia"/>
   </define>
 
   <define name="model.sectionPart" combine="choice">
@@ -30,7 +42,71 @@
       <ref name="model.measureLike"/>
     </zeroOrMore>
   </define>
-  
+
   <!-- Declare module elements -->
+  <define name="content.measure">
+    <zeroOrMore>
+      <choice>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.measurePart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="measure">
+    <element name="measure">
+      <a:documentation xml:lang="eng">measure ― "In Western notation a vertical
+        line drawn through the staff to mark off metrical units. Hence also the
+        metrical unit thus indicated, which in American usage is called
+        'measure'. English usage often relies on context alone to make the
+        distinction clear (e.g. 'up to the double bar', 'the end of the bar'),
+        but 'bar-line' is also common." (New Grove) In MEI, the measure element
+        is also a linking element that uses attributes to connect the MEI
+        document to an external electronic object or to another location within
+        the MEI instance.</a:documentation>
+      <ref name="attlist.measure"/>
+      <ref name="content.measure"/>
+    </element>
+  </define>
+  <define name="attlist.measure">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.internal"/>
+    <ref name="att.link.external"/>
+    <ref name="att.log.measure"/>
+    <ref name="att.vis.measure"/>
+    <ref name="att.ges.measure"/>
+    <ref name="att.anl.measure"/>
+  </define>
+  
+  <define name="content.ossia">
+      <zeroOrMore>
+        <choice>
+          <ref name="model.Incl"/>
+          <ref name="model.measurePart"/>
+        </choice>
+      </zeroOrMore>
+    </define>
+    <define name="ossia">
+      <element name="ossia">
+        <a:documentation xml:lang="eng">ossa ― Indicates an alternative, usually
+          simpler, version of a measure *present in the source being
+          transcribed*. An ossia may be treated as a substitute for the measure,
+          in which case it is rendered on the current staff, or it may be
+          rendered in addition to the measure's contents, in which case it is
+          rendered above the staff on a reduced-size staff.</a:documentation>
+        <ref name="attlist.ossia"/>
+        <ref name="content.ossia"/>
+      </element>
+    </define>
+    <define name="attlist.ossia">
+      <ref name="att.common"/>
+      <ref name="att.facsimile"/>
+      <ref name="att.log.ossia"/>
+      <ref name="att.vis.ossia"/>
+      <ref name="att.ges.ossia"/>
+      <ref name="att.anl.ossia"/>
+    </define>
 
 </grammar>

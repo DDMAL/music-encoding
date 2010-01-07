@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!-- UserSymbols Module -->
+  <!-- Declare module attr classes -->
+
+  <!-- Declare module model classes -->
+  <define name="model.graphicprimitiveLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that function as drawing
+      primitives.</a:documentation>
+    <choice>
+      <ref name="curve"/>
+      <ref name="line"/>
+      <ref name="symbol"/>
+      <ref name="anchoredtext"/>
+    </choice>
+  </define>
+
+  <!-- Declare module elements -->
+  <define name="content.anchoredtext">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="anchoredtext">
+    <element name="anchoredtext">
+      <a:documentation xml:lang="eng">anchoredtext ― Page-anchored text. The
+        content model here is similar to paragraph without model.textcomponent
+        and &lt;pb&gt; sub-elements. If the startid attribute is
+        present, then the xy coordinates are relative to the xy coordinates of
+        the referenced element. Otherwise, they are assumed to be absolute page
+        coordinate references.</a:documentation>
+      <ref name="attlist.anchoredtext"/>
+      <ref name="content.anchoredtext"/>
+    </element>
+  </define>
+  <define name="attlist.anchoredtext">
+    <ref name="att.common.anl"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.typed"/>
+    <ref name="att.xy.required"/>
+    <optional>
+      <attribute name="startid">
+        <a:documentation xml:lang="eng">holds a reference to the element to
+          which the text is attached.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.curve">
+    <empty/>
+  </define>
+  <define name="curve">
+    <element name="curve">
+      <a:documentation xml:lang="eng">curve ― A curved line that cannot be
+        represented by a more specific element. The x1,y1 and x2,y2 attributes
+        identify the two terminal points of the curve. If the startid or endid
+        attributes are present, then the x,y and x2,y2 coordinates are relative
+        to the xy coordinates of the referenced element(s). Otherwise, they are
+        assumed to be absolute page coordinate references. The bulge or,
+        alternatively, the bezier attribute, describe the shape of the curve.
+        The bulge attribute describes the curve as a set of distance values
+        above or below an imaginary line connecting the endpoints of the curve
+        while the bezier attribute records the placement of Bezier control
+        points as a series of space-separated xy coordinate pairs, eg. 19 45 -32
+        118. The bulge attribute must contain one or more values of the NUMBER
+        datatype. Either the bezier attribute or the bulge and xy coordinates
+        are required. The rend attribute captures the appearance of the
+        curve.</a:documentation>
+      <ref name="attlist.curve"/>
+      <ref name="content.curve"/>
+    </element>
+  </define>
+  <define name="attlist.curve">
+    <ref name="att.common.anl"/>
+    <ref name="att.color"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.startendid"/>
+    <ref name="att.typed"/>
+    <ref name="att.xy.required"/>
+    <ref name="att.xy2.required"/>
+    <optional>
+      <attribute name="bezier">
+        <a:documentation xml:lang="eng">records the placement of Bezier control
+          points as a series of space-separated xy coordinates, eg. 19 45 -32
+          118.</a:documentation>
+        <data type="NMTOKENS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="bulge">
+        <a:documentation xml:lang="eng">describes the curve as a set of distance
+          values above or below an imaginary line connecting the endpoints of
+          the curve. The bulge attribute must contain one or more values of type
+          NUMBER.</a:documentation>
+        <data type="NMTOKENS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">records the appearance of the
+          curve.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.line">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="line">
+    <element name="line">
+      <a:documentation xml:lang="eng">line ― A line that cannot be represented
+        by a more specific element. The x,y and x2,y2 attributes identify the
+        two terminal points of the line. Text content of the line element, e.g.
+        'gliss.', may be rendered with the line. If the startid or endid
+        attributes are present, then the x,y and x2,y2 coordinates are relative
+        to the xy coordinates of the referenced element(s). Otherwise, they are
+        assumed to be absolute page coordinate references. The appearance of the
+        line is captured in the rend attribute.</a:documentation>
+      <ref name="attlist.line"/>
+      <ref name="content.line"/>
+    </element>
+  </define>
+  <define name="attlist.line">
+    <ref name="att.common.anl"/>
+    <ref name="att.color"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.startendid"/>
+    <ref name="att.typed"/>
+    <ref name="att.xy.required"/>
+    <ref name="att.xy2.required"/>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">records the visual appearance of a
+          graphical line.</a:documentation>
+        <ref name="data.LINERENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.symbol">
+    <empty/>
+  </define>
+  <define name="symbol">
+    <element name="symbol">
+      <a:documentation xml:lang="eng">symbol ― A reference to a previously
+        defined symbol. The x and y attributes identify the starting point, e.g.
+        "hotspot" of the symbol. If the startid attribute is present, then the
+        xy coordinates are relative to the xy coordinates of the referenced
+        element. Otherwise, they are assumed to be absolute page coordinate
+        references. The ref attribute must contain the id of a symboldef
+        element. The scale attribute indicates that the printed output must be
+        scaled by the specified percentage.</a:documentation>
+      <ref name="attlist.symbol"/>
+      <ref name="content.symbol"/>
+    </element>
+  </define>
+  <define name="attlist.symbol">
+    <ref name="att.common.anl"/>
+    <ref name="att.color"/>
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+    <ref name="att.xy.required"/>
+    <attribute name="ref">
+      <a:documentation xml:lang="eng">contains a reference to a
+        previously-declared user-defined symbol.</a:documentation>
+      <data type="IDREF"/>
+    </attribute>
+    <optional>
+      <attribute name="scale">
+        <a:documentation xml:lang="eng">indicates how the symbol should be
+          scaled when rendered.</a:documentation>
+        <ref name="data.PERCENT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="startid">
+        <a:documentation xml:lang="eng">holds a reference to the element to
+          which the symbol is attached.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.symboldef">
+    <oneOrMore>
+      <ref name="model.graphicprimitiveLike"/>
+    </oneOrMore>
+  </define>
+  <define name="symboldef">
+    <element name="symboldef">
+      <a:documentation xml:lang="eng">symbol definition ― Declaration of an
+        individual symbol in a symboltable.</a:documentation>
+      <ref name="attlist.symboldef"/>
+      <ref name="content.symboldef"/>
+    </element>
+  </define>
+  <define name="attlist.symboldef">
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.symboltable">
+    <oneOrMore>
+      <ref name="symboldef"/>
+    </oneOrMore>
+  </define>
+  <define name="symboltable">
+    <element name="symboltable">
+      <a:documentation xml:lang="eng">symbol table ― Contains individual,
+        user-defined symbols. Like a chord table, a symboltable may be shared
+        between mei instances through the use of an external parsed entity
+        containing the symboltable to be shared.</a:documentation>
+      <ref name="attlist.symboltable"/>
+      <ref name="content.symboltable"/>
+    </element>
+  </define>
+  <define name="attlist.symboltable">
+    <ref name="att.common"/>
+  </define>
+
+</grammar>

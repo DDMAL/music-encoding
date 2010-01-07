@@ -9,7 +9,22 @@
 
   <!-- Shared Module -->
   <!-- Declare module attr classes -->
-  <define name="att.bibl">
+  <!-- Generic attr classes -->
+  <define name="att.altsym" combine="interleave">
+    <a:documentation xml:lang="eng">Pointers to user-defined
+      symbols</a:documentation>
+    <optional>
+      <attribute name="altsym">
+        <a:documentation xml:lang="eng">provides a way of pointing to a
+          user-defined symbol. It must contain an ID of a
+          &lt;symboldef&gt; element elsewhere in the
+          document.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.bibl" combine="interleave">
     <a:documentation xml:lang="eng">Bibliographic attributes</a:documentation>
     <optional>
       <attribute name="analog"/>
@@ -23,7 +38,7 @@
     </optional>
   </define>
 
-  <define name="att.color">
+  <define name="att.color" combine="interleave">
     <a:documentation xml:lang="eng">Color attributes</a:documentation>
     <optional>
       <attribute name="color">
@@ -52,6 +67,99 @@
           element. While its value need not be unique, it is required to be a
           single token.</a:documentation>
         <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.controlevent" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes shared by events which rely on
+      other events for their existence. For example, a slur/phrase marking must
+      be drawn between or over a group of notes. The slur is therefore a control
+      event.</a:documentation>
+    <optional>
+      <attribute name="layer">
+        <a:documentation xml:lang="eng">signifies the layer within which the
+          control event is active.</a:documentation>
+        <list>
+          <oneOrMore>
+            <ref name="data.INTEGERPOSITIVE"/>
+          </oneOrMore>
+        </list>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="plist">
+        <a:documentation xml:lang="eng">may contain ID references or xPointer
+          fragment identifiers that identify logical events that participate in
+          the control event, such as notes under a phrase
+          mark.</a:documentation>
+        <ref name="data.PLIST"/>
+      </attribute>
+    </optional>
+    <attribute name="staff">
+      <a:documentation xml:lang="eng">signifies the staff within which a control
+        event is active.</a:documentation>
+      <list>
+        <oneOrMore>
+          <ref name="data.INTEGERPOSITIVE"/>
+        </oneOrMore>
+      </list>
+    </attribute>
+    <optional>
+      <attribute name="tstamp">
+        <a:documentation xml:lang="eng">encodes the onset time of a musical
+          feature in terms of musical time, i.e., beats[.fractional beat
+          part]</a:documentation>
+        <ref name="data.BEAT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.ges">
+        <a:documentation xml:lang="eng">records the onset time in pulses per
+          quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
+          of the measure.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.real">
+        <a:documentation xml:lang="eng">records the onset time as a real-time
+          offset, i.e., HH:MM:SS.ss, since the beginning of the
+          file.</a:documentation>
+        <ref name="data.ISOTIME"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.coordinated">
+    <a:documentation xml:lang="eng">This attribute class records the position of
+      the entity within a two-dimensional coordinate system.</a:documentation>
+    <optional>
+      <attribute name="ulx">
+        <a:documentation xml:lang="eng">indicates the upper-left corner x
+          coordinate.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="uly">
+        <a:documentation xml:lang="eng">indicates the upper-left corner y
+          coordinate.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lrx">
+        <a:documentation xml:lang="eng">indicates the lower-right corner x
+          coordinate.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lry">
+        <a:documentation xml:lang="eng">indicates the lower-left corner x
+          coordinate.</a:documentation>
+        <ref name="data.INTEGERNONNEGATIVE"/>
       </attribute>
     </optional>
   </define>
@@ -153,7 +261,7 @@
     </optional>
   </define>
 
-  <define name="att.lang">
+  <define name="att.lang" combine="interleave">
     <a:documentation xml:lang="eng">Language attributes common to text
       elements</a:documentation>
     <optional>
@@ -294,6 +402,18 @@
     </optional>
   </define>
 
+  <define name="att.placement">
+    <a:documentation xml:lang="eng">Attributes capturing placement
+      information</a:documentation>
+    <optional>
+      <attribute name="place">
+        <a:documentation xml:lang="eng">captures the placement of the item with
+          respect to the staff with which it is associated.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.startendid">
     <a:documentation xml:lang="eng">Attributes recording the IDs of a sequence
       of elements to which the current element is associated.</a:documentation>
@@ -309,6 +429,321 @@
         <a:documentation xml:lang="eng">indicates the final element in the
           sequence.</a:documentation>
         <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.typed" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes which can be used to classify or
+      subclassify elements</a:documentation>
+    <optional>
+      <attribute name="type">
+        <a:documentation xml:lang="eng">characterizes the element in some sense,
+          using any convenient classification scheme or
+          typology.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="subtype">
+        <a:documentation xml:lang="eng">provide any sub-classification for the
+          element, additional to that given by its type
+          attribute.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.typography">
+    <a:documentation xml:lang="eng">Typographical attributes</a:documentation>
+    <optional>
+      <attribute name="fontfam">
+        <a:documentation xml:lang="eng">contains the name of a
+          font-family.</a:documentation>
+        <ref name="data.FONTFAMILY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fontname">
+        <a:documentation xml:lang="eng">records the name of the
+          font.</a:documentation>
+        <ref name="data.FONTNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fontsize">
+        <a:documentation xml:lang="eng">indicates the size of the font in
+          printers' points, i.e., 1/72ths of an inch.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fontstyle">
+        <a:documentation xml:lang="eng">records the style of the font, i.e,
+          italic, oblique, or normal.</a:documentation>
+        <ref name="data.FONTSTYLE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fontweight">
+        <a:documentation xml:lang="eng">used to indicate bold
+          type.</a:documentation>
+        <ref name="data.FONTWEIGHT"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.visualoffset.ho">
+    <a:documentation xml:lang="eng">Horizontal offset
+      attributes</a:documentation>
+    <optional>
+      <attribute name="ho">
+        <a:documentation xml:lang="eng">records a horizontal adjustment of the
+          entity's programmatically-determinded location in terms of interline
+          distance; that is, units of 1/2 the distance between adjacent
+          staves.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.visualoffset.to">
+    <a:documentation xml:lang="eng">Horizontal offset attributes specified in
+      terms of time</a:documentation>
+    <optional>
+      <attribute name="to">
+        <a:documentation xml:lang="eng">records a timestamp adjustment of the
+          entity's programmatically-determined location.</a:documentation>
+        <ref name="data.TSTAMPOFFSET"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.visualoffset.vo">
+    <a:documentation xml:lang="eng">Vertical offset attributes</a:documentation>
+    <optional>
+      <attribute name="vo">
+        <a:documentation xml:lang="eng">records the vertical adjustment of the
+          entity's programmatically-determined location in terms of interline
+          distance; that is, units of 1/2 the distance between adjacent
+          staves.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.visualoffset">
+    <a:documentation xml:lang="eng">Visual offset attributes. Some items may
+      have their location recorded in terms of offsets from their
+      programmatically-determined location. The ho attribute records the
+      horizontal offset while vo records the vertical. The to attribute holds a
+      timestamp offset, the most common use of which is as an alternative to the
+      ho attribute.</a:documentation>
+    <ref name="att.visualoffset.ho"/>
+    <ref name="att.visualoffset.to"/>
+    <ref name="att.visualoffset.vo"/>
+  </define>
+
+  <define name="att.visualoffset2.ho">
+    <a:documentation xml:lang="eng">Horizontal offset requiring a pair of
+      attributes</a:documentation>
+    <optional>
+      <attribute name="startho">
+        <a:documentation xml:lang="eng">records the horizontal adjustment of the
+          entity's programmatically-determined start point.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="endho">
+        <a:documentation xml:lang="eng">records the horizontal adjustment of the
+          entity's programmatically-determined end point.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.visualoffset2.to">
+    <a:documentation xml:lang="eng">Horizontal offset attributes requiring a
+      pair of attributes specified in terms of time</a:documentation>
+    <optional>
+      <attribute name="startto">
+        <a:documentation xml:lang="eng">records a timestamp adjustment of the
+          entity's programmatically-determined start point.</a:documentation>
+        <ref name="data.TSTAMPOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="endto">
+        <a:documentation xml:lang="eng">records a timestamp adjustment of the
+          entity's programmatically-determined end point.</a:documentation>
+        <ref name="data.TSTAMPOFFSET"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.visualoffset2.vo">
+    <a:documentation xml:lang="eng">Vertical offset attributes requiring a pair
+      of attributes</a:documentation>
+    <optional>
+      <attribute name="startvo">
+        <a:documentation xml:lang="eng">records a vertical adjustment of the
+          entity's programmatically-determined start point.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="endvo">
+        <a:documentation xml:lang="eng">records a vertical adjustment of the
+          entity's programmatically-determined end point.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.visualoffset2">
+    <a:documentation xml:lang="eng">Visual offset attributes. Some items may
+      have their location recorded in terms of pairs of offsets from their
+      programmatically-determined location. The startho and endho attributes
+      record the horizontal offsets of the start and end points of the item,
+      respectively. Similarly, the startvo and endvo attributes record the
+      vertical offsets of the start and end points of the item. The startto and
+      endto attributes hold timestamp offsets, the most common use of which is
+      as alternatives to the ho attributes.</a:documentation>
+    <ref name="att.visualoffset2.ho"/>
+    <ref name="att.visualoffset2.to"/>
+    <ref name="att.visualoffset2.vo"/>
+  </define>
+
+  <define name="att.xy">
+    <a:documentation xml:lang="eng">Output coordinate attributes. Some elements
+      may have their exact rendered *output* coordinates recorded. x and y
+      attributes indicate where to place the rendered output. Recording the
+      coordinates of a feature in a facsimile requires the use of the facs
+      attribute.</a:documentation>
+    <optional>
+      <attribute name="x">
+        <a:documentation xml:lang="eng">encodes the optional x
+          coordinate.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y">
+        <a:documentation xml:lang="eng">encodes the optional y
+          coordinate.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.xy.required">
+    <a:documentation xml:lang="eng">Required output coordinate attributes. Some
+      elements must have their exact rendered *output* coordinates recorded. x
+      and y attributes indicate where to place the rendered output. Recording
+      the coordinates of a feature in a facsimile requires the use of the facs
+      attribute.</a:documentation>
+    <attribute name="x">
+      <a:documentation xml:lang="eng">encodes the required x
+        coordinate.</a:documentation>
+      <ref name="data.NUMBER"/>
+    </attribute>
+    <attribute name="y">
+      <a:documentation xml:lang="eng">encodes the required y
+        coordinate.</a:documentation>
+      <ref name="data.NUMBER"/>
+    </attribute>
+  </define>
+
+  <define name="att.xy2">
+    <a:documentation xml:lang="eng">Output coordinate attributes. Some elements
+      may need 2 coordinate pairs to record their rendered *output*
+      coordinates.</a:documentation>
+    <optional>
+      <attribute name="x2">
+        <a:documentation xml:lang="eng">encodes the optional 2nd x
+          coordinate.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="y2">
+        <a:documentation xml:lang="eng">encodes the optional 2nd y
+          coordinate.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.xy2.required">
+    <a:documentation xml:lang="eng">Required output coordinate attributes. Some
+      elements must have 2 coordinate pairs to record their output
+      coordinates.</a:documentation>
+    <attribute name="x2">
+      <a:documentation xml:lang="eng">encodes the required 2nd x
+        coordinate.</a:documentation>
+      <ref name="data.NUMBER"/>
+    </attribute>
+    <attribute name="y2">
+      <a:documentation xml:lang="eng">encodes the required 2nd y
+        coordinate.</a:documentation>
+      <ref name="data.NUMBER"/>
+    </attribute>
+  </define>
+
+  <!-- Domain attr classes for musical elements -->
+  <define name="att.anl.accid" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.accid" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.accid" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="func">
+        <a:documentation xml:lang="eng">If an accidental has an editorial or
+          cautionary function, its function may be captured in the func
+          attribute.</a:documentation>
+        <choice>
+          <value>caution</value>
+          <value>edit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <attribute name="value">
+      <a:documentation xml:lang="eng">records a written
+        accidental.</a:documentation>
+      <ref name="data.ACCIDENTAL.EXPLICIT"/>
+    </attribute>
+  </define>
+  <define name="att.vis.accid" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.color"/>
+    <ref name="att.visualoffset.ho"/>
+    <ref name="att.visualoffset.vo"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="enclose">
+        <a:documentation xml:lang="eng">records the characters often used to
+          mark the accidental as having an cautionary or editorial function. For
+          an example of cautionary accidentals enclosed in parentheses, see
+          Read, p. 131, ex. 9-14.</a:documentation>
+        <ref name="data.ENCLOSURE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="place">
+        <a:documentation xml:lang="eng">captures the placement of the accidental
+          relative to the staff.</a:documentation>
+        <choice>
+          <value>above</value>
+          <value>below</value>
+          <value>staff</value>
+        </choice>
       </attribute>
     </optional>
   </define>
@@ -388,38 +823,689 @@
     <empty/>
   </define>
 
-  <define name="att.anl.ending">
+  <define name="att.anl.artic" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.ending">
+  <define name="att.ges.artic" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.ending">
+  <define name="att.log.artic" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <attribute name="value">
+      <a:documentation xml:lang="eng">records the name of the articulation
+        symbol drawn from the list given in
+        data.ARTICULATIONS.</a:documentation>
+      <ref name="data.ARTICULATIONS"/>
+    </attribute>
+  </define>
+  <define name="att.vis.artic" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.color"/>
+    <ref name="att.placement"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="enclose">
+        <a:documentation xml:lang="eng">encodes the characters used to enclose
+          the accidental when it has a cautionary or editorial
+          function.</a:documentation>
+        <ref name="data.ENCLOSURE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.barline" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.barline" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="tstamp">
+        <a:documentation xml:lang="eng">encodes the onset time of the barline in
+          terms of musical time, i.e., beats[.fractional beat
+          part]</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.barline" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="complete">
+        <a:documentation xml:lang="eng">allows the encoding of whether the
+          measure preceding this barline matches the prevailing meter: a value
+          of 'c' indicates a metrically complete measure, 'i' indicates a
+          measure with not enough beats, while 'o' is for measures with too many
+          beats.</a:documentation>
+        <choice>
+          <value>c</value>
+          <value>i</value>
+          <value>o</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="control">
+        <a:documentation xml:lang="eng">indicates whether or not the barline is
+          "controlling"; that is, if it indicates a point of alignment across
+          all the parts. Barlines within a score are usually controlling' that
+          is, they "line up". Barlines within parts may or may not be
+          controlling.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">records the appearance of the
+          barline.</a:documentation>
+        <ref name="data.BARRENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.barline" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.color"/>
+    <optional>
+      <attribute name="barplace">
+        <a:documentation xml:lang="eng">records the location of the
+          barline.</a:documentation>
+        <ref name="data.BARPLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="taktplace">
+        <a:documentation xml:lang="eng">If takt barlines are to be used, then
+          the taktplace attribute may be used to denote the staff location of
+          the shortened barline. The location may include staff lines, spaces,
+          and the spaces directly above and below the staff. The value ranges
+          between 0 (just below the staff) to 2 * number of staff lines
+          (directly above the staff). For example, on a 5-line staff the lines
+          would be numbered 1,3,5,7, and 9 while the spaces would be numbered
+          0,2,4,6,8,10. For example, a value of '9' puts the barline through the
+          top line of a 5-line staff.</a:documentation>
+        <ref name="data.STAFFLOC"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <a:documentation xml:lang="eng">For rendering purposes, some music data
+          systems rely on measure width data. The width attribute allows for the
+          capture of this data in MEI for output back to these
+          systems.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.chord" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+    <optional>
+      <attribute name="hfunc">
+        <a:documentation xml:lang="eng">describes the chord's harmonic function
+          in any convenient typology.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mfunc">
+        <a:documentation xml:lang="eng">describes the chord's melodic function
+          in any convenient typology.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.ges.chord" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="artic.ges">
+        <a:documentation xml:lang="eng">records performed articulation that
+          differs from the written value.</a:documentation>
+        <ref name="data.ARTICULATIONS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="detune">
+        <a:documentation/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from the written values. Its value may be expressed in
+          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions', etc.
+        </a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="grace">
+        <a:documentation xml:lang="eng">marks this chord as a grace and records
+          from which note/chord it should "steal" time.</a:documentation>
+        <ref name="data.GRACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="grace.time">
+        <a:documentation xml:lang="eng">records the amount of time to be
+          "stolen" from a non-grace note/chord.</a:documentation>
+        <ref name="data.PERCENT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="instr">
+        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
+          instrument definition. It must contain the ID of an
+          &lt;instrdef&gt; element elsewhere in the
+          document.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.chord" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes for chord. The
+      artic, dots, and dur attributes encode the written articulations,
+      augmentation dots, and duration values. The beam, fermata, lv, slur, syl,
+      tie, and tuplet attributes may be used to indicate the attachment of these
+      things to this chord. If visual information about these things needs to be
+      recorded, then either the elements corresponding to these attributes or
+      the attributes available in the att.vis.chord class should be
+      employed.</a:documentation>
+    <ref name="att.event"/>
+    <optional>
+      <attribute name="artic">
+        <a:documentation xml:lang="eng">encodes the written articulation(s).
+          Articulations are normally encoded in order from the notehead outward;
+          that is, away from the stem. See additional notes at att.vis.note.
+          Only articulations should be encoded in the artic attribute;
+          fingerings should be encoded using the &lt;dir&gt;
+          element.</a:documentation>
+        <ref name="data.ARTICULATIONS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam">
+        <a:documentation xml:lang="eng">indicates that this event is "under a
+          beam".</a:documentation>
+        <ref name="data.BEAMS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dots">
+        <a:documentation xml:lang="eng">encodes the number of written dots of
+          augmentation.</a:documentation>
+        <ref name="data.AUGMENTDOT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes logical; that is, written,
+          duration.</a:documentation>
+        <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fermata">
+        <a:documentation xml:lang="eng">indicates the attachment of a fermata to
+          this element. If visual information about the fermata needs to be
+          recorded, then a &lt;fermata&gt; element should be
+          employed.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lv">
+        <a:documentation xml:lang="eng">indicates the attachment of an l.v.
+          (laissez vibrer) sign to this element.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a slur.</a:documentation>
+        <ref name="data.SLURS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="syl">
+        <a:documentation xml:lang="eng">holds an associated sung text
+          syllable.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tie. If visual information about the tie needs to be recorded,
+          then a &lt;tie&gt; element should be
+          employed.</a:documentation>
+        <ref name="data.TIE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tuplet">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tuplet.</a:documentation>
+        <ref name="data.TUPLET"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.chord" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes for chord. The
+      slur, slur.dir, slur.rend, tie, tie.dir, and tie.rend attributes here are
+      syntactic sugar for these attributes on each of the chord's individual
+      notes. The values here apply to all the notes in the chord. If some notes
+      are slurred or tied while others aren't, then the individual note
+      attributes must be used.</a:documentation>
+    <ref name="att.altsym"/>
+    <ref name="att.color"/>
+    <ref name="att.visualoffset.ho"/>
+    <ref name="att.visualoffset.to"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="beam.with">
+        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
+          with attribute is used to indicate which staff the beam is connected
+          to; that is, the staff above or the staff below.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="breaksec">
+        <a:documentation xml:lang="eng">presence of this attribute indicates
+          that the secondary beam should be broken following this note/chord.
+          The value of the attribute records the number of beams which should
+          remain unbroken.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="coloration">
+        <a:documentation xml:lang="eng">indicates inverse coloration; that is,
+          the notehead is void when it would otherwise be filled and vice versa.
+          Do not confuse this with visual color.</a:documentation>
+        <choice>
+          <value>inverse</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.ho">
+        <a:documentation xml:lang="eng">records the horizontal offset of the
+          augmentation dot from its "normal", programmatically determined
+          position.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.vo">
+        <a:documentation xml:lang="eng">records the vertical offset of the
+          augmentation dot from its "normal", programmatically determined
+          position.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.x">
+        <a:documentation xml:lang="eng">records the absolute horizontal position
+          of the augmentation dot.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.y">
+        <a:documentation xml:lang="eng">records the absolute vertical position
+          of the augmentation dot.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="headshape">
+        <a:documentation xml:lang="eng">indicates an alternative notehead should
+          be displayed instead of individual noteheads. See Read, p. 320-321,
+          re: tone clusters.</a:documentation>
+        <ref name="data.CLUSTER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="size">
+        <a:documentation xml:lang="eng">describes the relative size of the
+          chord.</a:documentation>
+        <ref name="data.SIZE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.dir">
+        <a:documentation xml:lang="eng">indicates the direction of a
+          slur.</a:documentation>
+        <ref name="data.SLURDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">describes the rendering style for
+          slurs.</a:documentation>
+        <choice>
+          <value>dotted</value>
+          <value>dashed</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.dir">
+        <a:documentation xml:lang="eng">describes the direction of a
+          stem.</a:documentation>
+        <ref name="data.STEMDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.len">
+        <a:documentation xml:lang="eng">encodes the stem
+          length.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.mod">
+        <a:documentation xml:lang="eng">encodes any stem "modifiers"; that is,
+          symbols rendered on the stem, such as tremolo or Sprechstimme
+          indicators.</a:documentation>
+        <ref name="data.STEMMODIFIER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.pos">
+        <a:documentation xml:lang="eng">records the position of the stem in
+          relation to the notehead(s).</a:documentation>
+        <ref name="data.STEMPOSITION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.with">
+        <a:documentation xml:lang="eng">contains an indication of which staff a
+          note or chord that logically belongs to the current staff should be
+          visually placed on.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.x">
+        <a:documentation xml:lang="eng">records the x coordinate of the stem's
+          attachment point.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.y">
+        <a:documentation xml:lang="eng">records the y coordinate of the stem's
+          attachment point.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie.dir">
+        <a:documentation xml:lang="eng">determines the direction of a
+          tie.</a:documentation>
+        <ref name="data.TIEDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">describes the rendering style of a
+          tie.</a:documentation>
+        <choice>
+          <value>dotted</value>
+          <value>dashed</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.clef" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.clef" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.clef" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <attribute name="line">
+      <a:documentation xml:lang="eng">the staff location of the clef. The value
+        must be in the range between 1 and the number of lines on the
+        staff.</a:documentation>
+      <ref name="data.CLEFLINE"/>
+    </attribute>
+    <optional>
+      <attribute name="octave.default">
+        <a:documentation xml:lang="eng">The default octave, used when the first
+          note of a measure provides no oct attribute, is set by the
+          octave.default attribute.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+    <attribute name="shape">
+      <a:documentation xml:lang="eng">decribes the clef
+        symbol.</a:documentation>
+      <ref name="data.CLEFSHAPE"/>
+    </attribute>
+    <optional>
+      <attribute name="dis">
+        <a:documentation xml:lang="eng">records the amount of octave
+          displacement to be applied to the clef.</a:documentation>
+        <ref name="data.OCTAVE.DIS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dis.place">
+        <a:documentation xml:lang="eng">records the direction of octave
+          displacement to be applied to the clef.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.clef" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.altsym"/>
+    <ref name="att.color"/>
+  </define>
+
+  <define name="att.anl.clefchange" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.clefchange" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.clefchange" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="line">
+        <a:documentation xml:lang="eng">records the position of the clef. The
+          value must be in the range between 1 and the number of lines on the
+          staff.</a:documentation>
+        <ref name="data.CLEFLINE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="octave.default">
+        <a:documentation xml:lang="eng">sets the value of the oct attribute of
+          the event following the clefchange, if the event doesn't already have
+          an oct attribute.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="shape">
+        <a:documentation xml:lang="eng">indicates the shape of the clef
+          symbol.</a:documentation>
+        <ref name="data.CLEFSHAPE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dis">
+        <a:documentation xml:lang="eng">records the amount of octave
+          displacement to be applied to the clef.</a:documentation>
+        <ref name="data.OCTAVE.DIS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dis.place">
+        <a:documentation xml:lang="eng">records the direction of octave
+          displacement to be applied to the clef.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.clefchange" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.altsym"/>
+    <ref name="att.color"/>
+  </define>
+
+  <define name="att.anl.custos" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributess</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.custos" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.custos" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <attribute name="oct">
+      <a:documentation xml:lang="eng">together with the pname attribute,
+        identifies the location where the custos appears.</a:documentation>
+      <ref name="data.OCTAVE"/>
+    </attribute>
+    <attribute name="pname">
+      <a:documentation xml:lang="eng">in conjuction with the oct attribute,
+        identifies the location where the custos appears.</a:documentation>
+      <ref name="data.PITCHNAME"/>
+    </attribute>
+    <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">contains a list of one or more pointers
+          indicating the sources which contain the custos.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="target">
+        <a:documentation xml:lang="eng">encodes the target note when its pitch
+          differs from the pitch at which the custos appears.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.custos" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.color"/>
+  </define>
+
+  <define name="att.anl.dot" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.dot" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.dot" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="form">
+        <a:documentation xml:lang="eng">records the function of the dot; that
+          is, whether it is a dot of augmentation or a dot of
+          division.</a:documentation>
+        <choice>
+          <value>aug</value>
+          <value>div</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="loc">
+        <a:documentation xml:lang="eng">encodes the staff location of the
+          dot.</a:documentation>
+        <ref name="data.STAFFLOC"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.dot" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.color"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="att.anl.ending" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.ending" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.ending" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.ending">
+  <define name="att.vis.ending" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.layer">
+  <define name="att.anl.grpsym" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.layer">
+  <define name="att.ges.grpsym" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.layer">
+  <define name="att.log.grpsym" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <attribute name="symbol">
+      <a:documentation xml:lang="eng">specifies the symbol used to group a set
+        of staves.</a:documentation>
+      <choice>
+        <value>brace</value>
+        <value>bracket</value>
+        <value>line</value>
+      </choice>
+    </attribute>
+  </define>
+  <define name="att.vis.grpsym" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.visualoffset"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="att.anl.layer" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.layer" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.layer" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.layer">
+  <define name="att.vis.layer" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="visible">
@@ -432,12 +1518,181 @@
     </optional>
   </define>
 
-  <define name="att.anl.measure">
+  <define name="att.anl.layerdef" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.ges.layerdef" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="grace">
+        <a:documentation xml:lang="eng">Setting the grace attribute here
+          provides the possibility of changing all the grace attribute values in
+          a layer without having to individually change each event's grace
+          attribute value. Each "graced" element may still require a value in
+          its grace.time attribute.</a:documentation>
+        <ref name="data.GRACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="instr">
+        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
+          instrument definition. It must contain the ID of an
+          &lt;instrdef&gt; element elsewhere in the
+          document.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.layerdef" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <!-- <optional>
+      <attribute name="beam.group">
+        <a:documentation xml:lang="eng">provides an example of how beaming
+          (including secondary beams) is to be performed. It can be used to set
+          a default beaming pattern to be used when no beaming is indicated at
+          the event level. beam.group must contain a comma-separated list of
+          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
+          indicates each quarter note worth of shorter notes would be beamed
+          together. Parentheses can be used to indicate sub-groupings of
+          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
+          outer beam per measure with secondary beams broken at each dotted
+          quarter duration, while a measure of 16th notes in 4/4 with beam.group
+          equal to '(4,4),(4,4)' will result in a primary beam covering all the
+          notes and secondary beams each group of 4 notes. This beaming
+          "directive" can be overridden by using &lt;beam&gt; elements.
+          If neither &lt;beam&gt; elements or the beam.group attribute
+          is used, then no beaming is rendered. Beaming can be 'turned off' by
+          setting beam.group to an empty string.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.rests">
+        <a:documentation xml:lang="eng">determines whether rests are allowed
+          under a beam.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="dur.default">
+        <a:documentation xml:lang="eng">contains a default duration in those
+          situations when the first note, rest, chord, etc. in a measure does
+          not have a duration specified.</a:documentation>
+        <ref name="data.DURATIONS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="octave.default">
+        <a:documentation xml:lang="eng">contains a default octave specification
+          in those situations when the first note, rest, chord, etc. in a
+          measure does not have an octave specified.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.layerdef" combine="interleave">
+    <!-- <a:documentation xml:lang="eng">Visual domain attributes for layerdef in the
+      CMN repertoire</a:documentation>
+    <optional>
+      <attribute name="beam.rend">
+        <a:documentation xml:lang="eng">captures whether a beam is feathered and
+          in which direction</a:documentation>
+        <choice>
+          <value>acc</value>
+          <a:documentation xml:lang="eng">indicates that the secondary beams get
+            progressively closer together, coming together at the end of the
+            beam.</a:documentation>
+          <value>rit</value>
+          <a:documentation xml:lang="eng">means that the secondary beams start
+            at the same point and get progressively more
+            distant.</a:documentation>
+          <value>norm</value>
+          <a:documentation xml:lang="eng">indicates a return to "normal"
+            beaming.</a:documentation>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.slope">
+        <a:documentation xml:lang="eng">contains the default value for the slope
+          of beams.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">provides a default value for the
+          appearance of slurs when this information is not provided on the
+          individual elements.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="text.fam">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          family name of text (other than lyrics) when this information is not
+          provided on the individual elements.</a:documentation>
+        <ref name="data.FONTFAMILY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.name">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          name of text (other than lyrics) when this information is not provided
+          on the individual elements.</a:documentation>
+        <ref name="data.FONTNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.size">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          size of text (other than lyrics) when this information is not provided
+          on the individual elements.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.style">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          style of text (other than lyrics) when this information is not
+          provided on the individual elements.</a:documentation>
+        <ref name="data.FONTSTYLE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.weight">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          weight for text (other than lyrics) when this information is not
+          provided on the individual elements.</a:documentation>
+        <ref name="data.FONTWEIGHT"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">provides a default value for the
+          appearance of ties when this information is not provided on the
+          individual elements.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="visible">
+        <a:documentation xml:lang="eng">provides a default indication of whether
+          a layer should be displayed when the notation is rendered. A layer
+          with this attribute set to 'false' should also not be included in a
+          sounded rendition.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.measure" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.measure">
+  <define name="att.ges.measure" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes. The tstamp.ges
       and tstamp.real attributes encode the onset time of the measure. In
       reality, this is usually the same as the onset time of the first event in
@@ -459,7 +1714,7 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.measure">
+  <define name="att.log.measure" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes. The n attribute
       contains a name or number associated with the measure (Read, p. 445).
       Often, this is an integer, but not always. For example, some measures,
@@ -517,7 +1772,7 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.measure">
+  <define name="att.vis.measure" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="barplace">
@@ -595,66 +1850,1353 @@
     </optional>
   </define>
 
-  <define name="att.anl.part">
+  <define name="att.anl.pad" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
-    <ref name="att.common.anl"/>
+    <empty/>
   </define>
-  <define name="att.ges.part">
+  <define name="att.ges.pad" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.part">
+  <define name="att.log.pad" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <empty/>
+    <ref name="att.event"/>
+    <attribute name="num">
+      <a:documentation xml:lang="eng">captures the amount of horizontal space to
+        be added, expressed in one-half inter-line staff distance
+        units.</a:documentation>
+      <ref name="data.NUMBER"/>
+    </attribute>
   </define>
-  <define name="att.vis.part">
+  <define name="att.vis.pad" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.parts">
+  <define name="att.anl.part" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.parts">
+  <define name="att.ges.part" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.parts">
+  <define name="att.log.part" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.parts">
+  <define name="att.vis.part" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.score">
+  <define name="att.anl.parts" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.score">
+  <define name="att.ges.parts" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.score">
+  <define name="att.log.parts" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.score">
+  <define name="att.vis.parts" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.anl.rest" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.rest" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from the written values. Its value may be expressed in
+          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions',
+          etc.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="instr">
+        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
+          instrument definition. It must contain the ID of an
+          &lt;instrdef&gt; element elsewhere in the
+          document.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.rest" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.event"/>
+    <optional>
+      <attribute name="beam">
+        <a:documentation xml:lang="eng">indicates that this event is "under a
+          beam".</a:documentation>
+        <ref name="data.BEAMS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dots">
+        <a:documentation xml:lang="eng">encodes the number of written dots of
+          augmentation.</a:documentation>
+        <ref name="data.AUGMENTDOT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes logical; that is, written,
+          duration.</a:documentation>
+        <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fermata">
+        <a:documentation xml:lang="eng">used to indicate the attachment of a
+          fermata to this element. If visual information about the fermata needs
+          to be recorded, then a &lt;fermata&gt; element should be
+          employed.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tuplet">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tuplet.</a:documentation>
+        <ref name="data.TUPLET"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.rest" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.altsym"/>
+    <ref name="att.color"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="beam.with">
+        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
+          with attribute is used to indicate which staff the beam is connected
+          to; that is, the staff above or the staff below.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.ho">
+        <a:documentation xml:lang="eng">records the horizontal offset of the
+          augmentation dot from its "normal", programmatically determined
+          position.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.vo">
+        <a:documentation xml:lang="eng">records the vertical offset of the
+          augmentation dot from its "normal", programmatically determined
+          position.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.x">
+        <a:documentation xml:lang="eng">records the absolute horizontal position
+          of the augmentation dot.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.y">
+        <a:documentation xml:lang="eng">records the absolute vertical position
+          of the augmentation dot.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="size">
+        <a:documentation xml:lang="eng">describes the relative size of the
+          rest.</a:documentation>
+        <ref name="data.SIZE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.sb" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.sb" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.sb" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">Source descriptions in the header may be
+          pointed to by putting their IDs in the source attribute. This allows
+          system breaks from multiple sources to be encoded with a single
+          &lt;sb&gt; element.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.sb" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">indicates whether hash marks should be
+          rendered between systems. See Read, p. 436, ex.
+          26-3.</a:documentation>
+        <choice>
+          <value>hash</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.score" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.score" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.score" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.score" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.section">
+  <define name="att.anl.scoredef" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.ges.scoredef" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes for scoredef. The
+      values set in these attributes act as score-wide defaults for attributes
+      that are not set in descendant elements. For example, the grace attribute
+      value here applies to all the grace attribute values in the score (or,
+      more accurately, until the next &lt;scoredef&gt; element) without
+      having to individually set each note's grace attribute value. The midi.*
+      attributes function as default values when creating sounding output. The
+      tune.* attributes provide the capability of recording a tuning reference
+      pitch.
+      <!-- <xhtml:table>
+        <xhtml:caption>Suggested software default values</xhtml:caption>
+        <xhtml:tr>
+          <xhtml:td>grace</xhtml:td>
+          <xhtml:td>'acc'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>midi.channel</xhtml:td>
+          <xhtml:td/>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>midi.div</xhtml:td>
+          <xhtml:td>'96'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>midi.duty</xhtml:td>
+          <xhtml:td>'80'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>midi.instr</xhtml:td>
+          <xhtml:td>'1' (General MIDI instrument number 1)</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>midi.instrname</xhtml:td>
+          <xhtml:td>'Acoustic Piano' (General MIDI instrument name)</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>midi.port</xhtml:td>
+          <xhtml:td>'1'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>midi.tempo</xhtml:td>
+          <xhtml:td>'120'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>midi.track</xhtml:td>
+          <xhtml:td>'1'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>tempo — beats per minute</xhtml:td>
+          <xhtml:td>'120'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>tune.pname</xhtml:td>
+          <xhtml:td>'a'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>tune.Hz</xhtml:td>
+          <xhtml:td>'440'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>tune.temper</xhtml:td>
+          <xhtml:td>'equal'</xhtml:td>
+        </xhtml:tr>
+      </xhtml:table> -->
+    </a:documentation>
+    <optional>
+      <attribute name="grace">
+        <a:documentation xml:lang="eng">Setting the grace attribute here
+          provides the possibility of changing all the grace attribute values in
+          a score without having to individually change each event's grace
+          attribute value. Each "graced" element may still require a value in
+          its grace.time attribute.</a:documentation>
+        <ref name="data.GRACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.channel">
+        <a:documentation xml:lang="eng">sets the default MIDI
+          channel.</a:documentation>
+        <ref name="data.MIDICHANNEL"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.div">
+        <a:documentation xml:lang="eng">sets the number of MIDI ticks per
+          quarter note.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.tempo">
+        <a:documentation xml:lang="eng">sets the default MIDI
+          tempo.</a:documentation>
+        <ref name="data.MIDITEMPO"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tempo">
+        <a:documentation xml:lang="eng">records tempo in beats (meter signature
+          denominator) per minute.</a:documentation>
+        <ref name="data.TEMPOVALUE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tune.pname">
+        <a:documentation xml:lang="eng">holds the pitch name, such as 'a', for a
+          tuning reference pitch.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tune.Hz">
+        <a:documentation xml:lang="eng">holds a value for cycles per second,
+          i.e., Hertz, for a tuning reference pitch.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tune.temper">
+        <a:documentation xml:lang="eng">provides a label for the tuning system,
+          'just', for example.</a:documentation>
+        <ref name="data.TEMPERAMENT"/>
+      </attribute>
+    </optional>
+  </define>
+  <!-- <define name="att.log.scoredef.mensural">
+    <a:documentation xml:lang="eng">Logical domain attributes for a score in the
+      mensural repertoire. The values set in these attributes act as score-wide
+      defaults for attributes that are not set in descendant elements. The
+      tempus, prolatio, modusmaior, and modusminor attributes specify the
+      relationship between the four principle levels of note value, i.e., the
+      long, breve, semibreve and minim, in mensural notation. Modusminor
+      describes the long-breve relationship, while tempus describes the
+      breve-semibreve, and prolatio the semibreve-minim relationship,
+      respectively. Modusmaior is for the maxima-long relationship. The
+      proport.* attributes describe augmentation or diminution of the normal
+      value of the notes in mensural notation.</a:documentation>
+    <optional>
+      <attribute name="modusmaior">
+        <a:documentation xml:lang="eng">describes the maxima-long
+          relationship.</a:documentation>
+        <ref name="data.MODUSMAIOR"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="modusminor">
+        <a:documentation xml:lang="eng">describes the long-breve
+          relationship.</a:documentation>
+        <ref name="data.MODUSMINOR"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="num">
+        <a:documentation xml:lang="eng">along with numbase, describes duration
+          as a ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="numbase">
+        <a:documentation xml:lang="eng">along with num, describes duration as a
+          ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="prolatio">
+        <a:documentation xml:lang="eng">describes the semibreve-minim
+          relationship.</a:documentation>
+        <ref name="data.PROLATIO"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="proport.num">
+        <a:documentation xml:lang="eng">Together, proport.num and
+          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
+          Proport.num is for the first value in the ratio.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="proport.numbase">
+        <a:documentation xml:lang="eng">Together, proport.num and
+          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
+          Proport.numbase is for the second value in the
+          ratio.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tempus">
+        <a:documentation xml:lang="eng">describes the breve-semibreve
+          relationship.</a:documentation>
+        <ref name="data.TEMPUS"/>
+      </attribute>
+    </optional>
+  </define> -->
+
+  <define name="att.log.scoredef" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes for scoredef in
+      the CMN repertoire. The values set in these attributes act as score-wide
+      defaults for attributes that are not set in descendant elements.
+      <!-- <xhtml:table>
+        <xhtml:caption>Suggested software default values</xhtml:caption>
+        <xhtml:tr>
+          <xhtml:td>beam.group</xhtml:td>
+          <xhtml:td>empty string</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>beam.rests</xhtml:td>
+          <xhtml:td>'no'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>clef.line</xhtml:td>
+          <xhtml:td>'2'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>clef.shape</xhtml:td>
+          <xhtml:td>'G'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>clef.trans</xhtml:td>
+          <xhtml:td>'0'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>dur.default</xhtml:td>
+          <xhtml:td>'4'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>key.accid</xhtml:td>
+          <xhtml:td>empty string</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>key.mode</xhtml:td>
+          <xhtml:td>'major'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>key.pname</xhtml:td>
+          <xhtml:td>empty string</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>key.sig</xhtml:td>
+          <xhtml:td>empty string</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>key.sig.mixed</xhtml:td>
+          <xhtml:td>empty string</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>meter.count</xhtml:td>
+          <xhtml:td>empty string</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>meter.unit</xhtml:td>
+          <xhtml:td>empty string</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>meter.sym</xhtml:td>
+          <xhtml:td>empty string</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>octave.default</xhtml:td>
+          <xhtml:td>'4'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>trans.diat</xhtml:td>
+          <xhtml:td>'0'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>trans.semi</xhtml:td>
+          <xhtml:td>'0'</xhtml:td>
+        </xhtml:tr>
+      </xhtml:table> -->
+    </a:documentation>
+    <!-- <optional>
+      <attribute name="beam.group">
+        <a:documentation xml:lang="eng">provides an example of how beaming
+          (including secondary beams) is to be performed. It can be used to set
+          a default beaming pattern to be used when no beaming is indicated at
+          the event level. beam.group must contain a comma-separated list of
+          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
+          indicates each quarter note worth of shorter notes would be beamed
+          together. Parentheses can be used to indicate sub-groupings of
+          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
+          outer beam per measure with secondary beams broken at each dotted
+          quarter duration, while a measure of 16th notes in 4/4 with beam.group
+          equal to '(4,4),(4,4)' will result in a primary beam covering all the
+          notes and secondary beams each group of 4 notes. This beaming
+          "directive" can be overridden by using &lt;beam&gt; elements.
+          If neither &lt;beam&gt; elements or the beam.group attribute
+          is used, then no beaming is rendered. Beaming can be 'turned off' by
+          setting beam.group to an empty string.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.rests">
+        <a:documentation xml:lang="eng">indicates whether beams should include
+          rests shorter than a quarter note duration.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="clef.line">
+        <a:documentation xml:lang="eng">contains a default value for the
+          position of the clef.</a:documentation>
+        <ref name="data.CLEFLINE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clef.shape">
+        <a:documentation xml:lang="eng">encodes a value for the clef
+          symbol.</a:documentation>
+        <ref name="data.CLEFSHAPE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clef.dis">
+        <a:documentation xml:lang="eng">records the amount of octave
+          displacement to be applied to the clef.</a:documentation>
+        <ref name="data.OCTAVE.DIS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clef.dis.place">
+        <a:documentation xml:lang="eng">records the direction of octave
+          displacement to be applied to the clef.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dur.default">
+        <a:documentation xml:lang="eng">used to determine the duration value of
+          the first note in a layer if it has no dur
+          attribute.</a:documentation>
+        <ref name="data.DURATIONS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.accid">
+        <a:documentation xml:lang="eng">contains an accidental for the tonic
+          key, if one is required, e.g., if key.pname equals 'c' and key.accid
+          equals 's', then a tonic of C# is indicated.</a:documentation>
+        <ref name="data.ACCIDENTAL.IMPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.mode">
+        <a:documentation xml:lang="eng">indicates major, minor, or other
+          tonality.</a:documentation>
+        <ref name="data.MODE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.pname">
+        <a:documentation xml:lang="eng">holds the pitch name of the tonic key,
+          e.g. 'c' for the key of C.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.sig">
+        <a:documentation xml:lang="eng">indicates where the key lies in the
+          circle of fifths.</a:documentation>
+        <ref name="data.KEYSIGNATURE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.sig.mixed">
+        <a:documentation xml:lang="eng">Mixed key signatures, e.g. those
+          consisting of a mixture of flats and sharps (Read, p. 143, ex. 9-39),
+          and key signatures with unorthodox placement of the accidentals (Read,
+          p. 141) must be indicated by setting the key.sig attribute to 'mixed'
+          and providing explicit keysig info in the key.sig.mixed attribute or
+          in the &lt;keysig&gt; element. It is intended that
+          key.sig.mixed contain a series of tokens with each token containing
+          pitch name, accidental, and octave, such as 'As4 Cs5 Ef5' that
+          indicate what key accidentals should be rendered and where they should
+          be placed.</a:documentation>
+        <list>
+          <oneOrMore>
+            <data type="NMTOKEN">
+              <param name="pattern">[A-G](s|f|n|x|ff)[0-9]</param>
+            </data>
+          </oneOrMore>
+        </list>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.count">
+        <a:documentation xml:lang="eng">captures the number of beats in a
+          measure, that is, the top number of the meter
+          signature.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.sym">
+        <a:documentation xml:lang="eng">indicates the use of a meter symbol
+          isntead of a numeric meter signature, that is, 'C' for common time or
+          'C' with a slash for cut time.</a:documentation>
+        <ref name="data.METERSIGN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.unit">
+        <a:documentation xml:lang="eng">contains the number indicating the beat
+          unit, that is, the bottom number of the meter
+          signature.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="octave.default">
+        <a:documentation xml:lang="eng">functions similarly to dur.default. If
+          the oct attribute isn't given on the first note of a measure, then the
+          value of octave.default is used.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">contains a list of one or more pointers
+          indicating the sources that contain a staff. Each value should
+          correspond to the ID of a &lt;source&gt; element given
+          elsewhere in the document.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="trans.diat">
+        <a:documentation xml:lang="eng">holds the amount of diatonic pitch
+          shift, e.g. C to C# = 0, C to Db = 1. Transposition requires both
+          trans.diat and trans.semi attributes in order to distinguish the
+          difference, for example, between a transposition from C to C# and one
+          from C to Db.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="trans.semi">
+        <a:documentation xml:lang="eng">contains the amount of pitch shift in
+          semitones, C to C# = 1, C to Db = 1. Transposition requires both
+          trans.diat and trans.semi attributes in order to distinguish the
+          difference, for example, between a transposition from C to C# and one
+          from C to Db.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <!-- <define name="att.vis.scoredef.mensural">
+    <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
+      mensural repertoire</a:documentation>
+    <optional>
+      <attribute name="mensur">
+        <a:documentation xml:lang="eng">the base symbol in the mensuration
+          sign/time signature of mensural notation.</a:documentation>
+        <ref name="data.MENSURATIONSIGN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.dot">
+        <a:documentation xml:lang="eng">indicates whether a dot is to be added
+          to the base symbol.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.form">
+        <a:documentation xml:lang="eng">indicates whether the base symbol is
+          written vertically or horizontally.</a:documentation>
+        <choice>
+          <value>horizontal</value>
+          <value>vertical</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.loc">
+        <a:documentation xml:lang="eng">holds the staff location of the
+          mensuration sign.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.orient">
+        <a:documentation xml:lang="eng">describes the rotation or reflection of
+          the base symbol.</a:documentation>
+        <ref name="data.ORIENTATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.size">
+        <a:documentation xml:lang="eng">describes the relative size of the
+          mensuration sign.</a:documentation>
+        <ref name="data.SIZE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.slash">
+        <a:documentation xml:lang="eng">indicates the number lines added to the
+          mensuration sign. For example, one slash is added for what we now call
+          'alla breve'.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define> -->
+
+  <define name="att.vis.scoredef" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
+      CMN repertoire
+      <!-- <xhtml:table>
+        <xhtml:caption>Suggested software default values</xhtml:caption>
+        <xhtml:tr>
+          <xhtml:td>bar.place</xhtml:td>
+          <xhtml:td>'norm'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>beam.rend</xhtml:td>
+          <xhtml:td>'norm'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>beam.slope</xhtml:td>
+          <xhtml:td>25.0'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>clef.color</xhtml:td>
+          <xhtml:td>'black'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>clef.visible</xhtml:td>
+          <xhtml:td>'yes'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>dynam.dist</xhtml:td>
+          <xhtml:td>'2'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>ending.rend</xhtml:td>
+          <xhtml:td>'top'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>grid.show</xhtml:td>
+          <xhtml:td>'no'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>harm.dist</xhtml:td>
+          <xhtml:td>'2'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>key.sig.show</xhtml:td>
+          <xhtml:td>'yes'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>key.sig.showchange</xhtml:td>
+          <xhtml:td>'yes'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>lyric.align</xhtml:td>
+          <xhtml:td>'0.25'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>lyric.fam</xhtml:td>
+          <xhtml:td>'times'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>lyric.name</xhtml:td>
+          <xhtml:td>'rom'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>lyric.size</xhtml:td>
+          <xhtml:td>'12'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>lyric.style</xhtml:td>
+          <xhtml:td>no default</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>lyric.weight</xhtml:td>
+          <xhtml:td>no default</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>meter.rend</xhtml:td>
+          <xhtml:td>'norm'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>meter.sig.showchange</xhtml:td>
+          <xhtml:td>'yes'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>mnum.visible</xhtml:td>
+          <xhtml:td>'no'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>multi.number</xhtml:td>
+          <xhtml:td>'no'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>measures</xhtml:td>
+          <xhtml:td>'no'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>ontheline</xhtml:td>
+          <xhtml:td>'yes'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>optimize</xhtml:td>
+          <xhtml:td>'no'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.height</xhtml:td>
+          <xhtml:td>'11'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.width</xhtml:td>
+          <xhtml:td>'8.5'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.units</xhtml:td>
+          <xhtml:td>'in'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.topmar</xhtml:td>
+          <xhtml:td>'1'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.botmar</xhtml:td>
+          <xhtml:td>'1'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.leftmar</xhtml:td>
+          <xhtml:td>'.5'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.rightmar</xhtml:td>
+          <xhtml:td>'.5'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.panels</xhtml:td>
+          <xhtml:td>'1'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>page.scale</xhtml:td>
+          <xhtml:td>'100'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>pedal.rend</xhtml:td>
+          <xhtml:td>'term'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>reh.enclose</xhtml:td>
+          <xhtml:td>'box'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>slur.rend</xhtml:td>
+          <xhtml:td>'medium'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>spacing.packexp</xhtml:td>
+          <xhtml:td>'0.8'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>spacing.packfact</xhtml:td>
+          <xhtml:td>'1'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>spacing.staff</xhtml:td>
+          <xhtml:td>'2'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>spacing.system</xhtml:td>
+          <xhtml:td>20'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>system.leftmar</xhtml:td>
+          <xhtml:td>'0'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>system.rightmar</xhtml:td>
+          <xhtml:td>'0'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>system.topmar</xhtml:td>
+          <xhtml:td>no default</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>text.dist</xhtml:td>
+          <xhtml:td>'2'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>text.fam</xhtml:td>
+          <xhtml:td>'times'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>text.nam</xhtml:td>
+          <xhtml:td>'rom'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>text.size</xhtml:td>
+          <xhtml:td>'12'</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>text.style</xhtml:td>
+          <xhtml:td>no default</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>text.weight</xhtml:td>
+          <xhtml:td>no default</xhtml:td>
+        </xhtml:tr>
+        <xhtml:tr>
+          <xhtml:td>tie.rend</xhtml:td>
+          <xhtml:td>'medium'</xhtml:td>
+        </xhtml:tr>
+      </xhtml:table> -->
+    </a:documentation>
+    <optional>
+      <attribute name="bar.place">
+        <a:documentation xml:lang="eng">describes the placement of
+          barlines.</a:documentation>
+        <ref name="data.BARPLACE"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="beam.rend">
+        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
+          in which direction.</a:documentation>
+        <choice>
+          <value>acc</value>
+          <value>rit</value>
+          <value>norm</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.slope">
+        <a:documentation xml:lang="eng">captures default beam
+          slope.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="clef.color">
+        <a:documentation xml:lang="eng">describes the color of the
+          clef.</a:documentation>
+        <ref name="data.COLOR"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clef.visible">
+        <a:documentation xml:lang="eng">determines whether the clef is to be
+          displayed.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dynam.dist">
+        <a:documentation xml:lang="eng">records the default distance from the
+          staff of dynamic marks.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ending.rend">
+        <a:documentation xml:lang="eng">describes where ending marks should be
+          displayed.</a:documentation>
+        <choice>
+          <value>top</value>
+          <value>barred</value>
+          <value>grouped</value>
+        </choice>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="grid.show">
+        <a:documentation xml:lang="eng">determines whether to display guitar
+          chord grids.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="harm.dist">
+        <a:documentation xml:lang="eng">records the default distance from the
+          staff of harmonic indications, such as guitar chord grids or
+          functional labels.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.sig.show">
+        <a:documentation xml:lang="eng">indicates whether the key signature
+          should be displayed.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.sig.showchange">
+        <a:documentation xml:lang="eng">determines whether cautionary
+          accidentals should be displayed at a key change.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.align">
+        <a:documentation xml:lang="eng">describes the alignment of lyric
+          syllables associated with a note or chord.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.fam">
+        <a:documentation xml:lang="eng">sets the font family default value for
+          lyrics.</a:documentation>
+        <ref name="data.FONTFAMILY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.name">
+        <a:documentation xml:lang="eng">sets the font name default value for
+          lyrics.</a:documentation>
+        <ref name="data.FONTNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.size">
+        <a:documentation xml:lang="eng">sets the default font size value for
+          lyrics.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.style">
+        <a:documentation xml:lang="eng">sets the default font style value for
+          lyrics.</a:documentation>
+        <ref name="data.FONTSTYLE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.weight">
+        <a:documentation xml:lang="eng">sets the default font weight value for
+          lyrics.</a:documentation>
+        <ref name="data.FONTWEIGHT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.rend">
+        <a:documentation xml:lang="eng">contains indication of how the meter
+          signature should be rendered.</a:documentation>
+        <choice>
+          <value>denomsym</value>
+          <value>norm</value>
+          <value>invis</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.sig.showchange">
+        <a:documentation xml:lang="eng">determines whether a new meter signature
+          should be displayed when the meter signature
+          changes.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mnum.visible">
+        <a:documentation xml:lang="eng">indicates whether measure numbers should
+          be displayed.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="multi.number">
+        <a:documentation xml:lang="eng">indicates whether programmatically
+          calculated counts of multiple measures of rest (mrest) and whole
+          measure repeats (mrpt) in parts should be rendered.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="music.name">
+        <a:documentation xml:lang="eng">sets the default music font
+          name.</a:documentation>
+        <ref name="data.MUSICFONT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="music.size">
+        <a:documentation xml:lang="eng">sets the default music font
+          size.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ontheline">
+        <a:documentation xml:lang="eng">determines the placement of notes on a
+          1-line staff. A value of 'yes' places all notes on the line, while a
+          value of 'no' places stems-up notes above the line and stems-down
+          notes below the line.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="optimize">
+        <a:documentation xml:lang="eng">display only those staves with
+          notes?</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.height">
+        <a:documentation xml:lang="eng">describes the physical height of the
+          rendered output page.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.width">
+        <a:documentation xml:lang="eng">describes the physwical width of the
+          rendered output page.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.units">
+        <a:documentation xml:lang="eng">contains the real-world measurement
+          units (inches, centimeters, millimeters) used to describe the rendered
+          page height and width.</a:documentation>
+        <ref name="data.PGUNITS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.topmar">
+        <a:documentation xml:lang="eng">indicates the amount of whitespace at
+          the top of a rendered score page.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.botmar">
+        <a:documentation xml:lang="eng">indicates the amount of whitespace at
+          the bottom of a rendered score page.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.leftmar">
+        <a:documentation xml:lang="eng">indicates the amount of whitespace at
+          the left side of a rendered score page.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.rightmar">
+        <a:documentation xml:lang="eng">indicates the amount of whitespace at
+          the right side of a rendered score page.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.panels">
+        <a:documentation xml:lang="eng">indicates the number of logical pages to
+          be rendered on a single physical page.</a:documentation>
+        <ref name="data.PAGE.PANELS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="page.scale">
+        <a:documentation xml:lang="eng">indicates how the page should be scaled
+          when rendered.</a:documentation>
+        <ref name="data.PGSCALE"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="pedal.rend">
+        <a:documentation xml:lang="eng">determines whether piano pedal marks
+          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
+          '*' for pedal up).</a:documentation>
+        <choice>
+          <value>line</value>
+          <value>term</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="reh.enclose">
+        <a:documentation xml:lang="eng">describes the enclosing shape for
+          rehearsal marks.</a:documentation>
+        <choice>
+          <value>box</value>
+          <value>circle</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">describes the default rendering style
+          for slurs.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="spacing.packexp">
+        <a:documentation xml:lang="eng">describes a note's spacing relative to
+          its time value.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="spacing.packfact">
+        <a:documentation xml:lang="eng">describes the note spacing of
+          output.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="spacing.staff">
+        <a:documentation xml:lang="eng">sets the minimum amount of space between
+          staves in the same system.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="spacing.system">
+        <a:documentation xml:lang="eng">contains a space-separated pair of
+          numbers describing the minimum and maximum amount of space between
+          systems.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="system.leftmar">
+        <a:documentation xml:lang="eng">describes the amount of whitespace at
+          the left system margin relative to page.leftmar</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="system.rightmar">
+        <a:documentation xml:lang="eng">describes the amount of whitespace at
+          the right system margin relative to page.rightmar</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="system.topmar">
+        <a:documentation xml:lang="eng">describes the distance from page's top
+          edge to the first system; used for first page only</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.dist">
+        <a:documentation xml:lang="eng">determines how far from the staff to
+          render text elements.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.fam">
+        <a:documentation xml:lang="eng">sets the default font family value for
+          text other than lyrics.</a:documentation>
+        <ref name="data.FONTFAMILY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.name">
+        <a:documentation xml:lang="eng">sets the default font name value for
+          text other than lyrics.</a:documentation>
+        <ref name="data.FONTNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.size">
+        <a:documentation xml:lang="eng">sets the default font size value for
+          text other than lyrics.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.style">
+        <a:documentation xml:lang="eng">sets the default font style value for
+          text other than lyrics.</a:documentation>
+        <ref name="data.FONTSTYLE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.weight">
+        <a:documentation xml:lang="eng">sets the default font weight value for
+          text other than lyrics.</a:documentation>
+        <ref name="data.FONTWEIGHT"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">describes the default rendering style
+          for ties.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional> -->
+  </define>
+
+  <define name="att.anl.section" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.section">
+  <define name="att.ges.section" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
     <!-- <optional>
@@ -668,11 +3210,11 @@
       </attribute>
     </optional> -->
   </define>
-  <define name="att.log.section">
+  <define name="att.log.section" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.section">
+  <define name="att.vis.section" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="restart">
@@ -683,20 +3225,90 @@
     </optional>
   </define>
 
-  <define name="att.anl.staff">
+  <define name="att.anl.space" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.staff">
+  <define name="att.ges.space" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from the written values. Its value may be expressed in
+          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions',
+          etc.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.space" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.event"/>
+    <!-- <optional>
+      <attribute name="beam">
+        <a:documentation xml:lang="eng">indicates that this event is "under a
+          beam".</a:documentation>
+        <ref name="data.BEAMS"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="dots">
+        <a:documentation xml:lang="eng">encodes the number of written dots of
+          augmentation.</a:documentation>
+        <ref name="data.AUGMENTDOT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes logical; that is, written,
+          duration.</a:documentation>
+        <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fermata">
+        <a:documentation xml:lang="eng">used to indicate the attachment of a
+          fermata to this element. If visual information about the fermata needs
+          to be recorded, then a &lt;fermata&gt; element should be
+          employed.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tuplet">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tuplet.</a:documentation>
+        <ref name="data.TUPLET"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.space" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="compressable">
+        <a:documentation xml:lang="eng">indicates that the space is
+          'compressable', i.e., it may be removed by processing
+          software.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.staff" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.staff" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.staff">
+  <define name="att.log.staff" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.staff">
+  <define name="att.vis.staff" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="visible">
@@ -708,62 +3320,717 @@
     </optional>
   </define>
 
-  <define name="att.typed" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes which can be used to classify or
-      subclassify elements</a:documentation>
+  <define name="att.anl.staffdef" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <empty/>
+  </define>
+  <!-- <define name="att.ges.staffdef.tablature">
+    <a:documentation xml:lang="eng">Gestural domain attributes for staffdef in
+      tablature</a:documentation>
     <optional>
-      <attribute name="type">
-        <a:documentation xml:lang="eng">characterizes the element in some sense,
-          using any convenient classification scheme or
-          typology.</a:documentation>
-        <data type="NMTOKEN"/>
+      <attribute name="tab.strings">
+        <a:documentation xml:lang="eng">provides a written pitch and octave for
+          each open string, e.g. "e3 a3 d4 g4 b4 e5" for standard guitar tuning.
+          It should contain the number of tokens indicated by the lines
+          attribute. Chromatic alteration may be indicated with '-' (flat) and
+          '#' (sharp). Double sharps and flats are not
+          permitted.</a:documentation>
+      </attribute>
+    </optional>
+  </define> -->
+  <define name="att.ges.staffdef" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes for staffdef in
+      the CMN repertoire</a:documentation>
+    <optional>
+      <attribute name="grace">
+        <a:documentation xml:lang="eng">Setting the grace attribute here
+          provides the possibility of changing all the grace attribute values in
+          a staff without having to individually change each event's grace
+          attribute value. Each "graced" element may still require a value in
+          its grace.time attribute.</a:documentation>
+        <ref name="data.GRACE"/>
       </attribute>
     </optional>
     <optional>
-      <attribute name="subtype">
-        <a:documentation xml:lang="eng">provide any sub-classification for the
-          element, additional to that given by its type
-          attribute.</a:documentation>
-        <data type="NMTOKEN"/>
+      <attribute name="instr">
+        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
+          instrument definition. It must contain the ID of an
+          &lt;instrdef&gt; element elsewhere in the
+          document.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.div">
+        <a:documentation xml:lang="eng">sets the number of MIDI ticks per
+          quarter note.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
       </attribute>
     </optional>
   </define>
-
-  <define name="att.typography">
-    <a:documentation xml:lang="eng">Typographical attributes</a:documentation>
+  <!-- <define name="att.log.staffdef.mensural">
+    <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
+      the mensural repertoire</a:documentation>
     <optional>
-      <attribute name="fontfam">
-        <a:documentation xml:lang="eng">contains the name of a
-          font-family.</a:documentation>
-        <ref name="data.FONTFAMILY"/>
+      <attribute name="mensur.sign">
+        <a:documentation xml:lang="eng">the base symbol in the mensuration
+          sign/time signature of mensural notation.</a:documentation>
+        <ref name="data.MENSURATIONSIGN"/>
       </attribute>
     </optional>
     <optional>
-      <attribute name="fontname">
-        <a:documentation xml:lang="eng">records the name of the
-          font.</a:documentation>
-        <ref name="data.FONTNAME"/>
+      <attribute name="mensur.dot">
+        <a:documentation xml:lang="eng">determines if a dot is to be added to
+          the base symbol.</a:documentation>
+        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
     <optional>
-      <attribute name="fontsize">
-        <a:documentation xml:lang="eng">indicates the size of the font in
-          printers' points, i.e., 1/72ths of an inch.</a:documentation>
+      <attribute name="mensur.slash">
+        <a:documentation xml:lang="eng">indicates the number lines added to the
+          mensuration sign. For example, one slash is added for what we now call
+          'alla breve'.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="modusmaior">
+        <a:documentation xml:lang="eng">describes the maxima-long
+          relationship.</a:documentation>
+        <ref name="data.MODUSMAIOR"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="modusminor">
+        <a:documentation xml:lang="eng">describes the long-breve
+          relationship.</a:documentation>
+        <ref name="data.MODUSMINOR"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="num">
+        <a:documentation xml:lang="eng">along with numbase, describes duration
+          as a ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="numbase">
+        <a:documentation xml:lang="eng">along with num, describes duration as a
+          ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="prolatio">
+        <a:documentation xml:lang="eng">describes the semibreve-minim
+          relationship.</a:documentation>
+        <ref name="data.PROLATIO"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="proport.num">
+        <a:documentation xml:lang="eng">Together, proport.num and
+          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
+          Proport.um is for the first value in the ratio.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="proport.numbase">
+        <a:documentation xml:lang="eng">Together, proport.num and
+          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
+          Proport.numbase is for the second value in the
+          ratio.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tempus">
+        <a:documentation xml:lang="eng">describes the breve-semibreve
+          relationship.</a:documentation>
+        <ref name="data.TEMPUS"/>
+      </attribute>
+    </optional>
+  </define> -->
+  <define name="att.log.staffdef" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
+      the CMN repertoire</a:documentation>
+    <!-- <optional>
+      <attribute name="beam.group">
+        <a:documentation xml:lang="eng">provides an example of how beaming
+          (including secondary beams) is to be performed. It can be used to set
+          a default beaming pattern to be used when no beaming is indicated at
+          the event level. beam.group must contain a comma-separated list of
+          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
+          indicates each quarter note worth of shorter notes would be beamed
+          together. Parentheses can be used to indicate sub-groupings of
+          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
+          outer beam per measure with secondary beams broken at each dotted
+          quarter duration, while a measure of 16th notes in 4/4 with beam.group
+          equal to '(4,4),(4,4)' will result in a primary beam covering all the
+          notes and secondary beams each group of 4 notes. This beaming
+          "directive" can be overridden by using &lt;beam&gt; elements.
+          If neither &lt;beam&gt; elements or the beam.group attribute
+          is used, then no beaming is rendered. Beaming can be 'turned off' by
+          setting beam.group to an empty string.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.rests">
+        <a:documentation xml:lang="eng">determines whether rests are allowed
+          under a beam.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="clef.line">
+        <a:documentation xml:lang="eng">contains a default value for the
+          position of the clef.</a:documentation>
+        <ref name="data.CLEFLINE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clef.shape">
+        <a:documentation xml:lang="eng">encodes a value for the clef
+          symbol.</a:documentation>
+        <ref name="data.CLEFSHAPE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clef.dis">
+        <a:documentation xml:lang="eng">records the amount of octave
+          displacement to be applied to the clef.</a:documentation>
+        <ref name="data.OCTAVE.DIS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clef.dis.place">
+        <a:documentation xml:lang="eng">records the direction of octave
+          displacement to be applied to the clef.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dur.default">
+        <a:documentation xml:lang="eng">contains a default duration in those
+          situations when the first note, rest, chord, etc. in a measure does
+          not have a duration specified.</a:documentation>
+        <ref name="data.DURATIONS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.accid">
+        <a:documentation xml:lang="eng">contains an accidental for the tonic
+          key, if one is required, e.g., if key.pname equals 'c' and key.accid
+          equals 's', then a tonic of C# is indicated.</a:documentation>
+        <ref name="data.ACCIDENTAL.IMPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.mode">
+        <a:documentation xml:lang="eng">indicates major or minor
+          tonality.</a:documentation>
+        <ref name="data.MODE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.pname">
+        <a:documentation xml:lang="eng">holds the pitch name of the tonic key,
+          e.g. 'c' for the key of C.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.sig">
+        <a:documentation xml:lang="eng">indicates where the key is in the circle
+          of fifths.</a:documentation>
+        <ref name="data.KEYSIGNATURE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.sig.mixed">
+        <a:documentation xml:lang="eng">Mixed key signatures, e.g. those
+          consisting of a mixture of flats and sharps (Read, p. 143, ex. 9-39),
+          and key signatures with unorthodox placement of the accidentals (Read,
+          p. 141) must be indicated by setting the key.sig attribute to 'mixed'
+          and providing explicit keysig info in the key.sig.mixed attribute or
+          in the &lt;keysig&gt; element. It is intended that
+          key.sig.mixed contain a series of tokens with each token containing
+          pitch name, accidental, and octave, such as 'As4 Cs5 Ef5' that
+          indicate what key accidentals should be rendered and where they should
+          be placed.</a:documentation>
+        <list>
+          <oneOrMore>
+            <data type="NMTOKEN">
+              <param name="pattern">[A-G](s|f|n|x|ff)[0-9]</param>
+            </data>
+          </oneOrMore>
+        </list>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.count">
+        <a:documentation xml:lang="eng">captures the number of beats in a
+          measure, that is, the top number of the meter
+          signature.</a:documentation>
         <ref name="data.NUMBER"/>
       </attribute>
     </optional>
     <optional>
-      <attribute name="fontstyle">
-        <a:documentation xml:lang="eng">records the style of the font, i.e,
-          italic, oblique, or normal.</a:documentation>
+      <attribute name="meter.sym">
+        <a:documentation xml:lang="eng">indicates the use of a meter symbol
+          isntead of a numeric meter signature, that is, 'C' for common time or
+          'C' with a slash for cut time.</a:documentation>
+        <ref name="data.METERSIGN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.unit">
+        <a:documentation xml:lang="eng">contains the number indicating the beat
+          unit, that is, the bottom number of the meter
+          signature.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="octave.default">
+        <a:documentation xml:lang="eng">functions similarly to dur.default. If
+          the oct attribute isn't given on the first note of a measure, then the
+          value of octave.default is used.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="trans.diat">
+        <a:documentation xml:lang="eng">holds the amount of diatonic pitch
+          shift, e.g. C to C# = 0, C to Db = 1. Transposition requires both
+          trans.diat and trans.semi attributes in order to distinguish the
+          difference, for example, between a transposition from C to C# and one
+          from C to Db.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="trans.semi">
+        <a:documentation xml:lang="eng">contains the amount of pitch shift in
+          semitones, C to C# = 1, C to Db = 1. Transposition requires both
+          trans.diat and trans.semi attributes in order to distinguish the
+          difference, for example, between a transposition from C to C# and one
+          from C to Db.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+  </define>
+  <!-- <define name="att.vis.staffdef.mensural">
+    <a:documentation xml:lang="eng">Visual domain attributes for the mensural
+      repertoire</a:documentation>
+    <optional>
+      <attribute name="mensur.form">
+        <a:documentation xml:lang="eng">indicates whether the base symbol is
+          written vertically or horizontally.</a:documentation>
+        <choice>
+          <value>horizontal</value>
+          <value>vertical</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.loc">
+        <a:documentation xml:lang="eng">holds the staff location of the
+          mensuration sign.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.orient">
+        <a:documentation xml:lang="eng">describes the rotation or reflection of
+          the base symbol.</a:documentation>
+        <ref name="data.ORIENTATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mensur.size">
+        <a:documentation xml:lang="eng">describes the relative size of the
+          mensuration sign.</a:documentation>
+        <ref name="data.SIZE"/>
+      </attribute>
+    </optional>
+  </define> -->
+  <define name="att.vis.staffdef" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes for staffdef in the
+      CMN repertoire</a:documentation>
+    <!-- <optional>
+      <attribute name="beam.rend">
+        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
+          in which direction.</a:documentation>
+        <choice>
+          <value>acc</value>
+          <value>rit</value>
+          <value>norm</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.slope">
+        <a:documentation xml:lang="eng">captures default beam
+          slope.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="clef.color">
+        <a:documentation xml:lang="eng">describes the color of the
+          clef.</a:documentation>
+        <ref name="data.COLOR"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="clef.visible">
+        <a:documentation xml:lang="eng">determines whether the clef is to be
+          displayed.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dynam.dist">
+        <a:documentation xml:lang="eng">records the default distance from the
+          staff of dynamic marks.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="grid.show">
+        <a:documentation xml:lang="eng">determines whether to display guitar
+          chord grids.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="harm.dist">
+        <a:documentation xml:lang="eng">records the default distance from the
+          staff of harmonic indications, such as guitar chord grids or
+          functional labels.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.sig.show">
+        <a:documentation xml:lang="eng">indicates whether the key signature
+          should be displayed.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="key.sig.showchange">
+        <a:documentation xml:lang="eng">determines whether cautionary
+          accidentals should be displayed at a key change.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="label.full">
+        <a:documentation xml:lang="eng">provides a label for a group of staves
+          on the first page; label.abbr is used thereafter.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="label.abbr">
+        <a:documentation xml:lang="eng">provides a label for a group of staves
+          on pages after the first page.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="layerscheme">
+        <a:documentation xml:lang="eng">indicates the number of layers and their
+          stem directions.</a:documentation>
+        <ref name="data.LAYERSCHEME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lines">
+        <a:documentation xml:lang="eng">indicates the number of
+          stafflines.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lines.color">
+        <a:documentation xml:lang="eng">encodes the colors of the staff lines.
+          The value is structured; that is, it should have the same number of
+          space-separated RGB values as the number of lines indicated by the
+          lines attribute. A line can be made invisible by assigning it the same
+          RGB value as the background, usually white.</a:documentation>
+        <data type="NMTOKENS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lines.visible">
+        <a:documentation xml:lang="eng">records whether all stafflines are
+          visible.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.align">
+        <a:documentation xml:lang="eng">describes the alignment of lyric
+          syllables associated with a note or chord.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.fam">
+        <a:documentation xml:lang="eng">sets the font family default value for
+          lyrics.</a:documentation>
+        <ref name="data.FONTFAMILY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.name">
+        <a:documentation xml:lang="eng">sets the font name default value for
+          lyrics.</a:documentation>
+        <ref name="data.FONTNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.size">
+        <a:documentation xml:lang="eng">sets the default font size value for
+          lyrics.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lyric.style">
+        <a:documentation xml:lang="eng">sets the default font style value for
+          lyrics.</a:documentation>
         <ref name="data.FONTSTYLE"/>
       </attribute>
     </optional>
     <optional>
-      <attribute name="fontweight">
-        <a:documentation xml:lang="eng">used to indicate bold
-          type.</a:documentation>
+      <attribute name="lyric.weight">
+        <a:documentation xml:lang="eng">sets the default font weight value for
+          lyrics.</a:documentation>
         <ref name="data.FONTWEIGHT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.rend">
+        <a:documentation xml:lang="eng">contains an indication of how the meter
+          signature should be rendered.</a:documentation>
+        <choice>
+          <value>denomsym</value>
+          <value>norm</value>
+          <value>invis</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="meter.sig.showchange">
+        <a:documentation xml:lang="eng">determines whether a new meter signature
+          should be displayed when the meter signature
+          changes.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="multi.number">
+        <a:documentation xml:lang="eng">indicates whether programmatically
+          calculated counts of multiple measures of rest (mrest) and whole
+          measure repeats (mrpt) in parts should be rendered.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="ontheline">
+        <a:documentation xml:lang="eng">determines the placement of notes on a
+          1-line staff. A value of 'yes' places all notes on the line, while a
+          value of 'no' places stems-up notes above the line and stems-down
+          notes below the line.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="pedal.rend">
+        <a:documentation xml:lang="eng">determines whether piano pedal marks
+          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
+          '*' for pedal up).</a:documentation>
+        <choice>
+          <value>line</value>
+          <value>term</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="reh.enclose">
+        <a:documentation xml:lang="eng">describes the enclosing shape for
+          rehearsal marks.</a:documentation>
+        <choice>
+          <value>box</value>
+          <value>circle</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="scale">
+        <a:documentation xml:lang="eng">indicates how the staff should be scaled
+          when rendered.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">describes the default rendering style
+          for slurs.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="spacing">
+        <a:documentation xml:lang="eng">records the absolute distance (as
+          opposed to the relative distances recorded in &lt;scoredef&gt;
+          elements) between this staff and the preceding one in the same system.
+          This value is meaningless for the first staff in a system since the
+          spacing.system attribute indicates the spacing between
+          systems.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.dist">
+        <a:documentation xml:lang="eng">determines how far from the staff to
+          render text elements.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.fam">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          family name for text (other than lyrics) associated with this
+          staff.</a:documentation>
+        <ref name="data.FONTFAMILY"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.name">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          name for text (other than lyrics) associated with this
+          staff.</a:documentation>
+        <ref name="data.FONTNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.size">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          size for text (other than lyrics) associated with this
+          staff.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.style">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          style for text (other than lyrics) associated with this
+          staff.</a:documentation>
+        <ref name="data.FONTSTYLE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="text.weight">
+        <a:documentation xml:lang="eng">provides a default value for the font
+          weight for text (other than lyrics) associated with this
+          staff.</a:documentation>
+        <ref name="data.FONTWEIGHT"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">provides a default value for the
+          appearance of ties associated with this staff.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="visible">
+        <a:documentation xml:lang="eng">indicates if a staff should be displayed
+          when the score is rendered. A staff with this attribute set to 'false'
+          should also not be included in a sounded rendition.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.staffgrp" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.ges.staffgrp" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="midi.div">
+        <a:documentation xml:lang="eng">sets the default number of MIDI ticks
+          per quarter note for all staves in the group.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="instr">
+        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
+          instrument definition. It must contain the ID of an
+          &lt;instrdef&gt; element elsewhere in the
+          document.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.staffgrp" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.vis.staffgrp" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="barthru">
+        <a:documentation xml:lang="eng">indicates whether barlines go across the
+          space between staves (yes) or are only drawn across the stafflines of
+          each staff (no)</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="label.abbr">
+        <a:documentation xml:lang="eng">provides a label for a group of staves
+          on pages after the first page.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="label.full">
+        <a:documentation xml:lang="eng">provides a label for a group of staves
+          on the first page; label.abbr is used thereafter.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="symbol">
+        <a:documentation xml:lang="eng">indicates the left-hand connecting
+          symbol for the staff group.</a:documentation>
+        <choice>
+          <value>brace</value>
+          <value>bracket</value>
+          <value>line</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="visible">
+        <a:documentation xml:lang="eng">indicates if a staff group should be
+          displayed when the notation is rendered. A staff group with this
+          attribute set to 'false' should also not be included in a sounded
+          rendition.</a:documentation>
+        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -799,6 +4066,15 @@
     <ref name="caption"/>
   </define>
 
+  <!-- This goes in neume and/or mensural modules 
+  <define name="model.clefchangePart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that contain information
+      regarding changes of clef.</a:documentation>
+    <zeroOrMore>
+      <ref name="clef"/>
+    </zeroOrMore>
+  </define> -->
+
   <define name="model.dateLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements containing date
       expressions.</a:documentation>
@@ -811,16 +4087,89 @@
     <ref name="edition"/>
   </define>
 
+  <define name="model.editorialLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups editorial intervention
+      elements.</a:documentation>
+    <choice>
+      <ref name="abbr"/>
+      <ref name="expan"/>
+    </choice>
+  </define>
+
   <define name="model.endingLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that represent alternative
       endings.</a:documentation>
     <ref name="ending"/>
   </define>
 
+  <define name="model.eventLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups event elements that occur in all
+      notational repertoires.</a:documentation>
+    <choice>
+      <ref name="barline"/>
+      <ref name="chord"/>
+      <ref name="clefchange"/>
+      <ref name="custos"/>
+      <!-- <ref name="keychange"/> -->
+      <ref name="keysig"/>
+      <ref name="note"/>
+      <ref name="pad"/>
+      <ref name="rest"/>
+      <ref name="space"/>
+    </choice>
+  </define>
+
   <define name="model.identifierLike" combine="interleave">
     <a:documentation xml:lang="eng">groups identifier-like
       elements.</a:documentation>
     <ref name="identifier"/>
+  </define>
+
+  <define name="model.Incl" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear between as
+      well as within MEI structural elements.</a:documentation>
+    <choice>
+      <ref name="model.appLike"/>
+      <ref name="model.divLike"/>
+      <ref name="model.milestoneLike.music"/>
+      <ref name="model.scoredefLike"/>
+      <ref name="model.staffdefLike"/>
+      <ref name="model.staffgrpLike"/>
+      <ref name="model.annotLike"/>
+      <ref name="model.graphicprimitiveLike"/>
+      <ref name="model.editLike"/>
+      <ref name="model.transcriptionLike"/>
+    </choice>
+  </define>
+
+  <define name="model.instrdefLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements used to declare a MIDI
+      instrument.</a:documentation>
+    <ref name="instrdef"/>
+  </define>
+
+  <define name="model.keyaccidLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that represent accidentals
+      in a key signature.</a:documentation>
+    <ref name="keyaccid"/>
+  </define>
+
+  <define name="model.keysigLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that have the same function
+      as a key signature.</a:documentation>
+    <ref name="keysig"/>
+  </define>
+
+  <define name="model.labelLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements used to assign a label to
+      other parts of a document.</a:documentation>
+    <ref name="label"/>
+  </define>
+
+  <define name="model.layerdefLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that permit declaration of
+      layer properties.</a:documentation>
+    <ref name="layerdef"/>
   </define>
 
   <define name="model.layerLike" combine="interleave">
@@ -833,16 +4182,16 @@
     <a:documentation xml:lang="eng">groups notated events at the layer
       level.</a:documentation>
     <empty/>
-    <!-- <choice>
+    <choice>
       <ref name="model.eventLike"/>
-      <ref name="model.eventLike.cmn.measureFilling"/>
+      <!-- <ref name="model.eventLike.cmn.measureFilling"/>
       <ref name="model.midiLike"/>
       <ref name="model.controleventLike"/>
       <ref name="model.lyricsLike"/>
       <ref name="model.noteModifierLike"/>
       <ref name="model.verseLike"/>
-      <ref name="model.sylLike"/>
-    </choice> -->
+      <ref name="model.sylLike"/> -->
+    </choice>
   </define>
 
   <define name="model.lbLike" combine="interleave">
@@ -857,16 +4206,47 @@
     <ref name="mdiv"/>
   </define>
 
-  <define name="model.measureLike" combine="interleave">
-    <a:documentation xml:lang="eng">groups measure-like
-      elements.</a:documentation>
-    <ref name="measure"/>
+  <define name="model.metaLike.page" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that contain meta-data about
+      a single page.</a:documentation>
+    <zeroOrMore>
+      <ref name="fw"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="pgdesc"/>
+    </optional>
+  </define>
+
+  <define name="model.metaLike.score" combine="interleave">
+    <a:documentation xml:lang="eng">groups meta-data elements that may appear in
+      running headers or footers of a score.</a:documentation>
+    <optional>
+      <ref name="pghead1"/>
+    </optional>
+    <optional>
+      <ref name="pghead2"/>
+    </optional>
+    <optional>
+      <ref name="pgfoot1"/>
+    </optional>
+    <optional>
+      <ref name="pgfoot2"/>
+    </optional>
   </define>
 
   <define name="model.measurementLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that represent a
       measurement.</a:documentation>
     <ref name="model.numLike"/>
+  </define>
+
+  <define name="model.milestoneLike.music" combine="interleave">
+    <a:documentation xml:lang="eng">groups milestone-style elements found in
+      music notation.</a:documentation>
+    <choice>
+      <ref name="model.pbLike"/>
+      <ref name="sb"/>
+    </choice>
   </define>
 
   <define name="model.milestoneLike.text" combine="interleave">
@@ -901,10 +4281,42 @@
     <ref name="name"/>
   </define>
 
+  <define name="model.noteModifierLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that modify note-like
+      features.</a:documentation>
+    <choice>
+      <ref name="accid"/>
+      <ref name="artic"/>
+      <ref name="dot"/>
+    </choice>
+  </define>
+
   <define name="model.numLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that denote a number or a
       quantity.</a:documentation>
     <ref name="num"/>
+  </define>
+
+  <define name="model.paracontentPart">
+    <a:documentation xml:lang="eng">groups elements which may appear as part of
+      the paragraph content model. A paragraph may contain inline elements and
+      all the other block-level elements except lg and itself. The
+      model.textphrase and model.edit classes must be declared prior to this
+      class.</a:documentation>
+    <choice>
+      <ref name="model.quoteLike"/>
+      <ref name="model.listLike"/>
+      <ref name="model.tableLike"/>
+      <ref name="model.textphraseLike"/>
+      <ref name="model.editLike"/>
+      <ref name="model.transcriptionLike"/>
+    </choice>
+  </define>
+
+  <define name="model.pLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups paragraph-like
+      elements.</a:documentation>
+    <ref name="p"/>
   </define>
 
   <define name="model.partLike">
@@ -917,6 +4329,12 @@
     <a:documentation xml:lang="eng">groups elements that group separate
       performer parts.</a:documentation>
     <ref name="parts"/>
+  </define>
+
+  <define name="model.pbLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups pagebreak-like
+      elements.</a:documentation>
+    <ref name="pb"/>
   </define>
 
   <define name="model.rendLike" combine="interleave">
@@ -932,6 +4350,10 @@
     <a:documentation xml:lang="eng">groups elements that denote a corporate
       entity that holds a bibliographic item.</a:documentation>
     <ref name="repository"/>
+  </define>
+
+  <define name="model.scoredefLike" combine="interleave">
+    <ref name="scoredef"/>
   </define>
 
   <define name="model.scoreLike" combine="interleave">
@@ -968,6 +4390,18 @@
         <!-- <ref name="model.measureLike"/> -->
       </choice>
     </zeroOrMore>
+  </define>
+
+  <define name="model.staffdefLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that permit declaration of
+      staff properties.</a:documentation>
+    <ref name="staffdef"/>
+  </define>
+
+  <define name="model.staffgrpLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that permit declaration of
+      staff group properties.</a:documentation>
+    <ref name="staffgrp"/>
   </define>
 
   <define name="model.staffLike" combine="interleave">
@@ -1036,6 +4470,88 @@
   </define>
 
   <!-- Declare module elements -->
+  <define name="content.abbr">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="abbr">
+    <element name="abbr">
+      <a:documentation xml:lang="eng">abbreviation ― A generic element for a
+        shortened form of a word, including an acronym. The type attribute may
+        be used to classify the abbreviation according to some convenient
+        typology. Sample values include: suspension - the abbreviation provides
+        the first letter(s) of the word or phrase, omitting the remainder;
+        contraction - the abbreviation omits some letter(s) in the middle;
+        brevigraph - the abbreviation comprises a special symbol or mark;
+        superscription - the abbreviation includes writing above the line;
+        acronym - the abbreviation comprises the initial letters of the words of
+        a phrase; title - the abbreviation is for a title of address (Dr, Ms,
+        Mr, ...); organization - the abbreviation is for the name of an
+        organization; geographic - the abbreviation is for a geographic name.
+        This tag is the mirror image of the &lt;expan&gt; tag; both
+        allow the encoder to transcribe both an abbreviation and its expansion.
+        In &lt;abbr&gt;, however, the original is transcribed as the
+        content of the element and the expansion as an attribute value;
+        &lt;expan&gt; reverses this. The choice between the two is up to
+        the user. The &lt;abbr&gt; tag is not required; if appropriate,
+        the encoder may transcribe abbreviations in the source text silently,
+        without tagging them. If abbreviations are not transcribed directly but
+        expanded silently, then the MEI header should so indicate. The cert
+        attribute signifies the degree of certainty ascribed to the expansion of
+        the abbreviation. The expan attribute gives an expansion of the
+        abbreviation. The resp attribute contains an ID reference to an element
+        containing the name of the editor or transcriber responsible for
+        supplying the expansion of the abbreviation.</a:documentation>
+      <ref name="attlist.abbr"/>
+      <ref name="content.abbr"/>
+    </element>
+  </define>
+  <define name="attlist.abbr">
+    <ref name="att.common"/>
+    <ref name="att.edit"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.trans"/>
+    <ref name="att.typed"/>
+    <optional>
+      <attribute name="expan">
+        <a:documentation xml:lang="eng">records the expansion of the
+          abbreviation.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.accid">
+    <empty/>
+  </define>
+  <define name="accid">
+    <element name="accid">
+      <a:documentation xml:lang="eng">accidental ― This element provides an
+        alternative to the acci attributes on the &lt;note&gt; element.
+        The element should be used when specific display info, such as size or
+        color, needs to be recorded for the accidental. The func attribute can
+        be used to differentiate different functions, such as 'cautionary' or
+        'editorial'.</a:documentation>
+      <ref name="attlist.accid"/>
+      <ref name="content.accid"/>
+    </element>
+  </define>
+  <define name="attlist.accid">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typography"/>
+    <ref name="att.log.accid"/>
+    <ref name="att.vis.accid"/>
+    <ref name="att.ges.accid"/>
+    <ref name="att.anl.accid"/>
+  </define>
+
   <define name="content.address">
     <oneOrMore>
       <ref name="addressline"/>
@@ -1153,6 +4669,54 @@
     </optional>
   </define>
 
+  <define name="content.artic">
+    <empty/>
+  </define>
+  <define name="artic">
+    <element name="artic">
+      <a:documentation xml:lang="eng">articulation ― This element provides an
+        alternative to the artic attributes on the &lt;note&gt; and
+        &lt;chord&gt; elements. The element should be used when when
+        specific display info, such as size or color, needs to be recorded for
+        the articulation.</a:documentation>
+      <ref name="attlist.artic"/>
+      <ref name="content.artic"/>
+    </element>
+  </define>
+  <define name="attlist.artic">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typography"/>
+    <ref name="att.log.artic"/>
+    <ref name="att.vis.artic"/>
+    <ref name="att.ges.artic"/>
+    <ref name="att.anl.artic"/>
+  </define>
+
+  <define name="content.barline">
+    <empty/>
+  </define>
+  <define name="barline">
+    <element name="barline">
+      <a:documentation xml:lang="eng">barline ― The &lt;barline&gt;
+        element may be used instead of the &lt;measure&gt; element. It
+        has the same attributes as &lt;measure&gt;.</a:documentation>
+      <ref name="attlist.barline"/>
+      <ref name="content.barline"/>
+    </element>
+  </define>
+  <define name="attlist.barline">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.internal"/>
+    <ref name="att.link.external"/>
+    <ref name="att.log.barline"/>
+    <ref name="att.vis.barline"/>
+    <ref name="att.ges.barline"/>
+    <ref name="att.anl.barline"/>
+  </define>
+
   <define name="content.bibl">
     <zeroOrMore>
       <choice>
@@ -1229,6 +4793,96 @@
     <ref name="att.lang"/>
   </define>
 
+  <define name="content.chord">
+    <zeroOrMore>
+      <choice>
+        <ref name="note"/>
+        <ref name="artic"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="chord">
+    <element name="chord">
+      <a:documentation xml:lang="eng">chord ― A simultaneous sounding of 2 or
+        more notes in the same layer *with the same duration*. See Read, p.
+        69.</a:documentation>
+      <ref name="attlist.chord"/>
+      <ref name="content.chord"/>
+    </element>
+  </define>
+  <define name="attlist.chord">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.chord"/>
+    <ref name="att.vis.chord"/>
+    <ref name="att.ges.chord"/>
+    <ref name="att.anl.chord"/>
+  </define>
+
+  <define name="content.clef">
+    <empty/>
+  </define>
+  <define name="clef">
+    <element name="clef">
+      <a:documentation xml:lang="eng">clef ― This element must be used instead
+        of clef.* attributes when a staff employs multiple simultaneous
+        clefs.</a:documentation>
+      <ref name="attlist.clef"/>
+      <ref name="content.clef"/>
+    </element>
+  </define>
+  <define name="attlist.clef">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.anl.clef"/>
+    <ref name="att.ges.clef"/>
+    <ref name="att.log.clef"/>
+    <ref name="att.vis.clef"/>
+  </define>
+
+  <define name="content.clefchange">
+    <ref name="model.clefchangePart"/>
+  </define>
+  <define name="clefchange">
+    <element name="clefchange">
+      <a:documentation xml:lang="eng">clef change ― Mid-measure clef change.
+        Coming as it does, in the middle of a measure, a clef change is an
+        event.</a:documentation>
+      <ref name="attlist.clefchange"/>
+      <ref name="content.clefchange"/>
+    </element>
+  </define>
+  <define name="attlist.clefchange">
+    <ref name="att.common"/>
+    <ref name="att.event"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.clefchange"/>
+    <ref name="att.vis.clefchange"/>
+    <ref name="att.ges.clefchange"/>
+    <ref name="att.anl.clefchange"/>
+  </define>
+
+  <define name="content.custos">
+    <empty/>
+  </define>
+  <define name="custos">
+    <element name="custos">
+      <a:documentation xml:lang="eng">custos ― The symbol placed at the end of a
+        staff to indicate the first note of the next staff. Sometimes called a
+        "direct".</a:documentation>
+      <ref name="attlist.custos"/>
+      <ref name="content.custos"/>
+    </element>
+  </define>
+  <define name="attlist.custos">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.custos"/>
+    <ref name="att.vis.custos"/>
+    <ref name="att.ges.custos"/>
+    <ref name="att.anl.custos"/>
+  </define>
+
   <define name="content.date">
     <zeroOrMore>
       <choice>
@@ -1251,6 +4905,26 @@
     <ref name="att.date"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
+  </define>
+
+  <define name="content.dot">
+    <empty/>
+  </define>
+  <define name="dot">
+    <element name="dot">
+      <a:documentation xml:lang="eng">dot ― May be used for dots of augmentation
+        or division.</a:documentation>
+      <ref name="attlist.dot"/>
+      <ref name="content.dot"/>
+    </element>
+  </define>
+  <define name="attlist.dot">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.dot"/>
+    <ref name="att.vis.dot"/>
+    <ref name="att.ges.dot"/>
+    <ref name="att.anl.dot"/>
   </define>
 
   <define name="content.edition">
@@ -1286,7 +4960,9 @@
     <zeroOrMore>
       <choice>
         <!-- <ref name="model.Incl"/> -->
+        <ref name="model.scoredefLike"/>
         <ref name="model.sectionPart"/>
+        <ref name="model.milestoneLike.music"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -1313,6 +4989,54 @@
     <ref name="att.ges.ending"/>
     <ref name="att.log.ending"/>
     <ref name="att.vis.ending"/>
+  </define>
+
+  <define name="content.expan">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="expan">
+    <element name="expan">
+      <a:documentation xml:lang="eng">expansion ― Contains the expansion of an
+        abbreviation. The type attribute may be used to classify the
+        abbreviation according to some convenient typology. This element is the
+        mirror image of &lt;abbr&gt;. Both allow the encoder to
+        transcribe both an abbreviation and its expansion. In
+        &lt;abbr&gt;, however, the original is transcribed as the
+        content of the element and the expansion as an attribute value;
+        &lt;expan&gt; reverses this. The choice between the two elements
+        is up to the user. If appropriate, the encoder may expand abbreviations
+        in the source text silently, without tagging them. If this is done, the
+        MEI header should indicate this has been done. The abbr attribute gives
+        the abbreviation in its unexpanded form. The cert attribute signifies
+        the degree of certainty ascribed to the expansion of the abbreviation.
+        The resp attribute contains an ID reference to an element containing the
+        name of the editor or transcriber responsible for supplying the
+        expansion of the abbreviation held as the content of the
+        &lt;expan&gt; element.</a:documentation>
+      <ref name="attlist.expan"/>
+      <ref name="content.expan"/>
+    </element>
+  </define>
+  <define name="attlist.expan">
+    <ref name="att.common"/>
+    <ref name="att.edit"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.trans"/>
+    <ref name="att.typed"/>
+    <optional>
+      <attribute name="abbr">
+        <a:documentation xml:lang="eng">captures the abbreviated form of the
+          text.</a:documentation>
+      </attribute>
+    </optional>
   </define>
 
   <define name="content.expansion">
@@ -1349,6 +5073,35 @@
     </optional>
   </define>
 
+  <define name="content.fw">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="fw">
+    <element name="fw">
+      <a:documentation xml:lang="eng">forme work ― This element is intended for
+        capture of header/footer material that is non-repeating; that is, it
+        occurs on isolated pages. For running headers and footers use pgheadN
+        and pgfootN elements. Auto-generated page numbers may be included by
+        using a processing instruction.</a:documentation>
+      <ref name="attlist.fw"/>
+      <ref name="content.fw"/>
+    </element>
+  </define>
+  <define name="attlist.fw">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.typed"/>
+  </define>
+
   <define name="content.group">
     <choice>
       <ref name="music"/>
@@ -1373,6 +5126,30 @@
   </define>
   <define name="attlist.group">
     <ref name="att.common"/>
+  </define>
+
+  <define name="content.grpsym">
+    <zeroOrMore>
+      <ref name="model.labelLike"/>
+    </zeroOrMore>
+  </define>
+  <define name="grpsym">
+    <element name="grpsym">
+      <a:documentation xml:lang="eng">group symbol ― i.e., a brace or bracket.
+        This element may be used instead of the staffgrp element's symbol
+        attribute when exact placement or editorial details for the brace must
+        be recorded.</a:documentation>
+      <ref name="attlist.grpsym"/>
+      <ref name="content.grpsym"/>
+    </element>
+  </define>
+  <define name="attlist.grpsym">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.grpsym"/>
+    <ref name="att.vis.grpsym"/>
+    <ref name="att.ges.grpsym"/>
+    <ref name="att.anl.grpsym"/>
   </define>
 
   <define name="content.identifier">
@@ -1402,6 +5179,231 @@
     <ref name="att.typed"/>
   </define>
 
+  <define name="content.instrgrp">
+    <oneOrMore>
+      <ref name="model.instrdefLike"/>
+    </oneOrMore>
+  </define>
+  <define name="instrgrp">
+    <element name="instrgrp">
+      <a:documentation xml:lang="eng">instrument group ― Collects MIDI
+        instrument definitions.</a:documentation>
+      <ref name="attlist.instrgrp"/>
+      <ref name="content.instrgrp"/>
+    </element>
+  </define>
+  <define name="attlist.instrgrp">
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.instrdef">
+    <empty/>
+  </define>
+  <define name="instrdef">
+    <element name="instrdef">
+      <a:documentation xml:lang="eng">instrument definition ― MIDI instrument
+        declaration. This element provides a starting or default instrument
+        declaration for a staff, a group of staves, or a layer. MIDI prog
+        elements may then change the instrument as necessary.</a:documentation>
+      <ref name="attlist.instrdef"/>
+      <ref name="content.instrdef"/>
+    </element>
+  </define>
+  <define name="attlist.instrdef">
+    <ref name="att.common"/>
+    <optional>
+      <attribute name="midi.channel">
+        <a:documentation xml:lang="eng">sets the default MIDI
+          channel.</a:documentation>
+        <ref name="data.MIDICHANNEL"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.duty">
+        <a:documentation xml:lang="eng">specifies the 'on' part of the duty
+          cycle as a percentage.</a:documentation>
+        <ref name="data.PERCENT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.instr">
+        <a:documentation xml:lang="eng">sets the default MIDI instrument
+          number.</a:documentation>
+        <ref name="data.MIDIVALUE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.instrname">
+        <a:documentation xml:lang="eng">provides a label for the MIDI
+          instrument.</a:documentation>
+        <ref name="data.MIDINAMES"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.port">
+        <a:documentation xml:lang="eng">sets the default MIDI port
+          value.</a:documentation>
+        <ref name="data.MIDIVALUE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.track">
+        <a:documentation xml:lang="eng">sets the default MIDI
+          track.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.keyaccid">
+    <empty/>
+  </define>
+  <define name="keyaccid">
+    <element name="keyaccid">
+      <a:documentation xml:lang="eng">key accidental ― Accidental in a key
+        signature. It is a semantic error not to provide either the x and y pair
+        of attributes or the staffloc attribute.</a:documentation>
+      <ref name="attlist.keyaccid"/>
+      <ref name="content.keyaccid"/>
+    </element>
+  </define>
+  <define name="attlist.keyaccid">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="enclose">
+        <a:documentation xml:lang="eng">encodes the characters used to enclose
+          the accidental when it has a cautionary or editorial
+          function.</a:documentation>
+        <ref name="data.ENCLOSURE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="form">
+        <a:documentation xml:lang="eng">specifies whether the accidental allows
+          written enharmonic values (explicit) or only performed (implicit)
+          values.</a:documentation>
+        <choice>
+          <value>implicit</value>
+          <value>explicit</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="oct">
+        <a:documentation xml:lang="eng">captures written octave
+          information.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+    <attribute name="pname">
+      <a:documentation xml:lang="eng">records the written pitch
+        name.</a:documentation>
+      <ref name="data.PITCHNAME"/>
+    </attribute>
+    <optional>
+      <attribute name="staffloc">
+        <a:documentation xml:lang="eng">gives the location on the
+          staff.</a:documentation>
+        <ref name="data.STAFFLOC"/>
+      </attribute>
+    </optional>
+    <attribute name="value">
+      <a:documentation xml:lang="eng">a written accidental</a:documentation>
+      <ref name="data.ACCIDENTAL.EXPLICIT"/>
+    </attribute>
+  </define>
+
+  <define name="content.keychange">
+    <zeroOrMore>
+      <ref name="model.keyaccidLike"/>
+    </zeroOrMore>
+  </define>
+  <define name="keychange">
+    <element name="keychange">
+      <a:documentation xml:lang="eng">key change ― </a:documentation>
+      <ref name="attlist.keychange"/>
+      <ref name="content.keychange"/>
+    </element>
+  </define>
+  <define name="attlist.keychange">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+  </define>
+
+  <define name="content.keysig">
+    <zeroOrMore>
+      <ref name="model.keyaccidLike"/>
+    </zeroOrMore>
+  </define>
+  <define name="keysig">
+    <element name="keysig">
+      <a:documentation xml:lang="eng">key signature ― This element may be used
+        as an alternative to the key.* attributes (especially key.sig.mixed) on
+        scoredef and staffdef.</a:documentation>
+      <ref name="attlist.keysig"/>
+      <ref name="content.keysig"/>
+    </element>
+  </define>
+  <define name="attlist.keysig">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <optional>
+      <attribute name="accid">
+        <a:documentation xml:lang="eng">captures a written accidental
+          symbol.</a:documentation>
+        <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mode">
+        <a:documentation xml:lang="eng">indicates major, minor, or other
+          tonality.</a:documentation>
+        <ref name="data.MODE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pname">
+        <a:documentation xml:lang="eng">contains the written pitch
+          name.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.label">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="label">
+    <element name="label">
+      <a:documentation xml:lang="eng">label ― A text string that identifies a
+        staff or staff group.</a:documentation>
+      <ref name="attlist.label"/>
+      <ref name="content.label"/>
+    </element>
+  </define>
+  <define name="attlist.label">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">Source descriptions in the header may be
+          pointed to by putting their IDs in the source attribute. This allows
+          labels from multiple sources to be encoded with a single label
+          element.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="content.layer">
     <zeroOrMore>
       <choice>
@@ -1428,6 +5430,27 @@
     <ref name="att.vis.layer"/>
     <ref name="att.ges.layer"/>
     <ref name="att.anl.layer"/>
+  </define>
+
+  <define name="content.layerdef">
+    <zeroOrMore>
+      <ref name="model.instrdefLike"/>
+    </zeroOrMore>
+  </define>
+  <define name="layerdef">
+    <element name="layerdef">
+      <a:documentation xml:lang="eng">layer definition ― Container for layer
+        meta-information.</a:documentation>
+      <ref name="attlist.layerdef"/>
+      <ref name="content.layerdef"/>
+    </element>
+  </define>
+  <define name="attlist.layerdef">
+    <ref name="att.common"/>
+    <ref name="att.log.layerdef"/>
+    <ref name="att.vis.layerdef"/>
+    <ref name="att.ges.layerdef"/>
+    <ref name="att.anl.layerdef"/>
   </define>
 
   <define name="content.lb">
@@ -1515,42 +5538,6 @@
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.typed"/>
-  </define>
-
-  <define name="content.measure">
-    <zeroOrMore>
-      <choice>
-        <!-- <ref name="model.Incl"/> -->
-        <ref name="model.measurePart"/>
-      </choice>
-    </zeroOrMore>
-  </define>
-  <define name="measure">
-    <element name="measure">
-      <a:documentation xml:lang="eng">measure ― "In Western notation a vertical
-        line drawn through the staff to mark off metrical units. Hence also the
-        metrical unit thus indicated, which in American usage is called
-        'measure'. English usage often relies on context alone to make the
-        distinction clear (e.g. 'up to the double bar', 'the end of the bar'),
-        but 'bar-line' is also common." (New Grove) In MEI, the measure element
-        is also a linking element that uses attributes to connect the MEI
-        document to an external electronic object or to another location within
-        the MEI instance.</a:documentation>
-      <ref name="attlist.measure"/>
-      <ref name="content.measure"/>
-    </element>
-  </define>
-  <define name="attlist.measure">
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-    <ref name="att.typed"/>
-    <ref name="att.link.common"/>
-    <ref name="att.link.internal"/>
-    <ref name="att.link.external"/>
-    <ref name="att.log.measure"/>
-    <ref name="att.vis.measure"/>
-    <ref name="att.ges.measure"/>
-    <ref name="att.anl.measure"/>
   </define>
 
   <define name="mei">
@@ -1677,6 +5664,50 @@
     </optional>
   </define>
 
+  <define name="content.p">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.paracontentPart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="p">
+    <element name="p">
+      <a:documentation xml:lang="eng">paragraph ― One or more text phrases that
+        form a logical prose passage. A paragraph is usually typographically
+        distinct: The text usually begins on a new line and the first letter of
+        the content is often indented, enlarged, or both.</a:documentation>
+      <ref name="attlist.p"/>
+      <ref name="content.p"/>
+    </element>
+  </define>
+  <define name="attlist.p">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="content.pad">
+    <empty/>
+  </define>
+  <define name="pad">
+    <element name="pad">
+      <a:documentation xml:lang="eng">pad ― An indication of extra visual space
+        between notational elements.</a:documentation>
+      <ref name="attlist.pad"/>
+      <ref name="content.pad"/>
+    </element>
+  </define>
+  <define name="attlist.pad">
+    <ref name="att.common"/>
+    <ref name="att.log.pad"/>
+    <ref name="att.vis.pad"/>
+    <ref name="att.ges.pad"/>
+    <ref name="att.anl.pad"/>
+  </define>
+
   <define name="content.parts">
     <zeroOrMore>
       <ref name="model.partLike"/>
@@ -1732,7 +5763,7 @@
   </define>
 
   <define name="content.pb">
-    <ref name="model.metaLike"/>
+    <ref name="model.metaLike.page"/>
   </define>
   <define name="pb">
     <element name="pb">
@@ -1797,6 +5828,120 @@
   </define>
   <define name="attlist.pgdesc">
     <ref name="att.common"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.pgfoot1">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="pgfoot1">
+    <element name="pgfoot1">
+      <a:documentation xml:lang="eng">page footer 1 ― A running footer on the
+        first page. This element is a specialized form of the fw element.
+        Auto-generated page numbers may be indicated with a processing
+        instruction. The pgheadN and pgfootN elements should *not* be used to
+        encode textual notes/annotations.</a:documentation>
+      <ref name="attlist.pgfoot1"/>
+      <ref name="content.pgfoot1"/>
+    </element>
+  </define>
+  <define name="attlist.pgfoot1">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.pgfoot2">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="pgfoot2">
+    <element name="pgfoot2">
+      <a:documentation xml:lang="eng">page footer 2 ― A running header on the
+        pages following the first. This element is a specialized form of the fw
+        element. Auto-generated page numbers may be indicated with a processing
+        instruction. The pgheadN and pgfootN elements should *not* be used to
+        encode textual notes/annotations.</a:documentation>
+      <ref name="attlist.pgfoot2"/>
+      <ref name="content.pgfoot2"/>
+    </element>
+  </define>
+  <define name="attlist.pgfoot2">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.pghead1">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="pghead1">
+    <element name="pghead1">
+      <a:documentation xml:lang="eng">page header 1 ― A running header on the
+        first page. This element is a specialized form of the fw element for
+        capturing the table-formatted textual data that often appears on the
+        first page of printed music. It may also be used for similarly formatted
+        material in manuscripts. The pgheadN and pgfootN elements should *not*
+        be used to encode textual notes/annotations. Auto-generated page numbers
+        may be indicated with a processing instruction.</a:documentation>
+      <ref name="attlist.pghead1"/>
+      <ref name="content.pghead1"/>
+    </element>
+  </define>
+  <define name="attlist.pghead1">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.pghead2">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="pghead2">
+    <element name="pghead2">
+      <a:documentation xml:lang="eng">page header 2 ― A running header on the
+        pages following the first. This element is a specialized form of the fw
+        element. The pgheadN and pgfootN elements should *not* be used to encode
+        textual notes/annotations. Auto-generated page numbers may be indicated
+        with a processing instruction.</a:documentation>
+      <ref name="attlist.pghead2"/>
+      <ref name="content.pghead2"/>
+    </element>
+  </define>
+  <define name="attlist.pghead2">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
     <ref name="att.lang"/>
   </define>
 
@@ -1900,11 +6045,58 @@
     <ref name="att.name"/>
     <ref name="att.typed"/>
   </define>
+  
+  <define name="content.rest">
+      <empty/>
+    </define>
+    <define name="rest">
+      <element name="rest">
+        <a:documentation xml:lang="eng">rest ― A non-sounding event found in the
+          source being transcribed (Read, p. 96-102). Do not confuse this
+          element with the space element which is used as an aid for visual
+          alignment.</a:documentation>
+        <ref name="attlist.rest"/>
+        <ref name="content.rest"/>
+      </element>
+    </define>
+    <define name="attlist.rest">
+      <ref name="att.common"/>
+      <ref name="att.facsimile"/>
+      <ref name="att.log.rest"/>
+      <ref name="att.vis.rest"/>
+      <ref name="att.ges.rest"/>
+      <ref name="att.anl.rest"/>
+    </define>
+
+  <define name="content.sb">
+    <optional>
+      <ref name="custos"/>
+    </optional>
+  </define>
+  <define name="sb">
+    <element name="sb">
+      <a:documentation xml:lang="eng">system break ― An empty formatting element
+        that forces notation to begin on a new line. Do not confuse this element
+        with the &lt;lb&gt; element, which performs a similar function
+        for text.</a:documentation>
+      <ref name="attlist.sb"/>
+      <ref name="content.sb"/>
+    </element>
+  </define>
+  <define name="attlist.sb">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.sb"/>
+    <ref name="att.vis.sb"/>
+    <ref name="att.ges.sb"/>
+    <ref name="att.anl.sb"/>
+  </define>
 
   <define name="content.score">
     <zeroOrMore>
       <choice>
         <!-- <ref name="model.Incl"/> -->
+        <ref name="model.scoredefLike"/>
         <ref name="model.scorePart"/>
       </choice>
     </zeroOrMore>
@@ -1929,6 +6121,66 @@
     <ref name="att.anl.score"/>
   </define>
 
+  <define name="content.scoredef">
+    <zeroOrMore>
+      <ref name="model.alignLike"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="model.chordtableLike"/>
+    </optional>
+    <optional>
+      <ref name="model.symboltableLike"/>
+    </optional>
+    <optional>
+      <ref name="model.keysigLike"/>
+    </optional>
+    <ref name="model.metaLike.score"/>
+    <optional>
+      <ref name="instrgrp"/>
+    </optional>
+    <choice>
+      <optional>
+        <ref name="model.staffgrpLike"/>
+      </optional>
+      <optional>
+        <ref name="model.staffdefLike"/>
+      </optional>
+    </choice>
+  </define>
+  <define name="scoredef">
+    <element name="scoredef">
+      <a:documentation xml:lang="eng">score definition ― Container for score
+        meta-information.
+        <!-- Score-level encoding strategies for: a)
+        alternating meter sig, e.g. 2/4 3/4 in alternating measures
+        (Read, p. 164-165) and combined meters (Read, p.166-168):
+        explicitly encode meters, make them invisible, display both
+        meter sigs at the start of the section b) compound meter sig,
+        e.g. 2+3+2/4 (Read, p. 168-170): set meter.count=2+3+2 c)
+        polymeters, e.g. different simultaneous meters (Read, p.
+        170-173): 1. where barlines coincide, use beaming to elucidate
+        the polymeter 2. where barlines sometimes coincide, break into
+        measures according to a common unit of time, draw barlines
+        where visually required 3. where barlines never coincide,
+        encode as parts only d) mixed meter sig, e.g. 2/4 + 3/16 in
+        the same measure (Read, p. 173-174): encode in common time
+        base, e.g. 11/16, make meter invisible, display both meter
+        sigs at the start of the measure e) fractional meter sig, e.g.
+        3.5/4 (Read, p. 175-177): set meter.count=3.5 The beat count
+        may be displayed as a fraction or as its decimal
+        equivalent. --></a:documentation>
+      <ref name="attlist.scoredef"/>
+      <ref name="content.scoredef"/>
+    </element>
+  </define>
+  <define name="attlist.scoredef">
+    <ref name="att.common"/>
+    <ref name="att.log.scoredef"/>
+    <ref name="att.vis.scoredef"/>
+    <ref name="att.ges.scoredef"/>
+    <ref name="att.anl.scoredef"/>
+  </define>
+
   <define name="content.section">
     <zeroOrMore>
       <ref name="expansion"/>
@@ -1936,7 +6188,9 @@
     <zeroOrMore>
       <choice>
         <!-- <ref name="model.Incl"/> -->
+        <ref name="model.scoredefLike"/>
         <ref name="model.sectionPart"/>
+        <ref name="model.milestoneLike.music"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -1961,6 +6215,28 @@
     <ref name="att.vis.section"/>
     <ref name="att.ges.section"/>
     <ref name="att.anl.section"/>
+  </define>
+
+  <define name="content.space">
+    <empty/>
+  </define>
+  <define name="space">
+    <element name="space">
+      <a:documentation xml:lang="eng">space ― A placeholder used to fill an
+        incomplete measure, layer, etc. most often so that the combined duration
+        of the events equals the number of beats in the
+        measure.</a:documentation>
+      <ref name="attlist.space"/>
+      <ref name="content.space"/>
+    </element>
+  </define>
+  <define name="attlist.space">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.space"/>
+    <ref name="att.vis.space"/>
+    <ref name="att.ges.space"/>
+    <ref name="att.anl.space"/>
   </define>
 
   <define name="content.stack">
@@ -2031,19 +6307,107 @@
     <ref name="att.anl.staff"/>
   </define>
 
+  <define name="content.staffdef">
+    <zeroOrMore>
+      <ref name="model.labelLike"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="model.keysigLike"/>
+    </optional>
+    <zeroOrMore>
+      <choice>
+        <ref name="model.instrdefLike"/>
+        <ref name="model.layerdefLike"/>
+        <ref name="model.staffdefPart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="staffdef">
+    <element name="staffdef">
+      <a:documentation xml:lang="eng">staff definition ― Container for staff
+        meta-information.</a:documentation>
+      <ref name="attlist.staffdef"/>
+      <ref name="content.staffdef"/>
+    </element>
+  </define>
+  <define name="attlist.staffdef">
+    <ref name="att.common"/>
+    <ref name="att.log.staffdef"/>
+    <ref name="att.vis.staffdef"/>
+    <ref name="att.ges.staffdef"/>
+    <ref name="att.anl.staffdef"/>
+  </define>
+
+  <define name="content.staffgrp">
+    <zeroOrMore>
+      <ref name="grpsym"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="model.labelLike"/>
+    </zeroOrMore>
+    <zeroOrMore>
+      <ref name="model.instrdefLike"/>
+    </zeroOrMore>
+    <oneOrMore>
+      <choice>
+        <ref name="model.staffgrpLike"/>
+        <ref name="model.staffdefLike"/>
+      </choice>
+    </oneOrMore>
+    <zeroOrMore>
+      <ref name="grpsym"/>
+    </zeroOrMore>
+  </define>
+  <define name="staffgrp">
+    <element name="staffgrp">
+      <a:documentation xml:lang="eng">staff group ― A group of bracketed or
+        braced staves. Bracketed staff groups may contain other bracketed or
+        braced staff groups or single staves. See Read, p. 35-38, examples p.
+        434, 438. System is the more proper name for this concept (Read, p.
+        37-38).</a:documentation>
+      <ref name="attlist.staffgrp"/>
+      <ref name="content.staffgrp"/>
+    </element>
+  </define>
+  <define name="attlist.staffgrp">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.staffgrp"/>
+    <ref name="att.vis.staffgrp"/>
+    <ref name="att.ges.staffgrp"/>
+    <ref name="att.anl.staffgrp"/>
+  </define>
+
   <define name="content.note">
-    <empty/>
+    <zeroOrMore>
+      <choice>
+        <ref name="model.eventLike"/>
+        <ref name="model.noteModifierLike"/>
+        <ref name="model.verseLike"/>
+        <ref name="model.sylLike"/>
+        <ref name="model.appLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
   </define>
   <define name="note">
     <element name="note">
-      <ref name="content.note"/>
+      <a:documentation xml:lang="eng">note ― A single pitched event. (Read, p.
+        63) The note element is allowed to contain other events for situations
+        where a single written note may be representative of a group of
+        performed notes. The accid and artic sub-elements may be used instead of
+        the note element's attributes when accid and artic represent first-class
+        objects, e.g., when they require attributes, such as x and y location
+        attributes. Similarly, the syl sub-element may be used instead of the
+        syl attribute. The verse sub-element may be used to group text syllables
+        by verse.</a:documentation>
       <ref name="attlist.note"/>
+      <ref name="content.note"/>
     </element>
   </define>
   <define name="attlist.note">
-    <ref name="att.common.anl"/>
     <ref name="att.common"/>
-    <ref name="att.event"/>
     <ref name="att.facsimile"/>
     <ref name="att.log.note"/>
     <ref name="att.vis.note"/>
