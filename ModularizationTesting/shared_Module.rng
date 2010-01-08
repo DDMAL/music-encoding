@@ -1123,16 +1123,6 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="coloration">
-        <a:documentation xml:lang="eng">indicates inverse coloration; that is,
-          the notehead is void when it would otherwise be filled and vice versa.
-          Do not confuse this with visual color.</a:documentation>
-        <choice>
-          <value>inverse</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="dot.ho">
         <a:documentation xml:lang="eng">records the horizontal offset of the
           augmentation dot from its "normal", programmatically determined
@@ -1411,6 +1401,47 @@
     <ref name="att.color"/>
   </define>
 
+  <define name="att.anl.dir" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.dir" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from the written values. Its value may be expressed in
+          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions',
+          etc.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.dir" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.controlevent"/>
+    <ref name="att.startendid"/>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes the logical and visual durations
+          of the directive. If cases arise where the logical and visual
+          durations differ, it may be necessary to add a dur.vis attribute.
+          Please note that the dur attribute is not a true duration, but rather
+          a time stamp for the end point of the directive.</a:documentation>
+        <ref name="data.MEASUREBEAT"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.dir" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.placement"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.visualoffset2.ho"/>
+    <ref name="att.visualoffset2.to"/>
+    <ref name="att.xy"/>
+  </define>
+
   <define name="att.anl.dot" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -1444,6 +1475,55 @@
   <define name="att.vis.dot" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="att.anl.dynam" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.dynam" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from the written values. Its value may be expressed in
+          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions', etc.
+        </a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="value">
+        <a:documentation xml:lang="eng">captures a numeric value associated with
+          the graphical dynamic sign.</a:documentation>
+        <ref name="data.MIDIVALUE"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.dynam" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.controlevent"/>
+    <ref name="att.startendid"/>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes the logical and visual durations
+          of the dynamic symbol or text. If cases arise where the logical and
+          visual durations differ, it may be necessary to add a dur.vis
+          attribute. Please note that the dur attribute is not a true duration,
+          but rather a time stamp for the end point of the dynamic
+          mark.</a:documentation>
+        <ref name="data.MEASUREBEAT"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.dynam" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.placement"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.visualoffset2.ho"/>
+    <ref name="att.visualoffset2.to"/>
     <ref name="att.xy"/>
   </define>
 
@@ -1806,12 +1886,110 @@
     </optional>
   </define>
 
+  <define name="att.anl.note" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+
+  <define name="att.ges.note" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="accid.ges">
+        <a:documentation xml:lang="eng">records the performed pitch inflection
+          when it differs from the written accidental.</a:documentation>
+        <ref name="data.ACCIDENTAL.IMPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="artic.ges">
+        <a:documentation xml:lang="eng">records performed articulation that
+          differs from the written value.</a:documentation>
+        <ref name="data.ARTICULATIONS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="detune"/>
+    </optional>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from the written values. Its value may be expressed in
+          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions',
+          etc.</a:documentation>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="gliss">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a glissando.</a:documentation>
+        <ref name="data.GLISSANDO"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="grace">
+        <a:documentation xml:lang="eng">marks this nota as a grace and records
+          from which note/chord it should "steal" time.</a:documentation>
+        <ref name="data.GRACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="grace.time">
+        <a:documentation xml:lang="eng">records the amount of time to be
+          "stolen" from a non-grace note or chord.</a:documentation>
+        <ref name="data.PERCENT"/>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="instr">
+        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
+          instrument definition. It must contain the ID of an
+          &lt;instrdef&gt; element elsewhere in the
+          document.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="oct.ges">
+        <a:documentation xml:lang="eng">records performed octave information
+          that differs from the written value.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pname.ges">
+        <a:documentation xml:lang="eng">records pitch name information that
+          differs from the written value.</a:documentation>
+        <ref name="data.PITCHNAME.GES"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pnum">
+        <a:documentation xml:lang="eng">holds a pitch-to-number mapping, a
+          base-40 or MIDI note number, for example.</a:documentation>
+        <ref name="data.PITCHNUMBER"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.log.note" combine="interleave">
     <optional>
       <attribute name="accid">
         <a:documentation xml:lang="eng">captures a written accidental
           symbol.</a:documentation>
         <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="artic">
+        <a:documentation xml:lang="eng">encodes the written articulation(s).
+          Articulations are normally encoded in order from the notehead outward;
+          that is, away from the stem. See additional notes at att.vis.note.
+          Only articulations should be encoded in the artic attribute;
+          fingerings should be encoded using the &lt;dir&gt;
+          element.</a:documentation>
+        <ref name="data.ARTICULATIONS"/>
       </attribute>
     </optional>
     <optional>
@@ -1826,6 +2004,15 @@
         <a:documentation xml:lang="eng">encodes logical; that is, written,
           duration.</a:documentation>
         <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="fermata">
+        <a:documentation xml:lang="eng">used to indicate the attachment of a
+          fermata to this element. If visual information about the fermata needs
+          to be recorded, then a fermata &lt;element&gt; should be
+          employed.</a:documentation>
+        <ref name="data.PLACE"/>
       </attribute>
     </optional>
     <optional>
@@ -1846,6 +2033,126 @@
       <attribute name="syl">
         <a:documentation xml:lang="eng">holds an associated sung text
           syllable.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.note" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.altsym"/>
+    <ref name="att.color"/>
+    <ref name="att.visualoffset.ho"/>
+    <ref name="att.visualoffset.to"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="accid.ho">
+        <a:documentation xml:lang="eng">records the distance between the
+          accidental and the note it modifies.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.ho">
+        <a:documentation xml:lang="eng">records the horizontal offset of the
+          augmentation dot from its "normal", programmatically determined
+          position.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.vo">
+        <a:documentation xml:lang="eng">records the vertical offset of the
+          augmentation dot from its "normal", programmatically determined
+          position.</a:documentation>
+        <ref name="data.VISUALOFFSET"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.x">
+        <a:documentation xml:lang="eng">records the absolute horizontal position
+          of the augmentation dot.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="dot.y">
+        <a:documentation xml:lang="eng">records the absolute vertical position
+          of the augmentation dot.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="enclose.accid">
+        <a:documentation xml:lang="eng">encodes the characters used to enclose
+          the accidental when it has a cautionary or editorial
+          function.</a:documentation>
+        <ref name="data.ENCLOSURE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="enclose.note">
+        <a:documentation xml:lang="eng">encodes the characters used to enclose
+          the note when it has a cautionary or editorial
+          function.</a:documentation>
+        <ref name="data.ENCLOSURE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="headshape">
+        <a:documentation xml:lang="eng">used to override the headshape normally
+          used for the given duration.</a:documentation>
+        <ref name="data.HEADSHAPE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="size">
+        <a:documentation xml:lang="eng">describes the relative size of the
+          note.</a:documentation>
+        <ref name="data.SIZE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.dir">
+        <a:documentation xml:lang="eng">describes the direction of a
+          stem.</a:documentation>
+        <ref name="data.STEMDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.len">
+        <a:documentation xml:lang="eng">encodes the stem
+          length.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.pos">
+        <a:documentation xml:lang="eng">records the position of the stem in
+          relation to the notehead(s).</a:documentation>
+        <ref name="data.STEMPOSITION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.x">
+        <a:documentation xml:lang="eng">records the x coordinate of the stem's
+          attachment point.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.y">
+        <a:documentation xml:lang="eng">records the y coordinate of the stem's
+          attachment point.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="visible">
+        <a:documentation xml:lang="eng">indicates if a note should be displayed
+          when the notation is rendered. A note with this attribute set to
+          'false' should also not be included in a sounded
+          rendition.</a:documentation>
+        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -1909,12 +2216,13 @@
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.anl.rest" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
+
   <define name="att.ges.rest" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
@@ -1936,16 +2244,10 @@
       </attribute>
     </optional>
   </define>
+
   <define name="att.log.rest" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="beam">
-        <a:documentation xml:lang="eng">indicates that this event is "under a
-          beam".</a:documentation>
-        <ref name="data.BEAMS"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="dots">
         <a:documentation xml:lang="eng">encodes the number of written dots of
@@ -1969,28 +2271,14 @@
         <ref name="data.PLACE"/>
       </attribute>
     </optional>
-    <optional>
-      <attribute name="tuplet">
-        <a:documentation xml:lang="eng">indicates that this element participates
-          in a tuplet.</a:documentation>
-        <ref name="data.TUPLET"/>
-      </attribute>
-    </optional>
   </define>
+
   <define name="att.vis.rest" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="beam.with">
-        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="dot.ho">
         <a:documentation xml:lang="eng">records the horizontal offset of the
@@ -4066,6 +4354,16 @@
     <ref name="caption"/>
   </define>
 
+  <!-- Put definitions of model.controleventLike in neumes, mensural, and cmn modules? 
+  <define name="model.controleventLike" combine="interleave">
+    <choice>
+      <ref name="dir"/>
+      <ref name="dynam"/>
+      <ref name="phrase"/>
+      <ref name="tempo"/>
+    </choice>
+  </define> -->
+
   <!-- This goes in neume and/or mensural modules 
   <define name="model.clefchangePart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that contain information
@@ -4105,18 +4403,20 @@
   <define name="model.eventLike" combine="interleave">
     <a:documentation xml:lang="eng">groups event elements that occur in all
       notational repertoires.</a:documentation>
-    <choice>
-      <ref name="barline"/>
-      <ref name="chord"/>
-      <ref name="clefchange"/>
-      <ref name="custos"/>
-      <!-- <ref name="keychange"/> -->
-      <ref name="keysig"/>
-      <ref name="note"/>
-      <ref name="pad"/>
-      <ref name="rest"/>
-      <ref name="space"/>
-    </choice>
+    <zeroOrMore>
+      <choice>
+        <ref name="barline"/>
+        <ref name="chord"/>
+        <ref name="clefchange"/>
+        <ref name="custos"/>
+        <!-- Remove this, use keysig instead? <ref name="keychange"/> -->
+        <ref name="keysig"/>
+        <ref name="note"/>
+        <ref name="pad"/>
+        <ref name="rest"/>
+        <ref name="space"/>
+      </choice>
+    </zeroOrMore>
   </define>
 
   <define name="model.identifierLike" combine="interleave">
@@ -4178,10 +4478,15 @@
     <ref name="layer"/>
   </define>
 
+  <define name="model.lbLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that function like line
+      breaks.</a:documentation>
+    <ref name="lb"/>
+  </define>
+
   <define name="model.layerPart" combine="interleave">
     <a:documentation xml:lang="eng">groups notated events at the layer
       level.</a:documentation>
-    <empty/>
     <choice>
       <ref name="model.eventLike"/>
       <!-- <ref name="model.eventLike.cmn.measureFilling"/>
@@ -4192,12 +4497,6 @@
       <ref name="model.verseLike"/>
       <ref name="model.sylLike"/> -->
     </choice>
-  </define>
-
-  <define name="model.lbLike" combine="interleave">
-    <a:documentation xml:lang="eng">groups elements that function like line
-      breaks.</a:documentation>
-    <ref name="lb"/>
   </define>
 
   <define name="model.mdivLike" combine="interleave">
@@ -4411,8 +4710,22 @@
   </define>
 
   <define name="model.staffPart" combine="interleave">
+    <zeroOrMore>
+      <choice>
+        <ref name="model.layerLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="model.textcomponentLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups block-level text
+      elements.</a:documentation>
     <choice>
-      <ref name="model.layerLike"/>
+      <ref name="model.quoteLike"/>
+      <ref name="model.listLike"/>
+      <ref name="model.pLike"/>
+      <ref name="model.tableLike"/>
+      <ref name="model.lgLike"/>
     </choice>
   </define>
 
@@ -4907,6 +5220,46 @@
     <ref name="att.lang"/>
   </define>
 
+  <define name="content.dir">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="dir">
+    <element name="dir">
+      <a:documentation xml:lang="eng">directive ― A text expression that is on
+        the score (typically above, below, or between staves), but not on the
+        staff and not encoded elsewhere in more specific elements, such as
+        &lt;tempo&gt; or &lt;dynam&gt;. Examples include text
+        strings, such as 'affettuoso' or fingerings and music symbols, such as
+        segno and coda symbols, fermatas over a barline, etc. Unlike generic
+        text elements, directives can be control elements. That is, they can be
+        used as pointers to other events. The starting point of the directive
+        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
+        attribute, while the ending point may be recorded by either a dur,
+        dur.ges or endid attribute. It is a semantic error not to specify a
+        starting point attribute.</a:documentation>
+      <ref name="attlist.dir"/>
+      <ref name="content.dir"/>
+    </element>
+  </define>
+  <define name="attlist.dir">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.typed"/>
+    <ref name="att.log.dir"/>
+    <ref name="att.vis.dir"/>
+    <ref name="att.ges.dir"/>
+    <ref name="att.anl.dir"/>
+  </define>
+
   <define name="content.dot">
     <empty/>
   </define>
@@ -4925,6 +5278,40 @@
     <ref name="att.vis.dot"/>
     <ref name="att.ges.dot"/>
     <ref name="att.anl.dot"/>
+  </define>
+
+  <define name="content.dynam">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="dynam">
+    <element name="dynam">
+      <a:documentation xml:lang="eng">dynamic ― Records instantaneous or
+        continuous textual dynamics, e.g. 'p', 'mf', or 'cresc. poco a poco'.
+        See Read, p. 250-255. The &lt;hairpin&gt; element should be used
+        for graphical dynamic markings. The starting point of the dynamic
+        marking may be indicated by either a tstamp, tstamp.ges, tstamp.real or
+        startid attribute, while the ending point may be recorded by either a
+        dur, dur.ges or endid attribute. It is a semantic error not to specify a
+        starting point attribute.</a:documentation>
+      <ref name="attlist.dynam"/>
+      <ref name="content.dynam"/>
+    </element>
+  </define>
+  <define name="attlist.dynam">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.log.dynam"/>
+    <ref name="att.vis.dynam"/>
+    <ref name="att.ges.dynam"/>
+    <ref name="att.anl.dynam"/>
   </define>
 
   <define name="content.edition">
@@ -5945,6 +6332,43 @@
     <ref name="att.lang"/>
   </define>
 
+  <define name="content.note">
+    <zeroOrMore>
+      <choice>
+        <ref name="model.eventLike"/>
+        <ref name="model.noteModifierLike"/>
+        <ref name="model.verseLike"/>
+        <ref name="model.sylLike"/>
+        <ref name="model.appLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="note">
+    <element name="note">
+      <a:documentation xml:lang="eng">note ― A single pitched event. (Read, p.
+        63) The note element is allowed to contain other events for situations
+        where a single written note may be representative of a group of
+        performed notes. The accid and artic sub-elements may be used instead of
+        the note element's attributes when accid and artic represent first-class
+        objects, e.g., when they require attributes, such as x and y location
+        attributes. Similarly, the syl sub-element may be used instead of the
+        syl attribute. The verse sub-element may be used to group text syllables
+        by verse.</a:documentation>
+      <ref name="attlist.note"/>
+      <ref name="content.note"/>
+    </element>
+  </define>
+  <define name="attlist.note">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.note"/>
+    <ref name="att.vis.note"/>
+    <ref name="att.ges.note"/>
+    <ref name="att.anl.note"/>
+  </define>
+
   <define name="content.rend">
     <zeroOrMore>
       <choice>
@@ -6045,28 +6469,28 @@
     <ref name="att.name"/>
     <ref name="att.typed"/>
   </define>
-  
+
   <define name="content.rest">
-      <empty/>
-    </define>
-    <define name="rest">
-      <element name="rest">
-        <a:documentation xml:lang="eng">rest ― A non-sounding event found in the
-          source being transcribed (Read, p. 96-102). Do not confuse this
-          element with the space element which is used as an aid for visual
-          alignment.</a:documentation>
-        <ref name="attlist.rest"/>
-        <ref name="content.rest"/>
-      </element>
-    </define>
-    <define name="attlist.rest">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.log.rest"/>
-      <ref name="att.vis.rest"/>
-      <ref name="att.ges.rest"/>
-      <ref name="att.anl.rest"/>
-    </define>
+    <empty/>
+  </define>
+  <define name="rest">
+    <element name="rest">
+      <a:documentation xml:lang="eng">rest ― A non-sounding event found in the
+        source being transcribed (Read, p. 96-102). Do not confuse this element
+        with the space element which is used as an aid for visual
+        alignment.</a:documentation>
+      <ref name="attlist.rest"/>
+      <ref name="content.rest"/>
+    </element>
+  </define>
+  <define name="attlist.rest">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.rest"/>
+    <ref name="att.vis.rest"/>
+    <ref name="att.ges.rest"/>
+    <ref name="att.anl.rest"/>
+  </define>
 
   <define name="content.sb">
     <optional>
@@ -6378,41 +6802,31 @@
     <ref name="att.anl.staffgrp"/>
   </define>
 
-  <define name="content.note">
+  <define name="content.syl">
     <zeroOrMore>
       <choice>
-        <ref name="model.eventLike"/>
-        <ref name="model.noteModifierLike"/>
-        <ref name="model.verseLike"/>
-        <ref name="model.sylLike"/>
-        <ref name="model.appLike"/>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
       </choice>
     </zeroOrMore>
   </define>
-  <define name="note">
-    <element name="note">
-      <a:documentation xml:lang="eng">note ― A single pitched event. (Read, p.
-        63) The note element is allowed to contain other events for situations
-        where a single written note may be representative of a group of
-        performed notes. The accid and artic sub-elements may be used instead of
-        the note element's attributes when accid and artic represent first-class
-        objects, e.g., when they require attributes, such as x and y location
-        attributes. Similarly, the syl sub-element may be used instead of the
-        syl attribute. The verse sub-element may be used to group text syllables
-        by verse.</a:documentation>
-      <ref name="attlist.note"/>
-      <ref name="content.note"/>
+  <define name="syl">
+    <element name="syl">
+      <a:documentation xml:lang="eng">syllable ― Individual lyric syllable. Do
+        not confuse this element with the syllable element.</a:documentation>
+      <ref name="attlist.syl"/>
+      <ref name="content.syl"/>
     </element>
   </define>
-  <define name="attlist.note">
+  <define name="attlist.syl">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.note"/>
-    <ref name="att.vis.note"/>
-    <ref name="att.ges.note"/>
-    <ref name="att.anl.note"/>
+    <ref name="att.log.syl"/>
+    <ref name="att.vis.syl"/>
+    <ref name="att.ges.syl"/>
+    <ref name="att.anl.syl"/>
   </define>
 
   <define name="content.title">
@@ -6463,6 +6877,29 @@
         </choice>
       </attribute>
     </optional>
+  </define>
+
+  <define name="content.titlepage">
+    <oneOrMore>
+      <choice>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.milestoneLike.text"/>
+      </choice>
+    </oneOrMore>
+  </define>
+  <define name="titlepage">
+    <element name="titlepage">
+      <a:documentation xml:lang="eng">title page ― Contains a transcription of
+        the title page of a text. It may be used within the physdesc element
+        when no other transcription is provided.</a:documentation>
+      <ref name="attlist.titlepage"/>
+      <ref name="content.titlepage"/>
+    </element>
+  </define>
+  <define name="attlist.titlepage">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
   </define>
 
 </grammar>

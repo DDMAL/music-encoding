@@ -9,14 +9,191 @@
 
   <!-- CMN module -->
   <!-- Declare module attr classes -->
+  <define name="att.ges.note" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="gliss">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a glissando.</a:documentation>
+        <ref name="data.GLISSANDO"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.log.note" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="beam">
+        <a:documentation xml:lang="eng">indicates that this event is "under a
+          beam".</a:documentation>
+        <ref name="data.BEAMS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="lv">
+        <a:documentation xml:lang="eng">indicates the attachment of an l.v.
+          (laissez vibrer) sign to this element.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a slur.</a:documentation>
+        <ref name="data.SLURS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tie. If visual information about the tie needs to be recorded,
+          then a &lt;tie&gt; element should be
+          employed.</a:documentation>
+        <ref name="data.TIE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tuplet">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tuplet.</a:documentation>
+        <ref name="data.TUPLETS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.note" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="beam.with">
+        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
+          with attribute is used to indicate which staff the beam is connected
+          to; that is, the staff above or the staff below.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="breaksec">
+        <a:documentation xml:lang="eng">presence of this attribute indicates
+          that the secondary beam should be broken following this note/chord.
+          The value of the attribute records the number of beams which should
+          remain unbroken.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="coloration">
+        <a:documentation xml:lang="eng">indicates inverse coloration; that is,
+          the notehead is void when it would otherwise be filled and vice versa.
+          Do not confuse this with visual color.</a:documentation>
+        <choice>
+          <value>inverse</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.dir">
+        <a:documentation xml:lang="eng">indicates the direction of a
+          slur.</a:documentation>
+        <ref name="data.SLURDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">describes the rendering style for
+          slurs.</a:documentation>
+        <choice>
+          <value>dotted</value>
+          <value>dashed</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.mod">
+        <a:documentation xml:lang="eng">encodes any stem "modifiers"; that is,
+          symbols rendered on the stem, such as tremolo or Sprechstimme
+          indicators.</a:documentation>
+        <ref name="data.STEMMODIFIER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.with">
+        <a:documentation xml:lang="eng">contains an indication of which staff a
+          note or chord that logically belongs to the current staff should be
+          visually placed on.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie.dir">
+        <a:documentation xml:lang="eng">determines the direction of a
+          tie.</a:documentation>
+        <ref name="data.TIEDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">describes the rendering style of a
+          tie.</a:documentation>
+        <choice>
+          <value>dotted</value>
+          <value>dashed</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.log.rest" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="beam">
+        <a:documentation xml:lang="eng">indicates that this event is "under a
+          beam".</a:documentation>
+        <ref name="data.BEAMS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tuplet">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tuplet.</a:documentation>
+        <ref name="data.TUPLET"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.rest" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="beam.with">
+        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
+          with attribute is used to indicate which staff the beam is connected
+          to; that is, the staff above or the staff below.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+  </define>
 
   <!-- Declare module model classes -->
+  <!-- <define name="model.layerPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups notated events at the layer
+    level.</a:documentation>
+    <choice>
+      <ref name="model.eventLike"/>
+      <ref name="model.eventLike.cmn.measureFilling"/>
+      <ref name="model.midiLike"/>
+      <ref name="model.controleventLike"/>
+      <ref name="model.lyricsLike"/>
+      <ref name="model.noteModifierLike"/>
+      <ref name="model.verseLike"/>
+      <ref name="model.sylLike"/>
+    </choice>
+  </define> -->
+
   <define name="model.measureLike" combine="interleave">
     <a:documentation xml:lang="eng">groups measure-like
       elements.</a:documentation>
     <ref name="measure"/>
   </define>
-  
+
   <define name="model.measurePart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       measure.</a:documentation>
@@ -28,7 +205,7 @@
       <ref name="model.midiLike"/>
     </choice>
   </define>
-  
+
   <define name="model.ossiaLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that function like
       ossia.</a:documentation>
@@ -79,34 +256,34 @@
     <ref name="att.ges.measure"/>
     <ref name="att.anl.measure"/>
   </define>
-  
+
   <define name="content.ossia">
-      <zeroOrMore>
-        <choice>
-          <ref name="model.Incl"/>
-          <ref name="model.measurePart"/>
-        </choice>
-      </zeroOrMore>
-    </define>
-    <define name="ossia">
-      <element name="ossia">
-        <a:documentation xml:lang="eng">ossa ― Indicates an alternative, usually
-          simpler, version of a measure *present in the source being
-          transcribed*. An ossia may be treated as a substitute for the measure,
-          in which case it is rendered on the current staff, or it may be
-          rendered in addition to the measure's contents, in which case it is
-          rendered above the staff on a reduced-size staff.</a:documentation>
-        <ref name="attlist.ossia"/>
-        <ref name="content.ossia"/>
-      </element>
-    </define>
-    <define name="attlist.ossia">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.log.ossia"/>
-      <ref name="att.vis.ossia"/>
-      <ref name="att.ges.ossia"/>
-      <ref name="att.anl.ossia"/>
-    </define>
+    <zeroOrMore>
+      <choice>
+        <ref name="model.Incl"/>
+        <ref name="model.measurePart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="ossia">
+    <element name="ossia">
+      <a:documentation xml:lang="eng">ossa ― Indicates an alternative, usually
+        simpler, version of a measure *present in the source being transcribed*.
+        An ossia may be treated as a substitute for the measure, in which case
+        it is rendered on the current staff, or it may be rendered in addition
+        to the measure's contents, in which case it is rendered above the staff
+        on a reduced-size staff.</a:documentation>
+      <ref name="attlist.ossia"/>
+      <ref name="content.ossia"/>
+    </element>
+  </define>
+  <define name="attlist.ossia">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.ossia"/>
+    <ref name="att.vis.ossia"/>
+    <ref name="att.ges.ossia"/>
+    <ref name="att.anl.ossia"/>
+  </define>
 
 </grammar>

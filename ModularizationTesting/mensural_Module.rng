@@ -9,8 +9,288 @@
 
   <!-- Mensural module -->
   <!-- Declare module attr classes -->
+  <define name="att.anl.ligature" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  
+  <define name="att.ges.ligature" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.log.ligature" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="form">
+        <a:documentation xml:lang="eng">provides an indication of the function
+          of the ligature.</a:documentation>
+        <ref name="data.LIGATUREFORM"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.vis.ligature" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <empty/>
+  </define>
+
+  <define name="att.anl.mensur" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  
+  <define name="att.ges.mensur" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.log.mensur" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="modusmaior">
+        <a:documentation xml:lang="eng">describes the maxima-long
+          relationship.</a:documentation>
+        <ref name="data.MODUSMAIOR"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="modusminor">
+        <a:documentation xml:lang="eng">describes the long-breve
+          relationship.</a:documentation>
+        <ref name="data.MODUSMINOR"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="num">
+        <a:documentation xml:lang="eng">along with numbase, describes duration
+          as a ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="numbase">
+        <a:documentation xml:lang="eng">along with num, describes duration as a
+          ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="prolatio">
+        <a:documentation xml:lang="eng">describes the semibreve-minim
+          relationship.</a:documentation>
+        <ref name="data.PROLATIO"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tempus">
+        <a:documentation xml:lang="eng">describes the breve-semibreve
+          relationship.</a:documentation>
+        <ref name="data.TEMPUS"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.vis.mensur" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes. These attributes
+      describe the physical appearance of the mensuration sign/time signature of
+      mensural notation.</a:documentation>
+    <ref name="att.color"/>
+    <optional>
+      <attribute name="dot">
+        <a:documentation xml:lang="eng">specifies whether a dot is to be added
+          to the base symbol.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="form">
+        <a:documentation xml:lang="eng">indicates whether the base symbol is
+          written vertically or horizontally.</a:documentation>
+        <choice>
+          <value>horizontal</value>
+          <value>vertical</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="loc">
+        <a:documentation xml:lang="eng">holds the staff location of the
+          mensuration sign.</a:documentation>
+        <ref name="data.STAFFLOC"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="orient">
+        <a:documentation xml:lang="eng">describes the rotation or reflection of
+          the base symbol.</a:documentation>
+        <ref name="data.ORIENTATION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="sign">
+        <a:documentation xml:lang="eng">the base symbol in the mensuration
+          sign/time signature of mensural notation.</a:documentation>
+        <ref name="data.MENSURATIONSIGN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="size">
+        <a:documentation xml:lang="eng">describes the relative size of the
+          mensuration sign.</a:documentation>
+        <ref name="data.SIZE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slash">
+        <a:documentation xml:lang="eng">indicates the number lines added to the
+          mensuration sign. For example, one slash is added for what we now call
+          'alla breve'.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.ges.note" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="num">
+        <a:documentation xml:lang="eng">along with numbase, describes duration
+          as a ratio. Num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="numbase">
+        <a:documentation xml:lang="eng">along with num, describes duration as a
+          ratio. Num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.log.note" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="lig">
+        <a:documentation xml:lang="eng">indicates this element's participation
+          in a ligature.</a:documentation>
+        <choice>
+          <value>recta</value>
+          <value>obliqua</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.note" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="colored">
+        <a:documentation xml:lang="eng">indicates this note is 'colored' in the
+          mensural notation sense.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.proport" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  
+  <define name="att.ges.proport" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.log.proport" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes. These attributes
+      describe augmentation or diminution of the normal value of the notes in
+      mensural notation.</a:documentation>
+    <attribute name="num">
+      <a:documentation xml:lang="eng">Together, num and numbase specify the
+        change as a ratio, e.g., 1:3. Num is for the first value in the
+        ratio.</a:documentation>
+      <ref name="data.INTEGERPOSITIVE"/>
+    </attribute>
+    <attribute name="numbase">
+      <a:documentation xml:lang="eng">Together, num and numbase specify the
+        change as a ratio, e.g., 1:3. Numbase is for the second value in the
+        ratio.</a:documentation>
+      <ref name="data.INTEGERPOSITIVE"/>
+    </attribute>
+  </define>
+  
+  <define name="att.vis.proport" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <empty/>
+  </define>
+  
+  <define name="att.ges.rest" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="num">
+        <a:documentation xml:lang="eng">along with numbase, describes duration
+          as a ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="numbase">
+        <a:documentation xml:lang="eng">along with num, describes duration as a
+          ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
+  
+  <define name="att.vis.rest" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="colored">
+        <a:documentation xml:lang="eng">indicates this note is 'colored' in the
+          mensural notation sense.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="line">
+        <a:documentation xml:lang="eng">indicates the line upon which the rest
+          stands. The value must be in the range between 1 and the number of
+          lines on the staff.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="spaces">
+        <a:documentation xml:lang="eng">states how many spaces are covered by
+          the rest.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
 
   <!-- Declare module model classes -->
+  <define name="model.eventLike" combine="interleave">
+    <zeroOrMore>
+      <choice>
+        <ref name="ligature"/>
+        <ref name="mensur"/>
+        <ref name="proport"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  
   <define name="model.sectionPart" combine="choice">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       section.</a:documentation>
@@ -18,7 +298,115 @@
       <ref name="model.staffLike"/>
     </zeroOrMore>
   </define>
-  
+
   <!-- Declare module elements -->
+  <define name="content.mensur">
+    <empty/>
+  </define>
+  <define name="mensur">
+    <element name="mensur">
+      <a:documentation xml:lang="eng">mensuration ― The &lt;mensur&gt;
+        element is provided for the encoding of mensural notation. It collects
+        information about the metrical relationship between a note value and the
+        next smaller value.</a:documentation>
+      <ref name="attlist.mensur"/>
+      <ref name="content.mensur"/>
+    </element>
+  </define>
+  <define name="attlist.mensur">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.mensur"/>
+    <ref name="att.vis.mensur"/>
+    <ref name="att.ges.mensur"/>
+    <ref name="att.anl.mensur"/>
+  </define>
+
+  <!-- <define name="content.mensurchange">
+    <oneOrMore>
+      <ref name="mensur"/>
+    </oneOrMore>
+  </define>
+  <define name="mensurchange">
+    <element name="mensurchange">
+      <a:documentation xml:lang="eng">mensuration change ― Use of the
+        &lt;mensurchange&gt; element indicates a change of mensuration;
+        that is, the relationship between note duration
+        values.</a:documentation>
+      <ref name="attlist.mensurchange"/>
+      <ref name="content.mensurchange"/>
+    </element>
+  </define>
+  <define name="attlist.mensurchange">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+  </define> -->
+
+  <define name="content.proport">
+    <empty/>
+  </define>
+  <define name="proport">
+    <element name="proport">
+      <a:documentation xml:lang="eng">proportion ― The
+        &lt;proportion&gt; element is provided for the encoding of
+        mensural notation. It allows the description of note durations as
+        arithmetic ratios. While mensuration refers to the normal relationships
+        between note durations, proportion affects the relations of the note
+        durations to the tactus.</a:documentation>
+      <ref name="attlist.proport"/>
+      <ref name="content.proport"/>
+    </element>
+  </define>
+  <define name="attlist.proport">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.proport"/>
+    <ref name="att.vis.proport"/>
+    <ref name="att.ges.proport"/>
+    <ref name="att.anl.proport"/>
+  </define>
+
+  <define name="content.ligature">
+    <zeroOrMore>
+      <ref name="model.layerPart"/>
+    </zeroOrMore>
+  </define>
+  <define name="ligature">
+    <element name="ligature">
+      <a:documentation xml:lang="eng">ligature ― The &lt;ligature&gt;
+        element is provided for the encoding of mensural notation where multiple
+        notes are represented by joined symbols.</a:documentation>
+      <ref name="attlist.ligature"/>
+      <ref name="content.ligature"/>
+    </element>
+  </define>
+  <define name="attlist.ligature">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.ligature"/>
+    <ref name="att.vis.ligature"/>
+    <ref name="att.ges.ligature"/>
+    <ref name="att.anl.ligature"/>
+  </define>
+
+  <!-- <define name="content.proportchange">
+    <oneOrMore>
+      <ref name="proport"/>
+    </oneOrMore>
+  </define>
+  <define name="proportchange">
+    <element name="proportchange">
+      <a:documentation xml:lang="eng">proportion change ― Use of the
+        &lt;proportchange&gt; element indicates a change of propotion;
+        that is, the relationship between note duration values and the
+        tactus.</a:documentation>
+      <ref name="attlist.proportchange"/>
+      <ref name="content.proportchange"/>
+    </element>
+  </define>
+  <define name="attlist.proportchange">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+  </define> -->
 
 </grammar>

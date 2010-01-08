@@ -9,8 +9,244 @@
 
   <!-- Neumes Module -->
   <!-- Declare module attr classes -->
+  <define name="att.anl.ineume" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+
+  <define name="att.ges.ineume" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+
+  <define name="att.log.ineume" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="form">
+        <a:documentation xml:lang="eng">provides a subclass or functional label
+          for the neume.</a:documentation>
+        <ref name="data.INEUMEFORM"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="name">
+        <a:documentation xml:lang="eng">records a name associated with the neume
+          symbol.</a:documentation>
+        <ref name="data.INEUMENAME"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.ineume" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.color"/>
+  </define>
+
+  <define name="att.anl.uneume" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+    <optional>
+      <attribute name="accid.cautionary">
+        <a:documentation xml:lang="eng">indicates a cautionary accidental
+          accompanying the neume.</a:documentation>
+        <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="accid.editorial">
+        <a:documentation xml:lang="eng">indicates an editorial accidental
+          accompanying the neume.</a:documentation>
+        <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="hfunc">
+        <a:documentation xml:lang="eng">contains an indication of the harmonic
+          function of this neume.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="inth">
+        <a:documentation xml:lang="eng">encodes the harmonic interval from a
+          pitch occuring at the same time.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="intm">
+        <a:documentation xml:lang="eng">encodes the melodic interval from the
+          previous neume.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="mfunc">
+        <a:documentation xml:lang="eng">contains an indication of the melodic
+          function of this element.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pclass">
+        <a:documentation xml:lang="eng">holds pitch class
+          information.</a:documentation>
+        <ref name="data.PITCHCLASS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="psolfa">
+        <a:documentation xml:lang="eng">contains solfa designation, e.g., do,
+          re, mi, etc., in either fixed or movable Do systems.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.ges.uneume" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+
+  <define name="att.log.uneume" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.event"/>
+    <optional>
+      <attribute name="form">
+        <a:documentation xml:lang="eng">records the function of the
+          neume.</a:documentation>
+        <ref name="data.UNEUMEFORM"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="name">
+        <a:documentation xml:lang="eng">records the name of the
+          neume.</a:documentation>
+        <ref name="data.UNEUMENAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="syl">
+        <a:documentation xml:lang="eng">holds an associated sung text
+          syllable.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.syl" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+
+  <define name="att.ges.syl" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+
+  <define name="att.log.syl" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="con">
+        <a:documentation xml:lang="eng">describes the symbols typically used to
+          indicate breaks between syllables: s (_s_pace) = word separator, d
+          (_d_ash) = syllable separator, u (_u_nderscore) = syllable extension,
+          t (_t_ilde) = syllable elision</a:documentation>
+        <choice>
+          <value>s</value>
+          <value>d</value>
+          <value>u</value>
+          <value>t</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="wordpos">
+        <a:documentation xml:lang="eng">records the position of the syllable
+          within a word.</a:documentation>
+        <choice>
+          <value>i</value>
+          <value>m</value>
+          <value>t</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.syl" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.typography"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="halign">
+        <a:documentation xml:lang="eng">indicates the horizontal alignment of
+          the syllable with respect to the note to which it is
+          attached.</a:documentation>
+        <choice>
+          <value>left</value>
+          <value>right</value>
+          <value>center</value>
+          <value>justify</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">typographical appearance of the syllable
+          text.</a:documentation>
+        <ref name="data.TEXTRENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.uneume" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.altsym"/>
+    <ref name="att.color"/>
+    <ref name="att.visualoffset.ho"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="size">
+        <a:documentation xml:lang="eng">encodes the relative size of the
+          neume.</a:documentation>
+        <ref name="data.SIZE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="visible">
+        <a:documentation xml:lang="eng">indicates if a neume should be displayed
+          when the notation is rendered. A neume with this attribute set to
+          'false' should also not be included in a sounded
+          rendition.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
 
   <!-- Declare module model classes -->
+  <define name="model.eventLike" combine="interleave">
+    <zeroOrMore>
+      <choice>
+        <ref name="ineume"/>
+        <ref name="uneume"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <!-- <define name="model.layerPart" combine="interleave">
+    <zeroOrMore>
+      <ref name="model.syllableLike"/>
+    </zeroOrMore>
+  </define> -->
+
+  <define name="model.neumeModifierLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that modify neume-like
+      features.</a:documentation>
+    <empty/>
+    <!-- <choice>
+      <ref name="accid"/>
+      <ref name="artic"/>
+    </choice> -->
+  </define>
+
   <define name="model.sectionPart" combine="choice">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       section.</a:documentation>
@@ -18,7 +254,125 @@
       <ref name="model.staffLike"/>
     </zeroOrMore>
   </define>
-  
+
+  <define name="model.staffPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of
+      the content of a staff.</a:documentation>
+    <zeroOrMore>
+      <choice>
+        <ref name="model.syllableLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="model.syllableLike">
+    <a:documentation xml:lang="eng">groups elements that accommodate neumed
+      text.</a:documentation>
+    <ref name="syllable"/>
+  </define>
+
+  <define name="model.syllablePart">
+    <a:documentation xml:lang="eng">groups elements that may appear as part of
+      content of a syllable.</a:documentation>
+    <choice>
+      <ref name="model.sylLike"/>
+      <ref name="model.eventLike"/>
+      <!-- <ref name="model.midiLike"/>
+      <ref name="model.controleventLike"/>
+      <ref name="model.lyricsLike"/>
+      <ref name="model.noteModifierLike"/>
+      <ref name="model.verseLike"/> -->
+    </choice>
+  </define>
+
+  <define name="model.sylLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that contain a lyric
+      syllable.</a:documentation>
+    <ref name="syl"/>
+  </define>
+
   <!-- Declare module elements -->
+  <define name="content.ineume">
+    <zeroOrMore>
+      <choice>
+        <ref name="model.eventLike"/>
+        <ref name="model.neumeModifierLike"/>
+        <ref name="model.appLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+        <ref name="model.verseLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="ineume">
+    <element name="ineume">
+      <a:documentation xml:lang="eng">interrupted neume ― </a:documentation>
+      <ref name="attlist.ineume"/>
+      <ref name="content.ineume"/>
+    </element>
+  </define>
+  <define name="attlist.ineume">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+    <ref name="att.log.ineume"/>
+    <ref name="att.vis.ineume"/>
+    <ref name="att.ges.ineume"/>
+    <ref name="att.anl.ineume"/>
+  </define>
+
+  <define name="content.syllable">
+    <zeroOrMore>
+      <choice>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.syllablePart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="syllable">
+    <element name="syllable">
+      <a:documentation xml:lang="eng">syllable ― Neume notation can be thought
+        of as "neumed text". Therefore, the syllable element provides high-level
+        organization in this repertoire.</a:documentation>
+      <ref name="attlist.syllable"/>
+      <ref name="content.syllable"/>
+    </element>
+  </define>
+  <define name="attlist.syllable">
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.uneume">
+    <zeroOrMore>
+      <choice>
+        <ref name="model.eventLike"/>
+        <ref name="model.neumeModifierLike"/>
+        <ref name="model.appLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+        <ref name="model.verseLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="uneume">
+    <element name="uneume">
+      <a:documentation xml:lang="eng">uninterrupted neume ― A single,
+        uninterrupted neume sign. While ineume is allowed as a sub-element of
+        uneume here as part of the model.eventLike.neume class, it is unlikely
+        that an uninterrupted neume containing an interrupted neume is a
+        meaningful construct.</a:documentation>
+      <ref name="attlist.uneume"/>
+      <ref name="content.uneume"/>
+    </element>
+  </define>
+  <define name="attlist.uneume">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.typed"/>
+    <ref name="att.log.uneume"/>
+    <ref name="att.vis.uneume"/>
+    <ref name="att.ges.uneume"/>
+    <ref name="att.anl.uneume"/>
+  </define>
 
 </grammar>

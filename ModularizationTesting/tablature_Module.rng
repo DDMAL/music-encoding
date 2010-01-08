@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!-- Tablature Module -->
+  <!-- Declare module attr classes -->
+  <define name="att.ges.staffdef" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes for staffdef in
+      tablature</a:documentation>
+    <optional>
+      <attribute name="tab.strings">
+        <a:documentation xml:lang="eng">provides a written pitch and octave for
+          each open string, e.g. "e3 a3 d4 g4 b4 e5" for standard guitar tuning.
+          It should contain the number of tokens indicated by the lines
+          attribute. Chromatic alteration may be indicated with '-', or 'f',
+          (flat) and '#', 's' (sharp). Double sharps and flats are not
+          permitted.</a:documentation>
+        <list>
+          <oneOrMore>
+            <data type="token">
+              <param name="pattern">[a-g][\-#fs]?[0-9]+</param>
+            </data>
+          </oneOrMore>
+        </list>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.ges.note" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="tab.fret">
+        <a:documentation xml:lang="eng">records the fret at which a string
+          should be stopped.</a:documentation>
+        <ref name="data.FRETNUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tab.string">
+        <a:documentation xml:lang="eng">records which string is to be
+          played.</a:documentation>
+        <ref name="data.STRINGNUMBER"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <!-- Declare module model classes -->
+
+  <!-- Declare module elements -->
+
+</grammar>
