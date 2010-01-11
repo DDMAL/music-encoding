@@ -131,7 +131,7 @@
     </optional>
   </define>
 
-  <define name="att.coordinated">
+  <define name="att.coordinated" combine="interleave">
     <a:documentation xml:lang="eng">This attribute class records the position of
       the entity within a two-dimensional coordinate system.</a:documentation>
     <optional>
@@ -164,7 +164,7 @@
     </optional>
   </define>
 
-  <define name="att.date">
+  <define name="att.date" combine="interleave">
     <a:documentation xml:lang="eng">Attributes common to dates</a:documentation>
     <optional>
       <attribute name="calendar">
@@ -378,7 +378,7 @@
     </optional>
   </define>
 
-  <define name="att.name">
+  <define name="att.name" combine="interleave">
     <a:documentation xml:lang="eng">Attributes shared by names</a:documentation>
     <optional>
       <attribute name="authority">
@@ -402,7 +402,7 @@
     </optional>
   </define>
 
-  <define name="att.placement">
+  <define name="att.placement" combine="interleave">
     <a:documentation xml:lang="eng">Attributes capturing placement
       information</a:documentation>
     <optional>
@@ -414,7 +414,7 @@
     </optional>
   </define>
 
-  <define name="att.startendid">
+  <define name="att.startendid" combine="interleave">
     <a:documentation xml:lang="eng">Attributes recording the IDs of a sequence
       of elements to which the current element is associated.</a:documentation>
     <optional>
@@ -454,7 +454,7 @@
     </optional>
   </define>
 
-  <define name="att.typography">
+  <define name="att.typography" combine="interleave">
     <a:documentation xml:lang="eng">Typographical attributes</a:documentation>
     <optional>
       <attribute name="fontfam">
@@ -493,7 +493,7 @@
     </optional>
   </define>
 
-  <define name="att.visualoffset.ho">
+  <define name="att.visualoffset.ho" combine="interleave">
     <a:documentation xml:lang="eng">Horizontal offset
       attributes</a:documentation>
     <optional>
@@ -507,7 +507,7 @@
     </optional>
   </define>
 
-  <define name="att.visualoffset.to">
+  <define name="att.visualoffset.to" combine="interleave">
     <a:documentation xml:lang="eng">Horizontal offset attributes specified in
       terms of time</a:documentation>
     <optional>
@@ -519,7 +519,7 @@
     </optional>
   </define>
 
-  <define name="att.visualoffset.vo">
+  <define name="att.visualoffset.vo" combine="interleave">
     <a:documentation xml:lang="eng">Vertical offset attributes</a:documentation>
     <optional>
       <attribute name="vo">
@@ -532,7 +532,7 @@
     </optional>
   </define>
 
-  <define name="att.visualoffset">
+  <define name="att.visualoffset" combine="interleave">
     <a:documentation xml:lang="eng">Visual offset attributes. Some items may
       have their location recorded in terms of offsets from their
       programmatically-determined location. The ho attribute records the
@@ -544,7 +544,7 @@
     <ref name="att.visualoffset.vo"/>
   </define>
 
-  <define name="att.visualoffset2.ho">
+  <define name="att.visualoffset2.ho" combine="interleave">
     <a:documentation xml:lang="eng">Horizontal offset requiring a pair of
       attributes</a:documentation>
     <optional>
@@ -563,7 +563,7 @@
     </optional>
   </define>
 
-  <define name="att.visualoffset2.to">
+  <define name="att.visualoffset2.to" combine="interleave">
     <a:documentation xml:lang="eng">Horizontal offset attributes requiring a
       pair of attributes specified in terms of time</a:documentation>
     <optional>
@@ -582,7 +582,7 @@
     </optional>
   </define>
 
-  <define name="att.visualoffset2.vo">
+  <define name="att.visualoffset2.vo" combine="interleave">
     <a:documentation xml:lang="eng">Vertical offset attributes requiring a pair
       of attributes</a:documentation>
     <optional>
@@ -601,7 +601,7 @@
     </optional>
   </define>
 
-  <define name="att.visualoffset2">
+  <define name="att.visualoffset2" combine="interleave">
     <a:documentation xml:lang="eng">Visual offset attributes. Some items may
       have their location recorded in terms of pairs of offsets from their
       programmatically-determined location. The startho and endho attributes
@@ -615,7 +615,7 @@
     <ref name="att.visualoffset2.vo"/>
   </define>
 
-  <define name="att.xy">
+  <define name="att.xy" combine="interleave">
     <a:documentation xml:lang="eng">Output coordinate attributes. Some elements
       may have their exact rendered *output* coordinates recorded. x and y
       attributes indicate where to place the rendered output. Recording the
@@ -637,7 +637,7 @@
     </optional>
   </define>
 
-  <define name="att.xy.required">
+  <define name="att.xy.required" combine="interleave">
     <a:documentation xml:lang="eng">Required output coordinate attributes. Some
       elements must have their exact rendered *output* coordinates recorded. x
       and y attributes indicate where to place the rendered output. Recording
@@ -655,7 +655,7 @@
     </attribute>
   </define>
 
-  <define name="att.xy2">
+  <define name="att.xy2" combine="interleave">
     <a:documentation xml:lang="eng">Output coordinate attributes. Some elements
       may need 2 coordinate pairs to record their rendered *output*
       coordinates.</a:documentation>
@@ -675,7 +675,7 @@
     </optional>
   </define>
 
-  <define name="att.xy2.required">
+  <define name="att.xy2.required" combine="interleave">
     <a:documentation xml:lang="eng">Required output coordinate attributes. Some
       elements must have 2 coordinate pairs to record their output
       coordinates.</a:documentation>
@@ -1659,7 +1659,7 @@
         <a:documentation xml:lang="eng">contains a default duration in those
           situations when the first note, rest, chord, etc. in a measure does
           not have a duration specified.</a:documentation>
-        <ref name="data.DURATIONS"/>
+        <ref name="data.DURATION"/>
       </attribute>
     </optional>
     <optional>
@@ -1974,6 +1974,8 @@
   </define>
 
   <define name="att.log.note" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.event"/>
     <optional>
       <attribute name="accid">
         <a:documentation xml:lang="eng">captures a written accidental
@@ -2713,7 +2715,7 @@
         <a:documentation xml:lang="eng">used to determine the duration value of
           the first note in a layer if it has no dur
           attribute.</a:documentation>
-        <ref name="data.DURATIONS"/>
+        <ref name="data.DURATION"/>
       </attribute>
     </optional>
     <optional>
@@ -3807,7 +3809,7 @@
         <a:documentation xml:lang="eng">contains a default duration in those
           situations when the first note, rest, chord, etc. in a measure does
           not have a duration specified.</a:documentation>
-        <ref name="data.DURATIONS"/>
+        <ref name="data.DURATION"/>
       </attribute>
     </optional>
     <optional>
@@ -4354,15 +4356,17 @@
     <ref name="caption"/>
   </define>
 
-  <!-- Put definitions of model.controleventLike in neumes, mensural, and cmn modules? 
+  <!-- Put definitions of model.controleventLike in neumes, mensural, and cmn modules? -->
   <define name="model.controleventLike" combine="interleave">
-    <choice>
-      <ref name="dir"/>
-      <ref name="dynam"/>
-      <ref name="phrase"/>
-      <ref name="tempo"/>
-    </choice>
-  </define> -->
+    <zeroOrMore>
+      <choice>
+        <ref name="dir"/>
+        <ref name="dynam"/>
+        <!-- <ref name="phrase"/>
+      <ref name="tempo"/> -->
+      </choice>
+    </zeroOrMore>
+  </define>
 
   <!-- This goes in neume and/or mensural modules 
   <define name="model.clefchangePart" combine="interleave">
@@ -4489,6 +4493,8 @@
       level.</a:documentation>
     <choice>
       <ref name="model.eventLike"/>
+      <ref name="model.eventLike.neumes"/>
+      <ref name="model.midiLike"/>
       <!-- <ref name="model.eventLike.cmn.measureFilling"/>
       <ref name="model.midiLike"/>
       <ref name="model.controleventLike"/>
@@ -5346,10 +5352,10 @@
     </zeroOrMore>
     <zeroOrMore>
       <choice>
-        <!-- <ref name="model.Incl"/> -->
-        <ref name="model.scoredefLike"/>
+        <ref name="model.Incl"/>
         <ref name="model.sectionPart"/>
-        <ref name="model.milestoneLike.music"/>
+        <!-- <ref name="model.scoredefLike"/> -->
+        <!-- <ref name="model.milestoneLike.music"/> -->
       </choice>
     </zeroOrMore>
   </define>
@@ -5794,7 +5800,7 @@
   <define name="content.layer">
     <zeroOrMore>
       <choice>
-        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.Incl"/>
         <ref name="model.layerPart"/>
       </choice>
     </zeroOrMore>
@@ -6519,8 +6525,7 @@
   <define name="content.score">
     <zeroOrMore>
       <choice>
-        <!-- <ref name="model.Incl"/> -->
-        <ref name="model.scoredefLike"/>
+        <ref name="model.Incl"/>
         <ref name="model.scorePart"/>
       </choice>
     </zeroOrMore>
@@ -6566,9 +6571,9 @@
       <optional>
         <ref name="model.staffgrpLike"/>
       </optional>
-      <optional>
+      <!-- <optional>
         <ref name="model.staffdefLike"/>
-      </optional>
+      </optional> -->
     </choice>
   </define>
   <define name="scoredef">
@@ -6611,10 +6616,8 @@
     </zeroOrMore>
     <zeroOrMore>
       <choice>
-        <!-- <ref name="model.Incl"/> -->
-        <ref name="model.scoredefLike"/>
+        <ref name="model.Incl"/>
         <ref name="model.sectionPart"/>
-        <ref name="model.milestoneLike.music"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -6706,7 +6709,7 @@
   <define name="content.staff">
     <zeroOrMore>
       <choice>
-        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.Incl"/>
         <ref name="model.staffPart"/>
       </choice>
     </zeroOrMore>

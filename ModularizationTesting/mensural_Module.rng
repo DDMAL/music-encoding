@@ -8,18 +8,34 @@
   xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <!-- Mensural module -->
+  <!-- Declare data types -->
+  <define name="data.DURATION" combine="choice">
+    <a:documentation>Logical, that is, written, duration attribute values for
+      the mensural repertoire.</a:documentation>
+    <choice>
+      <value>maxima</value>
+      <value>longa</value>
+      <value>brevis</value>
+      <value>semibrevis</value>
+      <value>minima</value>
+      <value>semiminima</value>
+      <value>fusa</value>
+      <value>semifusa</value>
+    </choice>
+  </define>
+
   <!-- Declare module attr classes -->
   <define name="att.anl.ligature" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  
+
   <define name="att.ges.ligature" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.log.ligature" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
@@ -30,7 +46,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.vis.ligature" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
@@ -41,12 +57,12 @@
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  
+
   <define name="att.ges.mensur" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.log.mensur" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
@@ -94,7 +110,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.vis.mensur" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes. These attributes
       describe the physical appearance of the mensuration sign/time signature of
@@ -205,12 +221,12 @@
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  
+
   <define name="att.ges.proport" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.log.proport" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes. These attributes
       describe augmentation or diminution of the normal value of the notes in
@@ -228,12 +244,12 @@
       <ref name="data.INTEGERPOSITIVE"/>
     </attribute>
   </define>
-  
+
   <define name="att.vis.proport" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <define name="att.ges.rest" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
@@ -253,7 +269,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.vis.rest" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
@@ -291,6 +307,27 @@
     </zeroOrMore>
   </define>
   
+  <define name="model.layerPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups notated events at the layer
+      level.</a:documentation>
+    <!-- <choice>
+      <ref name="model.eventLike.cmn.measureFilling"/>
+      <ref name="model.midiLike"/>
+      <ref name="model.controleventLike"/>
+      <ref name="model.lyricsLike"/>
+      <ref name="model.noteModifierLike"/>
+      <ref name="model.verseLike"/>
+      <ref name="model.sylLike"/>
+      </choice> -->
+    <zeroOrMore><choice>
+      <ref name="model.controleventLike"/>
+      <ref name="model.lyricsLike"/>
+      <ref name="model.noteModifierLike"/>
+      <ref name="model.verseLike"/>
+      <ref name="model.sylLike"/>
+    </choice></zeroOrMore>
+  </define>
+
   <define name="model.sectionPart" combine="choice">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       section.</a:documentation>

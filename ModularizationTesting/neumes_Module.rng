@@ -47,7 +47,7 @@
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
-    <optional>
+    <!-- <optional>
       <attribute name="accid.cautionary">
         <a:documentation xml:lang="eng">indicates a cautionary accidental
           accompanying the neume.</a:documentation>
@@ -60,7 +60,7 @@
           accompanying the neume.</a:documentation>
         <ref name="data.ACCIDENTAL.EXPLICIT"/>
       </attribute>
-    </optional>
+    </optional> -->
     <optional>
       <attribute name="hfunc">
         <a:documentation xml:lang="eng">contains an indication of the harmonic
@@ -222,7 +222,7 @@
   </define>
 
   <!-- Declare module model classes -->
-  <define name="model.eventLike" combine="interleave">
+  <define name="model.eventLike.neumes" combine="interleave">
     <zeroOrMore>
       <choice>
         <ref name="ineume"/>
@@ -231,11 +231,11 @@
     </zeroOrMore>
   </define>
 
-  <!-- <define name="model.layerPart" combine="interleave">
+  <define name="model.layerPart" combine="interleave">
     <zeroOrMore>
       <ref name="model.syllableLike"/>
     </zeroOrMore>
-  </define> -->
+  </define>
 
   <define name="model.neumeModifierLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that modify neume-like
@@ -255,7 +255,7 @@
     </zeroOrMore>
   </define>
 
-  <define name="model.staffPart" combine="interleave">
+  <!-- <define name="model.staffPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of
       the content of a staff.</a:documentation>
     <zeroOrMore>
@@ -263,9 +263,9 @@
         <ref name="model.syllableLike"/>
       </choice>
     </zeroOrMore>
-  </define>
+  </define> -->
 
-  <define name="model.syllableLike">
+  <define name="model.syllableLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that accommodate neumed
       text.</a:documentation>
     <ref name="syllable"/>
@@ -276,7 +276,7 @@
       content of a syllable.</a:documentation>
     <choice>
       <ref name="model.sylLike"/>
-      <ref name="model.eventLike"/>
+      <ref name="model.eventLike.neumes"/>
       <!-- <ref name="model.midiLike"/>
       <ref name="model.controleventLike"/>
       <ref name="model.lyricsLike"/>
@@ -324,7 +324,7 @@
   <define name="content.syllable">
     <zeroOrMore>
       <choice>
-        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.Incl"/>
         <ref name="model.syllablePart"/>
       </choice>
     </zeroOrMore>
