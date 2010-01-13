@@ -330,6 +330,23 @@
       </attribute>
     </optional>
   </define>
+  
+  <define name="att.ges.chord" combine="interleave">
+    <optional>
+      <attribute name="grace">
+        <a:documentation xml:lang="eng">marks this chord as a grace and records
+          from which note/chord it should "steal" time.</a:documentation>
+        <ref name="data.GRACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="grace.time">
+        <a:documentation xml:lang="eng">records the amount of time to be
+          "stolen" from a non-grace note/chord.</a:documentation>
+        <ref name="data.PERCENT"/>
+      </attribute>
+    </optional>
+  </define>
 
   <define name="att.anl.fermata" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
@@ -924,6 +941,20 @@
         <ref name="data.GLISSANDO"/>
       </attribute>
     </optional>
+    <optional>
+      <attribute name="grace">
+        <a:documentation xml:lang="eng">marks this chord as a grace and records
+          from which note/chord it should "steal" time.</a:documentation>
+        <ref name="data.GRACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="grace.time">
+        <a:documentation xml:lang="eng">records the amount of time to be
+          "stolen" from a non-grace note/chord.</a:documentation>
+        <ref name="data.PERCENT"/>
+      </attribute>
+    </optional>
   </define>
 
   <define name="att.log.note" combine="interleave">
@@ -1186,6 +1217,34 @@
     </optional>
   </define>
 
+  <define name="att.vis.phrase" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <optional>
+      <attribute name="bezier">
+        <a:documentation xml:lang="eng">records the placement of Bezier control
+          points as a series of space-separated xy coordinates, eg. 19 45 -32
+          118.</a:documentation>
+        <data type="NMTOKENS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="bulge">
+        <a:documentation xml:lang="eng">describes the curve as a set of distance
+          values above or below an imaginary line connecting the endpoints of
+          the curve. The bulge attribute must contain one or more values of type
+          NUMBER.</a:documentation>
+        <data type="NMTOKENS"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">records the appearance of the phrase
+          mark.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.anl.reh" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -1284,6 +1343,100 @@
     </optional>
   </define>
 
+  <define name="att.log.scoredef" combine="interleave">
+    <optional>
+      <attribute name="beam.group">
+        <a:documentation xml:lang="eng">provides an example of how beaming
+          (including secondary beams) is to be performed. It can be used to set
+          a default beaming pattern to be used when no beaming is indicated at
+          the event level. beam.group must contain a comma-separated list of
+          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
+          indicates each quarter note worth of shorter notes would be beamed
+          together. Parentheses can be used to indicate sub-groupings of
+          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
+          outer beam per measure with secondary beams broken at each dotted
+          quarter duration, while a measure of 16th notes in 4/4 with beam.group
+          equal to '(4,4),(4,4)' will result in a primary beam covering all the
+          notes and secondary beams each group of 4 notes. This beaming
+          "directive" can be overridden by using &lt;beam&gt; elements.
+          If neither &lt;beam&gt; elements or the beam.group attribute
+          is used, then no beaming is rendered. Beaming can be 'turned off' by
+          setting beam.group to an empty string.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.rests">
+        <a:documentation xml:lang="eng">indicates whether beams should include
+          rests shorter than a quarter note duration.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.scoredef" combine="interleave">
+    <optional>
+      <attribute name="beam.rend">
+        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
+          in which direction.</a:documentation>
+        <choice>
+          <value>acc</value>
+          <value>rit</value>
+          <value>norm</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.slope">
+        <a:documentation xml:lang="eng">captures default beam
+          slope.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="grid.show">
+        <a:documentation xml:lang="eng">determines whether to display guitar
+          chord grids.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pedal.rend">
+        <a:documentation xml:lang="eng">determines whether piano pedal marks
+          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
+          '*' for pedal up).</a:documentation>
+        <choice>
+          <value>line</value>
+          <value>term</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="reh.enclose">
+        <a:documentation xml:lang="eng">describes the enclosing shape for
+          rehearsal marks.</a:documentation>
+        <choice>
+          <value>box</value>
+          <value>circle</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">describes the default rendering style
+          for slurs.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">describes the default rendering style
+          for ties.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.anl.slur" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -1359,6 +1512,105 @@
       <attribute name="rend">
         <a:documentation xml:lang="eng">records the appearance of the
           slur.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.log.space" combine="interleave">
+    <optional>
+      <attribute name="beam">
+        <a:documentation xml:lang="eng">indicates that this event is "under a
+          beam".</a:documentation>
+        <ref name="data.BEAMS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.staffdef" combine="interleave">
+    <optional>
+      <attribute name="beam.group">
+        <a:documentation xml:lang="eng">provides an example of how beaming
+          (including secondary beams) is to be performed. It can be used to set
+          a default beaming pattern to be used when no beaming is indicated at
+          the event level. beam.group must contain a comma-separated list of
+          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
+          indicates each quarter note worth of shorter notes would be beamed
+          together. Parentheses can be used to indicate sub-groupings of
+          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
+          outer beam per measure with secondary beams broken at each dotted
+          quarter duration, while a measure of 16th notes in 4/4 with beam.group
+          equal to '(4,4),(4,4)' will result in a primary beam covering all the
+          notes and secondary beams each group of 4 notes. This beaming
+          "directive" can be overridden by using &lt;beam&gt; elements.
+          If neither &lt;beam&gt; elements or the beam.group attribute
+          is used, then no beaming is rendered. Beaming can be 'turned off' by
+          setting beam.group to an empty string.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.rests">
+        <a:documentation xml:lang="eng">determines whether rests are allowed
+          under a beam.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.vis.staffdef" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes for staffdef in the
+      CMN repertoire</a:documentation>
+    <optional>
+      <attribute name="beam.rend">
+        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
+          in which direction.</a:documentation>
+        <choice>
+          <value>acc</value>
+          <value>rit</value>
+          <value>norm</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.slope">
+        <a:documentation xml:lang="eng">captures default beam
+          slope.</a:documentation>
+        <ref name="data.NUMBER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="pedal.rend">
+        <a:documentation xml:lang="eng">determines whether piano pedal marks
+          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
+          '*' for pedal up).</a:documentation>
+        <choice>
+          <value>line</value>
+          <value>term</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="reh.enclose">
+        <a:documentation xml:lang="eng">describes the enclosing shape for
+          rehearsal marks.</a:documentation>
+        <choice>
+          <value>box</value>
+          <value>circle</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">describes the default rendering style
+          for slurs.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">provides a default value for the
+          appearance of ties associated with this staff.</a:documentation>
         <ref name="data.CURVERENDITION"/>
       </attribute>
     </optional>
@@ -1693,18 +1945,11 @@
   <define name="model.layerPart" combine="interleave">
     <a:documentation xml:lang="eng">groups notated events at the layer
       level.</a:documentation>
-    <!-- <choice>
-      <ref name="model.eventLike.cmn.measureFilling"/>
-      <ref name="model.midiLike"/>
-      <ref name="model.controleventLike"/>
-      <ref name="model.lyricsLike"/>
-      <ref name="model.noteModifierLike"/>
-      <ref name="model.verseLike"/>
-      <ref name="model.sylLike"/>
-      </choice> -->
-    <zeroOrMore><choice>
-      <ref name="model.eventLike.cmn.measureFilling"/>
-    </choice></zeroOrMore>
+    <zeroOrMore>
+      <choice>
+        <ref name="model.eventLike.cmn.measureFilling"/>
+      </choice>
+    </zeroOrMore>
   </define>
 
   <define name="model.eventLike" combine="interleave">
@@ -1746,13 +1991,6 @@
   <define name="model.measurePart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       measure.</a:documentation>
-    <!-- <choice>
-      <ref name="model.staffLike"/>
-      <ref name="model.ossiaLike"/>
-      <ref name="model.controleventLike"/>
-      <ref name="model.lyricsLike"/>
-      <ref name="model.midiLike"/>
-      </choice> -->
     <zeroOrMore>
       <choice>
         <ref name="model.staffLike"/>
@@ -1810,8 +2048,6 @@
     <oneOrMore>
       <choice>
         <ref name="model.eventLike"/>
-        <!-- <ref name="model.eventLike.common"/>
-        <ref name="model.eventLike.cmn"/> -->
       </choice>
     </oneOrMore>
   </define>
@@ -2373,7 +2609,7 @@
     <zeroOrMore>
       <choice>
         <text/>
-        <ref name="lb"/>
+        <ref name="model.lbLike"/>
         <ref name="model.rendLike"/>
       </choice>
     </zeroOrMore>
@@ -2464,8 +2700,6 @@
     <oneOrMore>
       <choice>
         <ref name="model.eventLike"/>
-        <!-- <ref name="model.eventLike.common"/>
-        <ref name="model.eventLike.cmn"/> -->
       </choice>
     </oneOrMore>
   </define>

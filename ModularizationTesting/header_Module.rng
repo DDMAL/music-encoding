@@ -66,7 +66,7 @@
       <ref name="editorialdecl"/>
     </optional>
   </define>
-  
+
   <define name="model.frontPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of
       front matter.</a:documentation>
@@ -83,7 +83,7 @@
       <ref name="profiledesc"/>
     </optional>
   </define>
-  
+
   <define name="model.physdescPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of
       the physical description of a bibliographic item.</a:documentation>
@@ -97,7 +97,7 @@
       <ref name="physmedium"/>
       <ref name="physloc"/>
       <ref name="provenance"/>
-      <ref name="repository"/>
+      <ref name="model.repositoryLike"/>
       <ref name="model.frontPart"/>
       <ref name="treatmenthist"/>
       <ref name="treatmentsched"/>
@@ -126,7 +126,7 @@
       <ref name="model.addressLike"/>
       <ref name="respstmt"/>
       <ref name="model.dateLike"/>
-      <ref name="identifier"/>
+      <ref name="model.identifierLike"/>
       <ref name="availability"/>
     </choice>
   </define>
@@ -276,7 +276,7 @@
 
   <define name="content.application">
     <oneOrMore>
-      <ref name="name"/>
+      <ref name="model.nameLike"/>
     </oneOrMore>
     <choice>
       <zeroOrMore>
@@ -533,7 +533,7 @@
 
   <define name="content.editionstmt">
     <oneOrMore>
-      <ref name="edition"/>
+      <ref name="model.editionLike"/>
       <zeroOrMore>
         <ref name="respstmt"/>
       </zeroOrMore>
@@ -1232,13 +1232,13 @@
 
   <define name="content.seriesstmt">
     <oneOrMore>
-      <ref name="title"/>
+      <ref name="model.titleLike"/>
     </oneOrMore>
     <optional>
       <ref name="respstmt"/>
     </optional>
     <zeroOrMore>
-      <ref name="identifier"/>
+      <ref name="model.identifierLike"/>
     </zeroOrMore>
     <choice>
       <ref name="model.listLike"/>
@@ -1268,7 +1268,7 @@
 
   <define name="content.source">
     <zeroOrMore>
-      <ref name="identifier"/>
+      <ref name="model.identifierLike"/>
     </zeroOrMore>
     <optional>
       <ref name="titlestmt"/>
@@ -1416,7 +1416,7 @@
 
   <define name="content.titlestmt">
     <oneOrMore>
-      <ref name="title"/>
+      <ref name="model.titleLike"/>
     </oneOrMore>
     <optional>
       <ref name="respstmt"/>

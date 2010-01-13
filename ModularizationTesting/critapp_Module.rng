@@ -102,7 +102,7 @@
   <define name="model.rdgPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       textual variant.</a:documentation>
-    <choice>
+    <zeroOrMore><choice>
       <ref name="model.sectionPart"/>
       <ref name="model.ossiaLike"/>
       <ref name="model.controleventLike"/>
@@ -112,10 +112,11 @@
       <ref name="model.syllableLike"/>
       <ref name="model.sylLike"/>
       <ref name="model.eventLike"/>
+      <ref name="model.eventLike.neumes"/>
       <ref name="model.noteModifierLike"/>
       <ref name="model.verseLike"/>
       <ref name="model.eventLike.cmn.measureFilling"/>
-    </choice>
+    </choice></zeroOrMore>
   </define>
   
   <!-- Declare module elements -->

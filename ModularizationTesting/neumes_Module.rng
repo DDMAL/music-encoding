@@ -47,20 +47,6 @@
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
-    <!-- <optional>
-      <attribute name="accid.cautionary">
-        <a:documentation xml:lang="eng">indicates a cautionary accidental
-          accompanying the neume.</a:documentation>
-        <ref name="data.ACCIDENTAL.EXPLICIT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="accid.editorial">
-        <a:documentation xml:lang="eng">indicates an editorial accidental
-          accompanying the neume.</a:documentation>
-        <ref name="data.ACCIDENTAL.EXPLICIT"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="hfunc">
         <a:documentation xml:lang="eng">contains an indication of the harmonic
@@ -130,73 +116,6 @@
     </optional>
   </define>
 
-  <define name="att.anl.syl" combine="interleave">
-    <a:documentation xml:lang="eng">Analytical domain
-      attributes</a:documentation>
-    <ref name="att.common.anl"/>
-  </define>
-
-  <define name="att.ges.syl" combine="interleave">
-    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <empty/>
-  </define>
-
-  <define name="att.log.syl" combine="interleave">
-    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <optional>
-      <attribute name="con">
-        <a:documentation xml:lang="eng">describes the symbols typically used to
-          indicate breaks between syllables: s (_s_pace) = word separator, d
-          (_d_ash) = syllable separator, u (_u_nderscore) = syllable extension,
-          t (_t_ilde) = syllable elision</a:documentation>
-        <choice>
-          <value>s</value>
-          <value>d</value>
-          <value>u</value>
-          <value>t</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="wordpos">
-        <a:documentation xml:lang="eng">records the position of the syllable
-          within a word.</a:documentation>
-        <choice>
-          <value>i</value>
-          <value>m</value>
-          <value>t</value>
-        </choice>
-      </attribute>
-    </optional>
-  </define>
-
-  <define name="att.vis.syl" combine="interleave">
-    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <ref name="att.typography"/>
-    <ref name="att.visualoffset"/>
-    <ref name="att.xy"/>
-    <optional>
-      <attribute name="halign">
-        <a:documentation xml:lang="eng">indicates the horizontal alignment of
-          the syllable with respect to the note to which it is
-          attached.</a:documentation>
-        <choice>
-          <value>left</value>
-          <value>right</value>
-          <value>center</value>
-          <value>justify</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="rend">
-        <a:documentation xml:lang="eng">typographical appearance of the syllable
-          text.</a:documentation>
-        <ref name="data.TEXTRENDITION"/>
-      </attribute>
-    </optional>
-  </define>
-
   <define name="att.vis.uneume" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
@@ -241,10 +160,6 @@
     <a:documentation xml:lang="eng">groups elements that modify neume-like
       features.</a:documentation>
     <empty/>
-    <!-- <choice>
-      <ref name="accid"/>
-      <ref name="artic"/>
-    </choice> -->
   </define>
 
   <define name="model.sectionPart" combine="choice">
@@ -255,40 +170,25 @@
     </zeroOrMore>
   </define>
 
-  <!-- <define name="model.staffPart" combine="interleave">
-    <a:documentation xml:lang="eng">groups elements that may appear as part of
-      the content of a staff.</a:documentation>
-    <zeroOrMore>
-      <choice>
-        <ref name="model.syllableLike"/>
-      </choice>
-    </zeroOrMore>
-  </define> -->
-
   <define name="model.syllableLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that accommodate neumed
       text.</a:documentation>
     <ref name="syllable"/>
   </define>
 
-  <define name="model.syllablePart">
+  <define name="model.syllablePart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of
       content of a syllable.</a:documentation>
     <choice>
       <ref name="model.sylLike"/>
+      <ref name="model.eventLike"/>
       <ref name="model.eventLike.neumes"/>
-      <!-- <ref name="model.midiLike"/>
+      <ref name="model.midiLike"/>
       <ref name="model.controleventLike"/>
       <ref name="model.lyricsLike"/>
       <ref name="model.noteModifierLike"/>
-      <ref name="model.verseLike"/> -->
+      <ref name="model.verseLike"/>
     </choice>
-  </define>
-
-  <define name="model.sylLike" combine="interleave">
-    <a:documentation xml:lang="eng">groups elements that contain a lyric
-      syllable.</a:documentation>
-    <ref name="syl"/>
   </define>
 
   <!-- Declare module elements -->
@@ -296,6 +196,7 @@
     <zeroOrMore>
       <choice>
         <ref name="model.eventLike"/>
+        <ref name="model.eventLike.neumes"/>
         <ref name="model.neumeModifierLike"/>
         <ref name="model.appLike"/>
         <ref name="model.editLike"/>

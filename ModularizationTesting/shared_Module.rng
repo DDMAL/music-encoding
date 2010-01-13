@@ -981,7 +981,7 @@
         </a:documentation>
       </attribute>
     </optional>
-    <optional>
+    <!-- <optional>
       <attribute name="grace">
         <a:documentation xml:lang="eng">marks this chord as a grace and records
           from which note/chord it should "steal" time.</a:documentation>
@@ -994,7 +994,7 @@
           "stolen" from a non-grace note/chord.</a:documentation>
         <ref name="data.PERCENT"/>
       </attribute>
-    </optional>
+    </optional> -->
     <optional>
       <attribute name="instr">
         <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
@@ -2218,6 +2218,57 @@
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
+  
+  <define name="att.anl.phrase" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+    <optional>
+      <attribute name="join">
+        <a:documentation xml:lang="eng">used for linking visually separate
+          phrase marks, sometimes necessary due to system breaks, that form a
+          single musical phrase. Record the IDs of the separately encoded phrase
+          marks, excluding this one.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.ges.phrase" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from the written values. Its value may be expressed in
+          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions',
+          etc.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.phrase" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.controlevent"/>
+    <ref name="att.startendid"/>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes the logical and visual duration
+          of the phrase mark. If logical and visual duration differ, it may be
+          necessary to add a dur.vis attribute. Please note that the dur
+          attribute here is not a true duration, but rather a time stamp for the
+          end point of the phrase mark.</a:documentation>
+        <ref name="data.MEASUREBEAT"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.phrase" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.color"/>
+    <ref name="att.placement"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.visualoffset2"/>
+    <ref name="att.xy"/>
+    <ref name="att.xy2"/>
+  </define>
 
   <define name="att.anl.rest" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
@@ -2504,80 +2555,6 @@
       </attribute>
     </optional>
   </define>
-  <!-- <define name="att.log.scoredef.mensural">
-    <a:documentation xml:lang="eng">Logical domain attributes for a score in the
-      mensural repertoire. The values set in these attributes act as score-wide
-      defaults for attributes that are not set in descendant elements. The
-      tempus, prolatio, modusmaior, and modusminor attributes specify the
-      relationship between the four principle levels of note value, i.e., the
-      long, breve, semibreve and minim, in mensural notation. Modusminor
-      describes the long-breve relationship, while tempus describes the
-      breve-semibreve, and prolatio the semibreve-minim relationship,
-      respectively. Modusmaior is for the maxima-long relationship. The
-      proport.* attributes describe augmentation or diminution of the normal
-      value of the notes in mensural notation.</a:documentation>
-    <optional>
-      <attribute name="modusmaior">
-        <a:documentation xml:lang="eng">describes the maxima-long
-          relationship.</a:documentation>
-        <ref name="data.MODUSMAIOR"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="modusminor">
-        <a:documentation xml:lang="eng">describes the long-breve
-          relationship.</a:documentation>
-        <ref name="data.MODUSMINOR"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num">
-        <a:documentation xml:lang="eng">along with numbase, describes duration
-          as a ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="numbase">
-        <a:documentation xml:lang="eng">along with num, describes duration as a
-          ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="prolatio">
-        <a:documentation xml:lang="eng">describes the semibreve-minim
-          relationship.</a:documentation>
-        <ref name="data.PROLATIO"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="proport.num">
-        <a:documentation xml:lang="eng">Together, proport.num and
-          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
-          Proport.num is for the first value in the ratio.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="proport.numbase">
-        <a:documentation xml:lang="eng">Together, proport.num and
-          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
-          Proport.numbase is for the second value in the
-          ratio.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tempus">
-        <a:documentation xml:lang="eng">describes the breve-semibreve
-          relationship.</a:documentation>
-        <ref name="data.TEMPUS"/>
-      </attribute>
-    </optional>
-  </define> -->
 
   <define name="att.log.scoredef" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for scoredef in
@@ -2655,33 +2632,6 @@
         </xhtml:tr>
       </xhtml:table> -->
     </a:documentation>
-    <!-- <optional>
-      <attribute name="beam.group">
-        <a:documentation xml:lang="eng">provides an example of how beaming
-          (including secondary beams) is to be performed. It can be used to set
-          a default beaming pattern to be used when no beaming is indicated at
-          the event level. beam.group must contain a comma-separated list of
-          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
-          indicates each quarter note worth of shorter notes would be beamed
-          together. Parentheses can be used to indicate sub-groupings of
-          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
-          outer beam per measure with secondary beams broken at each dotted
-          quarter duration, while a measure of 16th notes in 4/4 with beam.group
-          equal to '(4,4),(4,4)' will result in a primary beam covering all the
-          notes and secondary beams each group of 4 notes. This beaming
-          "directive" can be overridden by using &lt;beam&gt; elements.
-          If neither &lt;beam&gt; elements or the beam.group attribute
-          is used, then no beaming is rendered. Beaming can be 'turned off' by
-          setting beam.group to an empty string.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.rests">
-        <a:documentation xml:lang="eng">indicates whether beams should include
-          rests shorter than a quarter note duration.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="clef.line">
         <a:documentation xml:lang="eng">contains a default value for the
@@ -2830,64 +2780,6 @@
       </attribute>
     </optional>
   </define>
-
-  <!-- <define name="att.vis.scoredef.mensural">
-    <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
-      mensural repertoire</a:documentation>
-    <optional>
-      <attribute name="mensur">
-        <a:documentation xml:lang="eng">the base symbol in the mensuration
-          sign/time signature of mensural notation.</a:documentation>
-        <ref name="data.MENSURATIONSIGN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.dot">
-        <a:documentation xml:lang="eng">indicates whether a dot is to be added
-          to the base symbol.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.form">
-        <a:documentation xml:lang="eng">indicates whether the base symbol is
-          written vertically or horizontally.</a:documentation>
-        <choice>
-          <value>horizontal</value>
-          <value>vertical</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.loc">
-        <a:documentation xml:lang="eng">holds the staff location of the
-          mensuration sign.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.orient">
-        <a:documentation xml:lang="eng">describes the rotation or reflection of
-          the base symbol.</a:documentation>
-        <ref name="data.ORIENTATION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.size">
-        <a:documentation xml:lang="eng">describes the relative size of the
-          mensuration sign.</a:documentation>
-        <ref name="data.SIZE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.slash">
-        <a:documentation xml:lang="eng">indicates the number lines added to the
-          mensuration sign. For example, one slash is added for what we now call
-          'alla breve'.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-  </define> -->
 
   <define name="att.vis.scoredef" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
@@ -3103,24 +2995,6 @@
         <ref name="data.BARPLACE"/>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="beam.rend">
-        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
-          in which direction.</a:documentation>
-        <choice>
-          <value>acc</value>
-          <value>rit</value>
-          <value>norm</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.slope">
-        <a:documentation xml:lang="eng">captures default beam
-          slope.</a:documentation>
-        <ref name="data.NUMBER"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="clef.color">
         <a:documentation xml:lang="eng">describes the color of the
@@ -3153,13 +3027,6 @@
         </choice>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="grid.show">
-        <a:documentation xml:lang="eng">determines whether to display guitar
-          chord grids.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="harm.dist">
         <a:documentation xml:lang="eng">records the default distance from the
@@ -3352,35 +3219,6 @@
         <ref name="data.PGSCALE"/>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="pedal.rend">
-        <a:documentation xml:lang="eng">determines whether piano pedal marks
-          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
-          '*' for pedal up).</a:documentation>
-        <choice>
-          <value>line</value>
-          <value>term</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reh.enclose">
-        <a:documentation xml:lang="eng">describes the enclosing shape for
-          rehearsal marks.</a:documentation>
-        <choice>
-          <value>box</value>
-          <value>circle</value>
-          <value>none</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="slur.rend">
-        <a:documentation xml:lang="eng">describes the default rendering style
-          for slurs.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="spacing.packexp">
         <a:documentation xml:lang="eng">describes a note's spacing relative to
@@ -3472,13 +3310,6 @@
         <ref name="data.FONTWEIGHT"/>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="tie.rend">
-        <a:documentation xml:lang="eng">describes the default rendering style
-          for ties.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="att.anl.section" combine="interleave">
@@ -3489,16 +3320,6 @@
   <define name="att.ges.section" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
-    <!-- <optional>
-      <attribute name="expan">
-        <a:documentation xml:lang="eng">contains a list of ids of child
-          &lt;section&gt;, &lt;ending&gt; or &lt;app&gt;
-          elements. This 'expansion list' indicates how the section should be
-          expanded into its 'through-composed' form. See Read, p. 226 (ex.
-          12-10), 228-229 (ex. 12-16).</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
   </define>
   <define name="att.log.section" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
@@ -3535,13 +3356,6 @@
   <define name="att.log.space" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
-    <!-- <optional>
-      <attribute name="beam">
-        <a:documentation xml:lang="eng">indicates that this event is "under a
-          beam".</a:documentation>
-        <ref name="data.BEAMS"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="dots">
         <a:documentation xml:lang="eng">encodes the number of written dots of
@@ -3615,20 +3429,6 @@
       attributes</a:documentation>
     <empty/>
   </define>
-  <!-- <define name="att.ges.staffdef.tablature">
-    <a:documentation xml:lang="eng">Gestural domain attributes for staffdef in
-      tablature</a:documentation>
-    <optional>
-      <attribute name="tab.strings">
-        <a:documentation xml:lang="eng">provides a written pitch and octave for
-          each open string, e.g. "e3 a3 d4 g4 b4 e5" for standard guitar tuning.
-          It should contain the number of tokens indicated by the lines
-          attribute. Chromatic alteration may be indicated with '-' (flat) and
-          '#' (sharp). Double sharps and flats are not
-          permitted.</a:documentation>
-      </attribute>
-    </optional>
-  </define> -->
   <define name="att.ges.staffdef" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes for staffdef in
       the CMN repertoire</a:documentation>
@@ -3659,123 +3459,8 @@
       </attribute>
     </optional>
   </define>
-  <!-- <define name="att.log.staffdef.mensural">
-    <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
-      the mensural repertoire</a:documentation>
-    <optional>
-      <attribute name="mensur.sign">
-        <a:documentation xml:lang="eng">the base symbol in the mensuration
-          sign/time signature of mensural notation.</a:documentation>
-        <ref name="data.MENSURATIONSIGN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.dot">
-        <a:documentation xml:lang="eng">determines if a dot is to be added to
-          the base symbol.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.slash">
-        <a:documentation xml:lang="eng">indicates the number lines added to the
-          mensuration sign. For example, one slash is added for what we now call
-          'alla breve'.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="modusmaior">
-        <a:documentation xml:lang="eng">describes the maxima-long
-          relationship.</a:documentation>
-        <ref name="data.MODUSMAIOR"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="modusminor">
-        <a:documentation xml:lang="eng">describes the long-breve
-          relationship.</a:documentation>
-        <ref name="data.MODUSMINOR"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num">
-        <a:documentation xml:lang="eng">along with numbase, describes duration
-          as a ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="numbase">
-        <a:documentation xml:lang="eng">along with num, describes duration as a
-          ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="prolatio">
-        <a:documentation xml:lang="eng">describes the semibreve-minim
-          relationship.</a:documentation>
-        <ref name="data.PROLATIO"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="proport.num">
-        <a:documentation xml:lang="eng">Together, proport.num and
-          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
-          Proport.um is for the first value in the ratio.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="proport.numbase">
-        <a:documentation xml:lang="eng">Together, proport.num and
-          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
-          Proport.numbase is for the second value in the
-          ratio.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tempus">
-        <a:documentation xml:lang="eng">describes the breve-semibreve
-          relationship.</a:documentation>
-        <ref name="data.TEMPUS"/>
-      </attribute>
-    </optional>
-  </define> -->
   <define name="att.log.staffdef" combine="interleave">
-    <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
-      the CMN repertoire</a:documentation>
-    <!-- <optional>
-      <attribute name="beam.group">
-        <a:documentation xml:lang="eng">provides an example of how beaming
-          (including secondary beams) is to be performed. It can be used to set
-          a default beaming pattern to be used when no beaming is indicated at
-          the event level. beam.group must contain a comma-separated list of
-          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
-          indicates each quarter note worth of shorter notes would be beamed
-          together. Parentheses can be used to indicate sub-groupings of
-          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
-          outer beam per measure with secondary beams broken at each dotted
-          quarter duration, while a measure of 16th notes in 4/4 with beam.group
-          equal to '(4,4),(4,4)' will result in a primary beam covering all the
-          notes and secondary beams each group of 4 notes. This beaming
-          "directive" can be overridden by using &lt;beam&gt; elements.
-          If neither &lt;beam&gt; elements or the beam.group attribute
-          is used, then no beaming is rendered. Beaming can be 'turned off' by
-          setting beam.group to an empty string.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.rests">
-        <a:documentation xml:lang="eng">determines whether rests are allowed
-          under a beam.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional> -->
+    <a:documentation xml:lang="eng">Logical domain attributes for staffdef</a:documentation>
     <optional>
       <attribute name="clef.line">
         <a:documentation xml:lang="eng">contains a default value for the
@@ -3915,62 +3600,8 @@
       </attribute>
     </optional>
   </define>
-  <!-- <define name="att.vis.staffdef.mensural">
-    <a:documentation xml:lang="eng">Visual domain attributes for the mensural
-      repertoire</a:documentation>
-    <optional>
-      <attribute name="mensur.form">
-        <a:documentation xml:lang="eng">indicates whether the base symbol is
-          written vertically or horizontally.</a:documentation>
-        <choice>
-          <value>horizontal</value>
-          <value>vertical</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.loc">
-        <a:documentation xml:lang="eng">holds the staff location of the
-          mensuration sign.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.orient">
-        <a:documentation xml:lang="eng">describes the rotation or reflection of
-          the base symbol.</a:documentation>
-        <ref name="data.ORIENTATION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mensur.size">
-        <a:documentation xml:lang="eng">describes the relative size of the
-          mensuration sign.</a:documentation>
-        <ref name="data.SIZE"/>
-      </attribute>
-    </optional>
-  </define> -->
   <define name="att.vis.staffdef" combine="interleave">
-    <a:documentation xml:lang="eng">Visual domain attributes for staffdef in the
-      CMN repertoire</a:documentation>
-    <!-- <optional>
-      <attribute name="beam.rend">
-        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
-          in which direction.</a:documentation>
-        <choice>
-          <value>acc</value>
-          <value>rit</value>
-          <value>norm</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.slope">
-        <a:documentation xml:lang="eng">captures default beam
-          slope.</a:documentation>
-        <ref name="data.NUMBER"/>
-      </attribute>
-    </optional> -->
+    <a:documentation xml:lang="eng">Visual domain attributes for staffdef</a:documentation>
     <optional>
       <attribute name="clef.color">
         <a:documentation xml:lang="eng">describes the color of the
@@ -4142,28 +3773,6 @@
         <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="pedal.rend">
-        <a:documentation xml:lang="eng">determines whether piano pedal marks
-          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
-          '*' for pedal up).</a:documentation>
-        <choice>
-          <value>line</value>
-          <value>term</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reh.enclose">
-        <a:documentation xml:lang="eng">describes the enclosing shape for
-          rehearsal marks.</a:documentation>
-        <choice>
-          <value>box</value>
-          <value>circle</value>
-          <value>none</value>
-        </choice>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="scale">
         <a:documentation xml:lang="eng">indicates how the staff should be scaled
@@ -4171,13 +3780,6 @@
         <ref name="data.NUMBER"/>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="slur.rend">
-        <a:documentation xml:lang="eng">describes the default rendering style
-          for slurs.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="spacing">
         <a:documentation xml:lang="eng">records the absolute distance (as
@@ -4236,13 +3838,6 @@
         <ref name="data.FONTWEIGHT"/>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="tie.rend">
-        <a:documentation xml:lang="eng">provides a default value for the
-          appearance of ties associated with this staff.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="visible">
         <a:documentation xml:lang="eng">indicates if a staff should be displayed
@@ -4325,6 +3920,124 @@
     </optional>
   </define>
 
+  <define name="att.anl.syl" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.syl" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <empty/>
+  </define>
+  <define name="att.log.syl" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <optional>
+      <attribute name="con">
+        <a:documentation xml:lang="eng">describes the symbols typically used to
+          indicate breaks between syllables: s (_s_pace) = word separator, d
+          (_d_ash) = syllable separator, u (_u_nderscore) = syllable extension,
+          t (_t_ilde) = syllable elision</a:documentation>
+        <choice>
+          <value>s</value>
+          <value>d</value>
+          <value>u</value>
+          <value>t</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="wordpos">
+        <a:documentation xml:lang="eng">records the position of the syllable
+          within a word.</a:documentation>
+        <choice>
+          <value>i</value>
+          <value>m</value>
+          <value>t</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.syl" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.typography"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="halign">
+        <a:documentation xml:lang="eng">indicates the horizontal alignment of
+          the syllable with respect to the note to which it is
+          attached.</a:documentation>
+        <choice>
+          <value>left</value>
+          <value>right</value>
+          <value>center</value>
+          <value>justify</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">typographical appearance of the syllable
+          text.</a:documentation>
+        <ref name="data.TEXTRENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.anl.tempo" combine="interleave">
+    <a:documentation xml:lang="eng">Analytical domain
+      attributes</a:documentation>
+    <ref name="att.common.anl"/>
+  </define>
+  <define name="att.ges.tempo" combine="interleave">
+    <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <optional>
+      <attribute name="midi">
+        <a:documentation xml:lang="eng">contains a MIDI value, that is, the
+          number of quarter notes per minute in the range from 10 to
+          1000.</a:documentation>
+        <ref name="data.MIDITEMPO"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="value">
+        <a:documentation xml:lang="eng">used to describe the tempo in
+          beats-per-minute.</a:documentation>
+        <ref name="data.TEMPOVALUE"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.log.tempo" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes. The dur.vis
+      attribute encodes visual duration. (Read, p. 276-281) If logical and
+      visual durations differ, it may be necessary to add a dur attribute.
+      Please note that the dur attribute here is expressed in musical time,
+      i.e., beats or other time stamp. Therefore, it is not a true duration, but
+      rather a time stamp for the end point of the directive.</a:documentation>
+    <ref name="att.controlevent"/>
+    <optional>
+      <attribute name="startid">
+        <a:documentation xml:lang="eng">holds a reference to the element to
+          which the tempo mark is attached.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+  <define name="att.vis.tempo" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.placement"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.visualoffset2.ho"/>
+    <ref name="att.visualoffset2.to"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="dur.vis">
+        <a:documentation xml:lang="eng">used to record the visual duration of
+          the tempo marking in the source.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
   <!-- Declare module model classes -->
   <define name="model.addressLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements used to represent a postal
@@ -4344,7 +4057,7 @@
     <ref name="bibl"/>
   </define>
 
-  <define name="model.biblPart">
+  <define name="model.biblPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       bibliographic description.</a:documentation>
     <ref name="model.editionLike"/>
@@ -4356,26 +4069,24 @@
     <ref name="caption"/>
   </define>
 
-  <!-- Put definitions of model.controleventLike in neumes, mensural, and cmn modules? -->
   <define name="model.controleventLike" combine="interleave">
     <zeroOrMore>
       <choice>
         <ref name="dir"/>
         <ref name="dynam"/>
-        <!-- <ref name="phrase"/>
-      <ref name="tempo"/> -->
+        <ref name="phrase"/>
+        <ref name="tempo"/>
       </choice>
     </zeroOrMore>
   </define>
 
-  <!-- This goes in neume and/or mensural modules 
   <define name="model.clefchangePart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that contain information
       regarding changes of clef.</a:documentation>
     <zeroOrMore>
       <ref name="clef"/>
     </zeroOrMore>
-  </define> -->
+  </define>
 
   <define name="model.dateLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements containing date
@@ -4413,8 +4124,7 @@
         <ref name="chord"/>
         <ref name="clefchange"/>
         <ref name="custos"/>
-        <!-- Remove this, use keysig instead? <ref name="keychange"/> -->
-        <ref name="keysig"/>
+        <ref name="model.keysigLike"/>
         <ref name="note"/>
         <ref name="pad"/>
         <ref name="rest"/>
@@ -4495,13 +4205,6 @@
       <ref name="model.eventLike"/>
       <ref name="model.eventLike.neumes"/>
       <ref name="model.midiLike"/>
-      <!-- <ref name="model.eventLike.cmn.measureFilling"/>
-      <ref name="model.midiLike"/>
-      <ref name="model.controleventLike"/>
-      <ref name="model.lyricsLike"/>
-      <ref name="model.noteModifierLike"/>
-      <ref name="model.verseLike"/>
-      <ref name="model.sylLike"/> -->
     </choice>
   </define>
 
@@ -4558,8 +4261,8 @@
     <a:documentation xml:lang="eng">groups milestone-style elements found in
       text.</a:documentation>
     <choice>
-      <ref name="lb"/>
-      <ref name="pb"/>
+      <ref name="model.lbLike"/>
+      <ref name="model.pbLike"/>
     </choice>
   </define>
 
@@ -4602,7 +4305,7 @@
     <ref name="num"/>
   </define>
 
-  <define name="model.paracontentPart">
+  <define name="model.paracontentPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements which may appear as part of
       the paragraph content model. A paragraph may contain inline elements and
       all the other block-level elements except lg and itself. The
@@ -4624,7 +4327,7 @@
     <ref name="p"/>
   </define>
 
-  <define name="model.partLike">
+  <define name="model.partLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that represent a separate
       performer part.</a:documentation>
     <ref name="part"/>
@@ -4689,10 +4392,6 @@
       <choice>
         <ref name="model.sectionLike"/>
         <ref name="model.endingLike"/>
-        <!-- added by Neumes and Mensural modules. -->
-        <!-- <ref name="model.staffLike"/> -->
-        <!-- Added by CMN module -->
-        <!-- <ref name="model.measureLike"/> -->
       </choice>
     </zeroOrMore>
   </define>
@@ -4701,6 +4400,14 @@
     <a:documentation xml:lang="eng">groups elements that permit declaration of
       staff properties.</a:documentation>
     <ref name="staffdef"/>
+  </define>
+
+  <define name="model.staffdefPart" combine="interleave">
+    <a:documentation xml:lang="eng">groups elements that may appear more than
+      once in the declaration of staff features.</a:documentation>
+    <choice>
+      <ref name="clef"/>
+    </choice>
   </define>
 
   <define name="model.staffgrpLike" combine="interleave">
@@ -5354,8 +5061,8 @@
       <choice>
         <ref name="model.Incl"/>
         <ref name="model.sectionPart"/>
-        <!-- <ref name="model.scoredefLike"/> -->
-        <!-- <ref name="model.milestoneLike.music"/> -->
+        <ref name="model.scoredefLike"/>
+        <ref name="model.milestoneLike.music"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -6027,6 +5734,43 @@
     <ref name="att.typed"/>
   </define>
 
+  <define name="content.note">
+    <zeroOrMore>
+      <choice>
+        <ref name="model.eventLike"/>
+        <ref name="model.noteModifierLike"/>
+        <ref name="model.verseLike"/>
+        <ref name="model.sylLike"/>
+        <ref name="model.appLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="note">
+    <element name="note">
+      <a:documentation xml:lang="eng">note ― A single pitched event. (Read, p.
+        63) The note element is allowed to contain other events for situations
+        where a single written note may be representative of a group of
+        performed notes. The accid and artic sub-elements may be used instead of
+        the note element's attributes when accid and artic represent first-class
+        objects, e.g., when they require attributes, such as x and y location
+        attributes. Similarly, the syl sub-element may be used instead of the
+        syl attribute. The verse sub-element may be used to group text syllables
+        by verse.</a:documentation>
+      <ref name="attlist.note"/>
+      <ref name="content.note"/>
+    </element>
+  </define>
+  <define name="attlist.note">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.log.note"/>
+    <ref name="att.vis.note"/>
+    <ref name="att.ges.note"/>
+    <ref name="att.anl.note"/>
+  </define>
+
   <define name="content.num">
     <zeroOrMore>
       <choice>
@@ -6338,41 +6082,36 @@
     <ref name="att.lang"/>
   </define>
 
-  <define name="content.note">
-    <zeroOrMore>
-      <choice>
-        <ref name="model.eventLike"/>
-        <ref name="model.noteModifierLike"/>
-        <ref name="model.verseLike"/>
-        <ref name="model.sylLike"/>
-        <ref name="model.appLike"/>
-        <ref name="model.editLike"/>
-        <ref name="model.transcriptionLike"/>
-      </choice>
-    </zeroOrMore>
+  <define name="content.phrase">
+    <empty/>
   </define>
-  <define name="note">
-    <element name="note">
-      <a:documentation xml:lang="eng">note ― A single pitched event. (Read, p.
-        63) The note element is allowed to contain other events for situations
-        where a single written note may be representative of a group of
-        performed notes. The accid and artic sub-elements may be used instead of
-        the note element's attributes when accid and artic represent first-class
-        objects, e.g., when they require attributes, such as x and y location
-        attributes. Similarly, the syl sub-element may be used instead of the
-        syl attribute. The verse sub-element may be used to group text syllables
-        by verse.</a:documentation>
-      <ref name="attlist.note"/>
-      <ref name="content.note"/>
+  <define name="phrase">
+    <element name="phrase">
+      <a:documentation xml:lang="eng">phrase ― Historically, a phrase mark
+        indicated a "unified melodic idea", while the term "slur" was used for
+        two-note legato patterns. (Read, p. 265). Nowadays, however, "phrase"
+        and "slur" are often used interchangably (Read, p. 265-266), since the
+        visual rendition of the two concepts is the same. MEI provides two
+        distinct elements so that those users wishing to maintain a distinction
+        for historical reasons may do so. If the user does not want to maintain
+        the distinction, then the more generic &lt;slur&gt; element
+        should be employed. The starting point of the phrase may be indicated by
+        either a tstamp, tstamp.ges, tstamp.real or startid attribute, while the
+        ending point may be recorded by either a dur, dur.ges or endid
+        attribute. It is a semantic error not to specify one starting and one
+        ending type of attribute. Either place, bulge, or bezier attributes may
+        be used to record the curvature of the phrase.</a:documentation>
+      <ref name="attlist.phrase"/>
+      <ref name="content.phrase"/>
     </element>
   </define>
-  <define name="attlist.note">
+  <define name="attlist.phrase">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.note"/>
-    <ref name="att.vis.note"/>
-    <ref name="att.ges.note"/>
-    <ref name="att.anl.note"/>
+    <ref name="att.log.phrase"/>
+    <ref name="att.vis.phrase"/>
+    <ref name="att.ges.phrase"/>
+    <ref name="att.anl.phrase"/>
   </define>
 
   <define name="content.rend">
@@ -6830,6 +6569,38 @@
     <ref name="att.vis.syl"/>
     <ref name="att.ges.syl"/>
     <ref name="att.anl.syl"/>
+  </define>
+
+  <define name="content.tempo">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+  <define name="tempo">
+    <element name="tempo">
+      <a:documentation xml:lang="eng">tempo ― Text and symbols descriptive of
+        tempo, mood, or style, e.g., "allarg.", "a tempo", "cantabile",
+        "Moderato", "[qtrnote]=60", "Moderato [qtrnote] =60"). Both
+        "instantaneous" and "continuous" tempo markings may be encoded using
+        this element.</a:documentation>
+      <ref name="attlist.tempo"/>
+      <ref name="content.tempo"/>
+    </element>
+  </define>
+  <define name="attlist.tempo">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.log.tempo"/>
+    <ref name="att.vis.tempo"/>
+    <ref name="att.ges.tempo"/>
+    <ref name="att.anl.tempo"/>
   </define>
 
   <define name="content.title">
