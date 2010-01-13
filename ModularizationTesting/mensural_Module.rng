@@ -295,7 +295,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.log.scoredef" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for a score in the
       mensural repertoire. The values set in these attributes act as score-wide
@@ -370,7 +370,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.vis.scoredef" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
       mensural repertoire</a:documentation>
@@ -428,7 +428,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.log.staffdef" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
       the mensural repertoire</a:documentation>
@@ -516,7 +516,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.vis.staffdef" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for the mensural
       repertoire</a:documentation>
@@ -592,14 +592,16 @@
       <ref name="model.staffLike"/>
     </zeroOrMore>
   </define>
-  
+
   <define name="model.staffdefPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear more than
       once in the declaration of staff features.</a:documentation>
-    <choice>
-      <ref name="mensur"/>
-      <ref name="proport"/>
-    </choice>
+    <zeroOrMore>
+      <choice>
+        <ref name="mensur"/>
+        <ref name="proport"/>
+      </choice>
+    </zeroOrMore>
   </define>
 
   <!-- Declare module elements -->
