@@ -1,0 +1,1344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!-- Include datatypes -->
+  <include href="datatypes.rng"/>
+
+  <!-- Define all attr classes as empty -->
+  <define name="att.alignment">
+    <empty/>
+  </define>
+
+  <define name="att.altsym">
+    <empty/>
+  </define>
+
+  <define name="att.bibl">
+    <empty/>
+  </define>
+
+  <define name="att.color">
+    <empty/>
+  </define>
+
+  <define name="att.common">
+    <empty/>
+  </define>
+
+  <define name="att.common.anl">
+    <empty/>
+  </define>
+
+  <define name="att.controlevent">
+    <empty/>
+  </define>
+
+  <define name="att.coordinated">
+    <empty/>
+  </define>
+
+  <define name="att.crit">
+    <empty/>
+  </define>
+
+  <define name="att.date">
+    <empty/>
+  </define>
+
+  <define name="att.edit">
+    <empty/>
+  </define>
+
+  <define name="att.event">
+    <empty/>
+  </define>
+
+  <define name="att.facsimile">
+    <empty/>
+  </define>
+
+  <define name="att.lang">
+    <empty/>
+  </define>
+
+  <define name="att.link.common">
+    <empty/>
+  </define>
+
+  <define name="att.link.external">
+    <empty/>
+  </define>
+
+  <define name="att.link.internal">
+    <empty/>
+  </define>
+
+  <define name="att.midi.event">
+    <empty/>
+  </define>
+
+  <define name="att.name">
+    <empty/>
+  </define>
+
+  <define name="att.placement">
+    <empty/>
+  </define>
+
+  <define name="att.startendid">
+    <empty/>
+  </define>
+
+  <define name="att.trans">
+    <empty/>
+  </define>
+
+  <define name="att.typed">
+    <empty/>
+  </define>
+
+  <define name="att.typography">
+    <empty/>
+  </define>
+
+  <define name="att.visualoffset.ho">
+    <empty/>
+  </define>
+
+  <define name="att.visualoffset.to">
+    <empty/>
+  </define>
+
+  <define name="att.visualoffset.vo">
+    <empty/>
+  </define>
+
+  <define name="att.visualoffset">
+    <empty/>
+  </define>
+
+  <define name="att.visualoffset2.ho">
+    <empty/>
+  </define>
+
+  <define name="att.visualoffset2.to">
+    <empty/>
+  </define>
+
+  <define name="att.visualoffset2.vo">
+    <empty/>
+  </define>
+
+  <define name="att.visualoffset2">
+    <empty/>
+  </define>
+
+  <define name="att.xy">
+    <empty/>
+  </define>
+
+  <define name="att.xy.required">
+    <empty/>
+  </define>
+
+  <define name="att.xy2">
+    <empty/>
+  </define>
+
+  <define name="att.xy2.required">
+    <empty/>
+  </define>
+
+  <!-- Domain attr classes for musical elements -->
+  <define name="att.log.accid">
+    <empty/>
+  </define>
+  <define name="att.vis.accid">
+    <empty/>
+  </define>
+  <define name="att.ges.accid">
+    <empty/>
+  </define>
+  <define name="att.anl.accid">
+    <empty/>
+  </define>
+
+  <define name="att.anl.annot">
+    <empty/>
+  </define>
+  <define name="att.ges.annot">
+    <empty/>
+  </define>
+  <define name="att.log.annot">
+    <empty/>
+  </define>
+  <define name="att.vis.annot">
+    <empty/>
+  </define>
+
+  <define name="att.log.artic">
+    <empty/>
+  </define>
+  <define name="att.vis.artic">
+    <empty/>
+  </define>
+  <define name="att.ges.artic">
+    <empty/>
+  </define>
+  <define name="att.anl.artic">
+    <empty/>
+  </define>
+
+  <define name="att.log.barline">
+    <empty/>
+  </define>
+  <define name="att.vis.barline">
+    <empty/>
+  </define>
+  <define name="att.ges.barline">
+    <empty/>
+  </define>
+  <define name="att.anl.barline">
+    <empty/>
+  </define>
+
+  <define name="att.log.beam">
+    <empty/>
+  </define>
+  <define name="att.vis.beam">
+    <empty/>
+  </define>
+  <define name="att.ges.beam">
+    <empty/>
+  </define>
+  <define name="att.anl.beam">
+    <empty/>
+  </define>
+
+  <define name="att.log.beatrpt">
+    <empty/>
+  </define>
+  <define name="att.vis.beatrpt">
+    <empty/>
+  </define>
+  <define name="att.ges.beatrpt">
+    <empty/>
+  </define>
+  <define name="att.anl.beatrpt">
+    <empty/>
+  </define>
+
+  <define name="att.log.bend">
+    <empty/>
+  </define>
+  <define name="att.vis.bend">
+    <empty/>
+  </define>
+  <define name="att.ges.bend">
+    <empty/>
+  </define>
+  <define name="att.anl.bend">
+    <empty/>
+  </define>
+
+  <define name="att.log.btrem">
+    <empty/>
+  </define>
+  <define name="att.vis.btrem">
+    <empty/>
+  </define>
+  <define name="att.ges.btrem">
+    <empty/>
+  </define>
+  <define name="att.anl.btrem">
+    <empty/>
+  </define>
+
+  <define name="att.log.chord">
+    <empty/>
+  </define>
+  <define name="att.vis.chord">
+    <empty/>
+  </define>
+  <define name="att.ges.chord">
+    <empty/>
+  </define>
+  <define name="att.anl.chord">
+    <empty/>
+  </define>
+
+  <define name="att.anl.clef">
+    <empty/>
+  </define>
+  <define name="att.ges.clef">
+    <empty/>
+  </define>
+  <define name="att.log.clef">
+    <empty/>
+  </define>
+  <define name="att.vis.clef">
+    <empty/>
+  </define>
+
+  <define name="att.log.clefchange">
+    <empty/>
+  </define>
+  <define name="att.vis.clefchange">
+    <empty/>
+  </define>
+  <define name="att.ges.clefchange">
+    <empty/>
+  </define>
+  <define name="att.anl.clefchange">
+    <empty/>
+  </define>
+
+  <define name="att.log.custos">
+    <empty/>
+  </define>
+  <define name="att.vis.custos">
+    <empty/>
+  </define>
+  <define name="att.ges.custos">
+    <empty/>
+  </define>
+  <define name="att.anl.custos">
+    <empty/>
+  </define>
+
+  <define name="att.log.dir">
+    <empty/>
+  </define>
+  <define name="att.vis.dir">
+    <empty/>
+  </define>
+  <define name="att.ges.dir">
+    <empty/>
+  </define>
+  <define name="att.anl.dir">
+    <empty/>
+  </define>
+
+  <define name="att.log.dot">
+    <empty/>
+  </define>
+  <define name="att.vis.dot">
+    <empty/>
+  </define>
+  <define name="att.ges.dot">
+    <empty/>
+  </define>
+  <define name="att.anl.dot">
+    <empty/>
+  </define>
+
+  <define name="att.log.dynam">
+    <empty/>
+  </define>
+  <define name="att.vis.dynam">
+    <empty/>
+  </define>
+  <define name="att.ges.dynam">
+    <empty/>
+  </define>
+  <define name="att.anl.dynam">
+    <empty/>
+  </define>
+
+  <define name="att.anl.ending">
+    <empty/>
+  </define>
+  <define name="att.ges.ending">
+    <empty/>
+  </define>
+  <define name="att.log.ending">
+    <empty/>
+  </define>
+  <define name="att.vis.ending">
+    <empty/>
+  </define>
+
+  <define name="att.log.ftrem">
+    <empty/>
+  </define>
+  <define name="att.vis.ftrem">
+    <empty/>
+  </define>
+  <define name="att.ges.ftrem">
+    <empty/>
+  </define>
+  <define name="att.anl.ftrem">
+    <empty/>
+  </define>
+
+  <define name="att.log.gliss">
+    <empty/>
+  </define>
+  <define name="att.vis.gliss">
+    <empty/>
+  </define>
+  <define name="att.ges.gliss">
+    <empty/>
+  </define>
+  <define name="att.anl.gliss">
+    <empty/>
+  </define>
+
+  <define name="att.log.grpsym">
+    <empty/>
+  </define>
+  <define name="att.vis.grpsym">
+    <empty/>
+  </define>
+  <define name="att.ges.grpsym">
+    <empty/>
+  </define>
+  <define name="att.anl.grpsym">
+    <empty/>
+  </define>
+
+  <define name="att.log.halfmrpt">
+    <empty/>
+  </define>
+  <define name="att.vis.halfmrpt">
+    <empty/>
+  </define>
+  <define name="att.ges.halfmrpt">
+    <empty/>
+  </define>
+  <define name="att.anl.halfmrpt">
+    <empty/>
+  </define>
+
+  <define name="att.log.harm">
+    <empty/>
+  </define>
+  <define name="att.vis.harm">
+    <empty/>
+  </define>
+  <define name="att.ges.harm">
+    <empty/>
+  </define>
+  <define name="att.anl.harm">
+    <empty/>
+  </define>
+
+  <define name="att.log.ineume">
+    <empty/>
+  </define>
+
+  <define name="att.vis.ineume">
+    <empty/>
+  </define>
+
+  <define name="att.ges.ineume">
+    <empty/>
+  </define>
+
+  <define name="att.anl.ineume">
+    <empty/>
+  </define>
+
+  <define name="att.log.layer">
+    <empty/>
+  </define>
+  <define name="att.vis.layer">
+    <empty/>
+  </define>
+  <define name="att.ges.layer">
+    <empty/>
+  </define>
+  <define name="att.anl.layer">
+    <empty/>
+  </define>
+
+  <define name="att.log.layerdef">
+    <empty/>
+  </define>
+  <define name="att.vis.layerdef">
+    <empty/>
+  </define>
+  <define name="att.ges.layerdef">
+    <empty/>
+  </define>
+  <define name="att.anl.layerdef">
+    <empty/>
+  </define>
+  
+  <define name="att.log.lyrics">
+    <empty/>
+  </define>
+  <define name="att.vis.lyrics">
+    <empty/>
+  </define>
+  <define name="att.ges.lyrics">
+    <empty/>
+  </define>
+  <define name="att.anl.lyrics">
+    <empty/>
+  </define>
+
+  <define name="att.log.midi">
+    <empty/>
+  </define>
+  <define name="att.vis.midi">
+    <empty/>
+  </define>
+  <define name="att.ges.midi">
+    <empty/>
+  </define>
+  <define name="att.anl.midi">
+    <empty/>
+  </define>
+
+  <define name="att.log.mordent">
+    <empty/>
+  </define>
+  <define name="att.vis.mordent">
+    <empty/>
+  </define>
+  <define name="att.ges.mordent">
+    <empty/>
+  </define>
+  <define name="att.anl.mordent">
+    <empty/>
+  </define>
+
+  <define name="att.log.mrest">
+    <empty/>
+  </define>
+  <define name="att.vis.mrest">
+    <empty/>
+  </define>
+  <define name="att.ges.mrest">
+    <empty/>
+  </define>
+  <define name="att.anl.mrest">
+    <empty/>
+  </define>
+
+  <define name="att.log.mrpt">
+    <empty/>
+  </define>
+  <define name="att.vis.mrpt">
+    <empty/>
+  </define>
+  <define name="att.ges.mrpt">
+    <empty/>
+  </define>
+  <define name="att.anl.mrpt">
+    <empty/>
+  </define>
+
+  <define name="att.log.mrpt2">
+    <empty/>
+  </define>
+  <define name="att.vis.mrpt2">
+    <empty/>
+  </define>
+  <define name="att.ges.mrpt2">
+    <empty/>
+  </define>
+  <define name="att.anl.mrpt2">
+    <empty/>
+  </define>
+
+  <define name="att.log.mspace">
+    <empty/>
+  </define>
+  <define name="att.vis.mspace">
+    <empty/>
+  </define>
+  <define name="att.ges.mspace">
+    <empty/>
+  </define>
+  <define name="att.anl.mspace">
+    <empty/>
+  </define>
+
+  <define name="att.log.multirest">
+    <empty/>
+  </define>
+  <define name="att.vis.multirest">
+    <empty/>
+  </define>
+  <define name="att.ges.multirest">
+    <empty/>
+  </define>
+  <define name="att.anl.multirest">
+    <empty/>
+  </define>
+
+  <define name="att.log.multispace">
+    <empty/>
+  </define>
+  <define name="att.vis.multispace">
+    <empty/>
+  </define>
+  <define name="att.ges.multispace">
+    <empty/>
+  </define>
+  <define name="att.anl.multispace">
+    <empty/>
+  </define>
+
+  <define name="att.anl.note">
+    <empty/>
+  </define>
+  <define name="att.log.note">
+    <empty/>
+  </define>
+  <define name="att.ges.note">
+    <empty/>
+  </define>
+  <define name="att.vis.note">
+    <empty/>
+  </define>
+
+  <define name="att.anl.ossia">
+    <empty/>
+  </define>
+  <define name="att.log.ossia">
+    <empty/>
+  </define>
+  <define name="att.ges.ossia">
+    <empty/>
+  </define>
+  <define name="att.vis.ossia">
+    <empty/>
+  </define>
+
+  <define name="att.log.pad">
+    <empty/>
+  </define>
+  <define name="att.vis.pad">
+    <empty/>
+  </define>
+  <define name="att.ges.pad">
+    <empty/>
+  </define>
+  <define name="att.anl.pad">
+    <empty/>
+  </define>
+
+  <define name="att.anl.part">
+    <empty/>
+  </define>
+  <define name="att.ges.part">
+    <empty/>
+  </define>
+  <define name="att.log.part">
+    <empty/>
+  </define>
+  <define name="att.vis.part">
+    <empty/>
+  </define>
+
+  <define name="att.anl.parts">
+    <empty/>
+  </define>
+  <define name="att.ges.parts">
+    <empty/>
+  </define>
+  <define name="att.log.parts">
+    <empty/>
+  </define>
+  <define name="att.vis.parts">
+    <empty/>
+  </define>
+  
+  <define name="att.anl.phrase">
+    <empty/>
+  </define>
+  <define name="att.ges.phrase">
+    <empty/>
+  </define>
+  <define name="att.log.phrase">
+    <empty/>
+  </define>
+  <define name="att.vis.phrase">
+    <empty/>
+  </define>
+
+  <define name="att.anl.rdg">
+    <empty/>
+  </define>
+  <define name="att.ges.rdg">
+    <empty/>
+  </define>
+  <define name="att.log.rdg">
+    <empty/>
+  </define>
+  <define name="att.vis.rdg">
+    <empty/>
+  </define>
+
+  <define name="att.log.rest">
+    <empty/>
+  </define>
+  <define name="att.vis.rest">
+    <empty/>
+  </define>
+  <define name="att.ges.rest">
+    <empty/>
+  </define>
+  <define name="att.anl.rest">
+    <empty/>
+  </define>
+
+  <define name="att.log.sb">
+    <empty/>
+  </define>
+  <define name="att.vis.sb">
+    <empty/>
+  </define>
+  <define name="att.ges.sb">
+    <empty/>
+  </define>
+  <define name="att.anl.sb">
+    <empty/>
+  </define>
+
+  <define name="att.anl.score">
+    <empty/>
+  </define>
+  <define name="att.ges.score">
+    <empty/>
+  </define>
+  <define name="att.log.score">
+    <empty/>
+  </define>
+  <define name="att.vis.score">
+    <empty/>
+  </define>
+
+  <define name="att.anl.scoredef">
+    <empty/>
+  </define>
+  <define name="att.ges.scoredef">
+    <empty/>
+  </define>
+  <define name="att.log.scoredef">
+    <empty/>
+  </define>
+  <define name="att.vis.scoredef">
+    <empty/>
+  </define>
+
+  <define name="att.anl.section">
+    <empty/>
+  </define>
+  <define name="att.ges.section">
+    <empty/>
+  </define>
+  <define name="att.log.section">
+    <empty/>
+  </define>
+  <define name="att.vis.section">
+    <empty/>
+  </define>
+
+  <define name="att.log.space">
+    <empty/>
+  </define>
+  <define name="att.vis.space">
+    <empty/>
+  </define>
+  <define name="att.ges.space">
+    <empty/>
+  </define>
+  <define name="att.anl.space">
+    <empty/>
+  </define>
+
+  <define name="att.log.staff">
+    <empty/>
+  </define>
+  <define name="att.vis.staff">
+    <empty/>
+  </define>
+  <define name="att.ges.staff">
+    <empty/>
+  </define>
+  <define name="att.anl.staff">
+    <empty/>
+  </define>
+
+  <define name="att.log.staffdef">
+    <empty/>
+  </define>
+  <define name="att.vis.staffdef">
+    <empty/>
+  </define>
+  <define name="att.ges.staffdef">
+    <empty/>
+  </define>
+  <define name="att.anl.staffdef">
+    <empty/>
+  </define>
+
+  <define name="att.log.staffgrp">
+    <empty/>
+  </define>
+  <define name="att.vis.staffgrp">
+    <empty/>
+  </define>
+  <define name="att.ges.staffgrp">
+    <empty/>
+  </define>
+  <define name="att.anl.staffgrp">
+    <empty/>
+  </define>
+
+  <define name="att.log.syl">
+    <empty/>
+  </define>
+  <define name="att.vis.syl">
+    <empty/>
+  </define>
+  <define name="att.ges.syl">
+    <empty/>
+  </define>
+  <define name="att.anl.syl">
+    <empty/>
+  </define>
+  
+  <define name="att.log.tempo">
+    <empty/>
+  </define>
+  <define name="att.vis.tempo">
+    <empty/>
+  </define>
+  <define name="att.ges.tempo">
+    <empty/>
+  </define>
+  <define name="att.anl.tempo">
+    <empty/>
+  </define>
+  
+  <define name="att.log.trill">
+    <empty/>
+  </define>
+  <define name="att.vis.trill">
+    <empty/>
+  </define>
+  <define name="att.ges.trill">
+    <empty/>
+  </define>
+  <define name="att.anl.trill">
+    <empty/>
+  </define>
+
+  <define name="att.log.tuplet">
+    <empty/>
+  </define>
+  <define name="att.vis.tuplet">
+    <empty/>
+  </define>
+  <define name="att.ges.tuplet">
+    <empty/>
+  </define>
+  <define name="att.anl.tuplet">
+    <empty/>
+  </define>
+
+  <define name="att.log.turn">
+    <empty/>
+  </define>
+  <define name="att.vis.turn">
+    <empty/>
+  </define>
+  <define name="att.ges.turn">
+    <empty/>
+  </define>
+  <define name="att.anl.turn">
+    <empty/>
+  </define>
+
+  <define name="att.log.uneume">
+    <empty/>
+  </define>
+
+  <define name="att.vis.uneume">
+    <empty/>
+  </define>
+
+  <define name="att.ges.uneume">
+    <empty/>
+  </define>
+
+  <define name="att.anl.uneume">
+    <empty/>
+  </define>
+  
+  <define name="att.log.verse">
+    <empty/>
+  </define>
+  <define name="att.vis.verse">
+    <empty/>
+  </define>
+  <define name="att.ges.verse">
+    <empty/>
+  </define>
+  <define name="att.anl.verse">
+    <empty/>
+  </define>
+
+  <!-- Define all model classes as empty -->
+  <define name="model.addressLike">
+    <empty/>
+  </define>
+
+  <define name="model.alignLike">
+    <empty/>
+  </define>
+
+  <define name="model.annotLike">
+    <empty/>
+  </define>
+
+  <define name="model.appLike">
+    <empty/>
+  </define>
+
+  <define name="model.availabilityPart">
+    <empty/>
+  </define>
+
+  <define name="model.backLike">
+    <empty/>
+  </define>
+
+  <define name="model.biblLike">
+    <empty/>
+  </define>
+  
+  <define name="model.biblPart">
+    <empty/>
+  </define>
+
+  <define name="model.captionLike">
+    <empty/>
+  </define>
+
+  <define name="model.chordtableLike">
+    <empty/>
+  </define>
+
+  <define name="model.choicePart">
+    <empty/>
+  </define>
+
+  <define name="model.clefchangePart">
+    <empty/>
+  </define>
+
+  <define name="model.controleventLike">
+    <empty/>
+  </define>
+
+  <define name="model.dateLike">
+    <empty/>
+  </define>
+
+  <define name="model.divLike">
+    <empty/>
+  </define>
+
+  <define name="model.editionLike">
+    <empty/>
+  </define>
+
+  <define name="model.editorialdeclPart">
+    <empty/>
+  </define>
+
+  <define name="model.editorialLike">
+    <empty/>
+  </define>
+
+  <define name="model.encodingPart">
+    <empty/>
+  </define>
+
+  <define name="model.endingLike">
+    <empty/>
+  </define>
+
+  <define name="model.editLike">
+    <empty/>
+  </define>
+
+  <define name="model.eventLike">
+    <empty/>
+  </define>
+
+  <define name="model.eventLike.cmn.measureFilling">
+    <empty/>
+  </define>
+
+  <define name="model.eventLike.neumes">
+    <empty/>
+  </define>
+
+  <define name="model.facsimileLike">
+    <empty/>
+  </define>
+
+  <define name="model.figureLike">
+    <empty/>
+  </define>
+
+  <define name="model.frontLike">
+    <empty/>
+  </define>
+
+  <define name="model.figLike">
+    <empty/>
+  </define>
+
+  <define name="model.figdescLike">
+    <empty/>
+  </define>
+
+  <define name="model.frontPart">
+    <empty/>
+  </define>
+
+  <define name="model.graphicLike">
+    <empty/>
+  </define>
+
+  <define name="model.graphicprimitiveLike">
+    <empty/>
+  </define>
+
+  <define name="model.harmLike">
+    <empty/>
+  </define>
+
+  <define name="model.headLike">
+    <empty/>
+  </define>
+
+  <define name="model.headerPart">
+    <empty/>
+  </define>
+
+  <define name="model.identifierLike">
+    <empty/>
+  </define>
+
+  <define name="model.Incl">
+    <empty/>
+  </define>
+
+  <define name="model.instrdefLike">
+    <empty/>
+  </define>
+
+  <define name="model.keyaccidLike">
+    <empty/>
+  </define>
+
+  <define name="model.keysigLike">
+    <empty/>
+  </define>
+
+  <define name="model.lLike">
+    <empty/>
+  </define>
+
+  <define name="model.labelLike">
+    <empty/>
+  </define>
+
+  <define name="model.layerdefLike">
+    <empty/>
+  </define>
+
+  <define name="model.layerLike">
+    <empty/>
+  </define>
+
+  <define name="model.layerPart">
+    <empty/>
+  </define>
+
+  <define name="model.lbLike">
+    <empty/>
+  </define>
+
+  <define name="model.lgLike">
+    <empty/>
+  </define>
+
+  <define name="model.listLike">
+    <empty/>
+  </define>
+
+  <define name="model.locrefLike">
+    <empty/>
+  </define>
+
+  <define name="model.lyricsLike">
+    <empty/>
+  </define>
+
+  <define name="model.mdivLike">
+    <empty/>
+  </define>
+
+  <define name="model.metaLike.page">
+    <empty/>
+  </define>
+
+  <define name="model.metaLike.score">
+    <empty/>
+  </define>
+
+  <define name="model.measureLike">
+    <empty/>
+  </define>
+
+  <define name="model.measurementLike">
+    <empty/>
+  </define>
+
+  <define name="model.measurePart">
+    <empty/>
+  </define>
+
+  <define name="model.midiLike">
+    <empty/>
+  </define>
+
+  <define name="model.milestoneLike.text">
+    <empty/>
+  </define>
+
+  <define name="model.milestoneLike.music">
+    <empty/>
+  </define>
+
+  <define name="model.musicPart">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike.agent">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike.geogname">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike.label">
+    <empty/>
+  </define>
+
+  <define name="model.nameLike.place">
+    <empty/>
+  </define>
+  
+  <define name="model.neumeModifierLike">
+    <empty/>
+  </define>
+
+  <define name="model.noteModifierLike">
+    <empty/>
+  </define>
+
+  <define name="model.numLike">
+    <empty/>
+  </define>
+
+  <define name="model.ornamentLike.cmn">
+    <empty/>
+  </define>
+
+  <define name="model.ossiaLike">
+    <empty/>
+  </define>
+  
+  <define name="model.paracontentPart">
+    <empty/>
+  </define>
+
+  <define name="model.pLike">
+    <empty/>
+  </define>
+  
+  <define name="model.partLike">
+    <empty/>
+  </define>
+
+  <define name="model.partsLike">
+    <empty/>
+  </define>
+
+  <define name="model.pbLike">
+    <empty/>
+  </define>
+
+  <define name="model.physdescPart">
+    <empty/>
+  </define>
+
+  <define name="model.profiledescPart">
+    <empty/>
+  </define>
+
+  <define name="model.ptrLike">
+    <empty/>
+  </define>
+
+  <define name="model.pubstmtPart">
+    <empty/>
+  </define>
+
+  <define name="model.quoteLike">
+    <empty/>
+  </define>
+
+  <define name="model.rdgPart">
+    <empty/>
+  </define>
+
+  <define name="model.rendLike">
+    <empty/>
+  </define>
+
+  <define name="model.repositoryLike">
+    <empty/>
+  </define>
+
+  <define name="model.scoredefLike">
+    <empty/>
+  </define>
+
+  <define name="model.scoreLike">
+    <empty/>
+  </define>
+
+  <define name="model.scorePart">
+    <empty/>
+  </define>
+
+  <define name="model.sectionLike">
+    <empty/>
+  </define>
+
+  <define name="model.sectionPart">
+    <empty/>
+  </define>
+
+  <define name="model.staffdefLike">
+    <empty/>
+  </define>
+
+  <define name="model.staffgrpLike">
+    <empty/>
+  </define>
+
+  <define name="model.staffLike">
+    <empty/>
+  </define>
+
+  <define name="model.staffdefPart">
+    <empty/>
+  </define>
+
+  <define name="model.staffPart">
+    <empty/>
+  </define>
+
+  <define name="model.sylLike">
+    <empty/>
+  </define>
+
+  <define name="model.syllableLike">
+    <empty/>
+  </define>
+  
+  <define name="model.syllablePart">
+    <empty/>
+  </define>
+
+  <define name="model.symboltableLike">
+    <empty/>
+  </define>
+
+  <define name="model.tableLike">
+    <empty/>
+  </define>
+
+  <define name="model.textcomponentLike">
+    <empty/>
+  </define>
+
+  <define name="model.textphraseLike">
+    <empty/>
+  </define>
+
+  <define name="model.textphraseLike.limited">
+    <empty/>
+  </define>
+
+  <define name="model.titleLike">
+    <empty/>
+  </define>
+
+  <define name="model.transcriptionLike">
+    <empty/>
+  </define>
+
+  <define name="model.verseLike">
+    <empty/>
+  </define>
+
+  <!-- Start elements -->
+  <define name="model.startLike">
+    <choice>
+      <ref name="mei"/>
+      <ref name="music"/>
+    </choice>
+  </define>
+
+  <start>
+    <ref name="model.startLike"/>
+  </start>
+
+  <!-- Include other modules -->
+  <include href="shared_Module.rng"/>
+  <include href="header_Module.rng"/>
+  <include href="cmn_Module.rng"/>
+  <!-- <include href="mensural_Module.rng"/> -->
+  <!-- <include href="neumes_Module.rng"/> -->
+  <include href="analysis_Module.rng"/>
+  <include href="facsimile_Module.rng"/>
+  <include href="figure_Module.rng"/>
+  <include href="ptrref_Module.rng"/>
+  <include href="namesdates_Module.rng"/>
+  <include href="usersymbols_Module.rng"/>
+  <include href="text_Module.rng"/>
+  <include href="linkalign_Module.rng"/>
+  <include href="edittrans_Module.rng"/>
+  <!-- <include href="tablature_Module.rng"/> -->
+  <include href="critapp_Module.rng"/>
+  <include href="cmnOrnaments_Module.rng"/>
+  <include href="harmony_Module.rng"/>
+  <include href="midi_Module.rng"/>
+  <include href="lyrics_Module.rng"/>
+
+</grammar>
