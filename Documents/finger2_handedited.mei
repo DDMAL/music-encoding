@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
-<?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
+<?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
+<?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" version="1.9b">
   <meihead>
     <filedesc>
@@ -57,8 +57,6 @@
                   <space dur="2" dots="1"/>
                   <note dur="2" pname="e" oct="3" ho="2"/>
                 </layer>
-                <!-- x-layer tie -->
-                <tie staff="1" startid="b" endid="c" bulge="-1"/>
               </staff>
               <staff n="2">
                 <layer n="1">
@@ -88,9 +86,11 @@
                   <space dur="4"/>
                   <note dur="4" pname="a" oct="2"/>
                 </layer>
-                <!-- x-layer tie -->
-                <tie staff="1" startid="d" endid="e" bulge="-1"/>
               </staff>
+              <!-- x-layer tie -->
+              <tie staff="1" startid="b" endid="c" bulge="-1"/>
+              <!-- x-layer tie -->
+              <tie staff="1" startid="d" endid="e" bulge="-1"/>
             </measure>
             <measure n="2">
               <staff n="1">
@@ -148,9 +148,9 @@
                   <space dur="8"/>
                   <note dur="4" dots="1" pname="f" accid.ges="s" oct="2"/>
                 </layer>
-                <!-- x-layer tie -->
-                <tie staff="2" startid="f" endid="g" bulge="-1"/>
               </staff>
+              <!-- x-layer tie -->
+              <tie staff="2" startid="f" endid="g" bulge="-1"/>
             </measure>
           </section>
         </score>

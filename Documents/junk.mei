@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?oxygen SCHSchema="../../mei19.1/RNG/mei19-all.rng"?>
-<?oxygen RNGSchema="../../mei19.1/RNG/mei19-all.rng" type="xml"?>
-<mei xml:id="m1" version="1.9b"
-  xmlns:xlink="http://www.w3.org/1999/xlink">
+<?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
+<?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
+<mei xml:id="m1" version="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink">
   <meihead>
     <filedesc>
       <titlestmt>
@@ -43,16 +42,14 @@
             <timeline origin="w0">
               <when xml:id="w0"/>
               <when xml:id="w12" since="w0" unit="sec" interval="12"/>
-              <when xml:id="w36" since="w12" unit="sec" interval="24"
-              />
+              <when xml:id="w36" since="w12" unit="sec" interval="24"/>
             </timeline>
             <chordtable>
               <chorddef xml:id="Emajor">
                 <chordmember pname="e" fing="o" xml:id="E1"/>
                 <chordmember pname="b" fing="3" fret="2" xml:id="E2"/>
                 <chordmember pname="e" fret="2" fing="2" xml:id="E3"/>
-                <chordmember pname="g" accid="s" fing="1" fret="2"
-                  xml:id="E4"/>
+                <chordmember pname="g" accid="s" fing="1" fret="2" xml:id="E4"/>
                 <chordmember pname="b" fing="o" xml:id="E5"/>
                 <chordmember pname="e" fing="o" xml:id="E6"/>
                 <barre fret="2" from="E1" to="E4"/>
@@ -61,8 +58,7 @@
                 <chordmember pname="e" fing="o" xml:id="E21"/>
                 <chordmember pname="b" fing="3" fret="2" xml:id="E22"/>
                 <chordmember pname="e" fret="2" fing="2" xml:id="E23"/>
-                <chordmember pname="g" accid="s" fing="1" fret="2"
-                  xml:id="E24"/>
+                <chordmember pname="g" accid="s" fing="1" fret="2" xml:id="E24"/>
                 <chordmember pname="b" fing="o" xml:id="E25"/>
                 <chordmember pname="e" fing="o" xml:id="E26"/>
                 <barre fret="2" from="E21" to="E22"/>
@@ -81,7 +77,8 @@
               <staffdef n="3" lines="9" clef.line="4" clef.shape="F"/>
             </staffgrp>
           </scoredef>
-          <section xml:id="section1" expan="section1a">
+          <section xml:id="section1">
+            <expansion plist="section1a"/>
             <section xml:id="section1a">
               <measure>
                 <staff n="3">
@@ -89,8 +86,8 @@
                     <note syl="a" instr="i1"/>
                     <clefchange line="8" shape="F"/>
                     <bend staff="1" amount=".5" startid="m1"/>
-                    <octave staff="1" dis="8" layer="1" place="above"
-                      tstamp="1" dur="3"/>
+                    <octave staff="1" dis="8" layer="1" place="above" tstamp="1"
+                      dur="3"/>
                     <custos oct="4" pname="a" target="n1"/>
                     <barline taktplace="17"/>
                     <pb source="s1 s2"/>
@@ -102,14 +99,13 @@
                     <note xml:id="n1" syl="a"/>
                     <clefchange line="6" shape="F"/>
                     <bend staff="1" amount=".5" startid="m1"/>
-                    <octave staff="1" dis="8" layer="1" place="above"
-                      tstamp="1" dur="3"/>
+                    <octave staff="1" dis="8" layer="1" place="above" tstamp="1"
+                      dur="3"/>
                   </layer>
                 </staff>
                 <slur staff="1" tstamp="2" endid="m1"/>
                 <arpeg staff="1"/>
-                <harm staff="1" tstamp="3" chordref="Emajor"
-                  when="w12"/>
+                <harm staff="1" tstamp="3" chordref="Emajor" when="w12"/>
               </measure>
             </section>
             <add hand="h1">
