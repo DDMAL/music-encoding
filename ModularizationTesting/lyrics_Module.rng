@@ -9,16 +9,18 @@
 
   <!-- Lyrics Module -->
   <!-- Declare module attr classes -->
-  <define name="att.anl.lyrics" combine="interleave">
+  <define name="att.lyrics.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.lyrics" combine="interleave">
+
+  <define name="att.lyrics.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.lyrics" combine="interleave">
+
+  <define name="att.lyrics.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="layer">
@@ -33,22 +35,25 @@
       <ref name="data.INTEGERPOSITIVE"/>
     </attribute>
   </define>
-  <define name="att.vis.lyrics" combine="interleave">
+
+  <define name="att.lyrics.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.placement"/>
     <ref name="att.typography"/>
   </define>
-  
-  <define name="att.anl.verse" combine="interleave">
+
+  <define name="att.verse.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.verse" combine="interleave">
+
+  <define name="att.verse.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.verse" combine="interleave">
+
+  <define name="att.verse.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes. The n attribute
       should be used for verse numbers. Numbers need not be consecutive; they
       may also be expressed as ranges, e.g. 2-3,6.</a:documentation>
@@ -66,7 +71,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.verse" combine="interleave">
+
+  <define name="att.verse.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.typography"/>
     <ref name="att.visualoffset.to"/>
@@ -74,87 +80,90 @@
     <ref name="att.xy"/>
   </define>
 
-  
   <!-- Declare module model classes -->
   <define name="model.lyricsLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that represent sung
       text.</a:documentation>
     <ref name="lyrics"/>
   </define>
-  
+
   <define name="model.sylLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that contain a lyric
       syllable.</a:documentation>
     <ref name="syl"/>
   </define>
-  
+
   <define name="model.verseLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that contain a lyric
       verse.</a:documentation>
     <ref name="verse"/>
   </define>
-  
+
   <!-- Declare module elements -->
   <define name="content.lyrics">
-      <oneOrMore>
-        <ref name="model.verseLike"/>
-      </oneOrMore>
-    </define>
-    <define name="lyrics">
-      <element name="lyrics">
-        <a:documentation xml:lang="eng">lyrics ― The staff attribute gives the
-          staff to which the lyrics are attached. The rhythm of the lyrics will
-          be taken from the notes of that staff. If there is more than 1 layer
-          on that staff, the layer attribute may be used to indicate the layer
-          from which the rhythm should be taken.</a:documentation>
-        <ref name="attlist.lyrics"/>
-        <ref name="content.lyrics"/>
-      </element>
-    </define>
-    <define name="attlist.lyrics">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.log.lyrics"/>
-      <ref name="att.vis.lyrics"/>
-      <ref name="att.ges.lyrics"/>
-      <ref name="att.anl.lyrics"/>
-    </define>
+    <oneOrMore>
+      <ref name="model.verseLike"/>
+    </oneOrMore>
+  </define>
 
-    <define name="content.verse">
-      <zeroOrMore>
-        <choice>
-          <ref name="dir"/>
-          <ref name="dynam"/>
-          <ref name="tempo"/>
-          <ref name="space"/>
-        </choice>
-      </zeroOrMore>
-      <oneOrMore>
-        <ref name="model.sylLike"/>
-      </oneOrMore>
-      <zeroOrMore>
-        <ref name="model.lbLike"/>
-      </zeroOrMore>
-    </define>
-    <define name="verse">
-      <element name="verse">
-        <a:documentation xml:lang="eng">verse ― Lyric verse. The lb element is
-          allowed here in order to facilitate karaoke applications. The func
-          attribute on lb may be used to distinguish true line ends from line
-          group ends for these applications.</a:documentation>
-        <ref name="attlist.verse"/>
-        <ref name="content.verse"/>
-      </element>
-    </define>
-    <define name="attlist.verse">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.log.verse"/>
-      <ref name="att.vis.verse"/>
-      <ref name="att.ges.verse"/>
-      <ref name="att.anl.verse"/>
-    </define>
-  
+  <define name="lyrics">
+    <element name="lyrics">
+      <a:documentation xml:lang="eng">lyrics ― The staff attribute gives the
+        staff to which the lyrics are attached. The rhythm of the lyrics will be
+        taken from the notes of that staff. If there is more than 1 layer on
+        that staff, the layer attribute may be used to indicate the layer from
+        which the rhythm should be taken.</a:documentation>
+      <ref name="attlist.lyrics"/>
+      <ref name="content.lyrics"/>
+    </element>
+  </define>
+
+  <define name="attlist.lyrics">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.lyrics.log"/>
+    <ref name="att.lyrics.vis"/>
+    <ref name="att.lyrics.ges"/>
+    <ref name="att.lyrics.anl"/>
+  </define>
+
+  <define name="content.verse">
+    <zeroOrMore>
+      <choice>
+        <ref name="dir"/>
+        <ref name="dynam"/>
+        <ref name="tempo"/>
+        <ref name="space"/>
+      </choice>
+    </zeroOrMore>
+    <oneOrMore>
+      <ref name="model.sylLike"/>
+    </oneOrMore>
+    <zeroOrMore>
+      <ref name="model.lbLike"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="verse">
+    <element name="verse">
+      <a:documentation xml:lang="eng">verse ― Lyric verse. The lb element is
+        allowed here in order to facilitate karaoke applications. The func
+        attribute on lb may be used to distinguish true line ends from line
+        group ends for these applications.</a:documentation>
+      <ref name="attlist.verse"/>
+      <ref name="content.verse"/>
+    </element>
+  </define>
+
+  <define name="attlist.verse">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.verse.log"/>
+    <ref name="att.verse.vis"/>
+    <ref name="att.verse.ges"/>
+    <ref name="att.verse.anl"/>
+  </define>
+
 </grammar>

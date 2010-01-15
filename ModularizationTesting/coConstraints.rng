@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <sch:schema xmlns="http://purl.oclc.org/dsdl/schematron"
+    xmlns:sch="http://purl.oclc.org/dsdl/schematron">
+    <sch:pattern>
+      <sch:title>Check expansion/@plist</sch:title>
+      <sch:rule context="expansion[@plist]">
+        <sch:assert
+          test="every $i in tokenize(@plist, '\s+') satisfies
+          $i=ancestor::section/descendant::*[name()='section' or 
+          name()='ending' or name()='rdg'][@xml:id]/@xml:id"
+        />
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check section[expansion]</sch:title>
+      <sch:rule context="section[expansion]">
+        <sch:assert
+          test="descendant::section|descendant::ending|descendant::rdg">Must
+          have descendant section, ending, or rdg elements that can be pointed
+          to.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check start-type attributes on some control events</sch:title>
+      <sch:rule
+        context="bend|dir|dynam|fermata|gliss|harm|harppedal|mordent|pedal|trill">
+        <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real">
+          Must have one of the attributes: startid, tstamp, tstamp.ges or
+          tstamp.real</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check start and end attributes on some control
+        events</sch:title>
+      <sch:rule context="beamspan|hairpin|octave|phrase|slur|tie|tupletspan">
+        <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real">
+          Must have one of the attributes: startid, tstamp, tstamp.ges or
+          tstamp.real</sch:assert>
+        <sch:assert test="@endid or @dur">Must have one of the attributes: dur
+          or endid</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>(@x and @y) or @staffloc attributes required on
+        keyaccid</sch:title>
+      <sch:rule context="keyaccid">
+        <sch:assert
+          test="(@x and @y and not(@staffloc)) or (@staffloc and not(@x or @y))"
+          >Must have either x and y attributes or staffloc attribute
+        </sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:rule context="staffgrp">
+        <sch:let name="countstaves" value="count(descendant::staffdef)"/>
+        <sch:let name="countuniqstaves"
+          value="count(distinct-values(descendant::staffdef/@n))"/>
+        <sch:assert test="$countstaves eq $countuniqstaves"> Each staffdef must
+          have a unique value for the n attribute.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check staffdef/@n</sch:title>
+      <sch:rule context="staffdef">
+        <sch:let name="thisstaff" value="@n"/>
+        <sch:assert test="@n">A staffdef must have an n attribute.</sch:assert>
+        <sch:assert
+          test="@lines or preceding::staffdef[@n=$thisstaff and @lines]">The
+          first occurrence of a staff must declare the number of staff
+          lines.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check clef position (staffdef)</sch:title>
+      <sch:rule context="staffdef[@clef.line and @lines]">
+        <sch:assert test="number(@clef.line) &lt;= number(@lines)">The clef
+          position must be less than or equal to the number of lines on the
+          staff.</sch:assert>
+      </sch:rule>
+      <sch:rule context="staffdef[@clef.line and not(@lines)]">
+        <sch:let name="thisstaff" value="@n"/>
+        <sch:let name="stafflines"
+          value="preceding::staffdef[@n=$thisstaff and @lines][1]/@lines"/>
+        <sch:assert test="number(@clef.line) &lt;= number($stafflines)">The
+          clef position must be less than or equal to the number of lines on the
+          staff.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check clef position (clefchange)</sch:title>
+      <sch:rule context="clefchange[@line]">
+        <sch:let name="staff" value="ancestor::staff/@n"/>
+        <sch:let name="staffpos"
+          value="count(ancestor::staff/preceding-sibling::staff) + 1"/>
+        <sch:assert
+          test="number(@line) &lt;= number(preceding::staffdef[@n=$staff and @lines][1]/@lines) or 
+        number(@line) &lt;= number(preceding::staffdef[@n=$staffpos and @lines][1]/@lines)"
+          >The clef position must be less than or equal to the number of lines
+          on the staff.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check clef position</sch:title>
+      <sch:rule context="clef[ancestor::staffdef[@lines]]">
+        <sch:let name="staff" value="ancestor::staffdef/@n"/>
+        <sch:assert
+          test="number(@line) &lt;= number(ancestor::staffdef[@n=$staff and @lines][1]/@lines)"
+          >The clef position must be less than or equal to the number of lines
+          on the staff.</sch:assert>
+      </sch:rule>
+      <sch:rule context="clef[ancestor::staffdef[not(@lines)]]">
+        <sch:let name="staff" value="ancestor::staffdef/@n"/>
+        <sch:assert
+          test="number(@line) &lt;= number(preceding::staffdef[@n=$staff and @lines][1]/@lines)"
+          >The clef position must be less than or equal to the number of lines
+          on the staff.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check rest/@line</sch:title>
+      <sch:rule context="rest[@line]">
+        <sch:let name="staff" value="ancestor::staff/@n"/>
+        <sch:let name="staffpos"
+          value="count(ancestor::staff/preceding-sibling::staff) + 1"/>
+        <sch:assert
+          test="number(@line) &lt;= number(preceding::staffdef[@n=$staff and @lines][1]/@lines) or 
+        number(@line) &lt;= number(preceding::staffdef[@n=$staffpos and @lines][1]/@lines)"
+          >The value of @line must be less than or equal to the number of lines
+          on the staff.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check barline/@taktplace</sch:title>
+      <sch:rule context="barline[@taktplace]">
+        <sch:let name="staff" value="ancestor::staff/@n"/>
+        <sch:let name="staffpos"
+          value="count(ancestor::staff/preceding-sibling::staff) + 1"/>
+        <sch:assert
+          test="number(@taktplace) &lt;= number(2 * preceding::staffdef[@n=$staff and @lines][1]/@lines) or
+        number(@taktplace) &lt;= number(2 * preceding::staffdef[@n=$staffpos and @lines][1]/@lines)"
+        />
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check @when</sch:title>
+      <sch:rule context="*[@when]">
+        <sch:let name="thiswhen" value="@when"/>
+        <sch:assert test="@when = preceding::when[@xml:id=$thiswhen]/@xml:id"
+          >The value of @when must be the ID of a when element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check when/@since</sch:title>
+      <sch:rule context="when[@since]">
+        <sch:let name="thissince" value="@since"/>
+        <sch:assert
+          test="@since = preceding-sibling::when[@xml:id=$thissince]/@xml:id"
+          >The value of @since must be the ID of a preceding sibling when
+          element.</sch:assert>
+        <sch:assert test="@interval and @unit">If @since is present, @interval
+          and @unit are also required.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check @altsym</sch:title>
+      <sch:rule context="*[@altsym]">
+        <sch:let name="thisaltsym" value="@altsym"/>
+        <sch:assert
+          test="@altsym = preceding::symboldef[@xml:id=$thisaltsym]/@xml:id">The
+          value of @altsym must be the ID of a symboldef element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check @lang</sch:title>
+      <sch:rule context="*[@lang]">
+        <sch:let name="thislang" value="@lang"/>
+        <sch:assert
+          test="@lang = preceding::language[@xml:id=$thislang]/@xml:id">The
+          value of @lang must be the ID of a language element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check measure/@join</sch:title>
+      <sch:rule context="measure[@join]">
+        <sch:let name="thisjoin" value="@join"/>
+        <sch:assert test="@join = //measure[@xml:id=$thisjoin]/@xml:id">The
+          value of @join must be the ID of a measure element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check @classcode</sch:title>
+      <sch:rule context="*[@classcode]">
+        <sch:let name="thisclasscode" value="@classcode"/>
+        <sch:assert
+          test="@classcode = preceding::classcode[@xml:id=$thisclasscode]/@xml:id"
+          >The value of @classcode must be the ID of a classcode
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check handshift/@old</sch:title>
+      <sch:rule context="handshift[@old]">
+        <sch:let name="thisold" value="@old"/>
+        <sch:assert test="@old = preceding::hand[@xml:id=$thisold]/@xml:id">The
+          value of @old must be the ID of a hand element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check handshift/@new</sch:title>
+      <sch:rule context="handshift[@new]">
+        <sch:let name="thisnew" value="@new"/>
+        <sch:assert test="@new = preceding::hand[@xml:id=$thisnew]/@xml:id">The
+          value of @new must be the ID of a hand element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check harm/@chordref</sch:title>
+      <sch:rule context="harm[@chordref]">
+        <sch:let name="thischordref" value="@chordref"/>
+        <sch:assert
+          test="@chordref = preceding::chorddef[@xml:id=$thischordref]/@xml:id"
+          >The value of @chordref must be the ID of a chorddef
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check @hand</sch:title>
+      <sch:rule context="*[@hand]">
+        <sch:let name="thishand" value="@hand"/>
+        <sch:assert test="@hand = preceding::hand[@xml:id=$thishand]/@xml:id"
+          >The value of @hand must be the ID of a hand element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check custos/@target</sch:title>
+      <sch:rule context="custos[@target]">
+        <sch:let name="thistarget" value="@target"/>
+        <sch:assert
+          test="@target = following::note[@xml:id=$thistarget]/@xml:id">The
+          value of @target must be the ID of a note element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check @source</sch:title>
+      <sch:rule context="*[@source]">
+        <sch:assert test="every $i in tokenize(@source, '\s+') satisfies
+          $i=preceding::source[@xml:id]/@xml:id"/>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check @instr</sch:title>
+      <sch:rule
+        context="chord[@instr]|mrest[@instr]|mspace[@instr]|multirest[@instr]|
+        note[@instr]|rest[@instr]">
+        <sch:assert test="every $i in tokenize(@source, '\s+') satisfies
+          $i=preceding::instrdef[@xml:id]/@xml:id"/>
+      </sch:rule>
+    </sch:pattern>
+    <sch:pattern>
+      <sch:title>Check barre/@from and @to</sch:title>
+      <sch:rule context="barre">
+        <sch:let name="thisfrom" value="@from"/>
+        <sch:let name="thisto" value="@to"/>
+        <sch:assert
+          test="@from = preceding-sibling::chordmember[@xml:id=$thisfrom]/@xml:id"
+          >The value of @from must be the ID of a chordmember
+          element.</sch:assert>
+        <sch:assert
+          test="@to = preceding-sibling::chordmember[@xml:id=$thisto]/@xml:id"
+          >The value of @to must be the ID of a chordmember
+          element.</sch:assert>
+      </sch:rule>
+    </sch:pattern>
+  </sch:schema>
+
+</grammar>

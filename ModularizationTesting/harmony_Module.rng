@@ -9,12 +9,13 @@
 
   <!-- Harmony Module -->
   <!-- Declare module attr classes -->
-  <define name="att.anl.harm" combine="interleave">
+  <define name="att.harm.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.harm" combine="interleave">
+
+  <define name="att.harm.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="dur.ges">
@@ -26,7 +27,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.harm" combine="interleave">
+
+  <define name="att.harm.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
@@ -48,7 +50,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.harm" combine="interleave">
+
+  <define name="att.harm.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.placement"/>
     <ref name="att.visualoffset"/>
@@ -107,6 +110,7 @@
   <define name="content.barre">
     <empty/>
   </define>
+
   <define name="barre">
     <element name="barre">
       <a:documentation xml:lang="eng">barre ― An indication of fingering in a
@@ -116,6 +120,7 @@
       <ref name="content.barre"/>
     </element>
   </define>
+
   <define name="attlist.barre">
     <ref name="att.common"/>
     <attribute name="fret">
@@ -143,6 +148,7 @@
       <ref name="barre"/>
     </zeroOrMore>
   </define>
+
   <define name="chorddef">
     <element name="chorddef">
       <a:documentation xml:lang="eng">chord definition ― Chord tablature
@@ -156,6 +162,7 @@
       <ref name="content.chorddef"/>
     </element>
   </define>
+
   <define name="attlist.chorddef">
     <ref name="att.common"/>
     <optional>
@@ -169,6 +176,7 @@
   <define name="content.chordmember">
     <empty/>
   </define>
+
   <define name="chordmember">
     <element name="chordmember">
       <a:documentation xml:lang="eng">chord member ― An individual pitch in a
@@ -182,6 +190,7 @@
       <ref name="content.chordmember"/>
     </element>
   </define>
+
   <define name="attlist.chordmember">
     <ref name="att.common"/>
     <optional>
@@ -231,6 +240,7 @@
       <ref name="chorddef"/>
     </oneOrMore>
   </define>
+
   <define name="chordtable">
     <element name="chordtable">
       <a:documentation xml:lang="eng">chord table ― Chord/tablature look-up
@@ -241,6 +251,7 @@
       <ref name="content.chordtable"/>
     </element>
   </define>
+
   <define name="attlist.chordtable">
     <ref name="att.common"/>
   </define>
@@ -256,6 +267,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="harm">
     <element name="harm">
       <a:documentation xml:lang="eng">harmony ― Indication of harmony, e.g.
@@ -269,12 +281,14 @@
       <ref name="content.harm"/>
     </element>
   </define>
+
   <define name="attlist.harm">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.harm"/>
-    <ref name="att.vis.harm"/>
-    <ref name="att.ges.harm"/>
-    <ref name="att.anl.harm"/>
+    <ref name="att.harm.log"/>
+    <ref name="att.harm.vis"/>
+    <ref name="att.harm.ges"/>
+    <ref name="att.harm.anl"/>
   </define>
+
 </grammar>

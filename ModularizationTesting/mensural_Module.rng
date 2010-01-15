@@ -25,18 +25,18 @@
   </define>
 
   <!-- Declare module attr classes -->
-  <define name="att.anl.ligature" combine="interleave">
+  <define name="att.ligature.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
 
-  <define name="att.ges.ligature" combine="interleave">
+  <define name="att.ligature.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.log.ligature" combine="interleave">
+  <define name="att.ligature.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="form">
@@ -47,23 +47,23 @@
     </optional>
   </define>
 
-  <define name="att.vis.ligature" combine="interleave">
+  <define name="att.ligature.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.mensur" combine="interleave">
+  <define name="att.mensur.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
 
-  <define name="att.ges.mensur" combine="interleave">
+  <define name="att.mensur.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.log.mensur" combine="interleave">
+  <define name="att.mensur.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="modusmaior">
@@ -111,7 +111,7 @@
     </optional>
   </define>
 
-  <define name="att.vis.mensur" combine="interleave">
+  <define name="att.mensur.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes. These attributes
       describe the physical appearance of the mensuration sign/time signature of
       mensural notation.</a:documentation>
@@ -171,7 +171,7 @@
     </optional>
   </define>
 
-  <define name="att.ges.note" combine="interleave">
+  <define name="att.note.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="num">
@@ -191,7 +191,7 @@
     </optional>
   </define>
 
-  <define name="att.log.note" combine="interleave">
+  <define name="att.note.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="lig">
@@ -205,7 +205,7 @@
     </optional>
   </define>
 
-  <define name="att.vis.note" combine="interleave">
+  <define name="att.note.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="colored">
@@ -216,18 +216,18 @@
     </optional>
   </define>
 
-  <define name="att.anl.proport" combine="interleave">
+  <define name="att.proport.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
 
-  <define name="att.ges.proport" combine="interleave">
+  <define name="att.proport.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.log.proport" combine="interleave">
+  <define name="att.proport.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes. These attributes
       describe augmentation or diminution of the normal value of the notes in
       mensural notation.</a:documentation>
@@ -245,12 +245,12 @@
     </attribute>
   </define>
 
-  <define name="att.vis.proport" combine="interleave">
+  <define name="att.proport.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.ges.rest" combine="interleave">
+  <define name="att.rest.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="num">
@@ -270,7 +270,7 @@
     </optional>
   </define>
 
-  <define name="att.vis.rest" combine="interleave">
+  <define name="att.rest.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="colored">
@@ -296,7 +296,7 @@
     </optional>
   </define>
 
-  <define name="att.log.scoredef" combine="interleave">
+  <define name="att.scoredef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for a score in the
       mensural repertoire. The values set in these attributes act as score-wide
       defaults for attributes that are not set in descendant elements. The
@@ -371,7 +371,7 @@
     </optional>
   </define>
 
-  <define name="att.vis.scoredef" combine="interleave">
+  <define name="att.scoredef.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
       mensural repertoire</a:documentation>
     <optional>
@@ -429,7 +429,7 @@
     </optional>
   </define>
 
-  <define name="att.log.staffdef" combine="interleave">
+  <define name="att.staffdef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
       the mensural repertoire</a:documentation>
     <optional>
@@ -517,7 +517,7 @@
     </optional>
   </define>
 
-  <define name="att.vis.staffdef" combine="interleave">
+  <define name="att.staffdef.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for the mensural
       repertoire</a:documentation>
     <optional>
@@ -568,7 +568,7 @@
     <a:documentation xml:lang="eng">groups notated events at the layer
       level.</a:documentation>
     <!-- <choice>
-      <ref name="model.eventLike.cmn.measureFilling"/>
+      <ref name="model.eventLike.measureFilling"/>
       <ref name="model.midiLike"/>
       <ref name="model.controleventLike"/>
       <ref name="model.lyricsLike"/>
@@ -608,6 +608,7 @@
   <define name="content.mensur">
     <empty/>
   </define>
+
   <define name="mensur">
     <element name="mensur">
       <a:documentation xml:lang="eng">mensuration ― The &lt;mensur&gt;
@@ -618,13 +619,14 @@
       <ref name="content.mensur"/>
     </element>
   </define>
+
   <define name="attlist.mensur">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.mensur"/>
-    <ref name="att.vis.mensur"/>
-    <ref name="att.ges.mensur"/>
-    <ref name="att.anl.mensur"/>
+    <ref name="att.mensur.log"/>
+    <ref name="att.mensur.vis"/>
+    <ref name="att.mensur.ges"/>
+    <ref name="att.mensur.anl"/>
   </define>
 
   <!-- <define name="content.mensurchange">
@@ -632,6 +634,7 @@
       <ref name="mensur"/>
     </oneOrMore>
   </define>
+
   <define name="mensurchange">
     <element name="mensurchange">
       <a:documentation xml:lang="eng">mensuration change ― Use of the
@@ -642,14 +645,17 @@
       <ref name="content.mensurchange"/>
     </element>
   </define>
+
   <define name="attlist.mensurchange">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-  </define> -->
+  </define>
+ -->
 
   <define name="content.proport">
     <empty/>
   </define>
+
   <define name="proport">
     <element name="proport">
       <a:documentation xml:lang="eng">proportion ― The
@@ -662,13 +668,14 @@
       <ref name="content.proport"/>
     </element>
   </define>
+
   <define name="attlist.proport">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.proport"/>
-    <ref name="att.vis.proport"/>
-    <ref name="att.ges.proport"/>
-    <ref name="att.anl.proport"/>
+    <ref name="att.proport.log"/>
+    <ref name="att.proport.vis"/>
+    <ref name="att.proport.ges"/>
+    <ref name="att.proport.anl"/>
   </define>
 
   <define name="content.ligature">
@@ -676,6 +683,7 @@
       <ref name="model.layerPart"/>
     </zeroOrMore>
   </define>
+
   <define name="ligature">
     <element name="ligature">
       <a:documentation xml:lang="eng">ligature ― The &lt;ligature&gt;
@@ -685,13 +693,14 @@
       <ref name="content.ligature"/>
     </element>
   </define>
+
   <define name="attlist.ligature">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.ligature"/>
-    <ref name="att.vis.ligature"/>
-    <ref name="att.ges.ligature"/>
-    <ref name="att.anl.ligature"/>
+    <ref name="att.ligature.log"/>
+    <ref name="att.ligature.vis"/>
+    <ref name="att.ligature.ges"/>
+    <ref name="att.ligature.anl"/>
   </define>
 
   <!-- <define name="content.proportchange">
@@ -699,6 +708,7 @@
       <ref name="proport"/>
     </oneOrMore>
   </define>
+
   <define name="proportchange">
     <element name="proportchange">
       <a:documentation xml:lang="eng">proportion change ― Use of the
@@ -709,9 +719,11 @@
       <ref name="content.proportchange"/>
     </element>
   </define>
+
   <define name="attlist.proportchange">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-  </define> -->
+  </define>
+ -->
 
 </grammar>

@@ -21,7 +21,7 @@
       <ref name="anchoredtext"/>
     </choice>
   </define>
-  
+
   <define name="model.symboltableLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that group symbol
       definitions.</a:documentation>
@@ -39,6 +39,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="anchoredtext">
     <element name="anchoredtext">
       <a:documentation xml:lang="eng">anchoredtext ― Page-anchored text. The
@@ -51,6 +52,7 @@
       <ref name="content.anchoredtext"/>
     </element>
   </define>
+
   <define name="attlist.anchoredtext">
     <ref name="att.common.anl"/>
     <ref name="att.common"/>
@@ -70,6 +72,7 @@
   <define name="content.curve">
     <empty/>
   </define>
+
   <define name="curve">
     <element name="curve">
       <a:documentation xml:lang="eng">curve ― A curved line that cannot be
@@ -91,6 +94,7 @@
       <ref name="content.curve"/>
     </element>
   </define>
+
   <define name="attlist.curve">
     <ref name="att.common.anl"/>
     <ref name="att.color"/>
@@ -134,6 +138,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="line">
     <element name="line">
       <a:documentation xml:lang="eng">line ― A line that cannot be represented
@@ -148,6 +153,7 @@
       <ref name="content.line"/>
     </element>
   </define>
+
   <define name="attlist.line">
     <ref name="att.common.anl"/>
     <ref name="att.color"/>
@@ -169,6 +175,7 @@
   <define name="content.symbol">
     <empty/>
   </define>
+
   <define name="symbol">
     <element name="symbol">
       <a:documentation xml:lang="eng">symbol ― A reference to a previously
@@ -183,6 +190,7 @@
       <ref name="content.symbol"/>
     </element>
   </define>
+
   <define name="attlist.symbol">
     <ref name="att.common.anl"/>
     <ref name="att.color"/>
@@ -216,6 +224,7 @@
       <ref name="model.graphicprimitiveLike"/>
     </oneOrMore>
   </define>
+
   <define name="symboldef">
     <element name="symboldef">
       <a:documentation xml:lang="eng">symbol definition ― Declaration of an
@@ -224,6 +233,7 @@
       <ref name="content.symboldef"/>
     </element>
   </define>
+
   <define name="attlist.symboldef">
     <ref name="att.common"/>
   </define>
@@ -233,6 +243,7 @@
       <ref name="symboldef"/>
     </oneOrMore>
   </define>
+
   <define name="symboltable">
     <element name="symboltable">
       <a:documentation xml:lang="eng">symbol table ― Contains individual,
@@ -243,6 +254,7 @@
       <ref name="content.symboltable"/>
     </element>
   </define>
+
   <define name="attlist.symboltable">
     <ref name="att.common"/>
   </define>

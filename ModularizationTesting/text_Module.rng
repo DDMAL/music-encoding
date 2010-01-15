@@ -9,461 +9,495 @@
 
   <!-- Text Module -->
   <!-- Declare module attr classes -->
-  
+
   <!-- Declare module model classes -->
   <define name="model.backLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may contain back
       matter.</a:documentation>
     <ref name="back"/>
   </define>
-  
+
   <define name="model.divLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements used to represent generic
       structural divisions of text.</a:documentation>
     <ref name="div"/>
   </define>
-  
+
   <define name="model.frontLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may contain front
       matter.</a:documentation>
     <ref name="front"/>
   </define>
-  
+
   <define name="model.headLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements used to provide a heading at
       the start of a text division.</a:documentation>
     <ref name="head"/>
   </define>
-  
+
   <define name="model.lLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements representing metrical
       components such as verse lines.</a:documentation>
     <ref name="l"/>
   </define>
-  
+
   <define name="model.listLike" combine="interleave">
     <a:documentation xml:lang="eng">groups list-like elements.</a:documentation>
     <ref name="list"/>
   </define>
-  
+
   <define name="model.quoteLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements used to directly contain
       quotations.</a:documentation>
     <ref name="blockquote"/>
   </define>
-  
-  <define name="model.tableLike" combine="interleave">
+
+  <define name="model.rdgPart" combine="interleave">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <!-- <define name="model.tableLike" combine="interleave">
     <a:documentation xml:lang="eng">groups table-like
       elements.</a:documentation>
     <ref name="table"/>
-  </define>
-  
+  </define> -->
+
   <define name="model.lgLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that have a line-grouping
       function.</a:documentation>
     <ref name="lg"/>
   </define>
-  
+
   <!-- Declare module elements -->
   <define name="content.back">
-      <zeroOrMore>
-        <ref name="model.milestoneLike.text"/>
-      </zeroOrMore>
-      <oneOrMore>
+    <zeroOrMore>
+      <ref name="model.milestoneLike.text"/>
+    </zeroOrMore>
+    <oneOrMore>
+      <ref name="model.divLike"/>
+    </oneOrMore>
+    <zeroOrMore>
+      <ref name="model.milestoneLike.text"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="back">
+    <element name="back">
+      <a:documentation xml:lang="eng">back ― Back matter such as indexes,
+        advertisements, etc.</a:documentation>
+      <ref name="attlist.back"/>
+      <ref name="content.back"/>
+    </element>
+  </define>
+
+  <define name="attlist.back">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.blockquote">
+    <oneOrMore>
+      <ref name="model.textcomponentLike"/>
+    </oneOrMore>
+    <optional>
+      <ref name="model.biblLike"/>
+    </optional>
+  </define>
+
+  <define name="blockquote">
+    <element name="blockquote">
+      <a:documentation xml:lang="eng">blockquote ― A formatting element that
+        designates an extended quotation; that is, a passage attributed to a
+        source external to the text. The quotation is normally set off from the
+        text by spacing or other typographic distinction. The source for the
+        quote may be included in the optional &lt;bibl&gt; sub-element.
+        Use &lt;rend&gt; for words that are enclosed in quotation marks
+        for emphasis or for a short quoted phrase that occurs within a line of
+        text.</a:documentation>
+      <ref name="attlist.blockquote"/>
+      <ref name="content.blockquote"/>
+    </element>
+  </define>
+
+  <define name="attlist.blockquote">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="content.div">
+    <zeroOrMore>
+      <ref name="model.milestoneLike.text"/>
+    </zeroOrMore>
+    <optional>
+      <ref name="model.headLike"/>
+    </optional>
+    <oneOrMore>
+      <choice>
         <ref name="model.divLike"/>
-      </oneOrMore>
-      <zeroOrMore>
-        <ref name="model.milestoneLike.text"/>
-      </zeroOrMore>
-    </define>
-    <define name="back">
-      <element name="back">
-        <a:documentation xml:lang="eng">back ― Back matter such as indexes,
-          advertisements, etc.</a:documentation>
-        <ref name="attlist.back"/>
-        <ref name="content.back"/>
-      </element>
-    </define>
-    <define name="attlist.back">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-    </define>
-
-    <define name="content.blockquote">
-      <oneOrMore>
         <ref name="model.textcomponentLike"/>
-      </oneOrMore>
-      <optional>
-        <ref name="model.biblLike"/>
-      </optional>
-    </define>
-    <define name="blockquote">
-      <element name="blockquote">
-        <a:documentation xml:lang="eng">blockquote ― A formatting element that
-          designates an extended quotation; that is, a passage attributed to a
-          source external to the text. The quotation is normally set off from
-          the text by spacing or other typographic distinction. The source for
-          the quote may be included in the optional &lt;bibl&gt;
-          sub-element. Use &lt;rend&gt; for words that are enclosed in
-          quotation marks for emphasis or for a short quoted phrase that occurs
-          within a line of text.</a:documentation>
-        <ref name="attlist.blockquote"/>
-        <ref name="content.blockquote"/>
-      </element>
-    </define>
-    <define name="attlist.blockquote">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.xy"/>
-    </define>
+      </choice>
+    </oneOrMore>
+    <zeroOrMore>
+      <ref name="model.milestoneLike.text"/>
+    </zeroOrMore>
+  </define>
 
-    <define name="content.div">
-      <zeroOrMore>
-        <ref name="model.milestoneLike.text"/>
-      </zeroOrMore>
-      <optional>
-        <ref name="model.headLike"/>
-      </optional>
-      <oneOrMore>
+  <define name="div">
+    <element name="div">
+      <a:documentation xml:lang="eng">division ― Major structural division of
+        text, such as a preface, chapter or section. Often, the
+        &lt;head&gt; element identifies the &lt;div&gt;'s
+        purpose.</a:documentation>
+      <ref name="attlist.div"/>
+      <ref name="content.div"/>
+    </element>
+  </define>
+
+  <define name="attlist.div">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.typed"/>
+  </define>
+
+  <define name="content.front">
+    <zeroOrMore>
+      <ref name="model.milestoneLike.text"/>
+    </zeroOrMore>
+    <oneOrMore>
+      <choice>
+        <ref name="model.divLike"/>
+        <ref name="model.frontPart"/>
+      </choice>
+    </oneOrMore>
+    <zeroOrMore>
+      <ref name="model.milestoneLike.text"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="front">
+    <element name="front">
+      <a:documentation xml:lang="eng">front ― Bundles prefatory text found
+        before the start of the musical text. &lt;titlepage&gt; may be
+        used to transcribe the item's title page. Other front matter structures,
+        such as a preface, dedication, or table of contents, may be encoded as
+        textual divisions; that is, as &lt;div&gt;s, with an optional
+        &lt;head&gt; sub-element describing the nature of the division.
+        The &lt;pb&gt; element is allowed here in order to accommodate
+        page images, e.g. cover, endpapers, etc. before and after the actual
+        textual matter.</a:documentation>
+      <ref name="attlist.front"/>
+      <ref name="content.front"/>
+    </element>
+  </define>
+
+  <define name="attlist.front">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.head">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="head">
+    <element name="head">
+      <a:documentation xml:lang="eng">heading ― Contains any heading, for
+        example, the title of a section of text, or the heading of a list. When
+        &lt;head&gt; is used, it should be the first sub-element,
+        followed by one or more other elements.</a:documentation>
+      <ref name="attlist.head"/>
+      <ref name="content.head"/>
+    </element>
+  </define>
+
+  <define name="attlist.head">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="content.item">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="item">
+    <element name="item">
+      <a:documentation xml:lang="eng">item ― Single item in a
+        &lt;list&gt;.</a:documentation>
+      <ref name="attlist.item"/>
+      <ref name="content.item"/>
+    </element>
+  </define>
+
+  <define name="attlist.item">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+  </define>
+
+  <define name="content.l">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="l">
+    <element name="l">
+      <a:documentation xml:lang="eng">line ― Contains a single line of text. The
+        n attribute should be used to record a label for the line, i.e., most
+        likely a line number. Do not confuse this element with the
+        &lt;line&gt; element, which is used for graphical
+        lines.</a:documentation>
+      <ref name="attlist.l"/>
+      <ref name="content.l"/>
+    </element>
+  </define>
+
+  <define name="attlist.l">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.lg">
+    <optional>
+      <ref name="model.headLike"/>
+    </optional>
+    <oneOrMore>
+      <ref name="model.lLike"/>
+    </oneOrMore>
+  </define>
+
+  <define name="lg">
+    <element name="lg">
+      <a:documentation xml:lang="eng">line group ― Usually contains a lyric
+        verse although it may be used for any section of text that is organized
+        as a group of lines.</a:documentation>
+      <ref name="attlist.lg"/>
+      <ref name="content.lg"/>
+    </element>
+  </define>
+
+  <define name="attlist.lg">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="content.list">
+    <optional>
+      <ref name="model.headLike"/>
+    </optional>
+    <oneOrMore>
+      <ref name="item"/>
+    </oneOrMore>
+  </define>
+
+  <define name="list">
+    <element name="list">
+      <a:documentation xml:lang="eng">list ― A formatting element that contains
+        as series of items separated from one another and arranged in a linear,
+        of vertical sequence.</a:documentation>
+      <ref name="attlist.list"/>
+      <ref name="content.list"/>
+    </element>
+  </define>
+
+  <define name="attlist.list">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="form">
+        <a:documentation xml:lang="eng">used to identify and format the list. In
+          a "simple" list, &lt;item&gt;s are not numbered or bulleted.
+          In a "marked" list, the sequence of the list items is not critical,
+          and a bullet, box, dash, or other character is displayed at the start
+          of each &lt;item&gt;. In an "ordered" list, the sequence of
+          the items is important, and each &lt;item&gt; is lettered or
+          numbered. Style sheet functions should be used to specify the mark or
+          numeration system for each &lt;item&gt;.</a:documentation>
         <choice>
-          <ref name="model.divLike"/>
-          <ref name="model.textcomponentLike"/>
+          <value>simple</value>
+          <value>marked</value>
+          <value>ordered</value>
         </choice>
-      </oneOrMore>
-      <zeroOrMore>
-        <ref name="model.milestoneLike.text"/>
-      </zeroOrMore>
-    </define>
-    <define name="div">
-      <element name="div">
-        <a:documentation xml:lang="eng">division ― Major structural division of
-          text, such as a preface, chapter or section. Often, the
-          &lt;head&gt; element identifies the &lt;div&gt;'s
-          purpose.</a:documentation>
-        <ref name="attlist.div"/>
-        <ref name="content.div"/>
-      </element>
-    </define>
-    <define name="attlist.div">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.typed"/>
-    </define>
+      </attribute>
+    </optional>
+  </define>
 
-    <define name="content.front">
-      <zeroOrMore>
-        <ref name="model.milestoneLike.text"/>
-      </zeroOrMore>
-      <oneOrMore>
-        <choice>
-          <ref name="model.divLike"/>
-          <ref name="model.frontPart"/>
-        </choice>
-      </oneOrMore>
-      <zeroOrMore>
-        <ref name="model.milestoneLike.text"/>
-      </zeroOrMore>
-    </define>
-    <define name="front">
-      <element name="front">
-        <a:documentation xml:lang="eng">front ― Bundles prefatory text found
-          before the start of the musical text. &lt;titlepage&gt; may be
-          used to transcribe the item's title page. Other front matter
-          structures, such as a preface, dedication, or table of contents, may
-          be encoded as textual divisions; that is, as &lt;div&gt;s,
-          with an optional &lt;head&gt; sub-element describing the
-          nature of the division. The &lt;pb&gt; element is allowed here
-          in order to accommodate page images, e.g. cover, endpapers, etc.
-          before and after the actual textual matter.</a:documentation>
-        <ref name="attlist.front"/>
-        <ref name="content.front"/>
-      </element>
-    </define>
-    <define name="attlist.front">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-    </define>
+  <!-- <define name="content.table">
+    <optional>
+      <ref name="model.captionLike"/>
+    </optional>
+    <oneOrMore>
+      <ref name="tr"/>
+    </oneOrMore>
+  </define>
 
-    <define name="content.head">
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textphraseLike"/>
-          <ref name="model.editLike"/>
-          <ref name="model.transcriptionLike"/>
-        </choice>
-      </zeroOrMore>
-    </define>
-    <define name="head">
-      <element name="head">
-        <a:documentation xml:lang="eng">heading ― Contains any heading, for
-          example, the title of a section of text, or the heading of a list.
-          When &lt;head&gt; is used, it should be the first sub-element,
-          followed by one or more other elements.</a:documentation>
-        <ref name="attlist.head"/>
-        <ref name="content.head"/>
-      </element>
-    </define>
-    <define name="attlist.head">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.xy"/>
-    </define>
+  <define name="table">
+    <element name="table">
+      <a:documentation xml:lang="eng">table ― Visual layout in tabular
+        form.</a:documentation>
+      <ref name="attlist.table"/>
+      <ref name="content.table"/>
+    </element>
+  </define>
 
-    <define name="content.item">
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textcomponentLike"/>
-          <ref name="model.textphraseLike"/>
-          <ref name="model.editLike"/>
-          <ref name="model.transcriptionLike"/>
-        </choice>
-      </zeroOrMore>
-    </define>
-    <define name="item">
-      <element name="item">
-        <a:documentation xml:lang="eng">item ― Single item in a
-          &lt;list&gt;.</a:documentation>
-        <ref name="attlist.item"/>
-        <ref name="content.item"/>
-      </element>
-    </define>
-    <define name="attlist.item">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-    </define>
+  <define name="attlist.table">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+  </define>
 
-    <define name="content.l">
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textphraseLike"/>
-          <ref name="model.editLike"/>
-          <ref name="model.transcriptionLike"/>
-        </choice>
-      </zeroOrMore>
-    </define>
-    <define name="l">
-      <element name="l">
-        <a:documentation xml:lang="eng">line ― Contains a single line of text.
-          The n attribute should be used to record a label for the line, i.e.,
-          most likely a line number. Do not confuse this element with the
-          &lt;line&gt; element, which is used for graphical
-          lines.</a:documentation>
-        <ref name="attlist.l"/>
-        <ref name="content.l"/>
-      </element>
-    </define>
-    <define name="attlist.l">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-    </define>
+  <define name="content.td">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
 
-    <define name="content.lg">
-      <optional>
-        <ref name="model.headLike"/>
-      </optional>
-      <oneOrMore>
-        <ref name="model.lLike"/>
-      </oneOrMore>
-    </define>
-    <define name="lg">
-      <element name="lg">
-        <a:documentation xml:lang="eng">line group ― Usually contains a lyric
-          verse although it may be used for any section of text that is
-          organized as a group of lines.</a:documentation>
-        <ref name="attlist.lg"/>
-        <ref name="content.lg"/>
-      </element>
-    </define>
-    <define name="attlist.lg">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.xy"/>
-    </define>
+  <define name="td">
+    <element name="td">
+      <a:documentation xml:lang="eng">table data ― Designates a table cell that
+        contains data as opposed to a cell that contains column or row heading
+        information. The &lt;td&gt; attributes control cell
+        spanning.</a:documentation>
+      <ref name="attlist.td"/>
+      <ref name="content.td"/>
+    </element>
+  </define>
 
-    <define name="content.list">
-      <optional>
-        <ref name="model.headLike"/>
-      </optional>
-      <oneOrMore>
-        <ref name="item"/>
-      </oneOrMore>
-    </define>
-    <define name="list">
-      <element name="list">
-        <a:documentation xml:lang="eng">list ― A formatting element that
-          contains as series of items separated from one another and arranged in
-          a linear, of vertical sequence.</a:documentation>
-        <ref name="attlist.list"/>
-        <ref name="content.list"/>
-      </element>
-    </define>
-    <define name="attlist.list">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.xy"/>
-      <optional>
-        <attribute name="form">
-          <a:documentation xml:lang="eng">used to identify and format the list.
-            In a "simple" list, &lt;item&gt;s are not numbered or
-            bulleted. In a "marked" list, the sequence of the list items is not
-            critical, and a bullet, box, dash, or other character is displayed
-            at the start of each &lt;item&gt;. In an "ordered" list, the
-            sequence of the items is important, and each &lt;item&gt; is
-            lettered or numbered. Style sheet functions should be used to
-            specify the mark or numeration system for each
-            &lt;item&gt;.</a:documentation>
-          <choice>
-            <value>simple</value>
-            <value>marked</value>
-            <value>ordered</value>
-          </choice>
-        </attribute>
-      </optional>
-    </define>
+  <define name="attlist.td">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="colspan">
+        <a:documentation xml:lang="eng">the number of columns spanned by this
+          cell.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rowspan">
+        <a:documentation xml:lang="eng">the number of rows spanned by this
+          cell.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
 
-    <define name="content.table">
-      <optional>
-        <ref name="model.captionLike"/>
-      </optional>
-      <oneOrMore>
-        <ref name="tr"/>
-      </oneOrMore>
-    </define>
-    <define name="table">
-      <element name="table">
-        <a:documentation xml:lang="eng">table ― Visual layout in tabular
-          form.</a:documentation>
-        <ref name="attlist.table"/>
-        <ref name="content.table"/>
-      </element>
-    </define>
-    <define name="attlist.table">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.xy"/>
-    </define>
+  <define name="content.th">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
 
-    <define name="content.td">
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textcomponentLike"/>
-          <ref name="model.textphraseLike"/>
-          <ref name="model.editLike"/>
-          <ref name="model.transcriptionLike"/>
-        </choice>
-      </zeroOrMore>
-    </define>
-    <define name="td">
-      <element name="td">
-        <a:documentation xml:lang="eng">table data ― Designates a table cell
-          that contains data as opposed to a cell that contains column or row
-          heading information. The &lt;td&gt; attributes control cell
-          spanning.</a:documentation>
-        <ref name="attlist.td"/>
-        <ref name="content.td"/>
-      </element>
-    </define>
-    <define name="attlist.td">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.xy"/>
-      <optional>
-        <attribute name="colspan">
-          <a:documentation xml:lang="eng">the number of columns spanned by this
-            cell.</a:documentation>
-          <ref name="data.INTEGERPOSITIVE"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="rowspan">
-          <a:documentation xml:lang="eng">the number of rows spanned by this
-            cell.</a:documentation>
-          <ref name="data.INTEGERPOSITIVE"/>
-        </attribute>
-      </optional>
-    </define>
+  <define name="th">
+    <element name="th">
+      <a:documentation xml:lang="eng">table header ― Designates a table cell
+        containing column or row heading information as opposed to one
+        containing data. The &lt;td&gt; attributes control cell
+        spanning.</a:documentation>
+      <ref name="attlist.th"/>
+      <ref name="content.th"/>
+    </element>
+  </define>
 
-    <define name="content.th">
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textcomponentLike"/>
-          <ref name="model.textphraseLike"/>
-          <ref name="model.editLike"/>
-          <ref name="model.transcriptionLike"/>
-        </choice>
-      </zeroOrMore>
-    </define>
-    <define name="th">
-      <element name="th">
-        <a:documentation xml:lang="eng">table header ― Designates a table cell
-          containing column or row heading information as opposed to one
-          containing data. The &lt;td&gt; attributes control cell
-          spanning.</a:documentation>
-        <ref name="attlist.th"/>
-        <ref name="content.th"/>
-      </element>
-    </define>
-    <define name="attlist.th">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.xy"/>
-      <optional>
-        <attribute name="colspan">
-          <a:documentation xml:lang="eng">the number of columns spanned by this
-            cell.</a:documentation>
-          <ref name="data.INTEGERPOSITIVE"/>
-        </attribute>
-      </optional>
-      <optional>
-        <attribute name="rowspan">
-          <a:documentation xml:lang="eng">the number of rows spanned by this
-            cell.</a:documentation>
-          <ref name="data.INTEGERPOSITIVE"/>
-        </attribute>
-      </optional>
-    </define>
+  <define name="attlist.th">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="colspan">
+        <a:documentation xml:lang="eng">the number of columns spanned by this
+          cell.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rowspan">
+        <a:documentation xml:lang="eng">the number of rows spanned by this
+          cell.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
 
-    <define name="content.tr">
-      <oneOrMore>
-        <choice>
-          <ref name="th"/>
-          <ref name="td"/>
-        </choice>
-      </oneOrMore>
-    </define>
-    <define name="tr">
-      <element name="tr">
-        <a:documentation xml:lang="eng">table row ― A formatting element that
-          contains one or more &lt;td&gt; or &lt;th&gt; elements
-          (cells) in a &lt;table&gt;. A cell is the intersection of a
-          row and a column. The precise rendition of the table and its cells
-          should be specified in a style sheet.</a:documentation>
-        <ref name="attlist.tr"/>
-        <ref name="content.tr"/>
-      </element>
-    </define>
-    <define name="attlist.tr">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-      <ref name="att.lang"/>
-      <ref name="att.xy"/>
-    </define>
-  
-  
+  <define name="content.tr">
+    <oneOrMore>
+      <choice>
+        <ref name="th"/>
+        <ref name="td"/>
+      </choice>
+    </oneOrMore>
+  </define>
+
+  <define name="tr">
+    <element name="tr">
+      <a:documentation xml:lang="eng">table row ― A formatting element that
+        contains one or more &lt;td&gt; or &lt;th&gt; elements
+        (cells) in a &lt;table&gt;. A cell is the intersection of a row
+        and a column. The precise rendition of the table and its cells should be
+        specified in a style sheet.</a:documentation>
+      <ref name="attlist.tr"/>
+      <ref name="content.tr"/>
+    </element>
+  </define>
+
+  <define name="attlist.tr">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+  </define> -->
+
 </grammar>

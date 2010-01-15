@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!-- Figure and Table module -->
+  <!-- Declare module attr classes -->
+
+  <!-- Declare module model classes -->
+  <define name="model.figureLike" combine="interleave">
+    <ref name="fig"/>
+  </define>
+
+  <define name="model.graphicLike" combine="interleave">
+    <ref name="graphic"/>
+  </define>
+
+  <define name="model.figdescLike" combine="interleave">
+    <ref name="figdesc"/>
+  </define>
+
+  <define name="model.tableLike" combine="interleave">
+    <a:documentation xml:lang="eng">groups table-like
+      elements.</a:documentation>
+    <ref name="table"/>
+  </define>
+
+  <!-- Declare module elements -->
+  <define name="content.graphic">
+    <empty/>
+  </define>
+
+  <define name="graphic">
+    <element name="graphic">
+      <a:documentation xml:lang="eng">graphic ― Indicates the location of an
+        inline graphic, illustration, or figure.</a:documentation>
+      <ref name="attlist.graphic"/>
+      <ref name="content.graphic"/>
+    </element>
+  </define>
+
+  <define name="attlist.graphic">
+    <ref name="att.common"/>
+    <ref name="att.internetmedia"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.link.external"/>
+    <optional>
+      <attribute name="height">
+        <a:documentation xml:lang="eng">measurement of the vertical dimension of
+          the image.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="unit">
+        <a:documentation xml:lang="eng">indicates the unit of measurement for
+          height and width values.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="width">
+        <a:documentation xml:lang="eng">measurement of the horizontal dimension
+          of the image.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.fig">
+    <optional>
+      <ref name="model.captionLike"/>
+    </optional>
+    <optional>
+      <ref name="figdesc"/>
+    </optional>
+    <zeroOrMore>
+      <ref name="model.graphicLike"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="fig">
+    <element name="fig">
+      <a:documentation xml:lang="eng">figure ― An
+        illustration.</a:documentation>
+      <ref name="attlist.fig"/>
+      <ref name="content.fig"/>
+    </element>
+  </define>
+
+  <define name="attlist.fig">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.external"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="content.figdesc">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.annotLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="figdesc">
+    <element name="figdesc">
+      <a:documentation xml:lang="eng">figure description ― Contains a brief
+        prose description of the appearance or content of a graphic figure, for
+        use when documenting an image without displaying it. Best practice
+        suggests the use of controlled vocabulary. Don't confuse this element
+        with a figure caption. A caption is text primarily intended for display
+        with an illustration. It may or may not function as a description of the
+        illustration.</a:documentation>
+      <ref name="attlist.figdesc"/>
+      <ref name="content.figdesc"/>
+    </element>
+  </define>
+
+  <define name="attlist.figdesc">
+    <ref name="att.common"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.table">
+    <optional>
+      <ref name="model.captionLike"/>
+    </optional>
+    <oneOrMore>
+      <ref name="tr"/>
+    </oneOrMore>
+  </define>
+
+  <define name="table">
+    <element name="table">
+      <a:documentation xml:lang="eng">table ― Visual layout in tabular
+        form.</a:documentation>
+      <ref name="attlist.table"/>
+      <ref name="content.table"/>
+    </element>
+  </define>
+
+  <define name="attlist.table">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+  </define>
+
+  <define name="content.td">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="td">
+    <element name="td">
+      <a:documentation xml:lang="eng">table data ― Designates a table cell that
+        contains data as opposed to a cell that contains column or row heading
+        information. The &lt;td&gt; attributes control cell
+        spanning.</a:documentation>
+      <ref name="attlist.td"/>
+      <ref name="content.td"/>
+    </element>
+  </define>
+
+  <define name="attlist.td">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="colspan">
+        <a:documentation xml:lang="eng">the number of columns spanned by this
+          cell.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rowspan">
+        <a:documentation xml:lang="eng">the number of rows spanned by this
+          cell.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.th">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textcomponentLike"/>
+        <ref name="model.textphraseLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="th">
+    <element name="th">
+      <a:documentation xml:lang="eng">table header ― Designates a table cell
+        containing column or row heading information as opposed to one
+        containing data. The &lt;td&gt; attributes control cell
+        spanning.</a:documentation>
+      <ref name="attlist.th"/>
+      <ref name="content.th"/>
+    </element>
+  </define>
+
+  <define name="attlist.th">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+    <optional>
+      <attribute name="colspan">
+        <a:documentation xml:lang="eng">the number of columns spanned by this
+          cell.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rowspan">
+        <a:documentation xml:lang="eng">the number of rows spanned by this
+          cell.</a:documentation>
+        <ref name="data.INTEGERPOSITIVE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="content.tr">
+    <oneOrMore>
+      <choice>
+        <ref name="th"/>
+        <ref name="td"/>
+      </choice>
+    </oneOrMore>
+  </define>
+
+  <define name="tr">
+    <element name="tr">
+      <a:documentation xml:lang="eng">table row ― A formatting element that
+        contains one or more &lt;td&gt; or &lt;th&gt; elements
+        (cells) in a &lt;table&gt;. A cell is the intersection of a row
+        and a column. The precise rendition of the table and its cells should be
+        specified in a style sheet.</a:documentation>
+      <ref name="attlist.tr"/>
+      <ref name="content.tr"/>
+    </element>
+  </define>
+
+  <define name="attlist.tr">
+    <ref name="att.common"/>
+    <ref name="att.facsimile"/>
+    <ref name="att.lang"/>
+    <ref name="att.xy"/>
+  </define>
+
+</grammar>

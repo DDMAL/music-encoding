@@ -58,19 +58,19 @@
       </attribute>
     </optional>
   </define>
-  
-  <define name="att.anl.rdg" combine="interleave">
+
+  <define name="att.rdg.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  
-  <define name="att.ges.rdg" combine="interleave">
+
+  <define name="att.rdg.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  
-  <define name="att.log.rdg" combine="interleave">
+
+  <define name="att.rdg.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="expan">
@@ -86,135 +86,142 @@
       </attribute>
     </optional>
   </define>
-  
-  <define name="att.vis.rdg" combine="interleave">
+
+  <define name="att.rdg.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
-  
+
   <!-- Declare module model classes -->
   <define name="model.appLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that contain a critical
       apparatus entry.</a:documentation>
     <ref name="app"/>
   </define>
-  
+
   <define name="model.rdgPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       textual variant.</a:documentation>
-    <zeroOrMore><choice>
-      <ref name="model.sectionPart"/>
-      <ref name="model.ossiaLike"/>
-      <ref name="model.controleventLike"/>
-      <ref name="model.lyricsLike"/>
-      <ref name="model.midiLike"/>
-      <ref name="model.layerLike"/>
-      <ref name="model.syllableLike"/>
-      <ref name="model.sylLike"/>
-      <ref name="model.eventLike"/>
-      <ref name="model.eventLike.neumes"/>
-      <ref name="model.noteModifierLike"/>
-      <ref name="model.verseLike"/>
-      <ref name="model.eventLike.cmn.measureFilling"/>
-    </choice></zeroOrMore>
+    <zeroOrMore>
+      <choice>
+        <ref name="model.sectionPart"/>
+        <ref name="model.ossiaLike"/>
+        <ref name="model.controleventLike"/>
+        <ref name="model.lyricsLike"/>
+        <ref name="model.midiLike"/>
+        <ref name="model.layerLike"/>
+        <ref name="model.syllableLike"/>
+        <ref name="model.sylLike"/>
+        <ref name="model.eventLike"/>
+        <ref name="model.eventLike.neumes"/>
+        <ref name="model.noteModifierLike"/>
+        <ref name="model.verseLike"/>
+        <ref name="model.eventLike.measureFilling"/>
+      </choice>
+    </zeroOrMore>
   </define>
-  
+
   <!-- Declare module elements -->
   <define name="content.app">
-      <optional>
-        <ref name="lem"/>
-      </optional>
+    <optional>
+      <ref name="lem"/>
+    </optional>
+    <ref name="rdg"/>
+    <zeroOrMore>
       <ref name="rdg"/>
-      <zeroOrMore>
-        <ref name="rdg"/>
-      </zeroOrMore>
-    </define>
-    <define name="app">
-      <element name="app">
-        <a:documentation xml:lang="eng">apparatus ― Contains one or more
-          alternative encodings. The alternatives may be thought of as exclusive
-          or as parallel. The type attribute may contain any convenient
-          descriptive word, describing the extent of the variation (e.g. note,
-          phrase, measure, etc.), its text-critical significance (e.g.
-          significant, accidental, unclear), or the nature of the variation or
-          the principles required to understand it (e.g. lectio difficilior,
-          usus auctoris, etc.).</a:documentation>
-        <ref name="attlist.app"/>
-        <ref name="content.app"/>
-      </element>
-    </define>
-    <define name="attlist.app">
-      <ref name="att.common"/>
-      <ref name="att.typed"/>
-    </define>
+    </zeroOrMore>
+  </define>
 
-    <define name="content.lem">
-      <zeroOrMore>
-        <choice>
-          <ref name="model.Incl"/>
-          <ref name="model.rdgPart"/>
-        </choice>
-      </zeroOrMore>
-    </define>
-    <define name="lem">
-      <element name="lem">
-        <a:documentation xml:lang="eng">lemma ― Contains the lemma, or base
-          text, of a textual variation. The lem element may also be used, under
-          some circumstances, to record the base text of the source edition, to
-          mark the readings of a base witness, to indicate the preference of an
-          editor or encoder for a particular reading, or to make clear, in cases
-          of ambiguity, precisely which portion of the main text the variation
-          applies to. Those who prefer to work without the notion of a base text
-          may prefer not to use it at all.</a:documentation>
-        <ref name="attlist.lem"/>
-        <ref name="content.lem"/>
-      </element>
-    </define>
-    <define name="attlist.lem">
-      <ref name="att.common"/>
-      <ref name="att.crit"/>
-      <ref name="att.typed"/>
-      <ref name="att.link.common"/>
-      <ref name="att.link.external"/>
-      <ref name="att.link.internal"/>
-      <ref name="att.anl.rdg"/>
-      <ref name="att.ges.rdg"/>
-      <ref name="att.log.rdg"/>
-      <ref name="att.vis.rdg"/>
-    </define>
+  <define name="app">
+    <element name="app">
+      <a:documentation xml:lang="eng">apparatus ― Contains one or more
+        alternative encodings. The alternatives may be thought of as exclusive
+        or as parallel. The type attribute may contain any convenient
+        descriptive word, describing the extent of the variation (e.g. note,
+        phrase, measure, etc.), its text-critical significance (e.g.
+        significant, accidental, unclear), or the nature of the variation or the
+        principles required to understand it (e.g. lectio difficilior, usus
+        auctoris, etc.).</a:documentation>
+      <ref name="attlist.app"/>
+      <ref name="content.app"/>
+    </element>
+  </define>
 
-    <define name="content.rdg">
-      <zeroOrMore>
-        <choice>
-          <ref name="model.Incl"/>
-          <ref name="model.rdgPart"/>
-        </choice>
-      </zeroOrMore>
-    </define>
-    <define name="rdg">
-      <element name="rdg">
-        <a:documentation xml:lang="eng">reading ― Since a reading can be a
-          multi-measure section, the scoredef element is allowed so that a
-          reading may have its own meta-data without the overhead of child
-          sections. The measure sub-element is declared in the meiBase DTD and
-          the pb sub-element is declared in the meiShared DTD. The app
-          sub-element is permitted in order to allow nested
-          sub-variants.</a:documentation>
-        <ref name="attlist.rdg"/>
-        <ref name="content.rdg"/>
-      </element>
-    </define>
-    <define name="attlist.rdg">
-      <ref name="att.common"/>
-      <ref name="att.crit"/>
-      <ref name="att.typed"/>
-      <ref name="att.link.common"/>
-      <ref name="att.link.external"/>
-      <ref name="att.link.internal"/>
-      <ref name="att.anl.rdg"/>
-      <ref name="att.ges.rdg"/>
-      <ref name="att.log.rdg"/>
-      <ref name="att.vis.rdg"/>
-    </define>
-  
+  <define name="attlist.app">
+    <ref name="att.common"/>
+    <ref name="att.typed"/>
+  </define>
+
+  <define name="content.lem">
+    <zeroOrMore>
+      <choice>
+        <ref name="model.Incl"/>
+        <ref name="model.rdgPart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="lem">
+    <element name="lem">
+      <a:documentation xml:lang="eng">lemma ― Contains the lemma, or base text,
+        of a textual variation. The lem element may also be used, under some
+        circumstances, to record the base text of the source edition, to mark
+        the readings of a base witness, to indicate the preference of an editor
+        or encoder for a particular reading, or to make clear, in cases of
+        ambiguity, precisely which portion of the main text the variation
+        applies to. Those who prefer to work without the notion of a base text
+        may prefer not to use it at all.</a:documentation>
+      <ref name="attlist.lem"/>
+      <ref name="content.lem"/>
+    </element>
+  </define>
+
+  <define name="attlist.lem">
+    <ref name="att.common"/>
+    <ref name="att.crit"/>
+    <ref name="att.typed"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.external"/>
+    <ref name="att.link.internal"/>
+    <ref name="att.rdg.anl"/>
+    <ref name="att.rdg.ges"/>
+    <ref name="att.rdg.log"/>
+    <ref name="att.rdg.vis"/>
+  </define>
+
+  <define name="content.rdg">
+    <zeroOrMore>
+      <choice>
+        <ref name="model.Incl"/>
+        <ref name="model.rdgPart"/>
+      </choice>
+    </zeroOrMore>
+  </define>
+
+  <define name="rdg">
+    <element name="rdg">
+      <a:documentation xml:lang="eng">reading ― Since a reading can be a
+        multi-measure section, the scoredef element is allowed so that a reading
+        may have its own meta-data without the overhead of child sections. The
+        measure sub-element is declared in the meiBase DTD and the pb
+        sub-element is declared in the meiShared DTD. The app sub-element is
+        permitted in order to allow nested sub-variants.</a:documentation>
+      <ref name="attlist.rdg"/>
+      <ref name="content.rdg"/>
+    </element>
+  </define>
+
+  <define name="attlist.rdg">
+    <ref name="att.common"/>
+    <ref name="att.crit"/>
+    <ref name="att.typed"/>
+    <ref name="att.link.common"/>
+    <ref name="att.link.external"/>
+    <ref name="att.link.internal"/>
+    <ref name="att.rdg.anl"/>
+    <ref name="att.rdg.ges"/>
+    <ref name="att.rdg.log"/>
+    <ref name="att.rdg.vis"/>
+  </define>
+
 </grammar>

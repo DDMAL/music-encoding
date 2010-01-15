@@ -3725,7 +3725,9 @@ CHANGES:
   <xsl:template name="beaming">
     <xsl:if test="parent::beam or ancestor::beam">
       <xsl:choose>
-        <xsl:when test="position()=1 and not(@grace)">
+        <!-- <xsl:when test="position()=1 and not(@grace)"> -->
+        <xsl:when
+          test="count(preceding-sibling::*[name()='note' or name()='chord' or name()='rest' or name()='space'])=0 and not(@grace)">
           <xsl:text> bm</xsl:text>
           <xsl:if test="parent::beam/@with">
             <xsl:text> with staff </xsl:text>

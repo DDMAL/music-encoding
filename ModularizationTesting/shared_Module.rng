@@ -261,6 +261,16 @@
     </optional>
   </define>
 
+  <define name="att.internetmedia" combine="interleave">
+    <optional>
+      <attribute name="mimetype">
+        <a:documentation>specifies the applicable MIME (multimedia internet mail
+          extension) type. The value should be a valid MIME media type defined
+          by the Internet Engineering Task Force in RFC 2046.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.lang" combine="interleave">
     <a:documentation xml:lang="eng">Language attributes common to text
       elements</a:documentation>
@@ -692,16 +702,18 @@
   </define>
 
   <!-- Domain attr classes for musical elements -->
-  <define name="att.anl.accid" combine="interleave">
+  <define name="att.accid.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.accid" combine="interleave">
+
+  <define name="att.accid.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.accid" combine="interleave">
+
+  <define name="att.accid.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="func">
@@ -720,7 +732,8 @@
       <ref name="data.ACCIDENTAL.EXPLICIT"/>
     </attribute>
   </define>
-  <define name="att.vis.accid" combine="interleave">
+
+  <define name="att.accid.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
     <ref name="att.visualoffset.ho"/>
@@ -748,12 +761,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.annot" combine="interleave">
+  <define name="att.annot.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.annot" combine="interleave">
+
+  <define name="att.annot.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="dur.ges">
@@ -765,7 +779,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.annot" combine="interleave">
+
+  <define name="att.annot.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for annot. Values
       for the type attribute can be taken from any convenient typology of
       annotation suitable to the work in hand; e.g. annotation, gloss, citation,
@@ -818,21 +833,24 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.annot" combine="interleave">
+
+  <define name="att.annot.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.artic" combine="interleave">
+  <define name="att.artic.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.artic" combine="interleave">
+
+  <define name="att.artic.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.artic" combine="interleave">
+
+  <define name="att.artic.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <attribute name="value">
       <a:documentation xml:lang="eng">records the name of the articulation
@@ -841,7 +859,8 @@
       <ref name="data.ARTICULATIONS"/>
     </attribute>
   </define>
-  <define name="att.vis.artic" combine="interleave">
+
+  <define name="att.artic.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
     <ref name="att.placement"/>
@@ -857,12 +876,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.barline" combine="interleave">
+  <define name="att.barline.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.barline" combine="interleave">
+
+  <define name="att.barline.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="tstamp">
@@ -872,7 +892,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.barline" combine="interleave">
+
+  <define name="att.barline.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="complete">
@@ -906,7 +927,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.barline" combine="interleave">
+
+  <define name="att.barline.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
     <optional>
@@ -941,7 +963,7 @@
     </optional>
   </define>
 
-  <define name="att.anl.chord" combine="interleave">
+  <define name="att.chord.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
@@ -958,7 +980,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.ges.chord" combine="interleave">
+
+  <define name="att.chord.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="artic.ges">
@@ -1005,7 +1028,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.chord" combine="interleave">
+
+  <define name="att.chord.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for chord. The
       artic, dots, and dur attributes encode the written articulations,
       augmentation dots, and duration values. The beam, fermata, lv, slur, syl,
@@ -1093,7 +1117,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.chord" combine="interleave">
+
+  <define name="att.chord.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for chord. The
       slur, slur.dir, slur.rend, tie, tie.dir, and tie.rend attributes here are
       syntactic sugar for these attributes on each of the chord's individual
@@ -1254,16 +1279,18 @@
     </optional>
   </define>
 
-  <define name="att.anl.clef" combine="interleave">
+  <define name="att.clef.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.clef" combine="interleave">
+
+  <define name="att.clef.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.clef" combine="interleave">
+
+  <define name="att.clef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <attribute name="line">
       <a:documentation xml:lang="eng">the staff location of the clef. The value
@@ -1299,22 +1326,25 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.clef" combine="interleave">
+
+  <define name="att.clef.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
   </define>
 
-  <define name="att.anl.clefchange" combine="interleave">
+  <define name="att.clefchange.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.clefchange" combine="interleave">
+
+  <define name="att.clefchange.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.clefchange" combine="interleave">
+
+  <define name="att.clefchange.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="line">
@@ -1354,22 +1384,25 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.clefchange" combine="interleave">
+
+  <define name="att.clefchange.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
   </define>
 
-  <define name="att.anl.custos" combine="interleave">
+  <define name="att.custos.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributess</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.custos" combine="interleave">
+
+  <define name="att.custos.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.custos" combine="interleave">
+
+  <define name="att.custos.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <attribute name="oct">
       <a:documentation xml:lang="eng">together with the pname attribute,
@@ -1396,17 +1429,19 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.custos" combine="interleave">
+
+  <define name="att.custos.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
   </define>
 
-  <define name="att.anl.dir" combine="interleave">
+  <define name="att.dir.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.dir" combine="interleave">
+
+  <define name="att.dir.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="dur.ges">
@@ -1418,7 +1453,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.dir" combine="interleave">
+
+  <define name="att.dir.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
@@ -1433,7 +1469,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.dir" combine="interleave">
+
+  <define name="att.dir.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.placement"/>
     <ref name="att.visualoffset"/>
@@ -1442,16 +1479,18 @@
     <ref name="att.xy"/>
   </define>
 
-  <define name="att.anl.dot" combine="interleave">
+  <define name="att.dot.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.dot" combine="interleave">
+
+  <define name="att.dot.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.dot" combine="interleave">
+
+  <define name="att.dot.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="form">
@@ -1472,18 +1511,20 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.dot" combine="interleave">
+
+  <define name="att.dot.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
     <ref name="att.xy"/>
   </define>
 
-  <define name="att.anl.dynam" combine="interleave">
+  <define name="att.dynam.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.dynam" combine="interleave">
+
+  <define name="att.dynam.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="dur.ges">
@@ -1502,7 +1543,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.dynam" combine="interleave">
+
+  <define name="att.dynam.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
@@ -1518,7 +1560,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.dynam" combine="interleave">
+
+  <define name="att.dynam.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.placement"/>
     <ref name="att.visualoffset"/>
@@ -1527,34 +1570,39 @@
     <ref name="att.xy"/>
   </define>
 
-  <define name="att.anl.ending" combine="interleave">
+  <define name="att.ending.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.ending" combine="interleave">
+
+  <define name="att.ending.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.ending" combine="interleave">
+
+  <define name="att.ending.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.ending" combine="interleave">
+
+  <define name="att.ending.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.grpsym" combine="interleave">
+  <define name="att.grpsym.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.grpsym" combine="interleave">
+
+  <define name="att.grpsym.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.grpsym" combine="interleave">
+
+  <define name="att.grpsym.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <attribute name="symbol">
       <a:documentation xml:lang="eng">specifies the symbol used to group a set
@@ -1566,26 +1614,30 @@
       </choice>
     </attribute>
   </define>
-  <define name="att.vis.grpsym" combine="interleave">
+
+  <define name="att.grpsym.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
   </define>
 
-  <define name="att.anl.layer" combine="interleave">
+  <define name="att.layer.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.layer" combine="interleave">
+
+  <define name="att.layer.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.layer" combine="interleave">
+
+  <define name="att.layer.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.layer" combine="interleave">
+
+  <define name="att.layer.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="visible">
@@ -1598,12 +1650,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.layerdef" combine="interleave">
+  <define name="att.layerdef.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.ges.layerdef" combine="interleave">
+
+  <define name="att.layerdef.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="grace">
@@ -1625,7 +1678,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.layerdef" combine="interleave">
+
+  <define name="att.layerdef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <!-- <optional>
       <attribute name="beam.group">
@@ -1671,7 +1725,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.layerdef" combine="interleave">
+
+  <define name="att.layerdef.vis" combine="interleave">
     <!-- <a:documentation xml:lang="eng">Visual domain attributes for layerdef in the
       CMN repertoire</a:documentation>
     <optional>
@@ -1767,12 +1822,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.measure" combine="interleave">
+  <define name="att.measure.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.measure" combine="interleave">
+
+  <define name="att.measure.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes. The tstamp.ges
       and tstamp.real attributes encode the onset time of the measure. In
       reality, this is usually the same as the onset time of the first event in
@@ -1794,7 +1850,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.measure" combine="interleave">
+
+  <define name="att.measure.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes. The n attribute
       contains a name or number associated with the measure (Read, p. 445).
       Often, this is an integer, but not always. For example, some measures,
@@ -1852,7 +1909,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.measure" combine="interleave">
+
+  <define name="att.measure.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="barplace">
@@ -1886,13 +1944,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.note" combine="interleave">
+  <define name="att.note.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
 
-  <define name="att.ges.note" combine="interleave">
+  <define name="att.note.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="accid.ges">
@@ -1973,7 +2031,7 @@
     </optional>
   </define>
 
-  <define name="att.log.note" combine="interleave">
+  <define name="att.note.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
     <optional>
@@ -2039,7 +2097,7 @@
     </optional>
   </define>
 
-  <define name="att.vis.note" combine="interleave">
+  <define name="att.note.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
@@ -2159,16 +2217,18 @@
     </optional>
   </define>
 
-  <define name="att.anl.pad" combine="interleave">
+  <define name="att.pad.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.ges.pad" combine="interleave">
+
+  <define name="att.pad.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.pad" combine="interleave">
+
+  <define name="att.pad.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
     <attribute name="num">
@@ -2178,48 +2238,55 @@
       <ref name="data.NUMBER"/>
     </attribute>
   </define>
-  <define name="att.vis.pad" combine="interleave">
+
+  <define name="att.pad.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.part" combine="interleave">
+  <define name="att.part.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.part" combine="interleave">
+
+  <define name="att.part.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.part" combine="interleave">
+
+  <define name="att.part.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.part" combine="interleave">
+
+  <define name="att.part.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.parts" combine="interleave">
+  <define name="att.parts.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.parts" combine="interleave">
+
+  <define name="att.parts.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.parts" combine="interleave">
+
+  <define name="att.parts.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.parts" combine="interleave">
+
+  <define name="att.parts.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
-  
-  <define name="att.anl.phrase" combine="interleave">
+
+  <define name="att.phrase.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
@@ -2233,7 +2300,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.ges.phrase" combine="interleave">
+
+  <define name="att.phrase.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="dur.ges">
@@ -2245,7 +2313,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.phrase" combine="interleave">
+
+  <define name="att.phrase.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
@@ -2260,7 +2329,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.phrase" combine="interleave">
+
+  <define name="att.phrase.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
     <ref name="att.placement"/>
@@ -2270,13 +2340,13 @@
     <ref name="att.xy2"/>
   </define>
 
-  <define name="att.anl.rest" combine="interleave">
+  <define name="att.rest.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
 
-  <define name="att.ges.rest" combine="interleave">
+  <define name="att.rest.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="dur.ges">
@@ -2298,7 +2368,7 @@
     </optional>
   </define>
 
-  <define name="att.log.rest" combine="interleave">
+  <define name="att.rest.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
     <optional>
@@ -2326,7 +2396,7 @@
     </optional>
   </define>
 
-  <define name="att.vis.rest" combine="interleave">
+  <define name="att.rest.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
@@ -2371,16 +2441,18 @@
     </optional>
   </define>
 
-  <define name="att.anl.sb" combine="interleave">
+  <define name="att.sb.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.sb" combine="interleave">
+
+  <define name="att.sb.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.sb" combine="interleave">
+
+  <define name="att.sb.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="source">
@@ -2392,7 +2464,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.sb" combine="interleave">
+
+  <define name="att.sb.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="rend">
@@ -2406,30 +2479,34 @@
     </optional>
   </define>
 
-  <define name="att.anl.score" combine="interleave">
+  <define name="att.score.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.score" combine="interleave">
+
+  <define name="att.score.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.score" combine="interleave">
+
+  <define name="att.score.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.score" combine="interleave">
+
+  <define name="att.score.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.anl.scoredef" combine="interleave">
+  <define name="att.scoredef.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.ges.scoredef" combine="interleave">
+
+  <define name="att.scoredef.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes for scoredef. The
       values set in these attributes act as score-wide defaults for attributes
       that are not set in descendant elements. For example, the grace attribute
@@ -2556,7 +2633,7 @@
     </optional>
   </define>
 
-  <define name="att.log.scoredef" combine="interleave">
+  <define name="att.scoredef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for scoredef in
       the CMN repertoire. The values set in these attributes act as score-wide
       defaults for attributes that are not set in descendant elements.
@@ -2781,7 +2858,7 @@
     </optional>
   </define>
 
-  <define name="att.vis.scoredef" combine="interleave">
+  <define name="att.scoredef.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
       CMN repertoire
       <!-- <xhtml:table>
@@ -3312,20 +3389,23 @@
     </optional>
   </define>
 
-  <define name="att.anl.section" combine="interleave">
+  <define name="att.section.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.section" combine="interleave">
+
+  <define name="att.section.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.section" combine="interleave">
+
+  <define name="att.section.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.section" combine="interleave">
+
+  <define name="att.section.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="restart">
@@ -3336,12 +3416,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.space" combine="interleave">
+  <define name="att.space.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.space" combine="interleave">
+
+  <define name="att.space.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="dur.ges">
@@ -3353,7 +3434,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.space" combine="interleave">
+
+  <define name="att.space.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
     <optional>
@@ -3387,7 +3469,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.space" combine="interleave">
+
+  <define name="att.space.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="compressable">
@@ -3399,20 +3482,23 @@
     </optional>
   </define>
 
-  <define name="att.anl.staff" combine="interleave">
+  <define name="att.staff.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.staff" combine="interleave">
+
+  <define name="att.staff.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.staff" combine="interleave">
+
+  <define name="att.staff.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.staff" combine="interleave">
+
+  <define name="att.staff.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="visible">
@@ -3424,12 +3510,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.staffdef" combine="interleave">
+  <define name="att.staffdef.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.ges.staffdef" combine="interleave">
+
+  <define name="att.staffdef.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes for staffdef in
       the CMN repertoire</a:documentation>
     <optional>
@@ -3459,8 +3546,10 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.staffdef" combine="interleave">
-    <a:documentation xml:lang="eng">Logical domain attributes for staffdef</a:documentation>
+
+  <define name="att.staffdef.log" combine="interleave">
+    <a:documentation xml:lang="eng">Logical domain attributes for
+      staffdef</a:documentation>
     <optional>
       <attribute name="clef.line">
         <a:documentation xml:lang="eng">contains a default value for the
@@ -3600,8 +3689,10 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.staffdef" combine="interleave">
-    <a:documentation xml:lang="eng">Visual domain attributes for staffdef</a:documentation>
+
+  <define name="att.staffdef.vis" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes for
+      staffdef</a:documentation>
     <optional>
       <attribute name="clef.color">
         <a:documentation xml:lang="eng">describes the color of the
@@ -3848,12 +3939,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.staffgrp" combine="interleave">
+  <define name="att.staffgrp.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.ges.staffgrp" combine="interleave">
+
+  <define name="att.staffgrp.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="midi.div">
@@ -3872,11 +3964,13 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.staffgrp" combine="interleave">
+
+  <define name="att.staffgrp.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.vis.staffgrp" combine="interleave">
+
+  <define name="att.staffgrp.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="barthru">
@@ -3920,16 +4014,18 @@
     </optional>
   </define>
 
-  <define name="att.anl.syl" combine="interleave">
+  <define name="att.syl.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.syl" combine="interleave">
+
+  <define name="att.syl.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.syl" combine="interleave">
+
+  <define name="att.syl.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="con">
@@ -3957,7 +4053,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.syl" combine="interleave">
+
+  <define name="att.syl.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.typography"/>
     <ref name="att.visualoffset"/>
@@ -3984,12 +4081,13 @@
     </optional>
   </define>
 
-  <define name="att.anl.tempo" combine="interleave">
+  <define name="att.tempo.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.tempo" combine="interleave">
+
+  <define name="att.tempo.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="midi">
@@ -4007,7 +4105,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.tempo" combine="interleave">
+
+  <define name="att.tempo.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes. The dur.vis
       attribute encodes visual duration. (Read, p. 276-281) If logical and
       visual durations differ, it may be necessary to add a dur attribute.
@@ -4023,7 +4122,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.tempo" combine="interleave">
+
+  <define name="att.tempo.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.placement"/>
     <ref name="att.visualoffset"/>
@@ -4506,6 +4606,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="abbr">
     <element name="abbr">
       <a:documentation xml:lang="eng">abbreviation ― A generic element for a
@@ -4538,6 +4639,7 @@
       <ref name="content.abbr"/>
     </element>
   </define>
+
   <define name="attlist.abbr">
     <ref name="att.common"/>
     <ref name="att.edit"/>
@@ -4556,6 +4658,7 @@
   <define name="content.accid">
     <empty/>
   </define>
+
   <define name="accid">
     <element name="accid">
       <a:documentation xml:lang="eng">accidental ― This element provides an
@@ -4568,14 +4671,15 @@
       <ref name="content.accid"/>
     </element>
   </define>
+
   <define name="attlist.accid">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.typography"/>
-    <ref name="att.log.accid"/>
-    <ref name="att.vis.accid"/>
-    <ref name="att.ges.accid"/>
-    <ref name="att.anl.accid"/>
+    <ref name="att.accid.log"/>
+    <ref name="att.accid.vis"/>
+    <ref name="att.accid.ges"/>
+    <ref name="att.accid.anl"/>
   </define>
 
   <define name="content.address">
@@ -4583,6 +4687,7 @@
       <ref name="addressline"/>
     </oneOrMore>
   </define>
+
   <define name="address">
     <element name="address">
       <a:documentation xml:lang="eng">address ― A postal
@@ -4591,6 +4696,7 @@
       <ref name="content.address"/>
     </element>
   </define>
+
   <define name="attlist.address">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -4607,6 +4713,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="addressline">
     <element name="addressline">
       <a:documentation xml:lang="eng">addressline ― Single line of a postal
@@ -4616,6 +4723,7 @@
       <ref name="content.addressline"/>
     </element>
   </define>
+
   <define name="attlist.addressline">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -4633,6 +4741,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="annot">
     <element name="annot">
       <a:documentation xml:lang="eng">annotation ― Provides a short statement
@@ -4662,15 +4771,16 @@
       <ref name="content.annot"/>
     </element>
   </define>
+
   <define name="attlist.annot">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
     <ref name="att.typed"/>
-    <ref name="att.log.annot"/>
-    <ref name="att.vis.annot"/>
-    <ref name="att.ges.annot"/>
-    <ref name="att.anl.annot"/>
+    <ref name="att.annot.log"/>
+    <ref name="att.annot.vis"/>
+    <ref name="att.annot.ges"/>
+    <ref name="att.annot.anl"/>
     <ref name="att.link.common"/>
     <ref name="att.link.internal"/>
     <ref name="att.link.external"/>
@@ -4698,6 +4808,7 @@
   <define name="content.artic">
     <empty/>
   </define>
+
   <define name="artic">
     <element name="artic">
       <a:documentation xml:lang="eng">articulation ― This element provides an
@@ -4709,19 +4820,21 @@
       <ref name="content.artic"/>
     </element>
   </define>
+
   <define name="attlist.artic">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.typography"/>
-    <ref name="att.log.artic"/>
-    <ref name="att.vis.artic"/>
-    <ref name="att.ges.artic"/>
-    <ref name="att.anl.artic"/>
+    <ref name="att.artic.log"/>
+    <ref name="att.artic.vis"/>
+    <ref name="att.artic.ges"/>
+    <ref name="att.artic.anl"/>
   </define>
 
   <define name="content.barline">
     <empty/>
   </define>
+
   <define name="barline">
     <element name="barline">
       <a:documentation xml:lang="eng">barline ― The &lt;barline&gt;
@@ -4731,16 +4844,17 @@
       <ref name="content.barline"/>
     </element>
   </define>
+
   <define name="attlist.barline">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.link.common"/>
     <ref name="att.link.internal"/>
     <ref name="att.link.external"/>
-    <ref name="att.log.barline"/>
-    <ref name="att.vis.barline"/>
-    <ref name="att.ges.barline"/>
-    <ref name="att.anl.barline"/>
+    <ref name="att.barline.log"/>
+    <ref name="att.barline.vis"/>
+    <ref name="att.barline.ges"/>
+    <ref name="att.barline.anl"/>
   </define>
 
   <define name="content.bibl">
@@ -4752,6 +4866,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="bibl">
     <element name="bibl">
       <a:documentation xml:lang="eng">bibliographic reference ― Provides a
@@ -4767,6 +4882,7 @@
       <ref name="content.bibl"/>
     </element>
   </define>
+
   <define name="attlist.bibl">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -4780,6 +4896,7 @@
       <ref name="model.mdivLike"/>
     </oneOrMore>
   </define>
+
   <define name="body">
     <element name="body">
       <a:documentation xml:lang="eng">body ― This element contains the actual
@@ -4791,6 +4908,7 @@
       <ref name="content.body"/>
     </element>
   </define>
+
   <define name="attlist.body">
     <ref name="att.common"/>
   </define>
@@ -4805,6 +4923,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="caption">
     <element name="caption">
       <a:documentation xml:lang="eng">caption ― A label which accompanies an
@@ -4813,6 +4932,7 @@
       <ref name="content.caption"/>
     </element>
   </define>
+
   <define name="attlist.caption">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -4827,6 +4947,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="chord">
     <element name="chord">
       <a:documentation xml:lang="eng">chord ― A simultaneous sounding of 2 or
@@ -4836,18 +4957,20 @@
       <ref name="content.chord"/>
     </element>
   </define>
+
   <define name="attlist.chord">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.chord"/>
-    <ref name="att.vis.chord"/>
-    <ref name="att.ges.chord"/>
-    <ref name="att.anl.chord"/>
+    <ref name="att.chord.log"/>
+    <ref name="att.chord.vis"/>
+    <ref name="att.chord.ges"/>
+    <ref name="att.chord.anl"/>
   </define>
 
   <define name="content.clef">
     <empty/>
   </define>
+
   <define name="clef">
     <element name="clef">
       <a:documentation xml:lang="eng">clef ― This element must be used instead
@@ -4857,18 +4980,20 @@
       <ref name="content.clef"/>
     </element>
   </define>
+
   <define name="attlist.clef">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.anl.clef"/>
-    <ref name="att.ges.clef"/>
-    <ref name="att.log.clef"/>
-    <ref name="att.vis.clef"/>
+    <ref name="att.clef.anl"/>
+    <ref name="att.clef.ges"/>
+    <ref name="att.clef.log"/>
+    <ref name="att.clef.vis"/>
   </define>
 
   <define name="content.clefchange">
     <ref name="model.clefchangePart"/>
   </define>
+
   <define name="clefchange">
     <element name="clefchange">
       <a:documentation xml:lang="eng">clef change ― Mid-measure clef change.
@@ -4878,19 +5003,21 @@
       <ref name="content.clefchange"/>
     </element>
   </define>
+
   <define name="attlist.clefchange">
     <ref name="att.common"/>
     <ref name="att.event"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.clefchange"/>
-    <ref name="att.vis.clefchange"/>
-    <ref name="att.ges.clefchange"/>
-    <ref name="att.anl.clefchange"/>
+    <ref name="att.clefchange.log"/>
+    <ref name="att.clefchange.vis"/>
+    <ref name="att.clefchange.ges"/>
+    <ref name="att.clefchange.anl"/>
   </define>
 
   <define name="content.custos">
     <empty/>
   </define>
+
   <define name="custos">
     <element name="custos">
       <a:documentation xml:lang="eng">custos ― The symbol placed at the end of a
@@ -4900,13 +5027,14 @@
       <ref name="content.custos"/>
     </element>
   </define>
+
   <define name="attlist.custos">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.custos"/>
-    <ref name="att.vis.custos"/>
-    <ref name="att.ges.custos"/>
-    <ref name="att.anl.custos"/>
+    <ref name="att.custos.log"/>
+    <ref name="att.custos.vis"/>
+    <ref name="att.custos.ges"/>
+    <ref name="att.custos.anl"/>
   </define>
 
   <define name="content.date">
@@ -4917,6 +5045,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="date">
     <element name="date">
       <a:documentation xml:lang="eng">date ― A date in any
@@ -4925,6 +5054,7 @@
       <ref name="content.date"/>
     </element>
   </define>
+
   <define name="attlist.date">
     <ref name="att.bibl"/>
     <ref name="att.common"/>
@@ -4944,6 +5074,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="dir">
     <element name="dir">
       <a:documentation xml:lang="eng">directive ― A text expression that is on
@@ -4962,20 +5093,22 @@
       <ref name="content.dir"/>
     </element>
   </define>
+
   <define name="attlist.dir">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
     <ref name="att.typed"/>
-    <ref name="att.log.dir"/>
-    <ref name="att.vis.dir"/>
-    <ref name="att.ges.dir"/>
-    <ref name="att.anl.dir"/>
+    <ref name="att.dir.log"/>
+    <ref name="att.dir.vis"/>
+    <ref name="att.dir.ges"/>
+    <ref name="att.dir.anl"/>
   </define>
 
   <define name="content.dot">
     <empty/>
   </define>
+
   <define name="dot">
     <element name="dot">
       <a:documentation xml:lang="eng">dot ― May be used for dots of augmentation
@@ -4984,13 +5117,14 @@
       <ref name="content.dot"/>
     </element>
   </define>
+
   <define name="attlist.dot">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.dot"/>
-    <ref name="att.vis.dot"/>
-    <ref name="att.ges.dot"/>
-    <ref name="att.anl.dot"/>
+    <ref name="att.dot.log"/>
+    <ref name="att.dot.vis"/>
+    <ref name="att.dot.ges"/>
+    <ref name="att.dot.anl"/>
   </define>
 
   <define name="content.dynam">
@@ -5003,6 +5137,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="dynam">
     <element name="dynam">
       <a:documentation xml:lang="eng">dynamic ― Records instantaneous or
@@ -5017,14 +5152,15 @@
       <ref name="content.dynam"/>
     </element>
   </define>
+
   <define name="attlist.dynam">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
-    <ref name="att.log.dynam"/>
-    <ref name="att.vis.dynam"/>
-    <ref name="att.ges.dynam"/>
-    <ref name="att.anl.dynam"/>
+    <ref name="att.dynam.log"/>
+    <ref name="att.dynam.vis"/>
+    <ref name="att.dynam.ges"/>
+    <ref name="att.dynam.anl"/>
   </define>
 
   <define name="content.edition">
@@ -5035,6 +5171,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="edition">
     <element name="edition">
       <a:documentation xml:lang="eng">edition ― The edition designation is a
@@ -5048,6 +5185,7 @@
       <ref name="content.edition"/>
     </element>
   </define>
+
   <define name="attlist.edition">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
@@ -5066,6 +5204,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="ending">
     <element name="ending">
       <a:documentation xml:lang="eng">ending ― Alternative ending. The scoredef
@@ -5078,6 +5217,7 @@
       <ref name="content.ending"/>
     </element>
   </define>
+
   <define name="attlist.ending">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5085,10 +5225,10 @@
     <ref name="att.link.common"/>
     <ref name="att.link.external"/>
     <ref name="att.link.internal"/>
-    <ref name="att.anl.ending"/>
-    <ref name="att.ges.ending"/>
-    <ref name="att.log.ending"/>
-    <ref name="att.vis.ending"/>
+    <ref name="att.ending.anl"/>
+    <ref name="att.ending.ges"/>
+    <ref name="att.ending.log"/>
+    <ref name="att.ending.vis"/>
   </define>
 
   <define name="content.expan">
@@ -5101,6 +5241,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="expan">
     <element name="expan">
       <a:documentation xml:lang="eng">expansion ― Contains the expansion of an
@@ -5124,6 +5265,7 @@
       <ref name="content.expan"/>
     </element>
   </define>
+
   <define name="attlist.expan">
     <ref name="att.common"/>
     <ref name="att.edit"/>
@@ -5142,12 +5284,14 @@
   <define name="content.expansion">
     <empty/>
   </define>
+
   <define name="expansion">
     <element name="expansion">
       <ref name="attlist.expansion"/>
       <ref name="content.expansion"/>
     </element>
   </define>
+
   <define name="attlist.expansion">
     <ref name="att.common"/>
     <ref name="att.typed"/>
@@ -5181,9 +5325,11 @@
         <ref name="model.textphraseLike.limited"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
+        <ref name="model.appLike"/>
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="fw">
     <element name="fw">
       <a:documentation xml:lang="eng">forme work ― This element is intended for
@@ -5195,6 +5341,7 @@
       <ref name="content.fw"/>
     </element>
   </define>
+
   <define name="attlist.fw">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5214,6 +5361,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="group">
     <element name="group">
       <a:documentation xml:lang="eng">group ― Enables the gathering of multiple
@@ -5224,6 +5372,7 @@
       <ref name="content.group"/>
     </element>
   </define>
+
   <define name="attlist.group">
     <ref name="att.common"/>
   </define>
@@ -5233,6 +5382,7 @@
       <ref name="model.labelLike"/>
     </zeroOrMore>
   </define>
+
   <define name="grpsym">
     <element name="grpsym">
       <a:documentation xml:lang="eng">group symbol ― i.e., a brace or bracket.
@@ -5243,13 +5393,14 @@
       <ref name="content.grpsym"/>
     </element>
   </define>
+
   <define name="attlist.grpsym">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.grpsym"/>
-    <ref name="att.vis.grpsym"/>
-    <ref name="att.ges.grpsym"/>
-    <ref name="att.anl.grpsym"/>
+    <ref name="att.grpsym.log"/>
+    <ref name="att.grpsym.vis"/>
+    <ref name="att.grpsym.ges"/>
+    <ref name="att.grpsym.anl"/>
   </define>
 
   <define name="content.identifier">
@@ -5262,6 +5413,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="identifier">
     <element name="identifier">
       <a:documentation xml:lang="eng">identifier ― Bibliographic, e.g.,
@@ -5272,6 +5424,7 @@
       <ref name="content.identifier"/>
     </element>
   </define>
+
   <define name="attlist.identifier">
     <ref name="att.bibl"/>
     <ref name="att.common"/>
@@ -5284,6 +5437,7 @@
       <ref name="model.instrdefLike"/>
     </oneOrMore>
   </define>
+
   <define name="instrgrp">
     <element name="instrgrp">
       <a:documentation xml:lang="eng">instrument group ― Collects MIDI
@@ -5292,6 +5446,7 @@
       <ref name="content.instrgrp"/>
     </element>
   </define>
+
   <define name="attlist.instrgrp">
     <ref name="att.common"/>
   </define>
@@ -5299,6 +5454,7 @@
   <define name="content.instrdef">
     <empty/>
   </define>
+
   <define name="instrdef">
     <element name="instrdef">
       <a:documentation xml:lang="eng">instrument definition ― MIDI instrument
@@ -5309,6 +5465,7 @@
       <ref name="content.instrdef"/>
     </element>
   </define>
+
   <define name="attlist.instrdef">
     <ref name="att.common"/>
     <optional>
@@ -5358,6 +5515,7 @@
   <define name="content.keyaccid">
     <empty/>
   </define>
+
   <define name="keyaccid">
     <element name="keyaccid">
       <a:documentation xml:lang="eng">key accidental ― Accidental in a key
@@ -5367,6 +5525,7 @@
       <ref name="content.keyaccid"/>
     </element>
   </define>
+
   <define name="attlist.keyaccid">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5420,6 +5579,7 @@
       <ref name="model.keyaccidLike"/>
     </zeroOrMore>
   </define>
+
   <define name="keychange">
     <element name="keychange">
       <a:documentation xml:lang="eng">key change ― </a:documentation>
@@ -5427,6 +5587,7 @@
       <ref name="content.keychange"/>
     </element>
   </define>
+
   <define name="attlist.keychange">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5437,6 +5598,7 @@
       <ref name="model.keyaccidLike"/>
     </zeroOrMore>
   </define>
+
   <define name="keysig">
     <element name="keysig">
       <a:documentation xml:lang="eng">key signature ― This element may be used
@@ -5446,6 +5608,7 @@
       <ref name="content.keysig"/>
     </element>
   </define>
+
   <define name="attlist.keysig">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5482,6 +5645,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="label">
     <element name="label">
       <a:documentation xml:lang="eng">label ― A text string that identifies a
@@ -5490,6 +5654,7 @@
       <ref name="content.label"/>
     </element>
   </define>
+
   <define name="attlist.label">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5512,6 +5677,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="layer">
     <element name="layer">
       <a:documentation xml:lang="eng">layer ― An independent stream of events on
@@ -5523,13 +5689,14 @@
       <ref name="content.layer"/>
     </element>
   </define>
+
   <define name="attlist.layer">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.layer"/>
-    <ref name="att.vis.layer"/>
-    <ref name="att.ges.layer"/>
-    <ref name="att.anl.layer"/>
+    <ref name="att.layer.log"/>
+    <ref name="att.layer.vis"/>
+    <ref name="att.layer.ges"/>
+    <ref name="att.layer.anl"/>
   </define>
 
   <define name="content.layerdef">
@@ -5537,6 +5704,7 @@
       <ref name="model.instrdefLike"/>
     </zeroOrMore>
   </define>
+
   <define name="layerdef">
     <element name="layerdef">
       <a:documentation xml:lang="eng">layer definition ― Container for layer
@@ -5545,17 +5713,19 @@
       <ref name="content.layerdef"/>
     </element>
   </define>
+
   <define name="attlist.layerdef">
     <ref name="att.common"/>
-    <ref name="att.log.layerdef"/>
-    <ref name="att.vis.layerdef"/>
-    <ref name="att.ges.layerdef"/>
-    <ref name="att.anl.layerdef"/>
+    <ref name="att.layerdef.log"/>
+    <ref name="att.layerdef.vis"/>
+    <ref name="att.layerdef.ges"/>
+    <ref name="att.layerdef.anl"/>
   </define>
 
   <define name="content.lb">
     <empty/>
   </define>
+
   <define name="lb">
     <element name="lb">
       <a:documentation xml:lang="eng">line break ― An empty formatting element
@@ -5569,6 +5739,7 @@
       <ref name="content.lb"/>
     </element>
   </define>
+
   <define name="attlist.lb">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5609,6 +5780,7 @@
       </zeroOrMore>
     </choice>
   </define>
+
   <define name="mdiv">
     <element name="mdiv">
       <a:documentation xml:lang="eng">musical division ― The mdiv element may
@@ -5634,6 +5806,7 @@
       <ref name="content.mdiv"/>
     </element>
   </define>
+
   <define name="attlist.mdiv">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5652,6 +5825,7 @@
       <ref name="music"/>
     </element>
   </define>
+
   <define name="attlist.mei">
     <optional>
       <attribute name="id" ns="http://www.w3.org/XML/1998/namespace">
@@ -5682,6 +5856,7 @@
       <ref name="model.musicPart"/>
     </element>
   </define>
+
   <define name="attlist.music">
     <ref name="att.common"/>
     <optional>
@@ -5701,6 +5876,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="name">
     <element name="name">
       <a:documentation xml:lang="eng">name ― Contains the name of an entity that
@@ -5725,6 +5901,7 @@
       <ref name="content.name"/>
     </element>
   </define>
+
   <define name="attlist.name">
     <ref name="att.bibl"/>
     <ref name="att.common"/>
@@ -5747,6 +5924,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="note">
     <element name="note">
       <a:documentation xml:lang="eng">note ― A single pitched event. (Read, p.
@@ -5762,13 +5940,14 @@
       <ref name="content.note"/>
     </element>
   </define>
+
   <define name="attlist.note">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.note"/>
-    <ref name="att.vis.note"/>
-    <ref name="att.ges.note"/>
-    <ref name="att.anl.note"/>
+    <ref name="att.note.log"/>
+    <ref name="att.note.vis"/>
+    <ref name="att.note.ges"/>
+    <ref name="att.note.anl"/>
   </define>
 
   <define name="content.num">
@@ -5781,6 +5960,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="num">
     <element name="num">
       <a:documentation xml:lang="eng">number ― Numeric information in any form
@@ -5789,6 +5969,7 @@
       <ref name="content.num"/>
     </element>
   </define>
+
   <define name="attlist.num">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5809,6 +5990,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="p">
     <element name="p">
       <a:documentation xml:lang="eng">paragraph ― One or more text phrases that
@@ -5819,6 +6001,7 @@
       <ref name="content.p"/>
     </element>
   </define>
+
   <define name="attlist.p">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5829,6 +6012,7 @@
   <define name="content.pad">
     <empty/>
   </define>
+
   <define name="pad">
     <element name="pad">
       <a:documentation xml:lang="eng">pad ― An indication of extra visual space
@@ -5837,12 +6021,13 @@
       <ref name="content.pad"/>
     </element>
   </define>
+
   <define name="attlist.pad">
     <ref name="att.common"/>
-    <ref name="att.log.pad"/>
-    <ref name="att.vis.pad"/>
-    <ref name="att.ges.pad"/>
-    <ref name="att.anl.pad"/>
+    <ref name="att.pad.log"/>
+    <ref name="att.pad.vis"/>
+    <ref name="att.pad.ges"/>
+    <ref name="att.pad.anl"/>
   </define>
 
   <define name="content.parts">
@@ -5850,6 +6035,7 @@
       <ref name="model.partLike"/>
     </zeroOrMore>
   </define>
+
   <define name="parts">
     <element name="parts">
       <a:documentation xml:lang="eng">parts ― Gathers performers'
@@ -5858,13 +6044,14 @@
       <ref name="content.parts"/>
     </element>
   </define>
+
   <define name="attlist.parts">
     <ref name="att.common"/>
     <ref name="att.typed"/>
-    <ref name="att.log.parts"/>
-    <ref name="att.vis.parts"/>
-    <ref name="att.ges.parts"/>
-    <ref name="att.anl.parts"/>
+    <ref name="att.parts.log"/>
+    <ref name="att.parts.vis"/>
+    <ref name="att.parts.ges"/>
+    <ref name="att.parts.anl"/>
   </define>
 
   <define name="content.part">
@@ -5872,6 +6059,7 @@
       <ref name="model.scorePart"/>
     </zeroOrMore>
   </define>
+
   <define name="part">
     <element name="part">
       <a:documentation xml:lang="eng">part ― An alternative visual rendition of
@@ -5890,18 +6078,20 @@
       <ref name="content.part"/>
     </element>
   </define>
+
   <define name="attlist.part">
     <ref name="att.common"/>
     <ref name="att.typed"/>
-    <ref name="att.log.part"/>
-    <ref name="att.vis.part"/>
-    <ref name="att.ges.part"/>
-    <ref name="att.anl.part"/>
+    <ref name="att.part.log"/>
+    <ref name="att.part.vis"/>
+    <ref name="att.part.ges"/>
+    <ref name="att.part.anl"/>
   </define>
 
   <define name="content.pb">
     <ref name="model.metaLike.page"/>
   </define>
+
   <define name="pb">
     <element name="pb">
       <a:documentation xml:lang="eng">page break ― The n attribute records the
@@ -5913,6 +6103,7 @@
       <ref name="content.pb"/>
     </element>
   </define>
+
   <define name="attlist.pb">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -5951,6 +6142,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="pgdesc">
     <element name="pgdesc">
       <a:documentation xml:lang="eng">page description ― Contains a brief prose
@@ -5963,6 +6155,7 @@
       <ref name="content.pgdesc"/>
     </element>
   </define>
+
   <define name="attlist.pgdesc">
     <ref name="att.common"/>
     <ref name="att.lang"/>
@@ -5976,9 +6169,11 @@
         <ref name="model.textphraseLike.limited"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
+        <ref name="model.appLike"/>
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="pgfoot1">
     <element name="pgfoot1">
       <a:documentation xml:lang="eng">page footer 1 ― A running footer on the
@@ -5990,6 +6185,7 @@
       <ref name="content.pgfoot1"/>
     </element>
   </define>
+
   <define name="attlist.pgfoot1">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -6004,9 +6200,11 @@
         <ref name="model.textphraseLike.limited"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
+        <ref name="model.appLike"/>
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="pgfoot2">
     <element name="pgfoot2">
       <a:documentation xml:lang="eng">page footer 2 ― A running header on the
@@ -6018,6 +6216,7 @@
       <ref name="content.pgfoot2"/>
     </element>
   </define>
+
   <define name="attlist.pgfoot2">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -6032,9 +6231,11 @@
         <ref name="model.textphraseLike.limited"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
+        <ref name="model.appLike"/>
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="pghead1">
     <element name="pghead1">
       <a:documentation xml:lang="eng">page header 1 ― A running header on the
@@ -6048,6 +6249,7 @@
       <ref name="content.pghead1"/>
     </element>
   </define>
+
   <define name="attlist.pghead1">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -6062,9 +6264,11 @@
         <ref name="model.textphraseLike.limited"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
+        <ref name="model.appLike"/>
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="pghead2">
     <element name="pghead2">
       <a:documentation xml:lang="eng">page header 2 ― A running header on the
@@ -6076,6 +6280,7 @@
       <ref name="content.pghead2"/>
     </element>
   </define>
+
   <define name="attlist.pghead2">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -6085,6 +6290,7 @@
   <define name="content.phrase">
     <empty/>
   </define>
+
   <define name="phrase">
     <element name="phrase">
       <a:documentation xml:lang="eng">phrase ― Historically, a phrase mark
@@ -6105,13 +6311,14 @@
       <ref name="content.phrase"/>
     </element>
   </define>
+
   <define name="attlist.phrase">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.phrase"/>
-    <ref name="att.vis.phrase"/>
-    <ref name="att.ges.phrase"/>
-    <ref name="att.anl.phrase"/>
+    <ref name="att.phrase.log"/>
+    <ref name="att.phrase.vis"/>
+    <ref name="att.phrase.ges"/>
+    <ref name="att.phrase.anl"/>
   </define>
 
   <define name="content.rend">
@@ -6124,6 +6331,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="rend">
     <element name="rend">
       <a:documentation xml:lang="eng">rend ― A formatting element indicating
@@ -6135,6 +6343,7 @@
       <ref name="content.rend"/>
     </element>
   </define>
+
   <define name="attlist.rend">
     <ref name="att.color"/>
     <ref name="att.common"/>
@@ -6197,6 +6406,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="repository">
     <element name="repository">
       <a:documentation xml:lang="eng">repository ― Institution or agency which
@@ -6206,6 +6416,7 @@
       <ref name="content.repository"/>
     </element>
   </define>
+
   <define name="attlist.repository">
     <ref name="att.bibl"/>
     <ref name="att.common"/>
@@ -6218,6 +6429,7 @@
   <define name="content.rest">
     <empty/>
   </define>
+
   <define name="rest">
     <element name="rest">
       <a:documentation xml:lang="eng">rest ― A non-sounding event found in the
@@ -6228,13 +6440,14 @@
       <ref name="content.rest"/>
     </element>
   </define>
+
   <define name="attlist.rest">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.rest"/>
-    <ref name="att.vis.rest"/>
-    <ref name="att.ges.rest"/>
-    <ref name="att.anl.rest"/>
+    <ref name="att.rest.log"/>
+    <ref name="att.rest.vis"/>
+    <ref name="att.rest.ges"/>
+    <ref name="att.rest.anl"/>
   </define>
 
   <define name="content.sb">
@@ -6242,6 +6455,7 @@
       <ref name="custos"/>
     </optional>
   </define>
+
   <define name="sb">
     <element name="sb">
       <a:documentation xml:lang="eng">system break ― An empty formatting element
@@ -6252,13 +6466,14 @@
       <ref name="content.sb"/>
     </element>
   </define>
+
   <define name="attlist.sb">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.sb"/>
-    <ref name="att.vis.sb"/>
-    <ref name="att.ges.sb"/>
-    <ref name="att.anl.sb"/>
+    <ref name="att.sb.log"/>
+    <ref name="att.sb.vis"/>
+    <ref name="att.sb.ges"/>
+    <ref name="att.sb.anl"/>
   </define>
 
   <define name="content.score">
@@ -6269,6 +6484,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="score">
     <element name="score">
       <a:documentation xml:lang="eng">score ― Full score view of the mdiv. Since
@@ -6280,13 +6496,14 @@
       <ref name="content.score"/>
     </element>
   </define>
+
   <define name="attlist.score">
     <ref name="att.common"/>
     <ref name="att.typed"/>
-    <ref name="att.log.score"/>
-    <ref name="att.vis.score"/>
-    <ref name="att.ges.score"/>
-    <ref name="att.anl.score"/>
+    <ref name="att.score.log"/>
+    <ref name="att.score.vis"/>
+    <ref name="att.score.ges"/>
+    <ref name="att.score.anl"/>
   </define>
 
   <define name="content.scoredef">
@@ -6315,6 +6532,7 @@
       </optional> -->
     </choice>
   </define>
+
   <define name="scoredef">
     <element name="scoredef">
       <a:documentation xml:lang="eng">score definition ― Container for score
@@ -6341,12 +6559,13 @@
       <ref name="content.scoredef"/>
     </element>
   </define>
+
   <define name="attlist.scoredef">
     <ref name="att.common"/>
-    <ref name="att.log.scoredef"/>
-    <ref name="att.vis.scoredef"/>
-    <ref name="att.ges.scoredef"/>
-    <ref name="att.anl.scoredef"/>
+    <ref name="att.scoredef.log"/>
+    <ref name="att.scoredef.vis"/>
+    <ref name="att.scoredef.ges"/>
+    <ref name="att.scoredef.anl"/>
   </define>
 
   <define name="content.section">
@@ -6360,6 +6579,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="section">
     <element name="section">
       <a:documentation xml:lang="eng">section ― Container for actual music data.
@@ -6370,6 +6590,7 @@
       <ref name="content.section"/>
     </element>
   </define>
+
   <define name="attlist.section">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -6377,15 +6598,16 @@
     <ref name="att.link.common"/>
     <ref name="att.link.external"/>
     <ref name="att.link.internal"/>
-    <ref name="att.log.section"/>
-    <ref name="att.vis.section"/>
-    <ref name="att.ges.section"/>
-    <ref name="att.anl.section"/>
+    <ref name="att.section.log"/>
+    <ref name="att.section.vis"/>
+    <ref name="att.section.ges"/>
+    <ref name="att.section.anl"/>
   </define>
 
   <define name="content.space">
     <empty/>
   </define>
+
   <define name="space">
     <element name="space">
       <a:documentation xml:lang="eng">space ― A placeholder used to fill an
@@ -6396,13 +6618,14 @@
       <ref name="content.space"/>
     </element>
   </define>
+
   <define name="attlist.space">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.space"/>
-    <ref name="att.vis.space"/>
-    <ref name="att.ges.space"/>
-    <ref name="att.anl.space"/>
+    <ref name="att.space.log"/>
+    <ref name="att.space.vis"/>
+    <ref name="att.space.ges"/>
+    <ref name="att.space.anl"/>
   </define>
 
   <define name="content.stack">
@@ -6413,6 +6636,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="stack">
     <element name="stack">
       <a:documentation xml:lang="eng">stacked text ― An inline table with a
@@ -6421,6 +6645,7 @@
       <ref name="content.stack"/>
     </element>
   </define>
+
   <define name="attlist.stack">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -6453,6 +6678,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="staff">
     <element name="staff">
       <a:documentation xml:lang="eng">staff ― The n attribute is a connection
@@ -6464,13 +6690,14 @@
       <ref name="content.staff"/>
     </element>
   </define>
+
   <define name="attlist.staff">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.staff"/>
-    <ref name="att.vis.staff"/>
-    <ref name="att.ges.staff"/>
-    <ref name="att.anl.staff"/>
+    <ref name="att.staff.log"/>
+    <ref name="att.staff.vis"/>
+    <ref name="att.staff.ges"/>
+    <ref name="att.staff.anl"/>
   </define>
 
   <define name="content.staffdef">
@@ -6488,6 +6715,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="staffdef">
     <element name="staffdef">
       <a:documentation xml:lang="eng">staff definition ― Container for staff
@@ -6496,12 +6724,13 @@
       <ref name="content.staffdef"/>
     </element>
   </define>
+
   <define name="attlist.staffdef">
     <ref name="att.common"/>
-    <ref name="att.log.staffdef"/>
-    <ref name="att.vis.staffdef"/>
-    <ref name="att.ges.staffdef"/>
-    <ref name="att.anl.staffdef"/>
+    <ref name="att.staffdef.log"/>
+    <ref name="att.staffdef.vis"/>
+    <ref name="att.staffdef.ges"/>
+    <ref name="att.staffdef.anl"/>
   </define>
 
   <define name="content.staffgrp">
@@ -6524,6 +6753,7 @@
       <ref name="grpsym"/>
     </zeroOrMore>
   </define>
+
   <define name="staffgrp">
     <element name="staffgrp">
       <a:documentation xml:lang="eng">staff group ― A group of bracketed or
@@ -6535,13 +6765,14 @@
       <ref name="content.staffgrp"/>
     </element>
   </define>
+
   <define name="attlist.staffgrp">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.staffgrp"/>
-    <ref name="att.vis.staffgrp"/>
-    <ref name="att.ges.staffgrp"/>
-    <ref name="att.anl.staffgrp"/>
+    <ref name="att.staffgrp.log"/>
+    <ref name="att.staffgrp.vis"/>
+    <ref name="att.staffgrp.ges"/>
+    <ref name="att.staffgrp.anl"/>
   </define>
 
   <define name="content.syl">
@@ -6554,6 +6785,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="syl">
     <element name="syl">
       <a:documentation xml:lang="eng">syllable ― Individual lyric syllable. Do
@@ -6562,13 +6794,14 @@
       <ref name="content.syl"/>
     </element>
   </define>
+
   <define name="attlist.syl">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.syl"/>
-    <ref name="att.vis.syl"/>
-    <ref name="att.ges.syl"/>
-    <ref name="att.anl.syl"/>
+    <ref name="att.syl.log"/>
+    <ref name="att.syl.vis"/>
+    <ref name="att.syl.ges"/>
+    <ref name="att.syl.anl"/>
   </define>
 
   <define name="content.tempo">
@@ -6582,6 +6815,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="tempo">
     <element name="tempo">
       <a:documentation xml:lang="eng">tempo ― Text and symbols descriptive of
@@ -6593,14 +6827,15 @@
       <ref name="content.tempo"/>
     </element>
   </define>
+
   <define name="attlist.tempo">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
-    <ref name="att.log.tempo"/>
-    <ref name="att.vis.tempo"/>
-    <ref name="att.ges.tempo"/>
-    <ref name="att.anl.tempo"/>
+    <ref name="att.tempo.log"/>
+    <ref name="att.tempo.vis"/>
+    <ref name="att.tempo.ges"/>
+    <ref name="att.tempo.anl"/>
   </define>
 
   <define name="content.title">
@@ -6613,6 +6848,7 @@
       </choice>
     </zeroOrMore>
   </define>
+
   <define name="title">
     <element name="title">
       <a:documentation xml:lang="eng">title ― Title of a bibliographic entity.
@@ -6631,6 +6867,7 @@
       <ref name="content.title"/>
     </element>
   </define>
+
   <define name="attlist.title">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
@@ -6661,6 +6898,7 @@
       </choice>
     </oneOrMore>
   </define>
+
   <define name="titlepage">
     <element name="titlepage">
       <a:documentation xml:lang="eng">title page ― Contains a transcription of
@@ -6670,6 +6908,7 @@
       <ref name="content.titlepage"/>
     </element>
   </define>
+
   <define name="attlist.titlepage">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>

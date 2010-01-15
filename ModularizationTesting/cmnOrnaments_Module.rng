@@ -9,16 +9,18 @@
 
   <!-- CMN Ornaments Module -->
   <!-- Declare module attr classes -->
-  <define name="att.anl.mordent" combine="interleave">
+  <define name="att.mordent.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.mordent" combine="interleave">
+
+  <define name="att.mordent.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.mordent" combine="interleave">
+
+  <define name="att.mordent.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
@@ -64,19 +66,21 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.mordent" combine="interleave">
+
+  <define name="att.mordent.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
     <ref name="att.placement"/>
     <ref name="att.visualoffset"/>
   </define>
 
-  <define name="att.anl.trill" combine="interleave">
+  <define name="att.trill.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.trill" combine="interleave">
+
+  <define name="att.trill.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
       <attribute name="dur.ges">
@@ -88,7 +92,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.log.trill" combine="interleave">
+
+  <define name="att.trill.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
@@ -110,7 +115,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.trill" combine="interleave">
+
+  <define name="att.trill.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
     <ref name="att.placement"/>
@@ -120,16 +126,18 @@
     <ref name="att.xy"/>
   </define>
 
-  <define name="att.anl.turn" combine="interleave">
+  <define name="att.turn.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
   </define>
-  <define name="att.ges.turn" combine="interleave">
+
+  <define name="att.turn.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <empty/>
   </define>
-  <define name="att.log.turn" combine="interleave">
+
+  <define name="att.turn.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <optional>
@@ -172,7 +180,8 @@
       </attribute>
     </optional>
   </define>
-  <define name="att.vis.turn" combine="interleave">
+
+  <define name="att.turn.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
     <ref name="att.placement"/>
@@ -197,6 +206,7 @@
       <ref name="model.eventLike"/>
     </zeroOrMore>
   </define>
+
   <define name="mordent">
     <element name="mordent">
       <a:documentation xml:lang="eng">mordent ― An ornament indicating rapid
@@ -211,13 +221,14 @@
       <ref name="content.mordent"/>
     </element>
   </define>
+
   <define name="attlist.mordent">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.mordent"/>
-    <ref name="att.vis.mordent"/>
-    <ref name="att.ges.mordent"/>
-    <ref name="att.anl.mordent"/>
+    <ref name="att.mordent.log"/>
+    <ref name="att.mordent.vis"/>
+    <ref name="att.mordent.ges"/>
+    <ref name="att.mordent.anl"/>
   </define>
 
   <define name="content.trill">
@@ -225,6 +236,7 @@
       <ref name="model.eventLike"/>
     </zeroOrMore>
   </define>
+
   <define name="trill">
     <element name="trill">
       <a:documentation xml:lang="eng">trill ― Rapid alternation of two notes a
@@ -240,13 +252,14 @@
       <ref name="content.trill"/>
     </element>
   </define>
+
   <define name="attlist.trill">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.trill"/>
-    <ref name="att.vis.trill"/>
-    <ref name="att.ges.trill"/>
-    <ref name="att.anl.trill"/>
+    <ref name="att.trill.log"/>
+    <ref name="att.trill.vis"/>
+    <ref name="att.trill.ges"/>
+    <ref name="att.trill.anl"/>
   </define>
 
   <define name="content.turn">
@@ -254,6 +267,7 @@
       <ref name="model.eventLike"/>
     </zeroOrMore>
   </define>
+
   <define name="turn">
     <element name="turn">
       <a:documentation xml:lang="eng">turn ― An ornament consisting of four
@@ -267,12 +281,14 @@
       <ref name="content.turn"/>
     </element>
   </define>
+
   <define name="attlist.turn">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <ref name="att.log.turn"/>
-    <ref name="att.vis.turn"/>
-    <ref name="att.ges.turn"/>
-    <ref name="att.anl.turn"/>
+    <ref name="att.turn.log"/>
+    <ref name="att.turn.vis"/>
+    <ref name="att.turn.ges"/>
+    <ref name="att.turn.anl"/>
   </define>
+
 </grammar>
