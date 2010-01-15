@@ -49,16 +49,6 @@
       </sch:rule>
     </sch:pattern>
     <sch:pattern>
-      <sch:title>(@x and @y) or @staffloc attributes required on
-        keyaccid</sch:title>
-      <sch:rule context="keyaccid">
-        <sch:assert
-          test="(@x and @y and not(@staffloc)) or (@staffloc and not(@x or @y))"
-          >Must have either x and y attributes or staffloc attribute
-        </sch:assert>
-      </sch:rule>
-    </sch:pattern>
-    <sch:pattern>
       <sch:rule context="staffgrp">
         <sch:let name="countstaves" value="count(descendant::staffdef)"/>
         <sch:let name="countuniqstaves"
