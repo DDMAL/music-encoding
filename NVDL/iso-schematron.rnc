@@ -1,5 +1,4 @@
-<html><head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body>#        (c) International Organization for Standardization 2005. 
+#       (c) International Organization for Standardization 2005. 
 #       Permission to copy in any form is granted for use with conforming 
 #       SGML systems and applications as defined in ISO 8879, 
 #       provided this notice is included in all copies.
@@ -18,8 +17,8 @@ schema = element schema {
     attribute defaultPhase { xsd:IDREF }?,  
     attribute queryBinding { non-empty-string }?,
     (foreign
-     &amp; inclusion*
-     &amp;  (title?,
+     & inclusion*
+     &  (title?,
        ns*,
        p*,
        let*,
@@ -31,7 +30,7 @@ schema = element schema {
 
 active = element active {
     attribute pattern { xsd:IDREF },
-    (foreign &amp; (text | dir | emph | span)*)
+    (foreign & (text | dir | emph | span)*)
 }
 
 assert = element assert {
@@ -41,22 +40,22 @@ assert = element assert {
     attribute diagnostics { xsd:IDREFS }?, 
     rich,
     linkable,
-    (foreign &amp; (text | name | value-of | emph | dir | span)*)
+    (foreign & (text | name | value-of | emph | dir | span)*)
 }
 
 diagnostic = element diagnostic {
     attribute id { xsd:ID },
     rich, 
-    (foreign &amp; (text | value-of | emph | dir | span)*)
+    (foreign & (text | value-of | emph | dir | span)*)
 }
   
 diagnostics = element diagnostics { 
-    foreign &amp; inclusion* &amp; diagnostic* 
+    foreign & inclusion* & diagnostic* 
 }
     
 dir = element dir {
     attribute value { "ltr" | "rtl" }?,
-    (foreign &amp; text)
+    (foreign & text)
 }
 
 emph = element emph { text }
@@ -86,7 +85,7 @@ p = element p {
     attribute id { xsd:ID }?,
     attribute class { classValue }?,
     attribute icon { uriValue }?,
-    (foreign &amp; (text | dir | emph | span)*)
+    (foreign & (text | dir | emph | span)*)
 }
 
 param = element param {
@@ -96,7 +95,7 @@ param = element param {
 
 pattern = element pattern {     
     rich,
-    (foreign &amp; inclusion* &amp; 
+    (foreign & inclusion* & 
      ( (attribute abstract { "true" }, attribute id { xsd:ID }, 
              title?, (p*, let*, rule*))
      |  (attribute abstract { "false" }?, attribute id { xsd:ID }?, 
@@ -110,7 +109,7 @@ pattern = element pattern {
 phase = element phase {
     attribute id { xsd:ID },
     rich, 
-    (foreign &amp; inclusion* &amp; (p*, let*, active*))
+    (foreign & inclusion* & (p*, let*, active*))
 }
 
 report = element report {
@@ -120,15 +119,15 @@ report = element report {
     attribute diagnostics { xsd:IDREFS }?, 
     rich,
     linkable,
-    (foreign &amp;  (text | name | value-of | emph | dir | span)*)
+    (foreign & (text | name | value-of | emph | dir | span)*)
 } 
 
 rule = element rule { 
     attribute flag { flagValue }?,
     rich,
     linkable,
-    (foreign &amp; inclusion* 
-     &amp; ((attribute abstract { "true" }, 
+    (foreign & inclusion* 
+     & ((attribute abstract { "true" }, 
             attribute id { xsd:ID }, let*, (assert | report | extends)+)
         | (attribute context { pathValue },
             attribute id { xsd:ID }?, 
@@ -138,7 +137,7 @@ rule = element rule {
 
 span = element span {
     attribute class { classValue },
-    (foreign &amp; text)
+    (foreign & text)
 }
 
 title = element title { 
@@ -194,4 +193,4 @@ flagValue = string
 nameValue = string  # In the default query language binding, xsd:NCNAME
 classValue = string
 
-non-empty-string = xsd:token { minLength = "1" }</body></html>
+non-empty-string = xsd:token { minLength = "1" }

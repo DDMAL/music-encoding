@@ -646,25 +646,7 @@
       </attribute>
     </optional>
   </define>
-
-  <define name="att.xy.required" combine="interleave">
-    <a:documentation xml:lang="eng">Required output coordinate attributes. Some
-      elements must have their exact rendered *output* coordinates recorded. x
-      and y attributes indicate where to place the rendered output. Recording
-      the coordinates of a feature in a facsimile requires the use of the facs
-      attribute.</a:documentation>
-    <attribute name="x">
-      <a:documentation xml:lang="eng">encodes the required x
-        coordinate.</a:documentation>
-      <ref name="data.NUMBER"/>
-    </attribute>
-    <attribute name="y">
-      <a:documentation xml:lang="eng">encodes the required y
-        coordinate.</a:documentation>
-      <ref name="data.NUMBER"/>
-    </attribute>
-  </define>
-
+  
   <define name="att.xy2" combine="interleave">
     <a:documentation xml:lang="eng">Output coordinate attributes. Some elements
       may need 2 coordinate pairs to record their rendered *output*
@@ -683,22 +665,6 @@
         <ref name="data.NUMBER"/>
       </attribute>
     </optional>
-  </define>
-
-  <define name="att.xy2.required" combine="interleave">
-    <a:documentation xml:lang="eng">Required output coordinate attributes. Some
-      elements must have 2 coordinate pairs to record their output
-      coordinates.</a:documentation>
-    <attribute name="x2">
-      <a:documentation xml:lang="eng">encodes the required 2nd x
-        coordinate.</a:documentation>
-      <ref name="data.NUMBER"/>
-    </attribute>
-    <attribute name="y2">
-      <a:documentation xml:lang="eng">encodes the required 2nd y
-        coordinate.</a:documentation>
-      <ref name="data.NUMBER"/>
-    </attribute>
   </define>
 
   <!-- Domain attr classes for musical elements -->

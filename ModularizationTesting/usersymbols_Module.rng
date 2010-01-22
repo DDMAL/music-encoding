@@ -44,10 +44,13 @@
     <element name="anchoredtext">
       <a:documentation xml:lang="eng">anchoredtext ― Page-anchored text. The
         content model here is similar to paragraph without model.textcomponent
-        and &lt;pb&gt; sub-elements. If the startid attribute is
-        present, then the xy coordinates are relative to the xy coordinates of
-        the referenced element. Otherwise, they are assumed to be absolute page
-        coordinate references.</a:documentation>
+        and &lt;pb&gt; sub-elements. The starting point of the text may
+        be identified in absolute output coordinate terms using the x and y
+        attributes or relative to the location of another element using the
+        startid attribute. The attributes in the att.visualoffset class may be
+        used to record horizontal, vertical, or time offsets from the absolute
+        coordinates or from the location of the referenced
+        element.</a:documentation>
       <ref name="attlist.anchoredtext"/>
       <ref name="content.anchoredtext"/>
     </element>
@@ -59,7 +62,8 @@
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
     <ref name="att.typed"/>
-    <ref name="att.xy.required"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.xy"/>
     <optional>
       <attribute name="startid">
         <a:documentation xml:lang="eng">holds a reference to the element to
@@ -76,19 +80,23 @@
   <define name="curve">
     <element name="curve">
       <a:documentation xml:lang="eng">curve ― A curved line that cannot be
-        represented by a more specific element. The x1,y1 and x2,y2 attributes
-        identify the two terminal points of the curve. If the startid or endid
-        attributes are present, then the x,y and x2,y2 coordinates are relative
-        to the xy coordinates of the referenced element(s). Otherwise, they are
-        assumed to be absolute page coordinate references. The bulge or,
-        alternatively, the bezier attribute, describe the shape of the curve.
+        represented by a more specific element. The starting point of the curve
+        may be identified in absolute output coordinate terms using the x1 and
+        y1 attributes or relative to the location of another element using the
+        startid attribute. The attributes in the att.visualoffset class may be
+        used to record horizontal, vertical, or time offsets from the absolute
+        coordinates or from the location of the referenced element. Similarly,
+        the terminal point of the curve may be recorded using either the x2,y2
+        coordinates or in relation to the location of another element using the
+        endid attribute. Attributes in the att.visualoffset2 class maybe used to
+        record the offsets of the ending point. The bulge attribute or,
+        alternatively, the bezier attribute, describes the shape of the curve.
         The bulge attribute describes the curve as a set of distance values
         above or below an imaginary line connecting the endpoints of the curve
         while the bezier attribute records the placement of Bezier control
         points as a series of space-separated xy coordinate pairs, eg. 19 45 -32
         118. The bulge attribute must contain one or more values of the NUMBER
-        datatype. Either the bezier attribute or the bulge and xy coordinates
-        are required. The rend attribute captures the appearance of the
+        datatype. The rend attribute captures the appearance of the
         curve.</a:documentation>
       <ref name="attlist.curve"/>
       <ref name="content.curve"/>
@@ -102,8 +110,10 @@
     <ref name="att.facsimile"/>
     <ref name="att.startendid"/>
     <ref name="att.typed"/>
-    <ref name="att.xy.required"/>
-    <ref name="att.xy2.required"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.visualoffset2"/>
+    <ref name="att.xy"/>
+    <ref name="att.xy2"/>
     <optional>
       <attribute name="bezier">
         <a:documentation xml:lang="eng">records the placement of Bezier control
@@ -142,13 +152,18 @@
   <define name="line">
     <element name="line">
       <a:documentation xml:lang="eng">line ― A line that cannot be represented
-        by a more specific element. The x,y and x2,y2 attributes identify the
-        two terminal points of the line. Text content of the line element, e.g.
-        'gliss.', may be rendered with the line. If the startid or endid
-        attributes are present, then the x,y and x2,y2 coordinates are relative
-        to the xy coordinates of the referenced element(s). Otherwise, they are
-        assumed to be absolute page coordinate references. The appearance of the
-        line is captured in the rend attribute.</a:documentation>
+        by a more specific element. The starting point of the line may be
+        identified in absolute output coordinate terms using the x1 and y1
+        attributes or relative to the location of another element using the
+        startid attribute. The attributes in the att.visualoffset class may be
+        used to record horizontal, vertical, or time offsets from the absolute
+        coordinates or from the location of the referenced element. Similarly,
+        the terminal point of the line may be recorded using either the x2 and
+        y2 attributes or in relation to the location of another element using
+        the endid attribute. Attributes in the att.visualoffset2 class maybe
+        used to record the offsets of the ending point. Text content of the line
+        element, e.g. 'gliss.', may be rendered with the line. The appearance of
+        the line is captured in the rend attribute.</a:documentation>
       <ref name="attlist.line"/>
       <ref name="content.line"/>
     </element>
@@ -161,8 +176,10 @@
     <ref name="att.facsimile"/>
     <ref name="att.startendid"/>
     <ref name="att.typed"/>
-    <ref name="att.xy.required"/>
-    <ref name="att.xy2.required"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.visualoffset2"/>
+    <ref name="att.xy"/>
+    <ref name="att.xy2"/>
     <optional>
       <attribute name="rend">
         <a:documentation xml:lang="eng">records the visual appearance of a
@@ -179,13 +196,15 @@
   <define name="symbol">
     <element name="symbol">
       <a:documentation xml:lang="eng">symbol ― A reference to a previously
-        defined symbol. The x and y attributes identify the starting point, e.g.
-        "hotspot" of the symbol. If the startid attribute is present, then the
-        xy coordinates are relative to the xy coordinates of the referenced
-        element. Otherwise, they are assumed to be absolute page coordinate
-        references. The ref attribute must contain the id of a symboldef
-        element. The scale attribute indicates that the printed output must be
-        scaled by the specified percentage.</a:documentation>
+        defined symbol. The starting point, e.g. "hotspot", of the symbol may be
+        indentified in absolute output coordinate terms using the x and y
+        attributes or relative to another element using the startid attribute.
+        Attributes in the att.visualoffset class may be used to record
+        horizontal, vertical, or time offsets from the absolute coordinates or
+        from the location of the referenced element. The ref attribute must
+        contain the id of a symboldef element. The scale attribute indicates
+        that the printed output must be scaled by the specified
+        percentage.</a:documentation>
       <ref name="attlist.symbol"/>
       <ref name="content.symbol"/>
     </element>
@@ -197,7 +216,8 @@
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.typed"/>
-    <ref name="att.xy.required"/>
+    <ref name="att.visualoffset"/>
+    <ref name="att.xy"/>
     <attribute name="ref">
       <a:documentation xml:lang="eng">contains a reference to a
         previously-declared user-defined symbol.</a:documentation>
