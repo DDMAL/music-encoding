@@ -48,6 +48,21 @@
         <ref name="data.INTEGERPOSITIVE"/>
       </attribute>
     </optional>
+    <ref name="att.source"/>
+    <!-- <optional>
+      <attribute name="source">
+        <a:documentation xml:lang="eng">contains a list of one or more pointers
+          indicating the sources which attest to a given reading. Each value
+          should correspond to the ID of a &lt;source&gt; element
+          located in the document header.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional> -->
+  </define>
+
+  <define name="att.source" combine="interleave">
+    <a:documentation>Attributes common to elements that may refer to a
+      source</a:documentation>
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">contains a list of one or more pointers

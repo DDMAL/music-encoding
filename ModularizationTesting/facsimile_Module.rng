@@ -8,6 +8,7 @@
   xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <!-- Facsimile module -->
+  <!-- Declare module attr classes -->
   <define name="att.facsimile" combine="interleave">
     <optional>
       <attribute name="facs">
@@ -19,10 +20,12 @@
     </optional>
   </define>
 
+  <!-- Declare module model classes -->
   <define name="model.facsimileLike" combine="interleave">
     <ref name="facsimile"/>
   </define>
 
+  <!-- Declare module elements -->
   <define name="content.facsimile">
     <zeroOrMore>
       <ref name="surface"/>
@@ -42,6 +45,8 @@
 
   <define name="attlist.facsimile">
     <ref name="att.common"/>
+    <ref name="att.source"/>
+    <!-- Moved to critApp module
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">A source description in the header may
@@ -49,7 +54,7 @@
           attribute.</a:documentation>
         <data type="IDREF"/>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
 
   <define name="content.surface">

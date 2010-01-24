@@ -970,20 +970,6 @@
         </a:documentation>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="grace">
-        <a:documentation xml:lang="eng">marks this chord as a grace and records
-          from which note/chord it should "steal" time.</a:documentation>
-        <ref name="data.GRACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="grace.time">
-        <a:documentation xml:lang="eng">records the amount of time to be
-          "stolen" from a non-grace note/chord.</a:documentation>
-        <ref name="data.PERCENT"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="instr">
         <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
@@ -1380,13 +1366,14 @@
         identifies the location where the custos appears.</a:documentation>
       <ref name="data.PITCHNAME"/>
     </attribute>
+    <!-- Moved to critApp module
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">contains a list of one or more pointers
           indicating the sources which contain the custos.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
-    </optional>
+    </optional> -->
     <optional>
       <attribute name="target">
         <a:documentation xml:lang="eng">encodes the target note when its pitch
@@ -1944,27 +1931,6 @@
           etc.</a:documentation>
       </attribute>
     </optional>
-    <!-- <optional>
-      <attribute name="gliss">
-        <a:documentation xml:lang="eng">indicates that this element participates
-          in a glissando.</a:documentation>
-        <ref name="data.GLISSANDO"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="grace">
-        <a:documentation xml:lang="eng">marks this nota as a grace and records
-          from which note/chord it should "steal" time.</a:documentation>
-        <ref name="data.GRACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="grace.time">
-        <a:documentation xml:lang="eng">records the amount of time to be
-          "stolen" from a non-grace note or chord.</a:documentation>
-        <ref name="data.PERCENT"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="instr">
         <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
@@ -2420,6 +2386,8 @@
 
   <define name="att.sb.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <empty/>
+    <!-- Moved to critApp module
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">Source descriptions in the header may be
@@ -2428,7 +2396,7 @@
           &lt;sb&gt; element.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
 
   <define name="att.sb.vis" combine="interleave">
@@ -4742,6 +4710,7 @@
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
+    <ref name="att.source"/>
     <ref name="att.typed"/>
     <ref name="att.annot.log"/>
     <ref name="att.annot.vis"/>
@@ -4760,6 +4729,7 @@
         <data type="IDREFS"/>
       </attribute>
     </optional>
+    <!-- Moved to critApp module
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">contains a list of one or more pointers
@@ -4768,7 +4738,7 @@
           elsewhere in the document.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
 
   <define name="content.artic">
@@ -4997,6 +4967,7 @@
   <define name="attlist.custos">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
+    <ref name="att.source"/>
     <ref name="att.custos.log"/>
     <ref name="att.custos.vis"/>
     <ref name="att.custos.ges"/>
@@ -5260,6 +5231,7 @@
 
   <define name="attlist.expansion">
     <ref name="att.common"/>
+    <ref name="att.source"/>
     <ref name="att.typed"/>
     <optional>
       <attribute name="plist">
@@ -5271,6 +5243,7 @@
         <data type="IDREFS"/>
       </attribute>
     </optional>
+    <!-- Moved to critApp module
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">contains a list of one or more pointers
@@ -5280,7 +5253,7 @@
           document.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
 
   <define name="content.fw">
@@ -5624,6 +5597,8 @@
   <define name="attlist.label">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
+    <ref name="att.source"/>
+    <!-- Moved to critApp module
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">Source descriptions in the header may be
@@ -5632,7 +5607,7 @@
           element.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
 
   <define name="content.layer">
@@ -5709,6 +5684,7 @@
   <define name="attlist.lb">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
+    <ref name="att.source"/>
     <ref name="att.typed"/>
     <optional>
       <attribute name="func">
@@ -5720,6 +5696,7 @@
         </choice>
       </attribute>
     </optional>
+    <!-- Moved to critApp module
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">Source descriptions in the header may be
@@ -5728,7 +5705,7 @@
           &lt;lb&gt; element.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
 
   <define name="content.mdiv">
@@ -6075,6 +6052,7 @@
     <ref name="att.facsimile"/>
     <ref name="att.link.common"/>
     <ref name="att.link.external"/>
+    <ref name="att.source"/>
     <optional>
       <attribute name="func">
         <a:documentation xml:lang="eng">states the side of a leaf (as in a
@@ -6086,6 +6064,7 @@
         </choice>
       </attribute>
     </optional>
+    <!-- Moved to critApp module
     <optional>
       <attribute name="source">
         <a:documentation xml:lang="eng">provided for linking to the
@@ -6094,7 +6073,7 @@
           using a single &lt;pb&gt; element.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
 
   <define name="content.pgdesc">
@@ -6436,6 +6415,7 @@
   <define name="attlist.sb">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
+    <ref name="att.source"/>
     <ref name="att.sb.log"/>
     <ref name="att.sb.vis"/>
     <ref name="att.sb.ges"/>
