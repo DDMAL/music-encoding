@@ -4419,13 +4419,14 @@
     <ref name="section"/>
   </define>
 
-  <define name="model.sectionPart" combine="choice">
+  <define name="model.sectionPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       section.</a:documentation>
     <zeroOrMore>
       <choice>
         <ref name="model.sectionLike"/>
         <ref name="model.endingLike"/>
+        <ref name="model.staffLike"/>
       </choice>
     </zeroOrMore>
   </define>
