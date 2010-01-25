@@ -4173,7 +4173,7 @@
     <ref name="identifier"/>
   </define>
 
-  <define name="model.Incl" combine="interleave">
+  <!-- <define name="model.Incl" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear between as
       well as within MEI structural elements.</a:documentation>
     <choice>
@@ -4188,7 +4188,7 @@
       <ref name="model.editLike"/>
       <ref name="model.transcriptionLike"/>
     </choice>
-  </define>
+  </define> -->
 
   <define name="model.instrdefLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements used to declare a MIDI
@@ -5134,10 +5134,20 @@
     </zeroOrMore>
     <zeroOrMore>
       <choice>
-        <ref name="model.Incl"/>
-        <ref name="model.sectionPart"/>
-        <ref name="model.scoredefLike"/>
+        <ref name="model.appLike"/>
+        <ref name="model.divLike"/>
         <ref name="model.milestoneLike.music"/>
+        <ref name="model.scoredefLike"/>
+        <ref name="model.staffdefLike"/>
+        <ref name="model.staffgrpLike"/>
+        <ref name="model.annotLike"/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+        <!-- <ref name="model.Incl"/> -->
+        <ref name="model.sectionPart"/>
+        <!-- <ref name="model.scoredefLike"/>
+        <ref name="model.milestoneLike.music"/> -->
       </choice>
     </zeroOrMore>
   </define>
@@ -5613,7 +5623,17 @@
   <define name="content.layer">
     <zeroOrMore>
       <choice>
-        <ref name="model.Incl"/>
+        <ref name="model.appLike"/>
+        <ref name="model.divLike"/>
+        <ref name="model.milestoneLike.music"/>
+        <ref name="model.scoredefLike"/>
+        <ref name="model.staffdefLike"/>
+        <ref name="model.staffgrpLike"/>
+        <ref name="model.annotLike"/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+        <!-- <ref name="model.Incl"/> -->
         <ref name="model.layerPart"/>
       </choice>
     </zeroOrMore>
@@ -6425,7 +6445,17 @@
   <define name="content.score">
     <zeroOrMore>
       <choice>
-        <ref name="model.Incl"/>
+        <ref name="model.appLike"/>
+        <ref name="model.divLike"/>
+        <ref name="model.milestoneLike.music"/>
+        <ref name="model.scoredefLike"/>
+        <ref name="model.staffdefLike"/>
+        <ref name="model.staffgrpLike"/>
+        <ref name="model.annotLike"/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+        <!-- <ref name="model.Incl"/> -->
         <ref name="model.scorePart"/>
       </choice>
     </zeroOrMore>
@@ -6520,7 +6550,17 @@
     </zeroOrMore>
     <zeroOrMore>
       <choice>
-        <ref name="model.Incl"/>
+        <ref name="model.appLike"/>
+        <ref name="model.divLike"/>
+        <ref name="model.milestoneLike.music"/>
+        <ref name="model.scoredefLike"/>
+        <ref name="model.staffdefLike"/>
+        <ref name="model.staffgrpLike"/>
+        <ref name="model.annotLike"/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+        <!-- <ref name="model.Incl"/> -->
         <ref name="model.sectionPart"/>
       </choice>
     </zeroOrMore>
@@ -6619,7 +6659,17 @@
   <define name="content.staff">
     <zeroOrMore>
       <choice>
-        <ref name="model.Incl"/>
+        <ref name="model.appLike"/>
+        <ref name="model.divLike"/>
+        <ref name="model.milestoneLike.music"/>
+        <ref name="model.scoredefLike"/>
+        <ref name="model.staffdefLike"/>
+        <ref name="model.staffgrpLike"/>
+        <ref name="model.annotLike"/>
+        <ref name="model.graphicprimitiveLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
+        <!-- <ref name="model.Incl"/> -->
         <ref name="model.staffPart"/>
       </choice>
     </zeroOrMore>
