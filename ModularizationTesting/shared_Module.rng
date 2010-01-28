@@ -27,14 +27,15 @@
   <define name="att.bibl" combine="interleave">
     <a:documentation xml:lang="eng">Bibliographic attributes</a:documentation>
     <optional>
-      <attribute name="analog"/>
-      <a:documentation xml:lang="eng">contains a reference to a field or element
-        in another descriptive encoding system to which an MEI element is
-        comparable. Mapping elements from one system to another may help a
-        repository harvest selected data from the MEI file to build a basic
-        catalog record. The encoding system from which fields are taken must be
-        specified. When possible, subfields as well as fields should be
-        specified, e.g., subfields within MARC fields.</a:documentation>
+      <attribute name="analog">
+        <a:documentation xml:lang="eng">contains a reference to a field or
+          element in another descriptive encoding system to which an MEI element
+          is comparable. Mapping elements from one system to another may help a
+          repository harvest selected data from the MEI file to build a basic
+          catalog record. The encoding system from which fields are taken must
+          be specified. When possible, subfields as well as fields should be
+          specified, e.g., subfields within MARC fields.</a:documentation>
+      </attribute>
     </optional>
   </define>
 
@@ -646,7 +647,7 @@
       </attribute>
     </optional>
   </define>
-  
+
   <define name="att.xy2" combine="interleave">
     <a:documentation xml:lang="eng">Output coordinate attributes. Some elements
       may need 2 coordinate pairs to record their rendered *output*
