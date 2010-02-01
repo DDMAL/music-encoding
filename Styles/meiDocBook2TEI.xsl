@@ -245,9 +245,14 @@
       <div type="content">
         <head>May contain:</head>
         <p>
+          <xsl:variable name="contentRef">
+            <xsl:value-of
+              select="normalize-space(db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Type ']/db:entry[2]/db:link/@linkend)"
+            />
+          </xsl:variable>
           <xsl:variable name="maycontain">
             <xsl:value-of
-              select="normalize-space(db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Children ']/db:entry[2])"
+              select="normalize-space(//db:sect3[@xml:id=$contentRef]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Children ']/db:entry[2])"
             />
           </xsl:variable>
           <xsl:choose>
@@ -255,6 +260,14 @@
               <xsl:text>EMPTY</xsl:text>
             </xsl:when>
             <xsl:otherwise>
+              <xsl:variable name="mixed">
+                <xsl:value-of
+                  select="//db:sect3[@xml:id=$contentRef]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Properties ']/db:entry[2]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry='mixed: ']/db:entry[2]"
+                />
+              </xsl:variable>
+              <xsl:if test="$mixed != ''">
+                <xsl:text>TEXT, </xsl:text>
+              </xsl:if>
               <xsl:value-of select="$maycontain"/>
             </xsl:otherwise>
           </xsl:choose>
