@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ************************************************************** -->
+<!--
+  NAME:     Music Encoding Initiative (MEI)
+  
+  NOTICE:   Copyright (c) 2010 Perry Roland and the Rector and Visitors
+            of the University of Virginia.
+  
+            Licensed under the Educational Community License version 1.0.
+  
+            This Original Work, including software, source code,
+            documents, or other related items, is being provided by the
+            copyright holder(s) subject to the terms of the Educational
+            Community License. By obtaining, using and/or copying this
+            Original Work, you agree that you have read, understand, and
+            will comply with the following terms and conditions of the
+            Educational Community License:
+  
+            Permission to use, copy, modify, merge, publish, distribute,
+            and sublicense this Original Work and its documentation, with
+            or without modification, for any purpose, and without fee or
+            royalty to the copyright holder(s) is hereby granted, provided
+            that you include the following on ALL copies of the Original
+            Work or portions thereof, including modifications or
+            derivatives, that you make:
+  
+            The full text of the Educational Community License in a
+            location viewable to users of the redistributed or derivative
+            work. 
+  
+            Any pre-existing intellectual property disclaimers, notices,
+            or terms and conditions. 
+  
+            Notice of any changes or modifications to the Original Work,
+            including the date the changes were made. 
+  
+            Any modifications of the Original Work must be distributed in
+            such a manner as to avoid any confusion with the Original Work
+            of the copyright holders.
+  
+            THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+            KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+            WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+            PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+            COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+            LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+            OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+            SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+  
+            The name and trademarks of copyright holder(s) may NOT be used
+            in advertising or publicity pertaining to the Original or
+            Derivative Works without specific, written prior permission.
+            Title to copyright in the Original Work and any associated
+            documentation will at all times remain with the copyright
+            holders.
+  
+  PURPOSE:  This schema is intended for the representation and exchange
+            of mensural, neume, and common music notation (CMN).
+  
+            The semantic information contained in the MEI file may be
+            related to, and/or synchronized with, external digital image,
+            audio, or MIDI files.
+  
+            In addition to music notation, this schema provides the means to
+            transcribe the additional text typically found in a critical
+            or historical music edition. The schema also facilitates the
+            encoding of multiple versions of a musical work in a single
+            file.
+  
+  AUTHOR:   Perry Roland
+            pdr4h@virginia.edu
+            University of Virginia
+            Charlottesville, VA 22903
+-->
+
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!-- ************************************************************** -->
+  <!-- * MEI datatypes                                              * -->
+  <!-- ************************************************************** -->
+  <include href="datatypes.rng"/>
+
+  <!-- ************************************************************** -->
+  <!-- * Invoke default attribute and model class declarations      * -->
+  <!-- ************************************************************** -->
+  <include href="defaultClassDecls.rng"/>
+
+  <!-- ************************************************************** -->
+  <!-- * Define a class for start elements                          * -->
+  <!-- ************************************************************** -->
+  <define name="model.startLike">
+    <choice>
+      <ref name="mei"/>
+      <ref name="music"/>
+    </choice>
+  </define>
+
+  <!-- ************************************************************** -->
+  <!-- * Invoke the startLike class                                 * -->
+  <!-- ************************************************************** -->
+  <start>
+    <ref name="model.startLike"/>
+  </start>
+
+  <!-- ************************************************************** -->
+  <!-- * Include modules                                            * -->
+  <!-- ************************************************************** -->
+  <include href="coConstraints.rng"/>
+  <include href="shared_Module.rng">
+    <define name="body">
+      <notAllowed/>
+    </define>
+  </include>
+  <include href="header_Module.rng"/>
+  <!-- <include href="cmn_Module.rng"/>
+  <include href="mensural_Module.rng"/>
+  <include href="neumes_Module.rng"/>
+  <include href="analysis_Module.rng"/> -->
+  <include href="facsimile_Module.rng"/>
+  <include href="figtable_Module.rng"/>
+  <include href="ptrref_Module.rng"/>
+  <include href="namesdates_Module.rng"/>
+  <!-- <include href="usersymbols_Module.rng"/>
+  <include href="text_Module.rng"/>
+  <include href="linkalign_Module.rng"/>
+  <include href="edittrans_Module.rng"/>
+  <include href="tablature_Module.rng"/>
+  <include href="critapp_Module.rng"/>
+  <include href="cmnOrnaments_Module.rng"/>
+  <include href="harmony_Module.rng"/>
+  <include href="midi_Module.rng"/>
+  <include href="lyrics_Module.rng"/> -->
+
+</grammar>
