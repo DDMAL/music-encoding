@@ -4597,12 +4597,13 @@
 
   <define name="accid">
     <element name="accid">
-      <a:documentation xml:lang="eng">accidental ― This element provides an
-        alternative to the acci attributes on the &lt;note&gt; element.
-        The element should be used when specific display info, such as size or
-        color, needs to be recorded for the accidental. The func attribute can
-        be used to differentiate different functions, such as 'cautionary' or
-        'editorial'.</a:documentation>
+      <a:documentation xml:lang="eng">accidental ― This element captures a
+        temporary alteration to the pitch of a note. It provides an alternative
+        to the accid attributes on the &lt;note&gt; element. The element
+        should be used when specific display info, such as size or color, needs
+        to be recorded for the accidental or when multiple accidentals occur on
+        a single note. The func attribute can be used to differentiate different
+        functions, such as 'cautionary' or 'editorial'.</a:documentation>
       <ref name="attlist.accid"/>
       <ref name="content.accid"/>
     </element>
@@ -4626,8 +4627,9 @@
 
   <define name="address">
     <element name="address">
-      <a:documentation xml:lang="eng">address ― A postal
-        address.</a:documentation>
+      <a:documentation xml:lang="eng">address ― Contains a postal address, for
+        example of a publisher, an organization, or an
+        individual.</a:documentation>
       <ref name="attlist.address"/>
       <ref name="content.address"/>
     </element>
@@ -4731,16 +4733,6 @@
         <data type="IDREFS"/>
       </attribute>
     </optional>
-    <!-- Moved to critApp module
-    <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">contains a list of one or more pointers
-          indicating the sources that contain a given annotation. Each value
-          should correspond to the ID of a &lt;source&gt; element given
-          elsewhere in the document.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="content.artic">
@@ -4749,11 +4741,14 @@
 
   <define name="artic">
     <element name="artic">
-      <a:documentation xml:lang="eng">articulation ― This element provides an
-        alternative to the artic attributes on the &lt;note&gt; and
-        &lt;chord&gt; elements. The element should be used when when
-        specific display info, such as size or color, needs to be recorded for
-        the articulation.</a:documentation>
+      <a:documentation xml:lang="eng">articulation ― An indication of how to
+        play a note or chord. Articulations typically affect duration, such as
+        staccato marks, or the force of attack, such as accents. This element
+        provides an alternative to the artic attributes on the
+        &lt;note&gt; and &lt;chord&gt; elements. It should be
+        used when specific display info, such as size or color, needs to be
+        recorded for the articulation or when multiple articulation marks occur
+        on a single note or chord.</a:documentation>
       <ref name="attlist.artic"/>
       <ref name="content.artic"/>
     </element>
@@ -4775,9 +4770,9 @@
 
   <define name="barline">
     <element name="barline">
-      <a:documentation xml:lang="eng">barline ― The &lt;barline&gt;
-        element may be used instead of the &lt;measure&gt; element. It
-        has the same attributes as &lt;measure&gt;.</a:documentation>
+      <a:documentation xml:lang="eng">barline ― Vertical line that divides
+        musical notation into metrical units. This element is provided as an
+        alternative to the &lt;measure&gt; container.</a:documentation>
       <ref name="attlist.barline"/>
       <ref name="content.barline"/>
     </element>
@@ -4838,10 +4833,12 @@
   <define name="body">
     <element name="body">
       <a:documentation xml:lang="eng">body ― This element contains the actual
-        music data. When the music can be broken into high-level, discrete,
-        linear segments, such as movements in the case of a symphony, there may
-        be multiple mdiv elements within this element. This is the highest level
-        indication of the structure of the music.</a:documentation>
+        music data of the MEI encoding, as opposed to the header, front, and
+        back elements, which do not. When the music can be broken into
+        high-level, discrete, linear segments, such as movements of a symphony,
+        there may be multiple &lt;mdiv&gt; elements within this element.
+        This is the highest level indication of the structure of the
+        music.</a:documentation>
       <ref name="attlist.body"/>
       <ref name="content.body"/>
     </element>
@@ -4889,8 +4886,7 @@
   <define name="chord">
     <element name="chord">
       <a:documentation xml:lang="eng">chord ― A simultaneous sounding of 2 or
-        more notes in the same layer *with the same duration*. See Read, p.
-        69.</a:documentation>
+        more notes in the same layer *with the same duration*.</a:documentation>
       <ref name="attlist.chord"/>
       <ref name="content.chord"/>
     </element>
@@ -4911,9 +4907,12 @@
 
   <define name="clef">
     <element name="clef">
-      <a:documentation xml:lang="eng">clef ― This element must be used instead
-        of clef.* attributes when a staff employs multiple simultaneous
-        clefs.</a:documentation>
+      <a:documentation xml:lang="eng">clef ― Indication of the exact location of
+        a particular note on the staff and, therefore, the other notes as well.
+        This element provides an alternative to the staff element's clef.*
+        attributes. It should be used when specific display info, such as size
+        or color, needs to be recorded for the clef or when multiple,
+        simultaneous clefs occur on a single staff.</a:documentation>
       <ref name="attlist.clef"/>
       <ref name="content.clef"/>
     </element>
@@ -4934,9 +4933,8 @@
 
   <define name="clefchange">
     <element name="clefchange">
-      <a:documentation xml:lang="eng">clef change ― Mid-measure clef change.
-        Coming as it does, in the middle of a measure, a clef change is an
-        event.</a:documentation>
+      <a:documentation xml:lang="eng">clef change ― A change of clef not
+        occurring at a barline.</a:documentation>
       <ref name="attlist.clefchange"/>
       <ref name="content.clefchange"/>
     </element>
@@ -5050,8 +5048,12 @@
 
   <define name="dot">
     <element name="dot">
-      <a:documentation xml:lang="eng">dot ― May be used for dots of augmentation
-        or division.</a:documentation>
+      <a:documentation xml:lang="eng">dot ― This element provides an alternative
+        to the dots attribute on chord, note, rest, space, tuplet, and
+        tupletspan elements. It should be used when specific display info, such
+        as size or color, needs to be recorded for the dot. This element may
+        also be used for dots of division in the mensural
+        repertoire.</a:documentation>
       <ref name="attlist.dot"/>
       <ref name="content.dot"/>
     </element>
@@ -5079,14 +5081,16 @@
 
   <define name="dynam">
     <element name="dynam">
-      <a:documentation xml:lang="eng">dynamic ― Records instantaneous or
-        continuous textual dynamics, e.g. 'p', 'mf', or 'cresc. poco a poco'.
-        See Read, p. 250-255. The &lt;hairpin&gt; element should be used
-        for graphical dynamic markings. The starting point of the dynamic
-        marking may be indicated by either a tstamp, tstamp.ges, tstamp.real or
-        startid attribute, while the ending point may be recorded by either a
-        dur, dur.ges or endid attribute. It is a semantic error not to specify a
-        starting point attribute.</a:documentation>
+      <a:documentation xml:lang="eng">dynamic ― Indication of the volume of a
+        note, phrase, or section of music. This element may be used for
+        instantaneous or continuous textual dynamics, e.g. 'p', 'mf', or 'cresc.
+        poco a poco'. The &lt;hairpin&gt; element should be used for
+        graphical, i.e., crescendo and diminuendo, dynamic markings. The
+        starting point of the dynamic marking may be indicated by either a
+        tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
+        point may be recorded by either a dur, dur.ges or endid attribute. It is
+        a semantic error not to specify a starting point
+        attribute.</a:documentation>
       <ref name="attlist.dynam"/>
       <ref name="content.dynam"/>
     </element>
@@ -5113,13 +5117,13 @@
 
   <define name="edition">
     <element name="edition">
-      <a:documentation xml:lang="eng">edition ― The edition designation is a
-        word or text phrase that normally indicates a difference in either
-        content or form between the item being described and a related item
-        previously issued by the same publisher/distributor (e.g. 2nd edition,
-        version 2.0, etc.), or simultaneously issued by either the same
-        publisher/distributor or another publisher/distributor (e.g. large print
-        edition, British edition, etc.).</a:documentation>
+      <a:documentation xml:lang="eng">edition designation ― A word or text
+        phrase that indicates a difference in either content or form between the
+        item being described and a related item previously issued by the same
+        publisher/distributor (e.g. 2nd edition, version 2.0, etc.), or
+        simultaneously issued by either the same publisher/distributor or
+        another publisher/distributor (e.g. large print edition, British
+        edition, etc.).</a:documentation>
       <ref name="attlist.edition"/>
       <ref name="content.edition"/>
     </element>
@@ -5156,12 +5160,13 @@
 
   <define name="ending">
     <element name="ending">
-      <a:documentation xml:lang="eng">ending ― Alternative ending. The scoredef
-        element is allowed so that an ending may have its own meta-data without
-        the overhead of child &lt;section&gt;s. Div sub-elements are not
-        allowed within ending in order to avoid collisions with the brackets
-        that are usually displayed over endings. Endings may *not* contain other
-        ending elements.</a:documentation>
+      <a:documentation xml:lang="eng">ending ― Alternative ending for a repeated
+        section of music. The scoredef element is allowed as a sub-element so
+        that an ending may have its own meta-data without the overhead of child
+        &lt;section&gt;s. Div sub-elements are not allowed within ending
+        in order to avoid collisions with the brackets that are usually
+        displayed over endings. Endings may *not* contain other ending
+        elements.</a:documentation>
       <ref name="attlist.ending"/>
       <ref name="content.ending"/>
     </element>
@@ -5238,7 +5243,7 @@
     <element name="expansion">
       <a:documentation xml:lang="eng">expansion ― Indicates how a section may be
         programmatically expanded into its 'through-composed' form. See Read, p.
-        226 (ex. 12-10), 228-229 (ex. 12-16).</a:documentation>
+        229 (ex. 12-16).</a:documentation>
       <ref name="attlist.expansion"/>
       <ref name="content.expansion"/>
     </element>
@@ -5286,9 +5291,8 @@
     <element name="fw">
       <a:documentation xml:lang="eng">forme work ― This element is intended for
         capture of header/footer material that is non-repeating; that is, it
-        occurs on isolated pages. For running headers and footers use pgheadN
-        and pgfootN elements. Auto-generated page numbers may be included by
-        using a processing instruction.</a:documentation>
+        occurs on isolated pages. For recurring headers and footers use pgheadN
+        and pgfootN elements.</a:documentation>
       <ref name="attlist.fw"/>
       <ref name="content.fw"/>
     </element>
@@ -5337,10 +5341,11 @@
 
   <define name="grpsym">
     <element name="grpsym">
-      <a:documentation xml:lang="eng">group symbol ― i.e., a brace or bracket.
-        This element may be used instead of the staffgrp element's symbol
-        attribute when exact placement or editorial details for the brace must
-        be recorded.</a:documentation>
+      <a:documentation xml:lang="eng">group symbol ― A brace or bracket used to
+        join two or more staves to create a system or to group staves within a
+        system. This element provides an alternative to the staffgrp element's
+        symbol attribute. It may be used when exact placement or editorial
+        details for the grouping symbol must be recorded.</a:documentation>
       <ref name="attlist.grpsym"/>
       <ref name="content.grpsym"/>
     </element>
@@ -5368,10 +5373,13 @@
 
   <define name="identifier">
     <element name="identifier">
-      <a:documentation xml:lang="eng">identifier ― Bibliographic, e.g.,
+      <a:documentation xml:lang="eng">identifier ― An alpha-numeric string that
+        establishes the identity of the described material, such as an
         International Standard Book/Music Number, Library of Congress Control
-        Number, publisher's number, plate number, or personal
-        identifier.</a:documentation>
+        Number, publisher's number, plate number, a personal identification
+        number, an entry in a bibliography or catalog, etc. The type attribute
+        may be used to indicate the system from which the identifier was
+        derived.</a:documentation>
       <ref name="attlist.identifier"/>
       <ref name="content.identifier"/>
     </element>

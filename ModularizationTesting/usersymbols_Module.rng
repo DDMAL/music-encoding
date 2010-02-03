@@ -42,7 +42,7 @@
 
   <define name="anchoredtext">
     <element name="anchoredtext">
-      <a:documentation xml:lang="eng">anchoredtext ― Page-anchored text. The
+      <a:documentation xml:lang="eng">anchored text ― Page-anchored text. The
         content model here is similar to paragraph without model.textcomponent
         and &lt;pb&gt; sub-elements. The starting point of the text may
         be identified in absolute output coordinate terms using the x and y
@@ -80,24 +80,24 @@
   <define name="curve">
     <element name="curve">
       <a:documentation xml:lang="eng">curve ― A curved line that cannot be
-        represented by a more specific element. The starting point of the curve
-        may be identified in absolute output coordinate terms using the x1 and
-        y1 attributes or relative to the location of another element using the
-        startid attribute. The attributes in the att.visualoffset class may be
-        used to record horizontal, vertical, or time offsets from the absolute
-        coordinates or from the location of the referenced element. Similarly,
-        the terminal point of the curve may be recorded using either the x2,y2
-        coordinates or in relation to the location of another element using the
-        endid attribute. Attributes in the att.visualoffset2 class maybe used to
-        record the offsets of the ending point. The bulge attribute or,
-        alternatively, the bezier attribute, describes the shape of the curve.
-        The bulge attribute describes the curve as a set of distance values
-        above or below an imaginary line connecting the endpoints of the curve
-        while the bezier attribute records the placement of Bezier control
-        points as a series of space-separated xy coordinate pairs, eg. 19 45 -32
-        118. The bulge attribute must contain one or more values of the NUMBER
-        datatype. The rend attribute captures the appearance of the
-        curve.</a:documentation>
+        represented by a more specific element, such as a &lt;slur&gt;.
+        The starting point of the curve may be identified in absolute output
+        coordinate terms using the x1 and y1 attributes or relative to the
+        location of another element using the startid attribute. The attributes
+        in the att.visualoffset class may be used to record horizontal,
+        vertical, or time offsets from the absolute coordinates or from the
+        location of the referenced element. Similarly, the terminal point of the
+        curve may be recorded using either the x2,y2 coordinates or in relation
+        to the location of another element using the endid attribute. Attributes
+        in the att.visualoffset2 class maybe used to record the offsets of the
+        ending point. The bulge attribute or, alternatively, the bezier
+        attribute, describes the shape of the curve. The bulge attribute
+        describes the curve as a set of distance values above or below an
+        imaginary line connecting the endpoints of the curve while the bezier
+        attribute records the placement of Bezier control points as a series of
+        space-separated xy coordinate pairs, eg. 19 45 -32 118. The bulge
+        attribute must contain one or more values of the NUMBER datatype. The
+        rend attribute captures the appearance of the curve.</a:documentation>
       <ref name="attlist.curve"/>
       <ref name="content.curve"/>
     </element>

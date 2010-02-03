@@ -197,9 +197,11 @@
   <define name="accessdesc">
     <element name="accessdesc">
       <a:documentation xml:lang="eng">access description ― Describes the
-        conditions that affect the accessibility of a bibliographic item. May
-        indicate the nature of restrictions or the lack of
-        restrictions.</a:documentation>
+        conditions that affect the accessibility of material. May indicate the
+        nature of restrictions or the lack of restrictions. Do not confuse this
+        element with &lt;userestrict&gt; (usage restrictions), which
+        captures information about limitations on the use of material, such as
+        those afforded by copyright.</a:documentation>
       <ref name="attlist.accessdesc"/>
       <ref name="content.accessdesc"/>
     </element>
@@ -273,7 +275,7 @@
       <a:documentation xml:lang="eng">application information ― Groups
         information about applications which have acted upon the MEI file. This
         is not to be confused with applications which were used to create the
-        MEI file. These are recorded in the projectdesc
+        MEI file. The latter may be recorded in the projectdesc
         element.</a:documentation>
       <ref name="attlist.appinfo"/>
       <ref name="content.appinfo"/>
@@ -327,8 +329,8 @@
   <define name="availability">
     <element name="availability">
       <a:documentation xml:lang="eng">availability ― Groups elements that
-        describe the availability of and access to a bibliographic
-        item.</a:documentation>
+        describe the availability of and access to a bibliographic item,
+        including the MEI-encoded document itself.</a:documentation>
       <ref name="attlist.availability"/>
       <ref name="content.availability"/>
     </element>
@@ -393,10 +395,10 @@
 
   <define name="classcode">
     <element name="classcode">
-      <a:documentation xml:lang="eng">classification code ― LC subject or call
-        number, or a thesaurus or ontology citation. The source of
-        controlled-vocabulary terms used in the keywords
-        element.</a:documentation>
+      <a:documentation xml:lang="eng">classification code ― Library of Congress
+        subject or call number, or a thesaurus or ontology citation, for
+        example. The source of controlled-vocabulary terms used in the
+        &lt;keywords&gt; element.</a:documentation>
       <ref name="attlist.classcode"/>
       <ref name="content.classcode"/>
     </element>
@@ -471,8 +473,8 @@
   <define name="correction">
     <element name="correction">
       <a:documentation xml:lang="eng">correction ― States how and under what
-        circumstances corrections have been made in the
-        music/text.</a:documentation>
+        circumstances corrections have been made in the musical
+        text.</a:documentation>
       <ref name="attlist.correction"/>
       <ref name="content.correction"/>
     </element>
@@ -737,11 +739,12 @@
 
   <define name="fingerprint">
     <element name="fingerprint">
-      <a:documentation xml:lang="eng">fingerprint ― Traditionally, an identifier
-        constructed by combining groups of characters transcribed from specified
-        pages of a printed item. Here in the MEI header, however, the
-        fingerprint should be a checksum. The checksum makes it possible to
-        signal differences between copies of the item.</a:documentation>
+      <a:documentation xml:lang="eng">fingerprint ― Traditionally, an
+        identifier, constructed by combining groups of characters transcribed
+        from specified pages of a printed item, which makes it possible to
+        signal differences between copies of the item. For an electronic item,
+        such as an MEI file, however, the fingerprint should be a
+        checksum.</a:documentation>
       <ref name="attlist.fingerprint"/>
       <ref name="content.fingerprint"/>
     </element>
@@ -814,8 +817,8 @@
 
   <define name="handlist">
     <element name="handlist">
-      <a:documentation xml:lang="eng">hand list ― Contains a series of hand
-        elements listing the different hands of the source.</a:documentation>
+      <a:documentation xml:lang="eng">hand list ― Container for one or more hand
+        elements.</a:documentation>
       <ref name="attlist.handlist"/>
       <ref name="content.handlist"/>
     </element>
@@ -1615,9 +1618,15 @@
 
   <define name="userestrict">
     <element name="userestrict">
-      <a:documentation xml:lang="eng">usage restrictions ― Copyright statement
-        in the filedesc, or (re-)publication rights in the source
-        element.</a:documentation>
+      <a:documentation xml:lang="eng">usage restrictions ― Container for
+        information about the conditions that affect use of a bibliographic item
+        after access has been granted. May indicate limitations imposed by an
+        owner, repository, or legal statute (for example, copyright law)
+        regarding the reproduction, publication, or quotation of the item. May
+        also indicate the absence of restrictions, such as when rights have been
+        ceded to the public domain. Do not confuse with the
+        &lt;accessdesc&gt; element, which holds information about
+        conditions affecting the availability of the material.</a:documentation>
       <ref name="attlist.userestrict"/>
       <ref name="content.userestrict"/>
     </element>

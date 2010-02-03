@@ -352,7 +352,7 @@
     </optional>
   </define>
 
-  
+
   <define name="att.chord.ges" combine="interleave">
     <optional>
       <attribute name="grace">
@@ -2109,11 +2109,10 @@
 
   <define name="arpeg">
     <element name="arpeg">
-      <a:documentation xml:lang="eng">arpeggiation ― Indicates presence of a
-        wavy line symbol meaning that the notes of the following chord are to be
-        performed successively rather than simultaneously, usually from lowest
-        to highest. (Read, p. 241-243). Sometimes called a
-        'roll'.</a:documentation>
+      <a:documentation xml:lang="eng">arpeggiation ― Indicates that the notes of
+        a chord are to be performed successively rather than simultaneously,
+        usually from lowest to highest. Sometimes called a 'roll'. The usual
+        symbol is a vertical wavy line preceding the chord.</a:documentation>
       <ref name="attlist.arpeg"/>
       <ref name="content.arpeg"/>
     </element>
@@ -2139,13 +2138,12 @@
   <define name="beam">
     <element name="beam">
       <a:documentation xml:lang="eng">beam ― A container for a series of
-        explicitly beamed events (Read, p. 80-94) which begins and ends entirely
-        within a measure. For beams that cross the barline, use the beamspan
-        element. Beaming may be indicated for an entire score, part or section
-        by using the beamgroup attribute on these elements. Secondary beams may
-        be broken explicitly using the breaksec attribute on the notes or chords
-        under the beam. Stem direction determines whether beams are centered
-        between notes with alternating stems (Read, p. 88-89).</a:documentation>
+        explicitly beamed events that begins and ends entirely within a measure.
+        For beams that cross the barline, use the beamspan element. Secondary
+        beams may be broken explicitly using the breaksec attribute on the notes
+        or chords under the beam. Automated beaming, as opposed to explicitly
+        marked beams, may be indicated for an entire score, part or section by
+        using the beamgroup attribute on these elements.</a:documentation>
       <ref name="attlist.beam"/>
       <ref name="content.beam"/>
     </element>
@@ -2167,11 +2165,11 @@
   <define name="beamspan">
     <element name="beamspan">
       <a:documentation xml:lang="eng">beam span ― Alternative element for
-        encoding beams, especially useful for beams which extend across
-        barlines. The starting point of the beam may be indicated by either a
-        tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
-        point may be recorded by either a dur, dur.ges or endid attribute. It is
-        a semantic error not to specify one starting and one ending type of
+        explicitly encoding beams which extend across barlines. The starting
+        point of the beam may be indicated by either a tstamp, tstamp.ges,
+        tstamp.real or startid attribute, while the ending point may be recorded
+        by either a dur, dur.ges or endid attribute. It is a semantic error not
+        to specify one starting and one ending type of
         attribute.</a:documentation>
       <ref name="attlist.beamspan"/>
       <ref name="content.beamspan"/>
@@ -2193,8 +2191,8 @@
 
   <define name="beatrpt">
     <element name="beatrpt">
-      <a:documentation xml:lang="eng">beat repeat ― A repeated single beat
-        (Read, p. 223-224).</a:documentation>
+      <a:documentation xml:lang="eng">beat repeat ― An indication that material
+        on a preceding beat should be repeated.</a:documentation>
       <ref name="attlist.beatrpt"/>
       <ref name="content.beatrpt"/>
     </element>
@@ -2221,15 +2219,16 @@
 
   <define name="bend">
     <element name="bend">
-      <a:documentation xml:lang="eng">bend ― A performance directive indication
-        a stretching of a string to make it sound higher than normal. The bend
-        element can also be used for scoop, plop, falloff, and doit performance
-        effects. It should *not* be used for l.v. (laissez vibrer) indications.
-        Precise performance data that differs from the logical events in a
-        measure may be recorded within the bend element. The starting point of
-        the bend may be indicated by either a tstamp, tstamp.ges, tstamp.real or
-        startid attribute. It is a semantic error not to specify a starting
-        attribute.</a:documentation>
+      <a:documentation xml:lang="eng">bend ― A variation in pitch (often
+        microtonal) upwards or downwards during the course of a note. Typically,
+        the performer attacks the note at "true" pitch, bends the intonation,
+        then returns to true pitch. The bend element can also be used for scoop,
+        plop, falloff, and doit performance effects. It should *not* be used for
+        l.v. (laissez vibrer) indications. Precise performance data that differs
+        from the logical events in a measure may be recorded within the bend
+        element. The starting point of the bend may be indicated by either a
+        tstamp, tstamp.ges, tstamp.real or startid attribute. It is a semantic
+        error not to specify a starting attribute.</a:documentation>
       <ref name="attlist.bend"/>
       <ref name="content.bend"/>
     </element>
@@ -2252,10 +2251,10 @@
     <element name="breath">
       <a:documentation xml:lang="eng">breath mark ― The breath element is a
         specialized form of, i.e., syntactic sugar for, dir/@type="breathmark"
-        with "," as its PCDATA content. The starting point of the breath mark
-        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
-        attribute. It is a semantic error not to specify a starting point
-        attribute.</a:documentation>
+        with "," (comma) as its PCDATA content. The starting point of the breath
+        mark may be indicated by either a tstamp, tstamp.ges, tstamp.real or
+        startid attribute. It is a semantic error not to specify a starting
+        point attribute.</a:documentation>
       <ref name="attlist.breath"/>
       <ref name="content.breath"/>
     </element>
@@ -2280,9 +2279,9 @@
   <define name="btrem">
     <element name="btrem">
       <a:documentation xml:lang="eng">bowed tremolo ― A rapid alternation on a
-        single pitch or chord (Read, p. 393-394). This element should also be
-        used for wind double and triple tonguing and for flutter tonguing when
-        these are expressed as tremolandi.</a:documentation>
+        single pitch or chord. This element should also be used for wind double
+        and triple tonguing and for flutter tonguing when these are expressed as
+        tremolandi.</a:documentation>
       <ref name="attlist.btrem"/>
       <ref name="content.btrem"/>
     </element>
@@ -2303,12 +2302,13 @@
 
   <define name="fermata">
     <element name="fermata">
-      <a:documentation xml:lang="eng">fermata ― The fermata element is a
-        specialized form of, i.e., syntactic sugar for, dir/@type="fermata" with
-        &amp;ferm; or &amp;uferm; as its PCDATA content. The starting
-        point of the fermata may be indicated by either a tstamp, tstamp.ges,
-        tstamp.real or startid attribute. It is a semantic error not to specify
-        a starting point attribute.</a:documentation>
+      <a:documentation xml:lang="eng">fermata ― A hold or pause. The
+        &lt;fermata&gt; element is a specialized form of, i.e.,
+        syntactic sugar for, dir/@type="fermata" with &amp;ferm; or
+        &amp;uferm; as its PCDATA content. The starting point of the fermata
+        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
+        attribute. It is a semantic error not to specify a starting point
+        attribute.</a:documentation>
       <ref name="attlist.fermata"/>
       <ref name="content.fermata"/>
     </element>
@@ -2346,10 +2346,10 @@
     <element name="ftrem">
       <a:documentation xml:lang="eng">fingered tremolo ― A rapid alternation
         between a pair of notes (or chords or perhaps between a note and a
-        chord) that are (usually) farther apart than a major second. See Read,
-        p. 235-238. For rapid alternation between notes on the same pitch (bowed
-        tremolo, double &amp;amp; triple tonguing, and flutter tonguing) use
-        the btrem element.</a:documentation>
+        chord) that are (usually) farther apart than a major second. For rapid
+        alternation between notes on the same pitch (bowed tremolo, double
+        &amp;amp; triple tonguing, and flutter tonguing) use the
+        &lt;btrem&gt; element.</a:documentation>
       <ref name="attlist.ftrem"/>
       <ref name="content.ftrem"/>
     </element>
@@ -2371,11 +2371,11 @@
   <define name="hairpin">
     <element name="hairpin">
       <a:documentation xml:lang="eng">hairpin ― Indicates continuous dynamics
-        expressed on the score as graphics, e.g. &lt; and &gt; (Read, p.
-        250-255). The starting point of the hairpin may be indicated by either a
-        tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
-        point may be recorded by either a dur, dur.ges or endid attribute. It is
-        a semantic error not to specify one starting and one ending type of
+        expressed on the score as graphics, e.g. &lt; and &gt;. The
+        starting point of the hairpin may be indicated by either a tstamp,
+        tstamp.ges, tstamp.real or startid attribute, while the ending point may
+        be recorded by either a dur, dur.ges or endid attribute. It is a
+        semantic error not to specify one starting and one ending type of
         attribute.</a:documentation>
       <ref name="attlist.hairpin"/>
       <ref name="content.hairpin"/>
@@ -2397,11 +2397,10 @@
 
   <define name="harppedal">
     <element name="harppedal">
-      <a:documentation xml:lang="eng">harp pedal ― Harp pedal diagram. (Read, p.
-        325). The starting point of the harp pedal diagram may be indicated by
-        either a tstamp, tstamp.ges, tstamp.real or startid attribute. It is a
-        semantic error not to specify a starting point
-        attribute.</a:documentation>
+      <a:documentation xml:lang="eng">harp pedal ― Harp pedal diagram. The
+        starting point of the harp pedal diagram may be indicated by either a
+        tstamp, tstamp.ges, tstamp.real or startid attribute. It is a semantic
+        error not to specify a starting point attribute.</a:documentation>
       <ref name="attlist.harppedal"/>
       <ref name="content.harppedal"/>
     </element>
@@ -2430,12 +2429,12 @@
     <element name="gliss">
       <a:documentation xml:lang="eng">glissando ― An indication to perform notes
         between the written pitches at a tempo such that the intermediate
-        pitches are not heard individually. See Read, p. 243-245, 397-398.
-        Sometimes called a 'slide'. Precise performance data, that is, exact
-        pitches, may be recorded within the gliss element. The starting point of
-        the glissand sign may be indicated by either a tstamp, tstamp.ges,
-        tstamp.real or startid attribute. It is a semantic error not to specify
-        a starting point attribute.</a:documentation>
+        pitches are not heard individually. Sometimes called a 'slide'. Precise
+        performance data, that is, exact pitches, may be recorded within the
+        &lt;gliss&gt; element. The starting point of the glissand sign
+        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
+        attribute. It is a semantic error not to specify a starting point
+        attribute.</a:documentation>
       <ref name="attlist.gliss"/>
       <ref name="content.gliss"/>
     </element>
@@ -2552,10 +2551,10 @@
 
   <define name="mrpt">
     <element name="mrpt">
-      <a:documentation xml:lang="eng">measure repeat ― A repeated measure (Read,
-        p. 224-225). The numbering of consecutive measures of rest may be
-        controlled via the multi.number attribute on the scoredef or staffdef
-        elements.</a:documentation>
+      <a:documentation xml:lang="eng">measure repeat ― An indication that the
+        previous measure should be repeated. The automated numbering of
+        consecutive measures of rest may be controlled via the multi.number
+        attribute on the scoredef or staffdef elements.</a:documentation>
       <ref name="attlist.mrpt"/>
       <ref name="content.mrpt"/>
     </element>
@@ -2576,8 +2575,8 @@
 
   <define name="mrpt2">
     <element name="mrpt2">
-      <a:documentation xml:lang="eng">measure repeat 2 ― 2-measure repeat
-        sign.</a:documentation>
+      <a:documentation xml:lang="eng">2-measure repeat ― An indication that the
+        previous two measures should be repeated.</a:documentation>
       <ref name="attlist.mrpt2"/>
       <ref name="content.mrpt2"/>
     </element>
@@ -2598,10 +2597,10 @@
 
   <define name="mspace">
     <element name="mspace">
-      <a:documentation xml:lang="eng">measure space ― Complete measure of space
-        in any meter. The numbering of consecutive measures of space may be
-        controlled via the multi.number attribute on the scoredef or staffdef
-        elements.</a:documentation>
+      <a:documentation xml:lang="eng">measure space ― Complete measure
+        consisting of empty space in any meter. The automated numbering of
+        consecutive measures of space may be controlled via the multi.number
+        attribute on the scoredef or staffdef elements.</a:documentation>
       <ref name="attlist.mspace"/>
       <ref name="content.mspace"/>
     </element>
@@ -2622,8 +2621,9 @@
 
   <define name="multirest">
     <element name="multirest">
-      <a:documentation xml:lang="eng">multi-rest ― Multiple measures of
-        rest.</a:documentation>
+      <a:documentation xml:lang="eng">multi-rest ― Multiple measures of rest
+        compressed into a single symbol, frequently found in performer
+        parts.</a:documentation>
       <ref name="attlist.multirest"/>
       <ref name="content.multirest"/>
     </element>
@@ -2645,8 +2645,9 @@
   <define name="multirpt">
     <element name="multirpt">
       <a:documentation xml:lang="eng">multi-repeat ― Multiple repeated measures.
-        Read (p. 225-226) says repeats of more than 2 measures should always be
-        written out using repeat signs.</a:documentation>
+        In modern practice repeats of more than 2 measures should be written out
+        using repeat signs. This element, however, is provided for handling
+        non-standard practices often found in manuscript.</a:documentation>
       <ref name="attlist.multirpt"/>
       <ref name="content.multirpt"/>
     </element>

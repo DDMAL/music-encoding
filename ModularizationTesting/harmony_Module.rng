@@ -152,12 +152,10 @@
   <define name="chorddef">
     <element name="chorddef">
       <a:documentation xml:lang="eng">chord definition ― Chord tablature
-        definition. An individual chord in the chord table. An id isn't required
-        here but &lt;harm&gt; elements can only reference a particular
-        chorddef via an id. Therefore, if a chorddef will ever be referenced, an
-        id is necessary. The pos (position) attribute is provided in order to
-        create displayable chord tablature grids. (Read, p.
-        409-410)</a:documentation>
+        definition. An id attribute, while not required by the schema, is needed
+        so that &lt;harm&gt; elements can reference a particular chord
+        definition. The pos (position) attribute is provided in order to create
+        displayable chord tablature grids.</a:documentation>
       <ref name="attlist.chorddef"/>
       <ref name="content.chorddef"/>
     </element>
@@ -180,12 +178,12 @@
   <define name="chordmember">
     <element name="chordmember">
       <a:documentation xml:lang="eng">chord member ― An individual pitch in a
-        chord defined using the &lt;chorddef&gt; element. The fing and
-        fret attributes are provided in order to create displayable chord
-        tablature grids. The inth (harmonic interval) attribute may be used to
-        facilitate automated performance of a chord. It gives the number of 1/2
-        steps above the bass. Of course, for the bass note itself, inth should
-        be set to '0'.</a:documentation>
+        chord defined by a &lt;chorddef&gt; element. The fing and fret
+        attributes are provided in order to create displayable chord tablature
+        grids. The inth (harmonic interval) attribute may be used to facilitate
+        automated performance of a chord. It gives the number of 1/2 steps above
+        the bass. Of course, for the bass note itself, inth should be set to
+        '0'.</a:documentation>
       <ref name="attlist.chordmember"/>
       <ref name="content.chordmember"/>
     </element>
@@ -270,12 +268,12 @@
 
   <define name="harm">
     <element name="harm">
-      <a:documentation xml:lang="eng">harmony ― Indication of harmony, e.g.
-        chord names, tablature grids, harmonic analysis, figured bass. (Read, p.
-        411.) The starting point of the harmony may be indicated by either a
-        tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
-        point may be recorded by either a dur, dur.ges or endid attribute. It is
-        a semantic error not to specify a starting point
+      <a:documentation xml:lang="eng">harmony ― A textual indication of harmony,
+        e.g., chord names, tablature grids, harmonic analysis, figured bass. The
+        starting point of the harmony may be indicated by either a tstamp,
+        tstamp.ges, tstamp.real or startid attribute, while the ending point may
+        be recorded by either a dur, dur.ges or endid attribute. It is a
+        semantic error not to specify a starting point
         attribute.</a:documentation>
       <ref name="attlist.harm"/>
       <ref name="content.harm"/>

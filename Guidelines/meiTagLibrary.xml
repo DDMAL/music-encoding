@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?oxygen RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_bare.rng"
+<?oxygen RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/teilite.rng"
       type="xml"?>
 <TEI xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
@@ -91,9 +91,12 @@
           <head>&lt;accessdesc&gt; access description</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Describes the conditions that affect the accessibility of a
-              bibliographic item. May indicate the nature of restrictions or the
-              lack of restrictions.</p>
+            <p>Describes the conditions that affect the accessibility of
+              material. May indicate the nature of restrictions or the lack of
+              restrictions. Do not confuse this element with
+              &lt;userestrict&gt; (usage restrictions), which captures
+              information about limitations on the use of material, such as
+              those afforded by copyright.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -122,12 +125,13 @@
           <head>&lt;accid&gt; accidental</head>
           <div type="desc">
             <head>Description:</head>
-            <p>This element provides an alternative to the acci attributes on
-              the &lt;note&gt; element. The element should be used when
+            <p>This element captures a temporary alteration to the pitch of a
+              note. It provides an alternative to the accid attributes on the
+              &lt;note&gt; element. The element should be used when
               specific display info, such as size or color, needs to be recorded
-              for the accidental. The func attribute can be used to
-              differentiate different functions, such as 'cautionary' or
-              'editorial'.</p>
+              for the accidental or when multiple accidentals occur on a single
+              note. The func attribute can be used to differentiate different
+              functions, such as 'cautionary' or 'editorial'.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -207,12 +211,11 @@
             <head>Description:</head>
             <p>Marks an addition to the musical text. The add element contains
               material inserted by an author, scribe, annotator, or corrector.
-              The resp attribute contains a ID reference to an element
-              containing the editor or transcriber responsible for identifying
-              the hand of the addition. The cert attribute signifies the degree
-              of certainty ascribed to the identification of the hand of the
-              addition. The hand attribute signifies the hand of the agent which
-              made the addition.</p>
+              The agent responsible for the addition may be encoded using the
+              hand attribute, while the resp attribute records the editor or
+              transcriber responsible for identifying the hand of the addition.
+              The cert attribute signifies the degree of certainty ascribed to
+              the identification of the hand of the addition.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -256,7 +259,8 @@
           <head>&lt;address&gt; address</head>
           <div type="desc">
             <head>Description:</head>
-            <p>A postal address.</p>
+            <p>Contains a postal address, for example of a publisher, an
+              organization, or an individual.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -350,7 +354,7 @@
           </div>
         </div>
         <div type="element">
-          <head>&lt;anchoredtext&gt; anchoredtext</head>
+          <head>&lt;anchoredtext&gt; anchored text</head>
           <div type="desc">
             <head>Description:</head>
             <p>Page-anchored text. The content model here is similar to
@@ -530,8 +534,8 @@
             <head>Description:</head>
             <p>Groups information about applications which have acted upon the
               MEI file. This is not to be confused with applications which were
-              used to create the MEI file. These are recorded in the projectdesc
-              element.</p>
+              used to create the MEI file. The latter may be recorded in the
+              projectdesc element.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -594,10 +598,10 @@
           <head>&lt;arpeg&gt; arpeggiation</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Indicates presence of a wavy line symbol meaning that the notes
-              of the following chord are to be performed successively rather
-              than simultaneously, usually from lowest to highest. (Read, p.
-              241-243). Sometimes called a 'roll'.</p>
+            <p>Indicates that the notes of a chord are to be performed
+              successively rather than simultaneously, usually from lowest to
+              highest. Sometimes called a 'roll'. The usual symbol is a vertical
+              wavy line preceding the chord.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -647,10 +651,14 @@
           <head>&lt;artic&gt; articulation</head>
           <div type="desc">
             <head>Description:</head>
-            <p>This element provides an alternative to the artic attributes on
-              the &lt;note&gt; and &lt;chord&gt; elements. The
-              element should be used when when specific display info, such as
-              size or color, needs to be recorded for the articulation.</p>
+            <p>An indication of how to play a note or chord. Articulations
+              typically affect duration, such as staccato marks, or the force of
+              attack, such as accents. This element provides an alternative to
+              the artic attributes on the &lt;note&gt; and
+              &lt;chord&gt; elements. It should be used when specific
+              display info, such as size or color, needs to be recorded for the
+              articulation or when multiple articulation marks occur on a single
+              note or chord.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -699,7 +707,7 @@
           <div type="desc">
             <head>Description:</head>
             <p>Groups elements that describe the availability of and access to a
-              bibliographic item.</p>
+              bibliographic item, including the MEI-encoded document itself.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -726,7 +734,8 @@
           <head>&lt;back&gt; back</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Back matter such as indexes, advertisements, etc.</p>
+            <p>Back matter such as indexes, advertisements, etc. following the
+              main part of a text.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -754,9 +763,9 @@
           <head>&lt;barline&gt; barline</head>
           <div type="desc">
             <head>Description:</head>
-            <p>The &lt;barline&gt; element may be used instead of the
-              &lt;measure&gt; element. It has the same attributes as
-              &lt;measure&gt;.</p>
+            <p>Vertical line that divides musical notation into metrical units.
+              This element is provided as an alternative to the
+              &lt;measure&gt; container.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -838,15 +847,13 @@
           <head>&lt;beam&gt; beam</head>
           <div type="desc">
             <head>Description:</head>
-            <p>A container for a series of explicitly beamed events (Read, p.
-              80-94) which begins and ends entirely within a measure. For beams
-              that cross the barline, use the beamspan element. Beaming may be
-              indicated for an entire score, part or section by using the
-              beamgroup attribute on these elements. Secondary beams may be
-              broken explicitly using the breaksec attribute on the notes or
-              chords under the beam. Stem direction determines whether beams are
-              centered between notes with alternating stems (Read, p.
-              88-89).</p>
+            <p>A container for a series of explicitly beamed events that begins
+              and ends entirely within a measure. For beams that cross the
+              barline, use the beamspan element. Secondary beams may be broken
+              explicitly using the breaksec attribute on the notes or chords
+              under the beam. Automated beaming, as opposed to explicitly marked
+              beams, may be indicated for an entire score, part or section by
+              using the beamgroup attribute on these elements.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -890,12 +897,12 @@
           <head>&lt;beamspan&gt; beam span</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Alternative element for encoding beams, especially useful for
-              beams which extend across barlines. The starting point of the beam
-              may be indicated by either a tstamp, tstamp.ges, tstamp.real or
-              startid attribute, while the ending point may be recorded by
-              either a dur, dur.ges or endid attribute. It is a semantic error
-              not to specify one starting and one ending type of attribute.</p>
+            <p>Alternative element for explicitly encoding beams which extend
+              across barlines. The starting point of the beam may be indicated
+              by either a tstamp, tstamp.ges, tstamp.real or startid attribute,
+              while the ending point may be recorded by either a dur, dur.ges or
+              endid attribute. It is a semantic error not to specify one
+              starting and one ending type of attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -944,7 +951,8 @@
           <head>&lt;beatrpt&gt; beat repeat</head>
           <div type="desc">
             <head>Description:</head>
-            <p>A repeated single beat (Read, p. 223-224).</p>
+            <p>An indication that material on a preceding beat should be
+              repeated.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -987,15 +995,17 @@
           <head>&lt;bend&gt; bend</head>
           <div type="desc">
             <head>Description:</head>
-            <p>A performance directive indication a stretching of a string to
-              make it sound higher than normal. The bend element can also be
-              used for scoop, plop, falloff, and doit performance effects. It
-              should *not* be used for l.v. (laissez vibrer) indications.
-              Precise performance data that differs from the logical events in a
-              measure may be recorded within the bend element. The starting
-              point of the bend may be indicated by either a tstamp, tstamp.ges,
-              tstamp.real or startid attribute. It is a semantic error not to
-              specify a starting attribute.</p>
+            <p>A variation in pitch (often microtonal) upwards or downwards
+              during the course of a note. Typically, the performer attacks the
+              note at "true" pitch, bends the intonation, then returns to true
+              pitch. The bend element can also be used for scoop, plop, falloff,
+              and doit performance effects. It should *not* be used for l.v.
+              (laissez vibrer) indications. Precise performance data that
+              differs from the logical events in a measure may be recorded
+              within the bend element. The starting point of the bend may be
+              indicated by either a tstamp, tstamp.ges, tstamp.real or startid
+              attribute. It is a semantic error not to specify a starting
+              attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1140,11 +1150,12 @@
           <head>&lt;body&gt; body</head>
           <div type="desc">
             <head>Description:</head>
-            <p>This element contains the actual music data. When the music can
-              be broken into high-level, discrete, linear segments, such as
-              movements in the case of a symphony, there may be multiple mdiv
-              elements within this element. This is the highest level indication
-              of the structure of the music.</p>
+            <p>This element contains the actual music data of the MEI encoding,
+              as opposed to the header, front, and back elements, which do not.
+              When the music can be broken into high-level, discrete, linear
+              segments, such as movements of a symphony, there may be multiple
+              &lt;mdiv&gt; elements within this element. This is the
+              highest level indication of the structure of the music.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1171,10 +1182,10 @@
           <div type="desc">
             <head>Description:</head>
             <p>The breath element is a specialized form of, i.e., syntactic
-              sugar for, dir/@type="breathmark" with "," as its PCDATA content.
-              The starting point of the breath mark may be indicated by either a
-              tstamp, tstamp.ges, tstamp.real or startid attribute. It is a
-              semantic error not to specify a starting point attribute.</p>
+              sugar for, dir/@type="breathmark" with "," (comma) as its PCDATA
+              content. The starting point of the breath mark may be indicated by
+              either a tstamp, tstamp.ges, tstamp.real or startid attribute. It
+              is a semantic error not to specify a starting point attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1226,10 +1237,9 @@
           <head>&lt;btrem&gt; bowed tremolo</head>
           <div type="desc">
             <head>Description:</head>
-            <p>A rapid alternation on a single pitch or chord (Read, p.
-              393-394). This element should also be used for wind double and
-              triple tonguing and for flutter tonguing when these are expressed
-              as tremolandi.</p>
+            <p>A rapid alternation on a single pitch or chord. This element
+              should also be used for wind double and triple tonguing and for
+              flutter tonguing when these are expressed as tremolandi.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1444,8 +1454,8 @@
           <head>&lt;chanpr&gt; channel pressure</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Channel pressure/after touch. The value of the num attribute must
-              be in the range 0-127.</p>
+            <p>MIDI channel pressure/after touch. The value of the num attribute
+              must be in the range 0-127.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1515,7 +1525,7 @@
           <div type="desc">
             <head>Description:</head>
             <p>A simultaneous sounding of 2 or more notes in the same layer
-              *with the same duration*. See Read, p. 69.</p>
+              *with the same duration*.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1597,12 +1607,11 @@
           <head>&lt;chorddef&gt; chord definition</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Chord tablature definition. An individual chord in the chord
-              table. An id isn't required here but &lt;harm&gt; elements
-              can only reference a particular chorddef via an id. Therefore, if
-              a chorddef will ever be referenced, an id is necessary. The pos
-              (position) attribute is provided in order to create displayable
-              chord tablature grids. (Read, p. 409-410)</p>
+            <p>Chord tablature definition. An id attribute, while not required
+              by the schema, is needed so that &lt;harm&gt; elements can
+              reference a particular chord definition. The pos (position)
+              attribute is provided in order to create displayable chord
+              tablature grids.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1629,7 +1638,7 @@
           <head>&lt;chordmember&gt; chord member</head>
           <div type="desc">
             <head>Description:</head>
-            <p>An individual pitch in a chord defined using the
+            <p>An individual pitch in a chord defined by a
               &lt;chorddef&gt; element. The fing and fret attributes are
               provided in order to create displayable chord tablature grids. The
               inth (harmonic interval) attribute may be used to facilitate
@@ -1695,8 +1704,9 @@
           <head>&lt;classcode&gt; classification code</head>
           <div type="desc">
             <head>Description:</head>
-            <p>LC subject or call number, or a thesaurus or ontology citation.
-              The source of controlled-vocabulary terms used in the keywords
+            <p>Library of Congress subject or call number, or a thesaurus or
+              ontology citation, for example. The source of
+              controlled-vocabulary terms used in the &lt;keywords&gt;
               element.</p>
           </div>
           <div type="content">
@@ -1757,8 +1767,12 @@
           <head>&lt;clef&gt; clef</head>
           <div type="desc">
             <head>Description:</head>
-            <p>This element must be used instead of clef.* attributes when a
-              staff employs multiple simultaneous clefs.</p>
+            <p>Indication of the exact location of a particular note on the
+              staff and, therefore, the other notes as well. This element
+              provides an alternative to the staff element's clef.* attributes.
+              It should be used when specific display info, such as size or
+              color, needs to be recorded for the clef or when multiple,
+              simultaneous clefs occur on a single staff.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1799,8 +1813,7 @@
           <head>&lt;clefchange&gt; clef change</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Mid-measure clef change. Coming as it does, in the middle of a
-              measure, a clef change is an event.</p>
+            <p>A change of clef not occurring at a barline.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1885,7 +1898,7 @@
               government agencies, projects, programs, religious bodies,
               churches, conferences, athletic contests, exhibitions,
               expeditions, fairs, and ships. Secondary name parts may be encoded
-              in nested &lt;corpname&gt; sub-elements.</p>
+              in &lt;corpname&gt; sub-elements.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -1972,7 +1985,7 @@
           <div type="desc">
             <head>Description:</head>
             <p>States how and under what circumstances corrections have been
-              made in the music/text.</p>
+              made in the musical text.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -2031,7 +2044,7 @@
           <head>&lt;cue&gt; cue</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Cue point.</p>
+            <p>MIDI cue point.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -2068,25 +2081,25 @@
           <div type="desc">
             <head>Description:</head>
             <p>A curved line that cannot be represented by a more specific
-              element. The starting point of the curve may be identified in
-              absolute output coordinate terms using the x1 and y1 attributes or
-              relative to the location of another element using the startid
-              attribute. The attributes in the att.visualoffset class may be
-              used to record horizontal, vertical, or time offsets from the
-              absolute coordinates or from the location of the referenced
-              element. Similarly, the terminal point of the curve may be
-              recorded using either the x2,y2 coordinates or in relation to the
-              location of another element using the endid attribute. Attributes
-              in the att.visualoffset2 class maybe used to record the offsets of
-              the ending point. The bulge attribute or, alternatively, the
-              bezier attribute, describes the shape of the curve. The bulge
-              attribute describes the curve as a set of distance values above or
-              below an imaginary line connecting the endpoints of the curve
-              while the bezier attribute records the placement of Bezier control
-              points as a series of space-separated xy coordinate pairs, eg. 19
-              45 -32 118. The bulge attribute must contain one or more values of
-              the NUMBER datatype. The rend attribute captures the appearance of
-              the curve.</p>
+              element, such as a &lt;slur&gt;. The starting point of the
+              curve may be identified in absolute output coordinate terms using
+              the x1 and y1 attributes or relative to the location of another
+              element using the startid attribute. The attributes in the
+              att.visualoffset class may be used to record horizontal, vertical,
+              or time offsets from the absolute coordinates or from the location
+              of the referenced element. Similarly, the terminal point of the
+              curve may be recorded using either the x2,y2 coordinates or in
+              relation to the location of another element using the endid
+              attribute. Attributes in the att.visualoffset2 class maybe used to
+              record the offsets of the ending point. The bulge attribute or,
+              alternatively, the bezier attribute, describes the shape of the
+              curve. The bulge attribute describes the curve as a set of
+              distance values above or below an imaginary line connecting the
+              endpoints of the curve while the bezier attribute records the
+              placement of Bezier control points as a series of space-separated
+              xy coordinate pairs, eg. 19 45 -32 118. The bulge attribute must
+              contain one or more values of the NUMBER datatype. The rend
+              attribute captures the appearance of the curve.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -2439,8 +2452,8 @@
           <div type="desc">
             <head>Description:</head>
             <p>Major structural division of text, such as a preface, chapter or
-              section. Often, the &lt;head&gt; element identifies the
-              &lt;div&gt;'s purpose.</p>
+              section. Often, the &lt;head&gt; sub-element identifies
+              the &lt;div&gt;'s purpose.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -2470,7 +2483,11 @@
           <head>&lt;dot&gt; dot</head>
           <div type="desc">
             <head>Description:</head>
-            <p>May be used for dots of augmentation or division.</p>
+            <p>This element provides an alternative to the dots attribute on
+              chord, note, rest, space, tuplet, and tupletspan elements. It
+              should be used when specific display info, such as size or color,
+              needs to be recorded for the dot. This element may also be used
+              for dots of division in the mensural repertoire.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -2509,14 +2526,16 @@
           <head>&lt;dynam&gt; dynamic</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Records instantaneous or continuous textual dynamics, e.g. 'p',
-              'mf', or 'cresc. poco a poco'. See Read, p. 250-255. The
-              &lt;hairpin&gt; element should be used for graphical
-              dynamic markings. The starting point of the dynamic marking may be
-              indicated by either a tstamp, tstamp.ges, tstamp.real or startid
-              attribute, while the ending point may be recorded by either a dur,
-              dur.ges or endid attribute. It is a semantic error not to specify
-              a starting point attribute.</p>
+            <p>Indication of the volume of a note, phrase, or section of music.
+              This element may be used for instantaneous or continuous textual
+              dynamics, e.g. 'p', 'mf', or 'cresc. poco a poco'. The
+              &lt;hairpin&gt; element should be used for graphical,
+              i.e., crescendo and diminuendo, dynamic markings. The starting
+              point of the dynamic marking may be indicated by either a tstamp,
+              tstamp.ges, tstamp.real or startid attribute, while the ending
+              point may be recorded by either a dur, dur.ges or endid attribute.
+              It is a semantic error not to specify a starting point
+              attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -2575,16 +2594,15 @@
           </div>
         </div>
         <div type="element">
-          <head>&lt;edition&gt; edition</head>
+          <head>&lt;edition&gt; edition designation</head>
           <div type="desc">
             <head>Description:</head>
-            <p>The edition designation is a word or text phrase that normally
-              indicates a difference in either content or form between the item
-              being described and a related item previously issued by the same
-              publisher/distributor (e.g. 2nd edition, version 2.0, etc.), or
-              simultaneously issued by either the same publisher/distributor or
-              another publisher/distributor (e.g. large print edition, British
-              edition, etc.).</p>
+            <p>A word or text phrase that indicates a difference in either
+              content or form between the item being described and a related
+              item previously issued by the same publisher/distributor (e.g. 2nd
+              edition, version 2.0, etc.), or simultaneously issued by either
+              the same publisher/distributor or another publisher/distributor
+              (e.g. large print edition, British edition, etc.).</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -2699,8 +2717,9 @@
           <head>&lt;ending&gt; ending</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Alternative ending. The scoredef element is allowed so that an
-              ending may have its own meta-data without the overhead of child
+            <p>Alternative ending for a repeated section of music. The scoredef
+              element is allowed as a sub-element so that an ending may have its
+              own meta-data without the overhead of child
               &lt;section&gt;s. Div sub-elements are not allowed within
               ending in order to avoid collisions with the brackets that are
               usually displayed over endings. Endings may *not* contain other
@@ -2839,8 +2858,7 @@
           <div type="desc">
             <head>Description:</head>
             <p>Indicates how a section may be programmatically expanded into its
-              'through-composed' form. See Read, p. 226 (ex. 12-10), 228-229
-              (ex. 12-16).</p>
+              'through-composed' form. See Read, p. 229 (ex. 12-16).</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -2991,7 +3009,7 @@
             <p>Contains a representation of some written source in the form of a
               set of images rather than as transcribed or encoded text. The
               source attribute may be used to link the collection of images with
-              a particular source.</p>
+              a particular source described in the header.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3018,12 +3036,13 @@
           <head>&lt;fermata&gt; fermata</head>
           <div type="desc">
             <head>Description:</head>
-            <p>The fermata element is a specialized form of, i.e., syntactic
-              sugar for, dir/@type="fermata" with &amp;ferm; or
-              &amp;uferm; as its PCDATA content. The starting point of the
-              fermata may be indicated by either a tstamp, tstamp.ges,
-              tstamp.real or startid attribute. It is a semantic error not to
-              specify a starting point attribute.</p>
+            <p>A hold or pause. The &lt;fermata&gt; element is a
+              specialized form of, i.e., syntactic sugar for,
+              dir/@type="fermata" with &amp;ferm; or &amp;uferm; as its
+              PCDATA content. The starting point of the fermata may be indicated
+              by either a tstamp, tstamp.ges, tstamp.real or startid attribute.
+              It is a semantic error not to specify a starting point
+              attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3077,7 +3096,8 @@
           <head>&lt;fig&gt; figure</head>
           <div type="desc">
             <head>Description:</head>
-            <p>An illustration.</p>
+            <p>groups elements representing or containing graphic information
+              such as an illustration or figure.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3177,11 +3197,11 @@
           <head>&lt;fingerprint&gt; fingerprint</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Traditionally, an identifier constructed by combining groups of
-              characters transcribed from specified pages of a printed item.
-              Here in the MEI header, however, the fingerprint should be a
-              checksum. The checksum makes it possible to signal differences
-              between copies of the item.</p>
+            <p>Traditionally, an identifier, constructed by combining groups of
+              characters transcribed from specified pages of a printed item,
+              which makes it possible to signal differences between copies of
+              the item. For an electronic item, such as an MEI file, however,
+              the fingerprint should be a checksum.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3246,10 +3266,9 @@
             <head>Description:</head>
             <p>A rapid alternation between a pair of notes (or chords or perhaps
               between a note and a chord) that are (usually) farther apart than
-              a major second. See Read, p. 235-238. For rapid alternation
-              between notes on the same pitch (bowed tremolo, double
-              &amp;amp; triple tonguing, and flutter tonguing) use the btrem
-              element.</p>
+              a major second. For rapid alternation between notes on the same
+              pitch (bowed tremolo, double &amp;amp; triple tonguing, and
+              flutter tonguing) use the &lt;btrem&gt; element.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3292,9 +3311,8 @@
             <head>Description:</head>
             <p>This element is intended for capture of header/footer material
               that is non-repeating; that is, it occurs on isolated pages. For
-              running headers and footers use pgheadN and pgfootN elements.
-              Auto-generated page numbers may be included by using a processing
-              instruction.</p>
+              recurring headers and footers use pgheadN and pgfootN
+              elements.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3423,12 +3441,12 @@
             <head>Description:</head>
             <p>An indication to perform notes between the written pitches at a
               tempo such that the intermediate pitches are not heard
-              individually. See Read, p. 243-245, 397-398. Sometimes called a
-              'slide'. Precise performance data, that is, exact pitches, may be
-              recorded within the gliss element. The starting point of the
-              glissand sign may be indicated by either a tstamp, tstamp.ges,
-              tstamp.real or startid attribute. It is a semantic error not to
-              specify a starting point attribute.</p>
+              individually. Sometimes called a 'slide'. Precise performance
+              data, that is, exact pitches, may be recorded within the
+              &lt;gliss&gt; element. The starting point of the glissand
+              sign may be indicated by either a tstamp, tstamp.ges, tstamp.real
+              or startid attribute. It is a semantic error not to specify a
+              starting point attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3551,9 +3569,11 @@
           <head>&lt;grpsym&gt; group symbol</head>
           <div type="desc">
             <head>Description:</head>
-            <p>i.e., a brace or bracket. This element may be used instead of the
-              staffgrp element's symbol attribute when exact placement or
-              editorial details for the brace must be recorded.</p>
+            <p>A brace or bracket used to join two or more staves to create a
+              system or to group staves within a system. This element provides
+              an alternative to the staffgrp element's symbol attribute. It may
+              be used when exact placement or editorial details for the grouping
+              symbol must be recorded.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3594,12 +3614,11 @@
           <div type="desc">
             <head>Description:</head>
             <p>Indicates continuous dynamics expressed on the score as graphics,
-              e.g. &lt; and &gt; (Read, p. 250-255). The starting point
-              of the hairpin may be indicated by either a tstamp, tstamp.ges,
-              tstamp.real or startid attribute, while the ending point may be
-              recorded by either a dur, dur.ges or endid attribute. It is a
-              semantic error not to specify one starting and one ending type of
-              attribute.</p>
+              e.g. &lt; and &gt;. The starting point of the hairpin may
+              be indicated by either a tstamp, tstamp.ges, tstamp.real or
+              startid attribute, while the ending point may be recorded by
+              either a dur, dur.ges or endid attribute. It is a semantic error
+              not to specify one starting and one ending type of attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3750,8 +3769,7 @@
           <head>&lt;handlist&gt; hand list</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Contains a series of hand elements listing the different hands of
-              the source.</p>
+            <p>Container for one or more hand elements.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3823,13 +3841,12 @@
           <head>&lt;harm&gt; harmony</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Indication of harmony, e.g. chord names, tablature grids,
-              harmonic analysis, figured bass. (Read, p. 411.) The starting
-              point of the harmony may be indicated by either a tstamp,
-              tstamp.ges, tstamp.real or startid attribute, while the ending
-              point may be recorded by either a dur, dur.ges or endid attribute.
-              It is a semantic error not to specify a starting point
-              attribute.</p>
+            <p>A textual indication of harmony, e.g., chord names, tablature
+              grids, harmonic analysis, figured bass. The starting point of the
+              harmony may be indicated by either a tstamp, tstamp.ges,
+              tstamp.real or startid attribute, while the ending point may be
+              recorded by either a dur, dur.ges or endid attribute. It is a
+              semantic error not to specify a starting point attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3892,10 +3909,10 @@
           <head>&lt;harppedal&gt; harp pedal</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Harp pedal diagram. (Read, p. 325). The starting point of the
-              harp pedal diagram may be indicated by either a tstamp,
-              tstamp.ges, tstamp.real or startid attribute. It is a semantic
-              error not to specify a starting point attribute.</p>
+            <p>Harp pedal diagram. The starting point of the harp pedal diagram
+              may be indicated by either a tstamp, tstamp.ges, tstamp.real or
+              startid attribute. It is a semantic error not to specify a
+              starting point attribute.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -3991,7 +4008,8 @@
           <head>&lt;hex&gt; hex</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Arbitrary MIDI data in hexadecimal form.</p>
+            <p>Arbitrary MIDI data in hexadecimal form. The element's content
+              must be wrapped in a CDATA section to avoid parsing errors.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -4027,9 +4045,12 @@
           <head>&lt;identifier&gt; identifier</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Bibliographic, e.g., International Standard Book/Music Number,
-              Library of Congress Control Number, publisher's number, plate
-              number, or personal identifier.</p>
+            <p>An alpha-numeric string that establishes the identity of the
+              described material, such as an International Standard Book/Music
+              Number, Library of Congress Control Number, publisher's number,
+              plate number, a personal identification number, an entry in a
+              bibliography or catalog, etc. The type attribute may be used to
+              indicate the system from which the identifier was derived.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -4063,8 +4084,10 @@
           <head>&lt;ineume&gt; interrupted neume</head>
           <div type="desc">
             <head>Description:</head>
-            <p>a neume composed of multiple interrupted or uninterrupted
-              neumes.</p>
+            <p>a graphically interrupted neume; that is, a neume which is
+              logically a single entity written using multiple signs. The
+              constituent signs may be encoded using ineume and uneume
+              sub-elements.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -5388,9 +5411,10 @@
           <head>&lt;mrpt&gt; measure repeat</head>
           <div type="desc">
             <head>Description:</head>
-            <p>A repeated measure (Read, p. 224-225). The numbering of
-              consecutive measures of rest may be controlled via the
-              multi.number attribute on the scoredef or staffdef elements.</p>
+            <p>An indication that the previous measure should be repeated. The
+              automated numbering of consecutive measures of rest may be
+              controlled via the multi.number attribute on the scoredef or
+              staffdef elements.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -5429,10 +5453,11 @@
           </div>
         </div>
         <div type="element">
-          <head>&lt;mrpt2&gt; measure repeat 2</head>
+          <head>&lt;mrpt2&gt; 2-measure repeat</head>
           <div type="desc">
             <head>Description:</head>
-            <p>2-measure repeat sign.</p>
+            <p>An indication that the previous two measures should be
+              repeated.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -5474,9 +5499,10 @@
           <head>&lt;mspace&gt; measure space</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Complete measure of space in any meter. The numbering of
-              consecutive measures of space may be controlled via the
-              multi.number attribute on the scoredef or staffdef elements.</p>
+            <p>Complete measure consisting of empty space in any meter. The
+              automated numbering of consecutive measures of space may be
+              controlled via the multi.number attribute on the scoredef or
+              staffdef elements.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -5523,7 +5549,8 @@
           <head>&lt;multirest&gt; multi-rest</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Multiple measures of rest.</p>
+            <p>Multiple measures of rest compressed into a single symbol,
+              frequently found in performer parts.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -5567,9 +5594,10 @@
           <head>&lt;multirpt&gt; multi-repeat</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Multiple repeated measures. Read (p. 225-226) says repeats of
-              more than 2 measures should always be written out using repeat
-              signs.</p>
+            <p>Multiple repeated measures. In modern practice repeats of more
+              than 2 measures should be written out using repeat signs. This
+              element, however, is provided for handling non-standard practices
+              often found in manuscript.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -6916,8 +6944,8 @@
           <head>&lt;prog&gt; program</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Program change/new instrument. The num attribute must be in the
-              range 0-127.</p>
+            <p>MIDI program change. The num attribute must be in the range
+              0-127.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -7928,7 +7956,8 @@
           <head>&lt;seqnum&gt; sequence number</head>
           <div type="desc">
             <head>Description:</head>
-            <p>The num attribute must be in the range 0-65535.</p>
+            <p>MIDI sequence number. The num attribute must be in the range
+              0-65535.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -9718,10 +9747,11 @@
           <head>&lt;uneume&gt; uninterrupted neume</head>
           <div type="desc">
             <head>Description:</head>
-            <p>A single, uninterrupted neume sign. While ineume is allowed as a
-              sub-element of uneume here as part of the model.eventLike.neume
-              class, it is unlikely that an uninterrupted neume containing an
-              interrupted neume is a meaningful construct.</p>
+            <p>A graphically uninterrupted neume sign. While ineume is allowed
+              as a sub-element of uneume here as part of the
+              model.eventLike.neume class, it is unlikely that an uninterrupted
+              neume containing an interrupted neume is a meaningful
+              construct.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
@@ -9810,8 +9840,15 @@
           <head>&lt;userestrict&gt; usage restrictions</head>
           <div type="desc">
             <head>Description:</head>
-            <p>Copyright statement in the filedesc, or (re-)publication rights
-              in the source element.</p>
+            <p>Container for information about the conditions that affect use of
+              a bibliographic item after access has been granted. May indicate
+              limitations imposed by an owner, repository, or legal statute (for
+              example, copyright law) regarding the reproduction, publication,
+              or quotation of the item. May also indicate the absence of
+              restrictions, such as when rights have been ceded to the public
+              domain. Do not confuse with the &lt;accessdesc&gt;
+              element, which holds information about conditions affecting the
+              availability of the material.</p>
           </div>
           <div type="content">
             <head>May contain:</head>
