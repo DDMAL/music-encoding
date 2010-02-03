@@ -96,7 +96,7 @@
               exclude-result-prefixes="#all" mode="attributes">
               <xsl:sort select="db:title"/>
             </xsl:apply-templates>
-          </div>
+          </div> -->
           <div type="chapter">
             <head>MEI Element Groups</head>
             <xsl:apply-templates
@@ -104,7 +104,7 @@
               exclude-result-prefixes="#all" mode="elementgrps">
               <xsl:sort select="db:title"/>
             </xsl:apply-templates>
-          </div> -->
+          </div>
         </body>
       </text>
     </TEI>
@@ -116,8 +116,9 @@
       <head>
         <xsl:value-of select="db:title/db:literal"/>
       </head>
-      <p>
-        <xsl:text>Members: </xsl:text>
+      <div type="Members">
+        <head>Members:</head>
+        <p>
         <xsl:for-each
           select="db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Children ']/db:entry[2]/db:link">
           <xsl:value-of select="."/>
@@ -125,7 +126,23 @@
             <xsl:text>, </xsl:text>
           </xsl:if>
         </xsl:for-each>
-      </p>
+      </p></div>
+      <div type="usedby">
+        <head>Used by:</head>
+        <p>
+          <xsl:variable name="usedby">
+            <xsl:for-each
+              select="db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Used by ']/db:entry[2]/db:informaltable/db:tgroup/db:tbody/db:row[not(db:entry='Complex Type ' or db:entry='Complex Types ')]/db:entry[2]/db:link">
+              <xsl:sort select="."/>
+              <xsl:value-of select="."/>
+              <xsl:if test="position() != last()">
+                <xsl:text>, </xsl:text>
+              </xsl:if>
+            </xsl:for-each>
+          </xsl:variable>
+          <xsl:value-of select="normalize-space($usedby)"/>
+        </p>
+      </div>
     </div>
   </xsl:template>
 
@@ -195,7 +212,10 @@
 
   <xsl:template match="db:sect3" exclude-result-prefixes="#all"
     mode="attributes">
-    <xsl:if test="not(starts-with(db:title/db:literal, 'attlist'))">
+    <xsl:if test="not(starts-with(db:title/db:literal, 'attlist')) ">
+    <!-- <xsl:if test="not(starts-with(db:title/db:literal, 'attlist')) and not(matches(db:title/db:literal,'\.anl$'))
+      and not(matches(db:title/db:literal,'\.ges$')) and not(matches(db:title/db:literal,'\.log$'))
+      and not(matches(db:title/db:literal,'\.vis$'))"> -->
       <div type="attGroup">
         <head>
           <xsl:value-of select="db:title/db:literal"/>
@@ -206,7 +226,9 @@
             <xsl:sort select="db:entry[1]"/>
             <item>
               <xsl:value-of select="db:entry[1]"/>
-              <xsl:choose>
+              <xsl:text> -</xsl:text><lb/>
+              <xsl:value-of select="normalize-space(following-sibling::db:row[1]/db:entry[1]/db:programlisting)"/>
+              <!-- <xsl:choose>
                 <xsl:when test="db:entry[2] != ''">
                   <xsl:text>, </xsl:text>
                   <xsl:choose>
@@ -215,10 +237,6 @@
                         select="translate(replace(db:entry[2], '^[^:]*:', ''), 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"
                       />
                     </xsl:when>
-                    <!-- <xsl:when test="contains(db:entry[2], 'data.')">
-                      <xsl:value-of select="replace(db:entry[2], '^data\.', '')"
-                      />
-                    </xsl:when> -->
                     <xsl:otherwise>
                       <xsl:value-of select="db:entry[2]"/>
                     </xsl:otherwise>
@@ -234,9 +252,9 @@
                     </xsl:otherwise>
                   </xsl:choose>
                 </xsl:otherwise>
-              </xsl:choose>
-              <xsl:text>, </xsl:text>
-              <xsl:value-of select="db:entry[5]"/>
+              </xsl:choose> -->
+              <!-- <xsl:text>, </xsl:text>
+              <xsl:value-of select="db:entry[5]"/> -->
               <!-- <xsl:variable name="thisAttr">
                 <xsl:value-of select="db:entry[1]//db:link/@linkend"/>
               </xsl:variable>
@@ -356,7 +374,19 @@
                 </xsl:otherwise>
               </xsl:choose>
               <xsl:text>, </xsl:text>
-              <xsl:value-of select="db:entry[5]"/>
+              <xsl:value-of select="db:entry[5]"/><lb/>
+              <xsl:choose>
+                <xsl:when test="db:entry[1] = 'id'">
+                  <xsl:value-of select="normalize-space(//db:sect3[contains(db:title,'@xml:id')]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Annotations ']/db:entry[2]//db:programlisting)"/>
+                </xsl:when>
+                <xsl:when test="db:entry[1] = 'lang'">
+                  <xsl:value-of select="normalize-space(//db:sect3[contains(db:title,'@xml:lang')]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Annotations ']/db:entry[2]//db:programlisting)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="normalize-space(following-sibling::db:row[1]/db:entry[1]/db:programlisting)"/>
+                </xsl:otherwise>
+              </xsl:choose>
+              
               <!-- <xsl:variable name="thisAttr">
                 <xsl:value-of select="db:entry[1]//db:link/@linkend"/>
               </xsl:variable>
