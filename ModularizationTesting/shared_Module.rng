@@ -83,17 +83,16 @@
           control event is active.</a:documentation>
         <list>
           <oneOrMore>
-            <ref name="data.INTEGERPOSITIVE"/>
+            <data type="positiveInteger"/>
           </oneOrMore>
         </list>
       </attribute>
     </optional>
     <optional>
       <attribute name="plist">
-        <a:documentation xml:lang="eng">may contain ID references or xPointer
-          fragment identifiers that identify logical events that participate in
-          the control event, such as notes under a phrase
-          mark.</a:documentation>
+        <a:documentation xml:lang="eng">may contain white-space separated list
+          of ID references that identify logical events that participate in the
+          control event, such as notes under a phrase mark.</a:documentation>
         <ref name="data.PLIST"/>
       </attribute>
     </optional>
@@ -102,7 +101,7 @@
         event is active.</a:documentation>
       <list>
         <oneOrMore>
-          <ref name="data.INTEGERPOSITIVE"/>
+          <data type="positiveInteger"/>
         </oneOrMore>
       </list>
     </attribute>
@@ -119,7 +118,7 @@
         <a:documentation xml:lang="eng">records the onset time in pulses per
           quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
           of the measure.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
+        <data type="nonNegativeInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -139,28 +138,28 @@
       <attribute name="ulx">
         <a:documentation xml:lang="eng">indicates the upper-left corner x
           coordinate.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
+        <data type="nonNegativeInteger"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="uly">
         <a:documentation xml:lang="eng">indicates the upper-left corner y
           coordinate.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
+        <data type="nonNegativeInteger"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="lrx">
         <a:documentation xml:lang="eng">indicates the lower-right corner x
           coordinate.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
+        <data type="nonNegativeInteger"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="lry">
         <a:documentation xml:lang="eng">indicates the lower-left corner x
           coordinate.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
+        <data type="nonNegativeInteger"/>
       </attribute>
     </optional>
   </define>
@@ -226,14 +225,14 @@
       <attribute name="layer">
         <a:documentation xml:lang="eng">signifies the layer within which the
           event is active.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="staff">
         <a:documentation xml:lang="eng">signifies the staff within which the
           event is active.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -249,7 +248,7 @@
         <a:documentation xml:lang="eng">records the onset time in pulses per
           quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
           of the measure.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
+        <data type="nonNegativeInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -361,13 +360,6 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="fragment">
-        <a:documentation xml:lang="eng">permits identification of one or more
-          sub-parts within the object being pointed to.</a:documentation>
-        <ref name="data.FRAGMENT"/>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="href" ns="http://www.w3.org/1999/xlink">
         <a:documentation xml:lang="eng">allows the use of an
           previously-undeclared URI to identify an external electronic
@@ -382,8 +374,9 @@
       elements</a:documentation>
     <optional>
       <attribute name="plist">
-        <a:documentation xml:lang="eng">contains an ID reference for each of the
-          participants in a collection of elements.</a:documentation>
+        <a:documentation xml:lang="eng">contains a white-space separated list of
+          ID references to the participants in a collection of
+          elements.</a:documentation>
         <ref name="data.PLIST"/>
       </attribute>
     </optional>
@@ -485,7 +478,7 @@
       <attribute name="fontsize">
         <a:documentation xml:lang="eng">indicates the size of the font in
           printers' points, i.e., 1/72ths of an inch.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -636,14 +629,14 @@
       <attribute name="x">
         <a:documentation xml:lang="eng">encodes the optional x
           coordinate.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="y">
         <a:documentation xml:lang="eng">encodes the optional y
           coordinate.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
   </define>
@@ -656,14 +649,14 @@
       <attribute name="x2">
         <a:documentation xml:lang="eng">encodes the optional 2nd x
           coordinate.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="y2">
         <a:documentation xml:lang="eng">encodes the optional 2nd y
           coordinate.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
   </define>
@@ -766,14 +759,14 @@
       <attribute name="layer">
         <a:documentation xml:lang="eng">signifies the layer to which an
           annotation applies.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="staff">
         <a:documentation xml:lang="eng">signifies the staff to which an
           annotation applies.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -788,7 +781,7 @@
         <a:documentation xml:lang="eng">records the onset time in pulses per
           quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
           of the measure.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
+        <data type="nonNegativeInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -925,7 +918,7 @@
           systems rely on measure width data. The width attribute allows for the
           capture of this data in MEI for output back to these
           systems.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
   </define>
@@ -1097,7 +1090,7 @@
           that the secondary beam should be broken following this note/chord.
           The value of the attribute records the number of beams which should
           remain unbroken.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -1120,14 +1113,14 @@
       <attribute name="dot.x">
         <a:documentation xml:lang="eng">records the absolute horizontal position
           of the augmentation dot.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="dot.y">
         <a:documentation xml:lang="eng">records the absolute vertical position
           of the augmentation dot.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -1173,7 +1166,7 @@
       <attribute name="stem.len">
         <a:documentation xml:lang="eng">encodes the stem
           length.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -1203,14 +1196,14 @@
       <attribute name="stem.x">
         <a:documentation xml:lang="eng">records the x coordinate of the stem's
           attachment point.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="stem.y">
         <a:documentation xml:lang="eng">records the y coordinate of the stem's
           attachment point.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -1706,7 +1699,7 @@
       <attribute name="beam.slope">
         <a:documentation xml:lang="eng">contains the default value for the slope
           of beams.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -1738,7 +1731,7 @@
         <a:documentation xml:lang="eng">provides a default value for the font
           size of text (other than lyrics) when this information is not provided
           on the individual elements.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -1792,7 +1785,7 @@
         <a:documentation xml:lang="eng">used to record the onset time in pulses
           per quarter note (ppq, MusicXML divisions, or MIDI clicks) since the
           start of the file.</a:documentation>
-        <ref name="data.INTEGERNONNEGATIVE"/>
+        <data type="nonNegativeInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -1893,7 +1886,7 @@
           systems rely on measure width data. The width attribute allows for the
           capture of this data in MEI for output back to these
           systems.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
   </define>
@@ -2041,7 +2034,7 @@
       <attribute name="accid.ho">
         <a:documentation xml:lang="eng">records the distance between the
           accidental and the note it modifies.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2064,14 +2057,14 @@
       <attribute name="dot.x">
         <a:documentation xml:lang="eng">records the absolute horizontal position
           of the augmentation dot.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="dot.y">
         <a:documentation xml:lang="eng">records the absolute vertical position
           of the augmentation dot.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2115,7 +2108,7 @@
       <attribute name="stem.len">
         <a:documentation xml:lang="eng">encodes the stem
           length.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2129,14 +2122,14 @@
       <attribute name="stem.x">
         <a:documentation xml:lang="eng">records the x coordinate of the stem's
           attachment point.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="stem.y">
         <a:documentation xml:lang="eng">records the y coordinate of the stem's
           attachment point.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2168,7 +2161,7 @@
       <a:documentation xml:lang="eng">captures the amount of horizontal space to
         be added, expressed in one-half inter-line staff distance
         units.</a:documentation>
-      <ref name="data.NUMBER"/>
+      <data type="decimal"/>
     </attribute>
   </define>
 
@@ -2355,14 +2348,14 @@
       <attribute name="dot.x">
         <a:documentation xml:lang="eng">records the absolute horizontal position
           of the augmentation dot.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="dot.y">
         <a:documentation xml:lang="eng">records the absolute vertical position
           of the augmentation dot.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2528,7 +2521,7 @@
       <attribute name="midi.div">
         <a:documentation xml:lang="eng">sets the number of MIDI ticks per
           quarter note.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -2556,7 +2549,7 @@
       <attribute name="tune.Hz">
         <a:documentation xml:lang="eng">holds a value for cycles per second,
           i.e., Hertz, for a tuning reference pitch.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2735,7 +2728,7 @@
         <a:documentation xml:lang="eng">captures the number of beats in a
           measure, that is, the top number of the meter
           signature.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2751,7 +2744,7 @@
         <a:documentation xml:lang="eng">contains the number indicating the beat
           unit, that is, the bottom number of the meter
           signature.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2778,7 +2771,7 @@
           trans.diat and trans.semi attributes in order to distinguish the
           difference, for example, between a transposition from C to C# and one
           from C to Db.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -2788,7 +2781,7 @@
           trans.diat and trans.semi attributes in order to distinguish the
           difference, for example, between a transposition from C to C# and one
           from C to Db.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
   </define>
@@ -3025,7 +3018,7 @@
       <attribute name="dynam.dist">
         <a:documentation xml:lang="eng">records the default distance from the
           staff of dynamic marks.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3044,7 +3037,7 @@
         <a:documentation xml:lang="eng">records the default distance from the
           staff of harmonic indications, such as guitar chord grids or
           functional labels.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3065,7 +3058,7 @@
       <attribute name="lyric.align">
         <a:documentation xml:lang="eng">describes the alignment of lyric
           syllables associated with a note or chord.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3086,7 +3079,7 @@
       <attribute name="lyric.size">
         <a:documentation xml:lang="eng">sets the default font size value for
           lyrics.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3148,7 +3141,7 @@
       <attribute name="music.size">
         <a:documentation xml:lang="eng">sets the default music font
           size.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3171,14 +3164,14 @@
       <attribute name="page.height">
         <a:documentation xml:lang="eng">describes the physical height of the
           rendered output page.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="page.width">
         <a:documentation xml:lang="eng">describes the physwical width of the
           rendered output page.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3193,28 +3186,28 @@
       <attribute name="page.topmar">
         <a:documentation xml:lang="eng">indicates the amount of whitespace at
           the top of a rendered score page.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="page.botmar">
         <a:documentation xml:lang="eng">indicates the amount of whitespace at
           the bottom of a rendered score page.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="page.leftmar">
         <a:documentation xml:lang="eng">indicates the amount of whitespace at
           the left side of a rendered score page.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="page.rightmar">
         <a:documentation xml:lang="eng">indicates the amount of whitespace at
           the right side of a rendered score page.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3235,21 +3228,21 @@
       <attribute name="spacing.packexp">
         <a:documentation xml:lang="eng">describes a note's spacing relative to
           its time value.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="spacing.packfact">
         <a:documentation xml:lang="eng">describes the note spacing of
           output.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="spacing.staff">
         <a:documentation xml:lang="eng">sets the minimum amount of space between
           staves in the same system.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3263,28 +3256,28 @@
       <attribute name="system.leftmar">
         <a:documentation xml:lang="eng">describes the amount of whitespace at
           the left system margin relative to page.leftmar</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="system.rightmar">
         <a:documentation xml:lang="eng">describes the amount of whitespace at
           the right system margin relative to page.rightmar</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="system.topmar">
         <a:documentation xml:lang="eng">describes the distance from page's top
           edge to the first system; used for first page only</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="text.dist">
         <a:documentation xml:lang="eng">determines how far from the staff to
           render text elements.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3305,7 +3298,7 @@
       <attribute name="text.size">
         <a:documentation xml:lang="eng">sets the default font size value for
           text other than lyrics.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3477,7 +3470,7 @@
       <attribute name="midi.div">
         <a:documentation xml:lang="eng">sets the number of MIDI ticks per
           quarter note.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
   </define>
@@ -3576,7 +3569,7 @@
         <a:documentation xml:lang="eng">captures the number of beats in a
           measure, that is, the top number of the meter
           signature.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -3592,7 +3585,7 @@
         <a:documentation xml:lang="eng">contains the number indicating the beat
           unit, that is, the bottom number of the meter
           signature.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -3610,7 +3603,7 @@
           trans.diat and trans.semi attributes in order to distinguish the
           difference, for example, between a transposition from C to C# and one
           from C to Db.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="integer"/>
       </attribute>
     </optional>
     <optional>
@@ -3620,7 +3613,7 @@
           trans.diat and trans.semi attributes in order to distinguish the
           difference, for example, between a transposition from C to C# and one
           from C to Db.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="integer"/>
       </attribute>
     </optional>
   </define>
@@ -3646,7 +3639,7 @@
       <attribute name="dynam.dist">
         <a:documentation xml:lang="eng">records the default distance from the
           staff of dynamic marks.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3661,7 +3654,7 @@
         <a:documentation xml:lang="eng">records the default distance from the
           staff of harmonic indications, such as guitar chord grids or
           functional labels.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3701,7 +3694,7 @@
       <attribute name="lines">
         <a:documentation xml:lang="eng">indicates the number of
           stafflines.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -3725,7 +3718,7 @@
       <attribute name="lyric.align">
         <a:documentation xml:lang="eng">describes the alignment of lyric
           syllables associated with a note or chord.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3746,7 +3739,7 @@
       <attribute name="lyric.size">
         <a:documentation xml:lang="eng">sets the default font size value for
           lyrics.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3803,7 +3796,7 @@
       <attribute name="scale">
         <a:documentation xml:lang="eng">indicates how the staff should be scaled
           when rendered.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3814,14 +3807,14 @@
           This value is meaningless for the first staff in a system since the
           spacing.system attribute indicates the spacing between
           systems.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="text.dist">
         <a:documentation xml:lang="eng">determines how far from the staff to
           render text elements.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3845,7 +3838,7 @@
         <a:documentation xml:lang="eng">provides a default value for the font
           size for text (other than lyrics) associated with this
           staff.</a:documentation>
-        <ref name="data.NUMBER"/>
+        <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
@@ -3886,7 +3879,7 @@
       <attribute name="midi.div">
         <a:documentation xml:lang="eng">sets the default number of MIDI ticks
           per quarter note for all staves in the group.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -5467,7 +5460,7 @@
       <attribute name="midi.track">
         <a:documentation xml:lang="eng">sets the default MIDI
           track.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
   </define>

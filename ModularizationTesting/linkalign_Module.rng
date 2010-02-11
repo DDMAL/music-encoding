@@ -68,7 +68,7 @@
       <attribute name="medialength">
         <a:documentation xml:lang="eng">indicates the length of the external
           digital file.</a:documentation>
-        <ref name="data.INTEGERPOSITIVE"/>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <attribute name="origin">
@@ -122,7 +122,9 @@
       <attribute name="interval">
         <a:documentation xml:lang="eng">specifies the (positive) numeric portion
           of a time interval.</a:documentation>
-        <ref name="data.NUMBERPOSITIVE"/>
+        <data type="decimal">
+          <param name="minInclusive">1</param>
+        </data>
       </attribute>
     </optional>
     <optional>
