@@ -49,7 +49,7 @@
                 <chordmember pname="e" fing="o" xml:id="E1"/>
                 <chordmember pname="b" fing="3" fret="2" xml:id="E2"/>
                 <chordmember pname="e" fret="2" fing="2" xml:id="E3"/>
-                <chordmember pname="g" accid="s" fing="1" fret="2" xml:id="E4"/>
+                <chordmember pname="g" accid.ges="s" fing="1" fret="2" xml:id="E4"/>
                 <chordmember pname="b" fing="o" xml:id="E5"/>
                 <chordmember pname="e" fing="o" xml:id="E6"/>
                 <barre fret="2" from="E1" to="E4"/>
@@ -58,7 +58,7 @@
                 <chordmember pname="e" fing="o" xml:id="E21"/>
                 <chordmember pname="b" fing="3" fret="2" xml:id="E22"/>
                 <chordmember pname="e" fret="2" fing="2" xml:id="E23"/>
-                <chordmember pname="g" accid="s" fing="1" fret="2" xml:id="E24"/>
+                <chordmember pname="g" accid.ges="s" fing="1" fret="2" xml:id="E24"/>
                 <chordmember pname="b" fing="o" xml:id="E25"/>
                 <chordmember pname="e" fing="o" xml:id="E26"/>
                 <barre fret="2" from="E21" to="E22"/>
@@ -82,11 +82,12 @@
             <section xml:id="section1a">
               <measure>
                 <staff n="3">
+                  <damage agent="fooDidIt"><layer></layer></damage>
                   <layer>
-                    <note syl="a" instr="i1"/>
+                    <note syl="a" instr="i1"><dot ho=".5" vo="1"/></note>
                     <clefchange line="8" shape="F"/>
                     <bend staff="1" amount=".5" startid="m1"/>
-                    <octave staff="1" dis="8" layer="1" place="above" tstamp="1"
+                    <octave staff="1" dis="8" layer="1" dis.place="above" tstamp="1"
                       dur="3"/>
                     <custos oct="4" pname="a" target="n1"/>
                     <barline taktplace="17"/>
@@ -99,13 +100,14 @@
                     <note xml:id="n1" syl="a"/>
                     <clefchange line="6" shape="F"/>
                     <bend staff="1" amount=".5" startid="m1"/>
-                    <octave staff="1" dis="8" layer="1" place="above" tstamp="1"
+                    <octave staff="1" dis="8" layer="1" dis.place="above" tstamp="1"
                       dur="3"/>
                   </layer>
                 </staff>
                 <slur staff="1" tstamp="2" endid="m1"/>
                 <arpeg staff="1"/>
                 <harm staff="1" tstamp="3" chordref="Emajor" when="w12"/>
+                <tupletspan tstamp="1" dur="2"/>
               </measure>
             </section>
             <add hand="h1">
