@@ -9,6 +9,23 @@
 
   <!-- Figure and Table module -->
   <!-- Declare module attr classes -->
+  <define name="att.tabular">
+    <a:documentation>Attributes shared by table cells</a:documentation>
+    <optional>
+      <attribute name="colspan">
+        <a:documentation xml:lang="eng">the number of columns spanned by this
+          cell.</a:documentation>
+        <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="rowspan">
+        <a:documentation xml:lang="eng">the number of rows spanned by this
+          cell.</a:documentation>
+        <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+  </define>
 
   <!-- Declare module model classes -->
   <define name="model.figureLike" combine="interleave">
@@ -171,8 +188,8 @@
     <element name="td">
       <a:documentation xml:lang="eng">table data ― Designates a table cell that
         contains data as opposed to a cell that contains column or row heading
-        information. The &lt;td&gt; attributes control cell
-        spanning.</a:documentation>
+        information. The colspan and rowspan attributes tabular display
+        rendering information.</a:documentation>
       <ref name="attlist.td"/>
       <ref name="content.td"/>
     </element>
@@ -183,20 +200,7 @@
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="colspan">
-        <a:documentation xml:lang="eng">the number of columns spanned by this
-          cell.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="rowspan">
-        <a:documentation xml:lang="eng">the number of rows spanned by this
-          cell.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
+    <ref name="att.tabular"/>
   </define>
 
   <define name="content.th">
@@ -215,8 +219,8 @@
     <element name="th">
       <a:documentation xml:lang="eng">table header ― Designates a table cell
         containing column or row heading information as opposed to one
-        containing data. The &lt;td&gt; attributes control cell
-        spanning.</a:documentation>
+        containing data. The colspan and rowspan attributes tabular display
+        rendering information.</a:documentation>
       <ref name="attlist.th"/>
       <ref name="content.th"/>
     </element>
@@ -227,20 +231,7 @@
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="colspan">
-        <a:documentation xml:lang="eng">the number of columns spanned by this
-          cell.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="rowspan">
-        <a:documentation xml:lang="eng">the number of rows spanned by this
-          cell.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
+    <ref name="att.tabular"/>
   </define>
 
   <define name="content.tr">

@@ -93,8 +93,9 @@
     <element name="when">
       <a:documentation xml:lang="eng">when ― Indicates a point in time either
         absolutely (using the absolute attribute), or relative to other elements
-        in the same timeline element (using the interval and since
-        attributes).</a:documentation>
+        in the same timeline element (using the interval and since attributes).
+        The data attribute may be used to reference one or more features that
+        occur at this point in time.</a:documentation>
       <ref name="attlist.when"/>
       <ref name="content.when"/>
     </element>
@@ -102,20 +103,13 @@
 
   <define name="attlist.when">
     <ref name="att.common"/>
+    <ref name="att.datapointing"/>
     <optional>
       <attribute name="absolute">
         <a:documentation xml:lang="eng">provides an absolute value for the time
-          associated with this point. This attribute is required for the element
-          designated as the origin by the parent timeline.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="data">
-        <a:documentation xml:lang="eng">used to link this point in time to a
-          particular data element, i.e., mdiv, part, section, ending, reading,
-          measure, staff or layer, when there are multiple
-          sources.</a:documentation>
-        <data type="IDREFS"/>
+          associated with a point on a timeline. This attribute is required for
+          the element designated as the origin by the parent
+          timeline.</a:documentation>
       </attribute>
     </optional>
     <optional>

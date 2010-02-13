@@ -12,13 +12,9 @@
   <define name="att.edit" combine="interleave">
     <a:documentation xml:lang="eng">Attributes describing the nature of an
       encoded scholarly intervention or interpretation</a:documentation>
-    <optional>
-      <attribute name="cert">
-        <a:documentation xml:lang="eng">signifies the degree of certainty
-          associated with the intervention or interpretation.</a:documentation>
-        <ref name="data.CERTAINTY"/>
-      </attribute>
-    </optional>
+    <ref name="att.certainty"/>
+    <ref name="att.responsibility"/>
+    <ref name="att.source"/>
     <optional>
       <attribute name="evidence">
         <a:documentation xml:lang="eng">indicates the nature of the evidence
@@ -28,49 +24,47 @@
         <data type="NMTOKEN"/>
       </attribute>
     </optional>
+  </define>
+
+  <define name="att.agentident" combine="interleave">
+    <a:documentation>Attributes for the identification of a causative
+      agent</a:documentation>
     <optional>
-      <attribute name="resp">
-        <a:documentation xml:lang="eng">records the editor(s) responsible for
-          asserting a particular reading in a witness. Its value must point to
-          one or more of the identifiers declared in the document header,
-          associated with a person asserted as responsible for some aspect of
-          the text's creation, transcription, editing, or
-          encoding.</a:documentation>
-        <data type="IDREFS"/>
+      <attribute name="agent">
+        <a:documentation xml:lang="eng">signifies the causative agent of damage,
+          illegibility, or other loss of original text.</a:documentation>
       </attribute>
     </optional>
-    <ref name="att.source"/>
-    <!-- Moved to critApp module
+  </define>
+
+  <define name="att.extent" combine="interleave">
+    <a:documentation>Attributes for identification of the extent of editorial
+      assertions</a:documentation>
     <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">contains a list of one or more pointers
-          indicating the sources which support the given
-          reading.</a:documentation>
-        <data type="IDREFS"/>
+      <attribute name="extent">
+        <a:documentation xml:lang="eng">indicates the extent of damage or
+          omission.</a:documentation>
       </attribute>
-    </optional> -->
+    </optional>
+  </define>
+
+  <define name="att.reasonident" combine="interleave">
+    <optional>
+      <attribute name="reason">
+        <a:documentation xml:lang="eng">holds a short phrase describing the
+          reason for missing textual material (gap), why material is supplied
+          (supplied), or why transcription is difficult
+          (unclear).</a:documentation>
+      </attribute>
+    </optional>
   </define>
 
   <define name="att.trans" combine="interleave">
     <a:documentation xml:lang="eng">Attributes for elements encoding authorial
       or scribal intervention when transcribing manuscript or similar
       sources</a:documentation>
-    <optional>
-      <attribute name="hand">
-        <a:documentation xml:lang="eng">signifies the hand of the agent which
-          made the intervention. Its value must be the ID of a
-          &lt;hand&gt; element declared in the header.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="seq">
-        <a:documentation xml:lang="eng">used to assign a sequence number related
-          to the order in which the encoded features carrying this attribute are
-          believed to have occurred.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
+    <ref name="att.handident"/>
+    <ref name="att.sequence"/>
   </define>
 
   <!-- Declare module model classes -->
@@ -147,8 +141,10 @@
         may be encoded using the hand attribute, while the resp attribute
         records the editor or transcriber responsible for identifying the hand
         of the addition. The cert attribute signifies the degree of certainty
-        ascribed to the identification of the hand of the
-        addition.</a:documentation>
+        ascribed to the identification of the hand of the addition. The
+        editor(s) responsible for asserting this particular reading may be
+        recorded in the resp attribute. The value of resp must point to one or
+        more identifiers declared in the document header.</a:documentation>
       <ref name="attlist.add"/>
       <ref name="content.add"/>
     </element>
@@ -213,12 +209,14 @@
   <define name="corr">
     <element name="corr">
       <a:documentation xml:lang="eng">correction ― Contains the correct form of
-        an apparent erroneous passage. The resp attribute contains an ID
+        an apparent erroneous passage. The cert attribute signifies the degree
+        of certainty ascribed to correction. The resp attribute contains an ID
         reference to an element containing the name of the editor or transcriber
         responsible for suggesting the correction held as the content of the
         &lt;corr&gt; element. If the correction was made in the source,
-        resp should be used to identify the hand of the
-        corrector.</a:documentation>
+        resp should be used to identify the hand of the corrector. The value of
+        resp must point to one or more identifiers declared in the document
+        header.</a:documentation>
       <ref name="attlist.corr"/>
       <ref name="content.corr"/>
     </element>
@@ -274,33 +272,16 @@
   </define>
 
   <define name="attlist.damage">
+    <ref name="att.agentident"/>
     <ref name="att.common"/>
+    <ref name="att.extent"/>
     <ref name="att.facsimile"/>
+    <ref name="att.handident"/>
     <ref name="att.typed"/>
-    <optional>
-      <attribute name="agent">
-        <a:documentation xml:lang="eng">signifies the causative agent of the
-          damage.</a:documentation>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="degree">
         <a:documentation xml:lang="eng">records the degree of
           damage.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="extent">
-        <a:documentation xml:lang="eng">indicates the extent of the
-          damage.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="hand">
-        <a:documentation xml:lang="eng">signifies the hand responsible for the
-          damage in the case of damage (deliberate defacement, inking out, etc.)
-          assignable to a distinct hand.</a:documentation>
-        <data type="IDREF"/>
       </attribute>
     </optional>
   </define>
@@ -379,7 +360,11 @@
         contains an ID reference to an element containing the name of the
         editor, transcriber or encoder responsible for the decision not to
         provide any transcription of the material and hence the application of
-        the &lt;gap&gt; tag.</a:documentation>
+        the &lt;gap&gt; tag. The hand attribute signifies the hand which
+        made the deletion in the case of text omitted from the transcription
+        because of deliberate deletion by an identifiable hand. The cert
+        attribute signifies the degree of certainty ascribed to the
+        identification of the extent of the missing material.</a:documentation>
       <ref name="attlist.gap"/>
       <ref name="content.gap"/>
     </element>
@@ -388,26 +373,9 @@
   <define name="attlist.gap">
     <ref name="att.common"/>
     <ref name="att.edit"/>
-    <optional>
-      <attribute name="extent">
-        <a:documentation xml:lang="eng">contains an indication of the extent of
-          the omission.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="hand">
-        <a:documentation xml:lang="eng">signifies the hand which made the
-          deletion in the case of text omitted from the transcription because of
-          deliberate deletion by an identifiable hand.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reason">
-        <a:documentation xml:lang="eng">gives a reason for the
-          omission.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.extent"/>
+    <ref name="att.handident"/>
+    <ref name="att.reasonident"/>
     <optional>
       <attribute name="unit">
         <a:documentation xml:lang="eng">indicates the units of measurement of
@@ -432,7 +400,9 @@
         identified using the new attribute, while the previous hand may be
         recorded in the old attribute. The resp attribute contains an ID
         reference to an element containing the name of the editor or transcriber
-        responsible for identifying the change of hand.</a:documentation>
+        responsible for identifying the change of hand. The cert attribute
+        signifies the degree of certainty ascribed to the identification of the
+        new hand.</a:documentation>
       <ref name="attlist.handshift"/>
       <ref name="content.handshift"/>
     </element>
@@ -442,16 +412,11 @@
     <ref name="att.common"/>
     <ref name="att.edit"/>
     <ref name="att.facsimile"/>
+    <ref name="att.medium"/>
     <optional>
       <attribute name="character">
         <a:documentation xml:lang="eng">describes the character of the new
           hand.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="medium">
-        <a:documentation xml:lang="eng">describes the writing medium, such as
-          pencil or ink.</a:documentation>
       </attribute>
     </optional>
     <optional>
@@ -499,7 +464,11 @@
       <a:documentation xml:lang="eng">original ― Contains a reading which is
         marked as following the original, rather than being normalized or
         corrected. This element will often be combined with a regularized form
-        within a choice element.</a:documentation>
+        within a choice element. The editor(s) responsible for asserting that
+        the material is original may be recorded in the resp attribute. The
+        value of resp must point to one or more identifiers declared in the
+        document header. The cert attribute signifies the degree of certainty
+        ascribed to the transcription of the original text.</a:documentation>
       <ref name="attlist.orig"/>
       <ref name="content.orig"/>
     </element>
@@ -540,7 +509,11 @@
         has been regularized or normalized in some sense. It is possible to
         identify the individual responsible for the regularization, and, using
         the choice and orig elements, to provide both original and regularized
-        readings.</a:documentation>
+        readings. The editor(s) responsible for asserting the regularized
+        material may be recorded in the resp attribute. The value of resp must
+        point to one or more identifiers declared in the document header. The
+        cert attribute signifies the degree of certainty ascribed to the
+        regularized reading.</a:documentation>
       <ref name="attlist.reg"/>
       <ref name="content.reg"/>
     </element>
@@ -697,28 +670,22 @@
         the hand responsible for the action. The reason attribute indicates why
         the text has to be supplied, e.g. 'overbinding', 'faded ink', 'lost
         folio', 'omitted in original', etc. The source attribute contains the
-        source of the supplied text.</a:documentation>
+        source of the supplied text. The editor(s) responsible for supplied
+        material may be recorded in the resp attribute. The value of resp must
+        point to one or more identifiers declared in the document header. The
+        cert attribute signifies the degree of certainty ascribed to the
+        supplied material.</a:documentation>
       <ref name="attlist.supplied"/>
       <ref name="content.supplied"/>
     </element>
   </define>
 
   <define name="attlist.supplied">
+    <ref name="att.agentident"/>
     <ref name="att.common"/>
     <ref name="att.edit"/>
     <ref name="att.facsimile"/>
-    <optional>
-      <attribute name="agent">
-        <a:documentation xml:lang="eng">signifies the causative agent of the
-          loss of the original text.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reason">
-        <a:documentation xml:lang="eng">indicates why the text has to be
-          supplied.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.reasonident"/>
   </define>
 
   <define name="content.unclear">
@@ -757,37 +724,20 @@
         the action. The reason attribute indicates why the material is difficult
         to transcribe. The resp attribute indicates the individual responsible
         for the transcription of the word, phrase, or passage contained with the
-        &lt;unclear&gt; element.</a:documentation>
+        &lt;unclear&gt; element. The value of resp must point to one or
+        more identifiers declared in the document header.</a:documentation>
       <ref name="attlist.unclear"/>
       <ref name="content.unclear"/>
     </element>
   </define>
 
   <define name="attlist.unclear">
+    <ref name="att.agentident"/>
     <ref name="att.common"/>
     <ref name="att.edit"/>
     <ref name="att.facsimile"/>
-    <optional>
-      <attribute name="agent">
-        <a:documentation xml:lang="eng">indicates the causative agent of the
-          illegible text.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="hand">
-        <a:documentation xml:lang="eng">Where the difficulty in transcription
-          arises from action (partial deletion, etc.) assignable to an
-          identifiable hand, signifies the hand responsible for the
-          action.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reason">
-        <a:documentation xml:lang="eng">indicates why the material is difficult
-          to transcribe.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.handident"/>
+    <ref name="att.reasonident"/>
   </define>
 
 </grammar>

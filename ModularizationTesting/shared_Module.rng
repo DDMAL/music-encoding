@@ -10,9 +10,33 @@
   <!-- Shared Module -->
   <!-- Declare module attr classes -->
   <!-- Generic attr classes -->
+  <define name="att.accidental" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes for capturing momentary pitch
+      inflection</a:documentation>
+    <optional>
+      <attribute name="accid">
+        <a:documentation xml:lang="eng">captures a written
+          accidental.</a:documentation>
+        <ref name="data.ACCIDENTAL.EXPLICIT"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.accidental.performed">
+    <a:documentation xml:lang="eng">Attributes for capturing momentary pitch
+      inflection in the gestural domain</a:documentation>
+    <optional>
+      <attribute name="accid.ges">
+        <a:documentation xml:lang="eng">records the performed pitch inflection
+          when it differs from the written accidental.</a:documentation>
+        <ref name="data.ACCIDENTAL.IMPLICIT"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.altsym" combine="interleave">
-    <a:documentation xml:lang="eng">Pointers to user-defined
-      symbols</a:documentation>
+    <a:documentation xml:lang="eng">Attributes supplying pointers to
+      user-defined symbols</a:documentation>
     <optional>
       <attribute name="altsym">
         <a:documentation xml:lang="eng">provides a way of pointing to a
@@ -20,6 +44,81 @@
           &lt;symboldef&gt; element elsewhere in the
           document.</a:documentation>
         <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.articulation" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes for capturing the written signs
+      that describe the method of performance</a:documentation>
+    <optional>
+      <attribute name="artic">
+        <a:documentation xml:lang="eng">encodes the written articulation(s).
+          Articulations are normally encoded in order from the notehead outward;
+          that is, away from the stem. See additional notes at att.vis.note.
+          Only articulations should be encoded in the artic attribute;
+          fingerings should be encoded using the &lt;dir&gt;
+          element.</a:documentation>
+        <ref name="data.ARTICULATIONS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.articulation.performed" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes describing the method of
+      performance</a:documentation>
+    <optional>
+      <attribute name="artic.ges">
+        <a:documentation xml:lang="eng">records performed articulation that
+          differs from the written value.</a:documentation>
+        <ref name="data.ARTICULATIONS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.augmentdots" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record the number of dots of
+      augmentation</a:documentation>
+    <optional>
+      <attribute name="dots">
+        <a:documentation xml:lang="eng">records the number of augmentation dots
+          required by a dotted duration.</a:documentation>
+        <ref name="data.AUGMENTDOT"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.authorized" combine="interleave">
+    <a:documentation xml:lang="eng"/>
+    <optional>
+      <attribute name="authority">
+        <a:documentation xml:lang="eng">contains the name of the list from which
+          an authorized value is taken.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.beamed" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that indicate whether an event
+      lies under a beam</a:documentation>
+    <optional>
+      <attribute name="beam">
+        <a:documentation xml:lang="eng">indicates that this event is "under a
+          beam".</a:documentation>
+        <ref name="data.BEAMS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.beamedwith" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes indicating cross-staff
+      beaming</a:documentation>
+    <optional>
+      <attribute name="beam.with">
+        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
+          with attribute is used to indicate which staff the beam is connected
+          to; that is, the staff above or the staff below.</a:documentation>
+        <ref name="data.PLACE"/>
       </attribute>
     </optional>
   </define>
@@ -35,6 +134,18 @@
           catalog record. The encoding system from which fields are taken must
           be specified. When possible, subfields as well as fields should be
           specified, e.g., subfields within MARC fields.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.certainty" combine="interleave">
+    <a:documentation>Attributes capturing information regarding the certainty of
+      assertions</a:documentation>
+    <optional>
+      <attribute name="cert">
+        <a:documentation xml:lang="eng">signifies the degree of certainty or
+          precision associated with an entity.</a:documentation>
+        <ref name="data.CERTAINTY"/>
       </attribute>
     </optional>
   </define>
@@ -164,21 +275,37 @@
     </optional>
   </define>
 
-  <define name="att.date" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes common to dates</a:documentation>
+  <define name="att.curvature" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe
+      curvature</a:documentation>
     <optional>
-      <attribute name="calendar">
-        <a:documentation xml:lang="eng">indicates the system or calendar to
-          which the date belongs, for example, Gregorian, Julian, Roman, Mosaic,
-          Revolutionary, Islamic, etc.</a:documentation>
-        <data type="NMTOKEN"/>
+      <attribute name="bezier">
+        <a:documentation xml:lang="eng">records the placement of Bezier control
+          points as a series of space-separated xy coordinates, eg. 19 45 -32
+          118.</a:documentation>
+        <data type="NMTOKENS"/>
       </attribute>
     </optional>
     <optional>
-      <attribute name="cert">
-        <a:documentation xml:lang="eng">indicates the degree of precision to be
-          attributed to the date.</a:documentation>
-        <ref name="data.CERTAINTY"/>
+      <attribute name="bulge">
+        <a:documentation xml:lang="eng">describes a curve as a set of distance
+          values above or below an imaginary line connecting the endpoints of
+          the curve. The bulge attribute must contain one or more decimal values
+          expressed in inter-line units.</a:documentation>
+        <data type="NMTOKENS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.date" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes common to dates</a:documentation>
+    <ref name="att.certainty"/>
+    <optional>
+      <attribute name="calendar">
+        <a:documentation xml:lang="eng">indicates the system or calendar to
+          which a date belongs, for example, Gregorian, Julian, Roman, Mosaic,
+          Revolutionary, Islamic, etc.</a:documentation>
+        <data type="NMTOKEN"/>
       </attribute>
     </optional>
     <optional>
@@ -214,6 +341,17 @@
         <a:documentation xml:lang="eng">contains the end point of a date
           range.</a:documentation>
         <ref name="data.ISODATE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.datapointing" combine="interleave">
+    <a:documentation/>
+    <optional>
+      <attribute name="data">
+        <a:documentation xml:lang="eng">used to link metadata elements to one or
+          more data-containing elements.</a:documentation>
+        <data type="IDREFS"/>
       </attribute>
     </optional>
   </define>
@@ -257,6 +395,17 @@
           offset, i.e., in HH:MM:SS.ss format, since the beginning of the
           file.</a:documentation>
         <ref name="data.ISOTIME"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.handident" combine="interleave">
+    <optional>
+      <attribute name="hand">
+        <a:documentation xml:lang="eng">signifies the hand responsible for an
+          action. The value must be the ID of a &lt;hand&gt; element
+          declared in the header.</a:documentation>
+        <data type="IDREF"/>
       </attribute>
     </optional>
   </define>
@@ -382,15 +531,50 @@
     </optional>
   </define>
 
-  <define name="att.name" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes shared by names</a:documentation>
+  <define name="att.medium" combine="interleave">
+    <a:documentation>Attributes describing a writing medium, such as pencil or
+      ink</a:documentation>
     <optional>
-      <attribute name="authority">
-        <a:documentation xml:lang="eng">contains the name of the list from which
-          a controlled value is taken, such as the Thesaurus of Geographic Names
-          (TGN), etc.</a:documentation>
+      <attribute name="medium">
+        <a:documentation xml:lang="eng">describes the writing
+          medium.</a:documentation>
       </attribute>
     </optional>
+  </define>
+
+  <define name="att.meterbar" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes indicating the relationship
+      between a measure or barline and the prevailing meter</a:documentation>
+    <optional>
+      <attribute name="complete">
+        <a:documentation xml:lang="eng">a value of 'c' (complete) indicates a
+          metrically complete measure, 'i' (incomplete) indicates a measure with
+          not enough beats, while 'o' (overfull) is for measures with too many
+          beats.</a:documentation>
+        <choice>
+          <value>c</value>
+          <value>i</value>
+          <value>o</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="control">
+        <a:documentation xml:lang="eng">indicates whether or not a barline is
+          "controlling"; that is, if it indicates a point of alignment across
+          all the parts. Barlines within a score are usually controlling; that
+          is, they "line up". Barlines within parts may or may not be
+          controlling. When applied to &lt;measure&gt;, this attribute
+          indicates the nature of the right barline but not the
+          left.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.name" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes shared by names</a:documentation>
+    <ref name="att.authorized"/>
     <optional>
       <attribute name="key">
         <a:documentation xml:lang="eng">used to record a value which serves as a
@@ -406,6 +590,21 @@
     </optional>
   </define>
 
+  <define name="att.octavedisplacement" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes describing the amount and
+      direction of octave displacement</a:documentation>
+    <attribute name="dis">
+      <a:documentation xml:lang="eng">records the amount of octave displacement
+        to be applied to the clef.</a:documentation>
+      <ref name="data.OCTAVE.DIS"/>
+    </attribute>
+    <attribute name="dis.place">
+      <a:documentation xml:lang="eng">records the direction of octave
+        displacement to be applied to the clef.</a:documentation>
+      <ref name="data.PLACE"/>
+    </attribute>
+  </define>
+
   <define name="att.placement" combine="interleave">
     <a:documentation xml:lang="eng">Attributes capturing placement
       information</a:documentation>
@@ -414,6 +613,32 @@
         <a:documentation xml:lang="eng">captures the placement of the item with
           respect to the staff with which it is associated.</a:documentation>
         <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.responsibility" combine="interleave">
+    <a:documentation>Attributes capturing information regarding responsibility
+      for some aspect of the text's creation, transcription, editing, or
+      encoding.</a:documentation>
+    <optional>
+      <attribute name="resp">
+        <a:documentation xml:lang="eng">The value of resp must point to one or
+          more of the identifiers declared in the document
+          header.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.sequence" combine="interleave">
+    <a:documentation/>
+    <optional>
+      <attribute name="seq">
+        <a:documentation xml:lang="eng">used to assign a sequence number related
+          to the order in which the encoded features carrying this attribute are
+          believed to have occurred.</a:documentation>
+        <data type="positiveInteger"/>
       </attribute>
     </optional>
   </define>
@@ -493,6 +718,19 @@
         <a:documentation xml:lang="eng">used to indicate bold
           type.</a:documentation>
         <ref name="data.FONTWEIGHT"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.visibility">
+    <a:documentation>Attributes describing whether an entity should be
+      displayed</a:documentation>
+    <optional>
+      <attribute name="visible">
+        <a:documentation xml:lang="eng">indicates if an entity should be
+          rendered when the notation is presented graphically or
+          sounded.</a:documentation>
+        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -855,30 +1093,7 @@
 
   <define name="att.barline.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <optional>
-      <attribute name="complete">
-        <a:documentation xml:lang="eng">allows the encoding of whether the
-          measure preceding this barline matches the prevailing meter: a value
-          of 'c' indicates a metrically complete measure, 'i' indicates a
-          measure with not enough beats, while 'o' is for measures with too many
-          beats.</a:documentation>
-        <choice>
-          <value>c</value>
-          <value>i</value>
-          <value>o</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="control">
-        <a:documentation xml:lang="eng">indicates whether or not the barline is
-          "controlling"; that is, if it indicates a point of alignment across
-          all the parts. Barlines within a score are usually controlling' that
-          is, they "line up". Barlines within parts may or may not be
-          controlling.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
+    <ref name="att.meterbar"/>
     <optional>
       <attribute name="rend">
         <a:documentation xml:lang="eng">records the appearance of the
@@ -943,18 +1158,7 @@
 
   <define name="att.chord.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="artic.ges">
-        <a:documentation xml:lang="eng">records performed articulation that
-          differs from the written value.</a:documentation>
-        <ref name="data.ARTICULATIONS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="detune">
-        <a:documentation/>
-      </attribute>
-    </optional>
+    <ref name="att.articulation.performed"/>
     <optional>
       <attribute name="dur.ges">
         <a:documentation xml:lang="eng">records performed duration information
@@ -985,31 +1189,9 @@
       the attributes available in the att.vis.chord class should be
       employed.</a:documentation>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="artic">
-        <a:documentation xml:lang="eng">encodes the written articulation(s).
-          Articulations are normally encoded in order from the notehead outward;
-          that is, away from the stem. See additional notes at att.vis.note.
-          Only articulations should be encoded in the artic attribute;
-          fingerings should be encoded using the &lt;dir&gt;
-          element.</a:documentation>
-        <ref name="data.ARTICULATIONS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam">
-        <a:documentation xml:lang="eng">indicates that this event is "under a
-          beam".</a:documentation>
-        <ref name="data.BEAMS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dots">
-        <a:documentation xml:lang="eng">encodes the number of written dots of
-          augmentation.</a:documentation>
-        <ref name="data.AUGMENTDOT"/>
-      </attribute>
-    </optional>
+    <ref name="att.articulation"/>
+    <ref name="att.augmentdots"/>
+    <ref name="att.beamed"/>
     <optional>
       <attribute name="dur">
         <a:documentation xml:lang="eng">encodes logical; that is, written,
@@ -1073,56 +1255,10 @@
       attributes must be used.</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
+    <ref name="att.visibility"/>
     <ref name="att.visualoffset.ho"/>
     <ref name="att.visualoffset.to"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="beam.with">
-        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="breaksec">
-        <a:documentation xml:lang="eng">presence of this attribute indicates
-          that the secondary beam should be broken following this note/chord.
-          The value of the attribute records the number of beams which should
-          remain unbroken.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.ho">
-        <a:documentation xml:lang="eng">records the horizontal offset of the
-          augmentation dot from its "normal", programmatically determined
-          position.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.vo">
-        <a:documentation xml:lang="eng">records the vertical offset of the
-          augmentation dot from its "normal", programmatically determined
-          position.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.x">
-        <a:documentation xml:lang="eng">records the absolute horizontal position
-          of the augmentation dot.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.y">
-        <a:documentation xml:lang="eng">records the absolute vertical position
-          of the augmentation dot.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="headshape">
         <a:documentation xml:lang="eng">indicates an alternative notehead should
@@ -1136,23 +1272,6 @@
         <a:documentation xml:lang="eng">describes the relative size of the
           chord.</a:documentation>
         <ref name="data.SIZE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="slur.dir">
-        <a:documentation xml:lang="eng">indicates the direction of a
-          slur.</a:documentation>
-        <ref name="data.SLURDIRECTION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="slur.rend">
-        <a:documentation xml:lang="eng">describes the rendering style for
-          slurs.</a:documentation>
-        <choice>
-          <value>dotted</value>
-          <value>dashed</value>
-        </choice>
       </attribute>
     </optional>
     <optional>
@@ -1170,26 +1289,10 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="stem.mod">
-        <a:documentation xml:lang="eng">encodes any stem "modifiers"; that is,
-          symbols rendered on the stem, such as tremolo or Sprechstimme
-          indicators.</a:documentation>
-        <ref name="data.STEMMODIFIER"/>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="stem.pos">
         <a:documentation xml:lang="eng">records the position of the stem in
           relation to the notehead(s).</a:documentation>
         <ref name="data.STEMPOSITION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.with">
-        <a:documentation xml:lang="eng">contains an indication of which staff a
-          note or chord that logically belongs to the current staff should be
-          visually placed on.</a:documentation>
-        <ref name="data.PLACE"/>
       </attribute>
     </optional>
     <optional>
@@ -1204,23 +1307,6 @@
         <a:documentation xml:lang="eng">records the y coordinate of the stem's
           attachment point.</a:documentation>
         <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie.dir">
-        <a:documentation xml:lang="eng">determines the direction of a
-          tie.</a:documentation>
-        <ref name="data.TIEDIRECTION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie.rend">
-        <a:documentation xml:lang="eng">describes the rendering style of a
-          tie.</a:documentation>
-        <choice>
-          <value>dotted</value>
-          <value>dashed</value>
-        </choice>
       </attribute>
     </optional>
   </define>
@@ -1258,18 +1344,7 @@
       <ref name="data.CLEFSHAPE"/>
     </attribute>
     <optional>
-      <attribute name="dis">
-        <a:documentation xml:lang="eng">records the amount of octave
-          displacement to be applied to the clef.</a:documentation>
-        <ref name="data.OCTAVE.DIS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dis.place">
-        <a:documentation xml:lang="eng">records the direction of octave
-          displacement to be applied to the clef.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
+      <ref name="att.octavedisplacement"/>
     </optional>
   </define>
 
@@ -1316,18 +1391,7 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="dis">
-        <a:documentation xml:lang="eng">records the amount of octave
-          displacement to be applied to the clef.</a:documentation>
-        <ref name="data.OCTAVE.DIS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dis.place">
-        <a:documentation xml:lang="eng">records the direction of octave
-          displacement to be applied to the clef.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
+      <ref name="att.octavedisplacement"/>
     </optional>
   </define>
 
@@ -1462,6 +1526,8 @@
   <define name="att.dot.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
+    <ref name="att.visualoffset.ho"/>
+    <ref name="att.visualoffset.vo"/>
     <ref name="att.xy"/>
   </define>
 
@@ -1586,15 +1652,7 @@
 
   <define name="att.layer.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="visible">
-        <a:documentation xml:lang="eng">indicates if a layer should be displayed
-          when the notation is rendered. A layer with this attribute set to
-          'false' should also not be included in a sounded
-          rendition.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
+    <ref name="att.visibility"/>
   </define>
 
   <define name="att.layerdef.anl" combine="interleave">
@@ -1674,42 +1732,7 @@
   </define>
 
   <define name="att.layerdef.vis" combine="interleave">
-    <!-- <a:documentation xml:lang="eng">Visual domain attributes for layerdef in the
-      CMN repertoire</a:documentation>
-    <optional>
-      <attribute name="beam.rend">
-        <a:documentation xml:lang="eng">captures whether a beam is feathered and
-          in which direction</a:documentation>
-        <choice>
-          <value>acc</value>
-          <a:documentation xml:lang="eng">indicates that the secondary beams get
-            progressively closer together, coming together at the end of the
-            beam.</a:documentation>
-          <value>rit</value>
-          <a:documentation xml:lang="eng">means that the secondary beams start
-            at the same point and get progressively more
-            distant.</a:documentation>
-          <value>norm</value>
-          <a:documentation xml:lang="eng">indicates a return to "normal"
-            beaming.</a:documentation>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.slope">
-        <a:documentation xml:lang="eng">contains the default value for the slope
-          of beams.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="slur.rend">
-        <a:documentation xml:lang="eng">provides a default value for the
-          appearance of slurs when this information is not provided on the
-          individual elements.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional> -->
+    <ref name="att.visibility"/>
     <optional>
       <attribute name="text.fam">
         <a:documentation xml:lang="eng">provides a default value for the font
@@ -1748,23 +1771,6 @@
           weight for text (other than lyrics) when this information is not
           provided on the individual elements.</a:documentation>
         <ref name="data.FONTWEIGHT"/>
-      </attribute>
-    </optional>
-    <!-- <optional>
-      <attribute name="tie.rend">
-        <a:documentation xml:lang="eng">provides a default value for the
-          appearance of ties when this information is not provided on the
-          individual elements.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional> -->
-    <optional>
-      <attribute name="visible">
-        <a:documentation xml:lang="eng">provides a default indication of whether
-          a layer should be displayed when the notation is rendered. A layer
-          with this attribute set to 'false' should also not be included in a
-          sounded rendition.</a:documentation>
-        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -1808,30 +1814,7 @@
       are entirely non-numeric strings. Measure numbers may be machine-generated
       instead of encoding them in the markup. However, an explicit measure
       number should restart numbering with the given value.</a:documentation>
-    <optional>
-      <attribute name="complete">
-        <a:documentation xml:lang="eng">allows the encoding of whether a measure
-          matches the prevailing meter: a value of 'c' indicates a metrically
-          complete measure, 'i' indicates a measure with not enough beats, while
-          'o' is for measures with too many beats.</a:documentation>
-        <choice>
-          <value>c</value>
-          <value>i</value>
-          <value>o</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="control">
-        <a:documentation xml:lang="eng">indicates whether or not the right
-          barline is "controlling", that is, indicates a point of alignment
-          across all the parts. Barlines within a score are usually
-          'controlling'; that is, they 'line up'. Barlines within a part may or
-          may not be 'controlling' with respect to other
-          parts.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
+    <ref name="att.meterbar"/>
     <optional>
       <attribute name="join">
         <a:documentation xml:lang="eng">indicates a measure which metrically
@@ -1899,23 +1882,8 @@
 
   <define name="att.note.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="accid.ges">
-        <a:documentation xml:lang="eng">records the performed pitch inflection
-          when it differs from the written accidental.</a:documentation>
-        <ref name="data.ACCIDENTAL.IMPLICIT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="artic.ges">
-        <a:documentation xml:lang="eng">records performed articulation that
-          differs from the written value.</a:documentation>
-        <ref name="data.ARTICULATIONS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="detune"/>
-    </optional>
+    <ref name="att.accidental.performed"/>
+    <ref name="att.articulation.performed"/>
     <optional>
       <attribute name="dur.ges">
         <a:documentation xml:lang="eng">records performed duration information
@@ -1960,31 +1928,9 @@
   <define name="att.note.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="accid">
-        <a:documentation xml:lang="eng">captures a written accidental
-          symbol.</a:documentation>
-        <ref name="data.ACCIDENTAL.EXPLICIT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="artic">
-        <a:documentation xml:lang="eng">encodes the written articulation(s).
-          Articulations are normally encoded in order from the notehead outward;
-          that is, away from the stem. See additional notes at att.vis.note.
-          Only articulations should be encoded in the artic attribute;
-          fingerings should be encoded using the &lt;dir&gt;
-          element.</a:documentation>
-        <ref name="data.ARTICULATIONS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dots">
-        <a:documentation xml:lang="eng">encodes the number of written dots of
-          augmentation.</a:documentation>
-        <ref name="data.AUGMENTDOT"/>
-      </attribute>
-    </optional>
+    <ref name="att.accidental"/>
+    <ref name="att.articulation"/>
+    <ref name="att.augmentdots"/>
     <optional>
       <attribute name="dur">
         <a:documentation xml:lang="eng">encodes logical; that is, written,
@@ -2027,46 +1973,10 @@
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
+    <ref name="att.visibility"/>
     <ref name="att.visualoffset.ho"/>
     <ref name="att.visualoffset.to"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="accid.ho">
-        <a:documentation xml:lang="eng">records the distance between the
-          accidental and the note it modifies.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.ho">
-        <a:documentation xml:lang="eng">records the horizontal offset of the
-          augmentation dot from its "normal", programmatically determined
-          position.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.vo">
-        <a:documentation xml:lang="eng">records the vertical offset of the
-          augmentation dot from its "normal", programmatically determined
-          position.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.x">
-        <a:documentation xml:lang="eng">records the absolute horizontal position
-          of the augmentation dot.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.y">
-        <a:documentation xml:lang="eng">records the absolute vertical position
-          of the augmentation dot.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="enclose.accid">
         <a:documentation xml:lang="eng">encodes the characters used to enclose
@@ -2130,15 +2040,6 @@
         <a:documentation xml:lang="eng">records the y coordinate of the stem's
           attachment point.</a:documentation>
         <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="visible">
-        <a:documentation xml:lang="eng">indicates if a note should be displayed
-          when the notation is rendered. A note with this attribute set to
-          'false' should also not be included in a sounded
-          rendition.</a:documentation>
-        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -2296,14 +2197,8 @@
 
   <define name="att.rest.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.augmentdots"/>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="dots">
-        <a:documentation xml:lang="eng">encodes the number of written dots of
-          augmentation.</a:documentation>
-        <ref name="data.AUGMENTDOT"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="dur">
         <a:documentation xml:lang="eng">encodes logical; that is, written,
@@ -2329,36 +2224,6 @@
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
     <optional>
-      <attribute name="dot.ho">
-        <a:documentation xml:lang="eng">records the horizontal offset of the
-          augmentation dot from its "normal", programmatically determined
-          position.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.vo">
-        <a:documentation xml:lang="eng">records the vertical offset of the
-          augmentation dot from its "normal", programmatically determined
-          position.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.x">
-        <a:documentation xml:lang="eng">records the absolute horizontal position
-          of the augmentation dot.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dot.y">
-        <a:documentation xml:lang="eng">records the absolute vertical position
-          of the augmentation dot.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="size">
         <a:documentation xml:lang="eng">describes the relative size of the
           rest.</a:documentation>
@@ -2381,16 +2246,6 @@
   <define name="att.sb.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <empty/>
-    <!-- Moved to critApp module
-    <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">Source descriptions in the header may be
-          pointed to by putting their IDs in the source attribute. This allows
-          system breaks from multiple sources to be encoded with a single
-          &lt;sb&gt; element.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="att.sb.vis" combine="interleave">
@@ -3365,14 +3220,8 @@
 
   <define name="att.space.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.augmentdots"/>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="dots">
-        <a:documentation xml:lang="eng">encodes the number of written dots of
-          augmentation.</a:documentation>
-        <ref name="data.AUGMENTDOT"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="dur">
         <a:documentation xml:lang="eng">encodes logical; that is, written,
@@ -3428,14 +3277,7 @@
 
   <define name="att.staff.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="visible">
-        <a:documentation xml:lang="eng">indicates if a staff should be displayed
-          when the score is rendered. A staff with this attribute set to 'false'
-          should also not be included in a sounded rendition.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
+    <ref name="att.visibility"/>
   </define>
 
   <define name="att.staffdef.anl" combine="interleave">
@@ -3621,6 +3463,7 @@
   <define name="att.staffdef.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for
       staffdef</a:documentation>
+    <ref name="att.visibility"/>
     <optional>
       <attribute name="clef.color">
         <a:documentation xml:lang="eng">describes the color of the
@@ -3857,14 +3700,6 @@
         <ref name="data.FONTWEIGHT"/>
       </attribute>
     </optional>
-    <optional>
-      <attribute name="visible">
-        <a:documentation xml:lang="eng">indicates if a staff should be displayed
-          when the score is rendered. A staff with this attribute set to 'false'
-          should also not be included in a sounded rendition.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
   </define>
 
   <define name="att.staffgrp.anl" combine="interleave">
@@ -3900,6 +3735,7 @@
 
   <define name="att.staffgrp.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.visibility"/>
     <optional>
       <attribute name="barthru">
         <a:documentation xml:lang="eng">indicates whether barlines go across the
@@ -3929,15 +3765,6 @@
           <value>bracket</value>
           <value>line</value>
         </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="visible">
-        <a:documentation xml:lang="eng">indicates if a staff group should be
-          displayed when the notation is rendered. A staff group with this
-          attribute set to 'false' should also not be included in a sounded
-          rendition.</a:documentation>
-        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -4697,7 +4524,9 @@
         &lt;extptr&gt; elements. The starting point of the annotation
         may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
         attribute, while the ending point may be recorded by either a dur,
-        dur.ges or endid attribute.</a:documentation>
+        dur.ges or endid attribute. The resp attribute records the editor(s)
+        responsible for identifying or creating the
+        annotation.</a:documentation>
       <ref name="attlist.annot"/>
       <ref name="content.annot"/>
     </element>
@@ -4716,16 +4545,7 @@
     <ref name="att.link.common"/>
     <ref name="att.link.internal"/>
     <ref name="att.link.external"/>
-    <optional>
-      <attribute name="resp">
-        <a:documentation xml:lang="eng">records the editor(s) responsible for
-          identifying or creating the annotation. Its value must point to one or
-          more of the identifiers declared in the document header, associated
-          with a person asserted as responsible for some aspect of the text's
-          creation, transcription, editing, or encoding.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional>
+    <ref name="att.responsibility"/>
   </define>
 
   <define name="content.artic">
@@ -5222,7 +5042,7 @@
     <ref name="att.typed"/>
     <optional>
       <attribute name="abbr">
-        <a:documentation xml:lang="eng">captures the abbreviated form of the
+        <a:documentation xml:lang="eng">captures the unabbreviated form of the
           text.</a:documentation>
       </attribute>
     </optional>
@@ -5235,8 +5055,13 @@
   <define name="expansion">
     <element name="expansion">
       <a:documentation xml:lang="eng">expansion ― Indicates how a section may be
-        programmatically expanded into its 'through-composed' form. See Read, p.
-        229 (ex. 12-16).</a:documentation>
+        programmatically expanded into its 'through-composed' form. The plist
+        attribute contains an ordered list of IDs of descendant
+        &lt;section&gt;, &lt;ending&gt;, &lt;lem&gt;, or
+        &lt;rdg&gt; elements. For example, the sequence "A End1 A End2"
+        indicates that the section labelled 'A' comes first, then the ending
+        labelled 'End1', followed by the 'A' section again, and finally the
+        ending labelled 'End2'.</a:documentation>
       <ref name="attlist.expansion"/>
       <ref name="content.expansion"/>
     </element>
@@ -5254,17 +5079,6 @@
         <data type="IDREFS"/>
       </attribute>
     </optional>
-    <!-- Moved to critApp module
-    <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">contains a list of one or more pointers
-          indicating the sources that follow the expansion given in the plist
-          attribute. Each value should correspond to the ID of a
-          &lt;source&gt; element given elsewhere in the
-          document.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="content.fw">
@@ -5566,13 +5380,7 @@
   <define name="attlist.keysig">
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
-    <optional>
-      <attribute name="accid">
-        <a:documentation xml:lang="eng">captures a written accidental
-          symbol.</a:documentation>
-        <ref name="data.ACCIDENTAL.EXPLICIT"/>
-      </attribute>
-    </optional>
+    <ref name="att.accidental"/>
     <optional>
       <attribute name="mode">
         <a:documentation xml:lang="eng">indicates major, minor, or other
@@ -5863,8 +5671,11 @@
         corp, place, process. The &lt;date&gt; sub-element is available
         within &lt;name&gt; in order to record any dates, associated
         with the name, i.e., birth and death in the case of persons or creation
-        and dissolution in the case of a corporate entity or
-        place.</a:documentation>
+        and dissolution in the case of a corporate entity or place. The name of
+        the list from which a controlled value is taken, such as the Thesaurus
+        of Geographic Names (TGN) or Library of Congress Name Authority File
+        (LCNAF), may be recorded using the authority
+        attribute.</a:documentation>
       <ref name="attlist.name"/>
       <ref name="content.name"/>
     </element>
@@ -6381,7 +6192,9 @@
     <element name="repository">
       <a:documentation xml:lang="eng">repository ― Institution or agency which
         holds a bibliographic item. Sub-units of the institution may be marked
-        with nested &lt;repository&gt; elements.</a:documentation>
+        with &lt;repository&gt; sub-elements. The name of the list from
+        which a controlled value is taken may be recorded using the authority
+        attribute.</a:documentation>
       <ref name="attlist.repository"/>
       <ref name="content.repository"/>
     </element>
@@ -6863,7 +6676,9 @@
         processing is not necessary, there is no need for such analysis, and the
         entire title, including subtitles and any parallel titles, may be
         enclosed within a single &lt;title&gt; element. Title parts may
-        be encoded in &lt;title&gt; sub-elements</a:documentation>
+        be encoded in &lt;title&gt; sub-elements. The name of the list
+        from which a controlled value is taken may be recorded using the
+        authority attribute.</a:documentation>
       <ref name="attlist.title"/>
       <ref name="content.title"/>
     </element>

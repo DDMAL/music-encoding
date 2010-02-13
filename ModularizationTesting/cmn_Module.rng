@@ -9,6 +9,17 @@
 
   <!-- CMN module -->
   <!-- Declare module attr classes -->
+  <define name="att.cutout" combine="interleave">
+    <optional>
+      <attribute name="cutout">
+        <a:documentation xml:lang="eng">Presence of the cutout attribute
+          indicates that the staff lines should not be drawn for the measure
+          containing this element.</a:documentation>
+        <value>cutout</value>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.arpeg.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -66,14 +77,7 @@
   <define name="att.beam.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="with">
-        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
+    <ref name="att.beamedwith"/>
   </define>
 
   <define name="att.beam.vis" combine="interleave">
@@ -124,6 +128,7 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
+    <ref name="att.beamedwith"/>
     <optional>
       <attribute name="dur">
         <a:documentation xml:lang="eng">encodes the logical and visual duration
@@ -131,14 +136,6 @@
           duration, but rather a time stamp for the end point of the
           trill.</a:documentation>
         <ref name="data.MEASUREBEAT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="with">
-        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
       </attribute>
     </optional>
   </define>
@@ -243,23 +240,7 @@
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
     <ref name="att.xy2"/>
-    <optional>
-      <attribute name="bezier">
-        <a:documentation xml:lang="eng">records the placement of Bezier control
-          points as a series of space-separated xy coordinates, eg. 19 45 -32
-          118.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="bulge">
-        <a:documentation xml:lang="eng">describes the curve as a set of distance
-          values above or below an imaginary line connecting the endpoints of
-          the curve. The bulge attribute must contain one or more values of type
-          NUMBER.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
+    <ref name="att.curvature"/>
     <optional>
       <attribute name="rend">
         <a:documentation xml:lang="eng">records the appearance of the curve or
@@ -352,7 +333,6 @@
     </optional>
   </define>
 
-
   <define name="att.chord.ges" combine="interleave">
     <optional>
       <attribute name="grace">
@@ -368,6 +348,75 @@
         <ref name="data.PERCENT"/>
       </attribute>
     </optional>
+  </define>
+
+  <define name="att.chord.vis" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes for chord. The
+      slur, slur.dir, slur.rend, tie, tie.dir, and tie.rend attributes here are
+      syntactic sugar for these attributes on each of the chord's individual
+      notes. The values here apply to all the notes in the chord. If some notes
+      are slurred or tied while others aren't, then the individual note
+      attributes must be used.</a:documentation>
+    <ref name="att.beamedwith"/>
+    <optional>
+      <attribute name="breaksec">
+        <a:documentation xml:lang="eng">presence of this attribute indicates
+          that the secondary beam should be broken following this note/chord.
+          The value of the attribute records the number of beams which should
+          remain unbroken.</a:documentation>
+        <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="slur.dir">
+        <a:documentation xml:lang="eng">indicates the direction of a
+          slur beginning on this chord.</a:documentation>
+        <ref name="data.SLURDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">describes the rendering style for
+          slurs beginning on this chord.</a:documentation>
+        <choice>
+          <value>dotted</value>
+          <value>dashed</value>
+        </choice>
+      </attribute>
+    </optional> -->
+    <optional>
+      <attribute name="stem.mod">
+        <a:documentation xml:lang="eng">encodes any stem "modifiers"; that is,
+          symbols rendered on the stem, such as tremolo or Sprechstimme
+          indicators.</a:documentation>
+        <ref name="data.STEMMODIFIER"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.with">
+        <a:documentation xml:lang="eng">contains an indication of which staff a
+          note or chord that logically belongs to the current staff should be
+          visually placed on.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <!-- <optional>
+      <attribute name="tie.dir">
+        <a:documentation xml:lang="eng">determines the direction of a
+          tie beginning on this chord.</a:documentation>
+        <ref name="data.TIEDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">describes the rendering style of a
+          tie beginning on this chord.</a:documentation>
+        <choice>
+          <value>dotted</value>
+          <value>dashed</value>
+        </choice>
+      </attribute>
+    </optional> -->
   </define>
 
   <define name="att.fermata.anl" combine="interleave">
@@ -619,8 +668,8 @@
     <ref name="att.startendid"/>
     <optional>
       <attribute name="c" a:defaultValue="n">
-        <a:documentation xml:lang="eng">indicates the setting for the C
-          strings.</a:documentation>
+        <a:documentation xml:lang="eng">indicates the pedal setting, i.e., flat,
+          natural, or sharp, for the harp's C strings.</a:documentation>
         <choice>
           <value>f</value>
           <value>n</value>
@@ -630,8 +679,8 @@
     </optional>
     <optional>
       <attribute name="d" a:defaultValue="n">
-        <a:documentation xml:lang="eng">indicates the setting for the D
-          strings.</a:documentation>
+        <a:documentation xml:lang="eng">indicates the pedal setting, i.e., flat,
+          natural, or sharp, for the harp's D strings.</a:documentation>
         <choice>
           <value>f</value>
           <value>n</value>
@@ -641,8 +690,8 @@
     </optional>
     <optional>
       <attribute name="e" a:defaultValue="n">
-        <a:documentation xml:lang="eng">indicates the setting for the E
-          strings.</a:documentation>
+        <a:documentation xml:lang="eng">indicates the pedal setting, i.e., flat,
+          natural, or sharp, for the harp's E strings.</a:documentation>
         <choice>
           <value>f</value>
           <value>n</value>
@@ -652,8 +701,8 @@
     </optional>
     <optional>
       <attribute name="f" a:defaultValue="n">
-        <a:documentation xml:lang="eng">indicates the setting for the F
-          strings.</a:documentation>
+        <a:documentation xml:lang="eng">indicates the pedal setting, i.e., flat,
+          natural, or sharp, for the harp's F strings.</a:documentation>
         <choice>
           <value>f</value>
           <value>n</value>
@@ -663,8 +712,8 @@
     </optional>
     <optional>
       <attribute name="g" a:defaultValue="n">
-        <a:documentation xml:lang="eng">indicates the setting for the G
-          strings.</a:documentation>
+        <a:documentation xml:lang="eng">indicates the pedal setting, i.e., flat,
+          natural, or sharp, for the harp's G strings.</a:documentation>
         <choice>
           <value>f</value>
           <value>n</value>
@@ -674,8 +723,8 @@
     </optional>
     <optional>
       <attribute name="a" a:defaultValue="n">
-        <a:documentation xml:lang="eng">indicates the setting for the A
-          strings.</a:documentation>
+        <a:documentation xml:lang="eng">indicates the pedal setting, i.e., flat,
+          natural, or sharp, for the harp's A strings.</a:documentation>
         <choice>
           <value>f</value>
           <value>n</value>
@@ -685,8 +734,8 @@
     </optional>
     <optional>
       <attribute name="b" a:defaultValue="n">
-        <a:documentation xml:lang="eng">indicates the setting for the B
-          strings.</a:documentation>
+        <a:documentation xml:lang="eng">indicates the pedal setting, i.e., flat,
+          natural, or sharp, for the harp's B strings.</a:documentation>
         <choice>
           <value>f</value>
           <value>n</value>
@@ -749,20 +798,10 @@
   <define name="att.mrest.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
+    <ref name="att.cutout"/>
     <ref name="att.visualoffset"/>
+    <ref name="att.visibility"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="cutout">
-        <a:documentation xml:lang="eng">When set to 'rest' the cutout attribute
-          indicates that the staff lines are to be displayed but not the rest
-          itself. When set to 'staff' even the staff lines should not be drawn
-          for this measure.</a:documentation>
-        <choice>
-          <value>rest</value>
-          <value>staff</value>
-        </choice>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="dur.vis">
         <a:documentation xml:lang="eng">records the durational symbol used in
@@ -883,19 +922,9 @@
   <define name="att.mspace.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
+    <ref name="att.cutout"/>
+    <ref name="att.visibility"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="cutout">
-        <a:documentation xml:lang="eng">When set to 'rest' the cutout attribute
-          indicates that the staff lines are to be displayed but not the rest
-          itself. When set to 'staff' even the staff lines should not be drawn
-          for this measure.</a:documentation>
-        <choice>
-          <value>rest</value>
-          <value>staff</value>
-        </choice>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="dur.vis">
         <a:documentation xml:lang="eng">used to record a non-standard durational
@@ -1017,13 +1046,7 @@
 
   <define name="att.note.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <optional>
-      <attribute name="beam">
-        <a:documentation xml:lang="eng">indicates that this event is "under a
-          beam".</a:documentation>
-        <ref name="data.BEAMS"/>
-      </attribute>
-    </optional>
+    <ref name="att.beamed"/>
     <optional>
       <attribute name="lv">
         <a:documentation xml:lang="eng">indicates the attachment of an l.v.
@@ -1058,14 +1081,7 @@
 
   <define name="att.note.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="beam.with">
-        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
+    <ref name="att.beamedwith"/>
     <optional>
       <attribute name="breaksec">
         <a:documentation xml:lang="eng">presence of this attribute indicates
@@ -1085,23 +1101,23 @@
         </choice>
       </attribute>
     </optional>
-    <optional>
+    <!-- <optional>
       <attribute name="slur.dir">
         <a:documentation xml:lang="eng">indicates the direction of a
-          slur.</a:documentation>
+          slur beginning on this note.</a:documentation>
         <ref name="data.SLURDIRECTION"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="slur.rend">
         <a:documentation xml:lang="eng">describes the rendering style for
-          slurs.</a:documentation>
+          slurs beginning on this note.</a:documentation>
         <choice>
           <value>dotted</value>
           <value>dashed</value>
         </choice>
       </attribute>
-    </optional>
+    </optional> -->
     <optional>
       <attribute name="stem.mod">
         <a:documentation xml:lang="eng">encodes any stem "modifiers"; that is,
@@ -1118,23 +1134,23 @@
         <ref name="data.PLACE"/>
       </attribute>
     </optional>
-    <optional>
+    <!-- <optional>
       <attribute name="tie.dir">
         <a:documentation xml:lang="eng">determines the direction of a
-          tie.</a:documentation>
+          tie beginning on this note.</a:documentation>
         <ref name="data.TIEDIRECTION"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="tie.rend">
         <a:documentation xml:lang="eng">describes the rendering style of a
-          tie.</a:documentation>
+          tie beginning on this note.</a:documentation>
         <choice>
           <value>dotted</value>
           <value>dashed</value>
         </choice>
       </attribute>
-    </optional>
+    </optional> -->
   </define>
 
   <define name="att.octave.anl" combine="interleave">
@@ -1159,6 +1175,7 @@
   <define name="att.octave.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
+    <ref name="att.octavedisplacement"/>
     <ref name="att.startendid"/>
     <optional>
       <attribute name="coll">
@@ -1170,11 +1187,6 @@
         </choice>
       </attribute>
     </optional>
-    <attribute name="dis">
-      <a:documentation xml:lang="eng">states the amount of
-        displacement.</a:documentation>
-      <ref name="data.OCTAVE.DIS"/>
-    </attribute>
     <optional>
       <attribute name="dur">
         <a:documentation xml:lang="eng">encodes the logical and visual duration
@@ -1187,11 +1199,6 @@
         <ref name="data.MEASUREBEAT"/>
       </attribute>
     </optional>
-    <attribute name="place">
-      <a:documentation xml:lang="eng">indicates direction of displacement and
-        display location and therefore is REQUIRED.</a:documentation>
-      <ref name="data.PLACE"/>
-    </attribute>
   </define>
 
   <define name="att.octave.vis" combine="interleave">
@@ -1286,23 +1293,7 @@
 
   <define name="att.phrase.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="bezier">
-        <a:documentation xml:lang="eng">records the placement of Bezier control
-          points as a series of space-separated xy coordinates, eg. 19 45 -32
-          118.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="bulge">
-        <a:documentation xml:lang="eng">describes the curve as a set of distance
-          values above or below an imaginary line connecting the endpoints of
-          the curve. The bulge attribute must contain one or more values of type
-          NUMBER.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
+    <ref name="att.curvature"/>
     <optional>
       <attribute name="rend">
         <a:documentation xml:lang="eng">records the appearance of the phrase
@@ -1385,13 +1376,7 @@
 
   <define name="att.rest.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <optional>
-      <attribute name="beam">
-        <a:documentation xml:lang="eng">indicates that this event is "under a
-          beam".</a:documentation>
-        <ref name="data.BEAMS"/>
-      </attribute>
-    </optional>
+    <ref name="att.beamed"/>
     <optional>
       <attribute name="tuplet">
         <a:documentation xml:lang="eng">indicates that this element participates
@@ -1403,14 +1388,7 @@
 
   <define name="att.rest.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="beam.with">
-        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
+    <ref name="att.beamedwith"/>
   </define>
 
   <define name="att.scoredef.log" combine="interleave">
@@ -1564,23 +1542,7 @@
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
     <ref name="att.xy2"/>
-    <optional>
-      <attribute name="bezier">
-        <a:documentation xml:lang="eng">records the placement of Bezier control
-          points as a series of space-separated xy coordinates, eg. 19 45 -32
-          118.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="bulge">
-        <a:documentation xml:lang="eng">describes the curve as a set of distance
-          values above or below an imaginary line connecting the endpoints of
-          the curve. The bulge attribute must contain one or more values of type
-          NUMBER.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
+    <ref name="att.curvature"/>
     <optional>
       <attribute name="rend">
         <a:documentation xml:lang="eng">records the appearance of the
@@ -1591,13 +1553,7 @@
   </define>
 
   <define name="att.space.log" combine="interleave">
-    <optional>
-      <attribute name="beam">
-        <a:documentation xml:lang="eng">indicates that this event is "under a
-          beam".</a:documentation>
-        <ref name="data.BEAMS"/>
-      </attribute>
-    </optional>
+    <ref name="att.beamed"/>
   </define>
 
   <define name="att.staffdef.anl" combine="interleave">
@@ -1719,23 +1675,7 @@
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
     <ref name="att.xy2"/>
-    <optional>
-      <attribute name="bezier">
-        <a:documentation xml:lang="eng">records the placement of Bezier control
-          points as a series of space-separated xy coordinates, eg. 19 45 -32
-          118.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="bulge">
-        <a:documentation xml:lang="eng">describes the curve as a set of distance
-          values above or below an imaginary line connecting the endpoints of
-          the curve. The bulge attribute must contain one or more values of type
-          NUMBER.</a:documentation>
-        <data type="NMTOKENS"/>
-      </attribute>
-    </optional>
+    <ref name="att.curvature"/>
     <optional>
       <attribute name="rend">
         <a:documentation xml:lang="eng">records the appearance of the
@@ -1770,13 +1710,8 @@
   <define name="att.tuplet.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="dots">
-        <a:documentation xml:lang="eng">records the number of augmentation dots
-          required by a dotted duration.</a:documentation>
-        <ref name="data.AUGMENTDOT"/>
-      </attribute>
-    </optional>
+    <ref name="att.beamedwith"/>
+    <ref name="att.augmentdots"/>
     <optional>
       <attribute name="dur">
         <a:documentation xml:lang="eng">captures the time taken up by the
@@ -1815,29 +1750,21 @@
         <data type="positiveInteger"/>
       </attribute>
     </optional>
-    <optional>
-      <attribute name="with">
-        <a:documentation xml:lang="eng">In the case of cross-staff tuplets, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
   </define>
 
   <define name="att.tuplet.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="bracket.place">
-        <a:documentation xml:lang="eng">used to state where the bracket will be
-          placed in relation to the noteheads.</a:documentation>
+        <a:documentation xml:lang="eng">used to state where a tuplet bracket
+          will be placed in relation to the noteheads.</a:documentation>
         <ref name="data.PLACE"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="bracket.visible">
         <a:documentation xml:lang="eng">states whether a bracket should be
-          rendered with the tuplet.</a:documentation>
+          rendered with a tuplet.</a:documentation>
         <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
@@ -1879,126 +1806,22 @@
   <define name="att.tupletspan.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
-    <ref name="att.common.anl"/>
+    <ref name="att.tuplet.anl"/>
   </define>
 
   <define name="att.tupletspan.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions',
-          etc.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.tuplet.ges"/>
   </define>
 
   <define name="att.tupletspan.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <ref name="att.controlevent"/>
-    <ref name="att.startendid"/>
-    <optional>
-      <attribute name="dots">
-        <a:documentation xml:lang="eng">records the number of augmentation dots
-          required by a dotted duration.</a:documentation>
-        <ref name="data.AUGMENTDOT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">captures the time taken up by the
-          tuplet. Unlike other control events where the dur attribute is
-          expressed as a time stamp, dur here is a true duration. If dur is
-          omitted, the default is to calculate the total duration of the
-          included notes and use the next shorter un-dotted value. Irrational
-          durations, such as 2 quarter notes in the time of 5 8th notes in a
-          measure of 5/8 time, may be expressed as a list of durations which are
-          to be added together to form the total duration. In this case, the dur
-          attribute could take the value "2 8" or "8 8 8 8 8".</a:documentation>
-        <list>
-          <oneOrMore>
-            <ref name="data.DURATION"/>
-          </oneOrMore>
-        </list>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num">
-        <a:documentation xml:lang="eng">along with numbase, describes duration
-          as a ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="numbase">
-        <a:documentation xml:lang="eng">along with num, describes duration as a
-          ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="with">
-        <a:documentation xml:lang="eng">In the case of cross-staff tuplets, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
+    <ref name="att.tuplet.log"/>
   </define>
 
   <define name="att.tupletspan.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="bracket.place">
-        <a:documentation xml:lang="eng">used to state where the bracket will be
-          placed in relation to the noteheads.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="bracket.visible">
-        <a:documentation xml:lang="eng">states whether a bracket should be
-          rendered with the tuplet.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dur.visible">
-        <a:documentation xml:lang="eng">determines if the tuplet duration is
-          visible.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num.format">
-        <a:documentation xml:lang="eng">controls how the num:numbase ratio is to
-          be displayed. When set to 'count' only the num attribute is displayed,
-          e.g., '7'; however, when set to 'ratio', both the num and numbase
-          attributes are displayed, e.g., '7:4'.</a:documentation>
-        <choice>
-          <value>count</value>
-          <value>ratio</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num.place">
-        <a:documentation xml:lang="eng">states where the tuplet number will be
-          placed in relation to the noteheads.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num.visible">
-        <a:documentation xml:lang="eng">determines if the tuplet number is
-          visible.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
+    <ref name="att.tuplet.vis"/>
   </define>
 
   <!-- Declare module model classes -->
