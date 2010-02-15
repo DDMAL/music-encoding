@@ -12,15 +12,14 @@
 
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
-  xmlns="http://www.tei-c.org/ns/1.0"
-  xmlns:rng="http://relaxng.org/ns/structure/1.0"
+  xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   xmlns:xhtml="http://www.w3.org/1000/xhtml" xml:lang="en"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
   xpath-default-namespace="http://relaxng.org/ns/structure/1.0">
 
   <!-- Dependencies -->
-  <xsl:import href="TEI/xhtml2tei.xsl"
-    xpath-default-namespace="http://www.tei-c.org/ns/1.0"
+  <xsl:import href="TEI/xhtml2tei.xsl" xpath-default-namespace="http://www.tei-c.org/ns/1.0"
     exclude-result-prefixes="#all"/>
 
   <xsl:output encoding="UTF-8" indent="yes" method="xml"/>
@@ -58,19 +57,19 @@
               <xsl:when test="self::ref and starts-with(@name, 'model.')">
                 <xsl:variable name="this-mdl" select="@name"/>
                 <xsl:attribute name="name">
-                  <xsl:for-each
-                    select="ancestor::grammar//define[@name=$this-mdl]">
+                  <xsl:for-each select="ancestor::grammar//define[@name=$this-mdl]">
                     <!-- Determine suffix -->
                     <xsl:choose>
                       <!-- one element (no suffix) -->
                       <!-- Problem: alternation doesn't seem to be handled by roma, so it won't have suffix for now. -->
-                      <xsl:when test="ref or choice">
+                      <xsl:when test="ref">
                         <xsl:value-of select="@name"/>
                       </xsl:when>
-                      <!-- only one of the members (alternation)
-                                            <xsl:when test="choice">
-                                                <xsl:value-of select="@name"/><xsl:text>_alternation</xsl:text>
-                                            </xsl:when>-->
+                      <!--only one of the members (alternation)-->
+                      <xsl:when test="choice">
+                        <xsl:value-of select="@name"/>
+                        <xsl:text>_alternation</xsl:text>
+                      </xsl:when>
                       <!-- members may be provided, in sequence, but are optional (sequenceOptional) -->
                       <xsl:when
                         test="optional and not(optional/*[not(self::ref)]) and not(zeroOrMore)">
@@ -86,8 +85,7 @@
                       <!-- If it doens't fit in any of the previous cases, it's a macro -->
                       <xsl:otherwise>
                         <xsl:text>macro.</xsl:text>
-                        <xsl:value-of select="substring-after(@name, 'model.')"
-                        />
+                        <xsl:value-of select="substring-after(@name, 'model.')"/>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:for-each>
@@ -165,37 +163,34 @@
           </sourceDesc>
         </fileDesc>
         <revisionDesc>
-          <change who="#RV" when="{current-date()}"> Converted RNG Datatypes
-            Declarations into ODD Datatype Macros according to TEI guidelines.
-              <ref
-              target="http://www.tei-c.org/release/doc/tei-p5-doc/html/ST.html#DTYPES"
-              >Chapter 1, §1.4.2</ref>. </change>
-          <change who="#RV" when="{current-date()}"> Converted RNG Attribute
-            Classes Declarations into ODD Attribute Classes according to TEI
-            guidelines. <ref
-              target="http://www.tei-c.org/release/doc/tei-p5-doc/html/ST.html#STECAT"
-              >Chapter 1, §1.3.1</ref>. </change>
-          <change who="#RV" when="{current-date()}"> Converted RNG Model Classes
-            Declarations into ODD Model Classes according to TEI guidelines.
-              <ref
-              target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ST.html#STECCM"
-              >Chapter 1, §1.3.2</ref>. See also <ref
-              target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html#TDCLA"
-              >Chapter 22, §22.4.6</ref> for references to models. </change>
-          <change who="#RV" when="{current-date()}"> Converted RNG Model Classes
-            Declarations into ODD Macro Classes (when appropriate) according to
-            TEI guidelines. <ref
-              target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html#TDENT"
-              >Chapter 22, §22.4.7</ref>. </change>
-          <change who="#RV" when="{current-date()}"> Converted RNG Element
-            Declarations into ODD Element Declarations according to TEI
-            guidelines. <ref
+          <change who="#RV" when="{current-date()}"> Converted RNG Datatypes Declarations into ODD
+            Datatype Macros according to TEI guidelines. <ref
+              target="http://www.tei-c.org/release/doc/tei-p5-doc/html/ST.html#DTYPES">Chapter 1,
+              §1.4.2</ref>. </change>
+          <change who="#RV" when="{current-date()}"> Converted RNG Attribute Classes Declarations
+            into ODD Attribute Classes according to TEI guidelines. <ref
+              target="http://www.tei-c.org/release/doc/tei-p5-doc/html/ST.html#STECAT">Chapter 1,
+              §1.3.1</ref>. </change>
+          <change who="#RV" when="{current-date()}"> Converted RNG Model Classes Declarations into
+            ODD Model Classes according to TEI guidelines. <ref
+              target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/ST.html#STECCM">Chapter 1,
+              §1.3.2</ref>. See also <ref
+              target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html#TDCLA">Chapter 22,
+              §22.4.6</ref> for references to models. </change>
+          <change who="#RV" when="{current-date()}"> Converted RNG Model Classes Declarations into
+            ODD Macro Classes (when appropriate) according to TEI guidelines. <ref
+              target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html#TDENT">Chapter 22,
+              §22.4.7</ref>. </change>
+          <change who="#RV" when="{current-date()}"> Converted RNG Element Declarations into ODD
+            Element Declarations according to TEI guidelines. <ref
               target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html#TDcrystals"
               >Chapter 22, §22.3</ref>. See also <ref
-              target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html#TDCLA"
-              >Chapter 22, §22.4.6</ref> for references to models. </change>
-          <change who="#PR" when="{current-date()}">Changed order of content and attlist declarations, fixed
-          problem generating @usage</change>
+              target="http://www.tei-c.org/release/doc/tei-p5-doc/en/html/TD.html#TDCLA">Chapter 22,
+              §22.4.6</ref> for references to models. </change>
+          <change who="#PR" when="{current-date()}">Changed order of content and attlist
+            declarations, fixed problem generating @usage</change>
+          <change who="#RV" when="{current-date()}">Integrated Schematron rules within element
+            declarations.</change>
         </revisionDesc>
       </teiHeader>
       <text>
@@ -213,16 +208,13 @@
             <xsl:value-of select="$nl"/>
             <xsl:comment>Datatype Macros</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:comment>Number of definitions found in original RNG:
-                <xsl:value-of
-                select="count(document($datatypes)//define[starts-with(@name, 'data.')])"
-              />
+            <xsl:comment>Number of definitions found in original RNG: <xsl:value-of
+                select="count(document($datatypes)//define[starts-with(@name, 'data.')])"/>
             </xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>****</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:apply-templates
-              select="document($datatypes)//define[starts-with(@name, 'data.')]"/>
+            <xsl:apply-templates select="document($datatypes)//define[starts-with(@name, 'data.')]"/>
 
             <!-- ATTRIBUTES -->
             <xsl:value-of select="$nl"/>
@@ -230,8 +222,7 @@
             <xsl:value-of select="$nl"/>
             <xsl:comment>Attribute Classes</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:comment>Number of definitions found in original RNG:
-                <xsl:value-of
+            <xsl:comment>Number of definitions found in original RNG: <xsl:value-of
                 select="count(//define[starts-with(@name, 'att.')])"/>
             </xsl:comment>
             <xsl:value-of select="$nl"/>
@@ -245,8 +236,7 @@
             <xsl:value-of select="$nl"/>
             <xsl:comment>Defintion of Model and Macro Classes</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:comment>Number of definitions found in original RNG:
-                <xsl:value-of
+            <xsl:comment>Number of definitions found in original RNG: <xsl:value-of
                 select="count(//define[starts-with(@name, 'model.')])"/>
             </xsl:comment>
             <xsl:value-of select="$nl"/>
@@ -264,8 +254,7 @@
             <xsl:value-of select="$nl"/>
             <xsl:comment>Defintion of Model Classes</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:comment>Number of definitions found in original RNG:
-                <xsl:value-of
+            <xsl:comment>Number of definitions found in original RNG: <xsl:value-of
                 select="count(//define[starts-with(@name, 'model.')])"/>
             </xsl:comment>
             <xsl:value-of select="$nl"/>
@@ -286,7 +275,8 @@
             Content found in RNG: a:documentation, data, choice, text, list, ref
             
         -->
-    <!-- in TEI's ODD, *all* datatype macros have module="tei" -->
+    <!-- in TEI's ODD, *all* datatype macros have module="tei" 
+         This might change if there are datatypes specific to certain modules. i.e. mensural, neume -->
     <macroSpec module="mei" type="dt" ident="{@name}">
       <desc>
         <xsl:apply-templates select="a:documentation"/>
@@ -474,20 +464,19 @@
     <xsl:variable name="element-name" select="@name"/>
     <elementSpec ident="{@name}">
       <desc>
-        <xsl:apply-templates select="a:documentation"/>
+        <xsl:apply-templates select="element/a:documentation"/>
       </desc>
       <!-- 
                 N.B. ignoring child::empty -> does it make sense to have an empty attribute?
             -->
-      <xsl:if
-        test="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/ref">
+      <xsl:if test="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/ref">
         <classes>
           <xsl:for-each
             select="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/ref">
             <memberOf key="{@name}"/>
           </xsl:for-each>
           <!-- 
-                    Memebrship to Model Classes
+                    Membership to Model Classes
                     -->
           <xsl:for-each
             select="ancestor::grammar//define[starts-with(@name, 'model.')]//ref[@name=$element-name]">
@@ -516,13 +505,76 @@
         </xsl:for-each>
       </content>
 
+      <!-- Schematron rules -->
+      <xsl:for-each
+        select="ancestor::grammar//sch:pattern/sch:rule">
+        <xsl:variable name="context_nrml" select="normalize-space(@context)"/>
+        
+        <xsl:if test="
+          matches($context_nrml, concat('^\s?', $element-name, '\s?$'))
+          or matches($context_nrml, concat('^\s?', $element-name, '\s?\|'))
+          or matches($context_nrml, concat('\|\s?', $element-name, '\s?$'))
+          or matches($context_nrml, concat('\|\s?', $element-name, '\s?\|'))
+          or ( matches($context_nrml, concat('^\s?', $element-name, '\s?\[.*\]\s?$')) and not(matches($context_nrml, '\|')) )
+          or matches($context_nrml, concat('^\s?', $element-name, '\s?\[.*\]\s?\|'))
+          or matches($context_nrml, concat('\|\s?', $element-name, '\s?\[.*\]\s?$'))
+          or matches($context_nrml, concat('\|\s?', $element-name, '\s?\[.*\]\s?\|'))
+          ">
+        
+             <constraintSpec
+               ident="{
+               if (parent::sch:pattern/sch:title != '') 
+               then translate(translate(normalize-space(parent::sch:pattern/sch:title), ' ', '_'), '/\@:()[]', '') 
+               else 'no_title'
+               }"
+               scheme="isoschematron">
+               <constraint>
+     
+                 <xsl:message>
+                   <xsl:text>Adding schematron rule for element: </xsl:text>
+                   <xsl:value-of select="$element-name"/>
+                   <xsl:text> from rule context: </xsl:text>
+                   <xsl:text>'</xsl:text>
+                   <xsl:value-of select="$context_nrml"/>
+                   <xsl:text>'</xsl:text>
+                 </xsl:message>
+     
+                 <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron">
+                   <xsl:sequence select="@* except @context"/>
+                   <xsl:attribute name="context">
+                     <xsl:choose>
+                       <xsl:when test="contains($context_nrml, '|')">
+                         <xsl:for-each select="tokenize($context_nrml, '\|')">
+                           <xsl:if test="matches(., concat('^\s?', $element-name, '(\s?\[.*\])?\s?$'))">
+                             <xsl:text>mei:</xsl:text>
+                             <xsl:value-of select="replace(., '^\s', '')"/>
+                           </xsl:if>
+                         </xsl:for-each>
+                       </xsl:when>
+                       <xsl:otherwise>
+                         <xsl:text>mei:</xsl:text>
+                         <xsl:value-of select="@context"/>
+                       </xsl:otherwise>
+                     </xsl:choose>
+                   </xsl:attribute>
+                   <xsl:for-each select="*">
+                     <xsl:copy-of select="." copy-namespaces="no"/>
+                   </xsl:for-each>
+                 </xsl:element>
+     
+               </constraint>
+             </constraintSpec>
+          
+        </xsl:if>
+      </xsl:for-each>
+
+      <!-- Attributes -->
       <xsl:if
         test="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/descendant::attribute">
         <attList>
           <!-- Pulled from attlist.{@name} -->
           <!-- Check combine interleave - meaning? -->
-          <xsl:for-each
-            select="ancestor::grammar//define[@name=concat('attlist.',$element-name)]">
+          <xsl:for-each select="ancestor::grammar//define[@name=concat('attlist.',$element-name)]">
 
             <xsl:for-each select="descendant::attribute">
 
