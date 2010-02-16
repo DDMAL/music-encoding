@@ -510,62 +510,99 @@
         select="ancestor::grammar//sch:pattern/sch:rule">
         <xsl:variable name="context_nrml" select="normalize-space(@context)"/>
         
-        <xsl:if test="
-          matches($context_nrml, concat('^\s?', $element-name, '\s?$'))
-          or matches($context_nrml, concat('^\s?', $element-name, '\s?\|'))
-          or matches($context_nrml, concat('\|\s?', $element-name, '\s?$'))
-          or matches($context_nrml, concat('\|\s?', $element-name, '\s?\|'))
-          or ( matches($context_nrml, concat('^\s?', $element-name, '\s?\[.*\]\s?$')) and not(matches($context_nrml, '\|')) )
-          or matches($context_nrml, concat('^\s?', $element-name, '\s?\[.*\]\s?\|'))
-          or matches($context_nrml, concat('\|\s?', $element-name, '\s?\[.*\]\s?$'))
-          or matches($context_nrml, concat('\|\s?', $element-name, '\s?\[.*\]\s?\|'))
-          ">
+        <xsl:choose>
+          <!-- If the current element is mei, add all generic patterns -->
+          <xsl:when test="$element-name = 'mei' and starts-with($context_nrml, '*')">
+              <constraintSpec
+                ident="{
+                if (parent::sch:pattern/sch:title != '') 
+                then translate(translate(normalize-space(parent::sch:pattern/sch:title), ' ', '_'), '/\@:()[]', '') 
+                else 'generic_rule-no_title'
+                }"
+                scheme="isoschematron">
+                <constraint>
+                  
+                  <xsl:message>
+                    <xsl:text>Adding generic schematron rule</xsl:text>
+                    <xsl:text> from context: </xsl:text>
+                    <xsl:text>'</xsl:text>
+                    <xsl:value-of select="$context_nrml"/>
+                    <xsl:text>'</xsl:text>
+                  </xsl:message>
+                  
+                  <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron">
+                    <xsl:sequence select="@* except @context"/>
+                    <xsl:attribute name="context">
+                        <xsl:text>mei:</xsl:text>
+                        <xsl:value-of select="@context"/>
+                    </xsl:attribute>
+                    <xsl:for-each select="*">
+                      <xsl:copy-of select="." copy-namespaces="no"/>
+                    </xsl:for-each>
+                  </xsl:element>
+                  
+                </constraint>
+              </constraintSpec>
+          </xsl:when>
+          <!-- Other specific patterns -->
+          <xsl:when test="
+            matches($context_nrml, concat('^\s?', $element-name, '\s?$'))
+            or matches($context_nrml, concat('^\s?', $element-name, '\s?\|'))
+            or matches($context_nrml, concat('\|\s?', $element-name, '\s?$'))
+            or matches($context_nrml, concat('\|\s?', $element-name, '\s?\|'))
+            or ( matches($context_nrml, concat('^\s?', $element-name, '\s?\[.*\]\s?$')) and not(matches($context_nrml, '\|')) )
+            or matches($context_nrml, concat('^\s?', $element-name, '\s?\[.*\]\s?\|'))
+            or matches($context_nrml, concat('\|\s?', $element-name, '\s?\[.*\]\s?$'))
+            or matches($context_nrml, concat('\|\s?', $element-name, '\s?\[.*\]\s?\|'))
+            ">
+            <constraintSpec
+              ident="{
+              if (parent::sch:pattern/sch:title != '') 
+              then translate(translate(normalize-space(parent::sch:pattern/sch:title), ' ', '_'), '/\@:()[]', '') 
+              else 'no_title'
+              }"
+              scheme="isoschematron">
+              <constraint>
+                
+                <xsl:message>
+                  <xsl:text>Adding schematron rule for element: </xsl:text>
+                  <xsl:value-of select="$element-name"/>
+                  <xsl:text> from rule context: </xsl:text>
+                  <xsl:text>'</xsl:text>
+                  <xsl:value-of select="$context_nrml"/>
+                  <xsl:text>'</xsl:text>
+                </xsl:message>
+                
+                <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron">
+                  <xsl:sequence select="@* except @context"/>
+                  <xsl:attribute name="context">
+                    <xsl:choose>
+                      <xsl:when test="contains($context_nrml, '|')">
+                        <xsl:for-each select="tokenize($context_nrml, '\|')">
+                          <xsl:if test="matches(., concat('^\s?', $element-name, '(\s?\[.*\])?\s?$'))">
+                            <xsl:text>mei:</xsl:text>
+                            <xsl:value-of select="replace(., '^\s', '')"/>
+                          </xsl:if>
+                        </xsl:for-each>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:text>mei:</xsl:text>
+                        <xsl:value-of select="@context"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:attribute>
+                  <xsl:for-each select="*">
+                    <xsl:copy-of select="." copy-namespaces="no"/>
+                  </xsl:for-each>
+                </xsl:element>
+                
+              </constraint>
+            </constraintSpec>
+          </xsl:when>
+          <!-- Not matched (i.e. rule not relevant to the current element)-->
+          <xsl:otherwise/>
+        </xsl:choose>
         
-             <constraintSpec
-               ident="{
-               if (parent::sch:pattern/sch:title != '') 
-               then translate(translate(normalize-space(parent::sch:pattern/sch:title), ' ', '_'), '/\@:()[]', '') 
-               else 'no_title'
-               }"
-               scheme="isoschematron">
-               <constraint>
-     
-                 <xsl:message>
-                   <xsl:text>Adding schematron rule for element: </xsl:text>
-                   <xsl:value-of select="$element-name"/>
-                   <xsl:text> from rule context: </xsl:text>
-                   <xsl:text>'</xsl:text>
-                   <xsl:value-of select="$context_nrml"/>
-                   <xsl:text>'</xsl:text>
-                 </xsl:message>
-     
-                 <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron">
-                   <xsl:sequence select="@* except @context"/>
-                   <xsl:attribute name="context">
-                     <xsl:choose>
-                       <xsl:when test="contains($context_nrml, '|')">
-                         <xsl:for-each select="tokenize($context_nrml, '\|')">
-                           <xsl:if test="matches(., concat('^\s?', $element-name, '(\s?\[.*\])?\s?$'))">
-                             <xsl:text>mei:</xsl:text>
-                             <xsl:value-of select="replace(., '^\s', '')"/>
-                           </xsl:if>
-                         </xsl:for-each>
-                       </xsl:when>
-                       <xsl:otherwise>
-                         <xsl:text>mei:</xsl:text>
-                         <xsl:value-of select="@context"/>
-                       </xsl:otherwise>
-                     </xsl:choose>
-                   </xsl:attribute>
-                   <xsl:for-each select="*">
-                     <xsl:copy-of select="." copy-namespaces="no"/>
-                   </xsl:for-each>
-                 </xsl:element>
-     
-               </constraint>
-             </constraintSpec>
-          
-        </xsl:if>
       </xsl:for-each>
 
       <!-- Attributes -->
@@ -573,7 +610,6 @@
         test="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/descendant::attribute">
         <attList>
           <!-- Pulled from attlist.{@name} -->
-          <!-- Check combine interleave - meaning? -->
           <xsl:for-each select="ancestor::grammar//define[@name=concat('attlist.',$element-name)]">
 
             <xsl:for-each select="descendant::attribute">
