@@ -9,6 +9,16 @@
 
   <!-- Harmony Module -->
   <!-- Declare module attr classes -->
+  <define name="att.fretlocation" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe a fret
+      location</a:documentation>
+    <attribute name="fret">
+      <a:documentation xml:lang="eng">records the location at which a string
+        should be stopped against a fret.</a:documentation>
+      <ref name="data.FRET"/>
+    </attribute>
+  </define>
+
   <define name="att.harm.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -17,36 +27,19 @@
 
   <define name="att.harm.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions',
-          etc.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
   </define>
 
   <define name="att.harm.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
+    <ref name="att.duration.timestamp"/>
     <optional>
       <attribute name="chordref">
         <a:documentation xml:lang="eng">contains a reference to a predefined
           &lt;chorddef&gt; element.</a:documentation>
         <data type="IDREF"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes the logical and visual duration
-          of the harmony. If the logical and visual durations differ, it may be
-          necessary to add a dur.vis attribute. Please note that the dur
-          attribute here is not a true duration, but rather a time stamp for the
-          end point of the harmony.</a:documentation>
-        <ref name="data.MEASUREBEAT"/>
       </attribute>
     </optional>
   </define>
@@ -114,8 +107,10 @@
   <define name="barre">
     <element name="barre">
       <a:documentation xml:lang="eng">barre ― An indication of fingering in a
-        chord tablature grid. The from and to attributes should each contain the
-        id of a &lt;chordmember&gt; element.</a:documentation>
+        chord tablature grid. The startid and endid attributes are used to
+        indicate the &lt;chordmember&gt; elements on which the barre
+        starts and finishes respectively. The fret at which the barre should be
+        created is recorded by the fret attribute.</a:documentation>
       <ref name="attlist.barre"/>
       <ref name="content.barre"/>
     </element>
@@ -123,21 +118,8 @@
 
   <define name="attlist.barre">
     <ref name="att.common"/>
-    <attribute name="fret">
-      <a:documentation xml:lang="eng">indicates the fret at which the barre
-        should be created.</a:documentation>
-      <ref name="data.FRET"/>
-    </attribute>
-    <attribute name="from">
-      <a:documentation xml:lang="eng">captures the starting note of the
-        barre.</a:documentation>
-      <data type="IDREF"/>
-    </attribute>
-    <attribute name="to">
-      <a:documentation xml:lang="eng">indicates the ending note of the
-        barre.</a:documentation>
-      <data type="IDREF"/>
-    </attribute>
+    <ref name="att.fretlocation"/>
+    <ref name="att.startendid"/>
   </define>
 
   <define name="content.chorddef">
@@ -183,7 +165,8 @@
         grids. The inth (harmonic interval) attribute may be used to facilitate
         automated performance of a chord. It gives the number of 1/2 steps above
         the bass. Of course, for the bass note itself, inth should be set to
-        '0'.</a:documentation>
+        '0'. The fret at which a finger should be placed is recorded in the fret
+        attribute.</a:documentation>
       <ref name="attlist.chordmember"/>
       <ref name="content.chordmember"/>
     </element>
@@ -192,6 +175,7 @@
   <define name="attlist.chordmember">
     <ref name="att.common"/>
     <ref name="att.accidental.performed"/>
+    <ref name="att.pitched"/>
     <optional>
       <attribute name="fing">
         <a:documentation xml:lang="eng">indicates which finger, if any, should
@@ -201,30 +185,14 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="fret">
-        <a:documentation xml:lang="eng">indicates at which the fret a finger
-          should be placed.</a:documentation>
-        <ref name="data.FRET"/>
-      </attribute>
+      <ref name="att.fretlocation"/>
     </optional>
     <optional>
       <attribute name="inth">
-        <a:documentation xml:lang="eng">encodes the harmonic interval from a
-          pitch occuring at the same time.</a:documentation>
+        <a:documentation xml:lang="eng">encodes the harmonic interval between
+          this note and the sounding bass note.</a:documentation>
       </attribute>
     </optional>
-    <optional>
-      <attribute name="oct">
-        <a:documentation xml:lang="eng">captures written octave
-          information.</a:documentation>
-        <ref name="data.OCTAVE"/>
-      </attribute>
-    </optional>
-    <attribute name="pname">
-      <a:documentation xml:lang="eng">contains the written pitch
-        name.</a:documentation>
-      <ref name="data.PITCHNAME"/>
-    </attribute>
   </define>
 
   <define name="content.chordtable">
@@ -267,8 +235,10 @@
         starting point of the harmony may be indicated by either a tstamp,
         tstamp.ges, tstamp.real or startid attribute, while the ending point may
         be recorded by either a dur, dur.ges or endid attribute. It is a
-        semantic error not to specify a starting point
-        attribute.</a:documentation>
+        semantic error not to specify a starting point attribute. The dur
+        attribute encodes the logical and visual duration of the harmony. Please
+        note that the dur attribute here is not a true duration, but rather a
+        time stamp for the end point of the harmony.</a:documentation>
       <ref name="attlist.harm"/>
       <ref name="content.harm"/>
     </element>

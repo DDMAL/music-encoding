@@ -101,15 +101,7 @@
 
   <define name="att.trill.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions',
-          etc.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
   </define>
 
   <define name="att.trill.log" combine="interleave">
@@ -117,16 +109,7 @@
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
     <ref name="att.ornamentaccid"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes the logical and visual duration
-          of the trill. If logical and visual duration differ, it may be
-          necessary to add a dur.vis attribute. Please note that the dur
-          attribute is not a true duration, but rather a time stamp for the end
-          point of the trill.</a:documentation>
-        <ref name="data.MEASUREBEAT"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.timestamp"/>
   </define>
 
   <define name="att.trill.vis" combine="interleave">
@@ -154,20 +137,7 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.ornamentaccid"/>
-    <!-- <optional>
-      <attribute name="accidupper">
-        <a:documentation xml:lang="eng">records the accidental associated with
-          the upper neighboring note.</a:documentation>
-        <ref name="data.ACCIDENTAL.EXPLICIT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="accidlower">
-        <a:documentation xml:lang="eng">records the accidental associated with
-          the lower neighboring note.</a:documentation>
-        <ref name="data.ACCIDENTAL.EXPLICIT"/>
-      </attribute>
-    </optional> -->
+    <ref name="att.startid"/>
     <optional>
       <attribute name="delayed">
         <a:documentation xml:lang="eng">When the delayed attribute is set to
@@ -184,13 +154,6 @@
           <value>inv</value>
           <value>norm</value>
         </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="startid">
-        <a:documentation xml:lang="eng">holds a reference to the element to
-          which the turn is attached.</a:documentation>
-        <data type="IDREF"/>
       </attribute>
     </optional>
   </define>
@@ -260,8 +223,9 @@
         data. The starting point of the trill may be indicated by either a
         tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
         point may be recorded by either a dur, dur.ges or endid attribute. It is
-        a semantic error not to specify a starting point
-        attribute.</a:documentation>
+        a semantic error not to specify a starting point attribute. Please note
+        that the dur attribute is not a true duration, but rather a time stamp
+        for the end point of the trill.</a:documentation>
       <ref name="attlist.trill"/>
       <ref name="content.trill"/>
     </element>

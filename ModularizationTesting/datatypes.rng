@@ -3,7 +3,7 @@
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
 
-  <define name="meiVersion">
+  <define name="data.MEIVERSION">
     <a:documentation>This version of MEI.</a:documentation>
     <data type="token">
       <param name="pattern">1.9b</param>
@@ -1120,10 +1120,10 @@
     </choice>
   </define>
 
-  <define name="data.VISUALOFFSET">
-    <a:documentation>Visual, i.e. ho and vo, offsets are expressed in terms of
-      staff interline distance; that is, in "stepsizes", which are half the
-      distance between staff lines.</a:documentation>
+  <define name="data.INTERLINE">
+    <a:documentation>Distance expressed in terms of staff interline distance;
+      that is, units of 1/2 the distance between adjacent
+      staves.</a:documentation>
     <data type="decimal"/>
   </define>
 

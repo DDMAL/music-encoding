@@ -31,8 +31,8 @@
     </optional>
     <optional>
       <attribute name="name">
-        <a:documentation xml:lang="eng">records a name associated with the neume
-          symbol.</a:documentation>
+        <a:documentation xml:lang="eng">records a name of an interrupted
+          neume.</a:documentation>
         <ref name="data.INEUMENAME"/>
       </attribute>
     </optional>
@@ -47,30 +47,9 @@
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
-    <optional>
-      <attribute name="hfunc">
-        <a:documentation xml:lang="eng">contains an indication of the harmonic
-          function of this neume.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="inth">
-        <a:documentation xml:lang="eng">encodes the harmonic interval from a
-          pitch occuring at the same time.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="intm">
-        <a:documentation xml:lang="eng">encodes the melodic interval from the
-          previous neume.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mfunc">
-        <a:documentation xml:lang="eng">contains an indication of the melodic
-          function of this element.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.harmonicfunction"/>
+    <ref name="att.melodicfunction"/>
+    <ref name="att.intervallicdesc"/>
     <optional>
       <attribute name="pclass">
         <a:documentation xml:lang="eng">holds pitch class
@@ -94,24 +73,19 @@
   <define name="att.uneume.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
+    <ref name="att.syltext"/>
     <optional>
       <attribute name="form">
-        <a:documentation xml:lang="eng">records the function of the
-          neume.</a:documentation>
+        <a:documentation xml:lang="eng">provides a subclass or functional label
+          for the neume.</a:documentation>
         <ref name="data.UNEUMEFORM"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="name">
-        <a:documentation xml:lang="eng">records the name of the
+        <a:documentation xml:lang="eng">records the name of an uninterrupted
           neume.</a:documentation>
         <ref name="data.UNEUMENAME"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="syl">
-        <a:documentation xml:lang="eng">holds an associated sung text
-          syllable.</a:documentation>
       </attribute>
     </optional>
   </define>
@@ -120,16 +94,10 @@
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
+    <ref name="att.relativesize"/>
     <ref name="att.visualoffset.ho"/>
     <ref name="att.xy"/>
     <ref name="att.visibility"/>
-    <optional>
-      <attribute name="size">
-        <a:documentation xml:lang="eng">encodes the relative size of the
-          neume.</a:documentation>
-        <ref name="data.SIZE"/>
-      </attribute>
-    </optional>
   </define>
 
   <!-- Declare module model classes -->

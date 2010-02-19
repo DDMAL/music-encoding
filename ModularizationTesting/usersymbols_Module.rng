@@ -61,16 +61,10 @@
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
+    <ref name="att.startid"/>
     <ref name="att.typed"/>
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="startid">
-        <a:documentation xml:lang="eng">holds a reference to the element to
-          which the text is attached.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
   </define>
 
   <define name="content.curve">
@@ -115,13 +109,7 @@
     <ref name="att.xy"/>
     <ref name="att.xy2"/>
     <ref name="att.curvature"/>
-    <optional>
-      <attribute name="rend">
-        <a:documentation xml:lang="eng">records the appearance of the
-          curve.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional>
+    <ref name="att.curverend"/>
   </define>
 
   <define name="content.line">
@@ -164,13 +152,7 @@
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
     <ref name="att.xy2"/>
-    <optional>
-      <attribute name="rend">
-        <a:documentation xml:lang="eng">records the visual appearance of a
-          graphical line.</a:documentation>
-        <ref name="data.LINERENDITION"/>
-      </attribute>
-    </optional>
+    <ref name="att.linerend"/>
   </define>
 
   <define name="content.symbol">
@@ -199,6 +181,7 @@
     <ref name="att.color"/>
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
+    <ref name="att.startid"/>
     <ref name="att.typed"/>
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
@@ -212,13 +195,6 @@
         <a:documentation xml:lang="eng">indicates how the symbol should be
           scaled when rendered.</a:documentation>
         <ref name="data.PERCENT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="startid">
-        <a:documentation xml:lang="eng">holds a reference to the element to
-          which the symbol is attached.</a:documentation>
-        <data type="IDREF"/>
       </attribute>
     </optional>
   </define>

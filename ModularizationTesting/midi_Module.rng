@@ -9,31 +9,30 @@
 
   <!-- MIDI module -->
   <!-- Declare module attr classes -->
+  <define name="att.midinumber" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record MIDI
+      numbers</a:documentation>
+    <attribute name="num">
+      <a:documentation xml:lang="eng">records a MIDI number.</a:documentation>
+      <ref name="data.MIDIVALUE"/>
+    </attribute>
+  </define>
+
+  <define name="att.midivalue" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record MIDI
+      values</a:documentation>
+    <attribute name="val">
+      <a:documentation xml:lang="eng">captures a MIDI value.</a:documentation>
+      <ref name="data.MIDIVALUE"/>
+    </attribute>
+  </define>
+
   <define name="att.midi.event" combine="interleave">
     <a:documentation xml:lang="eng">Attributes common to MIDI
       events</a:documentation>
-    <optional>
-      <attribute name="layer">
-        <a:documentation xml:lang="eng">signifies the layer to which the MIDI
-          event applies.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="staff">
-        <a:documentation xml:lang="eng">signifies the staff to which the MIDI
-          event applies.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp">
-        <a:documentation xml:lang="eng">encodes the onset time of the MIDI event
-          in terms of musical time, i.e., beats[.fractional beat
-          part]</a:documentation>
-        <ref name="data.BEAT"/>
-      </attribute>
-    </optional>
+    <ref name="att.layerident"/>
+    <ref name="att.staffident"/>
+    <ref name="att.timestamp.musical"/>
   </define>
 
   <define name="att.midi.anl" combine="interleave">
@@ -49,20 +48,8 @@
 
   <define name="att.midi.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <optional>
-      <attribute name="layer">
-        <a:documentation xml:lang="eng">describes the layer to which the
-          &lt;midi&gt; element's children apply.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="staff">
-        <a:documentation xml:lang="eng">describes the staff to which the
-          &lt;midi&gt; element's children apply.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
+    <ref name="att.layerident"/>
+    <ref name="att.staffident"/>
   </define>
 
   <define name="att.midi.vis" combine="interleave">
@@ -161,16 +148,8 @@
     <ref name="att.common.anl"/>
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
-    <attribute name="num">
-      <a:documentation xml:lang="eng">holds the number of the MIDI
-        controller.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
-    </attribute>
-    <attribute name="val">
-      <a:documentation xml:lang="eng">records the MIDI controller's
-        value.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
-    </attribute>
+    <ref name="att.midinumber"/>
+    <ref name="att.midivalue"/>
   </define>
 
   <define name="content.chan">
@@ -191,8 +170,8 @@
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
     <attribute name="num">
-      <a:documentation xml:lang="eng">records the MIDI channel
-        value.</a:documentation>
+      <a:documentation xml:lang="eng">records a MIDI channel value. The value
+        must be in the range 1-16.</a:documentation>
       <ref name="data.MIDICHANNEL"/>
     </attribute>
   </define>
@@ -215,11 +194,7 @@
     <ref name="att.common.anl"/>
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
-    <attribute name="num">
-      <a:documentation xml:lang="eng">records the pressure/after touch
-        value.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
-    </attribute>
+    <ref name="att.midinumber"/>
   </define>
 
   <define name="content.cue">
@@ -356,10 +331,7 @@
     <ref name="att.common.anl"/>
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
-    <attribute name="num">
-      <a:documentation xml:lang="eng">records the note number.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
-    </attribute>
+    <ref name="att.midinumber"/>
   </define>
 
   <define name="content.noteon">
@@ -379,10 +351,7 @@
     <ref name="att.common.anl"/>
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
-    <attribute name="num">
-      <a:documentation xml:lang="eng">records the note number.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
-    </attribute>
+    <ref name="att.midinumber"/>
   </define>
 
   <define name="content.port">
@@ -402,10 +371,7 @@
     <ref name="att.common.anl"/>
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
-    <attribute name="num">
-      <a:documentation xml:lang="eng">records the port value.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
-    </attribute>
+    <ref name="att.midinumber"/>
   </define>
 
   <define name="content.prog">
@@ -425,11 +391,7 @@
     <ref name="att.common.anl"/>
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
-    <attribute name="num">
-      <a:documentation xml:lang="eng">records the program
-        number.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
-    </attribute>
+    <ref name="att.midinumber"/>
   </define>
 
   <define name="content.seqnum">
@@ -450,9 +412,11 @@
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
     <attribute name="num">
-      <a:documentation xml:lang="eng">holds the MIDI sequence
-        number.</a:documentation>
-      <data type="nonNegativeInteger"/>
+      <a:documentation xml:lang="eng">holds the MIDI sequence number. The value
+        must be in the range 0-65535.</a:documentation>
+      <data type="nonNegativeInteger">
+        <param name="maxInclusive">65535</param>
+      </data>
     </attribute>
   </define>
 
@@ -492,6 +456,7 @@
     <ref name="att.common.anl"/>
     <ref name="att.common"/>
     <ref name="att.midi.event"/>
+    <ref name="att.midinumber"/>
     <attribute name="form">
       <a:documentation xml:lang="eng">indicates whether this is note-on or
         note-off velocity data.</a:documentation>
@@ -499,11 +464,6 @@
         <value>on</value>
         <value>off</value>
       </choice>
-    </attribute>
-    <attribute name="num">
-      <a:documentation xml:lang="eng">records the velocity
-        value.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
     </attribute>
   </define>
 

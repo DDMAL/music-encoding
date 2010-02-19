@@ -89,7 +89,8 @@
   </define>
 
   <define name="att.authorized" combine="interleave">
-    <a:documentation xml:lang="eng"/>
+    <a:documentation xml:lang="eng">Attributes that describe the source of an
+      controlled value</a:documentation>
     <optional>
       <attribute name="authority">
         <a:documentation xml:lang="eng">contains the name of the list from which
@@ -98,27 +99,28 @@
     </optional>
   </define>
 
-  <define name="att.beamed" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes that indicate whether an event
-      lies under a beam</a:documentation>
+  <define name="att.barplacement" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that capture the placement of
+      barlines</a:documentation>
     <optional>
-      <attribute name="beam">
-        <a:documentation xml:lang="eng">indicates that this event is "under a
-          beam".</a:documentation>
-        <ref name="data.BEAMS"/>
+      <attribute name="barplace">
+        <a:documentation xml:lang="eng">records the location of a
+          barline.</a:documentation>
+        <ref name="data.BARPLACE"/>
       </attribute>
     </optional>
-  </define>
-
-  <define name="att.beamedwith" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes indicating cross-staff
-      beaming</a:documentation>
     <optional>
-      <attribute name="beam.with">
-        <a:documentation xml:lang="eng">In the case of cross-staff beams, the
-          with attribute is used to indicate which staff the beam is connected
-          to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
+      <attribute name="taktplace">
+        <a:documentation xml:lang="eng">If takt barlines are to be used, then
+          the taktplace attribute may be used to denote the staff location of
+          the shortened barline. The location may include staff lines, spaces,
+          and the spaces directly above and below the staff. The value ranges
+          between 0 (just below the staff) to 2 * number of staff lines
+          (directly above the staff). For example, on a 5-line staff the lines
+          would be numbered 1,3,5,7, and 9 while the spaces would be numbered
+          0,2,4,6,8,10. For example, a value of '9' puts the barline through the
+          top line of a 5-line staff.</a:documentation>
+        <ref name="data.STAFFLOC"/>
       </attribute>
     </optional>
   </define>
@@ -150,14 +152,40 @@
     </optional>
   </define>
 
+  <define name="att.clefshape" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record the shape of a
+      clef</a:documentation>
+    <attribute name="shape">
+      <a:documentation xml:lang="eng">describes the clef's
+        shape.</a:documentation>
+      <ref name="data.CLEFSHAPE"/>
+    </attribute>
+  </define>
+
   <define name="att.color" combine="interleave">
-    <a:documentation xml:lang="eng">Color attributes</a:documentation>
+    <a:documentation xml:lang="eng">Visual color attributes</a:documentation>
     <optional>
       <attribute name="color">
         <a:documentation xml:lang="eng">used to indicate visual appearance. Do
           not confuse this with the musical term 'color' as used in pre-CMN
           notation.</a:documentation>
         <ref name="data.COLOR"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.coloration" combine="interleave">
+    <a:documentation xml:lang="eng">Indication of coloration</a:documentation>
+    <optional>
+      <attribute name="colored">
+        <a:documentation xml:lang="eng">indicates this feature is 'colored';
+          that is, it is a participant in a change in rhythmic values. In
+          mensural notation, coloration is indicated by colored notes (red,
+          black, etc.) where void notes would otherwise occur. In CMN notation,
+          coloration is indicated by an inverse color; that is, the notehead is
+          void when it would otherwise be filled and vice
+          versa.</a:documentation>
+        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -188,25 +216,10 @@
       other events for their existence. For example, a slur/phrase marking must
       be drawn between or over a group of notes. The slur is therefore a control
       event.</a:documentation>
-    <optional>
-      <attribute name="layer">
-        <a:documentation xml:lang="eng">signifies the layer within which the
-          control event is active.</a:documentation>
-        <list>
-          <oneOrMore>
-            <data type="positiveInteger"/>
-          </oneOrMore>
-        </list>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="plist">
-        <a:documentation xml:lang="eng">may contain white-space separated list
-          of ID references that identify logical events that participate in the
-          control event, such as notes under a phrase mark.</a:documentation>
-        <ref name="data.PLIST"/>
-      </attribute>
-    </optional>
+    <ref name="att.layerident"/>
+    <ref name="att.participantident"/>
+    <ref name="att.timestamp.musical"/>
+    <ref name="att.timestamp.performed"/>
     <attribute name="staff">
       <a:documentation xml:lang="eng">signifies the staff within which a control
         event is active.</a:documentation>
@@ -216,30 +229,6 @@
         </oneOrMore>
       </list>
     </attribute>
-    <optional>
-      <attribute name="tstamp">
-        <a:documentation xml:lang="eng">encodes the onset time of a musical
-          feature in terms of musical time, i.e., beats[.fractional beat
-          part]</a:documentation>
-        <ref name="data.BEAT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.ges">
-        <a:documentation xml:lang="eng">records the onset time in pulses per
-          quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
-          of the measure.</a:documentation>
-        <data type="nonNegativeInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.real">
-        <a:documentation xml:lang="eng">records the onset time as a real-time
-          offset, i.e., HH:MM:SS.ss, since the beginning of the
-          file.</a:documentation>
-        <ref name="data.ISOTIME"/>
-      </attribute>
-    </optional>
   </define>
 
   <define name="att.coordinated" combine="interleave">
@@ -297,6 +286,18 @@
     </optional>
   </define>
 
+  <define name="att.curverend">
+    <a:documentation xml:lang="eng">Attributes that record the visual rendition
+      of curves</a:documentation>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">records the appearance of the
+          curve.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.date" combine="interleave">
     <a:documentation xml:lang="eng">Attributes common to dates</a:documentation>
     <ref name="att.certainty"/>
@@ -309,8 +310,8 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="from">
-        <a:documentation xml:lang="eng">contains the starting point of a date
+      <attribute name="enddate">
+        <a:documentation xml:lang="eng">contains the end point of a date
           range.</a:documentation>
         <ref name="data.ISODATE"/>
       </attribute>
@@ -337,8 +338,8 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="to">
-        <a:documentation xml:lang="eng">contains the end point of a date
+      <attribute name="startdate">
+        <a:documentation xml:lang="eng">contains the starting point of a date
           range.</a:documentation>
         <ref name="data.ISODATE"/>
       </attribute>
@@ -346,7 +347,8 @@
   </define>
 
   <define name="att.datapointing" combine="interleave">
-    <a:documentation/>
+    <a:documentation xml:lang="eng">Attributes for linking metadata to
+      data</a:documentation>
     <optional>
       <attribute name="data">
         <a:documentation xml:lang="eng">used to link metadata elements to one or
@@ -356,55 +358,170 @@
     </optional>
   </define>
 
+  <define name="att.duration.default.log" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that supply default duration
+      values</a:documentation>
+    <optional>
+      <attribute name="dur.default">
+        <a:documentation xml:lang="eng">contains a default duration in those
+          situations when the first note, rest, chord, etc. in a measure does
+          not have a duration specified.</a:documentation>
+        <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.duration.musical" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that express duration in musical
+      terms</a:documentation>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">records the duration of an entity using
+          the relative durational values provided by the data.DURATION
+          datatype.</a:documentation>
+        <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.duration.performed" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record performed duration
+      that differs from an entity's written duration.</a:documentation>
+    <optional>
+      <attribute name="dur.ges">
+        <a:documentation xml:lang="eng">records performed duration information
+          that differs from written duration. Its value may be expressed in any
+          convenient form, such as measures[s]+ beat[s].beatpart, ppq (MIDI
+          clicks), Humdrum **recip values, or MusicXML 'divisions',
+          etc.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.duration.ratio" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe duration as a
+      ratio</a:documentation>
+    <optional>
+      <attribute name="num">
+        <a:documentation xml:lang="eng">along with numbase, describes duration
+          as a ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="numbase">
+        <a:documentation xml:lang="eng">along with num, describes duration as a
+          ratio. num is the first value in the ratio, while numbase is the
+          second.</a:documentation>
+        <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.duration.timestamp" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that express duration as a
+      timestamp for the ending point</a:documentation>
+    <optional>
+      <attribute name="dur">
+        <a:documentation xml:lang="eng">encodes the duration of an entity as a
+          timestamp for its endpoint rather than as a relative durational
+          value.</a:documentation>
+        <ref name="data.MEASUREBEAT"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.duration.visual.musical" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record duration in terms of
+      an alternate musical symbol</a:documentation>
+    <optional>
+      <attribute name="dur.vis">
+        <a:documentation xml:lang="eng">records the durational symbol used in
+          the source.</a:documentation>
+        <ref name="data.DURATION"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.enclosingchars" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that capture characters used to
+      enclose symbols having a cautionary or editorial
+      function</a:documentation>
+    <optional>
+      <attribute name="enclose">
+        <a:documentation xml:lang="eng">records the characters often used to
+          mark accidentals, articulations, and sometimes notes as having a
+          cautionary or editorial function. For an example of cautionary
+          accidentals enclosed in parentheses, see Read, p. 131, ex.
+          9-14.</a:documentation>
+        <ref name="data.ENCLOSURE"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.event" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that apply to all written events,
       e.g., beam, beatrpt, chord, note, etc.</a:documentation>
+    <ref name="att.layerident"/>
+    <ref name="att.staffident"/>
+    <ref name="att.timestamp.musical"/>
+    <ref name="att.timestamp.performed"/>
+  </define>
+
+  <define name="att.fermatapresent" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes indicating the attachment of a
+      fermata to the entity</a:documentation>
     <optional>
-      <attribute name="layer">
-        <a:documentation xml:lang="eng">signifies the layer within which the
-          event is active.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="staff">
-        <a:documentation xml:lang="eng">signifies the staff within which the
-          event is active.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp">
-        <a:documentation xml:lang="eng">encodes the onset time of the event in
-          terms of musical time, i.e., beats[.fractional beat
-          part]</a:documentation>
-        <ref name="data.BEAT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.ges">
-        <a:documentation xml:lang="eng">records the onset time in pulses per
-          quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
-          of the measure.</a:documentation>
-        <data type="nonNegativeInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.real">
-        <a:documentation xml:lang="eng">records the onset time as a real-time
-          offset, i.e., in HH:MM:SS.ss format, since the beginning of the
-          file.</a:documentation>
-        <ref name="data.ISOTIME"/>
+      <attribute name="fermata">
+        <a:documentation xml:lang="eng">indicates the attachment of a fermata to
+          this element. If visual information about the fermata needs to be
+          recorded, then a &lt;fermata&gt; element should be employed
+          instead.</a:documentation>
+        <ref name="data.PLACE"/>
       </attribute>
     </optional>
   </define>
 
   <define name="att.handident" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes which identify a document
+      hand</a:documentation>
     <optional>
       <attribute name="hand">
         <a:documentation xml:lang="eng">signifies the hand responsible for an
           action. The value must be the ID of a &lt;hand&gt; element
           declared in the header.</a:documentation>
+        <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.horizontalalign" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record horizontal
+      alignment</a:documentation>
+    <optional>
+      <attribute name="halign">
+        <a:documentation xml:lang="eng">records horizontal
+          alignment.</a:documentation>
+        <choice>
+          <value>left</value>
+          <value>right</value>
+          <value>center</value>
+          <value>justify</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.instrumentident">
+    <a:documentation xml:lang="eng">Attributes which identify a MIDI
+      instrument</a:documentation>
+    <optional>
+      <attribute name="instr">
+        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
+          instrument definition. It must contain the ID of an
+          &lt;instrdef&gt; element elsewhere in the
+          document.</a:documentation>
         <data type="IDREF"/>
       </attribute>
     </optional>
@@ -420,6 +537,23 @@
     </optional>
   </define>
 
+  <define name="att.joined">
+    <a:documentation xml:lang="eng">Attributes indicating that elements are
+      semantically linked; that is, while the parts are encoded separately,
+      together they may be thought of as a single intellectual
+      object</a:documentation>
+    <optional>
+      <attribute name="join">
+        <a:documentation xml:lang="eng">used for linking visually separate
+          slurs, sometimes necessary due to system breaks, that form a single
+          musical phrase. Also used to indicate a measure which metrically
+          completes the current one. Record the IDs of the separately encoded
+          components, excluding this one.</a:documentation>
+        <data type="IDREFS"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.lang" combine="interleave">
     <a:documentation xml:lang="eng">Language attributes common to text
       elements</a:documentation>
@@ -430,6 +564,41 @@
           &lt;language&gt; element supplied in the MEI header of the
           current document.</a:documentation>
         <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.layerident" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that identify the layer to which
+      a feature applies</a:documentation>
+    <optional>
+      <attribute name="layer">
+        <a:documentation xml:lang="eng">identifies the layer to which a feature
+          applies.</a:documentation>
+        <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.lineloc" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes for identifying the staff line
+      with which a feature is associated</a:documentation>
+    <attribute name="line">
+      <a:documentation xml:lang="eng">indicates the line upon which the feature
+        stands. The value must be in the range between 1 and the number of lines
+        on the staff.</a:documentation>
+      <ref name="data.CLEFLINE"/>
+    </attribute>
+  </define>
+
+  <define name="att.linerend" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record the visual rendition
+      of lines</a:documentation>
+    <optional>
+      <attribute name="rend">
+        <a:documentation xml:lang="eng">records the appearance of a
+          line.</a:documentation>
+        <ref name="data.LINERENDITION"/>
       </attribute>
     </optional>
   </define>
@@ -521,12 +690,32 @@
   <define name="att.link.internal" combine="interleave">
     <a:documentation xml:lang="eng">Linking attributes for internal referencing
       elements</a:documentation>
+    <ref name="att.participantident"/>
+  </define>
+
+  <define name="att.measurement" combine="interleave">
+    <a:documentation>Attributes that record the unit of measurement in which a
+      value is expressed</a:documentation>
     <optional>
-      <attribute name="plist">
-        <a:documentation xml:lang="eng">contains a white-space separated list of
-          ID references to the participants in a collection of
-          elements.</a:documentation>
-        <ref name="data.PLIST"/>
+      <attribute name="unit">
+        <a:documentation xml:lang="eng">indicates the units used for a
+          measurement, usually using the standard symbol for the desired
+          unit.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.measurewidth" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe measure
+      width</a:documentation>
+    <optional>
+      <attribute name="width">
+        <a:documentation xml:lang="eng">Some music printing systems rely on
+          measure width data for rendering. The width attribute allows for the
+          capture of this data in MEI for interchange with these
+          systems.</a:documentation>
+        <data type="decimal"/>
       </attribute>
     </optional>
   </define>
@@ -538,6 +727,18 @@
       <attribute name="medium">
         <a:documentation xml:lang="eng">describes the writing
           medium.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.meiversion" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record the version of MEI in
+      use</a:documentation>
+    <optional>
+      <attribute name="meiversion" a:defaultValue="1.9b">
+        <a:documentation xml:lang="eng">records the version of MEI used by the
+          file.</a:documentation>
+        <ref name="data.MEIVERSION"/>
       </attribute>
     </optional>
   </define>
@@ -590,19 +791,51 @@
     </optional>
   </define>
 
+  <define name="att.pitched" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record written pitch name
+      and octave</a:documentation>
+    <optional>
+      <attribute name="pname">
+        <a:documentation xml:lang="eng">contains a written pitch
+          name.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="oct">
+        <a:documentation xml:lang="eng">captures written octave
+          information.</a:documentation>
+        <ref name="data.OCTAVE"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.octavedisplacement" combine="interleave">
     <a:documentation xml:lang="eng">Attributes describing the amount and
       direction of octave displacement</a:documentation>
     <attribute name="dis">
-      <a:documentation xml:lang="eng">records the amount of octave displacement
-        to be applied to the clef.</a:documentation>
+      <a:documentation xml:lang="eng">records the amount of octave
+        displacement.</a:documentation>
       <ref name="data.OCTAVE.DIS"/>
     </attribute>
     <attribute name="dis.place">
       <a:documentation xml:lang="eng">records the direction of octave
-        displacement to be applied to the clef.</a:documentation>
+        displacement.</a:documentation>
       <ref name="data.PLACE"/>
     </attribute>
+  </define>
+
+  <define name="att.participantident" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes listing the participants in a
+      collection</a:documentation>
+    <optional>
+      <attribute name="plist">
+        <a:documentation xml:lang="eng">contains a space separated list of ID
+          references that identify logical events that participate in a
+          collection, such as notes under a phrase mark.</a:documentation>
+        <ref name="data.PLIST"/>
+      </attribute>
+    </optional>
   </define>
 
   <define name="att.placement" combine="interleave">
@@ -617,10 +850,22 @@
     </optional>
   </define>
 
+  <define name="att.relativesize" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record relative
+      size</a:documentation>
+    <optional>
+      <attribute name="size">
+        <a:documentation xml:lang="eng">describes the relative size of a
+          feature.</a:documentation>
+        <ref name="data.SIZE"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.responsibility" combine="interleave">
-    <a:documentation>Attributes capturing information regarding responsibility
-      for some aspect of the text's creation, transcription, editing, or
-      encoding.</a:documentation>
+    <a:documentation xml:lang="eng">Attributes capturing information regarding
+      responsibility for some aspect of the text's creation, transcription,
+      editing, or encoding.</a:documentation>
     <optional>
       <attribute name="resp">
         <a:documentation xml:lang="eng">The value of resp must point to one or
@@ -632,7 +877,7 @@
   </define>
 
   <define name="att.sequence" combine="interleave">
-    <a:documentation/>
+    <a:documentation xml:lang="eng"/>
     <optional>
       <attribute name="seq">
         <a:documentation xml:lang="eng">used to assign a sequence number related
@@ -643,21 +888,181 @@
     </optional>
   </define>
 
-  <define name="att.startendid" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes recording the IDs of a sequence
-      of elements to which the current element is associated.</a:documentation>
+  <define name="att.slashcount" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes for recording the number of
+      slashes that accompany a feature</a:documentation>
+    <attribute name="slash">
+      <a:documentation xml:lang="eng">indicates the number of slashes to be
+        rendered along with the feature.</a:documentation>
+      <ref name="data.SLASH"/>
+    </attribute>
+  </define>
+
+  <define name="att.slurpresent" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes for marking the presence of a
+      slur</a:documentation>
+    <optional>
+      <attribute name="slur">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a slur.</a:documentation>
+        <ref name="data.SLURS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.staffident" combine="interleave">
+    <a:documentation xml:lang="eng"/>
+    <attribute name="staff">
+      <a:documentation xml:lang="eng">signifies the staff to which a feature
+        applies.</a:documentation>
+      <data type="positiveInteger"/>
+    </attribute>
+  </define>
+
+  <define name="att.staffloc" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that identify location on a staff
+      in terms of lines and spaces</a:documentation>
+    <optional>
+      <attribute name="loc">
+        <a:documentation xml:lang="eng">holds the staff location of the
+          feature.</a:documentation>
+        <ref name="data.STAFFLOC"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.startid" combine="interleave">
+    <a:documentation xml:lang="eng"/>
     <optional>
       <attribute name="startid">
         <a:documentation xml:lang="eng">holds a reference to the first element
-          in the sequence.</a:documentation>
+          in a sequence of events to which the feature
+          applies.</a:documentation>
         <data type="IDREF"/>
       </attribute>
     </optional>
+  </define>
+
+  <define name="att.startendid" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes recording the IDs of the first
+      and last elements of a sequence of elements to which the current element
+      is associated.</a:documentation>
+    <ref name="att.startid"/>
     <optional>
       <attribute name="endid">
-        <a:documentation xml:lang="eng">indicates the final element in the
-          sequence.</a:documentation>
+        <a:documentation xml:lang="eng">indicates the final element in a
+          sequence of events to which the feature applies.</a:documentation>
         <data type="IDREF"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.stemmed" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe the properties of
+      stemmed features; that is, chords and notes</a:documentation>
+    <optional>
+      <attribute name="stem.dir">
+        <a:documentation xml:lang="eng">describes the direction of a
+          stem.</a:documentation>
+        <ref name="data.STEMDIRECTION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.len">
+        <a:documentation xml:lang="eng">encodes the stem
+          length.</a:documentation>
+        <data type="decimal"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.pos">
+        <a:documentation xml:lang="eng">records the position of the stem in
+          relation to the notehead(s).</a:documentation>
+        <ref name="data.STEMPOSITION"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.x">
+        <a:documentation xml:lang="eng">records the output x coordinate of the
+          stem's attachment point.</a:documentation>
+        <data type="decimal"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="stem.y">
+        <a:documentation xml:lang="eng">records the output y coordinate of the
+          stem's attachment point.</a:documentation>
+        <data type="decimal"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.syltext" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that hold associated sung text
+      syllables</a:documentation>
+    <optional>
+      <attribute name="syl">
+        <a:documentation xml:lang="eng">holds an associated sung text
+          syllable.</a:documentation>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.tiepresent" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that indicate the presence of a
+      tie</a:documentation>
+    <optional>
+      <attribute name="tie">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tie. If visual information about the tie needs to be recorded,
+          then a &lt;tie&gt; element should be
+          employed.</a:documentation>
+        <ref name="data.TIE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.timestamp.musical" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record a time stamp in terms
+      of musical time, i.e., beats[.fractional beat part]</a:documentation>
+    <optional>
+      <attribute name="tstamp">
+        <a:documentation xml:lang="eng">encodes the onset time in terms of
+          musical time, i.e., beats[.fractional beat part]</a:documentation>
+        <ref name="data.BEAT"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.timestamp.performed" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record a time stamp in terms
+      of relative or real time.</a:documentation>
+    <optional>
+      <attribute name="tstamp.ges">
+        <a:documentation xml:lang="eng">used to record the onset time in pulses
+          per quarter note (ppq, MusicXML divisions, or MIDI clicks) since the
+          start of the file.</a:documentation>
+        <data type="nonNegativeInteger"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="tstamp.real">
+        <a:documentation xml:lang="eng">used to record the onset time in pulses
+          per quarter note (ppq, MusicXML divisions, or MIDI clicks) since the
+          start of the file.</a:documentation>
+        <ref name="data.ISOTIME"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.tupletpresent" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes for indicating the presence of a
+      tuplet</a:documentation>
+    <optional>
+      <attribute name="tuplet">
+        <a:documentation xml:lang="eng">indicates that this element participates
+          in a tuplet.</a:documentation>
+        <ref name="data.TUPLETS"/>
       </attribute>
     </optional>
   </define>
@@ -741,10 +1146,10 @@
     <optional>
       <attribute name="ho">
         <a:documentation xml:lang="eng">records a horizontal adjustment of the
-          entity's programmatically-determinded location in terms of interline
-          distance; that is, units of 1/2 the distance between adjacent
-          staves.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
+          entity's programmatically-determinded location in terms of staff
+          interline distance; that is, units of 1/2 the distance between
+          adjacent staves.</a:documentation>
+        <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
   </define>
@@ -766,10 +1171,10 @@
     <optional>
       <attribute name="vo">
         <a:documentation xml:lang="eng">records the vertical adjustment of the
-          entity's programmatically-determined location in terms of interline
-          distance; that is, units of 1/2 the distance between adjacent
-          staves.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
+          entity's programmatically-determined location in terms of staff
+          interline distance; that is, units of 1/2 the distance between
+          adjacent staves.</a:documentation>
+        <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
   </define>
@@ -793,14 +1198,14 @@
       <attribute name="startho">
         <a:documentation xml:lang="eng">records the horizontal adjustment of the
           entity's programmatically-determined start point.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
+        <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="endho">
         <a:documentation xml:lang="eng">records the horizontal adjustment of the
           entity's programmatically-determined end point.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
+        <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
   </define>
@@ -831,14 +1236,14 @@
       <attribute name="startvo">
         <a:documentation xml:lang="eng">records a vertical adjustment of the
           entity's programmatically-determined start point.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
+        <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="endvo">
         <a:documentation xml:lang="eng">records a vertical adjustment of the
           entity's programmatically-determined end point.</a:documentation>
-        <ref name="data.VISUALOFFSET"/>
+        <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
   </define>
@@ -913,6 +1318,7 @@
 
   <define name="att.accid.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.accidental"/>
     <optional>
       <attribute name="func">
         <a:documentation xml:lang="eng">If an accidental has an editorial or
@@ -924,11 +1330,6 @@
         </choice>
       </attribute>
     </optional>
-    <attribute name="value">
-      <a:documentation xml:lang="eng">records a written
-        accidental.</a:documentation>
-      <ref name="data.ACCIDENTAL.EXPLICIT"/>
-    </attribute>
   </define>
 
   <define name="att.accid.vis" combine="interleave">
@@ -937,15 +1338,7 @@
     <ref name="att.visualoffset.ho"/>
     <ref name="att.visualoffset.vo"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="enclose">
-        <a:documentation xml:lang="eng">records the characters often used to
-          mark the accidental as having an cautionary or editorial function. For
-          an example of cautionary accidentals enclosed in parentheses, see
-          Read, p. 131, ex. 9-14.</a:documentation>
-        <ref name="data.ENCLOSURE"/>
-      </attribute>
-    </optional>
+    <ref name="att.enclosingchars"/>
     <optional>
       <attribute name="place">
         <a:documentation xml:lang="eng">captures the placement of the accidental
@@ -967,15 +1360,7 @@
 
   <define name="att.annot.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records the durational scope of the
-          annotation when it differs from the written values of the
-          participants. Its value may be expressed in one of several forms, such
-          as measures[s]+ beat[s].beatpart, ppq (MIDI clicks), Humdrum **recip
-          values, or MusicXML 'divisions', etc.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
   </define>
 
   <define name="att.annot.log" combine="interleave">
@@ -984,52 +1369,11 @@
       annotation suitable to the work in hand; e.g. annotation, gloss, citation,
       digression, preliminary, temporary, etc.</a:documentation>
     <ref name="att.startendid"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">records the durational scope of the
-          annotation. Please note that the dur attribute is not a true duration,
-          but rather a time stamp for the end point of the
-          directive.</a:documentation>
-        <ref name="data.MEASUREBEAT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="layer">
-        <a:documentation xml:lang="eng">signifies the layer to which an
-          annotation applies.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="staff">
-        <a:documentation xml:lang="eng">signifies the staff to which an
-          annotation applies.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp">
-        <a:documentation xml:lang="eng">encodes the onset time in terms of
-          musical time, i.e., beats[.fractional beat part]</a:documentation>
-        <ref name="data.BEAT"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.ges">
-        <a:documentation xml:lang="eng">records the onset time in pulses per
-          quarter note (ppq, MusicXML divisions, or MIDI clicks) since the start
-          of the measure.</a:documentation>
-        <data type="nonNegativeInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.real">
-        <a:documentation xml:lang="eng">records the onset time as a real-time
-          offset, i.e., in HH:MM:SS.ss format, since the beginning of the
-          file.</a:documentation>
-        <ref name="data.ISOTIME"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.timestamp"/>
+    <ref name="att.layerident"/>
+    <ref name="att.staffident"/>
+    <ref name="att.timestamp.musical"/>
+    <ref name="att.timestamp.performed"/>
   </define>
 
   <define name="att.annot.vis" combine="interleave">
@@ -1050,12 +1394,7 @@
 
   <define name="att.artic.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <attribute name="value">
-      <a:documentation xml:lang="eng">records the name of the articulation
-        symbol drawn from the list given in
-        data.ARTICULATIONS.</a:documentation>
-      <ref name="data.ARTICULATIONS"/>
-    </attribute>
+    <ref name="att.articulation"/>
   </define>
 
   <define name="att.artic.vis" combine="interleave">
@@ -1064,14 +1403,7 @@
     <ref name="att.placement"/>
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="enclose">
-        <a:documentation xml:lang="eng">encodes the characters used to enclose
-          the accidental when it has a cautionary or editorial
-          function.</a:documentation>
-        <ref name="data.ENCLOSURE"/>
-      </attribute>
-    </optional>
+    <ref name="att.enclosingchars"/>
   </define>
 
   <define name="att.barline.anl" combine="interleave">
@@ -1082,13 +1414,7 @@
 
   <define name="att.barline.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="tstamp">
-        <a:documentation xml:lang="eng">encodes the onset time of the barline in
-          terms of musical time, i.e., beats[.fractional beat
-          part]</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.timestamp.musical"/>
   </define>
 
   <define name="att.barline.log" combine="interleave">
@@ -1105,78 +1431,24 @@
 
   <define name="att.barline.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.barplacement"/>
     <ref name="att.color"/>
-    <optional>
-      <attribute name="barplace">
-        <a:documentation xml:lang="eng">records the location of the
-          barline.</a:documentation>
-        <ref name="data.BARPLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="taktplace">
-        <a:documentation xml:lang="eng">If takt barlines are to be used, then
-          the taktplace attribute may be used to denote the staff location of
-          the shortened barline. The location may include staff lines, spaces,
-          and the spaces directly above and below the staff. The value ranges
-          between 0 (just below the staff) to 2 * number of staff lines
-          (directly above the staff). For example, on a 5-line staff the lines
-          would be numbered 1,3,5,7, and 9 while the spaces would be numbered
-          0,2,4,6,8,10. For example, a value of '9' puts the barline through the
-          top line of a 5-line staff.</a:documentation>
-        <ref name="data.STAFFLOC"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="width">
-        <a:documentation xml:lang="eng">For rendering purposes, some music data
-          systems rely on measure width data. The width attribute allows for the
-          capture of this data in MEI for output back to these
-          systems.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
+    <ref name="att.measurement"/>
+    <ref name="att.measurewidth"/>
   </define>
 
   <define name="att.chord.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
-    <optional>
-      <attribute name="hfunc">
-        <a:documentation xml:lang="eng">describes the chord's harmonic function
-          in any convenient typology.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="mfunc">
-        <a:documentation xml:lang="eng">describes the chord's melodic function
-          in any convenient typology.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.melodicfunction"/>
   </define>
 
   <define name="att.chord.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <ref name="att.articulation.performed"/>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions', etc.
-        </a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="instr">
-        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
-          instrument definition. It must contain the ID of an
-          &lt;instrdef&gt; element elsewhere in the
-          document.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
+    <ref name="att.instrumentident"/>
   </define>
 
   <define name="att.chord.log" combine="interleave">
@@ -1191,59 +1463,12 @@
     <ref name="att.event"/>
     <ref name="att.articulation"/>
     <ref name="att.augmentdots"/>
-    <ref name="att.beamed"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes logical; that is, written,
-          duration.</a:documentation>
-        <ref name="data.DURATION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="fermata">
-        <a:documentation xml:lang="eng">indicates the attachment of a fermata to
-          this element. If visual information about the fermata needs to be
-          recorded, then a &lt;fermata&gt; element should be
-          employed.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="lv">
-        <a:documentation xml:lang="eng">indicates the attachment of an l.v.
-          (laissez vibrer) sign to this element.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="slur">
-        <a:documentation xml:lang="eng">indicates that this element participates
-          in a slur.</a:documentation>
-        <ref name="data.SLURS"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="syl">
-        <a:documentation xml:lang="eng">holds an associated sung text
-          syllable.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie">
-        <a:documentation xml:lang="eng">indicates that this element participates
-          in a tie. If visual information about the tie needs to be recorded,
-          then a &lt;tie&gt; element should be
-          employed.</a:documentation>
-        <ref name="data.TIE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tuplet">
-        <a:documentation xml:lang="eng">indicates that this element participates
-          in a tuplet.</a:documentation>
-        <ref name="data.TUPLET"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.musical"/>
+    <ref name="att.fermatapresent"/>
+    <ref name="att.syltext"/>
+    <ref name="att.slurpresent"/>
+    <ref name="att.tiepresent"/>
+    <ref name="att.tupletpresent"/>
   </define>
 
   <define name="att.chord.vis" combine="interleave">
@@ -1255,6 +1480,8 @@
       attributes must be used.</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
+    <ref name="att.relativesize"/>
+    <ref name="att.stemmed"/>
     <ref name="att.visibility"/>
     <ref name="att.visualoffset.ho"/>
     <ref name="att.visualoffset.to"/>
@@ -1265,48 +1492,6 @@
           be displayed instead of individual noteheads. See Read, p. 320-321,
           re: tone clusters.</a:documentation>
         <ref name="data.CLUSTER"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="size">
-        <a:documentation xml:lang="eng">describes the relative size of the
-          chord.</a:documentation>
-        <ref name="data.SIZE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.dir">
-        <a:documentation xml:lang="eng">describes the direction of a
-          stem.</a:documentation>
-        <ref name="data.STEMDIRECTION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.len">
-        <a:documentation xml:lang="eng">encodes the stem
-          length.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.pos">
-        <a:documentation xml:lang="eng">records the position of the stem in
-          relation to the notehead(s).</a:documentation>
-        <ref name="data.STEMPOSITION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.x">
-        <a:documentation xml:lang="eng">records the x coordinate of the stem's
-          attachment point.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.y">
-        <a:documentation xml:lang="eng">records the y coordinate of the stem's
-          attachment point.</a:documentation>
-        <data type="decimal"/>
       </attribute>
     </optional>
   </define>
@@ -1324,25 +1509,8 @@
 
   <define name="att.clef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <attribute name="line">
-      <a:documentation xml:lang="eng">the staff location of the clef. The value
-        must be in the range between 1 and the number of lines on the
-        staff.</a:documentation>
-      <ref name="data.CLEFLINE"/>
-    </attribute>
-    <optional>
-      <attribute name="octave.default">
-        <a:documentation xml:lang="eng">The default octave, used when the first
-          note of a measure provides no oct attribute, is set by the
-          octave.default attribute.</a:documentation>
-        <ref name="data.OCTAVE"/>
-      </attribute>
-    </optional>
-    <attribute name="shape">
-      <a:documentation xml:lang="eng">decribes the clef
-        symbol.</a:documentation>
-      <ref name="data.CLEFSHAPE"/>
-    </attribute>
+    <ref name="att.lineloc"/>
+    <ref name="att.clefshape"/>
     <optional>
       <ref name="att.octavedisplacement"/>
     </optional>
@@ -1368,27 +1536,10 @@
   <define name="att.clefchange.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
-      <attribute name="line">
-        <a:documentation xml:lang="eng">records the position of the clef. The
-          value must be in the range between 1 and the number of lines on the
-          staff.</a:documentation>
-        <ref name="data.CLEFLINE"/>
-      </attribute>
+      <ref name="att.lineloc"/>
     </optional>
     <optional>
-      <attribute name="octave.default">
-        <a:documentation xml:lang="eng">sets the value of the oct attribute of
-          the event following the clefchange, if the event doesn't already have
-          an oct attribute.</a:documentation>
-        <ref name="data.OCTAVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="shape">
-        <a:documentation xml:lang="eng">indicates the shape of the clef
-          symbol.</a:documentation>
-        <ref name="data.CLEFSHAPE"/>
-      </attribute>
+      <ref name="att.clefshape"/>
     </optional>
     <optional>
       <ref name="att.octavedisplacement"/>
@@ -1414,24 +1565,7 @@
 
   <define name="att.custos.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <attribute name="oct">
-      <a:documentation xml:lang="eng">together with the pname attribute,
-        identifies the location where the custos appears.</a:documentation>
-      <ref name="data.OCTAVE"/>
-    </attribute>
-    <attribute name="pname">
-      <a:documentation xml:lang="eng">in conjuction with the oct attribute,
-        identifies the location where the custos appears.</a:documentation>
-      <ref name="data.PITCHNAME"/>
-    </attribute>
-    <!-- Moved to critApp module
-    <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">contains a list of one or more pointers
-          indicating the sources which contain the custos.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
+    <ref name="att.pitched"/>
     <optional>
       <attribute name="target">
         <a:documentation xml:lang="eng">encodes the target note when its pitch
@@ -1454,31 +1588,14 @@
 
   <define name="att.dir.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions',
-          etc.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
   </define>
 
   <define name="att.dir.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes the logical and visual durations
-          of the directive. If cases arise where the logical and visual
-          durations differ, it may be necessary to add a dur.vis attribute.
-          Please note that the dur attribute is not a true duration, but rather
-          a time stamp for the end point of the directive.</a:documentation>
-        <ref name="data.MEASUREBEAT"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.timestamp"/>
   </define>
 
   <define name="att.dir.vis" combine="interleave">
@@ -1503,6 +1620,7 @@
 
   <define name="att.dot.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.staffloc"/>
     <optional>
       <attribute name="form">
         <a:documentation xml:lang="eng">records the function of the dot; that
@@ -1512,13 +1630,6 @@
           <value>aug</value>
           <value>div</value>
         </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="loc">
-        <a:documentation xml:lang="eng">encodes the staff location of the
-          dot.</a:documentation>
-        <ref name="data.STAFFLOC"/>
       </attribute>
     </optional>
   </define>
@@ -1539,21 +1650,9 @@
 
   <define name="att.dynam.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <ref name="att.duration.performed"/>
     <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions', etc.
-        </a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="value">
-        <a:documentation xml:lang="eng">captures a numeric value associated with
-          the graphical dynamic sign.</a:documentation>
-        <ref name="data.MIDIVALUE"/>
-      </attribute>
+      <ref name="att.midivalue"/>
     </optional>
   </define>
 
@@ -1561,17 +1660,7 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes the logical and visual durations
-          of the dynamic symbol or text. If cases arise where the logical and
-          visual durations differ, it may be necessary to add a dur.vis
-          attribute. Please note that the dur attribute is not a true duration,
-          but rather a time stamp for the end point of the dynamic
-          mark.</a:documentation>
-        <ref name="data.MEASUREBEAT"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.timestamp"/>
   </define>
 
   <define name="att.dynam.vis" combine="interleave">
@@ -1663,7 +1752,8 @@
 
   <define name="att.layerdef.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
+    <ref name="att.instrumentident"/>
+    <!-- <optional>
       <attribute name="grace">
         <a:documentation xml:lang="eng">Setting the grace attribute here
           provides the possibility of changing all the grace attribute values in
@@ -1672,47 +1762,11 @@
           its grace.time attribute.</a:documentation>
         <ref name="data.GRACE"/>
       </attribute>
-    </optional>
-    <optional>
-      <attribute name="instr">
-        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
-          instrument definition. It must contain the ID of an
-          &lt;instrdef&gt; element elsewhere in the
-          document.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional>
+      </optional> -->
   </define>
 
   <define name="att.layerdef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <!-- <optional>
-      <attribute name="beam.group">
-        <a:documentation xml:lang="eng">provides an example of how beaming
-          (including secondary beams) is to be performed. It can be used to set
-          a default beaming pattern to be used when no beaming is indicated at
-          the event level. beam.group must contain a comma-separated list of
-          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
-          indicates each quarter note worth of shorter notes would be beamed
-          together. Parentheses can be used to indicate sub-groupings of
-          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
-          outer beam per measure with secondary beams broken at each dotted
-          quarter duration, while a measure of 16th notes in 4/4 with beam.group
-          equal to '(4,4),(4,4)' will result in a primary beam covering all the
-          notes and secondary beams each group of 4 notes. This beaming
-          "directive" can be overridden by using &lt;beam&gt; elements.
-          If neither &lt;beam&gt; elements or the beam.group attribute
-          is used, then no beaming is rendered. Beaming can be 'turned off' by
-          setting beam.group to an empty string.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.rests">
-        <a:documentation xml:lang="eng">determines whether rests are allowed
-          under a beam.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional> -->
     <optional>
       <attribute name="dur.default">
         <a:documentation xml:lang="eng">contains a default duration in those
@@ -1733,6 +1787,24 @@
 
   <define name="att.layerdef.vis" combine="interleave">
     <ref name="att.visibility"/>
+    <optional>
+      <attribute name="beam.rend">
+        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
+          in which direction.</a:documentation>
+        <choice>
+          <value>acc</value>
+          <value>rit</value>
+          <value>norm</value>
+        </choice>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.slope">
+        <a:documentation xml:lang="eng">captures default beam
+          slope.</a:documentation>
+        <data type="decimal"/>
+      </attribute>
+    </optional>
     <optional>
       <attribute name="text.fam">
         <a:documentation xml:lang="eng">provides a default value for the font
@@ -1786,22 +1858,7 @@
       and tstamp.real attributes encode the onset time of the measure. In
       reality, this is usually the same as the onset time of the first event in
       the measure.</a:documentation>
-    <optional>
-      <attribute name="tstamp.ges">
-        <a:documentation xml:lang="eng">used to record the onset time in pulses
-          per quarter note (ppq, MusicXML divisions, or MIDI clicks) since the
-          start of the file.</a:documentation>
-        <data type="nonNegativeInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tstamp.real">
-        <a:documentation xml:lang="eng">holds the onset time as a real-time
-          offset, i.e., HH:MM:SS.ss, since the beginning of the
-          file.</a:documentation>
-        <ref name="data.ISOTIME"/>
-      </attribute>
-    </optional>
+    <ref name="att.timestamp.performed"/>
   </define>
 
   <define name="att.measure.log" combine="interleave">
@@ -1813,15 +1870,11 @@
       even have labels, especially in editorial or analytical uses of MEI, that
       are entirely non-numeric strings. Measure numbers may be machine-generated
       instead of encoding them in the markup. However, an explicit measure
-      number should restart numbering with the given value.</a:documentation>
+      number should restart numbering with the given value. The join attribute
+      may be used to indicate another measure which metrically completes the
+      current, incomplete one one.</a:documentation>
     <ref name="att.meterbar"/>
-    <optional>
-      <attribute name="join">
-        <a:documentation xml:lang="eng">indicates a measure which metrically
-          completes the current one.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
+    <ref name="att.joined"/>
     <optional>
       <attribute name="left">
         <a:documentation xml:lang="eng">indicates the visual rendition of the
@@ -1842,66 +1895,26 @@
 
   <define name="att.measure.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="barplace">
-        <a:documentation xml:lang="eng">describes the placement of the right
-          barline.</a:documentation>
-        <ref name="data.BARPLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="taktplace">
-        <a:documentation xml:lang="eng">If takt barlines are to be used, then
-          the taktplace attribute may be used to denote the staff location of
-          the shortened barline. The location may include staff lines, spaces,
-          and the spaces directly above and below the staff. The value ranges
-          between 0 (just below the staff) to 2 * number of staff lines
-          (directly above the staff). For example, on a 5-line staff the lines
-          would be numbered 1,3,5,7, and 9 while the spaces would be numbered
-          0,2,4,6,8,10. For example, a value of '9' puts the barline through the
-          top line of a 5-line staff.</a:documentation>
-        <ref name="data.STAFFLOC"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="width">
-        <a:documentation xml:lang="eng">For rendering purposes, some music data
-          systems rely on measure width data. The width attribute allows for the
-          capture of this data in MEI for output back to these
-          systems.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
+    <ref name="att.barplacement"/>
+    <ref name="att.measurement"/>
+    <ref name="att.measurewidth"/>
   </define>
 
   <define name="att.note.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
+    <ref name="att.harmonicfunction"/>
+    <ref name="att.melodicfunction"/>
+    <ref name="att.intervallicdesc"/>
   </define>
 
   <define name="att.note.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <ref name="att.accidental.performed"/>
     <ref name="att.articulation.performed"/>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions',
-          etc.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="instr">
-        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
-          instrument definition. It must contain the ID of an
-          &lt;instrdef&gt; element elsewhere in the
-          document.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
+    <ref name="att.instrumentident"/>
     <optional>
       <attribute name="oct.ges">
         <a:documentation xml:lang="eng">records performed octave information
@@ -1931,115 +1944,32 @@
     <ref name="att.accidental"/>
     <ref name="att.articulation"/>
     <ref name="att.augmentdots"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes logical; that is, written,
-          duration.</a:documentation>
-        <ref name="data.DURATION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="fermata">
-        <a:documentation xml:lang="eng">used to indicate the attachment of a
-          fermata to this element. If visual information about the fermata needs
-          to be recorded, then a fermata &lt;element&gt; should be
-          employed.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="oct">
-        <a:documentation xml:lang="eng">captures written octave
-          information.</a:documentation>
-        <ref name="data.OCTAVE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="pname">
-        <a:documentation xml:lang="eng">contains the written pitch
-          name.</a:documentation>
-        <ref name="data.PITCHNAME"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="syl">
-        <a:documentation xml:lang="eng">holds an associated sung text
-          syllable.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.duration.musical"/>
+    <ref name="att.fermatapresent"/>
+    <ref name="att.pitched"/>
+    <ref name="att.syltext"/>
+    <ref name="att.slurpresent"/>
+    <ref name="att.tiepresent"/>
+    <ref name="att.tupletpresent"/>
   </define>
 
   <define name="att.note.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
+    <ref name="att.coloration"/>
+    <ref name="att.enclosingchars"/>
+    <ref name="att.relativesize"/>
+    <ref name="att.stemmed"/>
     <ref name="att.visibility"/>
     <ref name="att.visualoffset.ho"/>
     <ref name="att.visualoffset.to"/>
     <ref name="att.xy"/>
     <optional>
-      <attribute name="enclose.accid">
-        <a:documentation xml:lang="eng">encodes the characters used to enclose
-          the accidental when it has a cautionary or editorial
-          function.</a:documentation>
-        <ref name="data.ENCLOSURE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="enclose.note">
-        <a:documentation xml:lang="eng">encodes the characters used to enclose
-          the note when it has a cautionary or editorial
-          function.</a:documentation>
-        <ref name="data.ENCLOSURE"/>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="headshape">
         <a:documentation xml:lang="eng">used to override the headshape normally
           used for the given duration.</a:documentation>
         <ref name="data.HEADSHAPE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="size">
-        <a:documentation xml:lang="eng">describes the relative size of the
-          note.</a:documentation>
-        <ref name="data.SIZE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.dir">
-        <a:documentation xml:lang="eng">describes the direction of a
-          stem.</a:documentation>
-        <ref name="data.STEMDIRECTION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.len">
-        <a:documentation xml:lang="eng">encodes the stem
-          length.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.pos">
-        <a:documentation xml:lang="eng">records the position of the stem in
-          relation to the notehead(s).</a:documentation>
-        <ref name="data.STEMPOSITION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.x">
-        <a:documentation xml:lang="eng">records the x coordinate of the stem's
-          attachment point.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="stem.y">
-        <a:documentation xml:lang="eng">records the y coordinate of the stem's
-          attachment point.</a:documentation>
-        <data type="decimal"/>
       </attribute>
     </optional>
   </define>
@@ -2117,44 +2047,19 @@
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
     <ref name="att.common.anl"/>
-    <optional>
-      <attribute name="join">
-        <a:documentation xml:lang="eng">used for linking visually separate
-          phrase marks, sometimes necessary due to system breaks, that form a
-          single musical phrase. Record the IDs of the separately encoded phrase
-          marks, excluding this one.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional>
+    <ref name="att.joined"/>
   </define>
 
   <define name="att.phrase.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions',
-          etc.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
   </define>
 
   <define name="att.phrase.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <ref name="att.startendid"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes the logical and visual duration
-          of the phrase mark. If logical and visual duration differ, it may be
-          necessary to add a dur.vis attribute. Please note that the dur
-          attribute here is not a true duration, but rather a time stamp for the
-          end point of the phrase mark.</a:documentation>
-        <ref name="data.MEASUREBEAT"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.timestamp"/>
   </define>
 
   <define name="att.phrase.vis" combine="interleave">
@@ -2175,61 +2080,26 @@
 
   <define name="att.rest.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions',
-          etc.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="instr">
-        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
-          instrument definition. It must contain the ID of an
-          &lt;instrdef&gt; element elsewhere in the
-          document.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
+    <ref name="att.instrumentident"/>
   </define>
 
   <define name="att.rest.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.augmentdots"/>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes logical; that is, written,
-          duration.</a:documentation>
-        <ref name="data.DURATION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="fermata">
-        <a:documentation xml:lang="eng">used to indicate the attachment of a
-          fermata to this element. If visual information about the fermata needs
-          to be recorded, then a &lt;fermata&gt; element should be
-          employed.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.musical"/>
+    <ref name="att.fermatapresent"/>
+    <ref name="att.tupletpresent"/>
   </define>
 
   <define name="att.rest.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.altsym"/>
     <ref name="att.color"/>
+    <ref name="att.relativesize"/>
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="size">
-        <a:documentation xml:lang="eng">describes the relative size of the
-          rest.</a:documentation>
-        <ref name="data.SIZE"/>
-      </attribute>
-    </optional>
   </define>
 
   <define name="att.sb.anl" combine="interleave">
@@ -2355,7 +2225,7 @@
         </xhtml:tr>
       </xhtml:table> -->
     </a:documentation>
-    <optional>
+    <!-- <optional>
       <attribute name="grace">
         <a:documentation xml:lang="eng">Setting the grace attribute here
           provides the possibility of changing all the grace attribute values in
@@ -2364,7 +2234,7 @@
           its grace.time attribute.</a:documentation>
         <ref name="data.GRACE"/>
       </attribute>
-    </optional>
+    </optional> -->
     <optional>
       <attribute name="midi.channel">
         <a:documentation xml:lang="eng">sets the default MIDI
@@ -2419,79 +2289,7 @@
   <define name="att.scoredef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for scoredef in
       the CMN repertoire. The values set in these attributes act as score-wide
-      defaults for attributes that are not set in descendant elements.
-      <!-- <xhtml:table>
-        <xhtml:caption>Suggested software default values</xhtml:caption>
-        <xhtml:tr>
-          <xhtml:td>beam.group</xhtml:td>
-          <xhtml:td>empty string</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>beam.rests</xhtml:td>
-          <xhtml:td>'no'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>clef.line</xhtml:td>
-          <xhtml:td>'2'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>clef.shape</xhtml:td>
-          <xhtml:td>'G'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>clef.trans</xhtml:td>
-          <xhtml:td>'0'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>dur.default</xhtml:td>
-          <xhtml:td>'4'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>key.accid</xhtml:td>
-          <xhtml:td>empty string</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>key.mode</xhtml:td>
-          <xhtml:td>'major'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>key.pname</xhtml:td>
-          <xhtml:td>empty string</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>key.sig</xhtml:td>
-          <xhtml:td>empty string</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>key.sig.mixed</xhtml:td>
-          <xhtml:td>empty string</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>meter.count</xhtml:td>
-          <xhtml:td>empty string</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>meter.unit</xhtml:td>
-          <xhtml:td>empty string</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>meter.sym</xhtml:td>
-          <xhtml:td>empty string</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>octave.default</xhtml:td>
-          <xhtml:td>'4'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>trans.diat</xhtml:td>
-          <xhtml:td>'0'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>trans.semi</xhtml:td>
-          <xhtml:td>'0'</xhtml:td>
-        </xhtml:tr>
-      </xhtml:table> -->
-    </a:documentation>
+      defaults for attributes that are not set in descendant elements. </a:documentation>
     <optional>
       <attribute name="clef.line">
         <a:documentation xml:lang="eng">contains a default value for the
@@ -2522,9 +2320,9 @@
     </optional>
     <optional>
       <attribute name="dur.default">
-        <a:documentation xml:lang="eng">used to determine the duration value of
-          the first note in a layer if it has no dur
-          attribute.</a:documentation>
+        <a:documentation xml:lang="eng">contains a default duration in those
+          situations when the first note, rest, chord, etc. in a measure does
+          not have a duration specified.</a:documentation>
         <ref name="data.DURATION"/>
       </attribute>
     </optional>
@@ -2643,218 +2441,7 @@
 
   <define name="att.scoredef.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
-      CMN repertoire
-      <!-- <xhtml:table>
-        <xhtml:caption>Suggested software default values</xhtml:caption>
-        <xhtml:tr>
-          <xhtml:td>bar.place</xhtml:td>
-          <xhtml:td>'norm'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>beam.rend</xhtml:td>
-          <xhtml:td>'norm'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>beam.slope</xhtml:td>
-          <xhtml:td>25.0'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>clef.color</xhtml:td>
-          <xhtml:td>'black'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>clef.visible</xhtml:td>
-          <xhtml:td>'yes'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>dynam.dist</xhtml:td>
-          <xhtml:td>'2'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>ending.rend</xhtml:td>
-          <xhtml:td>'top'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>grid.show</xhtml:td>
-          <xhtml:td>'no'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>harm.dist</xhtml:td>
-          <xhtml:td>'2'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>key.sig.show</xhtml:td>
-          <xhtml:td>'yes'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>key.sig.showchange</xhtml:td>
-          <xhtml:td>'yes'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>lyric.align</xhtml:td>
-          <xhtml:td>'0.25'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>lyric.fam</xhtml:td>
-          <xhtml:td>'times'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>lyric.name</xhtml:td>
-          <xhtml:td>'rom'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>lyric.size</xhtml:td>
-          <xhtml:td>'12'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>lyric.style</xhtml:td>
-          <xhtml:td>no default</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>lyric.weight</xhtml:td>
-          <xhtml:td>no default</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>meter.rend</xhtml:td>
-          <xhtml:td>'norm'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>meter.sig.showchange</xhtml:td>
-          <xhtml:td>'yes'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>mnum.visible</xhtml:td>
-          <xhtml:td>'no'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>multi.number</xhtml:td>
-          <xhtml:td>'no'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>measures</xhtml:td>
-          <xhtml:td>'no'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>ontheline</xhtml:td>
-          <xhtml:td>'yes'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>optimize</xhtml:td>
-          <xhtml:td>'no'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.height</xhtml:td>
-          <xhtml:td>'11'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.width</xhtml:td>
-          <xhtml:td>'8.5'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.units</xhtml:td>
-          <xhtml:td>'in'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.topmar</xhtml:td>
-          <xhtml:td>'1'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.botmar</xhtml:td>
-          <xhtml:td>'1'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.leftmar</xhtml:td>
-          <xhtml:td>'.5'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.rightmar</xhtml:td>
-          <xhtml:td>'.5'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.panels</xhtml:td>
-          <xhtml:td>'1'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>page.scale</xhtml:td>
-          <xhtml:td>'100'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>pedal.rend</xhtml:td>
-          <xhtml:td>'term'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>reh.enclose</xhtml:td>
-          <xhtml:td>'box'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>slur.rend</xhtml:td>
-          <xhtml:td>'medium'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>spacing.packexp</xhtml:td>
-          <xhtml:td>'0.8'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>spacing.packfact</xhtml:td>
-          <xhtml:td>'1'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>spacing.staff</xhtml:td>
-          <xhtml:td>'2'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>spacing.system</xhtml:td>
-          <xhtml:td>20'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>system.leftmar</xhtml:td>
-          <xhtml:td>'0'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>system.rightmar</xhtml:td>
-          <xhtml:td>'0'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>system.topmar</xhtml:td>
-          <xhtml:td>no default</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>text.dist</xhtml:td>
-          <xhtml:td>'2'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>text.fam</xhtml:td>
-          <xhtml:td>'times'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>text.nam</xhtml:td>
-          <xhtml:td>'rom'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>text.size</xhtml:td>
-          <xhtml:td>'12'</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>text.style</xhtml:td>
-          <xhtml:td>no default</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>text.weight</xhtml:td>
-          <xhtml:td>no default</xhtml:td>
-        </xhtml:tr>
-        <xhtml:tr>
-          <xhtml:td>tie.rend</xhtml:td>
-          <xhtml:td>'medium'</xhtml:td>
-        </xhtml:tr>
-      </xhtml:table> -->
-    </a:documentation>
-    <optional>
-      <attribute name="bar.place">
-        <a:documentation xml:lang="eng">describes the placement of
-          barlines.</a:documentation>
-        <ref name="data.BARPLACE"/>
-      </attribute>
-    </optional>
+      CMN repertoire</a:documentation>
     <optional>
       <attribute name="clef.color">
         <a:documentation xml:lang="eng">describes the color of the
@@ -2867,6 +2454,13 @@
         <a:documentation xml:lang="eng">determines whether the clef is to be
           displayed.</a:documentation>
         <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="bar.place">
+        <a:documentation xml:lang="eng">describes the placement of
+          barlines.</a:documentation>
+        <ref name="data.BARPLACE"/>
       </attribute>
     </optional>
     <optional>
@@ -3024,7 +2618,7 @@
     </optional>
     <optional>
       <attribute name="page.width">
-        <a:documentation xml:lang="eng">describes the physwical width of the
+        <a:documentation xml:lang="eng">describes the physical width of the
           rendered output page.</a:documentation>
         <data type="decimal"/>
       </attribute>
@@ -3207,53 +2801,25 @@
 
   <define name="att.space.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="dur.ges">
-        <a:documentation xml:lang="eng">records performed duration information
-          that differs from the written values. Its value may be expressed in
-          one of several forms, such as measures[s]+ beat[s].beatpart, ppq (MIDI
-          clicks), Humdrum **recip values, or MusicXML 'divisions',
-          etc.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.duration.performed"/>
   </define>
 
   <define name="att.space.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.augmentdots"/>
     <ref name="att.event"/>
-    <optional>
-      <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes logical; that is, written,
-          duration.</a:documentation>
-        <ref name="data.DURATION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="fermata">
-        <a:documentation xml:lang="eng">used to indicate the attachment of a
-          fermata to this element. If visual information about the fermata needs
-          to be recorded, then a &lt;fermata&gt; element should be
-          employed.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tuplet">
-        <a:documentation xml:lang="eng">indicates that this element participates
-          in a tuplet.</a:documentation>
-        <ref name="data.TUPLET"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.musical"/>
+    <ref name="att.fermatapresent"/>
+    <ref name="att.tupletpresent"/>
   </define>
 
   <define name="att.space.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
       <attribute name="compressable">
-        <a:documentation xml:lang="eng">indicates that the space is
-          'compressable', i.e., it may be removed by processing
-          software.</a:documentation>
+        <a:documentation xml:lang="eng">indicates whether a space is
+          'compressable', i.e., if it may be removed at the disgression of
+          processing software.</a:documentation>
         <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
@@ -3289,7 +2855,8 @@
   <define name="att.staffdef.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes for staffdef in
       the CMN repertoire</a:documentation>
-    <optional>
+    <ref name="att.instrumentident"/>
+    <!-- <optional>
       <attribute name="grace">
         <a:documentation xml:lang="eng">Setting the grace attribute here
           provides the possibility of changing all the grace attribute values in
@@ -3298,16 +2865,7 @@
           its grace.time attribute.</a:documentation>
         <ref name="data.GRACE"/>
       </attribute>
-    </optional>
-    <optional>
-      <attribute name="instr">
-        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
-          instrument definition. It must contain the ID of an
-          &lt;instrdef&gt; element elsewhere in the
-          document.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional>
+      </optional> -->
     <optional>
       <attribute name="midi.div">
         <a:documentation xml:lang="eng">sets the number of MIDI ticks per
@@ -3710,20 +3268,12 @@
 
   <define name="att.staffgrp.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
+    <ref name="att.instrumentident"/>
     <optional>
       <attribute name="midi.div">
         <a:documentation xml:lang="eng">sets the default number of MIDI ticks
           per quarter note for all staves in the group.</a:documentation>
         <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="instr">
-        <a:documentation xml:lang="eng">provides a way of pointing to a MIDI
-          instrument definition. It must contain the ID of an
-          &lt;instrdef&gt; element elsewhere in the
-          document.</a:documentation>
-        <data type="IDREFS"/>
       </attribute>
     </optional>
   </define>
@@ -3739,8 +3289,8 @@
     <optional>
       <attribute name="barthru">
         <a:documentation xml:lang="eng">indicates whether barlines go across the
-          space between staves (yes) or are only drawn across the stafflines of
-          each staff (no)</a:documentation>
+          space between staves (true) or are only drawn across the lines of each
+          staff (false).</a:documentation>
         <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
@@ -3814,26 +3364,7 @@
     <ref name="att.typography"/>
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="halign">
-        <a:documentation xml:lang="eng">indicates the horizontal alignment of
-          the syllable with respect to the note to which it is
-          attached.</a:documentation>
-        <choice>
-          <value>left</value>
-          <value>right</value>
-          <value>center</value>
-          <value>justify</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="rend">
-        <a:documentation xml:lang="eng">typographical appearance of the syllable
-          text.</a:documentation>
-        <ref name="data.TEXTRENDITION"/>
-      </attribute>
-    </optional>
+    <ref name="att.horizontalalign"/>
   </define>
 
   <define name="att.tempo.anl" combine="interleave">
@@ -3845,6 +3376,13 @@
   <define name="att.tempo.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <optional>
+      <attribute name="bpm">
+        <a:documentation xml:lang="eng">used to describe the tempo in
+          beats-per-minute.</a:documentation>
+        <ref name="data.TEMPOVALUE"/>
+      </attribute>
+    </optional>
+    <optional>
       <attribute name="midi">
         <a:documentation xml:lang="eng">contains a MIDI value, that is, the
           number of quarter notes per minute in the range from 10 to
@@ -3852,30 +3390,12 @@
         <ref name="data.MIDITEMPO"/>
       </attribute>
     </optional>
-    <optional>
-      <attribute name="value">
-        <a:documentation xml:lang="eng">used to describe the tempo in
-          beats-per-minute.</a:documentation>
-        <ref name="data.TEMPOVALUE"/>
-      </attribute>
-    </optional>
   </define>
 
   <define name="att.tempo.log" combine="interleave">
-    <a:documentation xml:lang="eng">Logical domain attributes. The dur.vis
-      attribute encodes visual duration. (Read, p. 276-281) If logical and
-      visual durations differ, it may be necessary to add a dur attribute.
-      Please note that the dur attribute here is expressed in musical time,
-      i.e., beats or other time stamp. Therefore, it is not a true duration, but
-      rather a time stamp for the end point of the directive.</a:documentation>
+    <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
-    <optional>
-      <attribute name="startid">
-        <a:documentation xml:lang="eng">holds a reference to the element to
-          which the tempo mark is attached.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
+    <ref name="att.startid"/>
   </define>
 
   <define name="att.tempo.vis" combine="interleave">
@@ -3889,6 +3409,7 @@
       <attribute name="dur.vis">
         <a:documentation xml:lang="eng">used to record the visual duration of
           the tempo marking in the source.</a:documentation>
+        <ref name="data.MEASUREBEAT"/>
       </attribute>
     </optional>
   </define>
@@ -4771,7 +4292,8 @@
     <element name="custos">
       <a:documentation xml:lang="eng">custos ― The symbol placed at the end of a
         staff to indicate the first note of the next staff. Sometimes called a
-        "direct".</a:documentation>
+        "direct". Together the pname and oct attributes identify the location
+        where the custos appears.</a:documentation>
       <ref name="attlist.custos"/>
       <ref name="content.custos"/>
     </element>
@@ -4902,7 +4424,10 @@
         starting point of the dynamic marking may be indicated by either a
         tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
         point may be recorded by either a dur, dur.ges or endid attribute. It is
-        a semantic error not to specify a starting point
+        a semantic error not to specify a starting point attribute. Please note
+        that the dur attribute is not a true duration, but rather a time stamp
+        for the end point of the dynamic mark. A MIDI value associated with the
+        graphical dynamic sign may be recorded in the val
         attribute.</a:documentation>
       <ref name="attlist.dynam"/>
       <ref name="content.dynam"/>
@@ -5071,14 +4596,7 @@
     <ref name="att.common"/>
     <ref name="att.source"/>
     <ref name="att.typed"/>
-    <optional>
-      <attribute name="plist">
-        <a:documentation xml:lang="eng">contains a list of ids of child
-          &lt;section&gt;, &lt;ending&gt; or &lt;app&gt;
-          elements.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional>
+    <ref name="att.participantident"/>
   </define>
 
   <define name="content.fw">
@@ -5245,7 +4763,7 @@
     <optional>
       <attribute name="midi.duty">
         <a:documentation xml:lang="eng">specifies the 'on' part of the duty
-          cycle as a percentage.</a:documentation>
+          cycle as a percentage of duration.</a:documentation>
         <ref name="data.PERCENT"/>
       </attribute>
     </optional>
@@ -5294,17 +4812,13 @@
   </define>
 
   <define name="attlist.keyaccid">
+    <ref name="att.accidental"/>
     <ref name="att.common"/>
+    <ref name="att.enclosingchars"/>
     <ref name="att.facsimile"/>
+    <ref name="att.pitched"/>
+    <ref name="att.staffloc"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="enclose">
-        <a:documentation xml:lang="eng">encodes the characters used to enclose
-          the accidental when it has a cautionary or editorial
-          function.</a:documentation>
-        <ref name="data.ENCLOSURE"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="form">
         <a:documentation xml:lang="eng">specifies whether the accidental allows
@@ -5316,29 +4830,6 @@
         </choice>
       </attribute>
     </optional>
-    <optional>
-      <attribute name="oct">
-        <a:documentation xml:lang="eng">captures written octave
-          information.</a:documentation>
-        <ref name="data.OCTAVE"/>
-      </attribute>
-    </optional>
-    <attribute name="pname">
-      <a:documentation xml:lang="eng">records the written pitch
-        name.</a:documentation>
-      <ref name="data.PITCHNAME"/>
-    </attribute>
-    <optional>
-      <attribute name="staffloc">
-        <a:documentation xml:lang="eng">gives the location on the
-          staff.</a:documentation>
-        <ref name="data.STAFFLOC"/>
-      </attribute>
-    </optional>
-    <attribute name="value">
-      <a:documentation xml:lang="eng">a written accidental</a:documentation>
-      <ref name="data.ACCIDENTAL.EXPLICIT"/>
-    </attribute>
   </define>
 
   <define name="content.keychange">
@@ -5381,18 +4872,12 @@
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.accidental"/>
+    <ref name="att.pitched"/>
     <optional>
       <attribute name="mode">
         <a:documentation xml:lang="eng">indicates major, minor, or other
           tonality.</a:documentation>
         <ref name="data.MODE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="pname">
-        <a:documentation xml:lang="eng">contains the written pitch
-          name.</a:documentation>
-        <ref name="data.PITCHNAME"/>
       </attribute>
     </optional>
   </define>
@@ -5421,16 +4906,6 @@
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.source"/>
-    <!-- Moved to critApp module
-    <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">Source descriptions in the header may be
-          pointed to by putting their IDs in the source attribute. This allows
-          labels from multiple sources to be encoded with a single label
-          element.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="content.layer">
@@ -5603,6 +5078,7 @@
   </define>
 
   <define name="attlist.mei">
+    <ref name="att.meiversion"/>
     <optional>
       <attribute name="id" ns="http://www.w3.org/XML/1998/namespace">
         <a:documentation xml:lang="eng">regularizes the naming of an element and
@@ -5610,13 +5086,6 @@
           id attribute within a document must have a unique
           value.</a:documentation>
         <data type="ID"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="version" a:defaultValue="1.9b">
-        <a:documentation xml:lang="eng">names the version of the schema used by
-          the instance.</a:documentation>
-        <ref name="meiVersion"/>
       </attribute>
     </optional>
   </define>
@@ -5635,11 +5104,7 @@
 
   <define name="attlist.music">
     <ref name="att.common"/>
-    <optional>
-      <attribute name="version" a:defaultValue="1.9b">
-        <ref name="meiVersion"/>
-      </attribute>
-    </optional>
+    <ref name="att.meiversion"/>
   </define>
 
   <define name="content.name">
@@ -5714,7 +5179,12 @@
         objects, e.g., when they require attributes, such as x and y location
         attributes. Similarly, the syl sub-element may be used instead of the
         syl attribute. The verse sub-element may be used to group text syllables
-        by verse.</a:documentation>
+        by verse. The colored attribute may be used to indicate coloration. In
+        the mensural repertoire coloration is a temporary change in the
+        underlying mensuration from perfect to imperfect. In the CMN repertoire
+        coloration is an inversion of the note head's normal rendition, that is,
+        the notehead is void when it would otherwise be filled and vice versa.
+        Do not confuse this with visual color.</a:documentation>
       <ref name="attlist.note"/>
       <ref name="content.note"/>
     </element>
@@ -5753,12 +5223,7 @@
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
-    <optional>
-      <attribute name="unit">
-        <a:documentation xml:lang="eng">indicates the units of measurement of
-          the numeric value.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.measurement"/>
   </define>
 
   <define name="content.p">
@@ -6087,7 +5552,9 @@
         ending point may be recorded by either a dur, dur.ges or endid
         attribute. It is a semantic error not to specify one starting and one
         ending type of attribute. Either place, bulge, or bezier attributes may
-        be used to record the curvature of the phrase.</a:documentation>
+        be used to record the curvature of the phrase. Please note that the dur
+        attribute here is not a true duration, but rather a time stamp for the
+        end point of the phrase mark.</a:documentation>
       <ref name="attlist.phrase"/>
       <ref name="content.phrase"/>
     </element>
@@ -6130,23 +5597,12 @@
     <ref name="att.common"/>
     <ref name="att.lang"/>
     <ref name="att.typography"/>
+    <ref name="att.horizontalalign"/>
     <optional>
       <attribute name="altrend">
         <a:documentation xml:lang="eng">used to extend the values of the rend
           attribute. One or the other of the rend and altrend attributes is
           required.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="halign">
-        <a:documentation xml:lang="eng">specifies the horizontal alignment of
-          the element content.</a:documentation>
-        <choice>
-          <value>left</value>
-          <value>right</value>
-          <value>center</value>
-          <value>justify</value>
-        </choice>
       </attribute>
     </optional>
     <optional>
@@ -6603,7 +6059,9 @@
   <define name="syl">
     <element name="syl">
       <a:documentation xml:lang="eng">syllable ― Individual lyric syllable. Do
-        not confuse this element with the syllable element.</a:documentation>
+        not confuse this element with the syllable element. The align attribute
+        indicates the horizontal alignment of the syllable with respect to the
+        note to which it is attached.</a:documentation>
       <ref name="attlist.syl"/>
       <ref name="content.syl"/>
     </element>
@@ -6636,7 +6094,10 @@
         tempo, mood, or style, e.g., "allarg.", "a tempo", "cantabile",
         "Moderato", "[qtrnote]=60", "Moderato [qtrnote] =60"). Both
         "instantaneous" and "continuous" tempo markings may be encoded using
-        this element.</a:documentation>
+        this element. Please note that the dur attribute here is expressed in
+        musical time, i.e., beats or other time stamp. Therefore, it is not a
+        true duration, but rather a time stamp for the end point of the
+        directive.</a:documentation>
       <ref name="attlist.tempo"/>
       <ref name="content.tempo"/>
     </element>

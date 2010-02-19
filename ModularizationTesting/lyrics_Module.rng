@@ -22,18 +22,8 @@
 
   <define name="att.lyrics.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <optional>
-      <attribute name="layer">
-        <a:documentation xml:lang="eng">signifies the layer to which the lyrics
-          apply.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <attribute name="staff">
-      <a:documentation xml:lang="eng">signifies the staff to which the lyrics
-        apply.</a:documentation>
-      <data type="positiveInteger"/>
-    </attribute>
+    <ref name="att.layerident"/>
+    <ref name="att.staffident"/>
   </define>
 
   <define name="att.lyrics.vis" combine="interleave">

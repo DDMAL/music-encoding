@@ -14,6 +14,20 @@
   </define>
 
   <!-- Declare module attr classes -->
+  <define name="att.regularmethod" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe correction and
+      normalization methods</a:documentation>
+    <optional>
+      <attribute name="method">
+        <a:documentation xml:lang="eng">indicates the method employed to mark
+          corrections and normalizations.</a:documentation>
+        <choice>
+          <value>silent</value>
+          <value>tags</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
 
   <!-- Declare module model classes -->
   <define name="model.availabilityPart" combine="interleave">
@@ -167,6 +181,7 @@
     <ref name="att.bibl"/>
     <ref name="att.common"/>
     <ref name="att.lang"/>
+    <ref name="att.meiversion"/>
     <optional>
       <attribute name="type">
         <a:documentation xml:lang="eng">specifies the kind of document to which
@@ -176,11 +191,6 @@
           <value>music</value>
           <value>corpus</value>
         </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="version" a:defaultValue="1.9b">
-        <ref name="meiVersion"/>
       </attribute>
     </optional>
   </define>
@@ -483,16 +493,7 @@
   <define name="attlist.correction">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
-    <optional>
-      <attribute name="method">
-        <a:documentation xml:lang="eng">indicates the method employed to mark
-          corrections.</a:documentation>
-        <choice>
-          <value>silent</value>
-          <value>tags</value>
-        </choice>
-      </attribute>
-    </optional>
+    <ref name="att.regularmethod"/>
     <optional>
       <attribute name="status">
         <a:documentation xml:lang="eng">indicates the degree of correction
@@ -555,12 +556,7 @@
   <define name="attlist.dimensions">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
-    <optional>
-      <attribute name="unit">
-        <a:documentation xml:lang="eng">indicates the unit of measurement of the
-          dimensions.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.measurement"/>
   </define>
 
   <define name="content.editionstmt">
@@ -687,12 +683,7 @@
   <define name="attlist.extent">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
-    <optional>
-      <attribute name="unit">
-        <a:documentation xml:lang="eng">indicates the unit of measurement of the
-          extent.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.measurement"/>
   </define>
 
   <define name="content.filedesc">
@@ -949,16 +940,7 @@
   <define name="attlist.normalization">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
-    <optional>
-      <attribute name="method">
-        <a:documentation xml:lang="eng">documents the method used to mark
-          normalized passages.</a:documentation>
-        <choice>
-          <value>silent</value>
-          <value>tags</value>
-        </choice>
-      </attribute>
-    </optional>
+    <ref name="att.regularmethod"/>
   </define>
 
   <define name="content.notesstmt">
@@ -1080,12 +1062,7 @@
   <define name="attlist.price">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
-    <optional>
-      <attribute name="unit">
-        <a:documentation xml:lang="eng">indicates the currency of the
-          price.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.measurement"/>
   </define>
 
   <define name="content.profiledesc">

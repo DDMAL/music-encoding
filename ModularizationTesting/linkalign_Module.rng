@@ -57,6 +57,7 @@
 
   <define name="attlist.timeline">
     <ref name="att.common"/>
+    <ref name="att.measurement"/>
     <optional>
       <attribute name="mediacontent">
         <a:documentation xml:lang="eng">holds the web-addressable location of
@@ -76,13 +77,6 @@
         i.e. the time at which it begins.</a:documentation>
       <data type="IDREF"/>
     </attribute>
-    <optional>
-      <attribute name="unit">
-        <a:documentation xml:lang="eng">specifies the unit of time in which the
-          timeline is expressed.</a:documentation>
-        <data type="NMTOKEN"/>
-      </attribute>
-    </optional>
   </define>
 
   <define name="content.when">
@@ -104,6 +98,7 @@
   <define name="attlist.when">
     <ref name="att.common"/>
     <ref name="att.datapointing"/>
+    <ref name="att.measurement"/>
     <optional>
       <attribute name="absolute">
         <a:documentation xml:lang="eng">provides an absolute value for the time
@@ -131,14 +126,6 @@
           specified, then then reference point is understood to be the preceding
           when element.</a:documentation>
         <data type="IDREF"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="unit">
-        <a:documentation xml:lang="eng">specifies the unit of time in which the
-          interval value is expressed, if this is not inherited from the parent
-          timeline.</a:documentation>
-        <data type="NMTOKEN"/>
       </attribute>
     </optional>
   </define>

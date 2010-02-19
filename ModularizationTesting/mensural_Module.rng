@@ -65,6 +65,7 @@
 
   <define name="att.mensur.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
+    <ref name="att.duration.ratio"/>
     <optional>
       <attribute name="modusmaior">
         <a:documentation xml:lang="eng">describes the maxima-long
@@ -77,22 +78,6 @@
         <a:documentation xml:lang="eng">describes the long-breve
           relationship.</a:documentation>
         <ref name="data.MODUSMINOR"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num">
-        <a:documentation xml:lang="eng">along with numbase, describes duration
-          as a ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="numbase">
-        <a:documentation xml:lang="eng">along with num, describes duration as a
-          ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -116,6 +101,8 @@
       describe the physical appearance of the mensuration sign/time signature of
       mensural notation.</a:documentation>
     <ref name="att.color"/>
+    <ref name="att.relativesize"/>
+    <ref name="att.staffloc"/>
     <optional>
       <attribute name="dot">
         <a:documentation xml:lang="eng">specifies whether a dot is to be added
@@ -134,13 +121,6 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="loc">
-        <a:documentation xml:lang="eng">holds the staff location of the
-          mensuration sign.</a:documentation>
-        <ref name="data.STAFFLOC"/>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="orient">
         <a:documentation xml:lang="eng">describes the rotation or reflection of
           the base symbol.</a:documentation>
@@ -155,40 +135,13 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="size">
-        <a:documentation xml:lang="eng">describes the relative size of the
-          mensuration sign.</a:documentation>
-        <ref name="data.SIZE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="slash">
-        <a:documentation xml:lang="eng">indicates the number lines added to the
-          mensuration sign. For example, one slash is added for what we now call
-          'alla breve'.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
+      <ref name="att.slashcount"/>
     </optional>
   </define>
 
   <define name="att.note.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="num">
-        <a:documentation xml:lang="eng">along with numbase, describes duration
-          as a ratio. Num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="numbase">
-        <a:documentation xml:lang="eng">along with num, describes duration as a
-          ratio. Num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.ratio"/>
   </define>
 
   <define name="att.note.log" combine="interleave">
@@ -201,17 +154,6 @@
           <value>recta</value>
           <value>obliqua</value>
         </choice>
-      </attribute>
-    </optional>
-  </define>
-
-  <define name="att.note.vis" combine="interleave">
-    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="colored">
-        <a:documentation xml:lang="eng">indicates this note is 'colored' in the
-          mensural notation sense.</a:documentation>
-        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -230,19 +172,8 @@
   <define name="att.proport.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes. These attributes
       describe augmentation or diminution of the normal value of the notes in
-      mensural notation.</a:documentation>
-    <attribute name="num">
-      <a:documentation xml:lang="eng">Together, num and numbase specify the
-        change as a ratio, e.g., 1:3. Num is for the first value in the
-        ratio.</a:documentation>
-      <data type="positiveInteger"/>
-    </attribute>
-    <attribute name="numbase">
-      <a:documentation xml:lang="eng">Together, num and numbase specify the
-        change as a ratio, e.g., 1:3. Numbase is for the second value in the
-        ratio.</a:documentation>
-      <data type="positiveInteger"/>
-    </attribute>
+      mensural notation as a ratio.</a:documentation>
+    <ref name="att.duration.ratio"/>
   </define>
 
   <define name="att.proport.vis" combine="interleave">
@@ -252,40 +183,13 @@
 
   <define name="att.rest.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
-    <optional>
-      <attribute name="num">
-        <a:documentation xml:lang="eng">along with numbase, describes duration
-          as a ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="numbase">
-        <a:documentation xml:lang="eng">along with num, describes duration as a
-          ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
+    <ref name="att.duration.ratio"/>
   </define>
 
   <define name="att.rest.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <optional>
-      <attribute name="colored">
-        <a:documentation xml:lang="eng">indicates this note is 'colored' in the
-          mensural notation sense.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="line">
-        <a:documentation xml:lang="eng">indicates the line upon which the rest
-          stands. The value must be in the range between 1 and the number of
-          lines on the staff.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
+      <ref name="att.lineloc"/>
     </optional>
     <optional>
       <attribute name="spaces">
@@ -307,7 +211,9 @@
       breve-semibreve, and prolatio the semibreve-minim relationship,
       respectively. Modusmaior is for the maxima-long relationship. The
       proport.* attributes describe augmentation or diminution of the normal
-      value of the notes in mensural notation.</a:documentation>
+      value of the notes in mensural notation. The num and numbase attributes
+      provide default values.</a:documentation>
+    <ref name="att.duration.ratio"/>
     <optional>
       <attribute name="modusmaior">
         <a:documentation xml:lang="eng">describes the maxima-long
@@ -323,43 +229,10 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="num">
-        <a:documentation xml:lang="eng">along with numbase, describes duration
-          as a ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="numbase">
-        <a:documentation xml:lang="eng">along with num, describes duration as a
-          ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="prolatio">
         <a:documentation xml:lang="eng">describes the semibreve-minim
           relationship.</a:documentation>
         <ref name="data.PROLATIO"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="proport.num">
-        <a:documentation xml:lang="eng">Together, proport.num and
-          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
-          Proport.num is for the first value in the ratio.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="proport.numbase">
-        <a:documentation xml:lang="eng">Together, proport.num and
-          proport.numbase specify a proportional change as a ratio, e.g., 1:3.
-          Proport.numbase is for the second value in the
-          ratio.</a:documentation>
-        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -432,6 +305,7 @@
   <define name="att.staffdef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
       the mensural repertoire</a:documentation>
+    <ref name="att.duration.ratio"/>
     <optional>
       <attribute name="mensur.sign">
         <a:documentation xml:lang="eng">the base symbol in the mensuration
@@ -466,22 +340,6 @@
         <a:documentation xml:lang="eng">describes the long-breve
           relationship.</a:documentation>
         <ref name="data.MODUSMINOR"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num">
-        <a:documentation xml:lang="eng">along with numbase, describes duration
-          as a ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="numbase">
-        <a:documentation xml:lang="eng">along with num, describes duration as a
-          ratio. num is the first value in the ratio, while numbase is the
-          second.</a:documentation>
-        <data type="positiveInteger"/>
       </attribute>
     </optional>
     <optional>
@@ -605,7 +463,9 @@
       <a:documentation xml:lang="eng">mensuration ― The &lt;mensur&gt;
         element is provided for the encoding of mensural notation. It collects
         information about the metrical relationship between a note value and the
-        next smaller value.</a:documentation>
+        next smaller value. The slash attribute indicates the number lines added
+        to the mensuration sign. For example, one slash is added for what we now
+        call 'alla breve'.</a:documentation>
       <ref name="attlist.mensur"/>
       <ref name="content.mensur"/>
     </element>

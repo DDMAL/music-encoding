@@ -75,7 +75,8 @@
       <a:documentation xml:lang="eng">surface ― Defines a written surface in
         terms of a rectangular coordinate space, optionally grouping one or more
         graphic representations of that space, and rectangular zones of interest
-        within it.</a:documentation>
+        within it. The startid attribute may be used to hold a reference to the
+        first feature occurring on this surface.</a:documentation>
       <ref name="attlist.surface"/>
       <ref name="content.surface"/>
     </element>
@@ -84,13 +85,7 @@
   <define name="attlist.surface">
     <ref name="att.common"/>
     <ref name="att.coordinated"/>
-    <optional>
-      <attribute name="startid">
-        <a:documentation xml:lang="eng">holds a reference to the first feature
-          occurring on this surface.</a:documentation>
-        <data type="IDREF"/>
-      </attribute>
-    </optional>
+    <ref name="att.startid"/>
   </define>
 
   <define name="content.zone">
