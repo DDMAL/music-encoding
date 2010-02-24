@@ -146,7 +146,7 @@
     <optional>
       <attribute name="cert">
         <a:documentation xml:lang="eng">signifies the degree of certainty or
-          precision associated with an entity.</a:documentation>
+          precision associated with a feature.</a:documentation>
         <ref name="data.CERTAINTY"/>
       </attribute>
     </optional>
@@ -233,7 +233,7 @@
 
   <define name="att.coordinated" combine="interleave">
     <a:documentation xml:lang="eng">This attribute class records the position of
-      the entity within a two-dimensional coordinate system.</a:documentation>
+      a feature within a two-dimensional coordinate system.</a:documentation>
     <optional>
       <attribute name="ulx">
         <a:documentation xml:lang="eng">indicates the upper-left corner x
@@ -376,7 +376,7 @@
       terms</a:documentation>
     <optional>
       <attribute name="dur">
-        <a:documentation xml:lang="eng">records the duration of an entity using
+        <a:documentation xml:lang="eng">records the duration of a feature using
           the relative durational values provided by the data.DURATION
           datatype.</a:documentation>
         <ref name="data.DURATION"/>
@@ -386,7 +386,7 @@
 
   <define name="att.duration.performed" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that record performed duration
-      that differs from an entity's written duration.</a:documentation>
+      that differs from a feature's written duration.</a:documentation>
     <optional>
       <attribute name="dur.ges">
         <a:documentation xml:lang="eng">records performed duration information
@@ -424,7 +424,7 @@
       timestamp for the ending point</a:documentation>
     <optional>
       <attribute name="dur">
-        <a:documentation xml:lang="eng">encodes the duration of an entity as a
+        <a:documentation xml:lang="eng">encodes the duration of a feature as a
           timestamp for its endpoint rather than as a relative durational
           value.</a:documentation>
         <ref name="data.MEASUREBEAT"/>
@@ -463,15 +463,19 @@
   <define name="att.event" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that apply to all written events,
       e.g., beam, beatrpt, chord, note, etc.</a:documentation>
-    <ref name="att.layerident"/>
-    <ref name="att.staffident"/>
+    <optional>
+      <ref name="att.layerident"/>
+    </optional>
+    <optional>
+      <ref name="att.staffident"/>
+    </optional>
     <ref name="att.timestamp.musical"/>
     <ref name="att.timestamp.performed"/>
   </define>
 
   <define name="att.fermatapresent" combine="interleave">
     <a:documentation xml:lang="eng">Attributes indicating the attachment of a
-      fermata to the entity</a:documentation>
+      fermata to the feature</a:documentation>
     <optional>
       <attribute name="fermata">
         <a:documentation xml:lang="eng">indicates the attachment of a fermata to
@@ -868,9 +872,10 @@
       editing, or encoding.</a:documentation>
     <optional>
       <attribute name="resp">
-        <a:documentation xml:lang="eng">The value of resp must point to one or
-          more of the identifiers declared in the document
-          header.</a:documentation>
+        <a:documentation xml:lang="eng">captures information regarding
+          responsibility for some aspect of the text's creation, transcription,
+          editing, or encoding. Its value must point to one or more identifiers
+          declared in the document header.</a:documentation>
         <data type="IDREFS"/>
       </attribute>
     </optional>
@@ -1060,7 +1065,7 @@
       tuplet</a:documentation>
     <optional>
       <attribute name="tuplet">
-        <a:documentation xml:lang="eng">indicates that this element participates
+        <a:documentation xml:lang="eng">indicates that this feature participates
           in a tuplet.</a:documentation>
         <ref name="data.TUPLETS"/>
       </attribute>
@@ -1069,7 +1074,7 @@
 
   <define name="att.typed" combine="interleave">
     <a:documentation xml:lang="eng">Attributes which can be used to classify or
-      subclassify elements</a:documentation>
+      subclassify features</a:documentation>
     <optional>
       <attribute name="type">
         <a:documentation xml:lang="eng">characterizes the element in some sense,
@@ -1128,11 +1133,11 @@
   </define>
 
   <define name="att.visibility">
-    <a:documentation>Attributes describing whether an entity should be
+    <a:documentation>Attributes describing whether a feature should be
       displayed</a:documentation>
     <optional>
       <attribute name="visible">
-        <a:documentation xml:lang="eng">indicates if an entity should be
+        <a:documentation xml:lang="eng">indicates if a feature should be
           rendered when the notation is presented graphically or
           sounded.</a:documentation>
         <ref name="data.BOOLEAN"/>
@@ -1145,8 +1150,8 @@
       attributes</a:documentation>
     <optional>
       <attribute name="ho">
-        <a:documentation xml:lang="eng">records a horizontal adjustment of the
-          entity's programmatically-determinded location in terms of staff
+        <a:documentation xml:lang="eng">records a horizontal adjustment of a
+          feature's programmatically-determinded location in terms of staff
           interline distance; that is, units of 1/2 the distance between
           adjacent staves.</a:documentation>
         <ref name="data.INTERLINE"/>
@@ -1159,8 +1164,9 @@
       terms of time</a:documentation>
     <optional>
       <attribute name="to">
-        <a:documentation xml:lang="eng">records a timestamp adjustment of the
-          entity's programmatically-determined location.</a:documentation>
+        <a:documentation xml:lang="eng">records a timestamp adjustment of a
+          feature's programmatically-determined location in musical terms; that
+          is, beats.</a:documentation>
         <ref name="data.TSTAMPOFFSET"/>
       </attribute>
     </optional>
@@ -1170,8 +1176,8 @@
     <a:documentation xml:lang="eng">Vertical offset attributes</a:documentation>
     <optional>
       <attribute name="vo">
-        <a:documentation xml:lang="eng">records the vertical adjustment of the
-          entity's programmatically-determined location in terms of staff
+        <a:documentation xml:lang="eng">records the vertical adjustment of a
+          feature's programmatically-determined location in terms of staff
           interline distance; that is, units of 1/2 the distance between
           adjacent staves.</a:documentation>
         <ref name="data.INTERLINE"/>
@@ -1196,15 +1202,15 @@
       attributes</a:documentation>
     <optional>
       <attribute name="startho">
-        <a:documentation xml:lang="eng">records the horizontal adjustment of the
-          entity's programmatically-determined start point.</a:documentation>
+        <a:documentation xml:lang="eng">records the horizontal adjustment of a
+          feature's programmatically-determined start point.</a:documentation>
         <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="endho">
-        <a:documentation xml:lang="eng">records the horizontal adjustment of the
-          entity's programmatically-determined end point.</a:documentation>
+        <a:documentation xml:lang="eng">records the horizontal adjustment of a
+          feature's programmatically-determined end point.</a:documentation>
         <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
@@ -1215,15 +1221,15 @@
       pair of attributes specified in terms of time</a:documentation>
     <optional>
       <attribute name="startto">
-        <a:documentation xml:lang="eng">records a timestamp adjustment of the
-          entity's programmatically-determined start point.</a:documentation>
+        <a:documentation xml:lang="eng">records a timestamp adjustment of a
+          feature's programmatically-determined start point.</a:documentation>
         <ref name="data.TSTAMPOFFSET"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="endto">
-        <a:documentation xml:lang="eng">records a timestamp adjustment of the
-          entity's programmatically-determined end point.</a:documentation>
+        <a:documentation xml:lang="eng">records a timestamp adjustment of a
+          feature's programmatically-determined end point.</a:documentation>
         <ref name="data.TSTAMPOFFSET"/>
       </attribute>
     </optional>
@@ -1234,15 +1240,15 @@
       of attributes</a:documentation>
     <optional>
       <attribute name="startvo">
-        <a:documentation xml:lang="eng">records a vertical adjustment of the
-          entity's programmatically-determined start point.</a:documentation>
+        <a:documentation xml:lang="eng">records a vertical adjustment of a
+          feature's programmatically-determined start point.</a:documentation>
         <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="endvo">
-        <a:documentation xml:lang="eng">records a vertical adjustment of the
-          entity's programmatically-determined end point.</a:documentation>
+        <a:documentation xml:lang="eng">records a vertical adjustment of a
+          feature's programmatically-determined end point.</a:documentation>
         <ref name="data.INTERLINE"/>
       </attribute>
     </optional>
@@ -1270,15 +1276,19 @@
       attribute.</a:documentation>
     <optional>
       <attribute name="x">
-        <a:documentation xml:lang="eng">encodes the optional x
-          coordinate.</a:documentation>
+        <a:documentation xml:lang="eng">encodes an x coordinate for a feature in
+          an output coordinate system. When it is necessary to record the
+          placement of a feature in a facsimile image, use facs
+          attribute.</a:documentation>
         <data type="decimal"/>
       </attribute>
     </optional>
     <optional>
       <attribute name="y">
-        <a:documentation xml:lang="eng">encodes the optional y
-          coordinate.</a:documentation>
+        <a:documentation xml:lang="eng">encodes an y coordinate for a feature in
+          an output coordinate system. When it is necessary to record the
+          placement of a feature in a facsimile image, use facs
+          attribute.</a:documentation>
         <data type="decimal"/>
       </attribute>
     </optional>
@@ -1371,7 +1381,9 @@
     <ref name="att.startendid"/>
     <ref name="att.duration.timestamp"/>
     <ref name="att.layerident"/>
-    <ref name="att.staffident"/>
+    <optional>
+      <ref name="att.staffident"/>
+    </optional>
     <ref name="att.timestamp.musical"/>
     <ref name="att.timestamp.performed"/>
   </define>
@@ -2265,8 +2277,8 @@
     </optional>
     <optional>
       <attribute name="tune.pname">
-        <a:documentation xml:lang="eng">holds the pitch name, such as 'a', for a
-          tuning reference pitch.</a:documentation>
+        <a:documentation xml:lang="eng">holds the pitch name of a tuning
+          reference pitch.</a:documentation>
         <ref name="data.PITCHNAME"/>
       </attribute>
     </optional>
@@ -3348,7 +3360,7 @@
     </optional>
     <optional>
       <attribute name="wordpos">
-        <a:documentation xml:lang="eng">records the position of the syllable
+        <a:documentation xml:lang="eng">records the position of a syllable
           within a word.</a:documentation>
         <choice>
           <value>i</value>
@@ -3938,13 +3950,14 @@
 
   <define name="accid">
     <element name="accid">
-      <a:documentation xml:lang="eng">accidental ― This element captures a
+      <a:documentation xml:lang="eng">accidental ― This element records a
         temporary alteration to the pitch of a note. It provides an alternative
-        to the accid attributes on the &lt;note&gt; element. The element
-        should be used when specific display info, such as size or color, needs
-        to be recorded for the accidental or when multiple accidentals occur on
-        a single note. The func attribute can be used to differentiate different
-        functions, such as 'cautionary' or 'editorial'.</a:documentation>
+        to the accid and accid.ges attributes on the &lt;note&gt;
+        element. The element should be used when specific display info, such as
+        size or color, needs to be recorded for the accidental or when multiple
+        accidentals occur on a single note. The func attribute can be used to
+        differentiate between the accidental's functions, such as 'cautionary'
+        or 'editorial'.</a:documentation>
       <ref name="attlist.accid"/>
       <ref name="content.accid"/>
     </element>
@@ -3997,7 +4010,7 @@
     <element name="addressline">
       <a:documentation xml:lang="eng">addressline ― Single line of a postal
         address. This element may be repeated as many times as necessary to
-        enter all available lines of an address.</a:documentation>
+        enter all lines of an address.</a:documentation>
       <ref name="attlist.addressline"/>
       <ref name="content.addressline"/>
     </element>

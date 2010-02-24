@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+  datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+  xmlns:tei="http://www.tei-c.org/ns/1.0"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+
+  <!-- Corpus Module -->
+  <!-- Declare additional start elements -->
+  <define name="model.startLike" combine="choice">
+    <ref name="meicorpus"/>
+  </define>
+
+  <!-- Declare module attr classes -->
+
+  <!-- Declare module model classes -->
+
+  <!-- Declare module elements -->
+  <define name="content.meicorpus">
+    <ref name="meihead"/>
+    <zeroOrMore>
+      <ref name="mei"/>
+    </zeroOrMore>
+  </define>
+
+  <define name="meicorpus">
+    <element name="meicorpus">
+      <a:documentation xml:lang="eng">meicorpus ― The document element for a
+        group of related MEI documents, each with its own complete header,
+        contains a header for the group, and one or more &lt;mei&gt;
+        elements. The group may be related in a number of ways, for example, by
+        composer, by similar instrumentation, by holding institution, etc. This
+        element's name should not be changed in order to assure an absolute
+        minimum level of MEI compliance.</a:documentation>
+      <ref name="attlist.meicorpus"/>
+      <ref name="content.meicorpus"/>
+    </element>
+  </define>
+
+  <define name="attlist.meicorpus">
+    <ref name="att.common"/>
+    <ref name="att.meiversion"/>
+  </define>
+
+</grammar>

@@ -86,7 +86,8 @@
             <head>MEI Attributes</head>
             <xsl:for-each
               select="//db:sect3[matches(normalize-space(db:title),'^Attribute .*@.*$')]">
-              <xsl:sort select="substring-after(normalize-space(db:title/db:literal), '@')"/>
+              <xsl:sort
+                select="substring-after(normalize-space(db:title/db:literal), '@')"/>
               <div type="attribute" xml:id="{@xml:id}">
                 <head>
                   <xsl:value-of
@@ -115,7 +116,8 @@
                           <xsl:value-of select="@linkend"/>
                         </xsl:variable>
                         <xsl:apply-templates
-                          select="//db:sect3[@xml:id=$linkend]" mode="usedByAttr"/>
+                          select="//db:sect3[@xml:id=$linkend]"
+                          mode="usedByAttr"/>
                       </xsl:for-each>
                     </xsl:variable>
                     <xsl:for-each select="$usedby/tei:ref">
@@ -472,8 +474,9 @@
       <xsl:apply-templates select="//db:sect3[@xml:id=$linkend]" mode="usedBy"/>
     </xsl:for-each>
   </xsl:template>
-  
-  <xsl:template match="db:sect3" exclude-result-prefixes="#all" mode="usedByAttr">
+
+  <xsl:template match="db:sect3" exclude-result-prefixes="#all"
+    mode="usedByAttr">
     <xsl:for-each
       select="db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Used by ']/db:entry[2]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry='Element ' or db:entry='Elements ']">
       <xsl:for-each select="db:entry[2]/db:link">
@@ -487,7 +490,8 @@
       <xsl:variable name="linkend">
         <xsl:value-of select="@linkend"/>
       </xsl:variable>
-      <xsl:apply-templates select="//db:sect3[@xml:id=$linkend]" mode="usedByAttr"/>
+      <xsl:apply-templates select="//db:sect3[@xml:id=$linkend]"
+        mode="usedByAttr"/>
     </xsl:for-each>
   </xsl:template>
 
