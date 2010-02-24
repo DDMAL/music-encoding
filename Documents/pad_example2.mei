@@ -5,7 +5,7 @@
 ]>
 <?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
 <?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
-<mei version="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink">
+<mei meiversion="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink">
   <meihead>
     <altmeiid/>
     <filedesc>
@@ -423,8 +423,7 @@
               the annotation points to the bounding box of the phrase mark
               as given in an external .svg file that contains a reference
               to the page image and defines overlays. -->
-              <annot plist="p10" xlink:href="imageboxes.svg"
-                fragment="xpath:id(p10)">
+              <annot plist="p10" xlink:href="imageboxes.svg">
                 <p>Since this phrase mark ends at the barline, it could be
                   associated with the last note of measure 3 as well as the
                   first one of measure 4.</p>
@@ -455,8 +454,7 @@
               and actuate this set of many-to-many links. -->
               <annot>
                 <p>
-                  <extptr xlink:href="imageboxes.svg"
-                    fragment="id(starts-with(name(),'p')"/>All slurs must be
+                  <extptr xlink:href="imageboxes.svg#id(starts-with(name(),'p')"/>All slurs must be
                   understood as <rend fontstyle="ital">sempre legato</rend> even
                   though this instruction is not written in the sources, but
                   instead is derived from the irregularities and variants of
@@ -469,7 +467,7 @@
                 <layer n="1">
                   <note pname="e" oct="5" dur="4"/>
                   <note pname="b" oct="4" accid="f" dur="2">
-                    <artic value="acc" place="below"/>
+                    <artic artic="acc" place="below"/>
                   </note>
                   <beam>
                     <note pname="a" dur="8" dots="1"/>
