@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
-<?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
-<mei version="1.9b">
+<?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-mensural.rng" type="xml"?>
+<mei meiversion="1.9b">
   <meihead>
     <altmeiid/>
     <!-- Filedesc contains a bibliographic description of the MEI file. -->
@@ -42,12 +42,14 @@
                   <supplied>Superius</supplied>
                 </label>
 
-                <!-- The key element may be used for non-standard (in CMN terms)
+                <!-- The keysig element may be used for non-standard (in CMN terms)
                 key signatures. -->
                 <keysig>
-                  <keyaccid value="f" pname="b" oct="3" staffloc="0"/>
-                  <keyaccid value="f" pname="b" oct="3" staffloc="4"/>
+                  <keyaccid accid="f" pname="b" oct="3" loc="0"/>
+                  <keyaccid accid="f" pname="b" oct="3" loc="4"/>
                 </keysig>
+                <keysig/>
+
               </staffdef>
               <staffdef n="2" lines="5" mensur.sign="C" mensur.slash="1"
                 mensur.loc="5" clef.line="3" clef.shape="C" octave.default="3">
@@ -59,15 +61,15 @@
                   <supplied>Tenor</supplied>
                 </label>
                 <keysig>
-                  <keyaccid value="f" pname="b" oct="3" staffloc="6"/>
+                  <keyaccid accid="f" pname="b" oct="3" loc="6"/>
                 </keysig>
               </staffdef>
               <staffdef n="4" lines="5" clef.shape="F" clef.line="4"
                 octave.default="2" mensur.sign="C" mensur.slash="1">
                 <label>Bassus</label>
                 <keysig>
-                  <keyaccid value="f" pname="b" oct="3" staffloc="0"/>
-                  <keyaccid value="f" pname="b" oct="4" staffloc="7"/>
+                  <keyaccid accid="f" pname="b" oct="3" loc="0"/>
+                  <keyaccid accid="f" pname="b" oct="4" loc="7"/>
                 </keysig>
               </staffdef>
             </staffgrp>
@@ -167,13 +169,13 @@
                 <note dur="semibrevis" num="2" numbase="1" pname="e" oct="3"
                   accid="f" syl="u-"/>
                 <keysig n="modern">
-                  <keyaccid pname="b" value="f"/>
-                  <keyaccid pname="e" value="f"/>
-                  <keyaccid pname="a" value="f"/>
-                  <keyaccid pname="d" value="f"/>
-                  <keyaccid pname="g" value="f"/>
-                  <keyaccid pname="c" value="f"/>
-                  <keyaccid pname="f" value="f"/>
+                  <keyaccid pname="b" accid="f"/>
+                  <keyaccid pname="e" accid="f"/>
+                  <keyaccid pname="a" accid="f"/>
+                  <keyaccid pname="d" accid="f"/>
+                  <keyaccid pname="g" accid="f"/>
+                  <keyaccid pname="c" accid="f"/>
+                  <keyaccid pname="f" accid="f"/>
                 </keysig>
                 <note dur="brevis" num="4" numbase="1" pname="f" oct="3"
                   syl="nus"/>
@@ -262,13 +264,13 @@
                   accid="f" syl="sep-"/>
                 <!-- accidnum="2" -->
                 <keysig n="modern">
-                  <keyaccid pname="b" value="f"/>
-                  <keyaccid pname="e" value="f"/>
-                  <keyaccid pname="a" value="f"/>
-                  <keyaccid pname="d" value="f"/>
-                  <keyaccid pname="g" value="f"/>
-                  <keyaccid pname="c" value="f"/>
-                  <keyaccid pname="f" value="f"/>
+                  <keyaccid pname="b" accid="f"/>
+                  <keyaccid pname="e" accid="f"/>
+                  <keyaccid pname="a" accid="f"/>
+                  <keyaccid pname="d" accid="f"/>
+                  <keyaccid pname="g" accid="f"/>
+                  <keyaccid pname="c" accid="f"/>
+                  <keyaccid pname="f" accid="f"/>
                 </keysig>
                 <note dur="brevis" num="4" numbase="1" pname="f" oct="3"
                   syl="te"/>
@@ -419,13 +421,13 @@
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="3"
                   accid="f" syl="nus"/>
                 <keysig n="modern">
-                  <keyaccid pname="b" value="f"/>
-                  <keyaccid pname="e" value="f"/>
-                  <keyaccid pname="a" value="f"/>
-                  <keyaccid pname="d" value="f"/>
-                  <keyaccid pname="g" value="f"/>
-                  <keyaccid pname="c" value="f"/>
-                  <keyaccid pname="f" value="f"/>
+                  <keyaccid pname="b" accid="f"/>
+                  <keyaccid pname="e" accid="f"/>
+                  <keyaccid pname="a" accid="f"/>
+                  <keyaccid pname="d" accid="f"/>
+                  <keyaccid pname="g" accid="f"/>
+                  <keyaccid pname="c" accid="f"/>
+                  <keyaccid pname="f" accid="f"/>
                 </keysig>
                 <dir staff="2" tstamp="1">Cuius et ex summo</dir>
                 <rest dur="semibrevis" num="2" numbase="1" line="3"/>
@@ -516,13 +518,13 @@
                   accid="f" syl="te"/>
                 <!-- accidnum="2" -->
                 <keysig n="modern">
-                  <keyaccid pname="b" value="f"/>
-                  <keyaccid pname="e" value="f"/>
-                  <keyaccid pname="a" value="f"/>
-                  <keyaccid pname="d" value="f"/>
-                  <keyaccid pname="g" value="f"/>
-                  <keyaccid pname="c" value="f"/>
-                  <keyaccid pname="f" value="f"/>
+                  <keyaccid pname="b" accid="f"/>
+                  <keyaccid pname="e" accid="f"/>
+                  <keyaccid pname="a" accid="f"/>
+                  <keyaccid pname="d" accid="f"/>
+                  <keyaccid pname="g" accid="f"/>
+                  <keyaccid pname="c" accid="f"/>
+                  <keyaccid pname="f" accid="f"/>
                 </keysig>
                 <rest dur="semibrevis" num="2" numbase="1" line="5"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="f" oct="3"
@@ -641,13 +643,13 @@
                 <note dur="brevis" num="4" numbase="1" pname="g" oct="2"
                   accid="f" syl="u-"/>
                 <keysig n="modern">
-                  <keyaccid pname="b" value="f"/>
-                  <keyaccid pname="e" value="f"/>
-                  <keyaccid pname="a" value="f"/>
-                  <keyaccid pname="d" value="f"/>
-                  <keyaccid pname="g" value="f"/>
-                  <keyaccid pname="c" value="f"/>
-                  <keyaccid pname="f" value="f"/>
+                  <keyaccid pname="b" accid="f"/>
+                  <keyaccid pname="e" accid="f"/>
+                  <keyaccid pname="a" accid="f"/>
+                  <keyaccid pname="d" accid="f"/>
+                  <keyaccid pname="g" accid="f"/>
+                  <keyaccid pname="c" accid="f"/>
+                  <keyaccid pname="f" accid="f"/>
                 </keysig>
                 <note dur="brevis" num="4" numbase="1" pname="f" oct="2"
                   syl="nus"/>
@@ -721,13 +723,13 @@
                   accid="f" syl="sep-"/>
                 <!-- accidnum="2" -->
                 <keysig n="modern">
-                  <keyaccid pname="b" value="f"/>
-                  <keyaccid pname="e" value="f"/>
-                  <keyaccid pname="a" value="f"/>
-                  <keyaccid pname="d" value="f"/>
-                  <keyaccid pname="g" value="f"/>
-                  <keyaccid pname="c" value="f"/>
-                  <keyaccid pname="f" value="f"/>
+                  <keyaccid pname="b" accid="f"/>
+                  <keyaccid pname="e" accid="f"/>
+                  <keyaccid pname="a" accid="f"/>
+                  <keyaccid pname="d" accid="f"/>
+                  <keyaccid pname="g" accid="f"/>
+                  <keyaccid pname="c" accid="f"/>
+                  <keyaccid pname="f" accid="f"/>
                 </keysig>
                 <note dur="brevis" num="4" numbase="1" pname="f" oct="2"
                   syl="te"/>
@@ -841,13 +843,13 @@
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="2"
                   accid="f" syl="nus"/>
                 <keysig n="modern">
-                  <keyaccid pname="b" value="f"/>
-                  <keyaccid pname="e" value="f"/>
-                  <keyaccid pname="a" value="f"/>
-                  <keyaccid pname="d" value="f"/>
-                  <keyaccid pname="g" value="f"/>
-                  <keyaccid pname="c" value="f"/>
-                  <keyaccid pname="f" value="f"/>
+                  <keyaccid pname="b" accid="f"/>
+                  <keyaccid pname="e" accid="f"/>
+                  <keyaccid pname="a" accid="f"/>
+                  <keyaccid pname="d" accid="f"/>
+                  <keyaccid pname="g" accid="f"/>
+                  <keyaccid pname="c" accid="f"/>
+                  <keyaccid pname="f" accid="f"/>
                 </keysig>
                 <dir staff="4" tstamp="1">Cuius et ex summo</dir>
                 <rest dur="semibrevis" num="2" numbase="1" line="3"/>
@@ -912,13 +914,13 @@
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="2"
                   accid="f" syl="te"/>
                 <keysig n="modern">
-                  <keyaccid pname="b" value="f"/>
-                  <keyaccid pname="e" value="f"/>
-                  <keyaccid pname="a" value="f"/>
-                  <keyaccid pname="d" value="f"/>
-                  <keyaccid pname="g" value="f"/>
-                  <keyaccid pname="c" value="f"/>
-                  <keyaccid pname="f" value="f"/>
+                  <keyaccid pname="b" accid="f"/>
+                  <keyaccid pname="e" accid="f"/>
+                  <keyaccid pname="a" accid="f"/>
+                  <keyaccid pname="d" accid="f"/>
+                  <keyaccid pname="g" accid="f"/>
+                  <keyaccid pname="c" accid="f"/>
+                  <keyaccid pname="f" accid="f"/>
                 </keysig>
                 <rest dur="semibrevis" num="2" numbase="1" line="3"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="2"
