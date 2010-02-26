@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
-<?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
-<mei version="1.9b">
+<?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-mensural.rng" type="xml"?>
+<mei meiversion="1.9b">
   <meihead>
     <filedesc>
       <titlestmt>
@@ -39,7 +39,7 @@
                   <supplied>[Superius]</supplied>
                 </label>
                 <mensur sign="C" slash="1"/>
-                <clef shape="C" line="1" octave.default="3"/>
+                <clef shape="C" line="1"/>
               </staffdef>
               <staffdef n="2" lines="5" clef.shape="C" clef.line="3"
                 octave.default="3">
@@ -61,8 +61,8 @@
                 <rest dur="longa" num="8" numbase="1" line="3" spaces="2"/>
                 <dir staff="1" tstamp="1">PSalite felices</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
-                  syl="Psa-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                syl="Psa-"/>
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   syl="li-"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
@@ -70,8 +70,8 @@
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   syl="fe-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="4"
-                  syl="li-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                syl="li-"/>
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="4"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="3"
@@ -102,7 +102,7 @@
               
               However, if an anchor point is desired (for linking to a zone element via
               a facs attribute), it could be encoded like so:
-              <clefchange><clef shape="C" line="1" octave.default="3"/></clefchange> -->
+              <clefchange><clef shape="C" line="1" oct="3"/></clefchange> -->
 
                 <dir staff="1" tstamp="1">Rose</dir>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="4"
@@ -115,7 +115,7 @@
                   syl="pur-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"
                   syl="pu-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="4"
                   syl="re-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="4"
@@ -130,7 +130,7 @@
                   syl="quam"/>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="4"
                   syl="de-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="4"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="4"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="3"
@@ -159,7 +159,7 @@
                 <dir staff="1" tstamp="1">Anglicolis</dir>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="4"
                   syl="An-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
@@ -180,7 +180,7 @@
                   syl="pax"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   syl="di-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"
                   syl="stu-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="3"
@@ -189,7 +189,7 @@
                 <dir staff="1" tstamp="1">prodere tellus</dir>
                 <note dur="minima" num="3" numbase="2" pname="f" oct="3"
                   syl="pro-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   syl="de-"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"
@@ -223,7 +223,7 @@
                 <dir staff="1" tstamp="1">protinus orta</dir>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="4"
                   stem.dir="down" syl="pro-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="4"
                   stem.dir="down" syl="ti-"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="4"
@@ -261,7 +261,7 @@
                   stem.dir="down" syl="in"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="4"
                   stem.dir="down" syl="fo-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="4"
                   stem.dir="down" syl="li-"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="4"
@@ -357,7 +357,7 @@
                 <dir staff="1" tstamp="1">altior exsuperans</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="al-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="4"
                   syl="ti-"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="4"
@@ -366,7 +366,7 @@
                   syl="ex-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="4"
                   syl="su-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="4"
                   stem.dir="down" syl="pe-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="4"
@@ -381,18 +381,18 @@
                   syl="spec-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="ta-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"
                   syl="mi-"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   syl="ne"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"/>
                 <dir staff="1" tstamp="1">cunctos</dir>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="3"
                   syl="cunc-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
@@ -415,7 +415,7 @@
                   stem.dir="down" syl="chri-"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="4"
                   stem.dir="down" syl="or"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="4"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="4"
@@ -434,7 +434,7 @@
                   stem.dir="down" syl="co-"/>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="4"
                   stem.dir="down" syl="lo-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="4"
                   stem.dir="down"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="4"
@@ -492,12 +492,12 @@
                   stem.dir="down"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="4"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"
                   stem.dir="down" syl="ne"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   syl="ma-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <dir staff="1" tstamp="1">malum</dir>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   accid="s"/>
@@ -545,7 +545,7 @@
                   stem.dir="down" syl="ti-"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="4"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="4"
                   stem.dir="down"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="4"
@@ -559,7 +559,7 @@
                   accid.ges="f" syl="mox"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="b" oct="4"
                   accid.ges="f" syl="tri-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="4"
                   accid.ges="f" stem.dir="down" syl="sti-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="b" oct="4"
@@ -572,12 +572,12 @@
                 <dir staff="1" tstamp="1">repel</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="4"
                   syl="re-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="4"
                   stem.dir="down"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="b" oct="4"
                   stem.dir="down" syl="pel-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="4"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"
@@ -624,11 +624,11 @@
                   syl="da"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   syl="do-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"/>
@@ -653,7 +653,7 @@
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"/>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="3"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"/>
                 <dir staff="1" tstamp="1">sis</dir>
@@ -696,7 +696,7 @@
                   syl="tus"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="4"
                   syl="san-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="4"
                   stem.dir="down" syl="gui-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="3"
@@ -715,7 +715,7 @@
                   syl="An-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="4"
                   syl="glo-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="4"
                   stem.dir="down" syl="rum"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="4"
@@ -724,7 +724,7 @@
                   syl="tus"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="e" oct="4"
                   syl="pur-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="4"
                   stem.dir="down" syl="pu-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="4"
@@ -782,7 +782,7 @@
                   stem.dir="down"/>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="4"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="4"
                   stem.dir="down" syl="ci-"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="4"
@@ -836,10 +836,10 @@
                   syl="ne"/>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="4"
                   syl="dul-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="4"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="4"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
@@ -867,7 +867,7 @@
                 <dir staff="1" tstamp="1">gratis</dir>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   syl="gra-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"/>
@@ -875,7 +875,7 @@
                 <dir staff="1" tstamp="1">et</dir>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="3"
                   syl="tis"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="4"/>
@@ -893,7 +893,7 @@
                 <dir staff="1" tstamp="1">suis</dir>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="4"
                   stem.dir="down" syl="su-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="4"
                   stem.dir="down"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="4"
@@ -909,7 +909,7 @@
                 <note dur="semibrevis" num="2" numbase="1" pname="b" oct="4"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="4"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="4"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="4"
@@ -990,7 +990,7 @@
                   syl="ne"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"
                   syl="ple-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"
                   accid="s"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
@@ -1018,7 +1018,7 @@
                 <dir staff="1" tstamp="1">hostibus atque grauis</dir>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   syl="ho-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"
                   syl="sti-"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"
@@ -1133,7 +1133,7 @@
                 <dir staff="1" tstamp="1">potestas</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="3"
                   syl="te-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"/>
@@ -1145,7 +1145,7 @@
                 <dir staff="1" tstamp="1">Psallite fideles</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="Psal-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   syl="li-"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
@@ -1154,7 +1154,7 @@
                   syl="fi-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="4"
                   syl="de-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="4"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="4"
@@ -1182,13 +1182,13 @@
                   syl="ne"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"
                   syl="ro-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <dir staff="1" tstamp="1">rose</dir>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="brevis" num="6" numbase="1" pname="g" oct="3"
                   lig="obliqua" stem.dir="down" stem.pos="left"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="brevis" num="4" numbase="1" pname="f" oct="3"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="e" oct="3"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="f" oct="3"/>
@@ -1211,7 +1211,7 @@
                 <dir staff="1" tstamp="1">tristia cuncta</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"
                   syl="tri-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="4"
                   syl="sti-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="4"
@@ -1228,10 +1228,10 @@
                 <dir staff="1" tstamp="1">cedunt</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"
                   syl="ce-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   accid="s"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
@@ -1252,12 +1252,12 @@
                 <dir staff="1" tstamp="1">qui mundi</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"
                   syl="qui"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="4"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="4"
                   syl="mun-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="4"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="4"
                   accid="s"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="4"
@@ -1274,12 +1274,12 @@
                 <note dur="semibrevis" num="2" numbase="1" pname="b" oct="4"
                   lig="obliqua" stem.dir="up" stem.pos="left" syl="gu-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <dir staff="1" tstamp="1">gubernas</dir>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="ber-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"
                   accid="s"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"
@@ -1300,7 +1300,7 @@
                   syl="di-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="tur"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="4"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="b" oct="4"/>
                 <dir staff="1" tstamp="1">omnis</dir>
@@ -1312,7 +1312,7 @@
                 <dir staff="1" tstamp="1">honos</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="4"
                   syl="ho-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="4"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="4"
@@ -1328,7 +1328,7 @@
                 <dir staff="1" tstamp="1">quesumus</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="que-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   syl="su-"/>
                 <note dur="brevis" num="4" numbase="1" pname="g" oct="3"
@@ -1345,7 +1345,7 @@
                   syl="des"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="tem-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   syl="po-"/>
                 <sb>
@@ -1355,7 +1355,7 @@
                 <dir staff="1" tstamp="1">ra longa</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"
                   syl="ra"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   syl="lon-"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"/>
@@ -1367,10 +1367,10 @@
                 <dir staff="1" tstamp="1">videre</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="3"
                   syl="de-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"
                   accid="s"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"/>
@@ -1392,7 +1392,7 @@
                   syl="hoc"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="3"
                   syl="se-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"
                   syl="de-"/>
                 <note dur="brevis" num="4" numbase="1" pname="g" oct="3"
@@ -1414,7 +1414,7 @@
                   syl="in"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="4"
                   syl="ar-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="4"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="4"
@@ -1425,7 +1425,7 @@
                   stem.dir="down" syl="ce"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="4"
                   stem.dir="down" syl="de-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="4"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="4"/>
@@ -1436,7 +1436,7 @@
                 <rest dur="minima" num="1" numbase="1" line="1" spaces="1"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   syl="A-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"/>
@@ -1470,7 +1470,7 @@
                 <dir staff="1" tstamp="1">Psallite felices</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"
                   syl="Psal-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
                   syl="li-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="3"
@@ -1487,7 +1487,7 @@
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"/>
@@ -1535,7 +1535,7 @@
                   stem.dir="down" syl="e"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   stem.dir="down" syl="ce-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"
@@ -1591,7 +1591,7 @@
                   syl="pax"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"
                   syl="di-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"
                   syl="stu-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="3"
@@ -1600,7 +1600,7 @@
                 <dir staff="1" tstamp="1">prodere tel //</dir>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="3"
                   syl="pro-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"
                   syl="de-"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
@@ -1614,7 +1614,7 @@
                 <dir staff="1" tstamp="1">lus</dir>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="2"
                   syl="lus"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="b" oct="3"/>
                 <rest dur="minima" num="1" numbase="1" line="5" spaces="1"/>
@@ -1649,7 +1649,7 @@
                   stem.dir="down" syl="in"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   stem.dir="down" syl="fo-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="3"
                   stem.dir="down" syl="li-"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
@@ -1677,7 +1677,7 @@
                   stem.dir="down" syl="li-"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   stem.dir="down" syl="a"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"
@@ -1740,7 +1740,7 @@
                 <dir staff="1" tstamp="1">altior exsuperans</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="2"
                   syl="al-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="3"
                   syl="ti-"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="3"
@@ -1749,7 +1749,7 @@
                   syl="ex-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"
                   syl="su-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
                   syl="pe-"/>
                 <note dur="brevis" num="4" numbase="1" pname="a" oct="3"
@@ -1762,7 +1762,7 @@
                   syl="ta-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="3"/>
                 <note dur="minima" num="3" numbase="2" pname="f" oct="2"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="2"/>
@@ -1794,7 +1794,7 @@
                   stem.dir="down" syl="co-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="4"
                   stem.dir="down" syl="lo-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <dir staff="1" tstamp="1">prior</dir>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   stem.dir="down" syl="re"/>
@@ -1852,7 +1852,7 @@
                 <rest dur="minima" num="1" numbase="1" line="2" spaces="1"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"
                   syl="ma-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <dir staff="1" tstamp="1">malum</dir>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
@@ -1897,7 +1897,7 @@
                   syl="mox"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="tri-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   stem.dir="down" syl="sti-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="3"
@@ -1954,7 +1954,7 @@
                   syl="bu-"/>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="3"
                   syl="en-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"/>
@@ -1971,7 +1971,7 @@
                 <dir staff="1" tstamp="1">Dosis</dir>
                 <note dur="minima" num="3" numbase="2" pname="f" oct="3"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"/>
@@ -1987,7 +1987,7 @@
                 <note dur="minima" num="1" numbase="1" pname="a" oct="3"/>
                 <note dur="minima" num="3" numbase="2" pname="f" oct="3"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"/>
@@ -2000,7 +2000,7 @@
                 <dir staff="1" tstamp="1">Dosis.</dir>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"/>
                 <note dur="brevis" num="16" numbase="1" pname="c" oct="3"
                   fermata="above" syl="sis"/>
@@ -2014,7 +2014,7 @@
                   syl="hen-"/>
                 <note dur="brevis" num="6" numbase="1" pname="g" oct="3"
                   fermata="above" syl="ri-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="brevis" num="4" numbase="1" pname="f" oct="3"
                   accid="s" fermata="above" syl="cus"/>
                 <barline/>
@@ -2028,7 +2028,7 @@
                   syl="tus"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="3"
                   syl="san-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"
                   syl="gui-"/>
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="3"
@@ -2037,7 +2037,7 @@
                   lig="recta" stem.dir="up" stem.pos="left" syl="cla-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="4"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <dir staff="1" tstamp="1">clarus</dir>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   accid="s" stem.dir="down"/>
@@ -2053,7 +2053,7 @@
                   syl="An-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="glo-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   stem.dir="down" syl="rum"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"
@@ -2065,7 +2065,7 @@
                 <dir staff="1" tstamp="1">purpura rosa mi</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="pur-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="3"
                   stem.dir="down" syl="pu-"/>
                 <note dur="brevis" num="4" numbase="1" pname="g" oct="3"
@@ -2110,7 +2110,7 @@
                 <dir staff="1" tstamp="1">Et vultu placido dicere</dir>
                 <note dur="minima" num="3" numbase="2" pname="f" oct="3"
                   stem.dir="down" syl="pla-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   stem.dir="down" syl="ci-"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
@@ -2126,7 +2126,7 @@
                 <rest dur="minima" num="1" numbase="1" line="5" spaces="1"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   stem.dir="down" syl="di-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   accid="s" stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
@@ -2201,7 +2201,7 @@
                 <note dur="semibrevis" num="2" numbase="1" pname="f" oct="3"
                   syl="dul-"/>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="3"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="fusa" num="1" numbase="4" pname="d" oct="3"/>
                 <note dur="fusa" num="1" numbase="4" pname="c" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"/>
@@ -2237,7 +2237,7 @@
                 <dir staff="1" tstamp="1">et</dir>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"
                   syl="tis"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"/>
@@ -2247,7 +2247,7 @@
                   accid.ges="s" stem.dir="down"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   stem.dir="down" syl="ip-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"
@@ -2329,9 +2329,9 @@
                 <!--  <Clef><Appearance>C</Appearance><StaffLoc>5</StaffLoc><Pitch><LetterName>C</LetterName><OctaveNum>3</OctaveNum></Pitch></Clef> -->
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   accid.ges="s"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="3"/>
@@ -2371,7 +2371,7 @@
                   stem.dir="down" syl="at-"/>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="3"
                   stem.dir="down" syl="que"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"
                   stem.dir="down"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="3"
@@ -2434,12 +2434,12 @@
                   syl="bu-"/>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="3"
                   syl="ens"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="fusa" num="1" numbase="4" pname="f" oct="3"/>
                 <note dur="fusa" num="1" numbase="4" pname="e" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"/>
@@ -2508,7 +2508,7 @@
                 <dir staff="1" tstamp="1">claudi</dir>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   syl="clau-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="fusa" num="1" numbase="4" pname="c" oct="3"/>
                 <note dur="fusa" num="1" numbase="4" pname="b" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="3"
@@ -2516,7 +2516,7 @@
                 <dir staff="1" tstamp="1">carmine tanta</dir>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   stem.dir="down" syl="car-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"
                   stem.dir="down" syl="mi-"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
@@ -2535,7 +2535,7 @@
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"/>
                 <dir staff="1" tstamp="1">potest</dir>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="2"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="2"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
@@ -2546,7 +2546,7 @@
                 <dir staff="1" tstamp="1">psallite fide //</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"
                   syl="Psal-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
                   syl="li-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="3"
@@ -2571,7 +2571,7 @@
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="3"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="3"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"
@@ -2604,7 +2604,7 @@
                 <dir staff="1" tstamp="1">cul</dir>
                 <note dur="minima" num="3" numbase="2" pname="f" oct="2"
                   syl="cul-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"/>
@@ -2621,7 +2621,7 @@
                 <dir staff="1" tstamp="1">ne</dir>
                 <note dur="brevis" num="6" numbase="1" pname="d" oct="3"
                   syl="ne"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <dir staff="1" tstamp="1">rose</dir>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="3"
                   accid="s" lig="recta" stem.dir="up" stem.pos="left" syl="ro-"/>
@@ -2637,7 +2637,7 @@
                   syl="o-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="2"
                   syl="do-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="2"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="f" oct="2"
@@ -2648,7 +2648,7 @@
                 <dir staff="1" tstamp="1">tristia</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="2"
                   syl="tri-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   syl="sti-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="f" oct="2"
@@ -2663,7 +2663,7 @@
                 <note dur="brevis" num="4" numbase="1" pname="f" oct="3"
                   lig="obliqua" stem.dir="down" stem.pos="left" syl="ce-"/>
                 <note dur="brevis" num="6" numbase="1" pname="d" oct="3"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="longa" num="8" numbase="1" pname="d" oct="3"
                   stem.dir="down" syl="dunt"/>
                 <barline rend="dbl"/>
@@ -2693,7 +2693,7 @@
                   syl="qui"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="mun-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="3"
                   syl="di"/>
@@ -2757,7 +2757,7 @@
                 <dir staff="1" tstamp="1">quesumus</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="e" oct="3"
                   syl="que-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"
                   stem.dir="down" syl="su-"/>
                 <note dur="brevis" num="4" numbase="1" pname="e" oct="3"
@@ -2776,7 +2776,7 @@
                   syl="gi"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="des"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="e" oct="3"
                   syl="tem-"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
@@ -2808,7 +2808,7 @@
                   syl="hoc"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="se" colored="true"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
                   syl="de" colored="true"/>
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="3"
@@ -2829,7 +2829,7 @@
                 <dir staff="1" tstamp="1">arce dei</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="3"
                   syl="ar-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="3"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="3"
@@ -2844,13 +2844,13 @@
                   syl="in"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"
                   syl="ar-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="3"
                   syl="ce"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   syl="de-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"/>
@@ -2878,7 +2878,7 @@
                 <dir staff="1" tstamp="1">Psallite felices</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="2"
                   syl="Psal-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"
                   syl="li-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="2"
@@ -2889,7 +2889,7 @@
                   syl="li-"/>
                 <note dur="longa" num="12" numbase="1" pname="c" oct="3"
                   stem.dir="down" syl="ces"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <rest dur="semibrevis" num="2" numbase="1" line="4" spaces="1"/>
                 <dir staff="1" tstamp="1">protecti culmine rose</dir>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="3"
@@ -2917,7 +2917,7 @@
                   syl="pur-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="pu-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
                   stem.dir="down" syl="re-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="3"
@@ -2976,7 +2976,7 @@
                   syl="pax"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"
                   syl="di-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"
                   syl="stu-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="3"
@@ -2985,7 +2985,7 @@
                 <dir staff="1" tstamp="1">prodere tellus</dir>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="3"
                   stem.dir="down" syl="pro-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"
                   stem.dir="down" syl="de-"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
@@ -3015,7 +3015,7 @@
                 <dir staff="1" tstamp="1">protinus orta fuit.</dir>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   stem.dir="down" syl="pro-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"
                   stem.dir="down" syl="ti-"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
@@ -3094,7 +3094,7 @@
                   syl="rum"/>
                 <note dur="minima" num="3" numbase="2" pname="b" oct="3"
                   syl="mi-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"
                   syl="cu-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="3"
@@ -3104,15 +3104,15 @@
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"/>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="2"
                   syl="sa"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="2"/>
                 <dir staff="1" tstamp="1">rubens</dir>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"
                   syl="ru-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="2"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="2"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="2"
                   accid="s"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="2"/>
@@ -3124,7 +3124,7 @@
                 <dir staff="1" tstamp="1">altior exsuperans</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="3"
                   syl="al-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="3"
                   stem.dir="down" syl="ti-"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
@@ -3133,7 +3133,7 @@
                   stem.dir="down" syl="ex-"/>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="3"
                   stem.dir="down" syl="su-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"
                   stem.dir="down" syl="pe-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="e" oct="3"
@@ -3207,7 +3207,7 @@
                 <dir staff="1" tstamp="1">cans</dir>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="2"
                   syl="cans"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"
                   stem.dir="down"/>
@@ -3284,7 +3284,7 @@
                   stem.dir="down"/>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="3"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"
@@ -3303,7 +3303,7 @@
                   syl="mox"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"
                   syl="tri-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
                   stem.dir="down" syl="sti-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="3"
@@ -3351,7 +3351,7 @@
                   syl="bu-"/>
                 <note dur="minima" num="3" numbase="2" pname="e" oct="3"
                   syl="en-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="3"/>
@@ -3368,18 +3368,18 @@
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="e" oct="3"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <sb>
                   <custos pname="d" oct="3"/>
                 </sb>
                 <!--  <Clef><Appearance>C</Appearance><StaffLoc>7</StaffLoc><Pitch><LetterName>C</LetterName><OctaveNum>3</OctaveNum></Pitch></Clef> -->
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   stem.dir="down"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"
                   stem.dir="down"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
@@ -3388,7 +3388,7 @@
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"
@@ -3422,7 +3422,7 @@
                   syl="tus"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"
                   syl="san-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="3"
                   stem.dir="down" syl="gui-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="3"
@@ -3432,7 +3432,7 @@
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="3"
                   lig="recta" stem.dir="up" stem.pos="left"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"
@@ -3448,7 +3448,7 @@
                   syl="An-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="b" oct="3"
                   syl="glo-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="3"
                   syl="rum"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="3"
@@ -3457,7 +3457,7 @@
                   syl="tus"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="pur-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
                   stem.dir="down" syl="pu-"/>
                 <note dur="brevis" num="4" numbase="1" pname="b" oct="3"
@@ -3481,7 +3481,7 @@
                   syl="se"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="me-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
                   stem.dir="down" syl="ri-"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="3"
@@ -3519,7 +3519,7 @@
                   stem.dir="down" syl="do"/>
                 <note dur="minima" num="3" numbase="2" pname="f" oct="3"
                   stem.dir="down" syl="di-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="3"
                   stem.dir="down"/>
                 <dir staff="1" tstamp="1">Dicere</dir>
@@ -3541,7 +3541,7 @@
                   syl="sa"/>
                 <note dur="brevis" num="6" numbase="1" pname="a" oct="3"
                   lig="recta" syl="va-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="brevis" num="4" numbase="1" pname="b" oct="3"/>
                 <note dur="brevis" num="4" numbase="1" pname="g" oct="2"
                   fermata="above" syl="le"/>
@@ -3588,7 +3588,7 @@
                   syl="mis"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"
                   syl="fe-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"
                   syl="ra"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="3"
@@ -3635,7 +3635,7 @@
                   syl="ci-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="2"
                   syl="fi-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="2"/>
                 <note dur="longa" num="8" numbase="1" pname="d" oct="2"
                   syl="cus"/>
@@ -3712,7 +3712,7 @@
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="3"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="3"
                   stem.dir="down" syl="fi-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"
                   stem.dir="down"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"
@@ -3783,7 +3783,7 @@
                   syl="bu-"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="2"
                   syl="ens"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="3"/>
@@ -3850,7 +3850,7 @@
                 <dir staff="1" tstamp="1">Psallite fideles</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="2"
                   syl="Psal-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"
                   syl="li-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="2"
@@ -3861,7 +3861,7 @@
                   syl="de-"/>
                 <note dur="longa" num="12" numbase="1" pname="c" oct="3"
                   stem.dir="down" syl="les"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <rest dur="semibrevis" num="2" numbase="1" line="4" spaces="1"/>
                 <dir staff="1" tstamp="1">protecti culmine rose</dir>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="3"
@@ -3898,7 +3898,7 @@
                 <dir staff="1" tstamp="1">tristia</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="tri-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
                   syl="sti-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="3"
@@ -3939,7 +3939,7 @@
                   syl="ne"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="de" colored="true"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="3"
                   accid="f" colored="true"/>
                 <note dur="brevis" num="4" numbase="1" pname="a" oct="3"
@@ -3947,7 +3947,7 @@
                 <note dur="brevis" num="4" numbase="1" pname="g" oct="2"
                   colored="true"/>
                 <note dur="brevis" num="6" numbase="1" pname="f" oct="2"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="2"
                   syl="us"/>
                 <note dur="brevis" num="4" numbase="1" pname="a" oct="3"/>
@@ -3984,7 +3984,7 @@
                   syl="ius"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="2"
                   syl="et"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="3"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="b" oct="3"
                   syl="ex"/>
@@ -4016,7 +4016,7 @@
                 <dir staff="1" tstamp="1">quesumus</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="que-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
                   stem.dir="down" syl="su-"/>
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="3"
@@ -4038,7 +4038,7 @@
                   syl="des"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="tem-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
                   stem.dir="down" syl="po-"/>
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="3"
@@ -4065,7 +4065,7 @@
                   syl="hoc"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="3"
                   syl="se" colored="true"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="3"
                   syl="de" colored="true"/>
                 <note dur="brevis" num="4" numbase="1" pname="g" oct="2"
@@ -4080,7 +4080,7 @@
                   syl="in"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="3"
                   syl="ar-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="3"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="3"/>
@@ -4096,7 +4096,7 @@
                 <dir staff="1" tstamp="1">in arce dei</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="3"
                   syl="de-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="3"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"/>
@@ -4141,7 +4141,7 @@
                 <dir staff="1" tstamp="1">Psallite felices</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="2"
                   syl="Psal-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="2"
                   syl="li-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="2"
@@ -4183,7 +4183,7 @@
                   syl="pur-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="2"
                   syl="pu-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   stem.dir="down" syl="re-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="f" oct="2"
@@ -4237,7 +4237,7 @@
                   stem.dir="down" syl="pax"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="2"
                   syl="di-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="2"
                   syl="stu-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="d" oct="2"
@@ -4246,7 +4246,7 @@
                 <dir staff="1" tstamp="1">prodere tellus</dir>
                 <note dur="minima" num="3" numbase="2" pname="f" oct="2"
                   stem.dir="down" syl="pro-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="2"
                   stem.dir="down" syl="de-"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
@@ -4274,7 +4274,7 @@
                 <dir staff="1" tstamp="1">protinus orta fuit</dir>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="2"
                   stem.dir="down" syl="pro-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="2"
                   stem.dir="down" syl="ti-"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"
@@ -4364,7 +4364,7 @@
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="2"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="2"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="c" oct="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="2"/>
@@ -4373,7 +4373,7 @@
                   syl="sa"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="2"
                   syl="ru-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="2"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="2"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="1"/>
@@ -4385,7 +4385,7 @@
                 <dir staff="1" tstamp="1">altior exsuperans</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="2"
                   syl="al-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="2"
                   stem.dir="down" syl="ti-"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
@@ -4394,7 +4394,7 @@
                   stem.dir="down" syl="ex-"/>
                 <note dur="minima" num="3" numbase="2" pname="a" oct="3"
                   stem.dir="down" syl="su-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="a" oct="3"
                   stem.dir="down" syl="pe-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="3"
@@ -4412,7 +4412,7 @@
                   syl="spec-"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="2"
                   syl="ta-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="2"
                   stem.dir="down" syl="mi-"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
@@ -4425,7 +4425,7 @@
                   prior</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="a" oct="2"
                   syl="pul-"/>
-                <!--  <Dot><StaffLoc>1</StaffLoc></Dot> -->
+                <dot loc="1"/>
                 <note dur="minima" num="1" numbase="1" pname="a" oct="2"
                   syl="chri-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="1"
@@ -4471,7 +4471,7 @@
                   stem.dir="down" syl="fi-"/>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="2"
                   syl="cans"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="2"
                   stem.dir="down"/>
@@ -4558,7 +4558,7 @@
                   syl="mox"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="2"
                   syl="tri-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"
                   stem.dir="down" syl="sti-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="2"
@@ -4622,7 +4622,7 @@
                 <dir staff="1" tstamp="1">Do /</dir>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="2"
                   syl="do-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="2"/>
                 <sb>
                   <custos pname="f" oct="2"/>
@@ -4678,7 +4678,7 @@
                 <dir staff="1" tstamp="1">sanguine clarus</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="2"
                   stem.dir="down" syl="san-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   stem.dir="down" syl="gui-"/>
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="2"
@@ -4696,7 +4696,7 @@
                   syl="An-"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="2"
                   stem.dir="down" syl="glo-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"
                   stem.dir="down" syl="rum"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="3"
@@ -4705,7 +4705,7 @@
                   syl="tus"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="2"
                   syl="pur-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="2"
                   syl="pu-"/>
                 <note dur="brevis" num="4" numbase="1" pname="g" oct="2"
@@ -4735,7 +4735,7 @@
                 <dir staff="1" tstamp="1">merito</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="2"
                   syl="me-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   stem.dir="down" syl="ri-"/>
                 <note dur="minima" num="1" numbase="1" pname="d" oct="2"
@@ -4777,7 +4777,7 @@
                   stem.dir="down" syl="tu"/>
                 <note dur="minima" num="3" numbase="2" pname="b" oct="3"
                   accid="f" stem.dir="down" syl="pla-"/>
-                <!--  <Dot><StaffLoc>5</StaffLoc></Dot> -->
+                <dot loc="5"/>
                 <note dur="semiminima" num="1" numbase="2" pname="b" oct="3"
                   accid="f" stem.dir="down" syl="ci-"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"
@@ -4867,7 +4867,7 @@
                   syl="mis"/>
                 <note dur="minima" num="3" numbase="2" pname="d" oct="2"
                   syl="fe-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <dir staff="1" tstamp="1">fera le //</dir>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="2"
                   syl="ra"/>
@@ -5050,7 +5050,7 @@
                   stem.dir="down" syl="bu-"/>
                 <note dur="minima" num="3" numbase="2" pname="c" oct="2"
                   syl="ens"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="d" oct="2"/>
                 <note dur="semiminima" num="1" numbase="2" pname="e" oct="2"
                   stem.dir="down"/>
@@ -5110,7 +5110,7 @@
                   stem.dir="down" syl="lo"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="2"
                   stem.dir="down" syl="clau-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="fusa" num="1" numbase="4" pname="f" oct="2"
                   stem.dir="down"/>
                 <note dur="fusa" num="1" numbase="4" pname="e" oct="2"
@@ -5124,7 +5124,7 @@
                 <dir staff="1" tstamp="1">di carmine tanta potest</dir>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="2"
                   stem.dir="down" syl="car-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="g" oct="2"
                   stem.dir="down" syl="mi-"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="2"
@@ -5135,7 +5135,7 @@
                   syl="ta"/>
                 <note dur="minima" num="3" numbase="2" pname="g" oct="2"
                   stem.dir="down" syl="po-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="semiminima" num="1" numbase="2" pname="f" oct="2"
                   stem.dir="down"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="2"/>
@@ -5150,7 +5150,7 @@
                 <dir staff="1" tstamp="1">psallite fideles</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="2"
                   syl="Psal-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="2"
                   syl="li-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="c" oct="2"
@@ -5210,7 +5210,7 @@
                 <dir staff="1" tstamp="1">tristia</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="2"
                   syl="tri-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   stem.dir="down" syl="sti-"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="f" oct="2"
@@ -5254,7 +5254,7 @@
                   accid="s" syl="ne"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="g" oct="2"
                   syl="de" colored="true"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   colored="true"/>
                 <note dur="brevis" num="4" numbase="1" pname="e" oct="2"
@@ -5266,7 +5266,7 @@
                 <dir staff="1" tstamp="1">qui mundi</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="1"
                   syl="qui"/>
-                <!--  <Dot><StaffLoc>0</StaffLoc></Dot> -->
+                <dot loc="0"/>
                 <note dur="minima" num="1" numbase="1" pname="g" oct="1"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="a" oct="2"
                   syl="mun-"/>
@@ -5289,7 +5289,7 @@
                 <dir staff="1" tstamp="1">gubernas</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="2"
                   syl="gu-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="e" oct="2"
                   stem.dir="down"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="f" oct="2"/>
@@ -5311,7 +5311,7 @@
                   syl="ius"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="e" oct="2"
                   syl="et"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   stem.dir="down"/>
                 <note dur="semibrevis" num="2" numbase="1" pname="g" oct="2"
@@ -5355,7 +5355,7 @@
                 <dir staff="1" tstamp="1">quesumus</dir>
                 <note dur="semibrevis" num="3" numbase="1" pname="c" oct="2"
                   syl="que-"/>
-                <!--  <Dot><StaffLoc>2</StaffLoc></Dot> -->
+                <dot loc="2"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="2"
                   syl="su-"/>
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="2"
@@ -5373,7 +5373,7 @@
                   syl="des"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="2"
                   syl="tem-"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   stem.dir="down" syl="po-"/>
                 <note dur="brevis" num="4" numbase="1" pname="f" oct="2"
@@ -5405,7 +5405,7 @@
                   syl="hoc"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="f" oct="2"
                   syl="se" colored="true"/>
-                <!--  <Dot><StaffLoc>4</StaffLoc></Dot> -->
+                <dot loc="4"/>
                 <note dur="minima" num="1" numbase="1" pname="f" oct="2"
                   stem.dir="down" syl="de" colored="true"/>
                 <note dur="brevis" num="4" numbase="1" pname="c" oct="2"
@@ -5423,7 +5423,7 @@
                   syl="in"/>
                 <note dur="semibrevis" num="3" numbase="1" pname="d" oct="2"
                   syl="ar-"/>
-                <!--  <Dot><StaffLoc>3</StaffLoc></Dot> -->
+                <dot loc="3"/>
                 <note dur="minima" num="1" numbase="1" pname="c" oct="2"
                   syl="ce"/>
                 <note dur="minima" num="1" numbase="1" pname="b" oct="2"
