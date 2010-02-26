@@ -255,17 +255,17 @@
       </sch:rule>
     </sch:pattern>
     <sch:pattern>
-      <sch:title>Check barre/@from and @to</sch:title>
+      <sch:title>Check barre/@startid and @endid</sch:title>
       <sch:rule context="barre">
-        <sch:let name="thisfrom" value="@from"/>
-        <sch:let name="thisto" value="@to"/>
+        <sch:let name="from" value="@startid"/>
+        <sch:let name="to" value="@endid"/>
         <sch:assert
-          test="@from = preceding-sibling::chordmember[@xml:id=$thisfrom]/@xml:id"
-          >The value of @from must be the ID of a chordmember
+          test="@startid = preceding-sibling::chordmember[@xml:id=$from]/@xml:id"
+          >The value of @startid must be the ID of a chordmember
           element.</sch:assert>
         <sch:assert
-          test="@to = preceding-sibling::chordmember[@xml:id=$thisto]/@xml:id"
-          >The value of @to must be the ID of a chordmember
+          test="@endid = preceding-sibling::chordmember[@xml:id=$to]/@xml:id"
+          >The value of @endid must be the ID of a chordmember
           element.</sch:assert>
       </sch:rule>
     </sch:pattern>

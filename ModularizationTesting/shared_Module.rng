@@ -216,10 +216,20 @@
       other events for their existence. For example, a slur/phrase marking must
       be drawn between or over a group of notes. The slur is therefore a control
       event.</a:documentation>
-    <ref name="att.layerident"/>
     <ref name="att.participantident"/>
     <ref name="att.timestamp.musical"/>
     <ref name="att.timestamp.performed"/>
+    <optional>
+      <attribute name="layer">
+        <a:documentation xml:lang="eng">signifies the layer within which a
+          control event is active.</a:documentation>
+        <list>
+          <oneOrMore>
+            <data type="positiveInteger"/>
+          </oneOrMore>
+        </list>
+      </attribute>
+    </optional>
     <attribute name="staff">
       <a:documentation xml:lang="eng">signifies the staff within which a control
         event is active.</a:documentation>
@@ -742,7 +752,7 @@
       <attribute name="meiversion" a:defaultValue="1.9b">
         <a:documentation xml:lang="eng">records the version of MEI used by the
           file.</a:documentation>
-        <ref name="data.MEIVERSION"/>
+        <value>1.9b</value>
       </attribute>
     </optional>
   </define>
@@ -795,16 +805,9 @@
     </optional>
   </define>
 
-  <define name="att.pitched" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes that record written pitch name
-      and octave</a:documentation>
-    <optional>
-      <attribute name="pname">
-        <a:documentation xml:lang="eng">contains a written pitch
-          name.</a:documentation>
-        <ref name="data.PITCHNAME"/>
-      </attribute>
-    </optional>
+  <define name="att.octave" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record written
+      octave</a:documentation>
     <optional>
       <attribute name="oct">
         <a:documentation xml:lang="eng">captures written octave
@@ -812,6 +815,23 @@
         <ref name="data.OCTAVE"/>
       </attribute>
     </optional>
+  </define>
+
+  <define name="att.pitch" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record written pitch
+      name</a:documentation>
+    <optional>
+      <attribute name="pname">
+        <a:documentation xml:lang="eng">contains a written pitch
+          name.</a:documentation>
+        <ref name="data.PITCHNAME"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.pitched" combine="interleave">
+    <ref name="att.pitch"/>
+    <ref name="att.octave"/>
   </define>
 
   <define name="att.octavedisplacement" combine="interleave">
@@ -1523,6 +1543,7 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.lineloc"/>
     <ref name="att.clefshape"/>
+    <ref name="att.octave"/>
     <optional>
       <ref name="att.octavedisplacement"/>
     </optional>
@@ -1553,6 +1574,7 @@
     <optional>
       <ref name="att.clefshape"/>
     </optional>
+    <ref name="att.octave"/>
     <optional>
       <ref name="att.octavedisplacement"/>
     </optional>
@@ -3794,9 +3816,11 @@
   <define name="model.staffdefPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear more than
       once in the declaration of staff features.</a:documentation>
-    <choice>
-      <ref name="clef"/>
-    </choice>
+    <zeroOrMore>
+      <choice>
+        <ref name="clef"/>
+      </choice>
+    </zeroOrMore>
   </define>
 
   <define name="model.staffgrpLike" combine="interleave">
@@ -4885,7 +4909,7 @@
     <ref name="att.common"/>
     <ref name="att.facsimile"/>
     <ref name="att.accidental"/>
-    <ref name="att.pitched"/>
+    <ref name="att.pitch"/>
     <optional>
       <attribute name="mode">
         <a:documentation xml:lang="eng">indicates major, minor, or other
