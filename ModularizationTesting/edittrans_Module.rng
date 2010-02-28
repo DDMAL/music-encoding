@@ -12,9 +12,15 @@
   <define name="att.edit" combine="interleave">
     <a:documentation xml:lang="eng">Attributes describing the nature of an
       encoded scholarly intervention or interpretation</a:documentation>
-    <ref name="att.certainty"/>
     <ref name="att.responsibility"/>
     <ref name="att.source"/>
+    <optional>
+      <attribute name="cert">
+        <a:documentation xml:lang="eng">signifies the degree of certainty or
+          precision associated with a feature.</a:documentation>
+        <ref name="data.CERTAINTY"/>
+      </attribute>
+    </optional>
     <optional>
       <attribute name="evidence">
         <a:documentation xml:lang="eng">indicates the nature of the evidence

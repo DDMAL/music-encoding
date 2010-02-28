@@ -140,18 +140,6 @@
     </optional>
   </define>
 
-  <define name="att.certainty" combine="interleave">
-    <a:documentation>Attributes capturing information regarding the certainty of
-      assertions</a:documentation>
-    <optional>
-      <attribute name="cert">
-        <a:documentation xml:lang="eng">signifies the degree of certainty or
-          precision associated with a feature.</a:documentation>
-        <ref name="data.CERTAINTY"/>
-      </attribute>
-    </optional>
-  </define>
-
   <define name="att.clefshape" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that record the shape of a
       clef</a:documentation>
@@ -308,17 +296,8 @@
     </optional>
   </define>
 
-  <define name="att.date" combine="interleave">
+  <define name="att.datable" combine="interleave">
     <a:documentation xml:lang="eng">Attributes common to dates</a:documentation>
-    <ref name="att.certainty"/>
-    <optional>
-      <attribute name="calendar">
-        <a:documentation xml:lang="eng">indicates the system or calendar to
-          which a date belongs, for example, Gregorian, Julian, Roman, Mosaic,
-          Revolutionary, Islamic, etc.</a:documentation>
-        <data type="NMTOKEN"/>
-      </attribute>
-    </optional>
     <optional>
       <attribute name="enddate">
         <a:documentation xml:lang="eng">contains the end point of a date
@@ -438,18 +417,6 @@
           timestamp for its endpoint rather than as a relative durational
           value.</a:documentation>
         <ref name="data.MEASUREBEAT"/>
-      </attribute>
-    </optional>
-  </define>
-
-  <define name="att.duration.visual.musical" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes that record duration in terms of
-      an alternate musical symbol</a:documentation>
-    <optional>
-      <attribute name="dur.vis">
-        <a:documentation xml:lang="eng">records the durational symbol used in
-          the source.</a:documentation>
-        <ref name="data.DURATION"/>
       </attribute>
     </optional>
   </define>
@@ -787,6 +754,17 @@
     </optional>
   </define>
 
+  <define name="att.midivalue" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record MIDI
+      values</a:documentation>
+    <optional>
+      <attribute name="val">
+        <a:documentation xml:lang="eng">captures a MIDI value.</a:documentation>
+        <ref name="data.MIDIVALUE"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.name" combine="interleave">
     <a:documentation xml:lang="eng">Attributes shared by names</a:documentation>
     <ref name="att.authorized"/>
@@ -798,9 +776,10 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="reg">
-        <a:documentation xml:lang="eng">used to record a regularized form of the
-          name.</a:documentation>
+      <attribute name="nymref">
+        <a:documentation xml:lang="eng">used to record a pointer to the
+          regularized form of the name.</a:documentation>
+        <data type="IDREF"/>
       </attribute>
     </optional>
   </define>
@@ -1685,9 +1664,9 @@
   <define name="att.dynam.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <ref name="att.duration.performed"/>
-    <optional>
-      <ref name="att.midivalue"/>
-    </optional>
+    <!-- <optional> -->
+    <ref name="att.midivalue"/>
+    <!-- </optional> -->
   </define>
 
   <define name="att.dynam.log" combine="interleave">
@@ -3439,13 +3418,6 @@
     <ref name="att.visualoffset2.ho"/>
     <ref name="att.visualoffset2.to"/>
     <ref name="att.xy"/>
-    <optional>
-      <attribute name="dur.vis">
-        <a:documentation xml:lang="eng">used to record the visual duration of
-          the tempo marking in the source.</a:documentation>
-        <ref name="data.MEASUREBEAT"/>
-      </attribute>
-    </optional>
   </define>
 
   <!-- Declare module model classes -->
@@ -3819,6 +3791,7 @@
     <zeroOrMore>
       <choice>
         <ref name="clef"/>
+        <ref name="model.keysigLike"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -4367,9 +4340,18 @@
   <define name="attlist.date">
     <ref name="att.bibl"/>
     <ref name="att.common"/>
-    <ref name="att.date"/>
+    <ref name="att.datable"/>
+    <ref name="att.edit"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
+    <optional>
+      <attribute name="calendar">
+        <a:documentation xml:lang="eng">indicates the system or calendar to
+          which a date belongs, for example, Gregorian, Julian, Roman, Mosaic,
+          Revolutionary, Islamic, etc.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
   </define>
 
   <define name="content.dir">
@@ -6011,9 +5993,6 @@
     <zeroOrMore>
       <ref name="model.labelLike"/>
     </zeroOrMore>
-    <optional>
-      <ref name="model.keysigLike"/>
-    </optional>
     <zeroOrMore>
       <choice>
         <ref name="model.instrdefLike"/>

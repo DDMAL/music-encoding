@@ -180,11 +180,12 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.controlevent"/>
     <optional>
-      <attribute name="dir">
+      <attribute name="order">
         <a:documentation xml:lang="eng">describes the direction in which the
-          arpeggio is to be performed; "nonarp" indicates a non-arpeggiated
-          chord, usually rendered with a preceding bracket instead of a wavy
-          line.</a:documentation>
+          arpeggio is to be performed (up = lowest to highest, down = highest to
+          lowest) or a return to a non-arpeggiated style (nonarp, usually
+          rendered with a preceding bracket instead of a wavy
+          line).</a:documentation>
         <choice>
           <value>up</value>
           <value>down</value>
@@ -579,8 +580,11 @@
       end, endho and endvo record the horizontal and vertical offsets of the
       right end, and the width attribute records the width of the opening on the
       open end in one-half staff inter-line units. The x1 and y1 attributes give
-      the absolute coordinates of the left side of the hairpin while x2 and y2
-      record the coordinates of the right side.</a:documentation>
+      the absolute coordinates of the left side of the top line of the hairpin
+      while x2 and y2 record the coordinates of the right side of the top line.
+      The position of the end points of the bottom line can be calculated using
+      the top line coordinates and the value of the width
+      attribute.</a:documentation>
     <ref name="att.color"/>
     <ref name="att.placement"/>
     <ref name="att.visualoffset"/>
@@ -772,6 +776,7 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
     <ref name="att.fermatapresent"/>
+    <ref name="att.duration.musical"/>
   </define>
 
   <define name="att.mrest.vis" combine="interleave">
@@ -781,7 +786,6 @@
     <ref name="att.visualoffset"/>
     <ref name="att.visibility"/>
     <ref name="att.xy"/>
-    <ref name="att.duration.visual.musical"/>
     <ref name="att.relativesize"/>
   </define>
 
@@ -848,6 +852,7 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
     <ref name="att.fermatapresent"/>
+    <ref name="att.duration.musical"/>
   </define>
 
   <define name="att.mspace.vis" combine="interleave">
@@ -856,7 +861,6 @@
     <ref name="att.cutout"/>
     <ref name="att.visibility"/>
     <ref name="att.xy"/>
-    <ref name="att.duration.visual.musical"/>
   </define>
 
   <define name="att.multirest.anl" combine="interleave">
