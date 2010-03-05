@@ -1540,14 +1540,19 @@ CHANGES:
         <xsl:apply-templates/>
       </xsl:variable>
       <xsl:value-of select="normalize-space($content)"/>
-      <xsl:text>";</xsl:text>
+      <xsl:text>"</xsl:text>
+      <xsl:if test="@dur">
+        <xsl:text> til </xsl:text>
+        <xsl:value-of select="@dur"/>
+      </xsl:if>
+      <xsl:text>;</xsl:text>
       <xsl:value-of select="$nl"/>
-      <xsl:if test="name(.)='tempo' and @value &gt; 0">
+      <xsl:if test="name(.)='tempo' and @bpm &gt; 0">
         <xsl:value-of select="$indent"/>
         <xsl:text>midi all: </xsl:text>
         <xsl:value-of select="round-half-to-even(@tstamp,3)"/>
         <xsl:text> "tempo=</xsl:text>
-        <xsl:value-of select="@value"/>
+        <xsl:value-of select="@bpm"/>
         <xsl:text>";</xsl:text>
         <xsl:value-of select="$nl"/>
       </xsl:if>
@@ -2696,13 +2701,18 @@ CHANGES:
     <xsl:if test="@num.visible='no'">
       <xsl:text>n</xsl:text>
     </xsl:if>
-    <xsl:if test="@dur">
-      <xsl:text>,</xsl:text>
-      <xsl:value-of select="@dur"/>
-      <xsl:if test="@dots">
-        <xsl:call-template name="makedots"/>
-      </xsl:if>
-    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="@dur">
+        <xsl:text>,</xsl:text>
+        <xsl:value-of select="@dur"/>
+        <xsl:if test="@dots">
+          <xsl:call-template name="makedots"/>
+        </xsl:if>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- Convert numbase to duration -->
+      </xsl:otherwise>
+    </xsl:choose>
     <xsl:text>;</xsl:text>
   </xsl:template>
 
@@ -2859,7 +2869,7 @@ CHANGES:
           <xsl:text>(</xsl:text>
         </xsl:if>
         <xsl:value-of
-          select="replace(replace(accid/@value,'f','&#x0026;'),'s','#')"/>
+          select="replace(replace(accid/@accid,'f','&#x0026;'),'s','#')"/>
         <xsl:if test="accid/@enclose">
           <xsl:text>)</xsl:text>
         </xsl:if>
@@ -3021,10 +3031,9 @@ CHANGES:
         <xsl:text> </xsl:text>
         <xsl:value-of select="following::tupletspan[@endid=$id][1]/@num"/>
         <xsl:choose>
-          <xsl:when
-            test="following::tupletspan[@endid=$id]/@num.visible!='false'">
+          <xsl:when test="following::tupletspan[@endid=$id]/@num.visible='true'">
             <xsl:if
-              test="following::tupletspan[@endid=$id]/@bracket.visible!='true'">
+              test="following::tupletspan[@endid=$id]/@bracket.visible='false'">
               <xsl:text>num</xsl:text>
             </xsl:if>
           </xsl:when>
@@ -3032,23 +3041,34 @@ CHANGES:
             <xsl:text>n</xsl:text>
           </xsl:otherwise>
         </xsl:choose>
-        <xsl:if test="following::tupletspan[@endid=$id]/@dur">
-          <xsl:choose>
-            <xsl:when test="following::tupletspan[@endid=$id][1]/@dots">
-              <xsl:text>,</xsl:text>
-              <xsl:value-of select="following::tupletspan[@endid=$id][1]/@dur"/>
-              <xsl:for-each select="following::tupletspan[@endid=$id][1]">
-                <xsl:call-template name="makedots"/>
-              </xsl:for-each>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:text>,</xsl:text>
-              <xsl:value-of
-                select="replace(normalize-space(following::tupletspan[@endid=$id][1]/@dur), ' ','+')"
-              />
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:if>
+        <xsl:choose>
+          <xsl:when test="following::tupletspan[@endid=$id]/@dur">
+            <xsl:choose>
+              <xsl:when test="following::tupletspan[@endid=$id][1]/@dots">
+                <xsl:text>,</xsl:text>
+                <xsl:value-of select="following::tupletspan[@endid=$id][1]/@dur"/>
+                <xsl:for-each select="following::tupletspan[@endid=$id][1]">
+                  <xsl:call-template name="makedots"/>
+                </xsl:for-each>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>,</xsl:text>
+                <xsl:value-of
+                  select="replace(normalize-space(following::tupletspan[@endid=$id][1]/@dur), ' ','+')"
+                />
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:if test="following::tupletspan[@endid=$id]/@numbase">
+              <!-- Mup can't handle numbase, only dur.
+                   Can numbase be converted to a duration? -->
+              <!-- <xsl:text>,</xsl:text>
+              <xsl:value-of select="following::tupletspan[@endid=$id]/@numbase"
+              /> -->
+            </xsl:if>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:if>
       <xsl:text>; </xsl:text>
     </xsl:if>
@@ -3219,55 +3239,55 @@ CHANGES:
       <xsl:for-each
         select="artic[not(@source) or contains(string(@source),$source)]">
         <xsl:choose>
-          <xsl:when test="@value='acc'">
+          <xsl:when test="@artic='acc'">
             <xsl:text>&gt;,</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='stacc'">
+          <xsl:when test="@artic='stacc'">
             <xsl:text>.,</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='ten'">
+          <xsl:when test="@artic='ten'">
             <xsl:text>-,</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='stacciss'">
+          <xsl:when test="@artic='stacciss'">
             <xsl:text>"\(wedge)",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='marc'">
+          <xsl:when test="@artic='marc'">
             <xsl:text>^,</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='marc-stacc'">
+          <xsl:when test="@artic='marc-stacc'">
             <xsl:text>.,^,</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='loure'">
+          <xsl:when test="@artic='loure'">
             <xsl:text>-,</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='spicc'">
+          <xsl:when test="@artic='spicc'">
             <xsl:text>.,</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='dnbow'">
+          <xsl:when test="@artic='dnbow'">
             <xsl:text>"\(dnbow)",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='upbow'">
+          <xsl:when test="@artic='upbow'">
             <xsl:text>"\(upbow)",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='harm'">
+          <xsl:when test="@artic='harm'">
             <xsl:text>"\(dim)",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='open'">
+          <xsl:when test="@artic='open'">
             <xsl:text>"o",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='stop'">
+          <xsl:when test="@artic='stop'">
             <xsl:text>"+",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='dbltongue'">
+          <xsl:when test="@artic='dbltongue'">
             <xsl:text>"..",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='trpltongue'">
+          <xsl:when test="@artic='trpltongue'">
             <xsl:text>"...",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='heel'">
+          <xsl:when test="@artic='heel'">
             <xsl:text>"\s(-3)\f(HB)U",</xsl:text>
           </xsl:when>
-          <xsl:when test="@value='toe'">
+          <xsl:when test="@artic='toe'">
             <xsl:text>"\(acc_hat)",</xsl:text>
           </xsl:when>
         </xsl:choose>

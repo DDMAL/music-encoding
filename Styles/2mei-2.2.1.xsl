@@ -3530,7 +3530,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
 
   <!-- Process mid-measure MusicXML attributes -->
   <xsl:template match="attributes" mode="stage1">
-    
+
     <xsl:choose>
       <xsl:when test="count(following-sibling::*[not(name()='barline')])=0">
         <xsl:variable name="messageText">A mid-measure clef change has been
@@ -3604,7 +3604,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:if>
             </xsl:if>
           </clefchange>
-        </xsl:for-each>        
+        </xsl:for-each>
       </xsl:when>
       <xsl:when
         test="preceding-sibling::note | preceding-sibling::forward | preceding-sibling::chord">

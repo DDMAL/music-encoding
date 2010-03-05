@@ -25,7 +25,7 @@
     <a:documentation xml:lang="eng">Attributes indicating cross-staff
       beaming</a:documentation>
     <optional>
-      <attribute name="with">
+      <attribute name="beamwith">
         <a:documentation xml:lang="eng">In the case of cross-staff beams, the
           with attribute is used to indicate which staff the beam is connected
           to; that is, the staff above or the staff below.</a:documentation>
@@ -132,7 +132,7 @@
     </optional>
   </define>
 
-  <define name="att.numbered">
+  <define name="att.numbered" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that record numbers to be
       displayed with a feature</a:documentation>
     <optional>
@@ -412,7 +412,6 @@
       are slurred or tied while others aren't, then the individual note
       attributes must be used.</a:documentation>
     <ref name="att.beamsecondary"/>
-    <ref name="att.beamedwith"/>
     <!-- <optional>
       <attribute name="slur.dir">
         <a:documentation xml:lang="eng">indicates the direction of a
@@ -939,7 +938,6 @@
   <define name="att.note.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.beamsecondary"/>
-    <ref name="att.beamedwith"/>
     <!-- <optional>
       <attribute name="slur.dir">
         <a:documentation xml:lang="eng">indicates the direction of a
@@ -1057,6 +1055,7 @@
         <value>down</value>
         <value>up</value>
         <value>half</value>
+        <value>bounce</value>
       </choice>
     </attribute>
   </define>
@@ -1075,10 +1074,11 @@
       <attribute name="style">
         <a:documentation xml:lang="eng">When style is set to 'line', the pedal
           mark is rendered with a continuous line. When it's set to pedstar, a
-          pedal down is rendered with "Ped.", a pedal up is rendered as "*", and
-          a pedal "bounce" is rendered with "Ped. *". When set to altpedstar
-          pedal up and down indications are the same as with pedstar but a
-          bounce is rendered with "Ped." only.</a:documentation>
+          pedal down and a half pedal are rendered with "Ped.", a pedal up is
+          rendered as "*", and a pedal "bounce" (up then immediately down) is
+          rendered with "* Ped.". When set to altpedstar, pedal up and down
+          indications are the same as with pedstar but a bounce is rendered with
+          "Ped." only.</a:documentation>
         <choice>
           <value>line</value>
           <value>pedstar</value>
@@ -1129,7 +1129,7 @@
 
   <define name="att.rest.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <ref name="att.beamedwith"/>
+    <empty/>
   </define>
 
   <define name="att.scoredef.log" combine="interleave">
