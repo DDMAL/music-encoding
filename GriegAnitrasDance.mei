@@ -45,9 +45,9 @@
           <scoredef meter.count="3" meter.unit="4" key.sig="0">
             <staffgrp xml:id="P1" symbol="brace" label.full="Part_1">
               <staffdef n="1" lines="5" clef.line="2" clef.shape="G"
-                midi.div="2" key.sig="0"/>
+                ppq="2" key.sig="0"/>
               <staffdef n="2" lines="5" clef.line="4" clef.shape="F"
-                midi.div="2" key.sig="0"/>
+                ppq="2" key.sig="0"/>
             </staffgrp>
           </scoredef>
           <section>
@@ -178,7 +178,7 @@
                     dur.ges="4" stem.dir="up" accid="s"/>
                 </layer>
                 <layer n="2">
-                  <beam with="below">
+                  <beam beam.with="below">
                     <!-- Rests displaced from default staff positions have @vo -->
                     <rest vo="-2" xml:id="d1e684" dur="4" dur.ges="2"/>
                     <rest vo="-2" xml:id="d1e741" dur="4" dur.ges="2"/>
@@ -195,7 +195,7 @@
                   <clefchange line="4" shape="F"/>
                   <!-- Cross-staff beaming -->
                   <!-- Articulations opposite side of notehead -->
-                  <beam with="above">
+                  <beam beam.with="above">
                     <note xml:id="d1e822" pname="b" oct="2" dur="8"
                       dur.ges="1" stem.dir="up">
                       <artic artic="stacc"/>

@@ -26,7 +26,7 @@
             meter.rend="invis">
             <staffgrp>
               <staffdef n="1" xml:id="P1" label.full="Part_1" lines="5"
-                clef.line="2" clef.shape="G" midi.div="12" key.sig="0"/>
+                clef.line="2" clef.shape="G" ppq="12" key.sig="0"/>
             </staffgrp>
           </scoredef>
           <section>
@@ -71,7 +71,7 @@
                 numbase="2" num.visible="true" num.place="above"
                 num.format="count"/>
               <tupletspan staff="1" startid="d1e64" endid="d1e137" num="3"
-              numbase="2" num.visible="false"/>
+                numbase="2" num.visible="false"/>
             </measure>
             <measure n="2" xml:id="d1e204">
               <staff n="1">
@@ -101,10 +101,10 @@
             </measure>
           </section>
           <section restart="true">
-            <!-- In this section the entire tied chord is in layer 1. Mup can't
-            handle notes tied across layers, so the tie attribute is ignored and
-            the <tie> element is employed instead. The element captures the
-            typographical details of the tie so that it can be drawn using Mup's
+            <!-- In this section a note in layer 1 is tied to a note in layer 2.
+            Mup can't handle notes tied across layers, so the tie attribute is
+            ignored and a <tie> element is employed instead. The element captures
+            the typographical details of the tie so that it can be drawn using Mup's
             curve command. -->
             <measure n="3" xml:id="d1e12_1">
               <staff n="1">
@@ -143,8 +143,9 @@
                 numbase="2" num.visible="true" num.place="above"
                 num.format="count"/>
               <tupletspan staff="1" startid="d1e64_1" endid="d1e137_1" num="3"
-              numbase="2" num.visible="false"/>
-              <tie staff="1" startid="d1e182_1" endid="d1e206_1" bulge="-1" place="below"/>
+                numbase="2" num.visible="false"/>
+              <tie staff="1" startid="d1e182_1" endid="d1e206_1" bulge="-1"
+                place="below"/>
             </measure>
             <measure n="4" xml:id="d1e204_1">
               <staff n="1">
