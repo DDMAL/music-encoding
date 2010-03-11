@@ -121,23 +121,42 @@
                   <head>Used by:</head>
                   <p>
                     <xsl:variable name="usedby">
-                      <xsl:for-each
-                        select="db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Used by ']/db:entry[2]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry='Element ' or db:entry='Elements ']">
-                        <xsl:for-each select="db:entry[2]/db:link">
-                          <ref target="#{@linkend}">
-                            <xsl:value-of select="."/>
-                          </ref>
-                        </xsl:for-each>
-                      </xsl:for-each>
-                      <xsl:for-each
-                        select="db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Used by ']/db:entry[2]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry='Attribute Group ' or db:entry='Attribute Groups ']/db:entry[2]/db:link">
-                        <xsl:variable name="linkend">
-                          <xsl:value-of select="@linkend"/>
-                        </xsl:variable>
-                        <xsl:apply-templates
-                          select="//db:sect3[@xml:id=$linkend]"
-                          mode="usedByAttr"/>
-                      </xsl:for-each>
+                      <xsl:choose>
+                        <xsl:when
+                          test="db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Used by ']">
+                          <xsl:for-each
+                            select="db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Used by ']/db:entry[2]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry='Element ' or db:entry='Elements ']">
+                            <xsl:for-each select="db:entry[2]/db:link">
+                              <ref target="#{@linkend}">
+                                <xsl:value-of select="."/>
+                              </ref>
+                            </xsl:for-each>
+                          </xsl:for-each>
+                          <xsl:for-each
+                            select="db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Used by ']/db:entry[2]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry='Attribute Group ' or db:entry='Attribute Groups ']/db:entry[2]/db:link">
+                            <xsl:variable name="linkend">
+                              <xsl:value-of select="@linkend"/>
+                            </xsl:variable>
+                            <xsl:apply-templates
+                              select="//db:sect3[@xml:id=$linkend]"
+                              mode="usedByAttr"/>
+                          </xsl:for-each>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:variable name="thisattr">
+                            <xsl:value-of select="@xml:id"/>
+                          </xsl:variable>
+                          
+                          <xsl:for-each
+                            select="//db:sect3[starts-with(db:title, 'Element')
+                            and descendant::db:row[db:entry=' Attributes ']//db:emphasis[@linkend=$thisattr]]">
+                            <ref target="#{@xml:id}">
+                              <xsl:value-of select="db:title/db:literal"/>
+                            </ref>
+                          </xsl:for-each>
+                          
+                        </xsl:otherwise>
+                      </xsl:choose>
                     </xsl:variable>
                     <xsl:for-each select="$usedby/tei:ref">
                       <xsl:sort select="."/>

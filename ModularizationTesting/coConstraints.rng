@@ -169,12 +169,11 @@
       </sch:rule>
     </sch:pattern>
     <sch:pattern>
-      <sch:title>Check @lang</sch:title>
-      <sch:rule context="*[@lang]">
-        <sch:let name="thislang" value="@lang"/>
-        <sch:assert
-          test="@lang = preceding::language[@xml:id=$thislang]/@xml:id">The
-          value of @lang must be the ID of a language element.</sch:assert>
+      <sch:title>Check @xml:lang</sch:title>
+      <sch:rule context="*[starts-with(@xml:lang, 'x-')]">
+        <sch:let name="thislang" value="@xml:lang"/>
+        <sch:assert test="@xml:lang = //language[@xml:id=$thislang]/@xml:id">The
+          value of @xml:lang must be the ID of a language element.</sch:assert>
       </sch:rule>
     </sch:pattern>
     <sch:pattern>
@@ -241,8 +240,10 @@
     <sch:pattern>
       <sch:title>Check @source</sch:title>
       <sch:rule context="*[@source]">
-        <sch:assert test="every $i in tokenize(@source, '\s+') satisfies
-          $i=preceding::source[@xml:id]/@xml:id"/>
+        <sch:assert
+          test="every $i in tokenize(@source, '\s+') satisfies
+          $i=preceding::source[@xml:id]/@xml:id"
+        />
       </sch:rule>
     </sch:pattern>
     <sch:pattern>
@@ -250,8 +251,10 @@
       <sch:rule
         context="chord[@instr]|mrest[@instr]|mspace[@instr]|multirest[@instr]|
         note[@instr]|rest[@instr]">
-        <sch:assert test="every $i in tokenize(@source, '\s+') satisfies
-          $i=preceding::instrdef[@xml:id]/@xml:id"/>
+        <sch:assert
+          test="every $i in tokenize(@source, '\s+') satisfies
+          $i=preceding::instrdef[@xml:id]/@xml:id"
+        />
       </sch:rule>
     </sch:pattern>
     <sch:pattern>

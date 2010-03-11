@@ -91,8 +91,9 @@
   <!-- * Invoke default attribute and model class declarations      * -->
   <!-- ************************************************************** -->
   <!-- Include this only when some modules aren't included?  Better
-    to calculate the missing attribute and model class declarations? -->
-  <!-- <include href="defaultClassDecls.rng"/> -->
+    to calculate the missing attribute and model class declarations?
+    Comment this out when generating tag library. -->
+  <include href="defaultClassDecls.rng"/>
 
   <!-- ************************************************************** -->
   <!-- * Define a class for start elements                          * -->
@@ -119,14 +120,14 @@
   <!-- The shared and header modules must be included. -->
   <include href="shared_Module.rng"/>
   <include href="header_Module.rng"/>
-  
+
   <!-- One or more of the CMN, mensural, or neumes modules must be
     included in order to encode musical content. -->
   <include href="cmn_Module.rng"/>
   <include href="mensural_Module.rng"/>
   <include href="neumes_Module.rng"/>
-  
-  <!-- The following modules are optional. -->  
+
+  <!-- The following modules are optional. -->
   <include href="analysis_Module.rng"/>
   <include href="cmnOrnaments_Module.rng"/>
   <include href="corpus_Module.rng"/>
@@ -136,9 +137,9 @@
   <include href="figtable_Module.rng"/>
   <include href="harmony_Module.rng"/>
   <include href="linkalign_Module.rng"/>
-  <include href="lyrics_Module.rng"/>  
+  <include href="lyrics_Module.rng"/>
   <include href="midi_Module.rng"/>
-  <include href="namesdates_Module.rng"/>  
+  <include href="namesdates_Module.rng"/>
   <include href="ptrref_Module.rng"/>
   <include href="tablature_Module.rng"/>
   <include href="text_Module.rng"/>
