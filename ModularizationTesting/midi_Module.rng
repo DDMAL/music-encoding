@@ -9,6 +9,58 @@
 
   <!-- MIDI module -->
   <!-- Declare module attr classes -->
+  <define name="att.channelized" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record MIDI channel
+      information</a:documentation>
+    <optional>
+      <attribute name="midi.channel">
+        <a:documentation xml:lang="eng">records a MIDI channel
+          value.</a:documentation>
+        <ref name="data.MIDICHANNEL"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.duty">
+        <a:documentation xml:lang="eng">specifies the 'on' part of the duty
+          cycle as a percentage of a note's duration.</a:documentation>
+        <ref name="data.PERCENT"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.port">
+        <a:documentation xml:lang="eng">sets the default MIDI port
+          value.</a:documentation>
+        <ref name="data.MIDIVALUE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.track">
+        <a:documentation xml:lang="eng">sets the default MIDI
+          track.</a:documentation>
+        <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.midiinstrument" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record MIDI instrument
+      information</a:documentation>
+    <optional>
+      <attribute name="midi.instrnum">
+        <a:documentation xml:lang="eng">sets the MIDI instrument
+          number.</a:documentation>
+        <ref name="data.MIDIVALUE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="midi.instrname">
+        <a:documentation xml:lang="eng">provides a label for the MIDI
+          instrument.</a:documentation>
+        <ref name="data.MIDINAMES"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.midinumber" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that record MIDI
       numbers</a:documentation>
@@ -18,14 +70,29 @@
     </attribute>
   </define>
 
-  <!-- <define name="att.midivalue" combine="interleave">
+  <define name="att.miditempo" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record MIDI tempo
+      information</a:documentation>
+    <optional>
+      <attribute name="midi.tempo">
+        <a:documentation xml:lang="eng">contains a MIDI value, that is, the
+          number of quarter notes per minute in the range from 10 to
+          1000.</a:documentation>
+        <ref name="data.MIDITEMPO"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.midivalue" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that record MIDI
       values</a:documentation>
-    <attribute name="val">
-      <a:documentation xml:lang="eng">captures a MIDI value.</a:documentation>
-      <ref name="data.MIDIVALUE"/>
-    </attribute>
-  </define> -->
+    <optional>
+      <attribute name="val">
+        <a:documentation xml:lang="eng">captures a MIDI value.</a:documentation>
+        <ref name="data.MIDIVALUE"/>
+      </attribute>
+    </optional>
+  </define>
 
   <define name="att.midi.event" combine="interleave">
     <a:documentation xml:lang="eng">Attributes common to MIDI
@@ -57,7 +124,21 @@
     <empty/>
   </define>
 
-  <!-- Declare module module classes -->
+  <define name="att.timebase" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record time-base
+      information</a:documentation>
+    <optional>
+      <attribute name="ppq">
+        <a:documentation xml:lang="eng">indicates the number of pulses
+          (sometimes referred to as ticks or divisions) per quarter note. Unlike
+          MIDI, MEI permits different values for a score and individual
+          staves.</a:documentation>
+        <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <!-- Declare module model classes -->
   <define name="model.midiLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements which group MIDI-like
       elements.</a:documentation>

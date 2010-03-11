@@ -12,11 +12,13 @@
   <define name="att.fretlocation" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that describe a fret
       location</a:documentation>
-    <attribute name="fret">
-      <a:documentation xml:lang="eng">records the location at which a string
-        should be stopped against a fret.</a:documentation>
-      <ref name="data.FRET"/>
-    </attribute>
+    <optional>
+      <attribute name="fret">
+        <a:documentation xml:lang="eng">records the location at which a string
+          should be stopped against a fret.</a:documentation>
+        <ref name="data.FRET"/>
+      </attribute>
+    </optional>
   </define>
 
   <define name="att.harm.anl" combine="interleave">
@@ -175,6 +177,8 @@
   <define name="attlist.chordmember">
     <ref name="att.common"/>
     <ref name="att.accidental.performed"/>
+    <ref name="att.fretlocation"/>
+    <ref name="att.intervalharmonic"/>
     <ref name="att.pitched"/>
     <optional>
       <attribute name="fing">
@@ -182,15 +186,6 @@
           be used to play an individual string. The values 'x' and 'o' indicated
           stopped and open strings, respectively.</a:documentation>
         <ref name="data.FINGER.FRET"/>
-      </attribute>
-    </optional>
-    <optional>
-      <ref name="att.fretlocation"/>
-    </optional>
-    <optional>
-      <attribute name="inth">
-        <a:documentation xml:lang="eng">encodes the harmonic interval between
-          this note and the sounding bass note.</a:documentation>
       </attribute>
     </optional>
   </define>

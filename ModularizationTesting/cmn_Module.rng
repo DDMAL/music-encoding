@@ -25,11 +25,44 @@
     <a:documentation xml:lang="eng">Attributes indicating cross-staff
       beaming</a:documentation>
     <optional>
-      <attribute name="beamwith">
+      <attribute name="beam.with">
         <a:documentation xml:lang="eng">In the case of cross-staff beams, the
           with attribute is used to indicate which staff the beam is connected
           to; that is, the staff above or the staff below.</a:documentation>
         <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.beaming.log" combine="interleave">
+    <a:documentation>Used by layerdef, staffdef, and scoredef to provide default
+      values for attributes in the logical domain related to
+      beaming</a:documentation>
+    <optional>
+      <attribute name="beam.group">
+        <a:documentation xml:lang="eng">provides an example of how beaming
+          (including secondary beams) is to be performed. It can be used to set
+          a default beaming pattern to be used when no beaming is indicated at
+          the event level. beam.group must contain a comma-separated list of
+          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
+          indicates each quarter note worth of shorter notes would be beamed
+          together. Parentheses can be used to indicate sub-groupings of
+          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
+          outer beam per measure with secondary beams broken at each dotted
+          quarter duration, while a measure of 16th notes in 4/4 with beam.group
+          equal to '(4,4),(4,4)' will result in a primary beam covering all the
+          notes and secondary beams each group of 4 notes. This beaming
+          "directive" can be overridden by using &lt;beam&gt; elements.
+          If neither &lt;beam&gt; elements or the beam.group attribute
+          is used, then no beaming is rendered. Beaming can be 'turned off' by
+          setting beam.group to an empty string.</a:documentation>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="beam.rests">
+        <a:documentation xml:lang="eng">indicates whether beams should include
+          rests shorter than a quarter note duration.</a:documentation>
+        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -132,6 +165,13 @@
     </optional>
   </define>
 
+  <define name="att.measure.vis" combine="interleave">
+    <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.barplacement"/>
+    <ref name="att.measurement"/>
+    <ref name="att.width"/>
+  </define>
+
   <define name="att.numbered" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that record numbers to be
       displayed with a feature</a:documentation>
@@ -140,6 +180,38 @@
         <a:documentation xml:lang="eng">used to store a number to be rendered
           along with a feature.</a:documentation>
         <data type="positiveInteger"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.numberplacement" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that record the placement and
+      visibility of numbers that accompany a bowed tremolo or
+      tuplet</a:documentation>
+    <optional>
+      <attribute name="num.place">
+        <a:documentation xml:lang="eng">states where the tuplet number will be
+          placed in relation to the noteheads.</a:documentation>
+        <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+    <optional>
+      <attribute name="num.visible">
+        <a:documentation xml:lang="eng">determines if the tuplet number is
+          visible.</a:documentation>
+        <ref name="data.BOOLEAN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.slurrend" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe the rendition of
+      slurs</a:documentation>
+    <optional>
+      <attribute name="slur.rend">
+        <a:documentation xml:lang="eng">describes the appearance of
+          slurs.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
       </attribute>
     </optional>
   </define>
@@ -161,6 +233,18 @@
           note or chord that logically belongs to the current staff should be
           visually placed on.</a:documentation>
         <ref name="data.PLACE"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.tierend" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe the rendition of
+      ties</a:documentation>
+    <optional>
+      <attribute name="tie.rend">
+        <a:documentation xml:lang="eng">describes the appearance of
+          ties.</a:documentation>
+        <ref name="data.CURVERENDITION"/>
       </attribute>
     </optional>
   </define>
@@ -369,9 +453,7 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.event"/>
     <ref name="att.numbered"/>
-    <optional>
-      <ref name="att.slashcount"/>
-    </optional>
+    <ref name="att.slashcount"/>
     <optional>
       <attribute name="form">
         <a:documentation xml:lang="eng">describes the bowed tremolo as measured
@@ -386,13 +468,7 @@
 
   <define name="att.btrem.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="num.place">
-        <a:documentation xml:lang="eng">records where the number accompanying
-          the tremolo note or chord should be rendered.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
+    <ref name="att.numberplacement"/>
   </define>
 
   <define name="att.chord.ges" combine="interleave">
@@ -412,7 +488,9 @@
       are slurred or tied while others aren't, then the individual note
       attributes must be used.</a:documentation>
     <ref name="att.beamsecondary"/>
-    <!-- <optional>
+    <!-- <ref name="att.slurrend"/>
+    <ref name="att.tierend"/>
+    <optional>
       <attribute name="slur.dir">
         <a:documentation xml:lang="eng">indicates the direction of a
           slur beginning on this chord.</a:documentation>
@@ -420,30 +498,10 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="slur.rend">
-        <a:documentation xml:lang="eng">describes the rendering style for
-          slurs beginning on this chord.</a:documentation>
-        <choice>
-          <value>dotted</value>
-          <value>dashed</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="tie.dir">
         <a:documentation xml:lang="eng">determines the direction of a
           tie beginning on this chord.</a:documentation>
         <ref name="data.TIEDIRECTION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie.rend">
-        <a:documentation xml:lang="eng">describes the rendering style of a
-          tie beginning on this chord.</a:documentation>
-        <choice>
-          <value>dotted</value>
-          <value>dashed</value>
-        </choice>
       </attribute>
     </optional> -->
   </define>
@@ -591,7 +649,7 @@
     <ref name="att.xy"/>
     <ref name="att.xy2"/>
     <optional>
-      <attribute name="width">
+      <attribute name="opening">
         <a:documentation xml:lang="eng">specifies the distance between the
           points of the open end of a hairpin dynamic mark.</a:documentation>
         <ref name="data.INTERLINE"/>
@@ -730,33 +788,7 @@
 
   <define name="att.layerdef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <optional>
-      <attribute name="beam.group">
-        <a:documentation xml:lang="eng">provides an example of how beaming
-          (including secondary beams) is to be performed. It can be used to set
-          a default beaming pattern to be used when no beaming is indicated at
-          the event level. beam.group must contain a comma-separated list of
-          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
-          indicates each quarter note worth of shorter notes would be beamed
-          together. Parentheses can be used to indicate sub-groupings of
-          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
-          outer beam per measure with secondary beams broken at each dotted
-          quarter duration, while a measure of 16th notes in 4/4 with beam.group
-          equal to '(4,4),(4,4)' will result in a primary beam covering all the
-          notes and secondary beams each group of 4 notes. This beaming
-          "directive" can be overridden by using &lt;beam&gt; elements.
-          If neither &lt;beam&gt; elements or the beam.group attribute
-          is used, then no beaming is rendered. Beaming can be 'turned off' by
-          setting beam.group to an empty string.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.rests">
-        <a:documentation xml:lang="eng">indicates whether beams should include
-          rests shorter than a quarter note duration.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
+    <ref name="att.beaming.log"/>
   </define>
 
   <define name="att.mrest.anl" combine="interleave">
@@ -938,7 +970,9 @@
   <define name="att.note.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.beamsecondary"/>
-    <!-- <optional>
+    <!-- <ref name="att.slurrend"/>
+    <ref name="att.tierend"/>
+    <optional>
       <attribute name="slur.dir">
         <a:documentation xml:lang="eng">indicates the direction of a
           slur beginning on this note.</a:documentation>
@@ -946,30 +980,10 @@
       </attribute>
     </optional>
     <optional>
-      <attribute name="slur.rend">
-        <a:documentation xml:lang="eng">describes the rendering style for
-          slurs beginning on this note.</a:documentation>
-        <choice>
-          <value>dotted</value>
-          <value>dashed</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
       <attribute name="tie.dir">
         <a:documentation xml:lang="eng">determines the direction of a
           tie beginning on this note.</a:documentation>
         <ref name="data.TIEDIRECTION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie.rend">
-        <a:documentation xml:lang="eng">describes the rendering style of a
-          tie beginning on this note.</a:documentation>
-        <choice>
-          <value>dotted</value>
-          <value>dashed</value>
-        </choice>
       </attribute>
     </optional> -->
   </define>
@@ -1094,6 +1108,40 @@
     <ref name="att.curverend"/>
   </define>
 
+  <define name="att.pianopedals" combine="interleave">
+    <a:documentation xml:lang="eng">Used by scoredef and staffdef to provide
+      default description of piano pedal rendition</a:documentation>
+    <optional>
+      <attribute name="pedal.style">
+        <a:documentation xml:lang="eng">determines whether piano pedal marks
+          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
+          '*' for pedal up).</a:documentation>
+        <choice>
+          <value>line</value>
+          <value>pedstar</value>
+          <value>altpedstar</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.rehearsal" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes used by scoredef and staffdef to
+      provide default information about rehearsal
+      numbers/letters</a:documentation>
+    <optional>
+      <attribute name="reh.enclose">
+        <a:documentation xml:lang="eng">describes the enclosing shape for
+          rehearsal marks.</a:documentation>
+        <choice>
+          <value>box</value>
+          <value>circle</value>
+          <value>none</value>
+        </choice>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.reh.anl" combine="interleave">
     <a:documentation xml:lang="eng">Analytical domain
       attributes</a:documentation>
@@ -1134,96 +1182,21 @@
 
   <define name="att.scoredef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
-    <optional>
-      <attribute name="beam.group">
-        <a:documentation xml:lang="eng">provides an example of how beaming
-          (including secondary beams) is to be performed. It can be used to set
-          a default beaming pattern to be used when no beaming is indicated at
-          the event level. beam.group must contain a comma-separated list of
-          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
-          indicates each quarter note worth of shorter notes would be beamed
-          together. Parentheses can be used to indicate sub-groupings of
-          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
-          outer beam per measure with secondary beams broken at each dotted
-          quarter duration, while a measure of 16th notes in 4/4 with beam.group
-          equal to '(4,4),(4,4)' will result in a primary beam covering all the
-          notes and secondary beams each group of 4 notes. This beaming
-          "directive" can be overridden by using &lt;beam&gt; elements.
-          If neither &lt;beam&gt; elements or the beam.group attribute
-          is used, then no beaming is rendered. Beaming can be 'turned off' by
-          setting beam.group to an empty string.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.rests">
-        <a:documentation xml:lang="eng">indicates whether beams should include
-          rests shorter than a quarter note duration.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
+    <ref name="att.beaming.log"/>
   </define>
 
   <define name="att.scoredef.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
-    <optional>
-      <attribute name="beam.rend">
-        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
-          in which direction.</a:documentation>
-        <choice>
-          <value>acc</value>
-          <value>rit</value>
-          <value>norm</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.slope">
-        <a:documentation xml:lang="eng">captures default beam
-          slope.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
+    <ref name="att.beaming.vis"/>
+    <ref name="att.pianopedals"/>
+    <ref name="att.rehearsal"/>
+    <ref name="att.slurrend"/>
+    <ref name="att.tierend"/>
     <optional>
       <attribute name="grid.show">
         <a:documentation xml:lang="eng">determines whether to display guitar
           chord grids.</a:documentation>
         <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="pedal.rend">
-        <a:documentation xml:lang="eng">determines whether piano pedal marks
-          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
-          '*' for pedal up).</a:documentation>
-        <choice>
-          <value>line</value>
-          <value>term</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reh.enclose">
-        <a:documentation xml:lang="eng">describes the enclosing shape for
-          rehearsal marks.</a:documentation>
-        <choice>
-          <value>box</value>
-          <value>circle</value>
-          <value>none</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="slur.rend">
-        <a:documentation xml:lang="eng">describes the default rendering style
-          for slurs.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie.rend">
-        <a:documentation xml:lang="eng">describes the default rendering style
-          for ties.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
       </attribute>
     </optional>
   </define>
@@ -1268,92 +1241,17 @@
   <define name="att.staffdef.log" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
       the CMN repertoire</a:documentation>
-    <optional>
-      <attribute name="beam.group">
-        <a:documentation xml:lang="eng">provides an example of how beaming
-          (including secondary beams) is to be performed. It can be used to set
-          a default beaming pattern to be used when no beaming is indicated at
-          the event level. beam.group must contain a comma-separated list of
-          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
-          indicates each quarter note worth of shorter notes would be beamed
-          together. Parentheses can be used to indicate sub-groupings of
-          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
-          outer beam per measure with secondary beams broken at each dotted
-          quarter duration, while a measure of 16th notes in 4/4 with beam.group
-          equal to '(4,4),(4,4)' will result in a primary beam covering all the
-          notes and secondary beams each group of 4 notes. This beaming
-          "directive" can be overridden by using &lt;beam&gt; elements.
-          If neither &lt;beam&gt; elements or the beam.group attribute
-          is used, then no beaming is rendered. Beaming can be 'turned off' by
-          setting beam.group to an empty string.</a:documentation>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.rests">
-        <a:documentation xml:lang="eng">indicates whether beams should include
-          rests shorter than a quarter note duration.</a:documentation>
-        <ref name="data.BOOLEAN"/>
-      </attribute>
-    </optional>
+    <ref name="att.beaming.log"/>
   </define>
 
   <define name="att.staffdef.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for staffdef in the
       CMN repertoire</a:documentation>
-    <optional>
-      <attribute name="beam.rend">
-        <a:documentation xml:lang="eng">encodes whether a beam is feathered and
-          in which direction.</a:documentation>
-        <choice>
-          <value>acc</value>
-          <value>rit</value>
-          <value>norm</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="beam.slope">
-        <a:documentation xml:lang="eng">captures default beam
-          slope.</a:documentation>
-        <data type="decimal"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="pedal.rend">
-        <a:documentation xml:lang="eng">determines whether piano pedal marks
-          should be drawn as lines or as terms (e.g. 'Ped.' for pedal down and
-          '*' for pedal up).</a:documentation>
-        <choice>
-          <value>line</value>
-          <value>term</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="reh.enclose">
-        <a:documentation xml:lang="eng">describes the enclosing shape for
-          rehearsal marks.</a:documentation>
-        <choice>
-          <value>box</value>
-          <value>circle</value>
-          <value>none</value>
-        </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="slur.rend">
-        <a:documentation xml:lang="eng">describes the default rendering style
-          for slurs.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie.rend">
-        <a:documentation xml:lang="eng">provides a default value for the
-          appearance of ties associated with this staff.</a:documentation>
-        <ref name="data.CURVERENDITION"/>
-      </attribute>
-    </optional>
+    <ref name="att.beaming.vis"/>
+    <ref name="att.pianopedals"/>
+    <ref name="att.rehearsal"/>
+    <ref name="att.slurrend"/>
+    <ref name="att.tierend"/>
   </define>
 
   <define name="att.tie.anl" combine="interleave">
@@ -1430,6 +1328,7 @@
 
   <define name="att.tuplet.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.numberplacement"/>
     <optional>
       <attribute name="bracket.place">
         <a:documentation xml:lang="eng">used to state where a tuplet bracket
@@ -1461,20 +1360,6 @@
           <value>count</value>
           <value>ratio</value>
         </choice>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num.place">
-        <a:documentation xml:lang="eng">states where the tuplet number will be
-          placed in relation to the noteheads.</a:documentation>
-        <ref name="data.PLACE"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="num.visible">
-        <a:documentation xml:lang="eng">determines if the tuplet number is
-          visible.</a:documentation>
-        <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
   </define>
@@ -2013,7 +1898,9 @@
         but 'bar-line' is also common." (New Grove) In MEI, the measure element
         is also a linking element that uses attributes to connect the MEI
         document to an external electronic object or to another location within
-        the MEI instance.</a:documentation>
+        the MEI instance. Some music printing systems rely on measure width data
+        for rendering. The width attribute allows for the capture of this data
+        in MEI for interchange with these systems.</a:documentation>
       <ref name="attlist.measure"/>
       <ref name="content.measure"/>
     </element>

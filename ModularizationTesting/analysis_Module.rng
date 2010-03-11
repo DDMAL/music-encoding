@@ -63,6 +63,20 @@
       <attribute name="hfunc">
         <a:documentation xml:lang="eng">describes harmonic function in any
           convenient typology.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.intervalharmonic" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe harmonic
+      intervals</a:documentation>
+    <optional>
+      <attribute name="inth">
+        <a:documentation xml:lang="eng">encodes the harmonic interval between
+          this note and other pitches occuring at the same
+          time.</a:documentation>
+        <data type="NMTOKENS"/>
       </attribute>
     </optional>
   </define>
@@ -70,16 +84,12 @@
   <define name="att.intervallicdesc" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that provide for description of
       intervallic content</a:documentation>
-    <optional>
-      <attribute name="inth">
-        <a:documentation xml:lang="eng">encodes the harmonic interval from a
-          pitch occuring at the same time.</a:documentation>
-      </attribute>
-    </optional>
+    <ref name="att.intervalharmonic"/>
     <optional>
       <attribute name="intm">
         <a:documentation xml:lang="eng">encodes the melodic interval from the
           previous pitch.</a:documentation>
+        <data type="NMTOKEN"/>
       </attribute>
     </optional>
   </define>
@@ -91,6 +101,31 @@
       <attribute name="mfunc">
         <a:documentation xml:lang="eng">describes melodic function in any
           convenient typology.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.pitchclass" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that describe pitch
+      class</a:documentation>
+    <optional>
+      <attribute name="pclass">
+        <a:documentation xml:lang="eng">holds pitch class
+          information.</a:documentation>
+        <ref name="data.PITCHCLASS"/>
+      </attribute>
+    </optional>
+  </define>
+
+  <define name="att.solfa" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that specify pitch using
+      solfa</a:documentation>
+    <optional>
+      <attribute name="psolfa">
+        <a:documentation xml:lang="eng">contains solfa designation, e.g., do,
+          re, mi, etc., in either a fixed or movable Do
+          system.</a:documentation>
       </attribute>
     </optional>
   </define>
