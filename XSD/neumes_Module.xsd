@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <!-- Neumes Module -->
+  <!-- Declare module attr classes -->
+  <xs:attributeGroup name="att.ineume.anl">
+    <xs:annotation>
+      <xs:documentation>Analytical domain
+      attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.common.anl"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ineume.log">
+    <xs:annotation>
+      <xs:documentation>Logical domain attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="form" type="data.INEUMEFORM">
+      <xs:annotation>
+        <xs:documentation>provides a subclass or functional label
+          for the neume.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="data.INEUMENAME">
+      <xs:annotation>
+        <xs:documentation>records a name of an interrupted
+          neume.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ineume.vis">
+    <xs:annotation>
+      <xs:documentation>Visual domain attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.color"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.uneume.anl">
+    <xs:annotation>
+      <xs:documentation>Analytical domain
+      attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.common.anl"/>
+    <xs:attributeGroup ref="att.harmonicfunction"/>
+    <xs:attributeGroup ref="att.melodicfunction"/>
+    <xs:attributeGroup ref="att.intervallicdesc"/>
+    <xs:attributeGroup ref="att.solfa"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.uneume.log">
+    <xs:annotation>
+      <xs:documentation>Logical domain attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.event"/>
+    <xs:attributeGroup ref="att.syltext"/>
+    <xs:attribute name="form" type="data.UNEUMEFORM">
+      <xs:annotation>
+        <xs:documentation>provides a subclass or functional label
+          for the neume.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="data.UNEUMENAME">
+      <xs:annotation>
+        <xs:documentation>records the name of an uninterrupted
+          neume.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.uneume.vis">
+    <xs:annotation>
+      <xs:documentation>Visual domain attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.altsym"/>
+    <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.relativesize"/>
+    <xs:attributeGroup ref="att.visualoffset.ho"/>
+    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="att.visibility"/>
+  </xs:attributeGroup>
+  <!-- Declare module model classes -->
+  <xs:group name="model.eventLike.neumes">
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="ineume"/>
+        <xs:element ref="uneume"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:group>
+  <!--
+    <define name="model.sectionPart" combine="choice">
+      <a:documentation xml:lang="eng">groups elements that may appear as part of a
+        section.</a:documentation>
+      <zeroOrMore>
+        <ref name="model.staffLike"/>
+      </zeroOrMore>
+    </define>
+  -->
+  <xs:group name="model.syllableLike">
+    <xs:annotation>
+      <xs:documentation>groups elements that accommodate neumed
+      text.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="syllable"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.syllablePart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of
+      content of a syllable.</xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:group ref="model.sylLike"/>
+      <xs:group ref="model.eventLike"/>
+      <xs:group ref="model.eventLike.neumes"/>
+      <xs:group ref="model.midiLike"/>
+      <xs:group ref="model.controleventLike"/>
+      <xs:group ref="model.lyricsLike"/>
+      <xs:group ref="model.noteModifierLike"/>
+      <xs:group ref="model.verseLike"/>
+    </xs:choice>
+  </xs:group>
+  <!-- Declare module elements -->
+  <xs:complexType name="content.ineume">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="model.eventLike"/>
+      <xs:group ref="model.eventLike.neumes"/>
+      <xs:group ref="model.appLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.verseLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="ineume">
+    <xs:annotation>
+      <xs:documentation>interrupted neume ― a graphically
+        interrupted neume; that is, a neume which is logically a single entity
+        written using multiple signs. The constituent signs may be encoded using
+        ineume and uneume sub-elements.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.ineume">
+          <xs:attributeGroup ref="attlist.ineume"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.ineume">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="att.ineume.log"/>
+    <xs:attributeGroup ref="att.ineume.vis"/>
+    <xs:attributeGroup ref="att.ineume.anl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.syllable">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="model.appLike"/>
+      <xs:group ref="model.divLike"/>
+      <xs:group ref="model.milestoneLike.music"/>
+      <xs:group ref="model.scoredefLike"/>
+      <xs:group ref="model.staffdefLike"/>
+      <xs:group ref="model.staffgrpLike"/>
+      <xs:group ref="model.annotLike"/>
+      <xs:group ref="model.graphicprimitiveLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.syllablePart"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="syllable">
+    <xs:annotation>
+      <xs:documentation>syllable ― Neume notation can be thought
+        of as "neumed text". Therefore, the syllable element provides high-level
+        organization in this repertoire.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.syllable">
+          <xs:attributeGroup ref="attlist.syllable"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.syllable">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.uneume">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="model.eventLike"/>
+      <xs:group ref="model.appLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="model.verseLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="uneume">
+    <xs:annotation>
+      <xs:documentation>uninterrupted neume ― A graphically
+        uninterrupted neume sign. While ineume is allowed as a sub-element of
+        uneume here as part of the model.eventLike.neume class, it is unlikely
+        that an uninterrupted neume containing an interrupted neume is a
+        meaningful construct.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.uneume">
+          <xs:attributeGroup ref="attlist.uneume"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.uneume">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="att.uneume.log"/>
+    <xs:attributeGroup ref="att.uneume.vis"/>
+    <xs:attributeGroup ref="att.uneume.anl"/>
+  </xs:attributeGroup>
+</xs:schema>

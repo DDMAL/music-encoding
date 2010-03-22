@@ -1,0 +1,1501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <!-- Header Module -->
+  <!-- Declare additional start elements -->
+  <!-- Declare module attr classes -->
+  <xs:attributeGroup name="att.regularmethod">
+    <xs:annotation>
+      <xs:documentation>Attributes that describe correction and
+      normalization methods</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="method">
+      <xs:annotation>
+        <xs:documentation>indicates the method employed to mark
+          corrections and normalizations.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="silent"/>
+          <xs:enumeration value="tags"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <!-- Declare module model classes -->
+  <xs:complexType name="model.availabilityPart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of a
+      description of the availability of and access to a bibliographic
+      item.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:sequence minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="acqsource"/>
+        <xs:sequence minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="accessdesc"/>
+          <xs:element minOccurs="0" ref="price"/>
+        </xs:sequence>
+      </xs:sequence>
+      <xs:element minOccurs="0" ref="userestrict"/>
+      <xs:element minOccurs="0" ref="sysreq"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:group name="model.editorialdeclPart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of a
+      description of the editorial process applied to the encoding of
+      notation.</xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element ref="correction"/>
+      <xs:element ref="interpretation"/>
+      <xs:element ref="normalization"/>
+      <xs:element ref="segmentation"/>
+      <xs:element ref="stdvals"/>
+    </xs:choice>
+  </xs:group>
+  <xs:complexType name="model.encodingPart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of
+      information regarding the encoding process.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="appinfo"/>
+      <xs:element minOccurs="0" ref="projectdesc"/>
+      <xs:element minOccurs="0" ref="samplingdecl"/>
+      <xs:element minOccurs="0" ref="editorialdecl"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:group name="model.frontPart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of
+      front matter.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="titlepage"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.headerPart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of
+      the MEI header.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="encodingdesc"/>
+      <xs:element minOccurs="0" ref="profiledesc"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.physdescPart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of
+      the physical description of a bibliographic item.</xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:element ref="condition"/>
+      <xs:element ref="dimensions"/>
+      <xs:element ref="exhibithist"/>
+      <xs:element ref="extent"/>
+      <xs:element ref="handlist"/>
+      <xs:element ref="inscription"/>
+      <xs:element ref="physmedium"/>
+      <xs:element ref="physloc"/>
+      <xs:element ref="provenance"/>
+      <xs:group ref="model.repositoryLike"/>
+      <xs:group ref="model.frontPart"/>
+      <xs:element ref="treatmenthist"/>
+      <xs:element ref="treatmentsched"/>
+    </xs:choice>
+  </xs:group>
+  <xs:complexType name="model.profiledescPart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of
+      the profile description.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="creation"/>
+      <xs:element minOccurs="0" ref="langusage"/>
+      <xs:element minOccurs="0" ref="classification"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:group name="model.pubstmtPart">
+    <xs:annotation>
+      <xs:documentation>groups elements that may appear as part of
+      the publication statement for a bibliographic item.</xs:documentation>
+    </xs:annotation>
+    <xs:choice>
+      <xs:group ref="model.nameLike.geogname"/>
+      <xs:group ref="model.addressLike"/>
+      <xs:element ref="respstmt"/>
+      <xs:group ref="model.dateLike"/>
+      <xs:group ref="model.identifierLike"/>
+      <xs:element ref="availability"/>
+    </xs:choice>
+  </xs:group>
+  <!-- Declare module elements -->
+  <xs:complexType name="content.meihead">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="altmeiid"/>
+      <xs:element ref="filedesc"/>
+      <xs:group ref="model.headerPart"/>
+      <xs:element minOccurs="0" ref="revisiondesc"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="meihead">
+    <xs:annotation>
+      <xs:documentation>meihead ― A wrapper for general
+        bibliographic and descriptive information about the encoded file. This
+        information is often essential in a machine-readable environment. Five
+        sub-elements must be encoded in the following order:
+        &lt;altmeiid&gt;(optional), &lt;filedesc&gt;(required),
+        &lt;encodingdesc&gt;(optional),
+        &lt;profiledesc;&gt;(optional), and
+        &lt;revisiondesc&gt;(optional). These elements and their
+        sub-elements provide: a unique identifier for the MEI file,
+        bibliographic information about the MEI file and its sources,
+        information about the encoding process, information about the creation
+        of the work being encoded, and statements regarding significant
+        revisions of the file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.meihead">
+          <xs:attributeGroup ref="attlist.meihead"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.meihead">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.meiversion"/>
+    <xs:attribute name="type">
+      <xs:annotation>
+        <xs:documentation>specifies the kind of document to which
+          the header is attached, that is, whether it is a corpus or an
+          individual text.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="music"/>
+          <xs:enumeration value="corpus"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:complexType name="content.accessdesc" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="accessdesc">
+    <xs:annotation>
+      <xs:documentation>access description ― Describes the
+        conditions that affect the accessibility of material. May indicate the
+        nature of restrictions or the lack of restrictions. Do not confuse this
+        element with &lt;userestrict&gt; (usage restrictions), which
+        captures information about limitations on the use of material, such as
+        those afforded by copyright.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.accessdesc">
+          <xs:attributeGroup ref="attlist.accessdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.accessdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.acqsource" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="acqsource">
+    <xs:annotation>
+      <xs:documentation>acquisition source ― Post-publication
+        source from which access to a bibliographic item may be obtained, e.g.
+        vendor, distributor, etc.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.acqsource">
+          <xs:attributeGroup ref="attlist.acqsource"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.acqsource">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.altmeiid" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="altmeiid">
+    <xs:annotation>
+      <xs:documentation>alternative MEI identifier ― May contain a
+        bibliographic identifier that does not fit within the meihead id
+        attribute, for example because the id does not fit the definition of an
+        XML id or because multiple identifiers are needed. One or the other of
+        &lt;altmeiid&gt; or the id attribute on &lt;mei&gt; is
+        required when applicable.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.altmeiid">
+          <xs:attributeGroup ref="attlist.altmeiid"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.altmeiid">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.appinfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="application"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="appinfo">
+    <xs:annotation>
+      <xs:documentation>application information ― Groups
+        information about applications which have acted upon the MEI file. This
+        is not to be confused with applications which were used to create the
+        MEI file. The latter may be recorded in the projectdesc
+        element.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.appinfo">
+          <xs:attributeGroup ref="attlist.appinfo"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.appinfo">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.application">
+    <xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="model.nameLike"/>
+      <xs:choice>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.ptrLike"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="application">
+    <xs:annotation>
+      <xs:documentation>application ― Provides information about
+        an application which has acted upon the current
+        document.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.application">
+          <xs:attributeGroup ref="attlist.application"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.application">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.datable"/>
+    <xs:attributeGroup ref="att.typed"/>
+    <xs:attribute name="version">
+      <xs:annotation>
+        <xs:documentation>supplies a version number for an
+          application, independent of its identifier or display
+          name.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:complexType name="content.availability">
+    <xs:complexContent>
+      <xs:extension base="model.availabilityPart"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="availability">
+    <xs:annotation>
+      <xs:documentation>availability ― Groups elements that
+        describe the availability of and access to a bibliographic item,
+        including the MEI-encoded document itself.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.availability">
+          <xs:attributeGroup ref="attlist.availability"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.availability">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.change">
+    <xs:sequence>
+      <xs:element ref="respstmt"/>
+      <xs:element ref="changedesc"/>
+      <xs:group ref="model.dateLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="change">
+    <xs:annotation>
+      <xs:documentation>change ― Individual change within the
+        revision description. Additions, deletions, and significant recoding
+        should be noted, but not correction of minor typographical errors. It is
+        recommended that revisions should be entered in reverse chronological
+        order, with the most recent &lt;change&gt; first. The resp
+        attribute contains a pointer to an element containing info about the
+        person/entity responsible for change. The edition element can be used to
+        designate an MEI encoding that has been so substantively changed that it
+        constitutes a new version that supersedes earlier
+        versions.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.change">
+          <xs:attributeGroup ref="attlist.change"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.change">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.changedesc">
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+  </xs:complexType>
+  <xs:element name="changedesc">
+    <xs:annotation>
+      <xs:documentation>change description ― Description of a
+        revision of the MEI file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.changedesc">
+          <xs:attributeGroup ref="attlist.changedesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.changedesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="classcode">
+    <xs:annotation>
+      <xs:documentation>classification code ― Library of Congress
+        subject or call number, or a thesaurus or ontology citation, for
+        example. The source of controlled-vocabulary terms used in the
+        &lt;keywords&gt; element.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.classcode"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.classcode">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.classification">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element ref="classcode"/>
+      <xs:element ref="keywords"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="classification">
+    <xs:annotation>
+      <xs:documentation>classification ― Groups information which
+        describes the nature or topic of a musical work. Although use of names
+        and terms from locally controlled vocabularies is possible, terms used
+        here should come from standard national or international vocabularies
+        whenever they are available in order to enable searches in systems that
+        include multiple MEI documents, or MEI documents and bibliographic
+        records from many institutions.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.classification">
+          <xs:attributeGroup ref="attlist.classification"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.classification">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.condition" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="condition">
+    <xs:annotation>
+      <xs:documentation>condition ― The physical condition of an
+        item, particularly any variances between the physical makeup of the item
+        and that of other copies of the same item (e.g., missing pages, plates,
+        etc.). Condition may reflect other aspects of the physical condition of
+        the item as well (e.g., brittleness, faded images,
+        etc.).</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.condition">
+          <xs:attributeGroup ref="attlist.condition"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.condition">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.correction">
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+  </xs:complexType>
+  <xs:element name="correction">
+    <xs:annotation>
+      <xs:documentation>correction ― States how and under what
+        circumstances corrections have been made in the musical
+        text.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.correction">
+          <xs:attributeGroup ref="attlist.correction"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.correction">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.regularmethod"/>
+    <xs:attribute name="status">
+      <xs:annotation>
+        <xs:documentation>indicates the degree of correction
+          applied to the text.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="high"/>
+          <xs:enumeration value="medium"/>
+          <xs:enumeration value="low"/>
+          <xs:enumeration value="unknown"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:complexType name="content.creation">
+    <xs:group maxOccurs="unbounded" ref="model.textcomponentLike"/>
+  </xs:complexType>
+  <xs:element name="creation">
+    <xs:annotation>
+      <xs:documentation>creation ― Non-bibliographic creation
+        details for the work being encoded, in narrative form. Contains phrases
+        describing the origin of the text, e.g. the date, place, and
+        circumstances of its composition.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.creation">
+          <xs:attributeGroup ref="attlist.creation"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.creation">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.dimensions" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="dimensions">
+    <xs:annotation>
+      <xs:documentation>dimensions ― Information about the
+        physical size of a bibliographic source; usually includes numerical
+        data. There are no height and width sub-elements; however, num
+        sub-elements may be used with appropriate n attribute values.
+        Measurements may be expressed in any convenient unit. Do not confuse
+        this element with the &lt;extent&gt; element, which is used to
+        indicate the quantity of described materials.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.dimensions">
+          <xs:attributeGroup ref="attlist.dimensions"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.dimensions">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.measurement"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.editionstmt">
+    <xs:sequence maxOccurs="unbounded">
+      <xs:group ref="model.editionLike"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="respstmt"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="editionstmt">
+    <xs:annotation>
+      <xs:documentation>edition statement ― Container for
+        meta-data pertaining to a particular edition of the material being
+        described.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.editionstmt">
+          <xs:attributeGroup ref="attlist.editionstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.editionstmt">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.editorialdecl">
+    <xs:choice>
+      <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+      <xs:sequence>
+        <xs:group maxOccurs="unbounded" ref="model.editorialdeclPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
+      </xs:sequence>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="editorialdecl">
+    <xs:annotation>
+      <xs:documentation>editorial declaration ― Used to provide
+        details of editorial principles and practices applied during the
+        encoding of musical text.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.editorialdecl">
+          <xs:attributeGroup ref="attlist.editorialdecl"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.editorialdecl">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.encodingdesc">
+    <xs:complexContent>
+      <xs:extension base="model.encodingPart"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="encodingdesc">
+    <xs:annotation>
+      <xs:documentation>encoding description ― Documents the
+        relationship between an electronic file and the source or sources from
+        which it was derived as well as applications used in the
+        encoding/editing process.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.encodingdesc">
+          <xs:attributeGroup ref="attlist.encodingdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.encodingdesc">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.exhibithist" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="exhibithist">
+    <xs:annotation>
+      <xs:documentation>exhibition history ― A record of public
+        exhibitions, including dates, venues, etc.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.exhibithist">
+          <xs:attributeGroup ref="attlist.exhibithist"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.exhibithist">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.extent" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="extent">
+    <xs:annotation>
+      <xs:documentation>extent ― Used to express size in terms
+        other than physical dimensions, such as number of pages, number of
+        records in file, number of bytes, performance duration for music, audio
+        recordings and visual projections, etc. Use the
+        &lt;dimensions&gt; element when it is necessary to specify the
+        physical size of materials being described, for example, height and
+        width.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.extent">
+          <xs:attributeGroup ref="attlist.extent"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.extent">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.measurement"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.filedesc">
+    <xs:sequence>
+      <xs:element ref="titlestmt"/>
+      <xs:element minOccurs="0" ref="editionstmt"/>
+      <xs:element minOccurs="0" ref="extent"/>
+      <xs:element minOccurs="0" ref="fingerprint"/>
+      <xs:element ref="pubstmt"/>
+      <xs:element minOccurs="0" ref="seriesstmt"/>
+      <xs:element minOccurs="0" ref="notesstmt"/>
+      <xs:element minOccurs="0" ref="sourcedesc"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="filedesc">
+    <xs:annotation>
+      <xs:documentation>file description ― Contains a full
+        bibliographic description of the MEI file. Extent in this context is
+        file size.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.filedesc">
+          <xs:attributeGroup ref="attlist.filedesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.filedesc">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:element name="fingerprint">
+    <xs:annotation>
+      <xs:documentation>fingerprint ― Traditionally, an
+        identifier, constructed by combining groups of characters transcribed
+        from specified pages of a printed item, which makes it possible to
+        signal differences between copies of the item. For an electronic item,
+        such as an MEI file, however, the fingerprint should be a
+        checksum.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.fingerprint"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.fingerprint">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.hand" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="hand">
+    <xs:annotation>
+      <xs:documentation>hand ― Defines a distinct scribe or
+        handwriting style. The initial attribute indicates whether this is the
+        first or main scribe of the document. The medium attribute describes the
+        writing medium, e.g., 'pencil', or the tint or type of ink, e.g.
+        'brown'. The resp attribute contains an ID reference to an element
+        containing the name of the editor or transcriber responsible for
+        identifying the hand. The characteristics of the hand, particularly
+        those related to the quality of the writing, such as 'shaky', 'thick',
+        etc. may be described within the content of the hand
+        element.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.hand">
+          <xs:attributeGroup ref="attlist.hand"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.hand">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.medium"/>
+    <xs:attributeGroup ref="att.responsibility"/>
+    <xs:attribute name="initial" type="data.BOOLEAN">
+      <xs:annotation>
+        <xs:documentation>marks this hand as the initial one of
+          the document.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:complexType name="content.handlist">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="hand"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="handlist">
+    <xs:annotation>
+      <xs:documentation>hand list ― Container for one or more hand
+        elements.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.handlist">
+          <xs:attributeGroup ref="attlist.handlist"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.handlist">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.inscription" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="model.textphraseLike.limited"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="inscription">
+    <xs:annotation>
+      <xs:documentation>inscription ― An inscription added to an
+        item, such as a bookplate, a note designating the item as a gift, and/or
+        the author's signature.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.inscription">
+          <xs:attributeGroup ref="attlist.inscription"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.inscription">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.interpretation">
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+  </xs:complexType>
+  <xs:element name="interpretation">
+    <xs:annotation>
+      <xs:documentation>interpretation ― Describes the scope of
+        any analytic or interpretive information added to the transcription of
+        the music.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.interpretation">
+          <xs:attributeGroup ref="attlist.interpretation"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.interpretation">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.keywords">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="term"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="keywords">
+    <xs:annotation>
+      <xs:documentation>keywords ― Collection of keywords or text
+        phrases which describe the work.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.keywords">
+          <xs:attributeGroup ref="attlist.keywords"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.keywords">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.language" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="language">
+    <xs:annotation>
+      <xs:documentation>language ― Description of a language used
+        in the document. A text element may be related to this element via its
+        xml:lang attribute, which normally takes the form of a code, drawn from
+        a coded list, such as ISO639-2b. The name of the authorizing list may be
+        encoded in the authority attribute.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.language">
+          <xs:attributeGroup ref="attlist.language"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.language">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.authorized"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.langusage">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="language"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="langusage">
+    <xs:annotation>
+      <xs:documentation>language usage ― Langusage groups elements
+        describing the languages, sublanguages, dialects, etc., represented
+        within the encoded work.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.langusage">
+          <xs:attributeGroup ref="attlist.langusage"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.langusage">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.normalization">
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+  </xs:complexType>
+  <xs:element name="normalization">
+    <xs:annotation>
+      <xs:documentation>normalization ― Indicates the extent of
+        normalization or regularization of the original source carried out in
+        converting it to electronic form.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.normalization">
+          <xs:attributeGroup ref="attlist.normalization"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.normalization">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.regularmethod"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.notesstmt">
+    <xs:group maxOccurs="unbounded" ref="model.annotLike"/>
+  </xs:complexType>
+  <xs:element name="notesstmt">
+    <xs:annotation>
+      <xs:documentation>notes statement ― Groups bibliographic
+        annotations, each of which provides descriptive information in addition
+        to that recorded in other parts of the bibliographic description. These
+        annotations are similar to "general notes" in traditional bibliographic
+        descriptions.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.notesstmt">
+          <xs:attributeGroup ref="attlist.notesstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.notesstmt">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.physdesc">
+    <xs:group maxOccurs="unbounded" ref="model.physdescPart"/>
+  </xs:complexType>
+  <xs:element name="physdesc">
+    <xs:annotation>
+      <xs:documentation>physical description ― Container for
+        information about the location, appearance, construction, or handling of
+        physical materials, such as their dimension, quantity, color, style, and
+        technique of creation. Dedicatory text and title page features may also
+        be encoded here when they are not transcribed as part of the front or
+        back matter; i.e., when they are considered to be meta-data rather than
+        a transcription.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.physdesc">
+          <xs:attributeGroup ref="attlist.physdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.physdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.physloc" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="physloc">
+    <xs:annotation>
+      <xs:documentation>physical location ― Location of the source
+        within a repository, e.g., shelf mark or other locational
+        information.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.physloc">
+          <xs:attributeGroup ref="attlist.physloc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.physloc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.physmedium" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="physmedium">
+    <xs:annotation>
+      <xs:documentation>physical medium ― Records the physical
+        materials used in the source, such as ink and paper. All materials may
+        be described in a single &lt;physmedium&gt; element or multiple
+        elements may be used, one for each medium.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.physmedium">
+          <xs:attributeGroup ref="attlist.physmedium"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.physmedium">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.authorized"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.price" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="price">
+    <xs:annotation>
+      <xs:documentation>price ― The cost of access to a
+        bibliographic item.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.price">
+          <xs:attributeGroup ref="attlist.price"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.price">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.measurement"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.profiledesc">
+    <xs:complexContent>
+      <xs:extension base="model.profiledescPart"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="profiledesc">
+    <xs:annotation>
+      <xs:documentation>profile description ― A detailed
+        description of the non-bibliographic aspects of the creation of a
+        musical work, specifically the languages and sublanguages used, the
+        situation in which it was produced, e.g. the participants, setting,
+        reception history, etc. Do not confuse this with
+        &lt;filedesc&gt;, which bundles bibliographic information about
+        the creation of the MEI file.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.profiledesc">
+          <xs:attributeGroup ref="attlist.profiledesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.profiledesc">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.projectdesc">
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+  </xs:complexType>
+  <xs:element name="projectdesc">
+    <xs:annotation>
+      <xs:documentation>project description ― Project-level
+        meta-data describing the aim or purpose for which the electronic file
+        was encoded, funding agencies, etc. together with any other relevant
+        information concerning the process by which it was assembled or
+        collected.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.projectdesc">
+          <xs:attributeGroup ref="attlist.projectdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.projectdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.provenance" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="model.listLike"/>
+      <xs:group ref="model.textphraseLike.limited"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="provenance">
+    <xs:annotation>
+      <xs:documentation>provenance ― The record of ownership or
+        custodianship of an item.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.provenance">
+          <xs:attributeGroup ref="attlist.provenance"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.provenance">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.pubstmt">
+    <xs:choice>
+      <xs:element minOccurs="0" ref="unpub"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pubstmtPart"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="pubstmt">
+    <xs:annotation>
+      <xs:documentation>publication statement ― Container for
+        information regarding the publication or distribution of a bibliographic
+        item, including the publisher's name and address, the date of
+        publication, and other relevant details. When an item is unpublished,
+        use only the &lt;unpub&gt; sub-element.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.pubstmt">
+          <xs:attributeGroup ref="attlist.pubstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.pubstmt">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="resp">
+    <xs:annotation>
+      <xs:documentation>responsibility ― A phrase describing the
+        nature of a person's intellectual responsibility. The name of the list
+        from which a controlled value is taken may be recorded using the
+        authority attribute.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attributeGroup ref="attlist.resp"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.resp">
+    <xs:attributeGroup ref="att.authorized"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.respstmt">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="resp"/>
+      <xs:group ref="model.nameLike"/>
+      <xs:group ref="model.nameLike.agent"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="respstmt">
+    <xs:annotation>
+      <xs:documentation>responsibility statement ― Names one or
+        more individuals, groups, or in rare cases, mechanical processes,
+        responsible for creation or realization of the intellectual or artistic
+        content.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.respstmt">
+          <xs:attributeGroup ref="attlist.respstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.respstmt">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.revisiondesc">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="change"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="revisiondesc">
+    <xs:annotation>
+      <xs:documentation>revision description ― Container for
+        information about alterations that have been made to an MEI file. It is
+        recommended that changes be recorded in reverse chronological order,
+        with the most recent alteration first.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.revisiondesc">
+          <xs:attributeGroup ref="attlist.revisiondesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.revisiondesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.samplingdecl">
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+  </xs:complexType>
+  <xs:element name="samplingdecl">
+    <xs:annotation>
+      <xs:documentation>sampling declaration ― Contains a prose
+        description of the rationale and methods used in sampling texts in the
+        creation of a corpus or collection.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.samplingdecl">
+          <xs:attributeGroup ref="attlist.samplingdecl"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.samplingdecl">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.segmentation">
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+  </xs:complexType>
+  <xs:element name="segmentation">
+    <xs:annotation>
+      <xs:documentation>segmentation ― Describes the principles
+        according to which the musical text has been segmented, for example into
+        movements, sections, etc.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.segmentation">
+          <xs:attributeGroup ref="attlist.segmentation"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.segmentation">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.seriesstmt">
+    <xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="model.titleLike"/>
+      <xs:element minOccurs="0" ref="respstmt"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.identifierLike"/>
+      <xs:choice>
+        <xs:group ref="model.listLike"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="seriesstmt"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="seriesstmt">
+    <xs:annotation>
+      <xs:documentation>series statement ― Groups information
+        about the series, if any, to which a publication belongs. In this
+        context, the title element records the series title, the respStmt
+        element records the person or group responsible for the series, and the
+        identifier element contains a series identifier. The list element should
+        be used when it is necessary to enumerate the contents of the series.
+        The seriesstmt is provided within seriesstmt for the description of a
+        sub-series.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.seriesstmt">
+          <xs:attributeGroup ref="attlist.seriesstmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.seriesstmt">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.source">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.identifierLike"/>
+      <xs:element minOccurs="0" ref="titlestmt"/>
+      <xs:element minOccurs="0" ref="editionstmt"/>
+      <xs:element ref="pubstmt"/>
+      <xs:element minOccurs="0" ref="physdesc"/>
+      <xs:element minOccurs="0" ref="seriesstmt"/>
+      <xs:element minOccurs="0" ref="notesstmt"/>
+      <xs:element minOccurs="0" ref="langusage"/>
+      <xs:element minOccurs="0" ref="classification"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="source">
+    <xs:annotation>
+      <xs:documentation>source ― A bibliographic description of a
+        source for the electronic file. Within source, the extent element may be
+        used when only a portion of the source, pages 1-3 for example, are
+        encoded. If extent is absent, then the entire source is presumed to have
+        been encoded. Multiple physdesc sub-elements may be used to describe the
+        physically separate parts of a single source. The data attribute may be
+        used to reference one or more features that occur in this particular
+        source.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.source">
+          <xs:attributeGroup ref="attlist.source"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.source">
+    <xs:attributeGroup ref="att.datapointing"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.sourcedesc">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="source"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="sourcedesc">
+    <xs:annotation>
+      <xs:documentation>source description ― A container for the
+        descriptions of the source(s) used in the creation of the electronic
+        file. This element is recommended where the MEI file is a transcription
+        of existing music, but is not required when the data is originally
+        created in MEI form.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.sourcedesc">
+          <xs:attributeGroup ref="attlist.sourcedesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.sourcedesc">
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.stdvals">
+    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+  </xs:complexType>
+  <xs:element name="stdvals">
+    <xs:annotation>
+      <xs:documentation>standard values ― Specifies the format
+        used when standardized date or number values are
+        supplied.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.stdvals">
+          <xs:attributeGroup ref="attlist.stdvals"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.stdvals">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.sysreq" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="sysreq">
+    <xs:annotation>
+      <xs:documentation>system requirements ― System requirements
+        for using the electronic item.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.sysreq">
+          <xs:attributeGroup ref="attlist.sysreq"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.sysreq">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.term" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element ref="term"/>
+      <xs:group ref="model.textphraseLike.limited"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="term">
+    <xs:annotation>
+      <xs:documentation>term ― Single keyword or phrase which
+        describes the work. The classcode attribute may be used to link the term
+        to a terminological source given in a classcode element. The term
+        element may include other term elements in order to allow the creation
+        of coordinated terms; i.e., terms created from a combination of other,
+        independent terms.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.term">
+          <xs:attributeGroup ref="attlist.term"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.term">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attribute name="classcode" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation>contains a reference to the controlled
+          vocabulary from which the term is drawn. The value must match the
+          value of an ID attribute on a classcode element given elsewhere in the
+          document.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:complexType name="content.titlestmt">
+    <xs:sequence>
+      <xs:group maxOccurs="unbounded" ref="model.titleLike"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="respstmt"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="titlestmt">
+    <xs:annotation>
+      <xs:documentation>title statement ― Container for title and
+        responsibility meta-data.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.titlestmt">
+          <xs:attributeGroup ref="attlist.titlestmt"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.titlestmt">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.treatmenthist" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="treatmenthist">
+    <xs:annotation>
+      <xs:documentation>treatment history ― A record of the
+        treatment the item has undergone (e.g., deacidification, restoration,
+        etc.) Treatment history may also comprise details of the treatment
+        process (e.g., chemical solutions used, techniques applied, etc.), the
+        date the treatment was applied, etc.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.treatmenthist">
+          <xs:attributeGroup ref="attlist.treatmenthist"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.treatmenthist">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.treatmentsched" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="treatmentsched">
+    <xs:annotation>
+      <xs:documentation>treatment scheduled ― Scheduled treatment,
+        e.g. deacidification, restoration, etc., for an item.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.treatmentsched">
+          <xs:attributeGroup ref="attlist.treatmentsched"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.treatmentsched">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:element name="unpub">
+    <xs:annotation>
+      <xs:documentation>unpublished ― Used to explicitly indicate
+        that a bibliographic source is unpublished.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.unpub"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.unpub">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.userestrict" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
+  <xs:element name="userestrict">
+    <xs:annotation>
+      <xs:documentation>usage restrictions ― Container for
+        information about the conditions that affect use of a bibliographic item
+        after access has been granted. May indicate limitations imposed by an
+        owner, repository, or legal statute (for example, copyright law)
+        regarding the reproduction, publication, or quotation of the item. May
+        also indicate the absence of restrictions, such as when rights have been
+        ceded to the public domain. Do not confuse with the
+        &lt;accessdesc&gt; element, which holds information about
+        conditions affecting the availability of the material.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.userestrict">
+          <xs:attributeGroup ref="attlist.userestrict"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.userestrict">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.bibl"/>
+  </xs:attributeGroup>
+</xs:schema>

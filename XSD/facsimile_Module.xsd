@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <!-- Facsimile module -->
+  <!-- Declare module attr classes -->
+  <xs:attributeGroup name="att.facsimile">
+    <xs:attribute name="facs" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation>permits the current element to reference
+          a facsimile image or image zone which corresponds to
+          it.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <!-- Declare module model classes -->
+  <xs:group name="model.facsimileLike">
+    <xs:sequence>
+      <xs:element ref="facsimile"/>
+    </xs:sequence>
+  </xs:group>
+  <!-- Declare module elements -->
+  <xs:complexType name="content.facsimile">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="surface"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="facsimile">
+    <xs:annotation>
+      <xs:documentation>facsimile ― Contains a representation of
+        some written source in the form of a set of images rather than as
+        transcribed or encoded text. The source attribute may be used to link
+        the collection of images with a particular source described in the
+        header.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.facsimile">
+          <xs:attributeGroup ref="attlist.facsimile"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.facsimile">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.source"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.surface">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.figdescLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="zone"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="surface">
+    <xs:annotation>
+      <xs:documentation>surface ― Defines a written surface in
+        terms of a rectangular coordinate space, optionally grouping one or more
+        graphic representations of that space, and rectangular zones of interest
+        within it. The startid attribute may be used to hold a reference to the
+        first feature occurring on this surface.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.surface">
+          <xs:attributeGroup ref="attlist.surface"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.surface">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.coordinated"/>
+    <xs:attributeGroup ref="att.startid"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.zone">
+    <xs:sequence>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.figdescLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="zone">
+    <xs:annotation>
+      <xs:documentation>zone ― Defines a rectangular area
+        contained within a surface.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.zone">
+          <xs:attributeGroup ref="attlist.zone"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.zone">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.coordinated"/>
+  </xs:attributeGroup>
+</xs:schema>

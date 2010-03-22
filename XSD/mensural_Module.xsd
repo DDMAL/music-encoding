@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <!-- Mensural module -->
+  <!-- Declare data types -->
+  <!-- Declare module attr classes -->
+  <xs:attributeGroup name="att.ligature.anl">
+    <xs:annotation>
+      <xs:documentation>Analytical domain
+      attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.common.anl"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ligature.log">
+    <xs:annotation>
+      <xs:documentation>Logical domain attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="form" type="data.LIGATUREFORM">
+      <xs:annotation>
+        <xs:documentation>provides an indication of the function
+          of the ligature.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.anl">
+    <xs:annotation>
+      <xs:documentation>Analytical domain
+      attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.common.anl"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.log">
+    <xs:annotation>
+      <xs:documentation>Logical domain attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.duration.ratio"/>
+    <xs:attribute name="modusmaior" type="data.MODUSMAIOR">
+      <xs:annotation>
+        <xs:documentation>describes the maxima-long
+          relationship.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="modusminor" type="data.MODUSMINOR">
+      <xs:annotation>
+        <xs:documentation>describes the long-breve
+          relationship.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="prolatio" type="data.PROLATIO">
+      <xs:annotation>
+        <xs:documentation>describes the semibreve-minim
+          relationship.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="tempus" type="data.TEMPUS">
+      <xs:annotation>
+        <xs:documentation>describes the breve-semibreve
+          relationship.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.vis">
+    <xs:annotation>
+      <xs:documentation>Visual domain attributes. These attributes
+      describe the physical appearance of the mensuration sign/time signature of
+      mensural notation.</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="att.relativesize"/>
+    <xs:attributeGroup ref="att.slashcount"/>
+    <xs:attributeGroup ref="att.staffloc"/>
+    <xs:attribute name="dot" type="data.BOOLEAN">
+      <xs:annotation>
+        <xs:documentation>specifies whether a dot is to be added
+          to the base symbol.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation>indicates whether the base symbol is
+          written vertically or horizontally.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="horizontal"/>
+          <xs:enumeration value="vertical"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="orient" type="data.ORIENTATION">
+      <xs:annotation>
+        <xs:documentation>describes the rotation or reflection of
+          the base symbol.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="sign" type="data.MENSURATIONSIGN">
+      <xs:annotation>
+        <xs:documentation>the base symbol in the mensuration
+          sign/time signature of mensural notation.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.log">
+    <xs:annotation>
+      <xs:documentation>Used by staffdef and scoredef to provide
+      default values for attributes in the logical domain related to
+      mensuration</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.mensur.log"/>
+    <xs:attribute name="mensur.dot" type="data.BOOLEAN">
+      <xs:annotation>
+        <xs:documentation>determines if a dot is to be added to
+          the base symbol.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="mensur.orient" type="data.ORIENTATION">
+      <xs:annotation>
+        <xs:documentation>describes the rotation or reflection of
+          the base symbol.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="mensur.sign" type="data.MENSURATIONSIGN">
+      <xs:annotation>
+        <xs:documentation>the base symbol in the mensuration
+          sign/time signature of mensural notation.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="mensur.slash" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation>indicates the number lines added to the
+          mensuration sign. For example, one slash is added for what we now call
+          'alla breve'.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.vis">
+    <xs:annotation>
+      <xs:documentation>Used by staffdef and scoredef to provide
+      default values for attributes in the visual domain related to
+      mensuration</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="mensur.form">
+      <xs:annotation>
+        <xs:documentation>indicates whether the base symbol is
+          written vertically or horizontally.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="horizontal"/>
+          <xs:enumeration value="vertical"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="mensur.loc" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation>holds the staff location of the
+          mensuration sign.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="mensur.size" type="data.SIZE">
+      <xs:annotation>
+        <xs:documentation>describes the relative size of the
+          mensuration sign.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.proport.anl">
+    <xs:annotation>
+      <xs:documentation>Analytical domain
+      attributes</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.common.anl"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.proport.log">
+    <xs:annotation>
+      <xs:documentation>Logical domain attributes. These attributes
+      describe augmentation or diminution of the normal value of the notes in
+      mensural notation as a ratio.</xs:documentation>
+    </xs:annotation>
+    <xs:attributeGroup ref="att.duration.ratio"/>
+  </xs:attributeGroup>
+  <!-- Declare module model classes -->
+  <!--
+    <define name="model.sectionPart" combine="choice">
+      <a:documentation xml:lang="eng">groups elements that may appear as part of a
+        section.</a:documentation>
+      <zeroOrMore>
+        <ref name="model.staffLike"/>
+      </zeroOrMore>
+    </define>
+  -->
+  <!-- Declare module elements -->
+  <xs:element name="mensur">
+    <xs:annotation>
+      <xs:documentation>mensuration ― The &lt;mensur&gt;
+        element is provided for the encoding of mensural notation. It collects
+        information about the metrical relationship between a note value and the
+        next smaller value. The slash attribute indicates the number lines added
+        to the mensuration sign. For example, one slash is added for what we now
+        call 'alla breve'.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.mensur"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.mensur">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.mensur.log"/>
+    <xs:attributeGroup ref="att.mensur.vis"/>
+    <xs:attributeGroup ref="att.mensur.anl"/>
+  </xs:attributeGroup>
+  <!--
+    <define name="content.mensurchange">
+      <oneOrMore>
+        <ref name="mensur"/>
+      </oneOrMore>
+    </define>
+    
+    <define name="mensurchange">
+      <element name="mensurchange">
+        <a:documentation xml:lang="eng">mensuration change ― Use of the
+          &lt;mensurchange&gt; element indicates a change of mensuration;
+          that is, the relationship between note duration
+          values.</a:documentation>
+        <ref name="attlist.mensurchange"/>
+        <ref name="content.mensurchange"/>
+      </element>
+    </define>
+    
+    <define name="attlist.mensurchange">
+      <ref name="att.common"/>
+      <ref name="att.facsimile"/>
+    </define>
+  -->
+  <xs:element name="proport">
+    <xs:annotation>
+      <xs:documentation>proportion ― The
+        &lt;proportion&gt; element is provided for the encoding of
+        mensural notation. It allows the description of note durations as
+        arithmetic ratios. While mensuration refers to the normal relationships
+        between note durations, proportion affects the relations of the note
+        durations to the tactus.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.proport"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.proport">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.proport.log"/>
+    <xs:attributeGroup ref="att.proport.anl"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.ligature">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.layerPart"/>
+  </xs:complexType>
+  <xs:element name="ligature">
+    <xs:annotation>
+      <xs:documentation>ligature ― The &lt;ligature&gt;
+        element is provided for the encoding of mensural notation where multiple
+        notes are represented by joined symbols.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.ligature">
+          <xs:attributeGroup ref="attlist.ligature"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.ligature">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.ligature.log"/>
+    <xs:attributeGroup ref="att.ligature.anl"/>
+  </xs:attributeGroup>
+  <!--
+    <define name="content.proportchange">
+      <oneOrMore>
+        <ref name="proport"/>
+      </oneOrMore>
+    </define>
+    
+    <define name="proportchange">
+      <element name="proportchange">
+        <a:documentation xml:lang="eng">proportion change ― Use of the
+          &lt;proportchange&gt; element indicates a change of propotion;
+          that is, the relationship between note duration values and the
+          tactus.</a:documentation>
+        <ref name="attlist.proportchange"/>
+        <ref name="content.proportchange"/>
+      </element>
+    </define>
+    
+    <define name="attlist.proportchange">
+      <ref name="att.common"/>
+      <ref name="att.facsimile"/>
+    </define>
+  -->
+</xs:schema>

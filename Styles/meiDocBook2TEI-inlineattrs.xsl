@@ -58,7 +58,7 @@
         </fileDesc>
       </teiHeader>
       <text>
-        <!-- <front>
+        <front>
           <titlePage>
             <docTitle>
               <titlePart>MUSIC ENCODING INITIATIVE<lb/>TAG LIBRARY</titlePart>
@@ -88,7 +88,7 @@
             <head>Tag Library Conventions</head>
             <p><xsl:value-of select="$loremipsum"/></p>
           </div>
-        </front> -->
+        </front>
         <body>
           <div type="chapter">
             <head>MEI Elements</head>
@@ -340,10 +340,10 @@
                 <xsl:otherwise>
                   <xsl:choose>
                     <xsl:when test="db:entry[1] = 'xml:id'">
-                      <xsl:text>, ID</xsl:text>
+                      <xsl:text>, xs:ID</xsl:text>
                     </xsl:when>
                     <xsl:when test="db:entry[1] = 'xml:lang'">
-                      <xsl:text>, ID</xsl:text>
+                      <xsl:text>, xs:language</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
                       <xsl:text>, CDATA</xsl:text>
@@ -361,6 +361,11 @@
                 <xsl:when test="db:entry[1] = 'xml:lang'">
                   <xsl:value-of
                     select="normalize-space(//db:sect3[contains(db:title,'@xml:lang')]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Annotations ']/db:entry[2]//db:programlisting)"
+                  />
+                </xsl:when>
+                <xsl:when test="db:entry[1] = 'xlink:title'">
+                  <xsl:value-of
+                    select="normalize-space(//db:sect3[contains(db:title,'@xlink:title')]/db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Annotations ']/db:entry[2]//db:programlisting)"
                   />
                 </xsl:when>
                 <xsl:otherwise>

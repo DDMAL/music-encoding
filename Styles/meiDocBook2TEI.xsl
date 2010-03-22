@@ -146,7 +146,7 @@
                           <xsl:variable name="thisattr">
                             <xsl:value-of select="@xml:id"/>
                           </xsl:variable>
-                          
+
                           <xsl:for-each
                             select="//db:sect3[starts-with(db:title, 'Element')
                             and descendant::db:row[db:entry=' Attributes ']//db:emphasis[@linkend=$thisattr]]">
@@ -154,7 +154,7 @@
                               <xsl:value-of select="db:title/db:literal"/>
                             </ref>
                           </xsl:for-each>
-                          
+
                         </xsl:otherwise>
                       </xsl:choose>
                     </xsl:variable>
@@ -359,10 +359,10 @@
                 <xsl:otherwise>
                   <xsl:choose>
                     <xsl:when test="db:entry[1] = 'xml:id'">
-                      <xsl:text>, ID</xsl:text>
+                      <xsl:text>, xs:ID</xsl:text>
                     </xsl:when>
                     <xsl:when test="db:entry[1] = 'xml:lang'">
-                      <xsl:text>, ID</xsl:text>
+                      <xsl:text>, xs:language</xsl:text>
                     </xsl:when>
                     <xsl:otherwise>
                       <xsl:text>, CDATA</xsl:text>

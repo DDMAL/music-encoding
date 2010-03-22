@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <!-- Figure and Table module -->
+  <!-- Declare module attr classes -->
+  <xs:attributeGroup name="att.tabular">
+    <xs:annotation>
+      <xs:documentation>Attributes shared by table cells</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="colspan" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation>the number of columns spanned by this
+          cell.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="rowspan" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation>the number of rows spanned by this
+          cell.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <!-- Declare module model classes -->
+  <xs:group name="model.figureLike">
+    <xs:sequence>
+      <xs:element ref="fig"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.graphicLike">
+    <xs:sequence>
+      <xs:element ref="graphic"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.figdescLike">
+    <xs:sequence>
+      <xs:element ref="figdesc"/>
+    </xs:sequence>
+  </xs:group>
+  <xs:group name="model.tableLike">
+    <xs:annotation>
+      <xs:documentation>groups table-like
+      elements.</xs:documentation>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element ref="table"/>
+    </xs:sequence>
+  </xs:group>
+  <!-- Declare module elements -->
+  <xs:element name="graphic">
+    <xs:annotation>
+      <xs:documentation>graphic ― Indicates the location of an
+        inline graphic, illustration, or figure.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attributeGroup ref="attlist.graphic"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.graphic">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.internetmedia"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attributeGroup ref="att.measurement"/>
+    <xs:attribute name="height" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation>measurement of the vertical dimension of
+          an image.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attributeGroup ref="att.width"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.fig">
+    <xs:sequence>
+      <xs:group minOccurs="0" ref="model.captionLike"/>
+      <xs:element minOccurs="0" ref="figdesc"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="fig">
+    <xs:annotation>
+      <xs:documentation>figure ― groups elements representing or
+        containing graphic information such as an illustration or
+        figure.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.fig">
+          <xs:attributeGroup ref="attlist.fig"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.fig">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.link.common"/>
+    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attributeGroup ref="att.xy"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.figdesc" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="model.graphicprimitiveLike"/>
+      <xs:group ref="model.textcomponentLike"/>
+      <xs:group ref="model.annotLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="figdesc">
+    <xs:annotation>
+      <xs:documentation>figure description ― Contains a brief
+        prose description of the appearance or content of a graphic figure, for
+        use when documenting an image without displaying it. Best practice
+        suggests the use of controlled vocabulary. Don't confuse this element
+        with a figure caption. A caption is text primarily intended for display
+        with an illustration. It may or may not function as a description of the
+        illustration.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.figdesc">
+          <xs:attributeGroup ref="attlist.figdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.figdesc">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.table">
+    <xs:sequence>
+      <xs:group minOccurs="0" ref="model.captionLike"/>
+      <xs:element maxOccurs="unbounded" ref="tr"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="table">
+    <xs:annotation>
+      <xs:documentation>table ― Visual layout in tabular
+        form.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.table">
+          <xs:attributeGroup ref="attlist.table"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.table">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.xy"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.td" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="model.textcomponentLike"/>
+      <xs:group ref="model.textphraseLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="td">
+    <xs:annotation>
+      <xs:documentation>table data ― Designates a table cell that
+        contains data as opposed to a cell that contains column or row heading
+        information. The colspan and rowspan attributes tabular display
+        rendering information.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.td">
+          <xs:attributeGroup ref="attlist.td"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.td">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="att.tabular"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.th" mixed="true">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:group ref="model.textcomponentLike"/>
+      <xs:group ref="model.textphraseLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="th">
+    <xs:annotation>
+      <xs:documentation>table header ― Designates a table cell
+        containing column or row heading information as opposed to one
+        containing data. The colspan and rowspan attributes tabular display
+        rendering information.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.th">
+          <xs:attributeGroup ref="attlist.th"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.th">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="att.tabular"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.tr">
+    <xs:choice maxOccurs="unbounded">
+      <xs:element ref="th"/>
+      <xs:element ref="td"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:element name="tr">
+    <xs:annotation>
+      <xs:documentation>table row ― A formatting element that
+        contains one or more &lt;td&gt; or &lt;th&gt; elements
+        (cells) in a &lt;table&gt;. A cell is the intersection of a row
+        and a column. The precise rendition of the table and its cells should be
+        specified in a style sheet.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.tr">
+          <xs:attributeGroup ref="attlist.tr"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.tr">
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="att.xy"/>
+  </xs:attributeGroup>
+</xs:schema>
