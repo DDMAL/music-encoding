@@ -6,6 +6,13 @@
     <filedesc>
       <titlestmt>
         <title/>
+        <respstmt>
+          <resp/>
+          <corpname/>
+          <resp/>
+          <name/>
+        </respstmt>
+        <respstmt/>
       </titlestmt>
       <pubstmt/>
       <sourcedesc>
@@ -15,6 +22,27 @@
             <handlist>
               <hand xml:id="h1"/>
             </handlist>
+            <provenance>
+              <eventlist>
+                <head>Ownership History</head>
+                <event>
+                  <date reg="1812-03-25"/>
+                  <eventdesc n="composition">same model as paragraph
+                    here</eventdesc>
+                </event>
+                <event>
+                  <date reg="1812-06-26"/>
+                  <eventdesc n="dedication">
+                    <corpname role="dedicatee">Swiss ...</corpname>
+                  </eventdesc>
+                </event>
+                <event>
+                  <date reg="1813"/>
+                  <eventdesc/>
+                  <eventdesc/>
+                </event>
+              </eventlist>
+            </provenance>
           </physdesc>
         </source>
         <source xml:id="s2">
@@ -22,7 +50,46 @@
         </source>
       </sourcedesc>
     </filedesc>
-    <profiledesc/>
+    <profiledesc>
+      <creation>
+        <p/>
+      </creation>
+      <langusage>
+        <language xml:id="it">Italian</language>
+      </langusage>
+      <classification>
+        <keywords>
+          <term>Foobar</term>
+        </keywords>
+      </classification>
+      <eventlist>
+        <head>Composition History</head>
+        <event>
+          <date reg="1812-03-25"/>
+          <geogname>My Little Town</geogname>
+          <eventdesc n="composition"/>
+        </event>
+        <event>
+          <date reg="1812-06-26"/>
+          <eventdesc n="dedication">
+            <corpname role="dedicatee">Swiss ...</corpname>
+          </eventdesc>
+        </event>
+        <event>
+          <date reg="1813"/>
+          <eventdesc/>
+          <eventdesc/>
+        </event>
+      </eventlist>
+      <eventlist>
+        <head>Reception History</head>
+        <event>
+          <date reg="1814-04-01"/>
+          <eventdesc>1st performance</eventdesc>
+          <eventdesc>1st bad review</eventdesc>
+        </event>
+      </eventlist>
+    </profiledesc>
     <revisiondesc>
       <change>
         <respstmt/>
@@ -49,7 +116,8 @@
                 <chordmember pname="e" fing="o" xml:id="E1"/>
                 <chordmember pname="b" fing="3" fret="2" xml:id="E2"/>
                 <chordmember pname="e" fret="2" fing="2" xml:id="E3"/>
-                <chordmember pname="g" accid.ges="s" fing="1" fret="2" xml:id="E4"/>
+                <chordmember pname="g" accid.ges="s" fing="1" fret="2"
+                  xml:id="E4"/>
                 <chordmember pname="b" fing="o" xml:id="E5"/>
                 <chordmember pname="e" fing="o" xml:id="E6"/>
                 <barre fret="2" startid="E1" endid="E4"/>
@@ -58,7 +126,8 @@
                 <chordmember pname="e" fing="o" xml:id="E21"/>
                 <chordmember pname="b" fing="3" fret="2" xml:id="E22"/>
                 <chordmember pname="e" fret="2" fing="2" xml:id="E23"/>
-                <chordmember pname="g" accid.ges="s" fing="1" fret="2" xml:id="E24"/>
+                <chordmember pname="g" accid.ges="s" fing="1" fret="2"
+                  xml:id="E24"/>
                 <chordmember pname="b" fing="o" xml:id="E25"/>
                 <chordmember pname="e" fing="o" xml:id="E26"/>
                 <barre fret="2" startid="E21" endid="E22"/>
@@ -70,7 +139,7 @@
             <staffgrp>
               <instrdef xml:id="i1"/>
               <instrdef xml:id="i1-1"/>
-              <staffdef n="1" lines="5">
+              <staffdef n="1" lines="5" clef.dis.place="below">
                 <clef line="3" shape="G"/>
               </staffdef>
               <staffdef n="2" lines="7" clef.line="2" clef.shape="G"/>
@@ -82,16 +151,47 @@
             <section xml:id="section1a">
               <measure>
                 <staff n="3">
-                  <damage agent="fooDidIt"><layer></layer></damage>
+                  <damage agent="fooDidIt">
+                    <layer/>
+                  </damage>
                   <layer>
-                    <note syl="a" instr="i1"><dot ho=".5" vo="1"/></note>
+                    <app>
+                      <rdg>
+                        <note syl="a" instr="i1" fermata="within">
+                          <dot ho=".5" vo="1"/>
+                        </note>
+                      </rdg>
+                    </app>
                     <clefchange line="8" shape="F"/>
                     <bend staff="1" amount=".5" startid="m1"/>
-                    <octave staff="1" dis="8" layer="1" dis.place="above" tstamp="1"
-                      dur="3"/>
+                    <octave staff="1" dis="8" layer="1" dis.place="above"
+                      tstamp="1" dur="3"/>
                     <custos oct="4" pname="a" target="n1"/>
                     <barline taktplace="17"/>
                     <pb source="s1 s2"/>
+                  </layer>
+                  <layer>
+                    <tuplet>
+                      <app>
+                        <rdg/>
+                      </app>
+                    </tuplet>
+                    <beam>
+                      <note grace="unknown" grace.time="350%"/>
+                      <app>
+                        <rdg>
+                          <add>
+                            <note/>
+                            <note/>
+                          </add>
+                        </rdg>
+                        <rdg>
+                          <note/>
+                          <note/>
+                        </rdg>
+                      </app>
+                      <note/>
+                    </beam>
                   </layer>
                 </staff>
                 <staff n="1"/>
@@ -100,14 +200,14 @@
                     <note xml:id="n1" syl="a"/>
                     <clefchange line="6" shape="F"/>
                     <bend staff="1" amount=".5" startid="m1"/>
-                    <octave staff="1" dis="8" layer="1" dis.place="above" tstamp="1"
-                      dur="3"/>
+                    <octave staff="1" dis="8" layer="1" dis.place="above"
+                      tstamp="1" dur="3"/>
                   </layer>
                 </staff>
-                <slur staff="1" tstamp="2" endid="m1"/>
+                <slur staff="1" tstamp="2" endid="m1" curvedir="above"/>
                 <arpeg staff="1"/>
                 <harm staff="1" tstamp="3" chordref="Emajor" when="w12"/>
-                <tupletspan tstamp="1" dur="2"/>
+                <tupletspan tstamp="1" dur="2" bracket.place="above" num.place="below" />
               </measure>
             </section>
             <add hand="h1">
