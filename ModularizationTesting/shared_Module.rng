@@ -362,6 +362,18 @@
         </list>
       </attribute>
     </optional>
+    <optional>
+      <attribute name="curvedir">
+        <a:documentation xml:lang="eng">describes a curve with a generic term
+          indicating whether the curve bows upward or downward. Upward curves go
+          above the items they cover, while downward curves go under
+          them.</a:documentation>
+        <choice>
+          <value>above</value>
+          <value>below</value>
+        </choice>
+      </attribute>
+    </optional>
   </define>
 
   <define name="att.curverend" combine="interleave">
@@ -566,7 +578,7 @@
           this element. If visual information about the fermata needs to be
           recorded, then a &lt;fermata&gt; element should be employed
           instead.</a:documentation>
-        <ref name="data.PLACE"/>
+        <ref name="data.STAFFREL"/>
       </attribute>
     </optional>
   </define>
@@ -1116,6 +1128,13 @@
         <data type="IDREF"/>
       </attribute>
     </optional>
+    <optional>
+      <attribute name="role">
+        <a:documentation xml:lang="eng">used to specify further information
+          about the entity referenced by this name, for example, the occupation
+          of a person or the status of a place.</a:documentation>
+      </attribute>
+    </optional>
   </define>
 
   <define name="att.octave" combine="interleave">
@@ -1215,7 +1234,7 @@
       <attribute name="place">
         <a:documentation xml:lang="eng">captures the placement of the item with
           respect to the staff with which it is associated.</a:documentation>
-        <ref name="data.PLACE"/>
+        <ref name="data.STAFFREL"/>
       </attribute>
     </optional>
   </define>
@@ -2439,7 +2458,7 @@
   <define name="att.phrase.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
-    <ref name="att.placement"/>
+    <!-- <ref name="att.placement"/> -->
     <ref name="att.visualoffset"/>
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>

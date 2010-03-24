@@ -687,6 +687,7 @@
     <choice>
       <value>acc</value>
       <value>unacc</value>
+      <value>unknown</value>
     </choice>
   </define>
 
@@ -927,11 +928,31 @@
   </define>
 
   <define name="data.PLACE">
-    <a:documentation>Place, i.e., location of musical material relative to a
+    <a:documentation>Location of symbol relative to other notational
+      components.</a:documentation>
+    <choice>
+      <value>above</value>
+      <value>below</value>
+    </choice>
+  </define>
+
+  <define name="data.OTHERSTAFF">
+    <a:documentation>For musical material designated to appear on another staff,
+      the location of the staff relative to the current one; i.e., the staff
+      above or the staff below.</a:documentation>
+    <choice>
+      <value>above</value>
+      <value>below</value>
+    </choice>
+  </define>
+
+  <define name="data.STAFFREL">
+    <a:documentation>Location of musical material relative to a
       staff.</a:documentation>
     <choice>
       <value>above</value>
       <value>below</value>
+      <value>within</value>
     </choice>
   </define>
 

@@ -130,6 +130,9 @@
     <optional>
       <ref name="classification"/>
     </optional>
+    <zeroOrMore>
+      <ref name="eventlist"/>
+    </zeroOrMore>
   </define>
 
   <define name="model.pubstmtPart" combine="interleave">
@@ -220,6 +223,7 @@
   <define name="attlist.accessdesc">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.acqsource">
@@ -244,6 +248,7 @@
   <define name="attlist.acqsource">
     <ref name="att.bibl"/>
     <ref name="att.common"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.altmeiid">
@@ -398,6 +403,7 @@
   <define name="attlist.changedesc">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.classcode">
@@ -473,6 +479,7 @@
   <define name="attlist.condition">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.correction">
@@ -494,6 +501,7 @@
   <define name="attlist.correction">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
     <ref name="att.regularmethod"/>
     <optional>
       <attribute name="status">
@@ -529,6 +537,7 @@
   <define name="attlist.creation">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.dimensions">
@@ -582,6 +591,7 @@
   <define name="attlist.editionstmt">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.editorialdecl">
@@ -613,6 +623,7 @@
   <define name="attlist.editorialdecl">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.encodingdesc">
@@ -656,6 +667,7 @@
   <define name="attlist.exhibithist">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.extent">
@@ -776,6 +788,7 @@
   <define name="attlist.hand">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
     <ref name="att.medium"/>
     <ref name="att.responsibility"/>
     <optional>
@@ -831,6 +844,7 @@
   <define name="attlist.inscription">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.interpretation">
@@ -852,6 +866,7 @@
   <define name="attlist.interpretation">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.keywords">
@@ -941,6 +956,7 @@
   <define name="attlist.normalization">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
     <ref name="att.regularmethod"/>
   </define>
 
@@ -1040,6 +1056,7 @@
     <ref name="att.common"/>
     <ref name="att.bibl"/>
     <ref name="att.authorized"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.price">
@@ -1110,16 +1127,21 @@
   <define name="attlist.projectdesc">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.provenance">
-    <zeroOrMore>
-      <choice>
-        <text/>
-        <ref name="model.listLike"/>
-        <ref name="model.textphraseLike.limited"/>
-      </choice>
-    </zeroOrMore>
+    <choice>
+      <optional>
+        <ref name="eventlist"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+    </choice>
   </define>
 
   <define name="provenance">
@@ -1134,6 +1156,7 @@
   <define name="attlist.provenance">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.pubstmt">
@@ -1250,6 +1273,7 @@
   <define name="attlist.samplingdecl">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.segmentation">
@@ -1271,6 +1295,7 @@
   <define name="attlist.segmentation">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.seriesstmt">
@@ -1342,13 +1367,10 @@
   <define name="source">
     <element name="source">
       <a:documentation xml:lang="eng">source ― A bibliographic description of a
-        source for the electronic file. Within source, the extent element may be
-        used when only a portion of the source, pages 1-3 for example, are
-        encoded. If extent is absent, then the entire source is presumed to have
-        been encoded. Multiple physdesc sub-elements may be used to describe the
-        physically separate parts of a single source. The data attribute may be
-        used to reference one or more features that occur in this particular
-        source.</a:documentation>
+        source for the electronic file. Multiple physdesc sub-elements may be
+        used to describe the physically separate parts of a single source. The
+        data attribute may be used to reference one or more features that occur
+        in this particular source.</a:documentation>
       <ref name="attlist.source"/>
       <ref name="content.source"/>
     </element>
@@ -1401,6 +1423,7 @@
   <define name="attlist.stdvals">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.sysreq">
@@ -1424,6 +1447,7 @@
   <define name="attlist.sysreq">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+    <ref name="att.lang"/>
   </define>
 
   <define name="content.term">
@@ -1566,11 +1590,11 @@
     <element name="userestrict">
       <a:documentation xml:lang="eng">usage restrictions ― Container for
         information about the conditions that affect use of a bibliographic item
-        after access has been granted. May indicate limitations imposed by an
+        after access has been granted. It may indicate limitations imposed by an
         owner, repository, or legal statute (for example, copyright law)
-        regarding the reproduction, publication, or quotation of the item. May
-        also indicate the absence of restrictions, such as when rights have been
-        ceded to the public domain. Do not confuse with the
+        regarding the reproduction, publication, or quotation of the item. It
+        may also indicate the absence of restrictions, such as when rights have
+        been ceded to the public domain. Do not confuse this element with the
         &lt;accessdesc&gt; element, which holds information about
         conditions affecting the availability of the material.</a:documentation>
       <ref name="attlist.userestrict"/>
@@ -1581,6 +1605,90 @@
   <define name="attlist.userestrict">
     <ref name="att.common"/>
     <ref name="att.bibl"/>
+  </define>
+
+  <define name="eventlist">
+    <element name="eventlist">
+      <a:documentation xml:lang="eng">event list ― Contains historical
+        information given as a sequence of significant past events.
+        &lt;eventlist&gt; contains &lt;event&gt; elements that
+        pair a date or date range with a brief description of the associated
+        event and locations where the event took place. An
+        &lt;eventlist&gt; describes events associated with a work when
+        it appears in the &lt;profiledesc&gt; element or events
+        associated with the custodial history of a given copy of a source for
+        the encoding when it appears within the &lt;source&gt; element.
+        It may be used to provide a structured display.</a:documentation>
+      <ref name="attlist.eventlist"/>
+      <ref name="content.eventlist"/>
+    </element>
+  </define>
+
+  <define name="attlist.eventlist">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.eventlist">
+    <optional>
+      <ref name="model.headLike"/>
+    </optional>
+    <oneOrMore>
+      <ref name="event"/>
+    </oneOrMore>
+  </define>
+
+  <define name="event">
+    <element name="event">
+      <a:documentation xml:lang="eng">event ― Groups a date, one or more
+        descriptions of an event, and any number of places (including none at
+        all) where the event took place. The &lt;date&gt; element may
+        contain a single date or a date range.</a:documentation>
+      <ref name="attlist.event"/>
+      <ref name="content.event"/>
+    </element>
+  </define>
+
+  <define name="attlist.event">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+  </define>
+
+  <define name="content.event">
+    <ref name="model.dateLike"/>
+    <zeroOrMore>
+      <choice>
+        <ref name="model.nameLike"/>
+        <ref name="model.nameLike.place"/>
+      </choice>
+    </zeroOrMore>
+    <oneOrMore>
+      <ref name="eventdesc"/>
+    </oneOrMore>
+  </define>
+
+  <define name="eventdesc">
+    <element name="eventdesc">
+      <a:documentation xml:lang="eng">event description ― Describes or names
+        something that happened.</a:documentation>
+      <ref name="attlist.eventdesc"/>
+      <ref name="content.eventdesc"/>
+    </element>
+  </define>
+
+  <define name="attlist.eventdesc">
+    <ref name="att.bibl"/>
+    <ref name="att.common"/>
+    <ref name="att.lang"/>
+  </define>
+
+  <define name="content.eventdesc">
+    <zeroOrMore>
+      <choice>
+        <text/>
+        <ref name="model.textphraseLike.limited"/>
+      </choice>
+    </zeroOrMore>
   </define>
 
 </grammar>

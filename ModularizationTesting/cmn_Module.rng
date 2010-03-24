@@ -29,7 +29,7 @@
         <a:documentation xml:lang="eng">In the case of cross-staff beams, the
           with attribute is used to indicate which staff the beam is connected
           to; that is, the staff above or the staff below.</a:documentation>
-        <ref name="data.PLACE"/>
+        <ref name="data.OTHERSTAFF"/>
       </attribute>
     </optional>
   </define>
@@ -231,8 +231,9 @@
       <attribute name="stem.with">
         <a:documentation xml:lang="eng">contains an indication of which staff a
           note or chord that logically belongs to the current staff should be
-          visually placed on.</a:documentation>
-        <ref name="data.PLACE"/>
+          visually placed on; that is, the one above or the one
+          below.</a:documentation>
+        <ref name="data.OTHERSTAFF"/>
       </attribute>
     </optional>
   </define>
@@ -1225,7 +1226,7 @@
       attribute is the vertical offset (from its normal position) of the entire
       rendered slur/phrase mark.</a:documentation>
     <ref name="att.color"/>
-    <ref name="att.placement"/>
+    <!-- <ref name="att.placement"/> -->
     <ref name="att.visualoffset"/>
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
@@ -1279,7 +1280,7 @@
       terms of staff interline distance. Startto and endto describe the start
       and end points in terms of time; that is, beats.</a:documentation>
     <ref name="att.color"/>
-    <ref name="att.placement"/>
+    <!-- <ref name="att.placement"/> -->
     <ref name="att.visualoffset"/>
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
@@ -1515,6 +1516,9 @@
     <oneOrMore>
       <choice>
         <ref name="model.eventLike"/>
+        <ref name="model.appLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
       </choice>
     </oneOrMore>
   </define>
@@ -2261,6 +2265,9 @@
     <oneOrMore>
       <choice>
         <ref name="model.eventLike"/>
+        <ref name="model.appLike"/>
+        <ref name="model.editLike"/>
+        <ref name="model.transcriptionLike"/>
       </choice>
     </oneOrMore>
   </define>
