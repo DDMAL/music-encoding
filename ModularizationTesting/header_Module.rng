@@ -174,7 +174,9 @@
         bibliographic information about the MEI file and its sources,
         information about the encoding process, information about the creation
         of the work being encoded, and statements regarding significant
-        revisions of the file.</a:documentation>
+        revisions of the file. The xml:lang attribute may be used to indicate
+        the language in which the metadata content of the header is
+        provided.</a:documentation>
       <ref name="attlist.meihead"/>
       <ref name="content.meihead"/>
     </element>
@@ -491,8 +493,7 @@
   <define name="correction">
     <element name="correction">
       <a:documentation xml:lang="eng">correction ― States how and under what
-        circumstances corrections have been made in the musical
-        text.</a:documentation>
+        circumstances corrections have been made in the text.</a:documentation>
       <ref name="attlist.correction"/>
       <ref name="content.correction"/>
     </element>
@@ -504,7 +505,7 @@
     <ref name="att.lang"/>
     <ref name="att.regularmethod"/>
     <optional>
-      <attribute name="status">
+      <attribute name="corrlevel">
         <a:documentation xml:lang="eng">indicates the degree of correction
           applied to the text.</a:documentation>
         <choice>
@@ -1302,9 +1303,9 @@
     <oneOrMore>
       <ref name="model.titleLike"/>
     </oneOrMore>
-    <optional>
+    <zeroOrMore>
       <ref name="respstmt"/>
-    </optional>
+    </zeroOrMore>
     <zeroOrMore>
       <ref name="model.identifierLike"/>
     </zeroOrMore>
@@ -1607,6 +1608,12 @@
     <ref name="att.bibl"/>
   </define>
 
+  <!--
+    eventlist(head?, event)
+    event (date, (model.nameLike.place)*, eventdesc)
+    eventdesc(paragraph-like-model)
+  -->
+
   <define name="eventlist">
     <element name="eventlist">
       <a:documentation xml:lang="eng">event list ― Contains historical
@@ -1627,12 +1634,10 @@
   <define name="attlist.eventlist">
     <ref name="att.bibl"/>
     <ref name="att.common"/>
+    <ref name="att.typed"/>
   </define>
 
   <define name="content.eventlist">
-    <optional>
-      <ref name="model.headLike"/>
-    </optional>
     <oneOrMore>
       <ref name="event"/>
     </oneOrMore>
@@ -1640,10 +1645,9 @@
 
   <define name="event">
     <element name="event">
-      <a:documentation xml:lang="eng">event ― Groups a date, one or more
-        descriptions of an event, and any number of places (including none at
-        all) where the event took place. The &lt;date&gt; element may
-        contain a single date or a date range.</a:documentation>
+      <a:documentation xml:lang="eng">event ― groups a date and an event
+        description. Optionally, one or more places where the event took place
+        may be given.</a:documentation>
       <ref name="attlist.event"/>
       <ref name="content.event"/>
     </element>
@@ -1657,14 +1661,9 @@
   <define name="content.event">
     <ref name="model.dateLike"/>
     <zeroOrMore>
-      <choice>
-        <ref name="model.nameLike"/>
-        <ref name="model.nameLike.place"/>
-      </choice>
+      <ref name="model.nameLike.place"/>
     </zeroOrMore>
-    <oneOrMore>
-      <ref name="eventdesc"/>
-    </oneOrMore>
+    <ref name="eventdesc"/>
   </define>
 
   <define name="eventdesc">

@@ -3,14 +3,7 @@
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
 
-  <!-- <define name="data.MEIVERSION">
-    <a:documentation>This version of MEI.</a:documentation>
-    <data type="token">
-      <param name="pattern">1.9b</param>
-    </data>
-  </define> -->
-
-  <define name="data.BEND.AMOUNT">
+<define name="data.BEND.AMOUNT">
     <a:documentation>Either a decimal value or a token. The decimal values are
       limited to .25, .5, .75, or 1, while the token values are restricted to
       'full'.</a:documentation>
@@ -70,7 +63,7 @@
   <define name="data.FINGER.FRET">
     <a:documentation>In a guitar chord diagram, a label indicating which finger,
       if any, should be used to play an individual string. The values 'x' and
-      'o' indicated stopped and open strings, respectively.</a:documentation>
+      'o' indicate stopped and open strings, respectively.</a:documentation>
     <choice>
       <data type="positiveInteger">
         <param name="minInclusive">1</param>
