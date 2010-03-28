@@ -104,14 +104,17 @@
             <!-- Alternative encoding of same data in a more machine-processable
             fashion. Uncertain dates may have notbefore and/or notafter attributes. -->
             <provenance>
-              <list form="ordered">
-                <item>Weber family <date notafter="1985">until
-                  1986</date></item>
-                <item>
-                  <repository>Berlin State Library</repository>
+              <eventlist>
+                <event>
+                  <date notafter="1985">until 1986</date>
+                  <eventdesc>Weber family </eventdesc>
+                </event>
+                <event>
                   <date notbefore="1986">1986-</date>
-                </item>
-              </list>
+                  <eventdesc>owned by the <repository>Berlin State
+                      Library</repository></eventdesc>
+                </event>
+              </eventlist>
             </provenance>
 
             <!-- Handlist identifies and describes the unique scribal hands found
@@ -151,17 +154,30 @@
             <physloc>ML 30.8b .W4 t</physloc>
             <extent>43 sheets</extent>
             <provenance>
-              <list form="ordered">
-                <item>Carl Baermann, Munich <date>1865</date></item>
-                <item>Carl Wittgenstein</item>
-                <item>Hermione Wittgenstein</item>
-                <item>Wittgenstein family</item>
-                <item>
+              <eventlist>
+                <event>
+                  <date>1865</date>
+                  <eventdesc>Carl Baermann, Munich</eventdesc>
+                </event>
+                <event>
+                  <date/>
+                  <eventdesc>Carl Wittgenstein</eventdesc>
+                </event>
+                <event>
+                  <date/>
+                  <eventdesc>Hermione Wittgenstein</eventdesc>
+                </event>
+                <event>
+                  <date/>
+                  <eventdesc>Wittgenstein family</eventdesc>
+                </event>
+                <event>
+                  <date notbefore="1948">1948-</date>
                   <repository>Library of Congress, Gertrude Clarke Whittall
                     Foundation Collection</repository>
-                  <date notbefore="1948">1948-</date>
-                </item>
-              </list>
+                  <eventdesc/>
+                </event>
+              </eventlist>
             </provenance>
           </physdesc>
         </source>
@@ -269,11 +285,11 @@
                   actually contains a timestamp.  Here it is a timestamp (beat 2)
                   in the next measure (1m). CRAIG SAYS: need example which shows
                   beat = time sig denominator -->
-                  <phrase xml:id="p1" place="below" staff="2" tstamp="1"
+                  <phrase xml:id="p1" curvedir="below" staff="2" tstamp="1"
                     dur="1m+2"/>
-                  <phrase xml:id="p2" place="below" staff="3" tstamp="1"
+                  <phrase xml:id="p2" curvedir="below" staff="3" tstamp="1"
                     dur="0m+2.5"/>
-                  <phrase xml:id="p3" place="below" staff="4" tstamp="1"
+                  <phrase xml:id="p3" curvedir="below" staff="4" tstamp="1"
                     dur="0m+2.5"/>
                   <!-- dynamic markings found in a1 -->
                   <dynam place="below" staff="2" tstamp="1" ho="-4">pp:</dynam>
@@ -282,11 +298,11 @@
                 </rdg>
                 <rdg source="a2">
                   <!-- phrase marks in a2 -->
-                  <phrase xml:id="p4" place="above" staff="2" tstamp="1"
+                  <phrase xml:id="p4" curvedir="above" staff="2" tstamp="1"
                     dur="1m+2.5"/>
-                  <phrase xml:id="p5" place="above" staff="3" tstamp="1"
+                  <phrase xml:id="p5" curvedir="above" staff="3" tstamp="1"
                     dur="1m+2.5"/>
-                  <phrase xml:id="p6" place="below" staff="4" tstamp="1"
+                  <phrase xml:id="p6" curvedir="below" staff="4" tstamp="1"
                     dur="0m+2.5"/>
                   <!-- dynamic markings found in a2 -->
                   <dynam place="below" staff="2" tstamp="1" ho="-4">pp.</dynam>
@@ -347,12 +363,12 @@
               <app>
                 <rdg source="a1">
                   <!-- phrase marks only in a1 -->
-                  <phrase xml:id="p7" place="below" staff="3" tstamp="1"
+                  <phrase xml:id="p7" curvedir="below" staff="3" tstamp="1"
                     dur="1m+2.5"/>
                 </rdg>
                 <rdg source="a1 a2">
                   <!-- phrase marks in all sources -->
-                  <phrase xml:id="p8" place="below" staff="4" tstamp="1"
+                  <phrase xml:id="p8" curvedir="below" staff="4" tstamp="1"
                     dur="1m+2.5"/>
                 </rdg>
               </app>
@@ -406,14 +422,14 @@
               <app>
                 <rdg source="a1">
                   <!-- phrase marks in a1 -->
-                  <phrase xml:id="p9" place="above" staff="2" tstamp="1" dur="3"
-                  />
+                  <phrase xml:id="p9" curvedir="above" staff="2" tstamp="1"
+                    dur="3"/>
                 </rdg>
                 <rdg source="a2">
                   <!-- phrase marks in a2 -->
-                  <phrase xml:id="p10" place="above" staff="2" tstamp="1"
+                  <phrase xml:id="p10" curvedir="above" staff="2" tstamp="1"
                     dur="1m+3"/>
-                  <phrase xml:id="p11" place="above" staff="3" tstamp="1"
+                  <phrase xml:id="p11" curvedir="above" staff="3" tstamp="1"
                     dur="1m+3"/>
                 </rdg>
               </app>
@@ -454,11 +470,11 @@
               and actuate this set of many-to-many links. -->
               <annot>
                 <p>
-                  <extptr xlink:href="imageboxes.svg#id(starts-with(name(),'p')"/>All slurs must be
-                  understood as <rend fontstyle="ital">sempre legato</rend> even
-                  though this instruction is not written in the sources, but
-                  instead is derived from the irregularities and variants of
-                  both sources.</p>
+                  <extptr xlink:href="imageboxes.svg#id(starts-with(name(),'p')"
+                  />All slurs must be understood as <rend fontstyle="ital"
+                    >sempre legato</rend> even though this instruction is not
+                  written in the sources, but instead is derived from the
+                  irregularities and variants of both sources.</p>
               </annot>
 
             </measure>
@@ -527,16 +543,16 @@
               <app>
                 <!-- phrase marks in a1 -->
                 <rdg source="a1">
-                  <phrase xml:id="p12" place="above" staff="2" tstamp="1"
+                  <phrase xml:id="p12" curvedir="above" staff="2" tstamp="1"
                     dur="1m+2.5"/>
-                  <phrase xml:id="p13" place="above" staff="3" tstamp="1"
+                  <phrase xml:id="p13" curvedir="above" staff="3" tstamp="1"
                     dur="2m+2.5"/>
-                  <phrase xml:id="p14" place="above" staff="4" tstamp="1"
+                  <phrase xml:id="p14" curvedir="above" staff="4" tstamp="1"
                     dur="1m+2.5"/>
                 </rdg>
                 <!-- phrase marks in a2 -->
                 <rdg source="a2">
-                  <phrase xml:id="p15" place="below" staff="4" tstamp="1"
+                  <phrase xml:id="p15" curvedir="below" staff="4" tstamp="1"
                     dur="2m+2"/>
                 </rdg>
               </app>
@@ -585,20 +601,20 @@
               <app>
                 <!-- phrase marks in a1 -->
                 <rdg source="a1">
-                  <phrase xml:id="p16" place="below" staff="4" tstamp="1"
+                  <phrase xml:id="p16" curvedir="below" staff="4" tstamp="1"
                     dur="3m+1"/>
                 </rdg>
                 <!-- phrase marks in a2 -->
                 <rdg source="a2">
-                  <phrase xml:id="p17" place="above" staff="2" tstamp="1"
+                  <phrase xml:id="p17" curvedir="above" staff="2" tstamp="1"
                     dur="1m+2.5"/>
-                  <phrase xml:id="p18" place="above" staff="3" tstamp="1"
+                  <phrase xml:id="p18" curvedir="above" staff="3" tstamp="1"
                     dur="1m+2.5"/>
                 </rdg>
               </app>
 
               <!-- slur mark in both sources -->
-              <slur xml:id="s1" place="above" staff="1" tstamp="1" dur="0m+2"/>
+              <slur xml:id="s1" curvedir="above" staff="1" tstamp="1" dur="0m+2"/>
 
             </measure>
             <measure n="6">
@@ -639,7 +655,7 @@
               <app>
                 <!-- phrase marks in a1 only -->
                 <rdg source="a1">
-                  <phrase xml:id="p19" place="above" staff="2" tstamp="1"
+                  <phrase xml:id="p19" curvedir="above" staff="2" tstamp="1"
                     dur="1m+2.5"/>
                 </rdg>
               </app>
@@ -698,7 +714,7 @@
               <app>
                 <!-- phrase marks in a1 only -->
                 <rdg source="a1">
-                  <phrase xml:id="p20" place="below" staff="3" tstamp="1"
+                  <phrase xml:id="p20" curvedir="below" staff="3" tstamp="1"
                     dur="0m+2.5"/>
                 </rdg>
               </app>
@@ -768,11 +784,11 @@
               <app>
                 <rdg source="a1">
                   <!-- phrase marks in a1 only -->
-                  <phrase xml:id="p21" place="above" staff="2" tstamp="1"
+                  <phrase xml:id="p21" curvedir="above" staff="2" tstamp="1"
                     dur="1m+1"/>
-                  <phrase xml:id="p22" place="below" staff="3" tstamp="1"
+                  <phrase xml:id="p22" curvedir="below" staff="3" tstamp="1"
                     dur="0m+2.75"/>
-                  <phrase xml:id="p23" place="above" staff="4" tstamp="1"
+                  <phrase xml:id="p23" curvedir="above" staff="4" tstamp="1"
                     dur="1m+1"/>
                 </rdg>
               </app>
