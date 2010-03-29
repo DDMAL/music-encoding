@@ -1608,12 +1608,6 @@
     <ref name="att.bibl"/>
   </define>
 
-  <!--
-    eventlist(head?, event)
-    event (date, (model.nameLike.place)*, eventdesc)
-    eventdesc(paragraph-like-model)
-  -->
-
   <define name="eventlist">
     <element name="eventlist">
       <a:documentation xml:lang="eng">event list ― Contains historical
@@ -1624,8 +1618,8 @@
         &lt;eventlist&gt; describes events associated with a work when
         it appears in the &lt;profiledesc&gt; element or events
         associated with the custodial history of a given copy of a source for
-        the encoding when it appears within the &lt;source&gt; element.
-        It may be used to provide a structured display.</a:documentation>
+        the encoding when it appears within the &lt;source&gt;
+        element.</a:documentation>
       <ref name="attlist.eventlist"/>
       <ref name="content.eventlist"/>
     </element>
@@ -1645,9 +1639,9 @@
 
   <define name="event">
     <element name="event">
-      <a:documentation xml:lang="eng">event ― groups a date and an event
-        description. Optionally, one or more places where the event took place
-        may be given.</a:documentation>
+      <a:documentation xml:lang="eng">event ― groups a date, a description of
+        the event related to the date, and optionally, any number of places
+        where the event took place.</a:documentation>
       <ref name="attlist.event"/>
       <ref name="content.event"/>
     </element>
