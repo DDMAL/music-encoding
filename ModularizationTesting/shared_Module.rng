@@ -968,10 +968,12 @@
   </define>
 
   <define name="att.width" combine="interleave">
-    <a:documentation xml:lang="eng">Attributes that describe the vertical
-      dimension</a:documentation>
+    <a:documentation xml:lang="eng">Attributes that describe horizontal
+      dimensions</a:documentation>
     <optional>
       <attribute name="width">
+        <a:documentation xml:lang="eng">measurement of the horizontal dimension
+          of an entity.</a:documentation>
         <data type="decimal"/>
       </attribute>
     </optional>
@@ -3771,7 +3773,10 @@
     <element name="barline">
       <a:documentation xml:lang="eng">barline ― Vertical line that divides
         musical notation into metrical units. This element is provided as an
-        alternative to the &lt;measure&gt; container.</a:documentation>
+        alternative to the &lt;measure&gt; container. Some music
+        printing systems rely on measure width data for rendering. The width
+        attribute may be used to capture this data in MEI for interchange with
+        these systems.</a:documentation>
       <ref name="attlist.barline"/>
       <ref name="content.barline"/>
     </element>

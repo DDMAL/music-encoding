@@ -21,7 +21,7 @@
       <xs:documentation>Attributes indicating cross-staff
       beaming</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="beam.with" type="data.PLACE">
+    <xs:attribute name="beam.with" type="data.OTHERSTAFF">
       <xs:annotation>
         <xs:documentation>In the case of cross-staff beams, the
           with attribute is used to indicate which staff the beam is connected
@@ -1133,7 +1133,6 @@
       rendered slur/phrase mark.</xs:documentation>
     </xs:annotation>
     <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
@@ -1165,7 +1164,6 @@
       and end points in terms of time; that is, beats.</xs:documentation>
     </xs:annotation>
     <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
@@ -1350,7 +1348,12 @@
     <xs:attributeGroup ref="att.arpeg.anl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.beam">
-    <xs:group maxOccurs="unbounded" ref="model.eventLike"/>
+    <xs:choice maxOccurs="unbounded">
+      <xs:group ref="model.eventLike"/>
+      <xs:group ref="model.appLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+    </xs:choice>
   </xs:complexType>
   <xs:element name="beam">
     <xs:annotation>
@@ -2000,7 +2003,12 @@
     <xs:attributeGroup ref="att.tie.anl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.tuplet">
-    <xs:group maxOccurs="unbounded" ref="model.eventLike"/>
+    <xs:choice maxOccurs="unbounded">
+      <xs:group ref="model.eventLike"/>
+      <xs:group ref="model.appLike"/>
+      <xs:group ref="model.editLike"/>
+      <xs:group ref="model.transcriptionLike"/>
+    </xs:choice>
   </xs:complexType>
   <xs:element name="tuplet">
     <xs:annotation>

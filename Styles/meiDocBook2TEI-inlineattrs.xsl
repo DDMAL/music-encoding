@@ -70,23 +70,33 @@
           </titlePage>
           <div>
             <head>Acknowledgments</head>
-            <p><xsl:value-of select="$loremipsum"/></p>
+            <p>
+              <xsl:value-of select="$loremipsum"/>
+            </p>
           </div>
           <div>
             <head>Introduction</head>
-            <p><xsl:value-of select="$loremipsum"/></p>
+            <p>
+              <xsl:value-of select="$loremipsum"/>
+            </p>
           </div>
           <div>
             <head>MEI Design Principles</head>
-            <p><xsl:value-of select="$loremipsum"/></p>
+            <p>
+              <xsl:value-of select="$loremipsum"/>
+            </p>
           </div>
           <div>
             <head>Overview of MEI Structure</head>
-            <p><xsl:value-of select="$loremipsum"/></p>
+            <p>
+              <xsl:value-of select="$loremipsum"/>
+            </p>
           </div>
           <div>
             <head>Tag Library Conventions</head>
-            <p><xsl:value-of select="$loremipsum"/></p>
+            <p>
+              <xsl:value-of select="$loremipsum"/>
+            </p>
           </div>
         </front>
         <body>

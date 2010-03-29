@@ -357,6 +357,20 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
+    <xs:attribute name="curvedir">
+      <xs:annotation>
+        <xs:documentation>describes a curve with a generic term
+          indicating whether the curve bows upward or downward. Upward curves go
+          above the items they cover, while downward curves go under
+          them.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.curverend">
     <xs:annotation>
@@ -560,7 +574,7 @@
       <xs:documentation>Attributes indicating the attachment of a
       fermata to the feature</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="fermata" type="data.PLACE">
+    <xs:attribute name="fermata" type="data.STAFFREL">
       <xs:annotation>
         <xs:documentation>indicates the attachment of a fermata to
           this element. If visual information about the fermata needs to be
@@ -897,10 +911,15 @@
   </xs:attributeGroup>
   <xs:attributeGroup name="att.width">
     <xs:annotation>
-      <xs:documentation>Attributes that describe the vertical
-      dimension</xs:documentation>
+      <xs:documentation>Attributes that describe horizontal
+      dimensions</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="width" type="xs:decimal"/>
+    <xs:attribute name="width" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation>measurement of the horizontal dimension
+          of an entity.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.medium">
     <xs:annotation>
@@ -1061,6 +1080,13 @@
           regularized form of the name.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
+    <xs:attribute name="role">
+      <xs:annotation>
+        <xs:documentation>used to specify further information
+          about the entity referenced by this name, for example, the occupation
+          of a person or the status of a place.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.octave">
     <xs:annotation>
@@ -1157,7 +1183,7 @@
       <xs:documentation>Attributes capturing placement
       information</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="place" type="data.PLACE">
+    <xs:attribute name="place" type="data.STAFFREL">
       <xs:annotation>
         <xs:documentation>captures the placement of the item with
           respect to the staff with which it is associated.</xs:documentation>
@@ -1329,11 +1355,12 @@
           indicators.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="stem.with" type="data.PLACE">
+    <xs:attribute name="stem.with" type="data.OTHERSTAFF">
       <xs:annotation>
         <xs:documentation>contains an indication of which staff a
           note or chord that logically belongs to the current staff should be
-          visually placed on.</xs:documentation>
+          visually placed on; that is, the one above or the one
+          below.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
   </xs:attributeGroup>
@@ -2358,7 +2385,6 @@
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
     <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.placement"/>
     <xs:attributeGroup ref="att.visualoffset"/>
     <xs:attributeGroup ref="att.visualoffset2"/>
     <xs:attributeGroup ref="att.xy"/>
@@ -3786,7 +3812,10 @@
     <xs:annotation>
       <xs:documentation>barline ― Vertical line that divides
         musical notation into metrical units. This element is provided as an
-        alternative to the &lt;measure&gt; container.</xs:documentation>
+        alternative to the &lt;measure&gt; container. Some music
+        printing systems rely on measure width data for rendering. The width
+        attribute may be used to capture this data in MEI for interchange with
+        these systems.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:attributeGroup ref="attlist.barline"/>

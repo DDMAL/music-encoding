@@ -117,6 +117,7 @@
       <xs:element minOccurs="0" ref="creation"/>
       <xs:element minOccurs="0" ref="langusage"/>
       <xs:element minOccurs="0" ref="classification"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="eventlist"/>
     </xs:sequence>
   </xs:complexType>
   <xs:group name="model.pubstmtPart">
@@ -156,7 +157,9 @@
         bibliographic information about the MEI file and its sources,
         information about the encoding process, information about the creation
         of the work being encoded, and statements regarding significant
-        revisions of the file.</xs:documentation>
+        revisions of the file. The xml:lang attribute may be used to indicate
+        the language in which the metadata content of the header is
+        provided.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -208,6 +211,7 @@
   <xs:attributeGroup name="attlist.accessdesc">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.acqsource" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
@@ -229,6 +233,7 @@
   <xs:attributeGroup name="attlist.acqsource">
     <xs:attributeGroup ref="att.bibl"/>
     <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.altmeiid" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
@@ -388,6 +393,7 @@
   <xs:attributeGroup name="attlist.changedesc">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:element name="classcode">
     <xs:annotation>
@@ -455,6 +461,7 @@
   <xs:attributeGroup name="attlist.condition">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.correction">
     <xs:group maxOccurs="unbounded" ref="model.pLike"/>
@@ -462,8 +469,7 @@
   <xs:element name="correction">
     <xs:annotation>
       <xs:documentation>correction ― States how and under what
-        circumstances corrections have been made in the musical
-        text.</xs:documentation>
+        circumstances corrections have been made in the text.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -476,8 +482,9 @@
   <xs:attributeGroup name="attlist.correction">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.regularmethod"/>
-    <xs:attribute name="status">
+    <xs:attribute name="corrlevel">
       <xs:annotation>
         <xs:documentation>indicates the degree of correction
           applied to the text.</xs:documentation>
@@ -513,6 +520,7 @@
   <xs:attributeGroup name="attlist.creation">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.dimensions" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
@@ -563,6 +571,7 @@
   <xs:attributeGroup name="attlist.editionstmt">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.editorialdecl">
     <xs:choice>
@@ -590,6 +599,7 @@
   <xs:attributeGroup name="attlist.editorialdecl">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.encodingdesc">
     <xs:complexContent>
@@ -634,6 +644,7 @@
   <xs:attributeGroup name="attlist.exhibithist">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.extent" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
@@ -735,6 +746,7 @@
   <xs:attributeGroup name="attlist.hand">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.medium"/>
     <xs:attributeGroup ref="att.responsibility"/>
     <xs:attribute name="initial" type="data.BOOLEAN">
@@ -790,6 +802,7 @@
   <xs:attributeGroup name="attlist.inscription">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.interpretation">
     <xs:group maxOccurs="unbounded" ref="model.pLike"/>
@@ -811,6 +824,7 @@
   <xs:attributeGroup name="attlist.interpretation">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.keywords">
     <xs:sequence>
@@ -901,6 +915,7 @@
   <xs:attributeGroup name="attlist.normalization">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
     <xs:attributeGroup ref="att.regularmethod"/>
   </xs:attributeGroup>
   <xs:complexType name="content.notesstmt">
@@ -994,6 +1009,7 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
     <xs:attributeGroup ref="att.authorized"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.price" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
@@ -1065,11 +1081,12 @@
   <xs:attributeGroup name="attlist.projectdesc">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.provenance" mixed="true">
-    <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.listLike"/>
-      <xs:group ref="model.textphraseLike.limited"/>
+    <xs:choice>
+      <xs:element minOccurs="0" ref="eventlist"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="provenance">
@@ -1088,6 +1105,7 @@
   <xs:attributeGroup name="attlist.provenance">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.pubstmt">
     <xs:choice>
@@ -1199,6 +1217,7 @@
   <xs:attributeGroup name="attlist.samplingdecl">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.segmentation">
     <xs:group maxOccurs="unbounded" ref="model.pLike"/>
@@ -1220,11 +1239,12 @@
   <xs:attributeGroup name="attlist.segmentation">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.seriesstmt">
     <xs:sequence>
       <xs:group maxOccurs="unbounded" ref="model.titleLike"/>
-      <xs:element minOccurs="0" ref="respstmt"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="respstmt"/>
       <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.identifierLike"/>
       <xs:choice>
         <xs:group ref="model.listLike"/>
@@ -1271,13 +1291,10 @@
   <xs:element name="source">
     <xs:annotation>
       <xs:documentation>source ― A bibliographic description of a
-        source for the electronic file. Within source, the extent element may be
-        used when only a portion of the source, pages 1-3 for example, are
-        encoded. If extent is absent, then the entire source is presumed to have
-        been encoded. Multiple physdesc sub-elements may be used to describe the
-        physically separate parts of a single source. The data attribute may be
-        used to reference one or more features that occur in this particular
-        source.</xs:documentation>
+        source for the electronic file. Multiple physdesc sub-elements may be
+        used to describe the physically separate parts of a single source. The
+        data attribute may be used to reference one or more features that occur
+        in this particular source.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -1336,6 +1353,7 @@
   <xs:attributeGroup name="attlist.stdvals">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.sysreq" mixed="true">
     <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
@@ -1356,6 +1374,7 @@
   <xs:attributeGroup name="attlist.sysreq">
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.term" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -1478,11 +1497,11 @@
     <xs:annotation>
       <xs:documentation>usage restrictions ― Container for
         information about the conditions that affect use of a bibliographic item
-        after access has been granted. May indicate limitations imposed by an
+        after access has been granted. It may indicate limitations imposed by an
         owner, repository, or legal statute (for example, copyright law)
-        regarding the reproduction, publication, or quotation of the item. May
-        also indicate the absence of restrictions, such as when rights have been
-        ceded to the public domain. Do not confuse with the
+        regarding the reproduction, publication, or quotation of the item. It
+        may also indicate the absence of restrictions, such as when rights have
+        been ceded to the public domain. Do not confuse this element with the
         &lt;accessdesc&gt; element, which holds information about
         conditions affecting the availability of the material.</xs:documentation>
     </xs:annotation>
@@ -1498,4 +1517,81 @@
     <xs:attributeGroup ref="att.common"/>
     <xs:attributeGroup ref="att.bibl"/>
   </xs:attributeGroup>
+  <xs:element name="eventlist">
+    <xs:annotation>
+      <xs:documentation>event list ― Contains historical
+        information given as a sequence of significant past events.
+        &lt;eventlist&gt; contains &lt;event&gt; elements that
+        pair a date or date range with a brief description of the associated
+        event and locations where the event took place. An
+        &lt;eventlist&gt; describes events associated with a work when
+        it appears in the &lt;profiledesc&gt; element or events
+        associated with the custodial history of a given copy of a source for
+        the encoding when it appears within the &lt;source&gt;
+        element.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.eventlist">
+          <xs:attributeGroup ref="attlist.eventlist"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.eventlist">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.typed"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.eventlist">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" ref="event"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="event">
+    <xs:annotation>
+      <xs:documentation>event ― groups a date, a description of
+        the event related to the date, and optionally, any number of places
+        where the event took place.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.event">
+          <xs:attributeGroup ref="attlist.event"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.event">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.event">
+    <xs:sequence>
+      <xs:group ref="model.dateLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.nameLike.place"/>
+      <xs:element ref="eventdesc"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="eventdesc">
+    <xs:annotation>
+      <xs:documentation>event description ― Describes or names
+        something that happened.</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="content.eventdesc">
+          <xs:attributeGroup ref="attlist.eventdesc"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:attributeGroup name="attlist.eventdesc">
+    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="att.lang"/>
+  </xs:attributeGroup>
+  <xs:complexType name="content.eventdesc" mixed="true">
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+  </xs:complexType>
 </xs:schema>

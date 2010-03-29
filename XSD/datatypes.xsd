@@ -2,14 +2,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
-  <!--
-    <define name="data.MEIVERSION">
-      <a:documentation>This version of MEI.</a:documentation>
-      <data type="token">
-        <param name="pattern">1.9b</param>
-      </data>
-    </define>
-  -->
   <xs:simpleType name="data.BEND.AMOUNT">
     <xs:annotation>
       <xs:documentation>Either a decimal value or a token. The decimal values are
@@ -81,7 +73,7 @@
     <xs:annotation>
       <xs:documentation>In a guitar chord diagram, a label indicating which finger,
       if any, should be used to play an individual string. The values 'x' and
-      'o' indicated stopped and open strings, respectively.</xs:documentation>
+      'o' indicate stopped and open strings, respectively.</xs:documentation>
     </xs:annotation>
     <xs:union>
       <xs:simpleType>
@@ -468,8 +460,8 @@
       <xs:documentation>The following list of articulations mostly corresponds to
       symbols 1D110-1D111, 1D17B-1D182, 1D185-1D189, 1D1AA-1D1AD, 1D1B3-1D1B5
       from the Western Musical Symbols portion of the Unicode Standard, v. 3.1.
-      The dot and stroke values may be used in cases where interpretation is not
-      desirable.</xs:documentation>
+      The dot and stroke values may be used in cases where interpretation is
+      difficult or not desirable.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="acc"/>
@@ -479,7 +471,6 @@
       <xs:enumeration value="marc"/>
       <xs:enumeration value="marc-stacc"/>
       <xs:enumeration value="acc-marc"/>
-      <xs:enumeration value="loure"/>
       <xs:enumeration value="spicc"/>
       <xs:enumeration value="rip"/>
       <xs:enumeration value="doit"/>
@@ -753,6 +744,7 @@
     <xs:restriction base="xs:token">
       <xs:enumeration value="acc"/>
       <xs:enumeration value="unacc"/>
+      <xs:enumeration value="unknown"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="data.HEADSHAPE">
@@ -1011,12 +1003,34 @@
   </xs:simpleType>
   <xs:simpleType name="data.PLACE">
     <xs:annotation>
-      <xs:documentation>Place, i.e., location of musical material relative to a
+      <xs:documentation>Location of symbol relative to other notational
+      components.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="above"/>
+      <xs:enumeration value="below"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="data.OTHERSTAFF">
+    <xs:annotation>
+      <xs:documentation>For musical material designated to appear on another staff,
+      the location of the staff relative to the current one; i.e., the staff
+      above or the staff below.</xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:token">
+      <xs:enumeration value="above"/>
+      <xs:enumeration value="below"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="data.STAFFREL">
+    <xs:annotation>
+      <xs:documentation>Location of musical material relative to a
       staff.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="above"/>
       <xs:enumeration value="below"/>
+      <xs:enumeration value="within"/>
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="data.SIZE">
