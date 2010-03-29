@@ -62,12 +62,41 @@
           <titlePage>
             <docTitle>
               <titlePart>MUSIC ENCODING INITIATIVE<lb/>TAG LIBRARY</titlePart>
-              <titlePart>Version 1.0</titlePart>
             </docTitle>
-            <byline>Prepared and Maintained by<lb/>??</byline>
-            <docImprint>Charlottesville and Detmold</docImprint>
-            <docDate>2010</docDate>
+            <docEdition>2010-05 Release</docEdition>
+            <byline> Prepared and Maintained by the<lb/>
+              <docAuthor>Music Encoding Initiative Community<lb/> Editorial
+                Board and Technical Group</docAuthor>
+            </byline>
+            <docImprint>Charlottesville and Detmold<lb/>2010</docImprint>
+            <pb/>
+            <docTitle>
+              <titlePart>MUSIC ENCODING INITIATIVE<lb/>TAG LIBRARY</titlePart>
+            </docTitle>
+            <docEdition>2010-05 Release</docEdition>
+            <docEdition>MEI Technical Document No. 2</docEdition>
+            <note>
+              <p>This tag library represents the 2010-05 release of the Music
+                Encoding Initiative schema, released in May 2010. It supersedes
+                all other tag libraries made available prior to this date.</p>
+              <p>The Music Encoding Initiative Community Editorial Board and
+                Technical Group are responsible for updating and editing the MEI
+                schema (MEI Technical Document No. 1) and tag library.</p>
+              <p>The Universität Paderborn serves as the maintenance agency for
+                online MEI documentation, including storage and delivery of
+                electronic files and maintenance of the MEI internet site,
+                located at http://music-encoding.org/.</p>
+              <p>The creation of this tag library was supported jointly by the
+                National Endowment for the Humanities and the Deutsche
+                Forschungsgemeinschaft. Any views, findings, conclusions or
+                recommendations expressed in this publication do not necessarily
+                reflect those of the National Endowment for the Humanities or
+                the Deutsche Forschungsgemeinschaft.</p>
+            </note>
+            <docDate>© 2010 by the Rector and Visitors of the University of
+              Virginia and the Universität Paderborn</docDate>
           </titlePage>
+          <pb/>
           <div>
             <head>Acknowledgments</head>
             <p>
@@ -100,6 +129,7 @@
           </div>
         </front>
         <body>
+          <pb/>
           <div type="chapter">
             <head>MEI Elements</head>
             <xsl:apply-templates
