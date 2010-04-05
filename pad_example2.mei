@@ -39,8 +39,9 @@
       <sourcedesc>
         <source xml:id="a1">
 
-          <!-- Publication status is indicated by the presence of a
-            pubstmt or unpub element. -->
+          <!-- Publication status is indicated by the content of the
+            pubstmt. If unpub, then unpublished; otherwise, publication
+            details are permitted. -->
           <pubstmt>
             <unpub/>
           </pubstmt>
@@ -64,7 +65,8 @@
               <identifier>RISM: D-B</identifier>
             </repository>
 
-            <!-- Physical location of the item *within the repository*. -->
+            <!-- Physical location of the item *within the repository*; i.e.,
+              shelfmark. -->
             <physloc>Mus. ms. autogr. C. M. v. Weber WFN 11</physloc>
 
             <!-- Prose description of the medium, i.e., paper and ink. -->
@@ -107,7 +109,7 @@
               <eventlist>
                 <event>
                   <date notafter="1985">until 1986</date>
-                  <eventdesc>Weber family </eventdesc>
+                  <eventdesc>in the possession of the Weber family</eventdesc>
                 </event>
                 <event>
                   <date notbefore="1986">1986-</date>
@@ -118,8 +120,9 @@
             </provenance>
 
             <!-- Handlist identifies and describes the unique scribal hands found
-          in the source. Encoding order is not significant. Both medium (ink)
-          and character (brighter, small, shaky, etc.) may be described. -->
+          in the source. Encoding order is not significant. Writing medium (ink)
+          is described in the medium attribute while character (brighter, small,
+          shaky, etc.) may be described in the content of hand. -->
             <handlist>
               <hand xml:id="FWJ" medium="pencil"/>
               <hand xml:id="CMW1" medium="ink"/>
@@ -447,7 +450,7 @@
               <!-- Alternatively, the facs attribute may be used to point to a
                 zone within a graphic element.  The zone element's attributes should
                 define the phrase mark's bounding box. -->
-              <annot plist="p10" xlink:href="Weber_A2.jpg" facs="p10box"/>
+              <annot plist="p10" facs="p10box"/>
 
               <!-- This annotation comments on the set of all phrase marks, which
                 are in this case explicitly-named. -->
