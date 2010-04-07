@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
 <?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
-<mei xml:id="m1" meiversion="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink" >
+<mei xml:id="mei1" meiversion="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns="http://www.music-encoding.org/ns/mei">
   <meihead>
     <filedesc>
       <titlestmt>
@@ -31,7 +32,7 @@
                 </event>
                 <event>
                   <date reg="1812-06-26"/>
-                  <eventdesc> Swiss ... </eventdesc>
+                  <eventdesc>Swiss ... </eventdesc>
                 </event>
                 <event>
                   <date reg="1813"/>
@@ -52,10 +53,12 @@
       </creation>
       <langusage>
         <language xml:id="it">Italian</language>
+        <language xml:id="x-en">English as spoken in Foobar</language>
       </langusage>
       <classification>
+        <classcode xml:id="class1"/>
         <keywords>
-          <term>Foobar</term>
+          <term classcode="class1">Foobar</term>
         </keywords>
       </classification>
       <eventlist type="composition">
@@ -66,7 +69,7 @@
         </event>
         <event>
           <date reg="1812-06-26"/>
-          <eventdesc n="dedication"> Swiss ... </eventdesc>
+          <eventdesc n="dedication">Swiss ... </eventdesc>
         </event>
         <event>
           <date reg="1813"/>
@@ -82,9 +85,11 @@
     </profiledesc>
     <revisiondesc>
       <change>
-        <respstmt/>
+        <respstmt>
+          <persname xml:id="you"/>
+        </respstmt>
         <changedesc>
-          <p xml:id="m2"/>
+          <p/>
         </changedesc>
         <date/>
       </change>
@@ -97,7 +102,7 @@
         <score>
           <scoredef key.sig.mixed="as4 bf5" key.sig="mixed">
             <timeline origin="w0">
-              <when xml:id="w0"/>
+              <when xml:id="w0" absolute="00:00"/>
               <when xml:id="w12" since="w0" unit="sec" interval="12"/>
               <when xml:id="w36" since="w12" unit="sec" interval="24"/>
             </timeline>
@@ -123,6 +128,11 @@
                 <barre fret="2" startid="E21" endid="E22"/>
               </chorddef>
             </chordtable>
+            <symboltable>
+              <symboldef xml:id="sym1">
+                <anchoredtext xml:lang="x-en"/>
+              </symboldef>
+            </symboltable>
             <keysig>
               <keyaccid pname="a" accid="f" loc="4"/>
             </keysig>
@@ -130,35 +140,38 @@
               <instrdef xml:id="i1"/>
               <instrdef xml:id="i1-1"/>
               <staffdef n="1" lines="5" clef.dis.place="below">
-                <clef line="3" shape="G"/>
+                <clef line="2" shape="G"/>
               </staffdef>
               <staffdef n="2" lines="7" clef.line="2" clef.shape="G"/>
               <staffdef n="3" lines="9" clef.line="4" clef.shape="F"/>
             </staffgrp>
           </scoredef>
           <section xml:id="section1">
-            <expansion plist="section1a"/>
+            <expansion plist="section1a section1b"/>
             <section xml:id="section1a">
-              <measure>
-                <staff n="3">
+              <measure xml:id="m1" join="m2">
+                <staff n="1">
                   <damage agent="fooDidIt">
                     <layer/>
                   </damage>
                   <layer>
                     <app>
                       <rdg>
-                        <note syl="a" instr="i1" fermata="within">
+                        <note xml:id="custoshere" syl="a" instr="i1"
+                          fermata="within" altsym="sym1">
                           <dot ho=".5" vo="1"/>
                         </note>
                       </rdg>
                     </app>
-                    <clefchange line="8" shape="F"/>
+                    <clefchange line="2" shape="F"/>
                     <bend staff="1" amount=".5" startid="m1"/>
                     <octave staff="1" dis="8" layer="1" dis.place="above"
                       tstamp="1" dur="3"/>
+                    <handshift old="h1" new="h1"/>
                     <custos oct="4" pname="a" target="n1"/>
-                    <barline taktplace="17"/>
+                    <barline taktplace="1"/>
                     <pb source="s1 s2"/>
+                    <rest line="5"/>
                   </layer>
                   <layer>
                     <tuplet>
@@ -170,9 +183,10 @@
                       <note grace="unknown" grace.time="350%"/>
                       <app>
                         <rdg>
-                          <add>
+                          <add hand="h1" resp="you">
                             <note/>
                             <note/>
+                            <persname xml:id="me"></persname>
                           </add>
                         </rdg>
                         <rdg>
@@ -192,6 +206,7 @@
                     <bend staff="1" amount=".5" startid="m1"/>
                     <octave staff="1" dis="8" layer="1" dis.place="above"
                       tstamp="1" dur="3"/>
+                    <rest line="7"/>
                   </layer>
                 </staff>
                 <slur staff="1" tstamp="2" endid="m1" curvedir="above"/>
@@ -201,20 +216,22 @@
                   num.place="below"/>
               </measure>
             </section>
-            <add hand="h1">
-              <measure/>
+            <section xml:id="section1b"/>
+            <add>
+              <measure xml:id="m2"/>
               <ptr xlink:actuate="onLoad"/>
             </add>
             <choice>
               <orig>
                 <staff>
-                  <staffdef n="2">
-                    <clef line="1" shape="F"/>
+                  <staffdef n="2" clef.line="7" clef.shape="F">
+                    <clef line="7" shape="F"/>
                   </staffdef>
                 </staff>
               </orig>
             </choice>
           </section>
+          <section xml:id="section2"/>
         </score>
       </mdiv>
     </body>
