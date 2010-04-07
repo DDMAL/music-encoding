@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- Mensural module -->
@@ -16,7 +17,7 @@
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="form" type="data.LIGATUREFORM">
+    <xs:attribute name="form" type="mei:data.LIGATUREFORM">
       <xs:annotation>
         <xs:documentation>provides an indication of the function
           of the ligature.</xs:documentation>
@@ -34,26 +35,26 @@
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.duration.ratio"/>
-    <xs:attribute name="modusmaior" type="data.MODUSMAIOR">
+    <xs:attributeGroup ref="mei:att.duration.ratio"/>
+    <xs:attribute name="modusmaior" type="mei:data.MODUSMAIOR">
       <xs:annotation>
         <xs:documentation>describes the maxima-long
           relationship.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="modusminor" type="data.MODUSMINOR">
+    <xs:attribute name="modusminor" type="mei:data.MODUSMINOR">
       <xs:annotation>
         <xs:documentation>describes the long-breve
           relationship.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="prolatio" type="data.PROLATIO">
+    <xs:attribute name="prolatio" type="mei:data.PROLATIO">
       <xs:annotation>
         <xs:documentation>describes the semibreve-minim
           relationship.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="tempus" type="data.TEMPUS">
+    <xs:attribute name="tempus" type="mei:data.TEMPUS">
       <xs:annotation>
         <xs:documentation>describes the breve-semibreve
           relationship.</xs:documentation>
@@ -66,11 +67,11 @@
       describe the physical appearance of the mensuration sign/time signature of
       mensural notation.</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.relativesize"/>
-    <xs:attributeGroup ref="att.slashcount"/>
-    <xs:attributeGroup ref="att.staffloc"/>
-    <xs:attribute name="dot" type="data.BOOLEAN">
+    <xs:attributeGroup ref="mei:att.color"/>
+    <xs:attributeGroup ref="mei:att.relativesize"/>
+    <xs:attributeGroup ref="mei:att.slashcount"/>
+    <xs:attributeGroup ref="mei:att.staffloc"/>
+    <xs:attribute name="dot" type="mei:data.BOOLEAN">
       <xs:annotation>
         <xs:documentation>specifies whether a dot is to be added
           to the base symbol.</xs:documentation>
@@ -88,13 +89,13 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="orient" type="data.ORIENTATION">
+    <xs:attribute name="orient" type="mei:data.ORIENTATION">
       <xs:annotation>
         <xs:documentation>describes the rotation or reflection of
           the base symbol.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="sign" type="data.MENSURATIONSIGN">
+    <xs:attribute name="sign" type="mei:data.MENSURATIONSIGN">
       <xs:annotation>
         <xs:documentation>the base symbol in the mensuration
           sign/time signature of mensural notation.</xs:documentation>
@@ -107,20 +108,20 @@
       default values for attributes in the logical domain related to
       mensuration</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.mensur.log"/>
-    <xs:attribute name="mensur.dot" type="data.BOOLEAN">
+    <xs:attributeGroup ref="mei:att.mensur.log"/>
+    <xs:attribute name="mensur.dot" type="mei:data.BOOLEAN">
       <xs:annotation>
         <xs:documentation>determines if a dot is to be added to
           the base symbol.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="mensur.orient" type="data.ORIENTATION">
+    <xs:attribute name="mensur.orient" type="mei:data.ORIENTATION">
       <xs:annotation>
         <xs:documentation>describes the rotation or reflection of
           the base symbol.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="mensur.sign" type="data.MENSURATIONSIGN">
+    <xs:attribute name="mensur.sign" type="mei:data.MENSURATIONSIGN">
       <xs:annotation>
         <xs:documentation>the base symbol in the mensuration
           sign/time signature of mensural notation.</xs:documentation>
@@ -158,7 +159,7 @@
           mensuration sign.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="mensur.size" type="data.SIZE">
+    <xs:attribute name="mensur.size" type="mei:data.SIZE">
       <xs:annotation>
         <xs:documentation>describes the relative size of the
           mensuration sign.</xs:documentation>
@@ -178,7 +179,7 @@
       describe augmentation or diminution of the normal value of the notes in
       mensural notation as a ratio.</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.duration.ratio"/>
+    <xs:attributeGroup ref="mei:att.duration.ratio"/>
   </xs:attributeGroup>
   <!-- Declare module model classes -->
   <!--
@@ -201,15 +202,15 @@
         call 'alla breve'.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.mensur"/>
+      <xs:attributeGroup ref="mei:attlist.mensur"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.mensur">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.mensur.log"/>
-    <xs:attributeGroup ref="att.mensur.vis"/>
-    <xs:attributeGroup ref="att.mensur.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.mensur.log"/>
+    <xs:attributeGroup ref="mei:att.mensur.vis"/>
+    <xs:attributeGroup ref="mei:att.mensur.anl"/>
   </xs:attributeGroup>
   <!--
     <define name="content.mensurchange">
@@ -244,17 +245,17 @@
         durations to the tactus.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.proport"/>
+      <xs:attributeGroup ref="mei:attlist.proport"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.proport">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.proport.log"/>
-    <xs:attributeGroup ref="att.proport.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.proport.log"/>
+    <xs:attributeGroup ref="mei:att.proport.anl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.ligature">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.layerPart"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.layerPart"/>
   </xs:complexType>
   <xs:element name="ligature">
     <xs:annotation>
@@ -264,17 +265,17 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.ligature">
-          <xs:attributeGroup ref="attlist.ligature"/>
+        <xs:extension base="mei:content.ligature">
+          <xs:attributeGroup ref="mei:attlist.ligature"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.ligature">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.ligature.log"/>
-    <xs:attributeGroup ref="att.ligature.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.ligature.log"/>
+    <xs:attributeGroup ref="mei:att.ligature.anl"/>
   </xs:attributeGroup>
   <!--
     <define name="content.proportchange">

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- Header Module -->
@@ -32,14 +33,14 @@
     </xs:annotation>
     <xs:sequence>
       <xs:sequence minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="acqsource"/>
+        <xs:element ref="mei:acqsource"/>
         <xs:sequence minOccurs="0" maxOccurs="unbounded">
-          <xs:element ref="accessdesc"/>
-          <xs:element minOccurs="0" ref="price"/>
+          <xs:element ref="mei:accessdesc"/>
+          <xs:element minOccurs="0" ref="mei:price"/>
         </xs:sequence>
       </xs:sequence>
-      <xs:element minOccurs="0" ref="userestrict"/>
-      <xs:element minOccurs="0" ref="sysreq"/>
+      <xs:element minOccurs="0" ref="mei:userestrict"/>
+      <xs:element minOccurs="0" ref="mei:sysreq"/>
     </xs:sequence>
   </xs:complexType>
   <xs:group name="model.editorialdeclPart">
@@ -49,11 +50,11 @@
       notation.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="correction"/>
-      <xs:element ref="interpretation"/>
-      <xs:element ref="normalization"/>
-      <xs:element ref="segmentation"/>
-      <xs:element ref="stdvals"/>
+      <xs:element ref="mei:correction"/>
+      <xs:element ref="mei:interpretation"/>
+      <xs:element ref="mei:normalization"/>
+      <xs:element ref="mei:segmentation"/>
+      <xs:element ref="mei:stdvals"/>
     </xs:choice>
   </xs:group>
   <xs:complexType name="model.encodingPart">
@@ -62,10 +63,10 @@
       information regarding the encoding process.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" ref="appinfo"/>
-      <xs:element minOccurs="0" ref="projectdesc"/>
-      <xs:element minOccurs="0" ref="samplingdecl"/>
-      <xs:element minOccurs="0" ref="editorialdecl"/>
+      <xs:element minOccurs="0" ref="mei:appinfo"/>
+      <xs:element minOccurs="0" ref="mei:projectdesc"/>
+      <xs:element minOccurs="0" ref="mei:samplingdecl"/>
+      <xs:element minOccurs="0" ref="mei:editorialdecl"/>
     </xs:sequence>
   </xs:complexType>
   <xs:group name="model.frontPart">
@@ -74,7 +75,7 @@
       front matter.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="titlepage"/>
+      <xs:element ref="mei:titlepage"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.headerPart">
@@ -83,8 +84,8 @@
       the MEI header.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" ref="encodingdesc"/>
-      <xs:element minOccurs="0" ref="profiledesc"/>
+      <xs:element minOccurs="0" ref="mei:encodingdesc"/>
+      <xs:element minOccurs="0" ref="mei:profiledesc"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.physdescPart">
@@ -93,19 +94,19 @@
       the physical description of a bibliographic item.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="condition"/>
-      <xs:element ref="dimensions"/>
-      <xs:element ref="exhibithist"/>
-      <xs:element ref="extent"/>
-      <xs:element ref="handlist"/>
-      <xs:element ref="inscription"/>
-      <xs:element ref="physmedium"/>
-      <xs:element ref="physloc"/>
-      <xs:element ref="provenance"/>
-      <xs:group ref="model.repositoryLike"/>
-      <xs:group ref="model.frontPart"/>
-      <xs:element ref="treatmenthist"/>
-      <xs:element ref="treatmentsched"/>
+      <xs:element ref="mei:condition"/>
+      <xs:element ref="mei:dimensions"/>
+      <xs:element ref="mei:exhibithist"/>
+      <xs:element ref="mei:extent"/>
+      <xs:element ref="mei:handlist"/>
+      <xs:element ref="mei:inscription"/>
+      <xs:element ref="mei:physmedium"/>
+      <xs:element ref="mei:physloc"/>
+      <xs:element ref="mei:provenance"/>
+      <xs:group ref="mei:model.repositoryLike"/>
+      <xs:group ref="mei:model.frontPart"/>
+      <xs:element ref="mei:treatmenthist"/>
+      <xs:element ref="mei:treatmentsched"/>
     </xs:choice>
   </xs:group>
   <xs:complexType name="model.profiledescPart">
@@ -114,10 +115,10 @@
       the profile description.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" ref="creation"/>
-      <xs:element minOccurs="0" ref="langusage"/>
-      <xs:element minOccurs="0" ref="classification"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="eventlist"/>
+      <xs:element minOccurs="0" ref="mei:creation"/>
+      <xs:element minOccurs="0" ref="mei:langusage"/>
+      <xs:element minOccurs="0" ref="mei:classification"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:eventlist"/>
     </xs:sequence>
   </xs:complexType>
   <xs:group name="model.pubstmtPart">
@@ -126,21 +127,21 @@
       the publication statement for a bibliographic item.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:group ref="model.nameLike.geogname"/>
-      <xs:group ref="model.addressLike"/>
-      <xs:element ref="respstmt"/>
-      <xs:group ref="model.dateLike"/>
-      <xs:group ref="model.identifierLike"/>
-      <xs:element ref="availability"/>
+      <xs:group ref="mei:model.nameLike.geogname"/>
+      <xs:group ref="mei:model.addressLike"/>
+      <xs:element ref="mei:respstmt"/>
+      <xs:group ref="mei:model.dateLike"/>
+      <xs:group ref="mei:model.identifierLike"/>
+      <xs:element ref="mei:availability"/>
     </xs:choice>
   </xs:group>
   <!-- Declare module elements -->
   <xs:complexType name="content.meihead">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="altmeiid"/>
-      <xs:element ref="filedesc"/>
-      <xs:group ref="model.headerPart"/>
-      <xs:element minOccurs="0" ref="revisiondesc"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:altmeiid"/>
+      <xs:element ref="mei:filedesc"/>
+      <xs:group ref="mei:model.headerPart"/>
+      <xs:element minOccurs="0" ref="mei:revisiondesc"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="meihead">
@@ -163,17 +164,17 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.meihead">
-          <xs:attributeGroup ref="attlist.meihead"/>
+        <xs:extension base="mei:content.meihead">
+          <xs:attributeGroup ref="mei:attlist.meihead"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.meihead">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.meiversion"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.meiversion"/>
     <xs:attribute name="type">
       <xs:annotation>
         <xs:documentation>specifies the kind of document to which
@@ -189,7 +190,7 @@
     </xs:attribute>
   </xs:attributeGroup>
   <xs:complexType name="content.accessdesc" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="accessdesc">
     <xs:annotation>
@@ -202,19 +203,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.accessdesc">
-          <xs:attributeGroup ref="attlist.accessdesc"/>
+        <xs:extension base="mei:content.accessdesc">
+          <xs:attributeGroup ref="mei:attlist.accessdesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.accessdesc">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.acqsource" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="acqsource">
     <xs:annotation>
@@ -224,19 +225,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.acqsource">
-          <xs:attributeGroup ref="attlist.acqsource"/>
+        <xs:extension base="mei:content.acqsource">
+          <xs:attributeGroup ref="mei:attlist.acqsource"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.acqsource">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.altmeiid" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="altmeiid">
     <xs:annotation>
@@ -249,20 +250,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.altmeiid">
-          <xs:attributeGroup ref="attlist.altmeiid"/>
+        <xs:extension base="mei:content.altmeiid">
+          <xs:attributeGroup ref="mei:attlist.altmeiid"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.altmeiid">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
   <xs:complexType name="content.appinfo">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="application"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:application"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="appinfo">
@@ -275,21 +276,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.appinfo">
-          <xs:attributeGroup ref="attlist.appinfo"/>
+        <xs:extension base="mei:content.appinfo">
+          <xs:attributeGroup ref="mei:attlist.appinfo"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.appinfo">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.application">
     <xs:sequence>
-      <xs:group maxOccurs="unbounded" ref="model.nameLike"/>
+      <xs:group maxOccurs="unbounded" ref="mei:model.nameLike"/>
       <xs:choice>
-        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.ptrLike"/>
-        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.ptrLike"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.pLike"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -301,16 +302,16 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.application">
-          <xs:attributeGroup ref="attlist.application"/>
+        <xs:extension base="mei:content.application">
+          <xs:attributeGroup ref="mei:attlist.application"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.application">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.datable"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.datable"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
     <xs:attribute name="version">
       <xs:annotation>
         <xs:documentation>supplies a version number for an
@@ -321,7 +322,7 @@
   </xs:attributeGroup>
   <xs:complexType name="content.availability">
     <xs:complexContent>
-      <xs:extension base="model.availabilityPart"/>
+      <xs:extension base="mei:model.availabilityPart"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="availability">
@@ -332,21 +333,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.availability">
-          <xs:attributeGroup ref="attlist.availability"/>
+        <xs:extension base="mei:content.availability">
+          <xs:attributeGroup ref="mei:attlist.availability"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.availability">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.change">
     <xs:sequence>
-      <xs:element ref="respstmt"/>
-      <xs:element ref="changedesc"/>
-      <xs:group ref="model.dateLike"/>
+      <xs:element ref="mei:respstmt"/>
+      <xs:element ref="mei:changedesc"/>
+      <xs:group ref="mei:model.dateLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="change">
@@ -364,18 +365,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.change">
-          <xs:attributeGroup ref="attlist.change"/>
+        <xs:extension base="mei:content.change">
+          <xs:attributeGroup ref="mei:attlist.change"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.change">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.changedesc">
-    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
   </xs:complexType>
   <xs:element name="changedesc">
     <xs:annotation>
@@ -384,16 +385,16 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.changedesc">
-          <xs:attributeGroup ref="attlist.changedesc"/>
+        <xs:extension base="mei:content.changedesc">
+          <xs:attributeGroup ref="mei:attlist.changedesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.changedesc">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:element name="classcode">
     <xs:annotation>
@@ -403,17 +404,17 @@
         &lt;keywords&gt; element.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:attributeGroup ref="attlist.classcode"/>
+      <xs:attributeGroup ref="mei:attlist.classcode"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.classcode">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.classification">
     <xs:choice maxOccurs="unbounded">
-      <xs:element ref="classcode"/>
-      <xs:element ref="keywords"/>
+      <xs:element ref="mei:classcode"/>
+      <xs:element ref="mei:keywords"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="classification">
@@ -428,18 +429,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.classification">
-          <xs:attributeGroup ref="attlist.classification"/>
+        <xs:extension base="mei:content.classification">
+          <xs:attributeGroup ref="mei:attlist.classification"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.classification">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.condition" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="condition">
     <xs:annotation>
@@ -452,19 +453,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.condition">
-          <xs:attributeGroup ref="attlist.condition"/>
+        <xs:extension base="mei:content.condition">
+          <xs:attributeGroup ref="mei:attlist.condition"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.condition">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.correction">
-    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
   </xs:complexType>
   <xs:element name="correction">
     <xs:annotation>
@@ -473,17 +474,17 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.correction">
-          <xs:attributeGroup ref="attlist.correction"/>
+        <xs:extension base="mei:content.correction">
+          <xs:attributeGroup ref="mei:attlist.correction"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.correction">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.regularmethod"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.regularmethod"/>
     <xs:attribute name="corrlevel">
       <xs:annotation>
         <xs:documentation>indicates the degree of correction
@@ -500,7 +501,7 @@
     </xs:attribute>
   </xs:attributeGroup>
   <xs:complexType name="content.creation">
-    <xs:group maxOccurs="unbounded" ref="model.textcomponentLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.textcomponentLike"/>
   </xs:complexType>
   <xs:element name="creation">
     <xs:annotation>
@@ -511,19 +512,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.creation">
-          <xs:attributeGroup ref="attlist.creation"/>
+        <xs:extension base="mei:content.creation">
+          <xs:attributeGroup ref="mei:attlist.creation"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.creation">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.dimensions" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="dimensions">
     <xs:annotation>
@@ -537,21 +538,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.dimensions">
-          <xs:attributeGroup ref="attlist.dimensions"/>
+        <xs:extension base="mei:content.dimensions">
+          <xs:attributeGroup ref="mei:attlist.dimensions"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.dimensions">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.measurement"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.measurement"/>
   </xs:attributeGroup>
   <xs:complexType name="content.editionstmt">
     <xs:sequence maxOccurs="unbounded">
-      <xs:group ref="model.editionLike"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="respstmt"/>
+      <xs:group ref="mei:model.editionLike"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:respstmt"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="editionstmt">
@@ -562,23 +563,23 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.editionstmt">
-          <xs:attributeGroup ref="attlist.editionstmt"/>
+        <xs:extension base="mei:content.editionstmt">
+          <xs:attributeGroup ref="mei:attlist.editionstmt"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.editionstmt">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.editorialdecl">
     <xs:choice>
-      <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+      <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
       <xs:sequence>
-        <xs:group maxOccurs="unbounded" ref="model.editorialdeclPart"/>
-        <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pLike"/>
+        <xs:group maxOccurs="unbounded" ref="mei:model.editorialdeclPart"/>
+        <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.pLike"/>
       </xs:sequence>
     </xs:choice>
   </xs:complexType>
@@ -590,20 +591,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.editorialdecl">
-          <xs:attributeGroup ref="attlist.editorialdecl"/>
+        <xs:extension base="mei:content.editorialdecl">
+          <xs:attributeGroup ref="mei:attlist.editorialdecl"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.editorialdecl">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.encodingdesc">
     <xs:complexContent>
-      <xs:extension base="model.encodingPart"/>
+      <xs:extension base="mei:model.encodingPart"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="encodingdesc">
@@ -615,18 +616,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.encodingdesc">
-          <xs:attributeGroup ref="attlist.encodingdesc"/>
+        <xs:extension base="mei:content.encodingdesc">
+          <xs:attributeGroup ref="mei:attlist.encodingdesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.encodingdesc">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.exhibithist" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="exhibithist">
     <xs:annotation>
@@ -635,19 +636,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.exhibithist">
-          <xs:attributeGroup ref="attlist.exhibithist"/>
+        <xs:extension base="mei:content.exhibithist">
+          <xs:attributeGroup ref="mei:attlist.exhibithist"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.exhibithist">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.extent" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="extent">
     <xs:annotation>
@@ -661,27 +662,27 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.extent">
-          <xs:attributeGroup ref="attlist.extent"/>
+        <xs:extension base="mei:content.extent">
+          <xs:attributeGroup ref="mei:attlist.extent"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.extent">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.measurement"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.measurement"/>
   </xs:attributeGroup>
   <xs:complexType name="content.filedesc">
     <xs:sequence>
-      <xs:element ref="titlestmt"/>
-      <xs:element minOccurs="0" ref="editionstmt"/>
-      <xs:element minOccurs="0" ref="extent"/>
-      <xs:element minOccurs="0" ref="fingerprint"/>
-      <xs:element ref="pubstmt"/>
-      <xs:element minOccurs="0" ref="seriesstmt"/>
-      <xs:element minOccurs="0" ref="notesstmt"/>
-      <xs:element minOccurs="0" ref="sourcedesc"/>
+      <xs:element ref="mei:titlestmt"/>
+      <xs:element minOccurs="0" ref="mei:editionstmt"/>
+      <xs:element minOccurs="0" ref="mei:extent"/>
+      <xs:element minOccurs="0" ref="mei:fingerprint"/>
+      <xs:element ref="mei:pubstmt"/>
+      <xs:element minOccurs="0" ref="mei:seriesstmt"/>
+      <xs:element minOccurs="0" ref="mei:notesstmt"/>
+      <xs:element minOccurs="0" ref="mei:sourcedesc"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="filedesc">
@@ -692,15 +693,15 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.filedesc">
-          <xs:attributeGroup ref="attlist.filedesc"/>
+        <xs:extension base="mei:content.filedesc">
+          <xs:attributeGroup ref="mei:attlist.filedesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.filedesc">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:element name="fingerprint">
     <xs:annotation>
@@ -712,15 +713,15 @@
         checksum.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:attributeGroup ref="attlist.fingerprint"/>
+      <xs:attributeGroup ref="mei:attlist.fingerprint"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.fingerprint">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.hand" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="hand">
     <xs:annotation>
@@ -737,19 +738,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.hand">
-          <xs:attributeGroup ref="attlist.hand"/>
+        <xs:extension base="mei:content.hand">
+          <xs:attributeGroup ref="mei:attlist.hand"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.hand">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.medium"/>
-    <xs:attributeGroup ref="att.responsibility"/>
-    <xs:attribute name="initial" type="data.BOOLEAN">
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.medium"/>
+    <xs:attributeGroup ref="mei:att.responsibility"/>
+    <xs:attribute name="initial" type="mei:data.BOOLEAN">
       <xs:annotation>
         <xs:documentation>marks this hand as the initial one of
           the document.</xs:documentation>
@@ -758,7 +759,7 @@
   </xs:attributeGroup>
   <xs:complexType name="content.handlist">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="hand"/>
+      <xs:element maxOccurs="unbounded" ref="mei:hand"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="handlist">
@@ -768,21 +769,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.handlist">
-          <xs:attributeGroup ref="attlist.handlist"/>
+        <xs:extension base="mei:content.handlist">
+          <xs:attributeGroup ref="mei:attlist.handlist"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.handlist">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.inscription" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike.limited"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textphraseLike.limited"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="inscription">
@@ -793,19 +794,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.inscription">
-          <xs:attributeGroup ref="attlist.inscription"/>
+        <xs:extension base="mei:content.inscription">
+          <xs:attributeGroup ref="mei:attlist.inscription"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.inscription">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.interpretation">
-    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
   </xs:complexType>
   <xs:element name="interpretation">
     <xs:annotation>
@@ -815,20 +816,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.interpretation">
-          <xs:attributeGroup ref="attlist.interpretation"/>
+        <xs:extension base="mei:content.interpretation">
+          <xs:attributeGroup ref="mei:attlist.interpretation"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.interpretation">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.keywords">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="term"/>
+      <xs:element maxOccurs="unbounded" ref="mei:term"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="keywords">
@@ -838,18 +839,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.keywords">
-          <xs:attributeGroup ref="attlist.keywords"/>
+        <xs:extension base="mei:content.keywords">
+          <xs:attributeGroup ref="mei:attlist.keywords"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.keywords">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.language" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="language">
     <xs:annotation>
@@ -861,20 +862,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.language">
-          <xs:attributeGroup ref="attlist.language"/>
+        <xs:extension base="mei:content.language">
+          <xs:attributeGroup ref="mei:attlist.language"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.language">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.authorized"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.authorized"/>
   </xs:attributeGroup>
   <xs:complexType name="content.langusage">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="language"/>
+      <xs:element maxOccurs="unbounded" ref="mei:language"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="langusage">
@@ -885,18 +886,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.langusage">
-          <xs:attributeGroup ref="attlist.langusage"/>
+        <xs:extension base="mei:content.langusage">
+          <xs:attributeGroup ref="mei:attlist.langusage"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.langusage">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.normalization">
-    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
   </xs:complexType>
   <xs:element name="normalization">
     <xs:annotation>
@@ -906,20 +907,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.normalization">
-          <xs:attributeGroup ref="attlist.normalization"/>
+        <xs:extension base="mei:content.normalization">
+          <xs:attributeGroup ref="mei:attlist.normalization"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.normalization">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.regularmethod"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.regularmethod"/>
   </xs:attributeGroup>
   <xs:complexType name="content.notesstmt">
-    <xs:group maxOccurs="unbounded" ref="model.annotLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.annotLike"/>
   </xs:complexType>
   <xs:element name="notesstmt">
     <xs:annotation>
@@ -931,18 +932,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.notesstmt">
-          <xs:attributeGroup ref="attlist.notesstmt"/>
+        <xs:extension base="mei:content.notesstmt">
+          <xs:attributeGroup ref="mei:attlist.notesstmt"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.notesstmt">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.physdesc">
-    <xs:group maxOccurs="unbounded" ref="model.physdescPart"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.physdescPart"/>
   </xs:complexType>
   <xs:element name="physdesc">
     <xs:annotation>
@@ -956,18 +957,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.physdesc">
-          <xs:attributeGroup ref="attlist.physdesc"/>
+        <xs:extension base="mei:content.physdesc">
+          <xs:attributeGroup ref="mei:attlist.physdesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.physdesc">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.physloc" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="physloc">
     <xs:annotation>
@@ -977,18 +978,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.physloc">
-          <xs:attributeGroup ref="attlist.physloc"/>
+        <xs:extension base="mei:content.physloc">
+          <xs:attributeGroup ref="mei:attlist.physloc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.physloc">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.physmedium" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="physmedium">
     <xs:annotation>
@@ -999,20 +1000,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.physmedium">
-          <xs:attributeGroup ref="attlist.physmedium"/>
+        <xs:extension base="mei:content.physmedium">
+          <xs:attributeGroup ref="mei:attlist.physmedium"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.physmedium">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.authorized"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.authorized"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.price" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="price">
     <xs:annotation>
@@ -1021,20 +1022,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.price">
-          <xs:attributeGroup ref="attlist.price"/>
+        <xs:extension base="mei:content.price">
+          <xs:attributeGroup ref="mei:attlist.price"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.price">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.measurement"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.measurement"/>
   </xs:attributeGroup>
   <xs:complexType name="content.profiledesc">
     <xs:complexContent>
-      <xs:extension base="model.profiledescPart"/>
+      <xs:extension base="mei:model.profiledescPart"/>
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="profiledesc">
@@ -1049,18 +1050,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.profiledesc">
-          <xs:attributeGroup ref="attlist.profiledesc"/>
+        <xs:extension base="mei:content.profiledesc">
+          <xs:attributeGroup ref="mei:attlist.profiledesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.profiledesc">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.projectdesc">
-    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
   </xs:complexType>
   <xs:element name="projectdesc">
     <xs:annotation>
@@ -1072,21 +1073,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.projectdesc">
-          <xs:attributeGroup ref="attlist.projectdesc"/>
+        <xs:extension base="mei:content.projectdesc">
+          <xs:attributeGroup ref="mei:attlist.projectdesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.projectdesc">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.provenance" mixed="true">
     <xs:choice>
-      <xs:element minOccurs="0" ref="eventlist"/>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+      <xs:element minOccurs="0" ref="mei:eventlist"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="provenance">
@@ -1096,21 +1097,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.provenance">
-          <xs:attributeGroup ref="attlist.provenance"/>
+        <xs:extension base="mei:content.provenance">
+          <xs:attributeGroup ref="mei:attlist.provenance"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.provenance">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.pubstmt">
     <xs:choice>
-      <xs:element minOccurs="0" ref="unpub"/>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.pubstmtPart"/>
+      <xs:element minOccurs="0" ref="mei:unpub"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.pubstmtPart"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="pubstmt">
@@ -1123,15 +1124,15 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.pubstmt">
-          <xs:attributeGroup ref="attlist.pubstmt"/>
+        <xs:extension base="mei:content.pubstmt">
+          <xs:attributeGroup ref="mei:attlist.pubstmt"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.pubstmt">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:element name="resp">
     <xs:annotation>
@@ -1141,17 +1142,17 @@
         authority attribute.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:attributeGroup ref="attlist.resp"/>
+      <xs:attributeGroup ref="mei:attlist.resp"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.resp">
-    <xs:attributeGroup ref="att.authorized"/>
+    <xs:attributeGroup ref="mei:att.authorized"/>
   </xs:attributeGroup>
   <xs:complexType name="content.respstmt">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="resp"/>
-      <xs:group ref="model.nameLike"/>
-      <xs:group ref="model.nameLike.agent"/>
+      <xs:element ref="mei:resp"/>
+      <xs:group ref="mei:model.nameLike"/>
+      <xs:group ref="mei:model.nameLike.agent"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="respstmt">
@@ -1163,19 +1164,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.respstmt">
-          <xs:attributeGroup ref="attlist.respstmt"/>
+        <xs:extension base="mei:content.respstmt">
+          <xs:attributeGroup ref="mei:attlist.respstmt"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.respstmt">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.revisiondesc">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="change"/>
+      <xs:element maxOccurs="unbounded" ref="mei:change"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="revisiondesc">
@@ -1187,18 +1188,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.revisiondesc">
-          <xs:attributeGroup ref="attlist.revisiondesc"/>
+        <xs:extension base="mei:content.revisiondesc">
+          <xs:attributeGroup ref="mei:attlist.revisiondesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.revisiondesc">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.samplingdecl">
-    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
   </xs:complexType>
   <xs:element name="samplingdecl">
     <xs:annotation>
@@ -1208,19 +1209,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.samplingdecl">
-          <xs:attributeGroup ref="attlist.samplingdecl"/>
+        <xs:extension base="mei:content.samplingdecl">
+          <xs:attributeGroup ref="mei:attlist.samplingdecl"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.samplingdecl">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.segmentation">
-    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
   </xs:complexType>
   <xs:element name="segmentation">
     <xs:annotation>
@@ -1230,25 +1231,25 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.segmentation">
-          <xs:attributeGroup ref="attlist.segmentation"/>
+        <xs:extension base="mei:content.segmentation">
+          <xs:attributeGroup ref="mei:attlist.segmentation"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.segmentation">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.seriesstmt">
     <xs:sequence>
-      <xs:group maxOccurs="unbounded" ref="model.titleLike"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="respstmt"/>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.identifierLike"/>
+      <xs:group maxOccurs="unbounded" ref="mei:model.titleLike"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:respstmt"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.identifierLike"/>
       <xs:choice>
-        <xs:group ref="model.listLike"/>
-        <xs:element minOccurs="0" maxOccurs="unbounded" ref="seriesstmt"/>
+        <xs:group ref="mei:model.listLike"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:seriesstmt"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -1265,27 +1266,27 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.seriesstmt">
-          <xs:attributeGroup ref="attlist.seriesstmt"/>
+        <xs:extension base="mei:content.seriesstmt">
+          <xs:attributeGroup ref="mei:attlist.seriesstmt"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.seriesstmt">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.source">
     <xs:sequence>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.identifierLike"/>
-      <xs:element minOccurs="0" ref="titlestmt"/>
-      <xs:element minOccurs="0" ref="editionstmt"/>
-      <xs:element ref="pubstmt"/>
-      <xs:element minOccurs="0" ref="physdesc"/>
-      <xs:element minOccurs="0" ref="seriesstmt"/>
-      <xs:element minOccurs="0" ref="notesstmt"/>
-      <xs:element minOccurs="0" ref="langusage"/>
-      <xs:element minOccurs="0" ref="classification"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.identifierLike"/>
+      <xs:element minOccurs="0" ref="mei:titlestmt"/>
+      <xs:element minOccurs="0" ref="mei:editionstmt"/>
+      <xs:element ref="mei:pubstmt"/>
+      <xs:element minOccurs="0" ref="mei:physdesc"/>
+      <xs:element minOccurs="0" ref="mei:seriesstmt"/>
+      <xs:element minOccurs="0" ref="mei:notesstmt"/>
+      <xs:element minOccurs="0" ref="mei:langusage"/>
+      <xs:element minOccurs="0" ref="mei:classification"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="source">
@@ -1298,20 +1299,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.source">
-          <xs:attributeGroup ref="attlist.source"/>
+        <xs:extension base="mei:content.source">
+          <xs:attributeGroup ref="mei:attlist.source"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.source">
-    <xs:attributeGroup ref="att.datapointing"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.datapointing"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.sourcedesc">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="source"/>
+      <xs:element maxOccurs="unbounded" ref="mei:source"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="sourcedesc">
@@ -1324,17 +1325,17 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.sourcedesc">
-          <xs:attributeGroup ref="attlist.sourcedesc"/>
+        <xs:extension base="mei:content.sourcedesc">
+          <xs:attributeGroup ref="mei:attlist.sourcedesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.sourcedesc">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.stdvals">
-    <xs:group maxOccurs="unbounded" ref="model.pLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.pLike"/>
   </xs:complexType>
   <xs:element name="stdvals">
     <xs:annotation>
@@ -1344,19 +1345,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.stdvals">
-          <xs:attributeGroup ref="attlist.stdvals"/>
+        <xs:extension base="mei:content.stdvals">
+          <xs:attributeGroup ref="mei:attlist.stdvals"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.stdvals">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.sysreq" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="sysreq">
     <xs:annotation>
@@ -1365,21 +1366,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.sysreq">
-          <xs:attributeGroup ref="attlist.sysreq"/>
+        <xs:extension base="mei:content.sysreq">
+          <xs:attributeGroup ref="mei:attlist.sysreq"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.sysreq">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.term" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="term"/>
-      <xs:group ref="model.textphraseLike.limited"/>
+      <xs:element ref="mei:term"/>
+      <xs:group ref="mei:model.textphraseLike.limited"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="term">
@@ -1393,15 +1394,15 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.term">
-          <xs:attributeGroup ref="attlist.term"/>
+        <xs:extension base="mei:content.term">
+          <xs:attributeGroup ref="mei:attlist.term"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.term">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
     <xs:attribute name="classcode" type="xs:IDREF">
       <xs:annotation>
         <xs:documentation>contains a reference to the controlled
@@ -1413,8 +1414,8 @@
   </xs:attributeGroup>
   <xs:complexType name="content.titlestmt">
     <xs:sequence>
-      <xs:group maxOccurs="unbounded" ref="model.titleLike"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="respstmt"/>
+      <xs:group maxOccurs="unbounded" ref="mei:model.titleLike"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:respstmt"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="titlestmt">
@@ -1424,18 +1425,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.titlestmt">
-          <xs:attributeGroup ref="attlist.titlestmt"/>
+        <xs:extension base="mei:content.titlestmt">
+          <xs:attributeGroup ref="mei:attlist.titlestmt"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.titlestmt">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.treatmenthist" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="treatmenthist">
     <xs:annotation>
@@ -1447,18 +1448,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.treatmenthist">
-          <xs:attributeGroup ref="attlist.treatmenthist"/>
+        <xs:extension base="mei:content.treatmenthist">
+          <xs:attributeGroup ref="mei:attlist.treatmenthist"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.treatmenthist">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.treatmentsched" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="treatmentsched">
     <xs:annotation>
@@ -1467,15 +1468,15 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.treatmentsched">
-          <xs:attributeGroup ref="attlist.treatmentsched"/>
+        <xs:extension base="mei:content.treatmentsched">
+          <xs:attributeGroup ref="mei:attlist.treatmentsched"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.treatmentsched">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:element name="unpub">
     <xs:annotation>
@@ -1483,15 +1484,15 @@
         that a bibliographic source is unpublished.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.unpub"/>
+      <xs:attributeGroup ref="mei:attlist.unpub"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.unpub">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.userestrict" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="userestrict">
     <xs:annotation>
@@ -1507,15 +1508,15 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.userestrict">
-          <xs:attributeGroup ref="attlist.userestrict"/>
+        <xs:extension base="mei:content.userestrict">
+          <xs:attributeGroup ref="mei:attlist.userestrict"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.userestrict">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
   </xs:attributeGroup>
   <xs:element name="eventlist">
     <xs:annotation>
@@ -1532,20 +1533,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.eventlist">
-          <xs:attributeGroup ref="attlist.eventlist"/>
+        <xs:extension base="mei:content.eventlist">
+          <xs:attributeGroup ref="mei:attlist.eventlist"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.eventlist">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
   <xs:complexType name="content.eventlist">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="event"/>
+      <xs:element maxOccurs="unbounded" ref="mei:event"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="event">
@@ -1556,21 +1557,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.event">
-          <xs:attributeGroup ref="attlist.event"/>
+        <xs:extension base="mei:content.event">
+          <xs:attributeGroup ref="mei:attlist.event"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.event">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.event">
     <xs:sequence>
-      <xs:group ref="model.dateLike"/>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.nameLike.place"/>
-      <xs:element ref="eventdesc"/>
+      <xs:group ref="mei:model.dateLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.nameLike.place"/>
+      <xs:element ref="mei:eventdesc"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="eventdesc">
@@ -1580,18 +1581,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.eventdesc">
-          <xs:attributeGroup ref="attlist.eventdesc"/>
+        <xs:extension base="mei:content.eventdesc">
+          <xs:attributeGroup ref="mei:attlist.eventdesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.eventdesc">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.eventdesc" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
 </xs:schema>

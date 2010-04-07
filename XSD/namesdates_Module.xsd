@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- NamesDates module -->
@@ -11,8 +12,8 @@
       individuals or corporate bodies.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="corpname"/>
-      <xs:element ref="persname"/>
+      <xs:element ref="mei:corpname"/>
+      <xs:element ref="mei:persname"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.nameLike.geogname">
@@ -21,7 +22,7 @@
       elements.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="geogname"/>
+      <xs:element ref="mei:geogname"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.nameLike.place">
@@ -30,8 +31,8 @@
       elements.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:group ref="model.nameLike.geogname"/>
-      <xs:group ref="model.repositoryLike"/>
+      <xs:group ref="mei:model.nameLike.geogname"/>
+      <xs:group ref="mei:model.repositoryLike"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.nameLike.label">
@@ -40,16 +41,16 @@
       labels.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="periodname"/>
-      <xs:element ref="stylename"/>
+      <xs:element ref="mei:periodname"/>
+      <xs:element ref="mei:stylename"/>
     </xs:choice>
   </xs:group>
   <!-- Declare module elements -->
   <xs:complexType name="content.corpname" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="corpname">
@@ -66,27 +67,27 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.corpname">
-          <xs:attributeGroup ref="attlist.corpname"/>
+        <xs:extension base="mei:content.corpname">
+          <xs:attributeGroup ref="mei:attlist.corpname"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.corpname">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.datable"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.name"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.datable"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.name"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
   <xs:complexType name="content.geogname" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="geogname">
@@ -101,26 +102,26 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.geogname">
-          <xs:attributeGroup ref="attlist.geogname"/>
+        <xs:extension base="mei:content.geogname">
+          <xs:attributeGroup ref="mei:attlist.geogname"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.geogname">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.name"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.name"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
   <xs:complexType name="content.periodname" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="periodname">
@@ -132,27 +133,27 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.periodname">
-          <xs:attributeGroup ref="attlist.periodname"/>
+        <xs:extension base="mei:content.periodname">
+          <xs:attributeGroup ref="mei:attlist.periodname"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.periodname">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.datable"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.name"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.datable"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.name"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
   <xs:complexType name="content.persname" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="persname">
@@ -166,27 +167,27 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.persname">
-          <xs:attributeGroup ref="attlist.persname"/>
+        <xs:extension base="mei:content.persname">
+          <xs:attributeGroup ref="mei:attlist.persname"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.persname">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.datable"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.name"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.datable"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.name"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
   <xs:complexType name="content.stylename" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="stylename">
@@ -199,19 +200,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.stylename">
-          <xs:attributeGroup ref="attlist.stylename"/>
+        <xs:extension base="mei:content.stylename">
+          <xs:attributeGroup ref="mei:attlist.stylename"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.stylename">
-    <xs:attributeGroup ref="att.bibl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.name"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.name"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
 </xs:schema>

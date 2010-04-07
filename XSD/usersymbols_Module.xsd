@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- UserSymbols Module -->
@@ -11,10 +12,10 @@
       primitives.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="curve"/>
-      <xs:element ref="line"/>
-      <xs:element ref="symbol"/>
-      <xs:element ref="anchoredtext"/>
+      <xs:element ref="mei:curve"/>
+      <xs:element ref="mei:line"/>
+      <xs:element ref="mei:symbol"/>
+      <xs:element ref="mei:anchoredtext"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.symboltableLike">
@@ -23,15 +24,15 @@
       definitions.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="symboltable"/>
+      <xs:element ref="mei:symboltable"/>
     </xs:sequence>
   </xs:group>
   <!-- Declare module elements -->
   <xs:complexType name="content.anchoredtext" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike.limited"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textphraseLike.limited"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="anchoredtext">
@@ -48,21 +49,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.anchoredtext">
-          <xs:attributeGroup ref="attlist.anchoredtext"/>
+        <xs:extension base="mei:content.anchoredtext">
+          <xs:attributeGroup ref="mei:attlist.anchoredtext"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.anchoredtext">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.startid"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.startid"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
+    <xs:attributeGroup ref="mei:att.visualoffset"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
   </xs:attributeGroup>
   <xs:element name="curve">
     <xs:annotation>
@@ -87,25 +88,25 @@
         rend attribute captures the appearance of the curve.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.curve"/>
+      <xs:attributeGroup ref="mei:attlist.curve"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.curve">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.visualoffset2"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.xy2"/>
-    <xs:attributeGroup ref="att.curvature"/>
-    <xs:attributeGroup ref="att.curverend"/>
+    <xs:attributeGroup ref="mei:att.color"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.startendid"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
+    <xs:attributeGroup ref="mei:att.visualoffset"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
+    <xs:attributeGroup ref="mei:att.xy2"/>
+    <xs:attributeGroup ref="mei:att.curvature"/>
+    <xs:attributeGroup ref="mei:att.curverend"/>
   </xs:attributeGroup>
   <xs:complexType name="content.line" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike.limited"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike.limited"/>
   </xs:complexType>
   <xs:element name="line">
     <xs:annotation>
@@ -125,24 +126,24 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.line">
-          <xs:attributeGroup ref="attlist.line"/>
+        <xs:extension base="mei:content.line">
+          <xs:attributeGroup ref="mei:attlist.line"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.line">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.visualoffset2"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.xy2"/>
-    <xs:attributeGroup ref="att.linerend"/>
+    <xs:attributeGroup ref="mei:att.color"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.startendid"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
+    <xs:attributeGroup ref="mei:att.visualoffset"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
+    <xs:attributeGroup ref="mei:att.xy2"/>
+    <xs:attributeGroup ref="mei:att.linerend"/>
   </xs:attributeGroup>
   <xs:element name="symbol">
     <xs:annotation>
@@ -158,19 +159,19 @@
         percentage.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.symbol"/>
+      <xs:attributeGroup ref="mei:attlist.symbol"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.symbol">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.scalable"/>
-    <xs:attributeGroup ref="att.startid"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="mei:att.color"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.scalable"/>
+    <xs:attributeGroup ref="mei:att.startid"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
+    <xs:attributeGroup ref="mei:att.visualoffset"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
     <xs:attribute name="ref" use="required" type="xs:IDREF">
       <xs:annotation>
         <xs:documentation>contains a reference to a
@@ -179,7 +180,7 @@
     </xs:attribute>
   </xs:attributeGroup>
   <xs:complexType name="content.symboldef">
-    <xs:group maxOccurs="unbounded" ref="model.graphicprimitiveLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.graphicprimitiveLike"/>
   </xs:complexType>
   <xs:element name="symboldef">
     <xs:annotation>
@@ -188,18 +189,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.symboldef">
-          <xs:attributeGroup ref="attlist.symboldef"/>
+        <xs:extension base="mei:content.symboldef">
+          <xs:attributeGroup ref="mei:attlist.symboldef"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.symboldef">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.symboltable">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="symboldef"/>
+      <xs:element maxOccurs="unbounded" ref="mei:symboldef"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="symboltable">
@@ -211,13 +212,13 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.symboltable">
-          <xs:attributeGroup ref="attlist.symboltable"/>
+        <xs:extension base="mei:content.symboltable">
+          <xs:attributeGroup ref="mei:attlist.symboltable"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.symboltable">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
 </xs:schema>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- CMN Ornaments Module -->
@@ -8,13 +9,13 @@
     <xs:annotation>
       <xs:documentation>Accidentals associated with ornaments</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="accidupper" type="data.ACCIDENTAL.EXPLICIT">
+    <xs:attribute name="accidupper" type="mei:data.ACCIDENTAL.EXPLICIT">
       <xs:annotation>
         <xs:documentation>records the written accidental
           associated with an upper neighboring note.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="accidlower" type="data.ACCIDENTAL.EXPLICIT">
+    <xs:attribute name="accidlower" type="mei:data.ACCIDENTAL.EXPLICIT">
       <xs:annotation>
         <xs:documentation>records the written accidental
           associated with a lower neighboring note.</xs:documentation>
@@ -32,9 +33,9 @@
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attributeGroup ref="att.ornamentaccid"/>
+    <xs:attributeGroup ref="mei:att.controlevent"/>
+    <xs:attributeGroup ref="mei:att.startendid"/>
+    <xs:attributeGroup ref="mei:att.ornamentaccid"/>
     <xs:attribute name="form">
       <xs:annotation>
         <xs:documentation>'norm' signals the normal form, that is,
@@ -56,7 +57,7 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="long" type="data.BOOLEAN">
+    <xs:attribute name="long" type="mei:data.BOOLEAN">
       <xs:annotation>
         <xs:documentation>When the long attribute is set to 'yes',
           a double or long mordent, consisting of 5 notes, is
@@ -68,9 +69,9 @@
     <xs:annotation>
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.placement"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
+    <xs:attributeGroup ref="mei:att.color"/>
+    <xs:attributeGroup ref="mei:att.placement"/>
+    <xs:attributeGroup ref="mei:att.visualoffset"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.trill.anl">
     <xs:annotation>
@@ -83,27 +84,27 @@
     <xs:annotation>
       <xs:documentation>Gestural domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.duration.performed"/>
+    <xs:attributeGroup ref="mei:att.duration.performed"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.trill.log">
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attributeGroup ref="att.ornamentaccid"/>
-    <xs:attributeGroup ref="att.duration.timestamp"/>
+    <xs:attributeGroup ref="mei:att.controlevent"/>
+    <xs:attributeGroup ref="mei:att.startendid"/>
+    <xs:attributeGroup ref="mei:att.ornamentaccid"/>
+    <xs:attributeGroup ref="mei:att.duration.timestamp"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.trill.vis">
     <xs:annotation>
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.placement"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.visualoffset2.ho"/>
-    <xs:attributeGroup ref="att.visualoffset2.to"/>
-    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="mei:att.color"/>
+    <xs:attributeGroup ref="mei:att.placement"/>
+    <xs:attributeGroup ref="mei:att.visualoffset"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.to"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.turn.anl">
     <xs:annotation>
@@ -116,10 +117,10 @@
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.ornamentaccid"/>
-    <xs:attributeGroup ref="att.startid"/>
-    <xs:attribute name="delayed" type="data.BOOLEAN">
+    <xs:attributeGroup ref="mei:att.controlevent"/>
+    <xs:attributeGroup ref="mei:att.ornamentaccid"/>
+    <xs:attributeGroup ref="mei:att.startid"/>
+    <xs:attribute name="delayed" type="mei:data.BOOLEAN">
       <xs:annotation>
         <xs:documentation>When the delayed attribute is set to
           'yes', the turn begins on the second half of the beat. See Read, p.
@@ -143,10 +144,10 @@
     <xs:annotation>
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.placement"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="mei:att.color"/>
+    <xs:attributeGroup ref="mei:att.placement"/>
+    <xs:attributeGroup ref="mei:att.visualoffset"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
   </xs:attributeGroup>
   <!-- Declare module model classes -->
   <xs:group name="model.ornamentLike.cmn">
@@ -155,14 +156,14 @@
       elements.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="mordent"/>
-      <xs:element ref="trill"/>
-      <xs:element ref="turn"/>
+      <xs:element ref="mei:mordent"/>
+      <xs:element ref="mei:trill"/>
+      <xs:element ref="mei:turn"/>
     </xs:choice>
   </xs:group>
   <!-- Declare module elements -->
   <xs:complexType name="content.mordent">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.eventLike"/>
   </xs:complexType>
   <xs:element name="mordent">
     <xs:annotation>
@@ -177,21 +178,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.mordent">
-          <xs:attributeGroup ref="attlist.mordent"/>
+        <xs:extension base="mei:content.mordent">
+          <xs:attributeGroup ref="mei:attlist.mordent"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.mordent">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.mordent.log"/>
-    <xs:attributeGroup ref="att.mordent.vis"/>
-    <xs:attributeGroup ref="att.mordent.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.mordent.log"/>
+    <xs:attributeGroup ref="mei:att.mordent.vis"/>
+    <xs:attributeGroup ref="mei:att.mordent.anl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.trill">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.eventLike"/>
   </xs:complexType>
   <xs:element name="trill">
     <xs:annotation>
@@ -208,22 +209,22 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.trill">
-          <xs:attributeGroup ref="attlist.trill"/>
+        <xs:extension base="mei:content.trill">
+          <xs:attributeGroup ref="mei:attlist.trill"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.trill">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.trill.log"/>
-    <xs:attributeGroup ref="att.trill.vis"/>
-    <xs:attributeGroup ref="att.trill.ges"/>
-    <xs:attributeGroup ref="att.trill.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.trill.log"/>
+    <xs:attributeGroup ref="mei:att.trill.vis"/>
+    <xs:attributeGroup ref="mei:att.trill.ges"/>
+    <xs:attributeGroup ref="mei:att.trill.anl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.turn">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.eventLike"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.eventLike"/>
   </xs:complexType>
   <xs:element name="turn">
     <xs:annotation>
@@ -237,17 +238,17 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.turn">
-          <xs:attributeGroup ref="attlist.turn"/>
+        <xs:extension base="mei:content.turn">
+          <xs:attributeGroup ref="mei:attlist.turn"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.turn">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.turn.log"/>
-    <xs:attributeGroup ref="att.turn.vis"/>
-    <xs:attributeGroup ref="att.turn.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.turn.log"/>
+    <xs:attributeGroup ref="mei:att.turn.vis"/>
+    <xs:attributeGroup ref="mei:att.turn.anl"/>
   </xs:attributeGroup>
 </xs:schema>

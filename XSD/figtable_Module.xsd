@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- Figure and Table module -->
@@ -24,17 +25,17 @@
   <!-- Declare module model classes -->
   <xs:group name="model.figureLike">
     <xs:sequence>
-      <xs:element ref="fig"/>
+      <xs:element ref="mei:fig"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.graphicLike">
     <xs:sequence>
-      <xs:element ref="graphic"/>
+      <xs:element ref="mei:graphic"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.figdescLike">
     <xs:sequence>
-      <xs:element ref="figdesc"/>
+      <xs:element ref="mei:figdesc"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.tableLike">
@@ -43,7 +44,7 @@
       elements.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="table"/>
+      <xs:element ref="mei:table"/>
     </xs:sequence>
   </xs:group>
   <!-- Declare module elements -->
@@ -53,29 +54,29 @@
         inline graphic, illustration, or figure.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.graphic"/>
+      <xs:attributeGroup ref="mei:attlist.graphic"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.graphic">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.internetmedia"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.link.external"/>
-    <xs:attributeGroup ref="att.measurement"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.internetmedia"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.link.external"/>
+    <xs:attributeGroup ref="mei:att.measurement"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
     <xs:attribute name="height" type="xs:positiveInteger">
       <xs:annotation>
         <xs:documentation>measurement of the vertical dimension of
           an image.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attributeGroup ref="att.width"/>
+    <xs:attributeGroup ref="mei:att.width"/>
   </xs:attributeGroup>
   <xs:complexType name="content.fig">
     <xs:sequence>
-      <xs:group minOccurs="0" ref="model.captionLike"/>
-      <xs:element minOccurs="0" ref="figdesc"/>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.graphicLike"/>
+      <xs:group minOccurs="0" ref="mei:model.captionLike"/>
+      <xs:element minOccurs="0" ref="mei:figdesc"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.graphicLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="fig">
@@ -86,24 +87,24 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.fig">
-          <xs:attributeGroup ref="attlist.fig"/>
+        <xs:extension base="mei:content.fig">
+          <xs:attributeGroup ref="mei:attlist.fig"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.fig">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.link.common"/>
-    <xs:attributeGroup ref="att.link.external"/>
-    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.link.common"/>
+    <xs:attributeGroup ref="mei:att.link.external"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
   </xs:attributeGroup>
   <xs:complexType name="content.figdesc" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.graphicprimitiveLike"/>
-      <xs:group ref="model.textcomponentLike"/>
-      <xs:group ref="model.annotLike"/>
+      <xs:group ref="mei:model.graphicprimitiveLike"/>
+      <xs:group ref="mei:model.textcomponentLike"/>
+      <xs:group ref="mei:model.annotLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="figdesc">
@@ -118,20 +119,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.figdesc">
-          <xs:attributeGroup ref="attlist.figdesc"/>
+        <xs:extension base="mei:content.figdesc">
+          <xs:attributeGroup ref="mei:attlist.figdesc"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.figdesc">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.lang"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
   </xs:attributeGroup>
   <xs:complexType name="content.table">
     <xs:sequence>
-      <xs:group minOccurs="0" ref="model.captionLike"/>
-      <xs:element maxOccurs="unbounded" ref="tr"/>
+      <xs:group minOccurs="0" ref="mei:model.captionLike"/>
+      <xs:element maxOccurs="unbounded" ref="mei:tr"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="table">
@@ -141,24 +142,24 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.table">
-          <xs:attributeGroup ref="attlist.table"/>
+        <xs:extension base="mei:content.table">
+          <xs:attributeGroup ref="mei:attlist.table"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.table">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
   </xs:attributeGroup>
   <xs:complexType name="content.td" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textcomponentLike"/>
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textcomponentLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="td">
@@ -170,25 +171,25 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.td">
-          <xs:attributeGroup ref="attlist.td"/>
+        <xs:extension base="mei:content.td">
+          <xs:attributeGroup ref="mei:attlist.td"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.td">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.tabular"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
+    <xs:attributeGroup ref="mei:att.tabular"/>
   </xs:attributeGroup>
   <xs:complexType name="content.th" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textcomponentLike"/>
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textcomponentLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="th">
@@ -200,23 +201,23 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.th">
-          <xs:attributeGroup ref="attlist.th"/>
+        <xs:extension base="mei:content.th">
+          <xs:attributeGroup ref="mei:attlist.th"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.th">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.tabular"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
+    <xs:attributeGroup ref="mei:att.tabular"/>
   </xs:attributeGroup>
   <xs:complexType name="content.tr">
     <xs:choice maxOccurs="unbounded">
-      <xs:element ref="th"/>
-      <xs:element ref="td"/>
+      <xs:element ref="mei:th"/>
+      <xs:element ref="mei:td"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="tr">
@@ -229,16 +230,16 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.tr">
-          <xs:attributeGroup ref="attlist.tr"/>
+        <xs:extension base="mei:content.tr">
+          <xs:attributeGroup ref="mei:attlist.tr"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.tr">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
   </xs:attributeGroup>
 </xs:schema>

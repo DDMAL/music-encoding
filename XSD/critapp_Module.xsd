@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- CritApp Module -->
@@ -9,10 +10,10 @@
       <xs:documentation>Attributes common to all elements
       representing variant readings</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.handident"/>
-    <xs:attributeGroup ref="att.responsibility"/>
-    <xs:attributeGroup ref="att.sequence"/>
-    <xs:attributeGroup ref="att.source"/>
+    <xs:attributeGroup ref="mei:att.handident"/>
+    <xs:attributeGroup ref="mei:att.responsibility"/>
+    <xs:attributeGroup ref="mei:att.sequence"/>
+    <xs:attributeGroup ref="mei:att.source"/>
     <xs:attribute name="cause" type="xs:NMTOKEN">
       <xs:annotation>
         <xs:documentation>classifies the cause for the variant
@@ -49,7 +50,7 @@
       apparatus entry.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="app"/>
+      <xs:element ref="mei:app"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.rdgPart">
@@ -60,23 +61,23 @@
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
         <xs:choice>
-          <xs:group ref="model.sectionPart"/>
-          <xs:group ref="model.ossiaLike"/>
-          <xs:group ref="model.controleventLike"/>
-          <xs:group ref="model.lyricsLike"/>
-          <xs:group ref="model.midiLike"/>
-          <xs:group ref="model.layerLike"/>
-          <xs:group ref="model.syllableLike"/>
-          <xs:group ref="model.sylLike"/>
-          <xs:group ref="model.eventLike"/>
-          <xs:group ref="model.eventLike.neumes"/>
-          <xs:group ref="model.noteModifierLike"/>
-          <xs:group ref="model.verseLike"/>
-          <xs:group ref="model.eventLike.measureFilling"/>
+          <xs:group ref="mei:model.sectionPart"/>
+          <xs:group ref="mei:model.ossiaLike"/>
+          <xs:group ref="mei:model.controleventLike"/>
+          <xs:group ref="mei:model.lyricsLike"/>
+          <xs:group ref="mei:model.midiLike"/>
+          <xs:group ref="mei:model.layerLike"/>
+          <xs:group ref="mei:model.syllableLike"/>
+          <xs:group ref="mei:model.sylLike"/>
+          <xs:group ref="mei:model.eventLike"/>
+          <xs:group ref="mei:model.eventLike.neumes"/>
+          <xs:group ref="mei:model.noteModifierLike"/>
+          <xs:group ref="mei:model.verseLike"/>
+          <xs:group ref="mei:model.eventLike.measureFilling"/>
         </xs:choice>
         <xs:choice>
-          <xs:group ref="model.textcomponentLike"/>
-          <xs:group ref="model.textphraseLike.limited"/>
+          <xs:group ref="mei:model.textcomponentLike"/>
+          <xs:group ref="mei:model.textphraseLike.limited"/>
         </xs:choice>
       </xs:choice>
     </xs:sequence>
@@ -84,9 +85,9 @@
   <!-- Declare module elements -->
   <xs:complexType name="content.app">
     <xs:sequence>
-      <xs:element minOccurs="0" ref="lem"/>
-      <xs:element ref="rdg"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="rdg"/>
+      <xs:element minOccurs="0" ref="mei:lem"/>
+      <xs:element ref="mei:rdg"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:rdg"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="app">
@@ -102,31 +103,31 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.app">
-          <xs:attributeGroup ref="attlist.app"/>
+        <xs:extension base="mei:content.app">
+          <xs:attributeGroup ref="mei:attlist.app"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.app">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
   <xs:complexType name="content.lem" mixed="true">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="expansion"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:expansion"/>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:group ref="model.appLike"/>
-        <xs:group ref="model.divLike"/>
-        <xs:group ref="model.milestoneLike.music"/>
-        <xs:group ref="model.scoredefLike"/>
-        <xs:group ref="model.staffdefLike"/>
-        <xs:group ref="model.staffgrpLike"/>
-        <xs:group ref="model.annotLike"/>
-        <xs:group ref="model.graphicprimitiveLike"/>
-        <xs:group ref="model.editLike"/>
-        <xs:group ref="model.transcriptionLike"/>
-        <xs:group ref="model.rdgPart"/>
+        <xs:group ref="mei:model.appLike"/>
+        <xs:group ref="mei:model.divLike"/>
+        <xs:group ref="mei:model.milestoneLike.music"/>
+        <xs:group ref="mei:model.scoredefLike"/>
+        <xs:group ref="mei:model.staffdefLike"/>
+        <xs:group ref="mei:model.staffgrpLike"/>
+        <xs:group ref="mei:model.annotLike"/>
+        <xs:group ref="mei:model.graphicprimitiveLike"/>
+        <xs:group ref="mei:model.editLike"/>
+        <xs:group ref="mei:model.transcriptionLike"/>
+        <xs:group ref="mei:model.rdgPart"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -146,36 +147,36 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.lem">
-          <xs:attributeGroup ref="attlist.lem"/>
+        <xs:extension base="mei:content.lem">
+          <xs:attributeGroup ref="mei:attlist.lem"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.lem">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.crit"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.link.common"/>
-    <xs:attributeGroup ref="att.link.external"/>
-    <xs:attributeGroup ref="att.link.internal"/>
-    <xs:attributeGroup ref="att.rdg.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.crit"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
+    <xs:attributeGroup ref="mei:att.link.common"/>
+    <xs:attributeGroup ref="mei:att.link.external"/>
+    <xs:attributeGroup ref="mei:att.link.internal"/>
+    <xs:attributeGroup ref="mei:att.rdg.anl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.rdg" mixed="true">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="expansion"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:expansion"/>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:group ref="model.appLike"/>
-        <xs:group ref="model.divLike"/>
-        <xs:group ref="model.milestoneLike.music"/>
-        <xs:group ref="model.scoredefLike"/>
-        <xs:group ref="model.staffdefLike"/>
-        <xs:group ref="model.staffgrpLike"/>
-        <xs:group ref="model.annotLike"/>
-        <xs:group ref="model.graphicprimitiveLike"/>
-        <xs:group ref="model.editLike"/>
-        <xs:group ref="model.transcriptionLike"/>
-        <xs:group ref="model.rdgPart"/>
+        <xs:group ref="mei:model.appLike"/>
+        <xs:group ref="mei:model.divLike"/>
+        <xs:group ref="mei:model.milestoneLike.music"/>
+        <xs:group ref="mei:model.scoredefLike"/>
+        <xs:group ref="mei:model.staffdefLike"/>
+        <xs:group ref="mei:model.staffgrpLike"/>
+        <xs:group ref="mei:model.annotLike"/>
+        <xs:group ref="mei:model.graphicprimitiveLike"/>
+        <xs:group ref="mei:model.editLike"/>
+        <xs:group ref="mei:model.transcriptionLike"/>
+        <xs:group ref="mei:model.rdgPart"/>
       </xs:choice>
     </xs:sequence>
   </xs:complexType>
@@ -190,19 +191,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.rdg">
-          <xs:attributeGroup ref="attlist.rdg"/>
+        <xs:extension base="mei:content.rdg">
+          <xs:attributeGroup ref="mei:attlist.rdg"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.rdg">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.crit"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.link.common"/>
-    <xs:attributeGroup ref="att.link.external"/>
-    <xs:attributeGroup ref="att.link.internal"/>
-    <xs:attributeGroup ref="att.rdg.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.crit"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
+    <xs:attributeGroup ref="mei:att.link.common"/>
+    <xs:attributeGroup ref="mei:att.link.external"/>
+    <xs:attributeGroup ref="mei:att.link.internal"/>
+    <xs:attributeGroup ref="mei:att.rdg.anl"/>
   </xs:attributeGroup>
 </xs:schema>

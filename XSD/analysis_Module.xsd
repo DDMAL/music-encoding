@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import namespace="http://www.music-encoding.org/ns/mei" schemaLocation="mei-all.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- Analysis module -->
@@ -50,7 +51,7 @@
           with the current element.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attributeGroup ref="att.alignment"/>
+    <xs:attributeGroup ref="mei:att.alignment"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.harmonicfunction">
     <xs:annotation>
@@ -107,7 +108,7 @@
       <xs:documentation>Attributes that describe pitch
       class</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="pclass" type="data.PITCHCLASS">
+    <xs:attribute name="pclass" type="mei:data.PITCHCLASS">
       <xs:annotation>
         <xs:documentation>holds pitch class
           information.</xs:documentation>

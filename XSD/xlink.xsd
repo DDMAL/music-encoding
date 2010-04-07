@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="qualified" targetNamespace="http://www.w3.org/1999/xlink"
+  xmlns:mei="http://www.music-encoding.org/ns/mei"
   xmlns:xlink="http://www.w3.org/1999/xlink">
-  <xs:import schemaLocation="mei-all.xsd"/>
+  <xs:import schemaLocation="analysis_Module.xsd"/>
+  <xs:import namespace="http://www.music-encoding.org/ns/mei"
+    schemaLocation="mei-all.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"
     schemaLocation="xml.xsd"/>
   <xs:attribute name="actuate">
@@ -48,17 +51,17 @@
   </xs:attribute>
   <xs:attribute name="title">
     <xs:annotation>
-      <xs:documentation>contains a human-readable description of the entire
-        link. A value is optional; if a value is supplied, it should contain a
-        string that describes the resource. The use of this information is
-        highly dependent on the type of processing being done. It may be used,
-        for example, to make titles available to applications used by visually
-        impaired users, or to create a table of links, or to present help text
-        that appears when a user lets a mouse pointer hover over a starting
-        resource.</xs:documentation>
+      <xs:documentation xml:lang="eng">contains a human-readable description of
+        the entire link. A value is optional; if a value is supplied, it should
+        contain a string that describes the resource. The use of this
+        information is highly dependent on the type of processing being done. It
+        may be used, for example, to make titles available to applications used
+        by visually impaired users, or to create a table of links, or to present
+        help text that appears when a user lets a mouse pointer hover over a
+        starting resource.</xs:documentation>
     </xs:annotation>
   </xs:attribute>
-  <xs:attribute name="href" type="data.URI">
+  <xs:attribute name="href" type="mei:data.URI">
     <xs:annotation>
       <xs:documentation>allows the use of an previously-undeclared URI to
         identify an external electronic object.</xs:documentation>

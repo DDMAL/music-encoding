@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- Neumes Module -->
@@ -15,13 +16,13 @@
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="form" type="data.INEUMEFORM">
+    <xs:attribute name="form" type="mei:data.INEUMEFORM">
       <xs:annotation>
         <xs:documentation>provides a subclass or functional label
           for the neume.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="name" type="data.INEUMENAME">
+    <xs:attribute name="name" type="mei:data.INEUMENAME">
       <xs:annotation>
         <xs:documentation>records a name of an interrupted
           neume.</xs:documentation>
@@ -32,7 +33,7 @@
     <xs:annotation>
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.color"/>
+    <xs:attributeGroup ref="mei:att.color"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.uneume.anl">
     <xs:annotation>
@@ -49,15 +50,15 @@
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.event"/>
-    <xs:attributeGroup ref="att.syltext"/>
-    <xs:attribute name="form" type="data.UNEUMEFORM">
+    <xs:attributeGroup ref="mei:att.event"/>
+    <xs:attributeGroup ref="mei:att.syltext"/>
+    <xs:attribute name="form" type="mei:data.UNEUMEFORM">
       <xs:annotation>
         <xs:documentation>provides a subclass or functional label
           for the neume.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="name" type="data.UNEUMENAME">
+    <xs:attribute name="name" type="mei:data.UNEUMENAME">
       <xs:annotation>
         <xs:documentation>records the name of an uninterrupted
           neume.</xs:documentation>
@@ -68,19 +69,19 @@
     <xs:annotation>
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.altsym"/>
-    <xs:attributeGroup ref="att.color"/>
-    <xs:attributeGroup ref="att.relativesize"/>
-    <xs:attributeGroup ref="att.visualoffset.ho"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attributeGroup ref="att.visibility"/>
+    <xs:attributeGroup ref="mei:att.altsym"/>
+    <xs:attributeGroup ref="mei:att.color"/>
+    <xs:attributeGroup ref="mei:att.relativesize"/>
+    <xs:attributeGroup ref="mei:att.visualoffset.ho"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
+    <xs:attributeGroup ref="mei:att.visibility"/>
   </xs:attributeGroup>
   <!-- Declare module model classes -->
   <xs:group name="model.eventLike.neumes">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="ineume"/>
-        <xs:element ref="uneume"/>
+        <xs:element ref="mei:ineume"/>
+        <xs:element ref="mei:uneume"/>
       </xs:choice>
     </xs:sequence>
   </xs:group>
@@ -99,7 +100,7 @@
       text.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="syllable"/>
+      <xs:element ref="mei:syllable"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.syllablePart">
@@ -108,25 +109,25 @@
       content of a syllable.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:group ref="model.sylLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.verseLike"/>
+      <xs:group ref="mei:model.sylLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.verseLike"/>
     </xs:choice>
   </xs:group>
   <!-- Declare module elements -->
   <xs:complexType name="content.ineume">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.appLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.verseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.appLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.verseLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="ineume">
@@ -138,33 +139,33 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.ineume">
-          <xs:attributeGroup ref="attlist.ineume"/>
+        <xs:extension base="mei:content.ineume">
+          <xs:attributeGroup ref="mei:attlist.ineume"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.ineume">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.ineume.log"/>
-    <xs:attributeGroup ref="att.ineume.vis"/>
-    <xs:attributeGroup ref="att.ineume.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
+    <xs:attributeGroup ref="mei:att.ineume.log"/>
+    <xs:attributeGroup ref="mei:att.ineume.vis"/>
+    <xs:attributeGroup ref="mei:att.ineume.anl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.syllable">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.appLike"/>
-      <xs:group ref="model.divLike"/>
-      <xs:group ref="model.milestoneLike.music"/>
-      <xs:group ref="model.scoredefLike"/>
-      <xs:group ref="model.staffdefLike"/>
-      <xs:group ref="model.staffgrpLike"/>
-      <xs:group ref="model.annotLike"/>
-      <xs:group ref="model.graphicprimitiveLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.syllablePart"/>
+      <xs:group ref="mei:model.appLike"/>
+      <xs:group ref="mei:model.divLike"/>
+      <xs:group ref="mei:model.milestoneLike.music"/>
+      <xs:group ref="mei:model.scoredefLike"/>
+      <xs:group ref="mei:model.staffdefLike"/>
+      <xs:group ref="mei:model.staffgrpLike"/>
+      <xs:group ref="mei:model.annotLike"/>
+      <xs:group ref="mei:model.graphicprimitiveLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.syllablePart"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="syllable">
@@ -175,22 +176,22 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.syllable">
-          <xs:attributeGroup ref="attlist.syllable"/>
+        <xs:extension base="mei:content.syllable">
+          <xs:attributeGroup ref="mei:attlist.syllable"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.syllable">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.uneume">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.appLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.verseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.appLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.verseLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="uneume">
@@ -203,18 +204,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.uneume">
-          <xs:attributeGroup ref="attlist.uneume"/>
+        <xs:extension base="mei:content.uneume">
+          <xs:attributeGroup ref="mei:attlist.uneume"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.uneume">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.typed"/>
-    <xs:attributeGroup ref="att.uneume.log"/>
-    <xs:attributeGroup ref="att.uneume.vis"/>
-    <xs:attributeGroup ref="att.uneume.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
+    <xs:attributeGroup ref="mei:att.uneume.log"/>
+    <xs:attributeGroup ref="mei:att.uneume.vis"/>
+    <xs:attributeGroup ref="mei:att.uneume.anl"/>
   </xs:attributeGroup>
 </xs:schema>

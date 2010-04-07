@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- Harmony Module -->
@@ -9,7 +10,7 @@
       <xs:documentation>Attributes that describe a fret
       location</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="fret" type="data.FRET">
+    <xs:attribute name="fret" type="mei:data.FRET">
       <xs:annotation>
         <xs:documentation>records the location at which a string
           should be stopped against a fret.</xs:documentation>
@@ -27,15 +28,15 @@
     <xs:annotation>
       <xs:documentation>Gestural domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.duration.performed"/>
+    <xs:attributeGroup ref="mei:att.duration.performed"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.harm.log">
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.controlevent"/>
-    <xs:attributeGroup ref="att.startendid"/>
-    <xs:attributeGroup ref="att.duration.timestamp"/>
+    <xs:attributeGroup ref="mei:att.controlevent"/>
+    <xs:attributeGroup ref="mei:att.startendid"/>
+    <xs:attributeGroup ref="mei:att.duration.timestamp"/>
     <xs:attribute name="chordref" type="xs:IDREF">
       <xs:annotation>
         <xs:documentation>contains a reference to a predefined
@@ -47,12 +48,12 @@
     <xs:annotation>
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.placement"/>
-    <xs:attributeGroup ref="att.visualoffset"/>
-    <xs:attributeGroup ref="att.visualoffset2.ho"/>
-    <xs:attributeGroup ref="att.visualoffset2.to"/>
-    <xs:attributeGroup ref="att.xy"/>
-    <xs:attribute name="extender" type="data.BOOLEAN">
+    <xs:attributeGroup ref="mei:att.placement"/>
+    <xs:attributeGroup ref="mei:att.visualoffset"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.ho"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.to"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
+    <xs:attribute name="extender" type="mei:data.BOOLEAN">
       <xs:annotation>
         <xs:documentation>indicates the presence of an extension
           symbol, typically a dash or underscore, drawn from the end of the
@@ -85,7 +86,7 @@
       definitions.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="chordtable"/>
+      <xs:element ref="mei:chordtable"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.harmLike">
@@ -94,7 +95,7 @@
       harmony.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="harm"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:harm"/>
     </xs:sequence>
   </xs:group>
   <!-- Declare module elements -->
@@ -107,18 +108,18 @@
         created is recorded by the fret attribute.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.barre"/>
+      <xs:attributeGroup ref="mei:attlist.barre"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.barre">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.fretlocation"/>
-    <xs:attributeGroup ref="att.startendid"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.fretlocation"/>
+    <xs:attributeGroup ref="mei:att.startendid"/>
   </xs:attributeGroup>
   <xs:complexType name="content.chorddef">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="chordmember"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="barre"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:chordmember"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:barre"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="chorddef">
@@ -131,14 +132,14 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.chorddef">
-          <xs:attributeGroup ref="attlist.chorddef"/>
+        <xs:extension base="mei:content.chorddef">
+          <xs:attributeGroup ref="mei:attlist.chorddef"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.chorddef">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
     <xs:attribute name="pos">
       <xs:annotation>
         <xs:documentation>records the fret position at which the
@@ -158,16 +159,16 @@
         attribute.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.chordmember"/>
+      <xs:attributeGroup ref="mei:attlist.chordmember"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.chordmember">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.accidental.performed"/>
-    <xs:attributeGroup ref="att.fretlocation"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.accidental.performed"/>
+    <xs:attributeGroup ref="mei:att.fretlocation"/>
     <xs:attributeGroup ref="att.intervalharmonic"/>
-    <xs:attributeGroup ref="att.pitched"/>
-    <xs:attribute name="fing" type="data.FINGER.FRET">
+    <xs:attributeGroup ref="mei:att.pitched"/>
+    <xs:attribute name="fing" type="mei:data.FINGER.FRET">
       <xs:annotation>
         <xs:documentation>indicates which finger, if any, should
           be used to play an individual string. The values 'x' and 'o' indicated
@@ -177,7 +178,7 @@
   </xs:attributeGroup>
   <xs:complexType name="content.chordtable">
     <xs:sequence>
-      <xs:element maxOccurs="unbounded" ref="chorddef"/>
+      <xs:element maxOccurs="unbounded" ref="mei:chorddef"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="chordtable">
@@ -189,21 +190,21 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.chordtable">
-          <xs:attributeGroup ref="attlist.chordtable"/>
+        <xs:extension base="mei:content.chordtable">
+          <xs:attributeGroup ref="mei:attlist.chordtable"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.chordtable">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.harm" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike.limited"/>
-      <xs:group ref="model.graphicprimitiveLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.textphraseLike.limited"/>
+      <xs:group ref="mei:model.graphicprimitiveLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="harm">
@@ -220,18 +221,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.harm">
-          <xs:attributeGroup ref="attlist.harm"/>
+        <xs:extension base="mei:content.harm">
+          <xs:attributeGroup ref="mei:attlist.harm"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.harm">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.harm.log"/>
-    <xs:attributeGroup ref="att.harm.vis"/>
-    <xs:attributeGroup ref="att.harm.ges"/>
-    <xs:attributeGroup ref="att.harm.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.harm.log"/>
+    <xs:attributeGroup ref="mei:att.harm.vis"/>
+    <xs:attributeGroup ref="mei:att.harm.ges"/>
+    <xs:attributeGroup ref="mei:att.harm.anl"/>
   </xs:attributeGroup>
 </xs:schema>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <xs:simpleType name="data.BEND.AMOUNT">
@@ -413,8 +414,7 @@
       are used to cancel dbflats and dblsharps, respectively. su = sharp note
       qtr. tone up, sd = sharp note qtr. tone down, fu = flat note qtr. tone up,
       fd = flat note qtr. tone down, nu = natural note qtr. tone up, nd =
-      natural note quarter tone down. Quarter-tone accidentals listed in Read,
-      p. 145.</xs:documentation>
+      natural note quarter tone down.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="s"/>
@@ -438,14 +438,7 @@
   <xs:simpleType name="data.ACCIDENTAL.IMPLICIT">
     <xs:annotation>
       <xs:documentation>Accidental attribute values: s = sharp, f = flat, ss =
-      dblsharp, x=dblsharp, ff = dblflat, xs = triple sharp, tb = triple flat, n
-      = natural, nf = naturalflat, ns = naturalsharp. ss indicates the use of 2
-      sharp signs, while x indicates the use of a single double sharp. nf and ns
-      are used to cancel dbflats and dblsharps, respectively. su = sharp note
-      qtr. tone up, sd = sharp note qtr. tone down, fu = flat note qtr. tone up,
-      fd = flat note qtr. tone down, nu = natural note qtr. tone up, nd =
-      natural note quarter tone down. Quarter-tone accidentals listed in Read,
-      p. 145.</xs:documentation>
+      dblsharp, x=dblsharp, ff = dblflat, n = natural.</xs:documentation>
     </xs:annotation>
     <xs:restriction base="xs:token">
       <xs:enumeration value="s"/>
@@ -484,6 +477,7 @@
       <xs:enumeration value="harm"/>
       <xs:enumeration value="snap"/>
       <xs:enumeration value="fingernail"/>
+      <xs:enumeration value="ten_stacc"/>
       <xs:enumeration value="damp"/>
       <xs:enumeration value="dampall"/>
       <xs:enumeration value="open"/>
@@ -493,7 +487,7 @@
       <xs:enumeration value="heel"/>
       <xs:enumeration value="toe"/>
       <xs:enumeration value="tap"/>
-      <xs:enumeration value="pluck"/>
+      <xs:enumeration value="lhpizz"/>
       <xs:enumeration value="dot"/>
       <xs:enumeration value="stroke"/>
     </xs:restriction>
@@ -505,7 +499,7 @@
     </xs:annotation>
     <xs:restriction>
       <xs:simpleType>
-        <xs:list itemType="data.ARTICULATION"/>
+        <xs:list itemType="mei:data.ARTICULATION"/>
       </xs:simpleType>
       <xs:minLength value="1"/>
     </xs:restriction>
@@ -566,7 +560,7 @@
     </xs:annotation>
     <xs:restriction>
       <xs:simpleType>
-        <xs:list itemType="data.BEAM"/>
+        <xs:list itemType="mei:data.BEAM"/>
       </xs:simpleType>
       <xs:minLength value="1"/>
     </xs:restriction>
@@ -949,7 +943,7 @@
       percentage of a programmatically-determined "usual" size or as a ratio of
       virtual units to real-world units.</xs:documentation>
     </xs:annotation>
-    <xs:union memberTypes="data.PERCENT data.RATIO"/>
+    <xs:union memberTypes="mei:data.PERCENT mei:data.RATIO"/>
   </xs:simpleType>
   <xs:simpleType name="data.PGUNITS">
     <xs:annotation>
@@ -1062,7 +1056,7 @@
     </xs:annotation>
     <xs:restriction>
       <xs:simpleType>
-        <xs:list itemType="data.SLUR"/>
+        <xs:list itemType="mei:data.SLUR"/>
       </xs:simpleType>
       <xs:minLength value="1"/>
     </xs:restriction>
@@ -1175,7 +1169,7 @@
     </xs:annotation>
     <xs:restriction>
       <xs:simpleType>
-        <xs:list itemType="data.TIE"/>
+        <xs:list itemType="mei:data.TIE"/>
       </xs:simpleType>
       <xs:minLength value="1"/>
     </xs:restriction>
@@ -1196,7 +1190,7 @@
     </xs:annotation>
     <xs:restriction>
       <xs:simpleType>
-        <xs:list itemType="data.TUPLET"/>
+        <xs:list itemType="mei:data.TUPLET"/>
       </xs:simpleType>
       <xs:minLength value="1"/>
     </xs:restriction>

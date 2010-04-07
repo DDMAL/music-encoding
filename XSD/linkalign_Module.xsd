@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- LinkAlign Module -->
@@ -25,13 +26,13 @@
       alignment.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="timeline"/>
+      <xs:element ref="mei:timeline"/>
     </xs:sequence>
   </xs:group>
   <!-- Declare module elements -->
   <xs:complexType name="content.timeline">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="when"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:when"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="timeline">
@@ -50,16 +51,16 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.timeline">
-          <xs:attributeGroup ref="attlist.timeline"/>
+        <xs:extension base="mei:content.timeline">
+          <xs:attributeGroup ref="mei:attlist.timeline"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.timeline">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.measurement"/>
-    <xs:attribute name="mediacontent" type="data.URI">
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.measurement"/>
+    <xs:attribute name="mediacontent" type="mei:data.URI">
       <xs:annotation>
         <xs:documentation>holds the web-addressable location of
           the external digital media.</xs:documentation>
@@ -87,13 +88,13 @@
         occur at this point in time.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.when"/>
+      <xs:attributeGroup ref="mei:attlist.when"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.when">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.datapointing"/>
-    <xs:attributeGroup ref="att.measurement"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.datapointing"/>
+    <xs:attributeGroup ref="mei:att.measurement"/>
     <xs:attribute name="absolute">
       <xs:annotation>
         <xs:documentation>provides an absolute value for the time

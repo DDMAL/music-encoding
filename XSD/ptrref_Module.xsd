@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- PtrRefs module -->
@@ -11,10 +12,10 @@
       location and reference.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="extptr"/>
-      <xs:element ref="extref"/>
-      <xs:group ref="model.ptrLike"/>
-      <xs:element ref="ref"/>
+      <xs:element ref="mei:extptr"/>
+      <xs:element ref="mei:extref"/>
+      <xs:group ref="mei:model.ptrLike"/>
+      <xs:element ref="mei:ref"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.ptrLike">
@@ -23,7 +24,7 @@
       location and reference.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="ptr"/>
+      <xs:element ref="mei:ptr"/>
     </xs:sequence>
   </xs:group>
   <!-- Declare module elements -->
@@ -38,17 +39,17 @@
         document.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.extptr"/>
+      <xs:attributeGroup ref="mei:attlist.extptr"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.extptr">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.internetmedia"/>
-    <xs:attributeGroup ref="att.link.common"/>
-    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.internetmedia"/>
+    <xs:attributeGroup ref="mei:att.link.common"/>
+    <xs:attributeGroup ref="mei:att.link.external"/>
   </xs:attributeGroup>
   <xs:complexType name="content.extref" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike"/>
   </xs:complexType>
   <xs:element name="extref">
     <xs:annotation>
@@ -62,17 +63,17 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.extref">
-          <xs:attributeGroup ref="attlist.extref"/>
+        <xs:extension base="mei:content.extref">
+          <xs:attributeGroup ref="mei:attlist.extref"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.extref">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.link.common"/>
-    <xs:attributeGroup ref="att.link.external"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.link.common"/>
+    <xs:attributeGroup ref="mei:att.link.external"/>
   </xs:attributeGroup>
   <xs:element name="ptr">
     <xs:annotation>
@@ -85,16 +86,16 @@
         document to an external electronic object.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.ptr"/>
+      <xs:attributeGroup ref="mei:attlist.ptr"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.ptr">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.link.common"/>
-    <xs:attributeGroup ref="att.link.internal"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.link.common"/>
+    <xs:attributeGroup ref="mei:att.link.internal"/>
   </xs:attributeGroup>
   <xs:complexType name="content.ref" mixed="true">
-    <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.textphraseLike"/>
+    <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.textphraseLike"/>
   </xs:complexType>
   <xs:element name="ref">
     <xs:annotation>
@@ -108,16 +109,16 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.ref">
-          <xs:attributeGroup ref="attlist.ref"/>
+        <xs:extension base="mei:content.ref">
+          <xs:attributeGroup ref="mei:attlist.ref"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.ref">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.link.common"/>
-    <xs:attributeGroup ref="att.link.internal"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.link.common"/>
+    <xs:attributeGroup ref="mei:att.link.internal"/>
   </xs:attributeGroup>
 </xs:schema>

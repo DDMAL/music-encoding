@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- Lyrics Module -->
@@ -15,15 +16,15 @@
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.layerident"/>
-    <xs:attributeGroup ref="att.staffident"/>
+    <xs:attributeGroup ref="mei:att.layerident"/>
+    <xs:attributeGroup ref="mei:att.staffident"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.lyrics.vis">
     <xs:annotation>
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.placement"/>
-    <xs:attributeGroup ref="att.typography"/>
+    <xs:attributeGroup ref="mei:att.placement"/>
+    <xs:attributeGroup ref="mei:att.typography"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.verse.anl">
     <xs:annotation>
@@ -38,7 +39,7 @@
       should be used for verse numbers. Numbers need not be consecutive; they
       may also be expressed as ranges, e.g. 2-3,6.</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="refrain" type="data.BOOLEAN">
+    <xs:attribute name="refrain" type="mei:data.BOOLEAN">
       <xs:annotation>
         <xs:documentation>used to indicate a common, usually
           centered, refrain (Mup User's Guide, p. 44).</xs:documentation>
@@ -55,10 +56,10 @@
     <xs:annotation>
       <xs:documentation>Visual domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.typography"/>
-    <xs:attributeGroup ref="att.visualoffset.to"/>
-    <xs:attributeGroup ref="att.visualoffset.vo"/>
-    <xs:attributeGroup ref="att.xy"/>
+    <xs:attributeGroup ref="mei:att.typography"/>
+    <xs:attributeGroup ref="mei:att.visualoffset.to"/>
+    <xs:attributeGroup ref="mei:att.visualoffset.vo"/>
+    <xs:attributeGroup ref="mei:att.xy"/>
   </xs:attributeGroup>
   <!-- Declare module model classes -->
   <xs:group name="model.lyricsLike">
@@ -67,7 +68,7 @@
       text.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="lyrics"/>
+      <xs:element ref="mei:lyrics"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.sylLike">
@@ -76,7 +77,7 @@
       syllable.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="syl"/>
+      <xs:element ref="mei:syl"/>
     </xs:sequence>
   </xs:group>
   <xs:group name="model.verseLike">
@@ -85,12 +86,12 @@
       verse.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="verse"/>
+      <xs:element ref="mei:verse"/>
     </xs:sequence>
   </xs:group>
   <!-- Declare module elements -->
   <xs:complexType name="content.lyrics">
-    <xs:group maxOccurs="unbounded" ref="model.verseLike"/>
+    <xs:group maxOccurs="unbounded" ref="mei:model.verseLike"/>
   </xs:complexType>
   <xs:element name="lyrics">
     <xs:annotation>
@@ -102,30 +103,30 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.lyrics">
-          <xs:attributeGroup ref="attlist.lyrics"/>
+        <xs:extension base="mei:content.lyrics">
+          <xs:attributeGroup ref="mei:attlist.lyrics"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.lyrics">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.lyrics.log"/>
-    <xs:attributeGroup ref="att.lyrics.vis"/>
-    <xs:attributeGroup ref="att.lyrics.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.lyrics.log"/>
+    <xs:attributeGroup ref="mei:att.lyrics.vis"/>
+    <xs:attributeGroup ref="mei:att.lyrics.anl"/>
   </xs:attributeGroup>
   <xs:complexType name="content.verse">
     <xs:sequence>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element ref="dir"/>
-        <xs:element ref="dynam"/>
-        <xs:element ref="tempo"/>
-        <xs:element ref="space"/>
+        <xs:element ref="mei:dir"/>
+        <xs:element ref="mei:dynam"/>
+        <xs:element ref="mei:tempo"/>
+        <xs:element ref="mei:space"/>
       </xs:choice>
-      <xs:group maxOccurs="unbounded" ref="model.sylLike"/>
-      <xs:group minOccurs="0" maxOccurs="unbounded" ref="model.lbLike"/>
+      <xs:group maxOccurs="unbounded" ref="mei:model.sylLike"/>
+      <xs:group minOccurs="0" maxOccurs="unbounded" ref="mei:model.lbLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="verse">
@@ -137,18 +138,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.verse">
-          <xs:attributeGroup ref="attlist.verse"/>
+        <xs:extension base="mei:content.verse">
+          <xs:attributeGroup ref="mei:attlist.verse"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.verse">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.lang"/>
-    <xs:attributeGroup ref="att.verse.log"/>
-    <xs:attributeGroup ref="att.verse.vis"/>
-    <xs:attributeGroup ref="att.verse.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.lang"/>
+    <xs:attributeGroup ref="mei:att.verse.log"/>
+    <xs:attributeGroup ref="mei:att.verse.vis"/>
+    <xs:attributeGroup ref="mei:att.verse.anl"/>
   </xs:attributeGroup>
 </xs:schema>

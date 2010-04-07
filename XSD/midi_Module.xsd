@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- MIDI module -->
@@ -9,19 +10,19 @@
       <xs:documentation>Attributes that record MIDI channel
       information</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="midi.channel" type="data.MIDICHANNEL">
+    <xs:attribute name="midi.channel" type="mei:data.MIDICHANNEL">
       <xs:annotation>
         <xs:documentation>records a MIDI channel
           value.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="midi.duty" type="data.PERCENT">
+    <xs:attribute name="midi.duty" type="mei:data.PERCENT">
       <xs:annotation>
         <xs:documentation>specifies the 'on' part of the duty
           cycle as a percentage of a note's duration.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="midi.port" type="data.MIDIVALUE">
+    <xs:attribute name="midi.port" type="mei:data.MIDIVALUE">
       <xs:annotation>
         <xs:documentation>sets the default MIDI port
           value.</xs:documentation>
@@ -39,13 +40,13 @@
       <xs:documentation>Attributes that record MIDI instrument
       information</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="midi.instrnum" type="data.MIDIVALUE">
+    <xs:attribute name="midi.instrnum" type="mei:data.MIDIVALUE">
       <xs:annotation>
         <xs:documentation>sets the MIDI instrument
           number.</xs:documentation>
       </xs:annotation>
     </xs:attribute>
-    <xs:attribute name="midi.instrname" type="data.MIDINAMES">
+    <xs:attribute name="midi.instrname" type="mei:data.MIDINAMES">
       <xs:annotation>
         <xs:documentation>provides a label for the MIDI
           instrument.</xs:documentation>
@@ -57,7 +58,7 @@
       <xs:documentation>Attributes that record MIDI
       numbers</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="num" use="required" type="data.MIDIVALUE">
+    <xs:attribute name="num" use="required" type="mei:data.MIDIVALUE">
       <xs:annotation>
         <xs:documentation>records a MIDI number.</xs:documentation>
       </xs:annotation>
@@ -68,7 +69,7 @@
       <xs:documentation>Attributes that record MIDI tempo
       information</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="midi.tempo" type="data.MIDITEMPO">
+    <xs:attribute name="midi.tempo" type="mei:data.MIDITEMPO">
       <xs:annotation>
         <xs:documentation>contains a MIDI value, that is, the
           number of quarter notes per minute in the range from 10 to
@@ -81,7 +82,7 @@
       <xs:documentation>Attributes that record MIDI
       values</xs:documentation>
     </xs:annotation>
-    <xs:attribute name="val" type="data.MIDIVALUE">
+    <xs:attribute name="val" type="mei:data.MIDIVALUE">
       <xs:annotation>
         <xs:documentation>captures a MIDI value.</xs:documentation>
       </xs:annotation>
@@ -92,9 +93,9 @@
       <xs:documentation>Attributes common to MIDI
       events</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.layerident"/>
-    <xs:attributeGroup ref="att.staffident"/>
-    <xs:attributeGroup ref="att.timestamp.musical"/>
+    <xs:attributeGroup ref="mei:att.layerident"/>
+    <xs:attributeGroup ref="mei:att.staffident"/>
+    <xs:attributeGroup ref="mei:att.timestamp.musical"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.midi.anl">
     <xs:annotation>
@@ -107,8 +108,8 @@
     <xs:annotation>
       <xs:documentation>Logical domain attributes</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.layerident"/>
-    <xs:attributeGroup ref="att.staffident"/>
+    <xs:attributeGroup ref="mei:att.layerident"/>
+    <xs:attributeGroup ref="mei:att.staffident"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="att.timebase">
     <xs:annotation>
@@ -131,7 +132,7 @@
       elements.</xs:documentation>
     </xs:annotation>
     <xs:sequence>
-      <xs:element ref="midi"/>
+      <xs:element ref="mei:midi"/>
     </xs:sequence>
   </xs:group>
   <!-- Declare module elements -->
@@ -143,15 +144,15 @@
         0-127.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.cc"/>
+      <xs:attributeGroup ref="mei:attlist.cc"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.cc">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
-    <xs:attributeGroup ref="att.midinumber"/>
-    <xs:attributeGroup ref="att.midivalue"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.midinumber"/>
+    <xs:attributeGroup ref="mei:att.midivalue"/>
   </xs:attributeGroup>
   <xs:element name="chan">
     <xs:annotation>
@@ -159,14 +160,14 @@
         assignment.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.chan"/>
+      <xs:attributeGroup ref="mei:attlist.chan"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.chan">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
-    <xs:attribute name="num" use="required" type="data.MIDICHANNEL">
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
+    <xs:attribute name="num" use="required" type="mei:data.MIDICHANNEL">
       <xs:annotation>
         <xs:documentation>records a MIDI channel value. The value
         must be in the range 1-16.</xs:documentation>
@@ -180,27 +181,27 @@
         range 0-127.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.chanpr"/>
+      <xs:attributeGroup ref="mei:attlist.chanpr"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.chanpr">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
-    <xs:attributeGroup ref="att.midinumber"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.midinumber"/>
   </xs:attributeGroup>
   <xs:element name="cue">
     <xs:annotation>
       <xs:documentation>cue ― MIDI cue point.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:attributeGroup ref="attlist.cue"/>
+      <xs:attributeGroup ref="mei:attlist.cue"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.cue">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
   </xs:attributeGroup>
   <xs:element name="hex">
     <xs:annotation>
@@ -209,13 +210,13 @@
         parsing errors.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:attributeGroup ref="attlist.hex"/>
+      <xs:attributeGroup ref="mei:attlist.hex"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.hex">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
   </xs:attributeGroup>
   <xs:element name="marker">
     <xs:annotation>
@@ -223,13 +224,13 @@
         meta-event.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:attributeGroup ref="attlist.marker"/>
+      <xs:attributeGroup ref="mei:attlist.marker"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.marker">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
   </xs:attributeGroup>
   <xs:element name="metatext">
     <xs:annotation>
@@ -237,30 +238,30 @@
         meta-event.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:attributeGroup ref="attlist.metatext"/>
+      <xs:attributeGroup ref="mei:attlist.metatext"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.metatext">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
   </xs:attributeGroup>
   <xs:complexType name="content.midi">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="cc"/>
-      <xs:element ref="chan"/>
-      <xs:element ref="chanpr"/>
-      <xs:element ref="cue"/>
-      <xs:element ref="hex"/>
-      <xs:element ref="marker"/>
-      <xs:element ref="metatext"/>
-      <xs:element ref="noteoff"/>
-      <xs:element ref="noteon"/>
-      <xs:element ref="port"/>
-      <xs:element ref="prog"/>
-      <xs:element ref="seqnum"/>
-      <xs:element ref="trkname"/>
-      <xs:element ref="vel"/>
+      <xs:element ref="mei:cc"/>
+      <xs:element ref="mei:chan"/>
+      <xs:element ref="mei:chanpr"/>
+      <xs:element ref="mei:cue"/>
+      <xs:element ref="mei:hex"/>
+      <xs:element ref="mei:marker"/>
+      <xs:element ref="mei:metatext"/>
+      <xs:element ref="mei:noteoff"/>
+      <xs:element ref="mei:noteon"/>
+      <xs:element ref="mei:port"/>
+      <xs:element ref="mei:prog"/>
+      <xs:element ref="mei:seqnum"/>
+      <xs:element ref="mei:trkname"/>
+      <xs:element ref="mei:vel"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="midi">
@@ -273,16 +274,16 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.midi">
-          <xs:attributeGroup ref="attlist.midi"/>
+        <xs:extension base="mei:content.midi">
+          <xs:attributeGroup ref="mei:attlist.midi"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.midi">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.log"/>
-    <xs:attributeGroup ref="att.midi.anl"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.log"/>
+    <xs:attributeGroup ref="mei:att.midi.anl"/>
   </xs:attributeGroup>
   <xs:element name="noteoff">
     <xs:annotation>
@@ -290,14 +291,14 @@
         event.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.noteoff"/>
+      <xs:attributeGroup ref="mei:attlist.noteoff"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.noteoff">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
-    <xs:attributeGroup ref="att.midinumber"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.midinumber"/>
   </xs:attributeGroup>
   <xs:element name="noteon">
     <xs:annotation>
@@ -305,14 +306,14 @@
         event.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.noteon"/>
+      <xs:attributeGroup ref="mei:attlist.noteon"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.noteon">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
-    <xs:attributeGroup ref="att.midinumber"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.midinumber"/>
   </xs:attributeGroup>
   <xs:element name="port">
     <xs:annotation>
@@ -320,14 +321,14 @@
         be in the range 0-127.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.port"/>
+      <xs:attributeGroup ref="mei:attlist.port"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.port">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
-    <xs:attributeGroup ref="att.midinumber"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.midinumber"/>
   </xs:attributeGroup>
   <xs:element name="prog">
     <xs:annotation>
@@ -335,14 +336,14 @@
         attribute must be in the range 0-127.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.prog"/>
+      <xs:attributeGroup ref="mei:attlist.prog"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.prog">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
-    <xs:attributeGroup ref="att.midinumber"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.midinumber"/>
   </xs:attributeGroup>
   <xs:element name="seqnum">
     <xs:annotation>
@@ -350,13 +351,13 @@
         The num attribute must be in the range 0-65535.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.seqnum"/>
+      <xs:attributeGroup ref="mei:attlist.seqnum"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.seqnum">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
     <xs:attribute name="num" use="required">
       <xs:annotation>
         <xs:documentation>holds the MIDI sequence number. The value
@@ -375,13 +376,13 @@
         name.</xs:documentation>
     </xs:annotation>
     <xs:complexType mixed="true">
-      <xs:attributeGroup ref="attlist.trkname"/>
+      <xs:attributeGroup ref="mei:attlist.trkname"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.trkname">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
   </xs:attributeGroup>
   <xs:element name="vel">
     <xs:annotation>
@@ -389,14 +390,14 @@
         num attribute must be in the range 1-127.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.vel"/>
+      <xs:attributeGroup ref="mei:attlist.vel"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.vel">
     <xs:attributeGroup ref="att.common.anl"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.midi.event"/>
-    <xs:attributeGroup ref="att.midinumber"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.midi.event"/>
+    <xs:attributeGroup ref="mei:att.midinumber"/>
     <xs:attribute name="form" use="required">
       <xs:annotation>
         <xs:documentation>indicates whether this is note-on or

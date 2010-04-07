@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- EditTrans module -->
@@ -9,9 +10,9 @@
       <xs:documentation>Attributes describing the nature of an
       encoded scholarly intervention or interpretation</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.responsibility"/>
-    <xs:attributeGroup ref="att.source"/>
-    <xs:attribute name="cert" type="data.CERTAINTY">
+    <xs:attributeGroup ref="mei:att.responsibility"/>
+    <xs:attributeGroup ref="mei:att.source"/>
+    <xs:attribute name="cert" type="mei:data.CERTAINTY">
       <xs:annotation>
         <xs:documentation>signifies the degree of certainty or
           precision associated with a feature.</xs:documentation>
@@ -66,8 +67,8 @@
       or scribal intervention when transcribing manuscript or similar
       sources</xs:documentation>
     </xs:annotation>
-    <xs:attributeGroup ref="att.handident"/>
-    <xs:attributeGroup ref="att.sequence"/>
+    <xs:attributeGroup ref="mei:att.handident"/>
+    <xs:attributeGroup ref="mei:att.sequence"/>
   </xs:attributeGroup>
   <!-- Declare module model classes -->
   <xs:group name="model.choicePart">
@@ -76,12 +77,12 @@
       the content of a choice element.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="corr"/>
-      <xs:element ref="orig"/>
-      <xs:element ref="reg"/>
-      <xs:element ref="sic"/>
-      <xs:element ref="unclear"/>
-      <xs:group ref="model.editorialLike"/>
+      <xs:element ref="mei:corr"/>
+      <xs:element ref="mei:orig"/>
+      <xs:element ref="mei:reg"/>
+      <xs:element ref="mei:sic"/>
+      <xs:element ref="mei:unclear"/>
+      <xs:group ref="mei:model.editorialLike"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.editLike">
@@ -91,10 +92,10 @@
       authoring.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="choice"/>
-      <xs:element ref="handshift"/>
-      <xs:element ref="gap"/>
-      <xs:element ref="subst"/>
+      <xs:element ref="mei:choice"/>
+      <xs:element ref="mei:handshift"/>
+      <xs:element ref="mei:gap"/>
+      <xs:element ref="mei:subst"/>
     </xs:choice>
   </xs:group>
   <xs:group name="model.transcriptionLike">
@@ -103,35 +104,35 @@
       transcription of pre-existing source materials.</xs:documentation>
     </xs:annotation>
     <xs:choice>
-      <xs:element ref="add"/>
-      <xs:element ref="corr"/>
-      <xs:element ref="damage"/>
-      <xs:element ref="del"/>
-      <xs:element ref="orig"/>
-      <xs:element ref="reg"/>
-      <xs:element ref="restore"/>
-      <xs:element ref="sic"/>
-      <xs:element ref="supplied"/>
-      <xs:element ref="unclear"/>
+      <xs:element ref="mei:add"/>
+      <xs:element ref="mei:corr"/>
+      <xs:element ref="mei:damage"/>
+      <xs:element ref="mei:del"/>
+      <xs:element ref="mei:orig"/>
+      <xs:element ref="mei:reg"/>
+      <xs:element ref="mei:restore"/>
+      <xs:element ref="mei:sic"/>
+      <xs:element ref="mei:supplied"/>
+      <xs:element ref="mei:unclear"/>
     </xs:choice>
   </xs:group>
   <!-- Declare module elements -->
   <xs:complexType name="content.add" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="add">
@@ -149,22 +150,22 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.add">
-          <xs:attributeGroup ref="attlist.add"/>
+        <xs:extension base="mei:content.add">
+          <xs:attributeGroup ref="mei:attlist.add"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.add">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.trans"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.trans"/>
   </xs:attributeGroup>
   <xs:complexType name="content.choice">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element ref="choice"/>
-      <xs:group ref="model.choicePart"/>
+      <xs:element ref="mei:choice"/>
+      <xs:group ref="mei:model.choicePart"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="choice">
@@ -179,31 +180,31 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.choice">
-          <xs:attributeGroup ref="attlist.choice"/>
+        <xs:extension base="mei:content.choice">
+          <xs:attributeGroup ref="mei:attlist.choice"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.choice">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.corr" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="corr">
@@ -220,33 +221,33 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.corr">
-          <xs:attributeGroup ref="attlist.corr"/>
+        <xs:extension base="mei:content.corr">
+          <xs:attributeGroup ref="mei:attlist.corr"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.corr">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.trans"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.trans"/>
   </xs:attributeGroup>
   <xs:complexType name="content.damage" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="damage">
@@ -268,19 +269,19 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.damage">
-          <xs:attributeGroup ref="attlist.damage"/>
+        <xs:extension base="mei:content.damage">
+          <xs:attributeGroup ref="mei:attlist.damage"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.damage">
-    <xs:attributeGroup ref="att.agentident"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.extent"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.handident"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.agentident"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.extent"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.handident"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
     <xs:attribute name="degree">
       <xs:annotation>
         <xs:documentation>records the degree of
@@ -290,20 +291,20 @@
   </xs:attributeGroup>
   <xs:complexType name="content.del" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="del">
@@ -322,16 +323,16 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.del">
-          <xs:attributeGroup ref="attlist.del"/>
+        <xs:extension base="mei:content.del">
+          <xs:attributeGroup ref="mei:attlist.del"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.del">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.trans"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.trans"/>
     <xs:attribute name="rend">
       <xs:annotation>
         <xs:documentation>contains an indication of how the
@@ -364,16 +365,16 @@
         identification of the extent of the missing material.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.gap"/>
+      <xs:attributeGroup ref="mei:attlist.gap"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.gap">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.extent"/>
-    <xs:attributeGroup ref="att.handident"/>
-    <xs:attributeGroup ref="att.measurement"/>
-    <xs:attributeGroup ref="att.reasonident"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.extent"/>
+    <xs:attributeGroup ref="mei:att.handident"/>
+    <xs:attributeGroup ref="mei:att.measurement"/>
+    <xs:attributeGroup ref="mei:att.reasonident"/>
   </xs:attributeGroup>
   <xs:element name="handshift">
     <xs:annotation>
@@ -392,14 +393,14 @@
         new hand.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
-      <xs:attributeGroup ref="attlist.handshift"/>
+      <xs:attributeGroup ref="mei:attlist.handshift"/>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.handshift">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.medium"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.medium"/>
     <xs:attribute name="character">
       <xs:annotation>
         <xs:documentation>describes the character of the new
@@ -423,20 +424,20 @@
   </xs:attributeGroup>
   <xs:complexType name="content.orig" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="orig">
@@ -452,34 +453,34 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.orig">
-          <xs:attributeGroup ref="attlist.orig"/>
+        <xs:extension base="mei:content.orig">
+          <xs:attributeGroup ref="mei:attlist.orig"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.orig">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
   </xs:attributeGroup>
   <xs:complexType name="content.reg" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="reg">
@@ -496,32 +497,32 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.reg">
-          <xs:attributeGroup ref="attlist.reg"/>
+        <xs:extension base="mei:content.reg">
+          <xs:attributeGroup ref="mei:attlist.reg"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.reg">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
   </xs:attributeGroup>
   <xs:complexType name="content.restore" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="restore">
@@ -540,17 +541,17 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.restore">
-          <xs:attributeGroup ref="attlist.restore"/>
+        <xs:extension base="mei:content.restore">
+          <xs:attributeGroup ref="mei:attlist.restore"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.restore">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.trans"/>
-    <xs:attributeGroup ref="att.typed"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.trans"/>
+    <xs:attributeGroup ref="mei:att.typed"/>
     <xs:attribute name="desc">
       <xs:annotation>
         <xs:documentation>provides a description of the means of
@@ -560,20 +561,20 @@
   </xs:attributeGroup>
   <xs:complexType name="content.sic" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="sic">
@@ -585,20 +586,20 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.sic">
-          <xs:attributeGroup ref="attlist.sic"/>
+        <xs:extension base="mei:content.sic">
+          <xs:attributeGroup ref="mei:attlist.sic"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.sic">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
   </xs:attributeGroup>
   <xs:complexType name="content.subst">
     <xs:sequence>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group maxOccurs="unbounded" ref="model.transcriptionLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group maxOccurs="unbounded" ref="mei:model.transcriptionLike"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="subst">
@@ -609,31 +610,31 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.subst">
-          <xs:attributeGroup ref="attlist.subst"/>
+        <xs:extension base="mei:content.subst">
+          <xs:attributeGroup ref="mei:attlist.subst"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.subst">
-    <xs:attributeGroup ref="att.common"/>
+    <xs:attributeGroup ref="mei:att.common"/>
   </xs:attributeGroup>
   <xs:complexType name="content.supplied" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="supplied">
@@ -656,35 +657,35 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.supplied">
-          <xs:attributeGroup ref="attlist.supplied"/>
+        <xs:extension base="mei:content.supplied">
+          <xs:attributeGroup ref="mei:attlist.supplied"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.supplied">
-    <xs:attributeGroup ref="att.agentident"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.reasonident"/>
+    <xs:attributeGroup ref="mei:att.agentident"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.reasonident"/>
   </xs:attributeGroup>
   <xs:complexType name="content.unclear" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:group ref="model.textphraseLike"/>
-      <xs:group ref="model.eventLike"/>
-      <xs:group ref="model.eventLike.neumes"/>
-      <xs:group ref="model.controleventLike"/>
-      <xs:group ref="model.lyricsLike"/>
-      <xs:group ref="model.midiLike"/>
-      <xs:group ref="model.editLike"/>
-      <xs:group ref="model.transcriptionLike"/>
-      <xs:group ref="model.eventLike.measureFilling"/>
-      <xs:group ref="model.noteModifierLike"/>
-      <xs:group ref="model.sectionLike"/>
-      <xs:group ref="model.measureLike"/>
-      <xs:group ref="model.staffLike"/>
-      <xs:group ref="model.layerLike"/>
+      <xs:group ref="mei:model.textphraseLike"/>
+      <xs:group ref="mei:model.eventLike"/>
+      <xs:group ref="mei:model.eventLike.neumes"/>
+      <xs:group ref="mei:model.controleventLike"/>
+      <xs:group ref="mei:model.lyricsLike"/>
+      <xs:group ref="mei:model.midiLike"/>
+      <xs:group ref="mei:model.editLike"/>
+      <xs:group ref="mei:model.transcriptionLike"/>
+      <xs:group ref="mei:model.eventLike.measureFilling"/>
+      <xs:group ref="mei:model.noteModifierLike"/>
+      <xs:group ref="mei:model.sectionLike"/>
+      <xs:group ref="mei:model.measureLike"/>
+      <xs:group ref="mei:model.staffLike"/>
+      <xs:group ref="mei:model.layerLike"/>
     </xs:choice>
   </xs:complexType>
   <xs:element name="unclear">
@@ -706,18 +707,18 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.unclear">
-          <xs:attributeGroup ref="attlist.unclear"/>
+        <xs:extension base="mei:content.unclear">
+          <xs:attributeGroup ref="mei:attlist.unclear"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.unclear">
-    <xs:attributeGroup ref="att.agentident"/>
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.edit"/>
-    <xs:attributeGroup ref="att.facsimile"/>
-    <xs:attributeGroup ref="att.handident"/>
-    <xs:attributeGroup ref="att.reasonident"/>
+    <xs:attributeGroup ref="mei:att.agentident"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.edit"/>
+    <xs:attributeGroup ref="mei:att.facsimile"/>
+    <xs:attributeGroup ref="mei:att.handident"/>
+    <xs:attributeGroup ref="mei:att.reasonident"/>
   </xs:attributeGroup>
 </xs:schema>

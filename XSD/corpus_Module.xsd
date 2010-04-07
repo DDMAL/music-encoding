@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:xlink="http://www.w3.org/1999/xlink">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.music-encoding.org/ns/mei" xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
   <!-- Corpus Module -->
@@ -9,8 +10,8 @@
   <!-- Declare module elements -->
   <xs:complexType name="content.meicorpus">
     <xs:sequence>
-      <xs:element ref="meihead"/>
-      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei"/>
+      <xs:element ref="mei:meihead"/>
+      <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:mei"/>
     </xs:sequence>
   </xs:complexType>
   <xs:element name="meicorpus">
@@ -25,14 +26,14 @@
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
-        <xs:extension base="content.meicorpus">
-          <xs:attributeGroup ref="attlist.meicorpus"/>
+        <xs:extension base="mei:content.meicorpus">
+          <xs:attributeGroup ref="mei:attlist.meicorpus"/>
         </xs:extension>
       </xs:complexContent>
     </xs:complexType>
   </xs:element>
   <xs:attributeGroup name="attlist.meicorpus">
-    <xs:attributeGroup ref="att.common"/>
-    <xs:attributeGroup ref="att.meiversion"/>
+    <xs:attributeGroup ref="mei:att.common"/>
+    <xs:attributeGroup ref="mei:att.meiversion"/>
   </xs:attributeGroup>
 </xs:schema>
