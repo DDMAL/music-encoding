@@ -17,7 +17,9 @@
       <pubstmt/>
       <sourcedesc>
         <source xml:id="s1">
-          <pubstmt/>
+          <pubstmt>
+            <unpub>Manuscript; typescript</unpub>
+          </pubstmt>
           <physdesc>
             <handlist>
               <hand xml:id="h1"/>
@@ -26,17 +28,20 @@
             <physmedium/>
             <provenance>
               <eventlist type="ownership">
+                <event>same model as paragraph here including <date
+                    reg="1812-03-25">Mar. 25th, 1812</date>, <persname>personal
+                    name</persname>, <corpname>corporate name</corpname>, and
+                    <geogname>place name</geogname>. Date ranges are expressed
+                  using the date element either as text content, e.g.,
+                    <date>March 1-21, 1812</date>, or using a mixture of date
+                  sub-elements and text, e.g., <date>
+                    <date>March 1, 1812</date> - <date>March 21, 1812</date>
+                  </date>. The latter form is necessary when the starting and
+                  ending points of the date range require qualification.</event>
                 <event>
-                  <date reg="1812-03-25"/>
-                  <eventdesc>same model as paragraph here</eventdesc>
-                </event>
-                <event>
-                  <date reg="1812-06-26"/>
-                  <eventdesc>Swiss ... </eventdesc>
-                </event>
+                  <date reg="1812-06-26"/>Swiss ... </event>
                 <event>
                   <date reg="1813"/>
-                  <eventdesc/>
                 </event>
               </eventlist>
             </provenance>
@@ -61,26 +66,33 @@
           <term classcode="class1">Foobar</term>
         </keywords>
       </classification>
-      <eventlist type="composition">
-        <event>
-          <date reg="1812-03-25"/>
-          <geogname>My Little Town</geogname>
-          <eventdesc n="composition"/>
+      <eventlist n="composition">
+        <event n="sketched">
+          <table>
+            <caption/>
+            <tr>
+              <td>
+                <date reg="1812-03-25"/>
+              </td>
+              <td>
+                <geogname>My Little Town</geogname>
+              </td>
+            </tr>
+          </table>
+          <list>
+            <head/>
+            <item/>
+          </list>
         </event>
-        <event>
-          <date reg="1812-06-26"/>
-          <eventdesc n="dedication">Swiss ... </eventdesc>
-        </event>
-        <event>
+        <event n="dedication">
+          <date reg="1812-06-26"/>Swiss ... </event>
+        <event n="publication">
           <date reg="1813"/>
-          <eventdesc> </eventdesc>
         </event>
       </eventlist>
-      <eventlist type="reception">
+      <eventlist n="reception">
         <event>
-          <date reg="1814-04-01"/>
-          <eventdesc>1st performance</eventdesc>
-        </event>
+          <date reg="1814-04-01"/>1st performance</event>
       </eventlist>
     </profiledesc>
     <revisiondesc>
@@ -158,20 +170,20 @@
                     <app>
                       <rdg>
                         <note xml:id="custoshere" syl="a" instr="i1"
-                          fermata="within" altsym="sym1">
+                          fermata="within" altsym="sym1" dur="2">
                           <dot ho=".5" vo="1"/>
                         </note>
                       </rdg>
                     </app>
                     <clefchange line="2" shape="F"/>
                     <bend staff="1" amount=".5" startid="m1"/>
-                    <octave staff="1" dis="8" layer="1" dis.place="above"
-                      tstamp="1" dur="3"/>
+                    <!-- <octave staff="1" dis="8" layer="1" dis.place="above"
+                      tstamp="1" dur="3"/> -->
                     <handshift old="h1" new="h1"/>
                     <custos oct="4" pname="a" target="n1"/>
                     <barline taktplace="1"/>
                     <pb source="s1 s2"/>
-                    <rest line="5"/>
+                    <rest/><!-- line="5"/> -->
                   </layer>
                   <layer>
                     <tuplet>
@@ -186,7 +198,7 @@
                           <add hand="h1" resp="you">
                             <note/>
                             <note/>
-                            <persname xml:id="me"></persname>
+                            <persname xml:id="me"/>
                           </add>
                         </rdg>
                         <rdg>
@@ -206,14 +218,16 @@
                     <bend staff="1" amount=".5" startid="m1"/>
                     <octave staff="1" dis="8" layer="1" dis.place="above"
                       tstamp="1" dur="3"/>
-                    <rest line="7"/>
+                    <rest line="7"/> 
                   </layer>
                 </staff>
                 <slur staff="1" tstamp="2" endid="m1" curvedir="above"/>
                 <arpeg staff="1"/>
                 <harm staff="1" tstamp="3" chordref="Emajor" when="w12"/>
                 <tupletspan tstamp="1" dur="2" bracket.place="above"
-                  num.place="below"/>
+                num.place="below"/>
+                <octave staff="1" dis="8" layer="1" dis.place="above"
+                      tstamp="1" dur="3"/>
               </measure>
             </section>
             <section xml:id="section1b"/>
