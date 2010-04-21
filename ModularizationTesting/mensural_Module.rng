@@ -338,14 +338,6 @@
     </zeroOrMore>
   </define>
 
-  <!-- <define name="model.sectionPart" combine="choice">
-    <a:documentation xml:lang="eng">groups elements that may appear as part of a
-      section.</a:documentation>
-    <zeroOrMore>
-      <ref name="model.staffLike"/>
-    </zeroOrMore>
-  </define> -->
-
   <define name="model.staffdefPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear more than
       once in the declaration of staff features.</a:documentation>
@@ -384,29 +376,6 @@
     <ref name="att.mensur.anl"/>
   </define>
 
-  <!-- <define name="content.mensurchange">
-    <oneOrMore>
-      <ref name="mensur"/>
-    </oneOrMore>
-  </define>
-
-  <define name="mensurchange">
-    <element name="mensurchange">
-      <a:documentation xml:lang="eng">mensuration change ― Use of the
-        &lt;mensurchange&gt; element indicates a change of mensuration;
-        that is, the relationship between note duration
-        values.</a:documentation>
-      <ref name="attlist.mensurchange"/>
-      <ref name="content.mensurchange"/>
-    </element>
-  </define>
-
-  <define name="attlist.mensurchange">
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-  </define>
- -->
-
   <define name="content.proport">
     <empty/>
   </define>
@@ -442,8 +411,8 @@
   <define name="ligature">
     <element name="ligature">
       <a:documentation xml:lang="eng">ligature ― The &lt;ligature&gt;
-        element is provided for the encoding of mensural notation where multiple
-        notes are represented by joined symbols.</a:documentation>
+        element is provided for the encoding of mensural notation in which
+        multiple notes are represented by joined symbols.</a:documentation>
       <ref name="attlist.ligature"/>
       <ref name="content.ligature"/>
     </element>
@@ -457,28 +426,5 @@
     <ref name="att.ligature.ges"/>
     <ref name="att.ligature.anl"/>
   </define>
-
-  <!-- <define name="content.proportchange">
-    <oneOrMore>
-      <ref name="proport"/>
-    </oneOrMore>
-  </define>
-
-  <define name="proportchange">
-    <element name="proportchange">
-      <a:documentation xml:lang="eng">proportion change ― Use of the
-        &lt;proportchange&gt; element indicates a change of propotion;
-        that is, the relationship between note duration values and the
-        tactus.</a:documentation>
-      <ref name="attlist.proportchange"/>
-      <ref name="content.proportchange"/>
-    </element>
-  </define>
-
-  <define name="attlist.proportchange">
-    <ref name="att.common"/>
-    <ref name="att.facsimile"/>
-  </define>
- -->
 
 </grammar>

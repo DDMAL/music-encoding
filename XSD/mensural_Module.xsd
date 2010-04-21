@@ -182,15 +182,6 @@
     <xs:attributeGroup ref="mei:att.duration.ratio"/>
   </xs:attributeGroup>
   <!-- Declare module model classes -->
-  <!--
-    <define name="model.sectionPart" combine="choice">
-      <a:documentation xml:lang="eng">groups elements that may appear as part of a
-        section.</a:documentation>
-      <zeroOrMore>
-        <ref name="model.staffLike"/>
-      </zeroOrMore>
-    </define>
-  -->
   <!-- Declare module elements -->
   <xs:element name="mensur">
     <xs:annotation>
@@ -212,29 +203,6 @@
     <xs:attributeGroup ref="mei:att.mensur.vis"/>
     <xs:attributeGroup ref="mei:att.mensur.anl"/>
   </xs:attributeGroup>
-  <!--
-    <define name="content.mensurchange">
-      <oneOrMore>
-        <ref name="mensur"/>
-      </oneOrMore>
-    </define>
-    
-    <define name="mensurchange">
-      <element name="mensurchange">
-        <a:documentation xml:lang="eng">mensuration change ― Use of the
-          &lt;mensurchange&gt; element indicates a change of mensuration;
-          that is, the relationship between note duration
-          values.</a:documentation>
-        <ref name="attlist.mensurchange"/>
-        <ref name="content.mensurchange"/>
-      </element>
-    </define>
-    
-    <define name="attlist.mensurchange">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-    </define>
-  -->
   <xs:element name="proport">
     <xs:annotation>
       <xs:documentation>proportion ― The
@@ -260,8 +228,8 @@
   <xs:element name="ligature">
     <xs:annotation>
       <xs:documentation>ligature ― The &lt;ligature&gt;
-        element is provided for the encoding of mensural notation where multiple
-        notes are represented by joined symbols.</xs:documentation>
+        element is provided for the encoding of mensural notation in which
+        multiple notes are represented by joined symbols.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -277,27 +245,4 @@
     <xs:attributeGroup ref="mei:att.ligature.log"/>
     <xs:attributeGroup ref="mei:att.ligature.anl"/>
   </xs:attributeGroup>
-  <!--
-    <define name="content.proportchange">
-      <oneOrMore>
-        <ref name="proport"/>
-      </oneOrMore>
-    </define>
-    
-    <define name="proportchange">
-      <element name="proportchange">
-        <a:documentation xml:lang="eng">proportion change ― Use of the
-          &lt;proportchange&gt; element indicates a change of propotion;
-          that is, the relationship between note duration values and the
-          tactus.</a:documentation>
-        <ref name="attlist.proportchange"/>
-        <ref name="content.proportchange"/>
-      </element>
-    </define>
-    
-    <define name="attlist.proportchange">
-      <ref name="att.common"/>
-      <ref name="att.facsimile"/>
-    </define>
-  -->
 </xs:schema>

@@ -166,6 +166,19 @@
     </optional>
   </define>
 
+  <define name="att.calendared" combine="interleave">
+    <a:documentation xml:lang="eng">Attributes that indicate the calendar system
+      of a date</a:documentation>
+    <optional>
+      <attribute name="calendar">
+        <a:documentation xml:lang="eng">indicates the system or calendar to
+          which a date belongs, for example, Gregorian, Julian, Roman, Mosaic,
+          Revolutionary, Islamic, etc.</a:documentation>
+        <data type="NMTOKEN"/>
+      </attribute>
+    </optional>
+  </define>
+
   <define name="att.cleffing.log" combine="interleave">
     <a:documentation xml:lang="eng">Used by staffdef and scoredef to provide
       default values for attributes in the logical domain related to
@@ -3349,9 +3362,7 @@
   <define name="model.paracontentPart" combine="interleave">
     <a:documentation xml:lang="eng">groups elements which may appear as part of
       the paragraph content model. A paragraph may contain inline elements and
-      all the other block-level elements except lg and itself. The
-      model.textphrase and model.edit classes must be declared prior to this
-      class.</a:documentation>
+      all the other block-level elements except lg and itself.</a:documentation>
     <choice>
       <ref name="model.quoteLike"/>
       <ref name="model.listLike"/>
@@ -3579,7 +3590,8 @@
         the abbreviation. The expan attribute gives an expansion of the
         abbreviation. The resp attribute contains an ID reference to an element
         containing the name of the editor or transcriber responsible for
-        supplying the expansion of the abbreviation.</a:documentation>
+        supplying the expansion of the abbreviation. This element is modeled on
+        an element in the Text Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.abbr"/>
       <ref name="content.abbr"/>
     </element>
@@ -3638,8 +3650,9 @@
   <define name="address">
     <element name="address">
       <a:documentation xml:lang="eng">address ― Contains a postal address, for
-        example of a publisher, an organization, or an
-        individual.</a:documentation>
+        example of a publisher, an organization, or an individual. This element
+        is modeled on an element in the Text Encoding Initiative
+        (TEI).</a:documentation>
       <ref name="attlist.address"/>
       <ref name="content.address"/>
     </element>
@@ -3666,7 +3679,8 @@
     <element name="addressline">
       <a:documentation xml:lang="eng">addressline ― Single line of a postal
         address. This element may be repeated as many times as necessary to
-        enter all lines of an address.</a:documentation>
+        enter all lines of an address. This element is modeled on an element in
+        the Text Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.addressline"/>
       <ref name="content.addressline"/>
     </element>
@@ -3843,8 +3857,9 @@
         back elements, which do not. When the music can be broken into
         high-level, discrete, linear segments, such as movements of a symphony,
         there may be multiple &lt;mdiv&gt; elements within this element.
-        This is the highest level indication of the structure of the
-        music.</a:documentation>
+        This is the highest level indication of the structure of the music. This
+        element is modeled on an element in the Text Encoding Initiative
+        (TEI).</a:documentation>
       <ref name="attlist.body"/>
       <ref name="content.body"/>
     </element>
@@ -3993,8 +4008,15 @@
   <define name="date">
     <element name="date">
       <a:documentation xml:lang="eng">date ― A date in any format, including a
-        date range. Date sub-elements may be used for the individual dates in a
-        date range.</a:documentation>
+        date range. A date range may be expressed either as textual content,
+        e.g., &lt;date&gt;March 1-21, 1812&lt;/date&gt;, or
+        using date sub-elements, possibly combined with text, e.g.,
+        &lt;date&gt; &lt;date&gt;March 1,
+        1812&lt;/date&gt; - &lt;date&gt;March 21,
+        1812&lt;/date&gt; &lt;/date&gt;. The latter form is
+        useful when the starting and ending points of the date range require
+        qualification. This element is modeled on an element in the Text
+        Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.date"/>
       <ref name="content.date"/>
     </element>
@@ -4002,19 +4024,12 @@
 
   <define name="attlist.date">
     <ref name="att.bibl"/>
+    <ref name="att.calendared"/>
     <ref name="att.common"/>
     <ref name="att.datable"/>
     <ref name="att.edit"/>
     <ref name="att.facsimile"/>
     <ref name="att.lang"/>
-    <optional>
-      <attribute name="calendar">
-        <a:documentation xml:lang="eng">indicates the system or calendar to
-          which a date belongs, for example, Gregorian, Julian, Roman, Mosaic,
-          Revolutionary, Islamic, etc.</a:documentation>
-        <data type="NMTOKEN"/>
-      </attribute>
-    </optional>
   </define>
 
   <define name="content.dir">
@@ -4143,7 +4158,8 @@
         publisher/distributor (e.g. 2nd edition, version 2.0, etc.), or
         simultaneously issued by either the same publisher/distributor or
         another publisher/distributor (e.g. large print edition, British
-        edition, etc.).</a:documentation>
+        edition, etc.). This element is modeled on an element in the Text
+        Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.edition"/>
       <ref name="content.edition"/>
     </element>
@@ -4234,7 +4250,8 @@
         The resp attribute contains an ID reference to an element containing the
         name of the editor or transcriber responsible for supplying the
         expansion of the abbreviation held as the content of the
-        &lt;expan&gt; element.</a:documentation>
+        &lt;expan&gt; element. This element is modeled on an element in
+        the Text Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.expan"/>
       <ref name="content.expan"/>
     </element>
@@ -4299,7 +4316,8 @@
       <a:documentation xml:lang="eng">forme work ― This element is intended for
         capture of header/footer material that is non-repeating; that is, it
         occurs on isolated pages. For recurring headers and footers use pgheadN
-        and pgfootN elements.</a:documentation>
+        and pgfootN elements. This element is modeled on an element in the Text
+        Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.fw"/>
       <ref name="content.fw"/>
     </element>
@@ -4329,8 +4347,9 @@
     <element name="group">
       <a:documentation xml:lang="eng">group ― Enables the gathering of multiple
         documents into a single file. Because its model contains the music
-        element, each of the documents can have its own front and back
-        matter.</a:documentation>
+        element, each of the documents can have its own front and back matter.
+        This element is modeled on an element in the Text Encoding Initiative
+        (TEI).</a:documentation>
       <ref name="attlist.group"/>
       <ref name="content.group"/>
     </element>
@@ -4624,8 +4643,9 @@
         to record a label for the line, i.e., most likely a line number. See
         comment on &lt;verse&gt; element for description of func
         attribute. Do not confuse this element with the &lt;sb&gt;
-        element, which performs a similar function for musical
-        notation.</a:documentation>
+        element, which performs a similar function for musical notation. This
+        element is modeled on an element in the Text Encoding Initiative
+        (TEI).</a:documentation>
       <ref name="attlist.lb"/>
       <ref name="content.lb"/>
     </element>
@@ -4781,8 +4801,9 @@
         and dissolution in the case of a corporate entity or place. The name of
         the list from which a controlled value is taken, such as the Thesaurus
         of Geographic Names (TGN) or Library of Congress Name Authority File
-        (LCNAF), may be recorded using the authority
-        attribute.</a:documentation>
+        (LCNAF), may be recorded using the authority attribute. This element is
+        modeled on an element in Encoded Archival Description
+        (EAD).</a:documentation>
       <ref name="attlist.name"/>
       <ref name="content.name"/>
     </element>
@@ -4854,8 +4875,9 @@
 
   <define name="num">
     <element name="num">
-      <a:documentation xml:lang="eng">number ― Numeric information in any form
-        occurring in text.</a:documentation>
+      <a:documentation xml:lang="eng">number ― Numeric information in any form.
+        This element is used only when it is necessary to display a number in a
+        special way or to identify it with a type attribute.</a:documentation>
       <ref name="attlist.num"/>
       <ref name="content.num"/>
     </element>
@@ -4882,7 +4904,9 @@
       <a:documentation xml:lang="eng">paragraph ― One or more text phrases that
         form a logical prose passage. A paragraph is usually typographically
         distinct: The text usually begins on a new line and the first letter of
-        the content is often indented, enlarged, or both.</a:documentation>
+        the content is often indented, enlarged, or both. This element is
+        modeled on elements in Encoded Archival Description, Text Encoding
+        Initiative (TEI), and HTML.</a:documentation>
       <ref name="attlist.p"/>
       <ref name="content.p"/>
     </element>
@@ -4984,7 +5008,8 @@
         page number in the source. It need not be an integer, e.g. 'iv', or
         'p17-3'. The logical page number can be calculated by counting previous
         &lt;pb&gt; ancestor elements. When used in a score context, a
-        page break implies an accompanying system break.</a:documentation>
+        page break implies an accompanying system break. This element is modeled
+        on an element in the Text Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.pb"/>
       <ref name="content.pb"/>
     </element>
@@ -5007,16 +5032,6 @@
         </choice>
       </attribute>
     </optional>
-    <!-- Moved to critApp module
-    <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">provided for linking to the
-          bibliographic description of the source(s) that contains the page
-          break. This allows page breaks from multiple sources to be encoded
-          using a single &lt;pb&gt; element.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="content.pgdesc">
@@ -5292,7 +5307,8 @@
         holds a bibliographic item. Sub-units of the institution may be marked
         with &lt;repository&gt; sub-elements. The name of the list from
         which a controlled value is taken may be recorded using the authority
-        attribute.</a:documentation>
+        attribute. This element is modeled on an element in Encoded Archival
+        Description (EAD).</a:documentation>
       <ref name="attlist.repository"/>
       <ref name="content.repository"/>
     </element>
@@ -5778,7 +5794,8 @@
         enclosed within a single &lt;title&gt; element. Title parts may
         be encoded in &lt;title&gt; sub-elements. The name of the list
         from which a controlled value is taken may be recorded using the
-        authority attribute.</a:documentation>
+        authority attribute. This element is modeled on an element in the Text
+        Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.title"/>
       <ref name="content.title"/>
     </element>
@@ -5819,7 +5836,8 @@
     <element name="titlepage">
       <a:documentation xml:lang="eng">title page ― Contains a transcription of
         the title page of a text. It may be used within the physdesc element
-        when no other transcription is provided.</a:documentation>
+        when no other transcription is provided. This element is modeled on an
+        element in Encoded Archival Description (EAD).</a:documentation>
       <ref name="attlist.titlepage"/>
       <ref name="content.titlepage"/>
     </element>

@@ -163,6 +163,19 @@
       </xs:annotation>
     </xs:attribute>
   </xs:attributeGroup>
+  <xs:attributeGroup name="att.calendared">
+    <xs:annotation>
+      <xs:documentation>Attributes that indicate the calendar system
+      of a date</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="calendar" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation>indicates the system or calendar to
+          which a date belongs, for example, Gregorian, Julian, Roman, Mosaic,
+          Revolutionary, Islamic, etc.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
   <xs:attributeGroup name="att.cleffing.log">
     <xs:annotation>
       <xs:documentation>Used by staffdef and scoredef to provide
@@ -3358,9 +3371,7 @@
     <xs:annotation>
       <xs:documentation>groups elements which may appear as part of
       the paragraph content model. A paragraph may contain inline elements and
-      all the other block-level elements except lg and itself. The
-      model.textphrase and model.edit classes must be declared prior to this
-      class.</xs:documentation>
+      all the other block-level elements except lg and itself.</xs:documentation>
     </xs:annotation>
     <xs:choice>
       <xs:group ref="mei:model.quoteLike"/>
@@ -3631,7 +3642,8 @@
         the abbreviation. The expan attribute gives an expansion of the
         abbreviation. The resp attribute contains an ID reference to an element
         containing the name of the editor or transcriber responsible for
-        supplying the expansion of the abbreviation.</xs:documentation>
+        supplying the expansion of the abbreviation. This element is modeled on
+        an element in the Text Encoding Initiative (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -3686,8 +3698,9 @@
   <xs:element name="address">
     <xs:annotation>
       <xs:documentation>address ― Contains a postal address, for
-        example of a publisher, an organization, or an
-        individual.</xs:documentation>
+        example of a publisher, an organization, or an individual. This element
+        is modeled on an element in the Text Encoding Initiative
+        (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -3713,7 +3726,8 @@
     <xs:annotation>
       <xs:documentation>addressline ― Single line of a postal
         address. This element may be repeated as many times as necessary to
-        enter all lines of an address.</xs:documentation>
+        enter all lines of an address. This element is modeled on an element in
+        the Text Encoding Initiative (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -3876,8 +3890,9 @@
         back elements, which do not. When the music can be broken into
         high-level, discrete, linear segments, such as movements of a symphony,
         there may be multiple &lt;mdiv&gt; elements within this element.
-        This is the highest level indication of the structure of the
-        music.</xs:documentation>
+        This is the highest level indication of the structure of the music. This
+        element is modeled on an element in the Text Encoding Initiative
+        (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4013,8 +4028,15 @@
   <xs:element name="date">
     <xs:annotation>
       <xs:documentation>date ― A date in any format, including a
-        date range. Date sub-elements may be used for the individual dates in a
-        date range.</xs:documentation>
+        date range. A date range may be expressed either as textual content,
+        e.g., &lt;date&gt;March 1-21, 1812&lt;/date&gt;, or
+        using date sub-elements, possibly combined with text, e.g.,
+        &lt;date&gt; &lt;date&gt;March 1,
+        1812&lt;/date&gt; - &lt;date&gt;March 21,
+        1812&lt;/date&gt; &lt;/date&gt;. The latter form is
+        useful when the starting and ending points of the date range require
+        qualification. This element is modeled on an element in the Text
+        Encoding Initiative (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4026,18 +4048,12 @@
   </xs:element>
   <xs:attributeGroup name="attlist.date">
     <xs:attributeGroup ref="mei:att.bibl"/>
+    <xs:attributeGroup ref="mei:att.calendared"/>
     <xs:attributeGroup ref="mei:att.common"/>
     <xs:attributeGroup ref="mei:att.datable"/>
     <xs:attributeGroup ref="mei:att.edit"/>
     <xs:attributeGroup ref="mei:att.facsimile"/>
     <xs:attributeGroup ref="mei:att.lang"/>
-    <xs:attribute name="calendar" type="xs:NMTOKEN">
-      <xs:annotation>
-        <xs:documentation>indicates the system or calendar to
-          which a date belongs, for example, Gregorian, Julian, Roman, Mosaic,
-          Revolutionary, Islamic, etc.</xs:documentation>
-      </xs:annotation>
-    </xs:attribute>
   </xs:attributeGroup>
   <xs:complexType name="content.dir" mixed="true">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
@@ -4151,7 +4167,8 @@
         publisher/distributor (e.g. 2nd edition, version 2.0, etc.), or
         simultaneously issued by either the same publisher/distributor or
         another publisher/distributor (e.g. large print edition, British
-        edition, etc.).</xs:documentation>
+        edition, etc.). This element is modeled on an element in the Text
+        Encoding Initiative (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4235,7 +4252,8 @@
         The resp attribute contains an ID reference to an element containing the
         name of the editor or transcriber responsible for supplying the
         expansion of the abbreviation held as the content of the
-        &lt;expan&gt; element.</xs:documentation>
+        &lt;expan&gt; element. This element is modeled on an element in
+        the Text Encoding Initiative (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4294,7 +4312,8 @@
       <xs:documentation>forme work ― This element is intended for
         capture of header/footer material that is non-repeating; that is, it
         occurs on isolated pages. For recurring headers and footers use pgheadN
-        and pgfootN elements.</xs:documentation>
+        and pgfootN elements. This element is modeled on an element in the Text
+        Encoding Initiative (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4326,8 +4345,9 @@
     <xs:annotation>
       <xs:documentation>group ― Enables the gathering of multiple
         documents into a single file. Because its model contains the music
-        element, each of the documents can have its own front and back
-        matter.</xs:documentation>
+        element, each of the documents can have its own front and back matter.
+        This element is modeled on an element in the Text Encoding Initiative
+        (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4604,8 +4624,9 @@
         to record a label for the line, i.e., most likely a line number. See
         comment on &lt;verse&gt; element for description of func
         attribute. Do not confuse this element with the &lt;sb&gt;
-        element, which performs a similar function for musical
-        notation.</xs:documentation>
+        element, which performs a similar function for musical notation. This
+        element is modeled on an element in the Text Encoding Initiative
+        (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:attributeGroup ref="mei:attlist.lb"/>
@@ -4738,8 +4759,9 @@
         and dissolution in the case of a corporate entity or place. The name of
         the list from which a controlled value is taken, such as the Thesaurus
         of Geographic Names (TGN) or Library of Congress Name Authority File
-        (LCNAF), may be recorded using the authority
-        attribute.</xs:documentation>
+        (LCNAF), may be recorded using the authority attribute. This element is
+        modeled on an element in Encoded Archival Description
+        (EAD).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4810,8 +4832,9 @@
   </xs:complexType>
   <xs:element name="num">
     <xs:annotation>
-      <xs:documentation>number ― Numeric information in any form
-        occurring in text.</xs:documentation>
+      <xs:documentation>number ― Numeric information in any form.
+        This element is used only when it is necessary to display a number in a
+        special way or to identify it with a type attribute.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4835,7 +4858,9 @@
       <xs:documentation>paragraph ― One or more text phrases that
         form a logical prose passage. A paragraph is usually typographically
         distinct: The text usually begins on a new line and the first letter of
-        the content is often indented, enlarged, or both.</xs:documentation>
+        the content is often indented, enlarged, or both. This element is
+        modeled on elements in Encoded Archival Description, Text Encoding
+        Initiative (TEI), and HTML.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -4927,7 +4952,8 @@
         page number in the source. It need not be an integer, e.g. 'iv', or
         'p17-3'. The logical page number can be calculated by counting previous
         &lt;pb&gt; ancestor elements. When used in a score context, a
-        page break implies an accompanying system break.</xs:documentation>
+        page break implies an accompanying system break. This element is modeled
+        on an element in the Text Encoding Initiative (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -5213,7 +5239,8 @@
         holds a bibliographic item. Sub-units of the institution may be marked
         with &lt;repository&gt; sub-elements. The name of the list from
         which a controlled value is taken may be recorded using the authority
-        attribute.</xs:documentation>
+        attribute. This element is modeled on an element in Encoded Archival
+        Description (EAD).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -5633,7 +5660,8 @@
         enclosed within a single &lt;title&gt; element. Title parts may
         be encoded in &lt;title&gt; sub-elements. The name of the list
         from which a controlled value is taken may be recorded using the
-        authority attribute.</xs:documentation>
+        authority attribute. This element is modeled on an element in the Text
+        Encoding Initiative (TEI).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -5676,7 +5704,8 @@
     <xs:annotation>
       <xs:documentation>title page ― Contains a transcription of
         the title page of a text. It may be used within the physdesc element
-        when no other transcription is provided.</xs:documentation>
+        when no other transcription is provided. This element is modeled on an
+        element in Encoded Archival Description (EAD).</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
