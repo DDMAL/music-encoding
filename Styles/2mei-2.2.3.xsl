@@ -359,23 +359,6 @@ CHANGES:  (v. 1.1)
               <scoredef>
 
                 <!-- Look in first measure for score-level meter signature -->
-                <!-- <xsl:if test="descendant::measure[1]/part/attributes[1]/time">
-                  <xsl:attribute name="meter.count">
-                    <xsl:value-of
-                      select="descendant::part[attributes[1]/time/beats][1]/attributes[1]/time/beats"
-                    />
-                  </xsl:attribute>
-                  <xsl:attribute name="meter.unit">
-                    <xsl:value-of
-                      select="descendant::part[attributes[1]/time/beat-type][1]/attributes[1]/time/beat-type"
-                    />
-                  </xsl:attribute>
-                  <xsl:variable name="symbol">
-                    <xsl:value-of
-                      select="descendant::part[attributes[1]/time/@symbol][1]/attributes[1]/time/@symbol"
-                    />
-                    </xsl:variable> -->
-
                 <xsl:if test="descendant::measure[1]/part/attributes">
                   <xsl:if
                     test="descendant::measure[1]/part/attributes[time/beats]">
@@ -466,7 +449,7 @@ CHANGES:  (v. 1.1)
               </scoredef>
 
               <!-- Process score measures -->
-              <!-- Measures are grouped based on criteria in the following group-ending-with attribute -->
+              <!-- Measures are grouped based on criteria in the group-ending-with attribute -->
               <xsl:for-each-group select="measure"
                 group-ending-with="measure[part/barline/repeat[@direction='backward'] or 
 following-sibling::measure[1][part/barline[@location='left']/repeat[@direction='forward']] or 
@@ -476,7 +459,7 @@ following-sibling::measure[1][part/barline/ending[@type='start']] or
 following-sibling::measure[1][part/attributes[time or key]]
 ]">
 
-                <!-- Potential (sub?) section-ending conditions:
+                <!-- Other potential (sub?) section-ending conditions:
 following-sibling::measure[1][print/page-layout] or
 following-sibling::measure[1][print/system-layout] or
 following-sibling::measure[1][print/staff-layout] or
@@ -528,8 +511,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
   </xsl:template>
 
   <xsl:template match="defaults" mode="stage1">
-    <!-- Handle scaling.  As in MusicXML, record page scale as a ratio of virtual units (tenths of interline space)
-         to real-world units (millimeters) -->
+    <!-- Page scaling. Record MusicXML page scale: ratio of virtual units
+         (tenths of interline space) to real-world units (millimeters). -->
     <xsl:for-each select="scaling">
       <xsl:attribute name="page.scale"><xsl:value-of select="tenths"
           />:<xsl:value-of select="millimeters"/></xsl:attribute>
@@ -1768,6 +1751,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               mode="stage1"/>
             <xsl:apply-templates
               select="note/notations/slur[@type='start' or @type='continue']"
+              mode="stage1"/>
+            <xsl:apply-templates select="note/notations/tied[@type='start']"
               mode="stage1"/>
             <xsl:apply-templates select="note/notations/fermata" mode="stage1"/>
             <xsl:apply-templates select="note/notations/ornaments" mode="stage1"/>
@@ -3174,8 +3159,174 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </dir>
   </xsl:template>
 
+  <xsl:template match="note/notations/tied[@type='start']" mode="stage1">
+    <tie>
+      <xsl:attribute name="tstamp.ges">
+        <xsl:for-each select="ancestor::note[1]">
+          <xsl:call-template name="gettstamp.ges"/>
+        </xsl:for-each>
+      </xsl:attribute>
+
+      <xsl:variable name="staff1">
+        <xsl:variable name="partID">
+          <xsl:value-of select="ancestor::part[1]/@id"/>
+        </xsl:variable>
+        <xsl:variable name="partstaff">
+          <xsl:choose>
+            <xsl:when test="ancestor::note[1]/staff">
+              <xsl:value-of select="ancestor::note[1]/staff"/>
+            </xsl:when>
+            <xsl:otherwise>1</xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="getstaffnum">
+          <xsl:with-param name="partID">
+            <xsl:value-of select="$partID"/>
+          </xsl:with-param>
+          <xsl:with-param name="partstaff">
+            <xsl:value-of select="$partstaff"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:variable>
+
+      <xsl:variable name="partID2">
+        <xsl:variable name="pitch">
+          <xsl:value-of select="ancestor::note/pitch/step"/>
+        </xsl:variable>
+        <xsl:variable name="octave">
+          <xsl:value-of select="ancestor::note/pitch/octave"/>
+        </xsl:variable>
+        <xsl:choose>
+          <xsl:when
+            test="following::note[pitch/step=$pitch and pitch/octave=$octave and tie/@type='stop']">
+            <xsl:for-each
+              select="following::note[pitch/step=$pitch and pitch/octave=$octave and tie/@type='stop'][1]">
+              <xsl:value-of select="ancestor::part[1]/@id"/>
+            </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:for-each
+              select="following::note[pitch/step=$pitch and pitch/octave=$octave][1]">
+              <xsl:value-of select="ancestor::part[1]/@id"/>
+            </xsl:for-each>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:variable name="partstaff2">
+        <xsl:variable name="pitch">
+          <xsl:value-of select="ancestor::note/pitch/step"/>
+        </xsl:variable>
+        <xsl:variable name="octave">
+          <xsl:value-of select="ancestor::note/pitch/octave"/>
+        </xsl:variable>
+        <xsl:choose>
+          <xsl:when
+            test="following::note[pitch/step=$pitch and pitch/octave=$octave and tie/@type='stop']">
+            <xsl:for-each
+              select="following::note[pitch/step=$pitch and pitch/octave=$octave and tie/@type='stop'][1]">
+              <xsl:choose>
+                <xsl:when test="staff">
+                  <xsl:value-of select="staff"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:for-each
+              select="following::note[pitch/step=$pitch and pitch/octave=$octave][1]">
+              <xsl:choose>
+                <xsl:when test="staff">
+                  <xsl:value-of select="staff"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:for-each>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+
+      <xsl:variable name="staff2">
+        <xsl:call-template name="getstaffnum">
+          <xsl:with-param name="partID">
+            <xsl:value-of select="$partID2"/>
+          </xsl:with-param>
+          <xsl:with-param name="partstaff">
+            <xsl:value-of select="$partstaff2"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:variable>
+
+      <!-- It is rare, but possible for a tie to cross staves;
+        therefore, @staff may have 2 values: one for the
+        initial note of the tie and one for the terminal note. -->
+
+      <xsl:attribute name="staff">
+        <xsl:value-of select="$staff1"/>
+        <xsl:if test="$staff2 != $staff1">
+          <xsl:text> </xsl:text>
+          <xsl:value-of select="$staff2"/>
+        </xsl:if>
+      </xsl:attribute>
+
+      <xsl:attribute name="curvedir">
+        <xsl:choose>
+          <xsl:when test="@orientation='under'">
+            <xsl:text>below</xsl:text>
+          </xsl:when>
+          <xsl:when test="@orientation='over'">
+            <xsl:text>above</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:choose>
+              <xsl:when test="ancestor::note/stem='up'">
+                <xsl:text>below</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::note/stem='down'">
+                <xsl:text>above</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+
+      <xsl:attribute name="startid">
+        <xsl:for-each select="ancestor::note">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:for-each>
+      </xsl:attribute>
+
+      <xsl:attribute name="endid">
+        <xsl:variable name="pitch">
+          <xsl:value-of select="ancestor::note/pitch/step"/>
+        </xsl:variable>
+        <xsl:variable name="octave">
+          <xsl:value-of select="ancestor::note/pitch/octave"/>
+        </xsl:variable>
+        <!-- The terminal note of the tie *ought to have* tie/@type='stop',
+          but it is missing in some test files! In this case, look for the
+          next note of the same pitch and octave. -->
+        <xsl:choose>
+          <xsl:when
+            test="following::note[pitch/step=$pitch and pitch/octave=$octave and tie/@type='stop']">
+            <xsl:for-each
+              select="following::note[pitch/step=$pitch and pitch/octave=$octave and tie/@type='stop'][1]">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:for-each>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:for-each
+              select="following::note[pitch/step=$pitch and pitch/octave=$octave][1]">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:for-each>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </tie>
+  </xsl:template>
+
   <xsl:template match="note/notations/slur[@type='start']" mode="stage1">
-    <!-- Starting with version 1.8 MEI phrase marks and slurs may be labelled as 'slur'. -->
     <slur>
       <xsl:attribute name="tstamp.ges">
         <xsl:for-each select="ancestor::note[1]">
@@ -6713,7 +6864,7 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
   <xsl:template
     match="annot | arpeg | beamspan | bend | dir | dynam | gliss |hairpin |
            harm | harppedal | mordent | octave | pedal | phrase | reh |
-           slur | tempo | tie | trill | turn"
+           slur | tie | tempo | trill | turn"
     priority="2" mode="stage2">
     <xsl:copy>
       <!-- MusicXML time offsets must be subtracted from/added to the current
