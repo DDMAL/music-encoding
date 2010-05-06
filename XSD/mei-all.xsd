@@ -102,8 +102,22 @@
   <xs:import schemaLocation="analysis_Module.xsd"/>
   <xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="xlink.xsd"/>
   <xs:import namespace="http://www.w3.org/XML/1998/namespace"
-  schemaLocation="xml.xsd"/>
-  
+    schemaLocation="xml.xsd"/>
+  <!-- ************************************************************** -->
+  <!-- * MEI datatypes                                              * -->
+  <!-- ************************************************************** -->
+  <!-- ************************************************************** -->
+  <!-- * Invoke default attribute and model class declarations      * -->
+  <!-- ************************************************************** -->
+  <!--
+    Include this only when some modules aren't included?  Better
+    to calculate the missing attribute and model class declarations?
+    Comment this out when generating tag library.
+  -->
+  <!-- <include href="defaultClassDecls.rng"/> -->
+  <!-- ************************************************************** -->
+  <!-- * Define a class for start elements                          * -->
+  <!-- ************************************************************** -->
   <xs:group name="model.startLike">
     <xs:choice>
       <xs:choice>
@@ -114,5 +128,16 @@
       <xs:element ref="mei:meicorpus"/>
     </xs:choice>
   </xs:group>
-  
+  <!-- ************************************************************** -->
+  <!-- * Invoke the startLike class                                 * -->
+  <!-- ************************************************************** -->
+  <!-- ************************************************************** -->
+  <!-- * Include modules                                            * -->
+  <!-- ************************************************************** -->
+  <!-- The shared and header modules must be included. -->
+  <!--
+    One or more of the CMN, mensural, or neumes modules must be
+    included in order to encode musical content.
+  -->
+  <!-- The following modules are optional. -->
 </xs:schema>

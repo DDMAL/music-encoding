@@ -202,7 +202,7 @@ CHANGES:  (v. 1.1)
   </xsl:template>
 
   <xsl:template match="score-timewise" mode="stage1">
-    <mei meiversion="1.9b" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <mei>
       <!-- Generate an id only on request -->
       <xsl:if test="$genid='yes'">
         <xsl:attribute name="xml:id">
@@ -1001,7 +1001,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
   </xsl:template>
 
   <xsl:template match="pghead1" mode="stage1">
-    <pghead1>
+    <pghead1 xmlns="http://www.music-encoding.org/ns/mei">
       <xsl:for-each select="table">
         <table>
           <xsl:copy-of select="@*"/>
@@ -1835,7 +1835,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                         <xsl:attribute name="n">
                           <xsl:value-of select="$thisstaff"/>
                         </xsl:attribute>
-                        <!-- <xsl:for-each select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*"> -->
                         <xsl:for-each
                           select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*[name()='note' or name()='chord' or name()='rest' or name()='pad' or name()='space' or name()='clefchange']">
                           <!-- Fill the unused time on 'the other staff' with space -->
@@ -3270,26 +3269,24 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         </xsl:if>
       </xsl:attribute>
 
-      <xsl:attribute name="curvedir">
-        <xsl:choose>
-          <xsl:when test="@orientation='under'">
-            <xsl:text>below</xsl:text>
-          </xsl:when>
-          <xsl:when test="@orientation='over'">
-            <xsl:text>above</xsl:text>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:choose>
-              <xsl:when test="ancestor::note/stem='up'">
-                <xsl:text>below</xsl:text>
-              </xsl:when>
-              <xsl:when test="ancestor::note/stem='down'">
-                <xsl:text>above</xsl:text>
-              </xsl:when>
-            </xsl:choose>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="@orientation='under'">
+          <xsl:attribute name="curvedir">below</xsl:attribute>
+        </xsl:when>
+        <xsl:when test="@orientation='over'">
+          <xsl:attribute name="curvedir">above</xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:choose>
+            <xsl:when test="ancestor::note/stem='up'">
+              <xsl:attribute name="curvedir">below</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="ancestor::note/stem='down'">
+              <xsl:attribute name="curvedir">above</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:otherwise>
+      </xsl:choose>
 
       <xsl:attribute name="startid">
         <xsl:for-each select="ancestor::note">
@@ -4005,9 +4002,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:if test="note[@stem.x]">
           <xsl:copy-of select="note[@stem.x][1]/@stem.x"/>
         </xsl:if>
-        <!-- <xsl:if test="note[@stem.y]">
-          <xsl:copy-of select="note[@stem.y][1]/@stem.y"/>
-        </xsl:if> -->
 
         <!-- Copy these attrs if all notes have the attr and have the same value -->
         <xsl:if test="count(note[@part])=count(note)">
@@ -6559,31 +6553,26 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
   </xsl:template>
 
   <!-- Stage 2 templates -->
-  <!-- copy most elements and attributes -->
-  <xsl:template match="@*|node()" priority="1" mode="stage2">
-    <xsl:copy>
-      <xsl:copy-of
-        select="@*[not(name()='meiform') and not(name()='beam')
-                           and not(name()='tstamp.ges')]"/>
+  <!-- copy most elements -->
+  <xsl:template match="*" priority="1" mode="stage2">
+    <xsl:element name="{local-name()}"
+      xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:copy-of select="@*[not(name()='tstamp.ges')]"/>
       <xsl:apply-templates mode="stage2"/>
-    </xsl:copy>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="mei" priority="2" mode="stage2">
-    <xsl:copy>
-      <xsl:copy-of select="@*[not(contains(name(),'xmlns'))]"/>
+    <mei meiversion="1.9b" xmlns="http://www.music-encoding.org/ns/mei"
+      xmlns:xlink="http://www.w3.org/1999/xlink">
+      <xsl:copy-of select="@*"/>
       <xsl:apply-templates mode="stage2"/>
-    </xsl:copy>
+    </mei>
   </xsl:template>
 
-  <!-- TEMPLATE NOT CURRENTLY USED -->
-  <!-- Don't copy layer which contains only space -->
-  <!-- <xsl:template match="layer[count(space)=count(*)]" priority="2">
-  </xsl:template> -->
-
   <xsl:template match="layer" priority="2" mode="stage2">
-    <layer>
-      <xsl:copy-of select="@*[not(name()='meiform')]"/>
+    <layer xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:copy-of select="@*"/>
       <xsl:if
         test="count(descendant::chord[@visible='no']) + count(descendant::note[@visible='no']) + count(descendant::rest[@visible='no']) = count(descendant::chord) + count(descendant::note) + count(descendant::rest)">
         <xsl:attribute name="visible">false</xsl:attribute>
@@ -6594,18 +6583,18 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
 
   <!-- don't copy beam, staff, or tstamp.ges attributes on space -->
   <xsl:template match="space" priority="2" mode="stage2">
-    <xsl:copy>
+    <space xmlns="http://www.music-encoding.org/ns/mei">
       <xsl:copy-of
-        select="@*[not(name()='meiform') and not(name()='beam')
-                           and not(name()='staff')  and not(name()='tstamp.ges')]"/>
+        select="@*[not(name()='beam') and not(name()='staff') and
+        not(name()='tstamp.ges')]"/>
       <xsl:apply-templates mode="stage2"/>
-    </xsl:copy>
+    </space>
   </xsl:template>
 
   <!-- clean up n attributes on staff -->
   <xsl:template match="staff" priority="2" mode="stage2">
-    <xsl:copy>
-      <xsl:copy-of select="@*[not(name()='meiform') and not(name()='n')]"/>
+    <staff xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:copy-of select="@*[not(name()='n')]"/>
       <xsl:choose>
         <xsl:when test="contains(@n,' ')">
           <xsl:attribute name="n">
@@ -6617,21 +6606,26 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
         </xsl:otherwise>
       </xsl:choose>
       <xsl:apply-templates mode="stage2"/>
-    </xsl:copy>
+    </staff>
   </xsl:template>
 
   <!-- copy attributes on staffdef elements preceding the first measure to corresponding
        top-level staffgrp/staffdef -->
   <xsl:template match="body/mdiv/score/scoredef[1]/staffgrp" priority="2"
     mode="stage2">
-    <staffgrp>
-      <xsl:copy-of select="@*[not(name()='meiform')]"/>
-      <xsl:copy-of select="instrdef"/>
+    <staffgrp xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:copy-of select="@*"/>
+      <xsl:for-each select="instrdef">
+        <instrdef xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:copy-of select="@*"/>
+          <xsl:apply-templates mode="stage2"/>
+        </instrdef>
+      </xsl:for-each>
       <xsl:for-each select="staffdef|staffgrp">
         <xsl:choose>
           <xsl:when test="name()='staffdef'">
-            <staffdef>
-              <xsl:copy-of select="@*[not(name()='meiform')]"/>
+            <staffdef xmlns="http://www.music-encoding.org/ns/mei">
+              <xsl:copy-of select="@*"/>
               <xsl:variable name="thisstaff">
                 <xsl:value-of select="@n"/>
               </xsl:variable>
@@ -6640,13 +6634,14 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
                 test="following::section[1]/staffdef[count(preceding::measure)=0]">
                 <xsl:copy-of
                   select="following::section[1]/staffdef[count(preceding::measure)=0 and
-                                     @n=$thisstaff]/@*[not(name()='n') and not(name()='meiform')]"
+                  @n=$thisstaff]/@*[not(name()='n')]"
                 />
               </xsl:if>
               <xsl:choose>
                 <xsl:when test="count(instrdef) = 1">
-                  <xsl:copy-of select="instrdef"/>
-                  <!-- <xsl:copy-of select="instrdef/@*[not(name()='meiform')]"/> -->
+                  <instrdef>
+                    <xsl:copy-of select="instrdef/@*"/>
+                  </instrdef>
                 </xsl:when>
                 <xsl:when test="count(instrdef) &gt; 1">
                   <xsl:for-each select="instrdef">
@@ -6654,8 +6649,9 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
                       <xsl:attribute name="n">
                         <xsl:value-of select="position()"/>
                       </xsl:attribute>
-                      <xsl:copy-of select="."/>
-                      <!-- <xsl:copy-of select="./@*[not(name()='meiform')]"/> -->
+                      <instrdef>
+                        <xsl:copy-of select="@*"/>
+                      </instrdef>
                     </layerdef>
                   </xsl:for-each>
                 </xsl:when>
@@ -6663,11 +6659,11 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
             </staffdef>
           </xsl:when>
           <xsl:when test="name()='staffgrp'">
-            <staffgrp>
-              <xsl:copy-of select="@*[not(name()='meiform')]"/>
+            <staffgrp xmlns="http://www.music-encoding.org/ns/mei">
+              <xsl:copy-of select="@*"/>
               <xsl:for-each select="staffdef">
-                <staffdef>
-                  <xsl:copy-of select="@*[not(name()='meiform')]"/>
+                <staffdef xmlns="http://www.music-encoding.org/ns/mei">
+                  <xsl:copy-of select="@*"/>
                   <xsl:variable name="thisstaff">
                     <xsl:value-of select="@n"/>
                   </xsl:variable>
@@ -6676,13 +6672,13 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
                     test="following::section[1]/staffdef[count(preceding::measure)=0]">
                     <xsl:copy-of
                       select="following::section[1]/staffdef[count(preceding::measure)=0 and
-                                         @n=$thisstaff]/@*[not(name()='n') and not(name()='meiform')]"
+                                         @n=$thisstaff]/@*[not(name()='n')]"
                     />
                   </xsl:if>
                   <xsl:choose>
                     <xsl:when test="count(ancestor::staffgrp[1]/instrdef) = 1">
                       <xsl:copy-of
-                        select="ancestor::staffgrp[1]/instrdef/@*[name()!='id' and name()!='meiform']"
+                        select="ancestor::staffgrp[1]/instrdef/@*[name()!='id']"
                       />
                     </xsl:when>
                     <xsl:when
@@ -6700,19 +6696,20 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
                               />
                             </xsl:variable>
                             <layerdef>
-                              <xsl:copy-of select="."/>
-                              <!-- <xsl:copy-of select="./@*[name()!='meiform']"/> -->
+                              <instrdef>
+                                <xsl:copy-of select="@*"/>
+                              </instrdef>
                             </layerdef>
                           </xsl:if>
                         </xsl:for-each>
                       </xsl:variable>
-                      <xsl:for-each select="$layers/layerdef">
+                      <xsl:for-each select="$layers/layerdef"
+                        xpath-default-namespace="http://www.music-encoding.org/ns/mei">
                         <layerdef>
                           <xsl:attribute name="n">
                             <xsl:value-of select="position()"/>
                           </xsl:attribute>
                           <xsl:copy-of select="instrdef"/>
-                          <!-- <xsl:copy-of select="@*"/> -->
                         </layerdef>
                       </xsl:for-each>
                     </xsl:when>
@@ -6724,17 +6721,16 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
           </xsl:when>
         </xsl:choose>
       </xsl:for-each>
-      <!-- <xsl:apply-templates select="grpsym" mode="stage2"/> -->
     </staffgrp>
   </xsl:template>
 
   <!-- copy staffdef elements and their attributes unless they precede the first measure -->
   <xsl:template match="section[1]/staffdef" priority="2" mode="stage2">
     <xsl:if test="not(count(preceding::measure)=0)">
-      <xsl:copy>
-        <xsl:copy-of select="@*[not(name()='meiform')]"/>
+      <staffdef xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:copy-of select="@*"/>
         <xsl:apply-templates mode="stage2"/>
-      </xsl:copy>
+      </staffdef>
     </xsl:if>
   </xsl:template>
 
@@ -6748,7 +6744,7 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
         <xsl:apply-templates mode="stage2"/>
       </xsl:when>
       <xsl:otherwise>
-        <beam>
+        <beam xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:choose>
             <xsl:when test="*[@staff &gt; ancestor::staff[1]/@n]">
               <xsl:attribute name="with">below</xsl:attribute>
@@ -6757,7 +6753,7 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
               <xsl:attribute name="with">above</xsl:attribute>
             </xsl:when>
           </xsl:choose>
-          <xsl:copy-of select="@*[not(name()='meiform')]"/>
+          <xsl:copy-of select="@*"/>
           <xsl:apply-templates mode="stage2"/>
         </beam>
       </xsl:otherwise>
@@ -6768,9 +6764,8 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
        repair the @startid and @endid attributes so that they point to the
        chord's id, not the note's id. -->
   <xsl:template match="tupletspan" priority="2" mode="stage2">
-    <tupletspan>
-      <xsl:copy-of
-        select="@*[not(name()='meiform' or name()='startid' or name()='endid')]"/>
+    <tupletspan xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:copy-of select="@*[not(name()='startid' or name()='endid')]"/>
       <xsl:variable name="start">
         <xsl:value-of select="@startid"/>
       </xsl:variable>
@@ -6802,25 +6797,11 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
     </tupletspan>
   </xsl:template>
 
-  <!-- DEPRECATED! Escape double quotes, i.e., \" replaces "
-  <xsl:template match="text()" priority="2" mode="stage2">
-    <xsl:analyze-string select="." regex='([^"]*)"'>
-      <xsl:matching-substring>
-        <xsl:value-of select="regex-group(1)"/><xsl:text>\"</xsl:text>
-      </xsl:matching-substring>
-      <xsl:non-matching-substring>
-        <xsl:value-of select="."/>
-      </xsl:non-matching-substring>
-    </xsl:analyze-string>
-  </xsl:template> -->
-
-  <!-- Copy articulations from member notes. Do not copy meiform, beam,
+  <!-- Copy articulations from member notes. Do not copy beam
     or tstamp.ges attributes. -->
   <xsl:template match="chord" priority="2" mode="stage2">
-    <chord>
-      <xsl:copy-of
-        select="@*[not(name()='meiform') and not(name()='beam')
-        and not(name()='tstamp.ges')]"/>
+    <chord xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:copy-of select="@*[not(name()='beam') and not(name()='tstamp.ges')]"/>
       <xsl:choose>
         <xsl:when test="$articattr='yes' and note/@artic">
           <xsl:attribute name="artic">
@@ -6836,7 +6817,8 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
           </xsl:attribute>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:copy-of select="note/artic"/>
+          <xsl:apply-templates select="note/artic" mode="stage2"/>
+          <!-- <xsl:copy-of select="note/artic"/> -->
         </xsl:otherwise>
       </xsl:choose>
       <xsl:apply-templates mode="stage2"/>
@@ -6845,10 +6827,10 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
 
   <!-- Copy artic sub-elements or artic attribute only if not a chord member. -->
   <xsl:template match="note" priority="2" mode="stage2">
-    <note>
+    <note xmlns="http://www.music-encoding.org/ns/mei">
       <xsl:copy-of
-        select="@*[not(name()='meiform') and not(name()='beam')
-        and not(name()='tstamp.ges') and not(name()='artic')]"/>
+        select="@*[not(name()='beam') and not(name()='tstamp.ges')
+        and not(name()='artic')]"/>
       <xsl:choose>
         <xsl:when test="not(ancestor::chord)">
           <xsl:copy-of select="@artic"/>
@@ -6866,7 +6848,7 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
            harm | harppedal | mordent | octave | pedal | phrase | reh |
            slur | tie | tempo | trill | turn"
     priority="2" mode="stage2">
-    <xsl:copy>
+    <xsl:element name="{name()}" xmlns="http://www.music-encoding.org/ns/mei">
       <!-- MusicXML time offsets must be subtracted from/added to the current
            MusicXML tstamp.ges and dur attribute values to arrive at an MEI tstamp
            value. -->
@@ -6945,10 +6927,10 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
         </xsl:otherwise>
       </xsl:choose>
       <xsl:copy-of
-        select="@*[not(name()='meiform') and not(name()='tstamp.ges')
-                           and not(name()='dur') and not(name()='id')]"/>
+        select="@*[not(name()='tstamp.ges') and not(name()='dur') and
+        not(name()='id')]"/>
       <xsl:apply-templates mode="stage2"/>
-    </xsl:copy>
+    </xsl:element>
   </xsl:template>
 
   <!-- Convert tstamp.ges value to musical time. -->
@@ -7077,10 +7059,10 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
             <xsl:message>DUR: <xsl:value-of select="@dur"/></xsl:message>
             -->
 
-            <mrest>
+            <mrest xmlns="http://www.music-encoding.org/ns/mei">
               <xsl:copy-of select="@xml:id"/>
               <xsl:copy-of
-                select="@*[not(name()='meiform') and not(name()='beam') and
+                select="@*[not(name()='beam') and
                         not(name()='tstamp.ges') and
                         not(name()='id') and not(name()='vo')]"/>
               <xsl:if test="@vo">
@@ -7093,33 +7075,33 @@ sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duratio
           <xsl:otherwise>
             <!-- This is not a full-measure rest: create copy of the rest, copy most
             of its attributes, and check for vertical offset. -->
-            <xsl:copy>
+            <rest xmlns="http://www.music-encoding.org/ns/mei">
               <xsl:copy-of
-                select="@*[not(name()='meiform') and not(name()='beam')
-                and not(name()='vo') and not(name()='tstamp.ges')]"/>
+                select="@*[not(name()='beam') and not(name()='vo')
+                and not(name()='tstamp.ges')]"/>
               <xsl:if test="@vo">
                 <xsl:attribute name="vo">
                   <xsl:call-template name="restvo2"/>
                 </xsl:attribute>
               </xsl:if>
               <xsl:apply-templates mode="stage2"/>
-            </xsl:copy>
+            </rest>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:when>
       <xsl:otherwise>
         <!-- this is not the only event in the measure, copy it through -->
-        <xsl:copy>
+        <rest xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:copy-of
-            select="@*[not(name()='meiform') and not(name()='beam')
-            and not(name()='vo') and not(name()='tstamp.ges')]"/>
+            select="@*[not(name()='beam') and not(name()='vo') and
+            not(name()='tstamp.ges')]"/>
           <xsl:if test="@vo">
             <xsl:attribute name="vo">
               <xsl:call-template name="restvo2"/>
             </xsl:attribute>
           </xsl:if>
           <xsl:apply-templates mode="stage2"/>
-        </xsl:copy>
+        </rest>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

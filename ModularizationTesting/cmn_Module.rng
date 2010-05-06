@@ -42,28 +42,29 @@
       beaming</a:documentation>
     <optional>
       <attribute name="beam.group">
-        <a:documentation xml:lang="eng">provides an example of how beaming
-          (including secondary beams) is to be performed. It can be used to set
-          a default beaming pattern to be used when no beaming is indicated at
-          the event level. beam.group must contain a comma-separated list of
-          time values that add up to a measure, e.g., in 4/4 time '4,4,4,4'
-          indicates each quarter note worth of shorter notes would be beamed
-          together. Parentheses can be used to indicate sub-groupings of
-          secondary beams. For example, '(4.,4.,4.)' in 9/8 meter indicates one
-          outer beam per measure with secondary beams broken at each dotted
-          quarter duration, while a measure of 16th notes in 4/4 with beam.group
-          equal to '(4,4),(4,4)' will result in a primary beam covering all the
-          notes and secondary beams each group of 4 notes. This beaming
-          "directive" can be overridden by using &lt;beam&gt; elements.
-          If neither &lt;beam&gt; elements or the beam.group attribute
-          is used, then no beaming is rendered. Beaming can be 'turned off' by
-          setting beam.group to an empty string.</a:documentation>
+        <a:documentation xml:lang="eng">provides an example of how automated
+          beaming (including secondary beams) is to be performed. It can be used
+          to set a default beaming pattern to be used when no beaming is
+          indicated at the event level. beam.group must contain a
+          comma-separated list of time values that add up to a measure, e.g., in
+          4/4 time '4,4,4,4' indicates each quarter note worth of shorter notes
+          would be beamed together. Parentheses can be used to indicate
+          sub-groupings of secondary beams. For example, '(4.,4.,4.)' in 9/8
+          meter indicates one outer beam per measure with secondary beams broken
+          at each dotted quarter duration, while a measure of 16th notes in 4/4
+          with beam.group equal to '(4,4),(4,4)' will result in a primary beam
+          covering all the notes and secondary beams each group of 4 notes. This
+          beaming "directive" can be overridden by using &lt;beam&gt;
+          elements. If neither &lt;beam&gt; elements or the beam.group
+          attribute is used, then no beaming is rendered. Beaming can be 'turned
+          off' by setting beam.group to an empty string.</a:documentation>
       </attribute>
     </optional>
     <optional>
       <attribute name="beam.rests">
-        <a:documentation xml:lang="eng">indicates whether beams should include
-          rests shorter than a quarter note duration.</a:documentation>
+        <a:documentation xml:lang="eng">indicates whether automatically-drawn
+          beams should include rests shorter than a quarter note
+          duration.</a:documentation>
         <ref name="data.BOOLEAN"/>
       </attribute>
     </optional>
@@ -1503,8 +1504,18 @@
     <element name="arpeg">
       <a:documentation xml:lang="eng">arpeggiation ― Indicates that the notes of
         a chord are to be performed successively rather than simultaneously,
-        usually from lowest to highest. Sometimes called a 'roll'. The usual
-        symbol is a vertical wavy line preceding the chord.</a:documentation>
+        usually from lowest to highest. Sometimes called a "roll". The modern
+        symbol is a vertical wavy line preceding the chord. When the notes of
+        the chord are to be performed from highest to lowest, an arrowhead may
+        be added to the lower end of the line. Even though it is redundant, an
+        arrowhead is sometimes added to the upper end of the line for the sake
+        of consistency or when the direction of successive arpeggios alternates.
+        In music for keyboard instruments, sometimes a distinction is made
+        between a single arpeggio in which both hands play successively and
+        simultaneous arpeggios in two hands. In the case of the former, multiple
+        values may be required in the staff and layer attributes. Arpeggios that
+        do not cross staves, but still involve more than one layer require
+        multiple values for the layer attribute.</a:documentation>
       <ref name="attlist.arpeg"/>
       <ref name="content.arpeg"/>
     </element>
@@ -1538,7 +1549,8 @@
         beams may be broken explicitly using the breaksec attribute on the notes
         or chords under the beam. Automated beaming, as opposed to explicitly
         marked beams, may be indicated for an entire score, part or section by
-        using the beamgroup attribute on these elements.</a:documentation>
+        using the beam.group and beam.rests attributes on these
+        elements.</a:documentation>
       <ref name="attlist.beam"/>
       <ref name="content.beam"/>
     </element>
@@ -1587,7 +1599,11 @@
   <define name="beatrpt">
     <element name="beatrpt">
       <a:documentation xml:lang="eng">beat repeat ― An indication that material
-        on a preceding beat should be repeated.</a:documentation>
+        on a preceding beat should be repeated. It is also used in guitar or
+        rhythm parts to indicate where chord changes occur. When these parts
+        require durations longer or shorter than a beat, however, note elements
+        with appropriately-shaped note heads should be
+        employed.</a:documentation>
       <ref name="attlist.beatrpt"/>
       <ref name="content.beatrpt"/>
     </element>
@@ -1644,12 +1660,16 @@
 
   <define name="breath">
     <element name="breath">
-      <a:documentation xml:lang="eng">breath mark ― The breath element is a
-        specialized form of, i.e., syntactic sugar for, dir/@type="breathmark"
-        with "," (comma) as its PCDATA content. The starting point of the breath
-        mark may be indicated by either a tstamp, tstamp.ges, tstamp.real or
-        startid attribute. It is a semantic error not to specify a starting
-        point attribute.</a:documentation>
+      <a:documentation xml:lang="eng">breath mark ― A indication of a point at
+        which the performer on an instrument requiring breath (including the
+        voice) may breathe. It also may indicate a short pause or break for
+        instruments *not* requiring breath. Therefore, it oftens functions as a
+        guide to phrasing. The usual sign for the breath mark is a comma;
+        however, other visual forms of the breath mark may be indicated using
+        the altsym attribute. The starting point of the breath mark may be
+        indicated by either a tstamp, tstamp.ges, tstamp.real or startid
+        attribute. It is a semantic error not to specify a starting point
+        attribute.</a:documentation>
       <ref name="attlist.breath"/>
       <ref name="content.breath"/>
     </element>
@@ -1676,14 +1696,15 @@
       <a:documentation xml:lang="eng">bowed tremolo ― A rapid alternation on a
         single pitch or chord. This element should also be used for wind double
         and triple tonguing and for flutter tonguing when these are expressed as
-        tremolandi. The num attribute can be used to store a number to be
+        tremolandi. For alternation between a pair of notes or chords, use the
+        ftrem element. The num attribute can be used to store a number to be
         rendered along with a tremolo. The slash attribute indicates the number
         of slashes to be drawn. The number of slashes indicates the exact note
         values in an aural rendition of measured tremolandi, i.e., 4ths or
         8ths=1, 16ths=2, 32nds=3, 64ths=4, 128ths=5, 256ths=6. See Read, p.
         393-394. The stem modifier (slash or z) must also be explicity set on
         the child &lt;note&gt; or &lt;chord&gt; element for a
-        complete visual representation.See Read, p. 394, ex. 23-21, line
+        complete visual representation. See Read, p. 394, ex. 23-21, line
         5.</a:documentation>
       <ref name="attlist.btrem"/>
       <ref name="content.btrem"/>
@@ -1705,13 +1726,17 @@
 
   <define name="fermata">
     <element name="fermata">
-      <a:documentation xml:lang="eng">fermata ― A hold or pause. The
+      <a:documentation xml:lang="eng">fermata ― An indication placed over a note
+        or rest to indicated that it should be held longer than its written
+        value. May also occur over a barline to indicate the end of a phrase or
+        section. Sometimes called a 'hold' or 'pause'. The
         &lt;fermata&gt; element is a specialized form of, i.e.,
         syntactic sugar for, dir/@type="fermata" with &amp;ferm; or
-        &amp;uferm; as its PCDATA content. The starting point of the fermata
-        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
-        attribute. It is a semantic error not to specify a starting point
-        attribute.</a:documentation>
+        &amp;uferm; as its PCDATA content. Other visual forms of a fermata
+        may be indicated via the altsym attribute. The starting point of the
+        fermata may be indicated by either a tstamp, tstamp.ges, tstamp.real or
+        startid attribute. It is a semantic error not to specify a starting
+        point attribute.</a:documentation>
       <ref name="attlist.fermata"/>
       <ref name="content.fermata"/>
     </element>
@@ -1776,11 +1801,11 @@
   <define name="hairpin">
     <element name="hairpin">
       <a:documentation xml:lang="eng">hairpin ― Indicates continuous dynamics
-        expressed on the score as graphics, e.g. &lt; and &gt;. The
-        starting point of the hairpin may be indicated by either a tstamp,
-        tstamp.ges, tstamp.real or startid attribute, while the ending point may
-        be recorded by either a dur, dur.ges or endid attribute. It is a
-        semantic error not to specify one starting and one ending type of
+        expressed on the score as wedge-shaped graphics, e.g. &lt; and
+        &gt;. The starting point of the hairpin may be indicated by either a
+        tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
+        point may be recorded by either a dur, dur.ges or endid attribute. It is
+        a semantic error not to specify one starting and one ending type of
         attribute. Please note that the value of the dur attribute is not a true
         duration, but rather a time stamp for the end point of the
         hairpin.</a:documentation>
@@ -1834,14 +1859,18 @@
 
   <define name="gliss">
     <element name="gliss">
-      <a:documentation xml:lang="eng">glissando ― An indication to perform notes
-        between the written pitches at a tempo such that the intermediate
-        pitches are not heard individually. Sometimes called a 'slide'. Precise
-        performance data, that is, exact pitches, may be recorded within the
-        &lt;gliss&gt; element. The starting point of the glissand sign
-        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
-        attribute. It is a semantic error not to specify a starting point
-        attribute.</a:documentation>
+      <a:documentation xml:lang="eng">glissando ― A continuous or sliding
+        movement from one pitch to another, usually indicated by a straight or
+        wavy line. Commonly also called a 'slide'. The term 'glissando' is
+        frequently used to indicate both the case where distinct intermediate
+        pitches are produced (as on the piano) and the case where they are not
+        (as on the trombone), though the latter is sometimes referred to as
+        'portamento'. The visual appearance of the indicating line may be
+        recorded in the rend attribute. Precise performance data, that is, exact
+        pitches, may be recorded within the &lt;gliss&gt; element. The
+        starting point of the glissando may be indicated by either a tstamp,
+        tstamp.ges, tstamp.real or startid attribute. It is a semantic error not
+        to specify a starting point attribute.</a:documentation>
       <ref name="attlist.gliss"/>
       <ref name="content.gliss"/>
     </element>
@@ -1901,17 +1930,14 @@
 
   <define name="measure">
     <element name="measure">
-      <a:documentation xml:lang="eng">measure ― "In Western notation a vertical
-        line drawn through the staff to mark off metrical units. Hence also the
-        metrical unit thus indicated, which in American usage is called
-        'measure'. English usage often relies on context alone to make the
-        distinction clear (e.g. 'up to the double bar', 'the end of the bar'),
-        but 'bar-line' is also common." (New Grove) In MEI, the measure element
-        is also a linking element that uses attributes to connect the MEI
-        document to an external electronic object or to another location within
-        the MEI instance. Some music printing systems rely on measure width data
-        for rendering. The width attribute allows for the capture of this data
-        in MEI for interchange with these systems.</a:documentation>
+      <a:documentation xml:lang="eng">measure ― "Unit of musical time consisting
+        of a fixed number of note-values of a given type, as determined by the
+        prevailing meter, and delimited in musical notation by two bar lines."
+        (New Harvard Dictionary of Music) In MEI, the measure element is a
+        grouping mechanism for events and control events. It is also a linking
+        element that uses attributes to connect the MEI document to an external
+        electronic object or to another location within the MEI
+        instance.</a:documentation>
       <ref name="attlist.measure"/>
       <ref name="content.measure"/>
     </element>
@@ -1937,9 +1963,9 @@
   <define name="mrest">
     <element name="mrest">
       <a:documentation xml:lang="eng">measure rest ― Complete measure rest in
-        any meter (Read, p. 97-98). The numbering of consecutive measures of
-        rest may be controlled via the multi.number attribute on the scoredef or
-        staffdef elements.</a:documentation>
+        any meter (Read, p. 97-98). Automatically-generated numbering of
+        consecutive measures of rest may be controlled via the multi.number
+        attribute on the scoredef or staffdef elements.</a:documentation>
       <ref name="attlist.mrest"/>
       <ref name="content.mrest"/>
     </element>
@@ -2055,9 +2081,9 @@
   <define name="multirpt">
     <element name="multirpt">
       <a:documentation xml:lang="eng">multi-repeat ― Multiple repeated measures.
-        In modern publishing practice repeats of more than 2 measures should be
-        written out using repeat signs. This element, however, is provided for
-        handling non-standard practices often found in manuscript. The num
+        In modern publishing practice, repeats of more than two measures should
+        be written out using repeat signs. This element, however, is provided
+        for handling non-standard practices often found in manuscript. The num
         attribute records the number of measures to be
         repeated.</a:documentation>
       <ref name="attlist.multirpt"/>
@@ -2080,17 +2106,20 @@
 
   <define name="octave">
     <element name="octave">
-      <a:documentation xml:lang="eng">octave ― Octave displacement. (Read, p.
-        45). The starting point of the octave displacement may be indicated by
-        either a tstamp, tstamp.ges, tstamp.real or startid attribute, while the
-        ending point may be recorded by either a dur, dur.ges or endid
-        attribute. It is a semantic error not to specify one starting and one
-        ending type of attribute. Please note that the dur attribute here is not
-        a true duration, but rather a time stamp for the end point of the octave
-        displacement. Also, note that the dur attribute is not required because
-        the octave displacement can be visually instantaneous. The rend
-        attribute captures the appearance of the continuation line associated
-        with the octave displacement.</a:documentation>
+      <a:documentation xml:lang="eng">octave ― An indication that a passage
+        should be performed one or more octaves above or below its written
+        pitch. The dis and dis.place attributes record the amount and direction
+        of displacement, respectively. The rend attribute captures the
+        appearance of the continuation line associated with the octave
+        displacement. The starting point of the octave displacement may be
+        indicated by either a tstamp, tstamp.ges, tstamp.real or startid
+        attribute, while the ending point may be recorded by either a dur,
+        dur.ges or endid attribute. It is a semantic error not to specify one
+        starting and one ending type of attribute. Please note that the dur
+        attribute here is not a true duration, but rather a time stamp for the
+        end point of the octave displacement. Also, note that the dur attribute
+        is not required because the octave displacement can be visually
+        instantaneous.</a:documentation>
       <ref name="attlist.octave"/>
       <ref name="content.octave"/>
     </element>
@@ -2126,12 +2155,10 @@
 
   <define name="ossia">
     <element name="ossia">
-      <a:documentation xml:lang="eng">ossia ― Indicates an alternative, usually
-        simpler, version of a measure *present in the source being transcribed*.
-        An ossia may be treated as a substitute for the measure, in which case
-        it is rendered on the current staff, or it may be rendered in addition
-        to the measure's contents, in which case it is rendered above the staff
-        on a reduced-size staff.</a:documentation>
+      <a:documentation xml:lang="eng">ossia ― An alternative, usually simpler,
+        version of a measure *present in the source being transcribed*.
+        Typically, it is rendered above the staff on a reduced-size
+        staff.</a:documentation>
       <ref name="attlist.ossia"/>
       <ref name="content.ossia"/>
     </element>
@@ -2185,9 +2212,9 @@
     <element name="reh">
       <a:documentation xml:lang="eng">rehearsal mark ― In an orchestral score
         and its corresponding parts, a mark indicating a convenient point from
-        which to resume rehearsal after a break. They may also be called
-        rehearsal figures, or when numbers are used instead of letters,
-        rehearsal numbers. See Read, p. 443. Reh uses a subset of
+        which to resume rehearsal after a break. It may also be called a
+        rehearsal figure, or when numbers are used instead of letters, a
+        rehearsal number. See Read, p. 443. &lt;reh&gt; uses a subset of
         model.textphraseLike.limited.</a:documentation>
       <ref name="attlist.reh"/>
       <ref name="content.reh"/>
@@ -2250,9 +2277,9 @@
   <define name="tie">
     <element name="tie">
       <a:documentation xml:lang="eng">tie ― An indication that two notes of the
-        same pitch form a single note with their combined values. Most often it
-        is rendered as a curved line connecting the two notes. See Read, p.
-        110-111, 122.</a:documentation>
+        same pitch form a single note with their combined rhythmic values. Most
+        often it is rendered as a curved line connecting the two notes. See
+        Read, p. 110-111, 122.</a:documentation>
       <ref name="attlist.tie"/>
       <ref name="content.tie"/>
     </element>
@@ -2285,18 +2312,19 @@
         (sometimes called "irrational") rhythmic values, for example, three
         notes in the time normally occupied by two or nine in the time of five.
         The beam sub-element is allowed so that custom beaming may be indicated,
-        i.e., a septuplet may be divided into a group of 3 plus a group of 4
-        notes. See Read, p. 187-215. The tuplet element may also used for bowed
-        tremolo (Read, p. 394) and double, triple, or flutter tonguing (Read, p.
-        348-349); that is, for repetition of the same pitch. In the case of
-        irrational durations, such as such as 2 quarter notes in the time of 5
-        8th notes in a measure of 5/8 time, decimal values may be used in the
-        dur.ges attribute. For example, the dur.ges attribute would take the
-        value "2.5" if the midi.div attribute's value was "1". The num and
-        numbase attributes may be used for explicit labelling of a tuplet, such
-        as, '3' with an 8th-note triplet, '3:2' over a quarter-note triplet,
-        etc. The rendering of the ratio, however, is dependent on the num.format
-        attribute found in the att.vis.tuplet attribute class.</a:documentation>
+        e.g., a septuplet may be divided into a group of three plus a group of
+        four notes. See Read, p. 187-215. The tuplet element may also used for
+        bowed tremolo (Read, p. 394) and double, triple, or flutter tonguing
+        (Read, p. 348-349); that is, for repetition of the same pitch. In the
+        case of irrational durations, such as such as two quarter notes in the
+        time of five 8th notes in a measure of 5/8 time, decimal values may be
+        used in the dur.ges attribute. For example, the dur.ges attribute would
+        take the value "2.5" if the midi.div attribute's value was "1". The num
+        and numbase attributes may be used for explicit labelling of a tuplet,
+        such as, '3' with an 8th-note triplet, '3:2' over a quarter-note
+        triplet, etc. The rendering of the ratio, however, is dependent on the
+        num.format attribute found in the att.vis.tuplet attribute
+        class.</a:documentation>
       <ref name="attlist.tuplet"/>
       <ref name="content.tuplet"/>
     </element>

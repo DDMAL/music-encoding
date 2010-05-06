@@ -204,16 +204,19 @@
 
   <define name="trill">
     <element name="trill">
-      <a:documentation xml:lang="eng">trill ― Rapid alternation of two notes a
-        second apart. Usually, the interval is understood to be diatonic unless
-        altered by an accidental. See Read, p. 232-235. Events may be contained
-        within &lt;trill&gt; in order to record precise performance
-        data. The starting point of the trill may be indicated by either a
-        tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
-        point may be recorded by either a dur, dur.ges or endid attribute. It is
-        a semantic error not to specify a starting point attribute. Please note
-        that the dur attribute is not a true duration, but rather a time stamp
-        for the end point of the trill.</a:documentation>
+      <a:documentation xml:lang="eng">trill ― Rapid alternation of a note with
+        one (usually at the interval of a second) above. Usually, the interval
+        is understood to be diatonic unless altered by an accidental. The
+        starting note of the trill; i.e., the written one or the ornamenting
+        one, and the speed of alternation depends on performance practice.
+        Events may be contained within &lt;trill&gt; in order to record
+        precise performance data. The starting point of the trill may be
+        indicated by either a tstamp, tstamp.ges, tstamp.real or startid
+        attribute, while the ending point may be recorded by either a dur,
+        dur.ges or endid attribute. It is a semantic error not to specify a
+        starting point attribute. Please note that the dur attribute is not a
+        true duration, but rather a time stamp for the end point of the
+        trill.</a:documentation>
       <ref name="attlist.trill"/>
       <ref name="content.trill"/>
     </element>

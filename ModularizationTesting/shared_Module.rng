@@ -988,7 +988,9 @@
     <optional>
       <attribute name="width">
         <a:documentation xml:lang="eng">measurement of the horizontal dimension
-          of an entity.</a:documentation>
+          of an entity. For example, some music printing systems rely on measure
+          width data for rendering. The width attribute may be used to capture
+          this data for interchange with these systems.</a:documentation>
         <data type="decimal"/>
       </attribute>
     </optional>
@@ -1768,7 +1770,7 @@
       <attribute name="x">
         <a:documentation xml:lang="eng">encodes an x coordinate for a feature in
           an output coordinate system. When it is necessary to record the
-          placement of a feature in a facsimile image, use facs
+          placement of a feature in a facsimile image, use the facs
           attribute.</a:documentation>
         <data type="decimal"/>
       </attribute>
@@ -1777,7 +1779,7 @@
       <attribute name="y">
         <a:documentation xml:lang="eng">encodes an y coordinate for a feature in
           an output coordinate system. When it is necessary to record the
-          placement of a feature in a facsimile image, use facs
+          placement of a feature in a facsimile image, use the facs
           attribute.</a:documentation>
         <data type="decimal"/>
       </attribute>
@@ -2072,6 +2074,7 @@
 
   <define name="att.custos.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
+    <ref name="att.altsym"/>
     <ref name="att.color"/>
   </define>
 
@@ -3590,7 +3593,7 @@
         the abbreviation. The expan attribute gives an expansion of the
         abbreviation. The resp attribute contains an ID reference to an element
         containing the name of the editor or transcriber responsible for
-        supplying the expansion of the abbreviation. This element is modeled on
+        supplying the expansion of the abbreviation. This element is modelled on
         an element in the Text Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.abbr"/>
       <ref name="content.abbr"/>
@@ -3618,14 +3621,16 @@
 
   <define name="accid">
     <element name="accid">
-      <a:documentation xml:lang="eng">accidental ― This element records a
-        temporary alteration to the pitch of a note. It provides an alternative
-        to the accid and accid.ges attributes on the &lt;note&gt;
-        element. The element should be used when specific display info, such as
-        size or color, needs to be recorded for the accidental or when multiple
-        accidentals occur on a single note. The func attribute can be used to
-        differentiate between the accidental's functions, such as 'cautionary'
-        or 'editorial'.</a:documentation>
+      <a:documentation xml:lang="eng">accidental ― Records a temporary
+        alteration to the pitch of a note. An accidental may raise a pitch by
+        one or two semitones or it may cancel a previous accidental or part of a
+        key signature. This element provides an alternative to the accid and
+        accid.ges attributes on the &lt;note&gt; element. The element
+        should be used when specific display info, such as size or color, needs
+        to be recorded for the accidental or when multiple accidentals occur on
+        a single note. The func attribute can be used to differentiate between
+        the accidental's functions, such as 'cautionary' or
+        'editorial'.</a:documentation>
       <ref name="attlist.accid"/>
       <ref name="content.accid"/>
     </element>
@@ -3651,7 +3656,7 @@
     <element name="address">
       <a:documentation xml:lang="eng">address ― Contains a postal address, for
         example of a publisher, an organization, or an individual. This element
-        is modeled on an element in the Text Encoding Initiative
+        is modelled on an element in the Text Encoding Initiative
         (TEI).</a:documentation>
       <ref name="attlist.address"/>
       <ref name="content.address"/>
@@ -3679,8 +3684,9 @@
     <element name="addressline">
       <a:documentation xml:lang="eng">addressline ― Single line of a postal
         address. This element may be repeated as many times as necessary to
-        enter all lines of an address. This element is modeled on an element in
-        the Text Encoding Initiative (TEI).</a:documentation>
+        enter all lines of an address. This element is modelled on elements in
+        Encoded Archival Description (EAD) and the Text Encoding Initiative
+        (TEI).</a:documentation>
       <ref name="attlist.addressline"/>
       <ref name="content.addressline"/>
     </element>
@@ -3787,12 +3793,13 @@
 
   <define name="barline">
     <element name="barline">
-      <a:documentation xml:lang="eng">barline ― Vertical line that divides
-        musical notation into metrical units. This element is provided as an
-        alternative to the &lt;measure&gt; container. Some music
-        printing systems rely on measure width data for rendering. The width
-        attribute may be used to capture this data in MEI for interchange with
-        these systems.</a:documentation>
+      <a:documentation xml:lang="eng">barline ― Vertical line drawn through one
+        or more staves that divides musical notation into metrical units. This
+        element is provided for repertoires, such as mensural notation, that
+        lack measures. Because the barline element's attributes, from which the
+        logical and visual characteristics of the barline can be discerned,
+        largely duplicate those of measure, the use of barline is not necessary
+        within measure elements in CMN.</a:documentation>
       <ref name="attlist.barline"/>
       <ref name="content.barline"/>
     </element>
@@ -3858,7 +3865,7 @@
         high-level, discrete, linear segments, such as movements of a symphony,
         there may be multiple &lt;mdiv&gt; elements within this element.
         This is the highest level indication of the structure of the music. This
-        element is modeled on an element in the Text Encoding Initiative
+        element is modelled on an element in the Text Encoding Initiative
         (TEI).</a:documentation>
       <ref name="attlist.body"/>
       <ref name="content.body"/>
@@ -3906,7 +3913,7 @@
 
   <define name="chord">
     <element name="chord">
-      <a:documentation xml:lang="eng">chord ― A simultaneous sounding of 2 or
+      <a:documentation xml:lang="eng">chord ― A simultaneous sounding of two or
         more notes in the same layer *with the same duration*.</a:documentation>
       <ref name="attlist.chord"/>
       <ref name="content.chord"/>
@@ -3954,8 +3961,8 @@
 
   <define name="clefchange">
     <element name="clefchange">
-      <a:documentation xml:lang="eng">clef change ― A change of clef not
-        occurring at a barline.</a:documentation>
+      <a:documentation xml:lang="eng">clef change ― A temporary change of
+        clef.</a:documentation>
       <ref name="attlist.clefchange"/>
       <ref name="content.clefchange"/>
     </element>
@@ -3977,10 +3984,12 @@
 
   <define name="custos">
     <element name="custos">
-      <a:documentation xml:lang="eng">custos ― The symbol placed at the end of a
-        staff to indicate the first note of the next staff. Sometimes called a
-        "direct". Together the pname and oct attributes identify the location
-        where the custos appears.</a:documentation>
+      <a:documentation xml:lang="eng">custos ― Symbol placed at the end of a
+        line of music to indicate the first note of the next line. Sometimes
+        called a "direct". The most common visual form is a sign resembling a
+        mordent. Other graphical forms may be indicated by the altsym attribute.
+        Together the pname and oct attributes identify the location where the
+        custos appears. </a:documentation>
       <ref name="attlist.custos"/>
       <ref name="content.custos"/>
     </element>
@@ -4015,7 +4024,7 @@
         1812&lt;/date&gt; - &lt;date&gt;March 21,
         1812&lt;/date&gt; &lt;/date&gt;. The latter form is
         useful when the starting and ending points of the date range require
-        qualification. This element is modeled on an element in the Text
+        qualification. This element is modelled on an element in the Text
         Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.date"/>
       <ref name="content.date"/>
@@ -4047,17 +4056,17 @@
   <define name="dir">
     <element name="dir">
       <a:documentation xml:lang="eng">directive ― A text expression that is on
-        the score (typically above, below, or between staves), but not on the
-        staff and not encoded elsewhere in more specific elements, such as
+        the score (typically above, below, or between staves, but not on the
+        staff) not encoded elsewhere in more specific elements, such as
         &lt;tempo&gt; or &lt;dynam&gt;. Examples include text
-        strings, such as 'affettuoso' or fingerings and music symbols, such as
-        segno and coda symbols, fermatas over a barline, etc. Unlike generic
-        text elements, directives can be control elements. That is, they can be
-        used as pointers to other events. The starting point of the directive
-        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
-        attribute, while the ending point may be recorded by either a dur,
-        dur.ges or endid attribute. It is a semantic error not to specify a
-        starting point attribute.</a:documentation>
+        strings, such as 'affettuoso' or fingering numbers, and music symbols,
+        such as segno and coda symbols, fermatas over a barline, etc. Directives
+        can be control elements. That is, they can linked via their attributes
+        to other events. The starting point of the directive may be indicated by
+        either a tstamp, tstamp.ges, tstamp.real or startid attribute, while the
+        ending point may be recorded by either a dur, dur.ges or endid
+        attribute. It is a semantic error not to specify a starting point
+        attribute.</a:documentation>
       <ref name="attlist.dir"/>
       <ref name="content.dir"/>
     </element>
@@ -4158,7 +4167,7 @@
         publisher/distributor (e.g. 2nd edition, version 2.0, etc.), or
         simultaneously issued by either the same publisher/distributor or
         another publisher/distributor (e.g. large print edition, British
-        edition, etc.). This element is modeled on an element in the Text
+        edition, etc.). This element is modelled on an element in the Text
         Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.edition"/>
       <ref name="content.edition"/>
@@ -4197,12 +4206,12 @@
   <define name="ending">
     <element name="ending">
       <a:documentation xml:lang="eng">ending ― Alternative ending for a repeated
-        section of music. The scoredef element is allowed as a sub-element so
-        that an ending may have its own meta-data without the overhead of child
-        &lt;section&gt;s. Div sub-elements are not allowed within ending
-        in order to avoid collisions with the brackets that are usually
-        displayed over endings. Endings may *not* contain other ending
-        elements.</a:documentation>
+        passage of music; i.e., prima volta, seconda volta, etc. The scoredef
+        element is allowed as a sub-element so that an ending may have its own
+        meta-data without the overhead of child &lt;section&gt;s. Div
+        sub-elements are not allowed within ending in order to avoid collisions
+        with the brackets that are usually displayed over endings. Endings may
+        *not* contain other ending elements.</a:documentation>
       <ref name="attlist.ending"/>
       <ref name="content.ending"/>
     </element>
@@ -4250,7 +4259,7 @@
         The resp attribute contains an ID reference to an element containing the
         name of the editor or transcriber responsible for supplying the
         expansion of the abbreviation held as the content of the
-        &lt;expan&gt; element. This element is modeled on an element in
+        &lt;expan&gt; element. This element is modelled on an element in
         the Text Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.expan"/>
       <ref name="content.expan"/>
@@ -4316,7 +4325,7 @@
       <a:documentation xml:lang="eng">forme work ― This element is intended for
         capture of header/footer material that is non-repeating; that is, it
         occurs on isolated pages. For recurring headers and footers use pgheadN
-        and pgfootN elements. This element is modeled on an element in the Text
+        and pgfootN elements. This element is modelled on an element in the Text
         Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.fw"/>
       <ref name="content.fw"/>
@@ -4348,7 +4357,7 @@
       <a:documentation xml:lang="eng">group ― Enables the gathering of multiple
         documents into a single file. Because its model contains the music
         element, each of the documents can have its own front and back matter.
-        This element is modeled on an element in the Text Encoding Initiative
+        This element is modelled on an element in the Text Encoding Initiative
         (TEI).</a:documentation>
       <ref name="attlist.group"/>
       <ref name="content.group"/>
@@ -4368,10 +4377,10 @@
   <define name="grpsym">
     <element name="grpsym">
       <a:documentation xml:lang="eng">group symbol ― A brace or bracket used to
-        join two or more staves to create a system or to group staves within a
-        system. This element provides an alternative to the staffgrp element's
-        symbol attribute. It may be used when exact placement or editorial
-        details for the grouping symbol must be recorded.</a:documentation>
+        group two or more staves of a score or part. This element provides an
+        alternative to the staffgrp element's symbol attribute. It may be used
+        when exact placement or editorial details for the grouping symbol must
+        be recorded.</a:documentation>
       <ref name="attlist.grpsym"/>
       <ref name="content.grpsym"/>
     </element>
@@ -4644,7 +4653,7 @@
         comment on &lt;verse&gt; element for description of func
         attribute. Do not confuse this element with the &lt;sb&gt;
         element, which performs a similar function for musical notation. This
-        element is modeled on an element in the Text Encoding Initiative
+        element is modelled on an element in the Text Encoding Initiative
         (TEI).</a:documentation>
       <ref name="attlist.lb"/>
       <ref name="content.lb"/>
@@ -4802,7 +4811,7 @@
         the list from which a controlled value is taken, such as the Thesaurus
         of Geographic Names (TGN) or Library of Congress Name Authority File
         (LCNAF), may be recorded using the authority attribute. This element is
-        modeled on an element in Encoded Archival Description
+        modelled on an element in Encoded Archival Description
         (EAD).</a:documentation>
       <ref name="attlist.name"/>
       <ref name="content.name"/>
@@ -4836,18 +4845,19 @@
     <element name="note">
       <a:documentation xml:lang="eng">note ― A single pitched event. (Read, p.
         63) The note element is allowed to contain other events for situations
-        where a single written note may be representative of a group of
-        performed notes. The accid and artic sub-elements may be used instead of
-        the note element's attributes when accid and artic represent first-class
-        objects, e.g., when they require attributes, such as x and y location
-        attributes. Similarly, the syl sub-element may be used instead of the
-        syl attribute. The verse sub-element may be used to group text syllables
-        by verse. The colored attribute may be used to indicate coloration. In
-        the mensural repertoire coloration is a temporary change in the
-        underlying mensuration from perfect to imperfect. In the CMN repertoire
-        coloration is an inversion of the note head's normal rendition, that is,
-        the notehead is void when it would otherwise be filled and vice versa.
-        Do not confuse this with visual color.</a:documentation>
+        where a single (usually ornamented) written note is representative of a
+        group of performed notes. The accid and artic sub-elements may be used
+        instead of the note element's attributes when accid and artic represent
+        first-class objects, e.g., when they require attributes, such as x and y
+        location attributes. Similarly, the syl sub-element may be used instead
+        of the syl attribute. The verse sub-element may be used to group text
+        syllables by verse. The colored attribute may be used to indicate
+        coloration. In the mensural repertoire, coloration is a temporary change
+        in the underlying mensuration from perfect to imperfect. In the CMN
+        repertoire, coloration is an inversion of the note head's normal
+        rendition, that is, the notehead is void when it would otherwise be
+        filled and vice versa. Do not confuse this with visual
+        color.</a:documentation>
       <ref name="attlist.note"/>
       <ref name="content.note"/>
     </element>
@@ -4905,7 +4915,7 @@
         form a logical prose passage. A paragraph is usually typographically
         distinct: The text usually begins on a new line and the first letter of
         the content is often indented, enlarged, or both. This element is
-        modeled on elements in Encoded Archival Description, Text Encoding
+        modelled on elements in Encoded Archival Description, Text Encoding
         Initiative (TEI), and HTML.</a:documentation>
       <ref name="attlist.p"/>
       <ref name="content.p"/>
@@ -5008,8 +5018,9 @@
         page number in the source. It need not be an integer, e.g. 'iv', or
         'p17-3'. The logical page number can be calculated by counting previous
         &lt;pb&gt; ancestor elements. When used in a score context, a
-        page break implies an accompanying system break. This element is modeled
-        on an element in the Text Encoding Initiative (TEI).</a:documentation>
+        page break implies an accompanying system break. This element is
+        modelled on an element in the Text Encoding Initiative
+        (TEI).</a:documentation>
       <ref name="attlist.pb"/>
       <ref name="content.pb"/>
     </element>
@@ -5307,7 +5318,7 @@
         holds a bibliographic item. Sub-units of the institution may be marked
         with &lt;repository&gt; sub-elements. The name of the list from
         which a controlled value is taken may be recorded using the authority
-        attribute. This element is modeled on an element in Encoded Archival
+        attribute. This element is modelled on an element in Encoded Archival
         Description (EAD).</a:documentation>
       <ref name="attlist.repository"/>
       <ref name="content.repository"/>
@@ -5331,7 +5342,7 @@
     <element name="rest">
       <a:documentation xml:lang="eng">rest ― A non-sounding event found in the
         source being transcribed (Read, p. 96-102). Do not confuse this element
-        with the space element which is used as an aid for visual
+        with the space element, which is used as an aid for visual
         alignment.</a:documentation>
       <ref name="attlist.rest"/>
       <ref name="content.rest"/>
@@ -5358,7 +5369,7 @@
       <a:documentation xml:lang="eng">system break ― An empty formatting element
         that forces notation to begin on a new line. Do not confuse this element
         with the &lt;lb&gt; element, which performs a similar function
-        for text.</a:documentation>
+        in prose.</a:documentation>
       <ref name="attlist.sb"/>
       <ref name="content.sb"/>
     </element>
@@ -5609,11 +5620,16 @@
 
   <define name="staff">
     <element name="staff">
-      <a:documentation xml:lang="eng">staff ― The n attribute is a connection
-        back to the appropriate staffdef element. If the n attribute is omitted,
-        encoding order is presumed to match the staff order. Of course, if data
-        is supplied for only a subset of staves, the n attribute must be
-        supplied.</a:documentation>
+      <a:documentation xml:lang="eng">staff ― A group of equidistant horizontal
+        lines on which notes are placed in order to represent pitch. In MEI,
+        however, &lt;staff&gt; is a grouping element for individual
+        'strands' of notes, rests, etc. that may or may not be rendered on staff
+        lines; that is, diastematic and nondiastematic signs. The n attribute
+        functions as a connection back to the appropriate staffdef element where
+        logical and visual information about the staff is recorded. If the n
+        attribute is omitted, encoding order is presumed to match the staff
+        order. Of course, if data is supplied for only a subset of staves found
+        in a printed source, the n attribute must be supplied.</a:documentation>
       <ref name="attlist.staff"/>
       <ref name="content.staff"/>
     </element>
@@ -5748,10 +5764,10 @@
       <a:documentation xml:lang="eng">tempo ― Text and symbols descriptive of
         tempo, mood, or style, e.g., "allarg.", "a tempo", "cantabile",
         "Moderato", "[qtrnote]=60", "Moderato [qtrnote] =60"). Both
-        "instantaneous" and "continuous" tempo markings may be encoded using
-        this element. Please note that the dur attribute here is expressed in
-        musical time, i.e., beats or other time stamp. Therefore, it is not a
-        true duration, but rather a time stamp for the end point of the
+        instantaneous and continuous tempo markings may be encoded using this
+        element. Please note that the dur attribute here is expressed in musical
+        time, i.e., beats or other time stamp. Therefore, it is not a true
+        duration, but rather a time stamp for the end point of the
         directive.</a:documentation>
       <ref name="attlist.tempo"/>
       <ref name="content.tempo"/>
@@ -5794,7 +5810,7 @@
         enclosed within a single &lt;title&gt; element. Title parts may
         be encoded in &lt;title&gt; sub-elements. The name of the list
         from which a controlled value is taken may be recorded using the
-        authority attribute. This element is modeled on an element in the Text
+        authority attribute. This element is modelled on an element in the Text
         Encoding Initiative (TEI).</a:documentation>
       <ref name="attlist.title"/>
       <ref name="content.title"/>
@@ -5836,7 +5852,7 @@
     <element name="titlepage">
       <a:documentation xml:lang="eng">title page ― Contains a transcription of
         the title page of a text. It may be used within the physdesc element
-        when no other transcription is provided. This element is modeled on an
+        when no other transcription is provided. This element is modelled on an
         element in Encoded Archival Description (EAD).</a:documentation>
       <ref name="attlist.titlepage"/>
       <ref name="content.titlepage"/>

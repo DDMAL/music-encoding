@@ -128,7 +128,10 @@
         definition. An id attribute, while not required by the schema, is needed
         so that &lt;harm&gt; elements can reference a particular chord
         definition. The pos (position) attribute is provided in order to create
-        displayable chord tablature grids.</xs:documentation>
+        displayable chord tablature grids. &lt;chordmember&gt;
+        sub-elements record the individual pitches of the chord.
+        &lt;barre&gt;sub-elements may be used when a single finger is
+        used to stop multiple strings.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
@@ -209,8 +212,8 @@
   </xs:complexType>
   <xs:element name="harm">
     <xs:annotation>
-      <xs:documentation>harmony ― A textual indication of harmony,
-        e.g., chord names, tablature grids, harmonic analysis, figured bass. The
+      <xs:documentation>harmony ― An indication of harmony, e.g.,
+        chord names, tablature grids, harmonic analysis, figured bass. The
         starting point of the harmony may be indicated by either a tstamp,
         tstamp.ges, tstamp.real or startid attribute, while the ending point may
         be recorded by either a dur, dur.ges or endid attribute. It is a

@@ -34,6 +34,12 @@
       officia deserunt mollit anim id est laborum.</xsl:text>
   </xsl:variable>
 
+  <xsl:variable name="illustrations">
+    <xsl:copy-of
+      select="doc('../Guidelines/TagLibraryIllustrations/ElementIllustrations.xml')"
+    />
+  </xsl:variable>
+
   <xsl:template match="/" exclude-result-prefixes="#all">
     <xsl:processing-instruction name="oxygen"
       >RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/teilite.rng"
@@ -164,23 +170,49 @@
               exclude-result-prefixes="#all" mode="elementgrps">
               <xsl:sort select="db:title"/>
             </xsl:apply-templates>
-          </div> -->
+            </div> -->
         </body>
+        <back>
+          <div type="index">
+            <head>Index by Element Name</head>
+            <list>
+              <xsl:apply-templates
+                select="//db:sect2[db:title='Elements']/db:sect3"
+                exclude-result-prefixes="#all" mode="elementIndex">
+                <xsl:sort
+                  select="substring-before(db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Annotations ']/db:entry[2]/db:para/db:programlisting, ' ― ')"
+                />
+              </xsl:apply-templates>
+            </list>
+          </div>
+        </back>
       </text>
     </TEI>
   </xsl:template>
 
+  <xsl:template match="db:sect3" exclude-result-prefixes="#all"
+    mode="elementIndex">
+    <item>
+      <xsl:value-of
+        select="substring-before(db:informaltable/db:tgroup/db:tbody/db:row[db:entry=' Annotations ']/db:entry[2]/db:para/db:programlisting, ' ― ')"/>
+      <xsl:text> ― </xsl:text>
+      <ref target="#{@xml:id}">
+        <xsl:value-of select="substring-after(db:title/db:literal, 'mei:')"/>
+      </ref>
+    </item>
+  </xsl:template>
+
   <xsl:template match="db:sect3" exclude-result-prefixes="#all" mode="elements">
     <div type="element" xml:id="{@xml:id}">
+      <xsl:variable name="gi">
+        <xsl:value-of select="substring-after(db:title/db:literal,'mei:')"/>
+      </xsl:variable>
+      <xsl:variable name="elementname">
+        <xsl:value-of
+          select="substring-before(db:informaltable/db:tgroup/db:tbody/db:row[2]/db:entry[2]/db:para/db:programlisting,'―')"
+        />
+      </xsl:variable>
       <head>
-        <xsl:variable name="gi">
-          <xsl:value-of select="substring-after(db:title/db:literal,'mei:')"/>
-        </xsl:variable>
-        <xsl:variable name="elementname">
-          <xsl:value-of
-            select="substring-before(db:informaltable/db:tgroup/db:tbody/db:row[2]/db:entry[2]/db:para/db:programlisting,'―')"
-          />
-        </xsl:variable>
         <gi>
           <xsl:value-of select="normalize-space($gi)"/>
         </gi>
@@ -367,6 +399,12 @@
           <xsl:value-of select="replace($module, '_.*', '')"/>
         </p>
       </div>
+      <xsl:if test="$illustrations/tei:list/tei:item[@n=$gi]/tei:p">
+        <div type="illustration">
+          <head>Illustration:</head>
+          <xsl:copy-of select="$illustrations/tei:list/tei:item[@n=$gi]/tei:p"/>
+        </div>
+      </xsl:if>
     </div>
   </xsl:template>
 

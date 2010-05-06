@@ -37,15 +37,18 @@
   </xs:complexType>
   <xs:element name="anchoredtext">
     <xs:annotation>
-      <xs:documentation>anchored text ― Page-anchored text. The
-        content model here is similar to paragraph without model.textcomponent
-        and &lt;pb&gt; sub-elements. The starting point of the text may
-        be identified in absolute output coordinate terms using the x and y
-        attributes or relative to the location of another element using the
-        startid attribute. The attributes in the att.visualoffset class may be
-        used to record horizontal, vertical, or time offsets from the absolute
-        coordinates or from the location of the referenced
-        element.</xs:documentation>
+      <xs:documentation>anchored text ― Container for text that is
+        fixed to a particular location, regardless of changes made to the layout
+        of the measures around it. This element may be used where semantic
+        markup of the text is neither possible nor desirable, such as in optical
+        music recognition (OMR) applications. The content model here is similar
+        to paragraph without model.textcomponent and &lt;pb&gt;
+        sub-elements. The starting point of the text may be identified in
+        absolute output coordinate terms using the x and y attributes or
+        relative to the location of another element using the startid attribute.
+        The attributes in the att.visualoffset class may be used to record
+        horizontal, vertical, or time offsets from the absolute coordinates or
+        from the location of the referenced element.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>

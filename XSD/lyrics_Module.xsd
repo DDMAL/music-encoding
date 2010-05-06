@@ -95,11 +95,14 @@
   </xs:complexType>
   <xs:element name="lyrics">
     <xs:annotation>
-      <xs:documentation>lyrics ― The staff attribute gives the
-        staff to which the lyrics are attached. The rhythm of the lyrics will be
-        taken from the notes of that staff. If there is more than 1 layer on
-        that staff, the layer attribute may be used to indicate the layer from
-        which the rhythm should be taken.</xs:documentation>
+      <xs:documentation>lyrics ― Vocally performed 'text' of a
+        musical composition, such as a song or opera. The staff attribute gives
+        the staff to which the lyrics are attached. If there is more than one
+        layer on that staff, the layer attribute may be used to indicate the
+        layer from which the rhythm should be taken. Often, automatic text
+        underlay may rely on the notes of the indicated staff. When this is not
+        desirable, however, the rhythm of the lyrics may be recorded in the
+        rhythm attribute of the parent verse element. </xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>

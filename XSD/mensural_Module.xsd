@@ -188,9 +188,9 @@
       <xs:documentation>mensuration ― The &lt;mensur&gt;
         element is provided for the encoding of mensural notation. It collects
         information about the metrical relationship between a note value and the
-        next smaller value. The slash attribute indicates the number lines added
-        to the mensuration sign. For example, one slash is added for what we now
-        call 'alla breve'.</xs:documentation>
+        next smaller value; that is, either triple or duple. The slash attribute
+        indicates the number lines added to the mensuration sign. For example,
+        one slash is added for what we now call 'alla breve'.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:attributeGroup ref="mei:attlist.mensur"/>
@@ -227,9 +227,14 @@
   </xs:complexType>
   <xs:element name="ligature">
     <xs:annotation>
-      <xs:documentation>ligature ― The &lt;ligature&gt;
-        element is provided for the encoding of mensural notation in which
-        multiple notes are represented by joined symbols.</xs:documentation>
+      <xs:documentation>ligature ― A mensural notation symbol that
+        combines two or more notes into a single sign. The rhythmic meaning of
+        the components of a ligature is typically contextual, not absolute;
+        therefore, an interpretative duration may be encoded on each of the
+        components using either the dur.ges attribute or the num and numbase
+        attribute pair. The &lt;ligature&gt; element should *not* be
+        used for brackets in modern notation that indicate notes that were part
+        of a ligature in the original source.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
       <xs:complexContent>
