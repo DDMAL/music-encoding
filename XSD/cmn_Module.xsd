@@ -1207,10 +1207,11 @@
           expressed as a time stamp, dur here is a true duration. If dur is
           omitted, the default is to calculate the total duration of the
           included notes and use the next shorter un-dotted value. Irrational
-          durations, such as 2 quarter notes in the time of 5 8th notes in a
-          measure of 5/8 time, may be expressed as a list of durations which are
-          to be added together to form the total duration. In this case, the dur
-          attribute could take the value "2 8" or "8 8 8 8 8".</xs:documentation>
+          durations, such as two quarter notes in the time of five 8th notes in
+          5/8 time, may be expressed as a list of durations which are to be
+          added together to form the total duration of the tuplet. In this case,
+          possbile values for the dur attribute include "2 8" and "8 8 8 8
+          8".</xs:documentation>
       </xs:annotation>
       <xs:simpleType>
         <xs:restriction>
@@ -2082,11 +2083,11 @@
   <xs:element name="tupletspan">
     <xs:annotation>
       <xs:documentation>tuplet span ― Alternative element for
-        encoding tuplets, especially useful for those which extend across
+        encoding tuplets, especially useful for tuplets that extend across
         barlines. The starting point of the tuplet may be indicated by either a
         tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending
-        point may be recorded by either a dur, dur.ges or endid attribute. It is
-        a semantic error not to specify one starting and one ending type of
+        point may be recorded using a dur, dur.ges or endid attribute. It is a
+        semantic error not to specify one starting and one ending type of
         attribute.</xs:documentation>
     </xs:annotation>
     <xs:complexType>
