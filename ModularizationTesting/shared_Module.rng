@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ************************************************************** -->
+<!--
+  NAME:     Music Encoding Initiative (MEI) schema component:
+            shared_Module.rng
+  
+  NOTICE:   Copyright (c) 2010 by the Music Encoding Initiative (MEI)
+            Council.
+  
+            Licensed under the Educational Community License, Version
+            2.0 (the "License"); you may not use this file except in
+            compliance with the License. You may obtain a copy of the
+            License at http://www.osedu.org/licenses/ECL-2.0.
+            
+            Unless required by applicable law or agreed to in writing,
+            software distributed under the License is distributed on
+            an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+            KIND, either express or implied. See the License for the
+            specific language governing permissions and limitations
+            under the License.
+            
+            This is a derivative work based on earlier versions of the
+            schema copyright (c) 2001-2006 Perry Roland and the Rector
+            and Visitors of the University of Virginia; licensed under
+            the Educational Community License version 1.0.
+  
+  CONTACT:  contact@music-encoding.org 
+-->
+
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
@@ -1011,10 +1040,10 @@
     <a:documentation xml:lang="eng">Attributes that record the version of MEI in
       use</a:documentation>
     <optional>
-      <attribute name="meiversion" a:defaultValue="1.9b">
+      <attribute name="meiversion" a:defaultValue="2010-05">
         <a:documentation xml:lang="eng">records the version of MEI used by the
           file.</a:documentation>
-        <value>1.9b</value>
+        <value>2010-05</value>
       </attribute>
     </optional>
   </define>
@@ -2241,16 +2270,6 @@
   <define name="att.layerdef.ges" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <ref name="att.instrumentident"/>
-    <!-- <optional>
-      <attribute name="grace">
-        <a:documentation xml:lang="eng">Setting the grace attribute here
-          provides the possibility of changing all the grace attribute values in
-          a layer without having to individually change each event's grace
-          attribute value. Each "graced" element may still require a value in
-          its grace.time attribute.</a:documentation>
-        <ref name="data.GRACE"/>
-      </attribute>
-      </optional> -->
   </define>
 
   <define name="att.layerdef.log" combine="interleave">
@@ -2478,7 +2497,6 @@
   <define name="att.phrase.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.color"/>
-    <!-- <ref name="att.placement"/> -->
     <ref name="att.visualoffset"/>
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
@@ -2582,16 +2600,6 @@
       attributes function as default values when creating sounding output. The
       tune.* attributes provide the capability of recording a tuning reference
       pitch. </a:documentation>
-    <!-- <optional>
-      <attribute name="grace">
-        <a:documentation xml:lang="eng">Setting the grace attribute here
-          provides the possibility of changing all the grace attribute values in
-          a score without having to individually change each event's grace
-          attribute value. Each "graced" element may still require a value in
-          its grace.time attribute.</a:documentation>
-        <ref name="data.GRACE"/>
-      </attribute>
-      </optional> -->
     <ref name="att.channelized"/>
     <ref name="att.timebase"/>
     <ref name="att.miditempo"/>
@@ -2629,15 +2637,6 @@
     <ref name="att.meters.log"/>
     <ref name="att.octavedefault"/>
     <ref name="att.transposition"/>
-    <!-- <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">contains a list of one or more pointers
-          indicating the sources that contain a staff. Each value should
-          correspond to the ID of a &lt;source&gt; element given
-          elsewhere in the document.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="att.scoredef.vis" combine="interleave">
@@ -2897,16 +2896,6 @@
       the CMN repertoire</a:documentation>
     <ref name="att.instrumentident"/>
     <ref name="att.timebase"/>
-    <!-- <optional>
-      <attribute name="grace">
-        <a:documentation xml:lang="eng">Setting the grace attribute here
-          provides the possibility of changing all the grace attribute values in
-          a staff without having to individually change each event's grace
-          attribute value. Each "graced" element may still require a value in
-          its grace.time attribute.</a:documentation>
-        <ref name="data.GRACE"/>
-      </attribute>
-      </optional> -->
   </define>
 
   <define name="att.staffdef.log" combine="interleave">
@@ -3195,23 +3184,6 @@
       elements.</a:documentation>
     <ref name="identifier"/>
   </define>
-
-  <!-- <define name="model.Incl" combine="interleave">
-    <a:documentation xml:lang="eng">groups elements that may appear between as
-      well as within MEI structural elements.</a:documentation>
-    <choice>
-      <ref name="model.appLike"/>
-      <ref name="model.divLike"/>
-      <ref name="model.milestoneLike.music"/>
-      <ref name="model.scoredefLike"/>
-      <ref name="model.staffdefLike"/>
-      <ref name="model.staffgrpLike"/>
-      <ref name="model.annotLike"/>
-      <ref name="model.graphicprimitiveLike"/>
-      <ref name="model.editLike"/>
-      <ref name="model.transcriptionLike"/>
-    </choice>
-  </define> -->
 
   <define name="model.instrdefLike" combine="interleave">
     <a:documentation xml:lang="eng">groups elements used to declare a MIDI
@@ -4195,10 +4167,7 @@
         <ref name="model.graphicprimitiveLike"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
-        <!-- <ref name="model.Incl"/> -->
         <ref name="model.sectionPart"/>
-        <!-- <ref name="model.scoredefLike"/>
-        <ref name="model.milestoneLike.music"/> -->
       </choice>
     </zeroOrMore>
   </define>
@@ -4591,7 +4560,6 @@
         <ref name="model.graphicprimitiveLike"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
-        <!-- <ref name="model.Incl"/> -->
         <ref name="model.layerPart"/>
       </choice>
     </zeroOrMore>
@@ -4675,16 +4643,6 @@
         </choice>
       </attribute>
     </optional>
-    <!-- Moved to critApp module
-    <optional>
-      <attribute name="source">
-        <a:documentation xml:lang="eng">Source descriptions in the header may be
-          pointed to by putting their IDs in the source attribute. This allows
-          line breaks from multiple sources to be encoded with a single
-          &lt;lb&gt; element.</a:documentation>
-        <data type="IDREFS"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="content.mdiv">
@@ -5398,7 +5356,6 @@
         <ref name="model.graphicprimitiveLike"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
-        <!-- <ref name="model.Incl"/> -->
         <ref name="model.scorePart"/>
       </choice>
     </zeroOrMore>
@@ -5446,9 +5403,6 @@
       <optional>
         <ref name="model.staffgrpLike"/>
       </optional>
-      <!-- <optional>
-        <ref name="model.staffdefLike"/>
-      </optional> -->
     </choice>
   </define>
 
@@ -5456,24 +5410,6 @@
     <element name="scoredef">
       <a:documentation xml:lang="eng">score definition ― Container for score
         meta-information.</a:documentation>
-      <!-- Score-level encoding strategies for: a)
-        alternating meter sig, e.g. 2/4 3/4 in alternating measures
-        (Read, p. 164-165) and combined meters (Read, p.166-168):
-        explicitly encode meters, make them invisible, display both
-        meter sigs at the start of the section b) compound meter sig,
-        e.g. 2+3+2/4 (Read, p. 168-170): set meter.count=2+3+2 c)
-        polymeters, e.g. different simultaneous meters (Read, p.
-        170-173): 1. where barlines coincide, use beaming to elucidate
-        the polymeter 2. where barlines sometimes coincide, break into
-        measures according to a common unit of time, draw barlines
-        where visually required 3. where barlines never coincide,
-        encode as parts only d) mixed meter sig, e.g. 2/4 + 3/16 in
-        the same measure (Read, p. 173-174): encode in common time
-        base, e.g. 11/16, make meter invisible, display both meter
-        sigs at the start of the measure e) fractional meter sig, e.g.
-        3.5/4 (Read, p. 175-177): set meter.count=3.5 The beat count
-        may be displayed as a fraction or as its decimal
-        equivalent. -->
       <ref name="attlist.scoredef"/>
       <ref name="content.scoredef"/>
     </element>
@@ -5503,7 +5439,6 @@
         <ref name="model.graphicprimitiveLike"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
-        <!-- <ref name="model.Incl"/> -->
         <ref name="model.sectionPart"/>
       </choice>
     </zeroOrMore>
@@ -5612,7 +5547,6 @@
         <ref name="model.graphicprimitiveLike"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
-        <!-- <ref name="model.Incl"/> -->
         <ref name="model.staffPart"/>
       </choice>
     </zeroOrMore>

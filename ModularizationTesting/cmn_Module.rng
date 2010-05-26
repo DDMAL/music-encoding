@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ************************************************************** -->
+<!--
+  NAME:     Music Encoding Initiative (MEI) schema component:
+            cmn_Module.rng
+  
+  NOTICE:   Copyright (c) 2010 by the Music Encoding Initiative (MEI)
+            Council.
+  
+            Licensed under the Educational Community License, Version
+            2.0 (the "License"); you may not use this file except in
+            compliance with the License. You may obtain a copy of the
+            License at http://www.osedu.org/licenses/ECL-2.0.
+            
+            Unless required by applicable law or agreed to in writing,
+            software distributed under the License is distributed on
+            an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+            KIND, either express or implied. See the License for the
+            specific language governing permissions and limitations
+            under the License.
+            
+            This is a derivative work based on earlier versions of the
+            schema copyright (c) 2001-2006 Perry Roland and the Rector
+            and Visitors of the University of Virginia; licensed under
+            the Educational Community License version 1.0.
+  
+  CONTACT:  contact@music-encoding.org 
+-->
+
 <grammar xmlns="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
@@ -494,22 +523,6 @@
       are slurred or tied while others aren't, then the individual note
       attributes must be used.</a:documentation>
     <ref name="att.beamsecondary"/>
-    <!-- <ref name="att.slurrend"/>
-    <ref name="att.tierend"/>
-    <optional>
-      <attribute name="slur.dir">
-        <a:documentation xml:lang="eng">indicates the direction of a
-          slur beginning on this chord.</a:documentation>
-        <ref name="data.SLURDIRECTION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie.dir">
-        <a:documentation xml:lang="eng">determines the direction of a
-          tie beginning on this chord.</a:documentation>
-        <ref name="data.TIEDIRECTION"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="att.fermata.anl" combine="interleave">
@@ -976,22 +989,6 @@
   <define name="att.note.vis" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.beamsecondary"/>
-    <!-- <ref name="att.slurrend"/>
-    <ref name="att.tierend"/>
-    <optional>
-      <attribute name="slur.dir">
-        <a:documentation xml:lang="eng">indicates the direction of a
-          slur beginning on this note.</a:documentation>
-        <ref name="data.SLURDIRECTION"/>
-      </attribute>
-    </optional>
-    <optional>
-      <attribute name="tie.dir">
-        <a:documentation xml:lang="eng">determines the direction of a
-          tie beginning on this note.</a:documentation>
-        <ref name="data.TIEDIRECTION"/>
-      </attribute>
-    </optional> -->
   </define>
 
   <define name="att.octave.anl" combine="interleave">
@@ -1234,7 +1231,6 @@
       attribute is the vertical offset (from its normal position) of the entire
       rendered slur/phrase mark.</a:documentation>
     <ref name="att.color"/>
-    <!-- <ref name="att.placement"/> -->
     <ref name="att.visualoffset"/>
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
@@ -1288,7 +1284,6 @@
       terms of staff interline distance. Startto and endto describe the start
       and end points in terms of time; that is, beats.</a:documentation>
     <ref name="att.color"/>
-    <!-- <ref name="att.placement"/> -->
     <ref name="att.visualoffset"/>
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
@@ -1923,7 +1918,6 @@
         <ref name="model.graphicprimitiveLike"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
-        <!-- <ref name="model.Incl"/> -->
         <ref name="model.measurePart"/>
       </choice>
     </zeroOrMore>
@@ -2148,7 +2142,6 @@
         <ref name="model.graphicprimitiveLike"/>
         <ref name="model.editLike"/>
         <ref name="model.transcriptionLike"/>
-        <!-- <ref name="model.Incl"/> -->
         <ref name="model.measurePart"/>
       </choice>
     </zeroOrMore>
