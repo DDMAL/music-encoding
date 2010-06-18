@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-cmn.rng"?>
 <?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-cmn.rng" type="xml"?>
-<mei xmlns="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink" meiversion="1.9b">
+<mei xmlns="http://www.music-encoding.org/ns/mei"
+  xmlns:xlink="http://www.w3.org/1999/xlink" meiversion="2010-05">
   <meihead>
     <filedesc>
       <titlestmt>
@@ -26,11 +27,9 @@
       <mdiv>
         <score>
           <scoredef meter.count="3" meter.unit="4" key.sig="0">
-            <staffgrp xml:id="P1" symbol="brace" label.full="Part_1">
-              <staffdef n="1" lines="5" clef.line="2" clef.shape="G" ppq="12"
-                key.sig="0"/>
-              <staffdef n="2" lines="5" clef.line="4" clef.shape="F" ppq="12"
-                key.sig="0"/>
+            <staffgrp xml:id="P1" symbol="bracket">
+              <staffdef n="1" lines="5" clef.line="2" clef.shape="G" ppq="12"/>
+              <staffdef n="2" lines="5" clef.line="4" clef.shape="F" ppq="12"/>
             </staffgrp>
           </scoredef>
           <section>
@@ -217,7 +216,7 @@
                 </layer>
               </staff>
               <slur tstamp="1" dur="0m+1" curvedir="below" startid="d1e970"
-                endid="d1e987" staff="1"/>
+                endid="d1e987" staff="1" bulge="-1"/>
               <slur tstamp="3" dur="2m+1" curvedir="above" startid="d1e1006"
                 endid="d1e1380" staff="1"/>
             </measure>
@@ -232,7 +231,7 @@
                       <note pname="d" oct="5" dur="8" size="cue"/>
                       <note pname="e" oct="5" size="cue"/>
                       <note pname="d" oct="5" size="cue"/>
-                      <note pname="c" oct="5" size="cue"/>
+                      <note pname="c" accid="s" oct="5" size="cue"/>
                       <note pname="d" oct="5" size="cue"/>
                       <note pname="b" oct="5" size="cue"/>
                       <note pname="f" oct="5" size="cue"/>

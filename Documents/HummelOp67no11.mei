@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
 <?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
-<mei xmlns:xlink="http://www.w3.org/1999/xlink" meiversion="1.9b" xmlns="http://www.music-encoding.org/ns/mei">
+<mei xmlns:xlink="http://www.w3.org/1999/xlink" meiversion="2010-05"
+  xmlns="http://www.music-encoding.org/ns/mei">
   <meihead>
     <filedesc>
       <titlestmt>
@@ -27,6 +28,15 @@
         </changedesc>
         <date>Mar. 3, 2010</date>
       </change>
+      <change>
+        <respstmt>
+          <persname>Perry Roland</persname>
+        </respstmt>
+        <changedesc>
+          <p>hand corrections</p>
+        </changedesc>
+        <date>June 16, 2010</date>
+      </change>
     </revisiondesc>
   </meihead>
   <music>
@@ -35,7 +45,10 @@
         <score>
           <scoredef meter.count="4" meter.unit="4" meter.sym="common"
             key.sig="5s">
-            <staffgrp>
+            <staffgrp barthru="true" symbol="brace">
+              <label>
+                <rend fontsize="18">11.</rend>
+              </label>
               <staffdef n="1" xml:id="P1" label.full="Part_1" lines="5"
                 clef.line="2" clef.shape="G" ppq="56" key.sig="5s"/>
               <staffdef n="2" xml:id="P2" label.full="Part_2" lines="5"
@@ -122,7 +135,7 @@
                     stem.dir="down"/>
                 </layer>
               </staff>
-              <tempo staff="1" place="above" tstamp="1">Allegro</tempo>
+              <tempo staff="1" place="above" tstamp="1">Allegro.</tempo>
               <dynam tstamp="2" place="above" staff="1">p</dynam>
               <dynam tstamp="1" place="below" staff="2">p</dynam>
               <slur tstamp="2" dur="0m+2.75" curvedir="below" startid="d1e66"
@@ -130,13 +143,16 @@
               <slur tstamp="4" dur="0m+4.75" curvedir="below" startid="d1e199"
                 endid="d1e281" staff="1"/>
               <pedal staff="2" dir="down" place="below" tstamp="1"
-                style="pedstar"/>
+                style="altpedstar"/>
               <pedal staff="2" dir="down" place="below" tstamp="3"
                 style="pedstar"/>
               <dir tstamp="1" staff="1" place="below">
                 <rend fontstyle="ital">armonioso</rend>
               </dir>
               <tie staff="2" startid="d1e361" endid="d1e441"/>
+              <tie staff="2" startid="d1e382" endid="d1e459"/>
+              <tie staff="2" startid="d1e518" endid="d1e598"/>
+              <tie staff="2" startid="d1e539" endid="d1e616"/>
             </measure>
             <measure n="2" xml:id="d1e634">
               <staff n="1">
@@ -230,6 +246,10 @@
                 style="pedstar"/>
               <pedal staff="2" dir="down" place="below" tstamp="3"
                 style="pedstar"/>
+              <tie staff="2" startid="d1e949" endid="d1e1029"/>
+              <tie staff="2" startid="d1e970" endid="d1e1047"/>
+              <tie staff="2" startid="d1e1112" endid="d1e1198"/>
+              <tie staff="2" startid="d1e1133" endid="d1e1216"/>
             </measure>
             <sb/>
             <measure n="3" xml:id="d1e1234">
@@ -321,7 +341,7 @@
               </staff>
               <slur tstamp="1" dur="0m+2.75" curvedir="above" startid="d1e1237"
                 endid="d1e1428" staff="1"/>
-              <slur tstamp="2.75" dur="0m+4.75" curvedir="above" startid="d1e1428"
+              <slur tstamp="3" dur="0m+4.75" curvedir="above" startid="d1e1428"
                 endid="d1e1653" staff="1"/>
               <dir tstamp="2.25" staff="1" place="below" dur="1m+2.75">
                 <rend fontstyle="ital">cresc. e sempre più pressante</rend>
@@ -378,7 +398,7 @@
                       <accid accid="n"/>
                     </note>
                   </beam>
-                  <clefchange shape="F" line="4"/>
+                  <!-- <clefchange shape="F" line="4"/> -->
                 </layer>
                 <layer n="2">
                   <note xml:id="d1e1819" pname="b" oct="3" dur="4" dur.ges="56"
@@ -414,9 +434,10 @@
               </staff>
               <slur tstamp="1" dur="0m+2.75" curvedir="above" startid="d1e1792"
                 endid="d1e1991" staff="1"/>
-              <slur tstamp="2.75" dur="0m+4.75" curvedir="above" startid="d1e1991"
-                endid="d1e2208" staff="1"/>
+              <slur tstamp="2.75" dur="0m+4.75" curvedir="above"
+                startid="d1e1991" endid="d1e2208" staff="1"/>
             </measure>
+            <staffdef n="1" clef.line="4" clef.shape="F"/>
             <measure n="5" xml:id="d1e2344">
               <staff n="1">
                 <layer n="1">
@@ -462,7 +483,7 @@
                     <note xml:id="d1e2730" pname="d" oct="4" dur="16"
                       dur.ges="14" stem.dir="down" accid.ges="s"/>
                   </beam>
-                  <clefchange shape="G" line="2"/>
+                  <!-- <clefchange shape="G" line="2"/> -->
                 </layer>
                 <layer n="2">
                   <note xml:id="d1e2350" pname="e" oct="3" dur="4" dur.ges="56"
@@ -498,18 +519,20 @@
               <dynam tstamp="1" place="below" staff="1">f</dynam>
               <slur tstamp="1" dur="0m+4.75" curvedir="above" startid="d1e2350"
                 endid="d1e2730" staff="1"/>
-              <slur tstamp="2" dur="0m+5" curvedir="below" startid="d1e2778"
+              <slur tstamp="1" dur="0m+5" curvedir="below" startid="d1e2778"
                 endid="d1e2878" staff="2"/>
             </measure>
           </section>
           <section>
             <sb/>
             <scoredef meter.count="9" meter.unit="4" meter.rend="invis"/>
+            <staffdef n="1" clef.line="2" clef.shape="G"/>
             <measure n="6" xml:id="d1e2895" complete="o">
               <staff n="1">
                 <layer n="1">
-                  <rest xml:id="d1e2904" dur="2" dur.ges="112"/>
-                  <rest xml:id="d1e2913" dur="16" dur.ges="8" tuplet="i1"/>
+                  <rest xml:id="d1e2904" dur="2" dur.ges="112" staff="2"/>
+                  <rest xml:id="d1e2913" dur="16" dur.ges="8" tuplet="i1"
+                    staff="2"/>
                   <beam>
                     <note xml:id="d1e2932" pname="g" oct="3" dur="16"
                       dur.ges="8" tuplet="m1" stem.dir="up" accid.ges="s"
@@ -518,13 +541,13 @@
                       dur.ges="8" tuplet="m1" stem.dir="up" accid.ges="s"
                       staff="2"/>
                     <note xml:id="d1e2984" pname="e" oct="4" dur="16"
-                      dur.ges="8" tuplet="m1" stem.dir="up"/>
+                      dur.ges="8" tuplet="m1" stem.dir="down"/>
                     <note xml:id="d1e3008" pname="g" oct="4" dur="16"
-                      dur.ges="8" tuplet="m1" stem.dir="up" accid.ges="s"/>
+                      dur.ges="8" tuplet="m1" stem.dir="down" accid.ges="s"/>
                     <note xml:id="d1e3034" pname="c" oct="5" dur="16"
-                      dur.ges="8" tuplet="m1" stem.dir="up" accid.ges="s"/>
+                      dur.ges="8" tuplet="m1" stem.dir="down" accid.ges="s"/>
                     <note xml:id="d1e3060" pname="e" oct="5" dur="16"
-                      dur.ges="8" tuplet="t1" stem.dir="up"/>
+                      dur.ges="8" tuplet="t1" stem.dir="down"/>
                   </beam>
                   <beam>
                     <note xml:id="d1e3085" pname="g" oct="5" dur="8" dots="1"
@@ -573,8 +596,10 @@
                   <note xml:id="d1e3339" pname="f" oct="6" dur="4" dur.ges="56"
                     stem.dir="down" accid.ges="s"/>
                   <beam>
-                    <note xml:id="n1" tuplet="i1" pname="d" oct="6" dur="32"
+                    <note xml:id="n1" tuplet="i1" pname="e" oct="6" dur="32"
                       size="cue" stem.dir="up"/>
+                    <note pname="d" oct="6" dur="32" size="cue" stem.dir="up"
+                      tuplet="m1"/>
                     <note pname="c" oct="6" dur="32" size="cue" stem.dir="up"
                       tuplet="m1"/>
                     <note pname="b" oct="5" dur="32" size="cue" stem.dir="up"
@@ -614,7 +639,7 @@
                     <note pname="g" oct="3" dur="32" size="cue" stem.dir="up"
                       staff="2" tuplet="m1"/>
                     <note xml:id="n2" tuplet="t1" pname="f" oct="3" dur="32"
-                      size="cue" stem.dir="up" staff="2"/>
+                      size="cue" stem.dir="up" staff="2" artic="stacciss"/>
                   </beam>
                   <rest xml:id="d1e3356" dur="4" dur.ges="56"/>
                   <chord xml:id="d299e1" dur="4" dur.ges="56" stem.dir="up">
@@ -628,7 +653,7 @@
               </staff>
               <staff n="2">
                 <layer n="1">
-                  <rest xml:id="d1e3536" dur="4" dur.ges="56"/>
+                  <rest xml:id="d1e3536" dur="4" dur.ges="56" vo="-2"/>
                   <rest xml:id="d1e3369" dur="8" dur.ges="28"/>
                   <note xml:id="d1e3488" pname="c" oct="3" dur="8" dur.ges="28"
                     stem.dir="up" accid.ges="s"/>
@@ -667,10 +692,14 @@
                 endid="d1e3060" bracket.visible="false"/>
               <tupletspan staff="1" num="20" dur="8" num.visible="false"
                 startid="n1" endid="n2"/>
-              <tempo staff="1" place="above" tstamp="1">Meno allegro</tempo>
-              <dir staff="1" place="below" tstamp="4">espress.</dir>
-              <dir tstamp="7" place="below" staff="1">allegro</dir>
-              <dir staff="1" place="above" tstamp="8">Andante</dir>
+              <tempo staff="1" place="above" tstamp="1">Meno allegro.</tempo>
+              <dir staff="1" place="below" tstamp="4">
+                <rend fontstyle="ital">espress.</rend>
+              </dir>
+              <dir tstamp="7" place="below" staff="1">
+                <rend fontstyle="ital">allegro</rend>
+              </dir>
+              <dir staff="1" place="above" tstamp="8">Andante.</dir>
 
               <dynam staff="1" place="above" tstamp="3">p</dynam>
               <dynam tstamp="1" place="below" staff="2">p</dynam>
@@ -682,6 +711,10 @@
               <pedal staff="2" dir="up" style="pedstar" tstamp="3.875"/>
               <pedal staff="2" dir="down" style="pedstar" tstamp="6"/>
               <pedal staff="2" dir="up" style="pedstar" tstamp="7.875"/>
+
+              <phrase staff="2 1" startid="d1e3454" endid="d1e3315" bulge="25"/>
+              <phrase staff="1 2" startid="n1" endid="n2" curvedir="below"
+                bulge="-8"/>
 
             </measure>
             <measure n="7" xml:id="d1e3698" right="end">
@@ -723,7 +756,7 @@
               </staff>
               <dynam tstamp="1" place="below" staff="2">p</dynam>
               <pedal staff="2" dir="down" tstamp="1"/>
-              <pedal staff="2" dir="down" tstamp="2"/>
+              <pedal staff="2" dir="down" tstamp="3.5"/>
             </measure>
           </section>
         </score>

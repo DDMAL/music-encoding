@@ -5,12 +5,12 @@
 ]>
 <?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
 <?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
-<mei meiversion="1.9b" xmlns="http://www.music-encoding.org/ns/mei">
+<mei meiversion="2010-05" xmlns="http://www.music-encoding.org/ns/mei">
   <meihead>
     <altmeiid>20071029100147199</altmeiid>
     <filedesc>
       <titlestmt>
-        <title>Waltz</title>
+        <title>Waltzes</title>
         <respstmt>
           <persname>Brahms</persname>
         </respstmt>
@@ -26,6 +26,7 @@
       <projectdesc>
         <p>Transcoded from MusicXML version 1.0 <date>2007-10-29</date>.</p>
         <p>The MusicXML file was generated from SharpEye Music Reader 2.</p>
+        <p>Hand-editing was performed on the MEI file.</p>
       </projectdesc>
     </encodingdesc>
     <profiledesc>
@@ -39,11 +40,28 @@
       <mdiv>
         <score>
           <scoredef meter.count="3" meter.unit="4" key.sig="5s">
-            <staffgrp>
-              <staffdef n="1" lines="5" clef.line="2" clef.shape="G"
-                ppq="2" key.sig="5s"/>
-              <staffdef n="2" lines="5" clef.line="4" clef.shape="F"
-                ppq="2" key.sig="5s"/>
+            <pghead1>
+              <table>
+                <tr>
+                  <td>
+                    <rend fontsize="16">Waltzes</rend>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <rend fontsize="14">Op.39</rend>
+                  </td>
+                </tr>
+              </table>
+            </pghead1>
+            <staffgrp barthru="true" symbol="bracket">
+              <label>
+                <rend fontsize="20">1.</rend>
+              </label>
+              <staffdef n="1" lines="5" clef.line="2" clef.shape="G" ppq="2"
+                key.sig="5s"/>
+              <staffdef n="2" lines="5" clef.line="4" clef.shape="F" ppq="2"
+                key.sig="5s"/>
             </staffgrp>
           </scoredef>
           <section>
@@ -78,6 +96,8 @@
                   <rest xml:id="d1e186" dur="4" dur.ges="2"/>
                 </layer>
               </staff>
+              <tempo tstamp="0" staff="1" place="above" ho="-1">Tempo
+                giusto</tempo>
               <dynam tstamp="0" place="below" staff="1">f</dynam>
             </measure>
           </section>
@@ -241,10 +261,12 @@
                     <note xml:id="d1e1217" pname="c" oct="5" accid.ges="s"/>
                   </chord>
                   <chord xml:id="d1615e1" dur="4" dur.ges="2" stem.dir="down">
+                    <artic artic="stacc"/>
                     <note xml:id="d1e1237" pname="b" oct="5"/>
                     <note xml:id="d1e1254" pname="b" oct="4"/>
                   </chord>
                   <chord xml:id="d1665e1" dur="4" dur.ges="2" stem.dir="down">
+                    <artic artic="stacc"/>
                     <note xml:id="d1e1272" pname="a" oct="5" accid.ges="s"/>
                     <note xml:id="d1e1291" pname="f" oct="5" accid.ges="s"/>
                     <note xml:id="d1e1311" pname="d" oct="5" accid.ges="s"/>
@@ -288,6 +310,7 @@
                     <note xml:id="d1e1557" pname="b" oct="4"/>
                   </chord>
                   <chord xml:id="d2067e1" dur="4" dur.ges="2" stem.dir="down">
+                    <artic artic="stacc"/>
                     <note xml:id="d1e1575" pname="g" oct="5" accid.ges="s"/>
                     <note xml:id="d1e1594" pname="g" oct="4" accid.ges="s"/>
                   </chord>
@@ -549,8 +572,8 @@
                 </layer>
               </staff>
               <dynam tstamp="0" place="below" staff="1">p</dynam>
-              <slur tstamp="1" curvedir="above" startid="d1e2884" endid="d1e3015"
-                staff="1" dur="0m+3.5"/>
+              <slur tstamp="1" curvedir="above" startid="d1e2884"
+                endid="d1e3015" staff="1" dur="0m+3.5"/>
             </measure>
             <measure n="11" xml:id="d1e3123">
               <staff n="1">
@@ -593,8 +616,10 @@
                   </chord>
                 </layer>
               </staff>
-              <slur tstamp="1" curvedir="above" startid="d1e3125" endid="d1e3255"
-                staff="1" dur="0m+3.5"/>
+              <slur tstamp="1" curvedir="above" startid="d1e3125"
+                endid="d1e3255" staff="1" dur="0m+3.5"/>
+              <hairpin tstamp="1" form="cres" staff="1" place="below"
+                dur="1m+3.5"/>
             </measure>
             <measure n="12" xml:id="d1e3382">
               <staff n="1">
@@ -637,8 +662,8 @@
                   </note>
                 </layer>
               </staff>
-              <slur tstamp="1" curvedir="above" startid="d1e3384" endid="d1e3531"
-                staff="1" dur="0m+3.5"/>
+              <slur tstamp="1" curvedir="above" startid="d1e3384"
+                endid="d1e3531" staff="1" dur="0m+3.5"/>
             </measure>
             <measure n="13" xml:id="d1e3636">
               <staff n="1">
@@ -675,9 +700,10 @@
                   </chord>
                 </layer>
               </staff>
-              <hairpin tstamp="1" form="dim" place="below" staff="1" dur="0m+4"/>
-              <slur tstamp="1" curvedir="above" startid="d1e3661" endid="d1e3707"
-                staff="1" dur="0m+3"/>
+              <hairpin tstamp="1" form="dim" place="below" staff="1"
+                dur="0m+3.5"/>
+              <slur tstamp="1" curvedir="above" startid="d1e3661"
+                endid="d1e3707" staff="1" dur="0m+3"/>
             </measure>
             <measure n="14" xml:id="d1e3857">
               <staff n="1">
@@ -721,8 +747,8 @@
                   </note>
                 </layer>
               </staff>
-              <slur tstamp="1" curvedir="above" startid="d1e3859" endid="d1e3987"
-                staff="1" dur="0m+3.5"/>
+              <slur tstamp="1" curvedir="above" startid="d1e3859"
+                endid="d1e3987" staff="1" dur="0m+3.5"/>
             </measure>
             <sb/>
             <measure n="15" xml:id="d1e4090">
@@ -768,8 +794,10 @@
                   </chord>
                 </layer>
               </staff>
-              <slur tstamp="1" curvedir="above" startid="d1e4093" endid="d1e4221"
-                staff="1" dur="0m+3.5"/>
+              <slur tstamp="1" curvedir="above" startid="d1e4093"
+                endid="d1e4221" staff="1" dur="0m+3.5"/>
+              <dynam staff="1" place="below" tstamp="1">cresc.</dynam>
+              <hairpin form="cres" staff="1" tstamp="2" dur="1m+3.5"/>
             </measure>
             <measure n="16" xml:id="d1e4342">
               <staff n="1">
@@ -816,8 +844,8 @@
                   </note>
                 </layer>
               </staff>
-              <slur tstamp="1" curvedir="above" startid="d1e4344" endid="d1e4489"
-                staff="1" dur="0m+3.5"/>
+              <slur tstamp="1" curvedir="above" startid="d1e4344"
+                endid="d1e4489" staff="1" dur="0m+3.5"/>
             </measure>
             <measure n="17" xml:id="d1e4595">
               <staff n="1">
@@ -860,9 +888,9 @@
                   </chord>
                 </layer>
               </staff>
-              <hairpin tstamp="1" form="dim" place="below" staff="1" dur="0m+4"/>
-              <slur tstamp="1" curvedir="above" startid="d1e4620" endid="d1e4660"
-                staff="1" dur="0m+3"/>
+              <hairpin tstamp="1" form="dim" place="below" staff="1" dur="0m+3"/>
+              <slur tstamp="1" curvedir="above" startid="d1e4620"
+                endid="d1e4660" staff="1" dur="0m+3"/>
             </measure>
             <measure n="18" xml:id="d1e4862">
               <staff n="1">
@@ -1213,19 +1241,19 @@
                   </chord>
                 </layer>
               </staff>
-              <slur tstamp="1" curvedir="above" startid="d1e6695" endid="d1e6737"
-                staff="1" dur="0m+1.5"/>
-              <slur tstamp="2" curvedir="above" startid="d1e6779" endid="d1e6899"
-                staff="1" dur="0m+3.5"/>
+              <slur tstamp="1" curvedir="above" startid="d1e6695"
+                endid="d1e6737" staff="1" dur="0m+1.5"/>
+              <slur tstamp="2" curvedir="above" startid="d1e6779"
+                endid="d1e6899" staff="1" dur="0m+3.5"/>
             </measure>
-
-            <ending>
+            <ending n="1.">
               <measure n="25" xml:id="d1e7106" right="rptend">
                 <staff n="1">
                   <layer n="1">
                     <chord xml:id="d8856e1" dur="2" dur.ges="4" stem.dir="up">
                       <note xml:id="d1e7108" pname="b" oct="4"/>
                       <note xml:id="d1e7125" pname="f" oct="4" accid.ges="s"/>
+                      <note xml:id="n1" pname="d" oct="4"/>
                       <note xml:id="d1e7145" pname="b" oct="3"/>
                     </chord>
                     <chord xml:id="d8930e1" dur="4" dur.ges="2" stem.dir="down">
@@ -1249,10 +1277,10 @@
                     <rest xml:id="d1e7290" dur="4" dur.ges="2"/>
                   </layer>
                 </staff>
-                <dynam tstamp="4" place="below" staff="1">p</dynam>
+                <dynam tstamp="3" place="below" staff="1">p</dynam>
               </measure>
             </ending>
-            <ending>
+            <ending n="2.">
               <measure n="26" xml:id="d1e7305" right="end">
                 <staff n="1">
                   <layer n="1">
