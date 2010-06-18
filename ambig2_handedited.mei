@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?oxygen SCHSchema="../../mei19.1/ModularizationTesting/mei-all.rng"?>
 <?oxygen RNGSchema="../../mei19.1/ModularizationTesting/mei-all.rng" type="xml"?>
-<mei xmlns:xlink="http://www.w3.org/1999/xlink" meiversion="1.9b" xmlns="http://www.music-encoding.org/ns/mei">
+<mei xmlns:xlink="http://www.w3.org/1999/xlink" meiversion="2010-05" xmlns="http://www.music-encoding.org/ns/mei">
   <meihead>
     <filedesc>
       <titlestmt>
@@ -23,19 +23,20 @@
       <mdiv>
         <score>
           <scoredef meter.count="3" meter.unit="4" key.sig="0">
-            <staffgrp xml:id="P1" symbol="brace" label.full="Part_1">
+            <staffgrp xml:id="P1" symbol="brace">
               <staffdef n="1" lines="5" clef.line="2" clef.shape="G"
                 ppq="5" key.sig="0"/>
               <staffdef n="2" lines="5" clef.line="4" clef.shape="F"
                 ppq="5" key.sig="0"/>
             </staffgrp>
           </scoredef>
+          
+          <!-- notes followed by tupletspan -->
           <section>
             <scoredef meter.count="3" meter.unit="4" key.sig="0"/>
             <measure n="1" xml:id="d1e12">
               <staff n="1">
-                <layer n="1">
-                  <!-- notes followed by tupletspan -->
+                <layer n="1">                  
                   <beam>
                     <note xml:id="d1e41" pname="d" oct="5" dur="8" dur.ges="1"
                       tuplet="i1" stem.dir="up" size="cue"/>
@@ -109,11 +110,12 @@
                 num.format="count"/>
             </measure>
           </section>
-          <section restart="true">
+          
+          <!-- tuplet element -->
+          <!-- <section restart="true">
             <measure n="1" xml:id="d1e12_1">
               <staff n="1">
-                <layer n="1">
-                  <!-- tuplet element -->
+                <layer n="1">                  
                   <tuplet num="15" numbase="6" num.visible="true"
                     num.place="above" num.format="count" dur="2" dots="1">
                     <beam><note xml:id="d1e41.1" pname="d" oct="5" dur="8" dur.ges="1"
@@ -185,7 +187,7 @@
                 </layer>
               </staff>
             </measure>
-          </section>
+          </section> -->
         </score>
       </mdiv>
     </body>
