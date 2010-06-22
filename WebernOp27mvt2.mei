@@ -101,7 +101,8 @@
               </staff>
               <beamspan staff="2 1" startid="m2s2_n3" endid="m3s1_n2"
                 plist="m2s2_n3 m3s1_n2"/>
-              <slur staff="2" curvedir="below" startid="m2s2_n2" endid="m2s2_n3"/>
+              <slur staff="2" curvedir="below" startid="m2s2_n2" endid="m2s2_n3"
+                bulge="-2"/>
               <dynam staff="1" place="below" plist="m2s1_n1 m2s2_n1" tstamp="1"
                 >f</dynam>
               <dynam staff="1" place="below"
@@ -135,7 +136,7 @@
               <dynam staff="1" place="below" plist="m3s2_c1 m4s1_c1"
                 tstamp="2.5">f</dynam>
               <slur staff="1" curvedir="above" startid="m3s1_n1" endid="m3s1_n2"
-              />
+                bulge="2"/>
             </measure>
             <measure n="4">
               <staff n="1">
@@ -148,20 +149,21 @@
                   <rest dur="8"/>
                   <clefchange shape="F" line="4" tstamp="2"/>
                   <note xml:id="m4s1_n2" pname="d" oct="3" dur="8" accid="n"/>
+                  <space dur="8"/>
                 </layer>
               </staff>
               <staff n="2">
                 <layer n="1">
                   <rest dur="4"/>
-                  <note xml:id="m4s2_n1" pname="e" oct="6" dur="8" accid="n"/>
                   <space dur="8"/>
+                  <note xml:id="m4s2_n1" pname="e" oct="6" dur="8" accid="n"/>
                 </layer>
               </staff>
               <beamspan staff="2 1" beam.with="above" startid="m4s2_n1"
                 endid="m4s1_n2" plist="m4s1_n2 m4s2_n1"/>
               <dynam staff="1" place="below" plist="m4s2_n1 m4s1_n2" tstamp="2"
                 >p</dynam>
-              <slur staff="1" curvedir="above" startid="m4s2_n1" endid="m4s1_n2"
+              <slur staff="1" curvedir="above" endid="m4s2_n1" startid="m4s1_n2"
               />
             </measure>
           </section>
