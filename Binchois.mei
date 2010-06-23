@@ -39,6 +39,11 @@
       <mdiv>
         <score>
           <scoredef key.sig="1f">
+            <!-- Declaring MIDI instruments here permits any notes (even adjacent ones
+              in the same layer) to reference the instrument via their instr attributes.
+              Declaring instruments within staffdef or layerdef elements, as below,
+              associates all notes on that staff or layer with the instrument, making
+              use of the instr attribute unnecessary. -->
             <instrgrp>
               <instrdef xml:id="i1" midi.channel="1" midi.instrnum="1"/>
               <instrdef xml:id="i2" midi.channel="2" midi.instrnum="1"/>
@@ -46,11 +51,17 @@
             </instrgrp>
             <staffgrp>
               <staffdef n="1" lines="5" label.full="Cantus" clef.line="4"
-                clef.shape="F" ppq="8" key.sig="1f" instr="i1"/>
+                clef.shape="F" ppq="8" key.sig="1f" instr="i1">
+                <!-- <instrdef xml:id="i1" midi.channel="1" midi.instrnum="1"/> -->
+              </staffdef>
               <staffdef n="2" lines="5" label.full="Cantus 2 and Tenor"
                 clef.line="4" clef.shape="F" ppq="8" key.sig="1f">
-                <layerdef n="1" instr="i2"/>
-                <layerdef n="2" instr="i3"/>
+                <layerdef n="1" instr="i2">
+                  <!-- <instrdef xml:id="i2" midi.channel="2" midi.instrnum="1"/> -->
+                </layerdef>
+                <layerdef n="2" instr="i3">
+                  <!-- <instrdef xml:id="i3" midi.channel="3" midi.instrnum="1"/> -->
+                </layerdef>
               </staffdef>
             </staffgrp>
           </scoredef>
