@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE mei SYSTEM "../DTD/mei19b-all.dtd" [
+<!DOCTYPE mei SYSTEM "../mei19.1/DTD/mei19-all.dtd" [
   <!-- 1. Remove most MIDI-related attributes from scoredef, staffdef, and layerdef
   and add instr attribute to staffdef, layerdef, and staffgrp. -->
   <!ENTITY % att.ges.scoredef
@@ -21,8 +21,8 @@
                      'midi.div          CDATA                  #IMPLIED
                      instr              IDREFS                 #IMPLIED'>
   
-  <!-- 2. Add instrgrp element. -->
-  <!ELEMENT instrgrp (instrdef)+>
+  <!-- 2. Add instrgrp element.
+  <!ELEMENT instrgrp (instrdef)+> -->
   
   <!-- 3. Add instrgrp to scoredef content model. -->
   <!ENTITY % content.scoredef '(
