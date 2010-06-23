@@ -50,7 +50,7 @@
     <xsl:text>  </xsl:text>
   </xsl:variable>
   <xsl:param name="source"/>
-  
+
   <!-- Map Unicode characters to Mup escaped characters -->
   <xsl:character-map name="mup-chars">
     <xsl:output-character character="&#x00A1;" string="\(exclamdown)"/>
@@ -1011,26 +1011,37 @@
     </xsl:if>
 
     <!-- Staff label -->
-    <xsl:choose>
-      <xsl:when
-        test="@label.full and not(contains(@label.full,'MusicXML Part') or contains(@label.full,'Part_'))">
-        <xsl:value-of select="$indent"/>
-        <xsl:text>label="</xsl:text>
-        <xsl:value-of select="replace(@label.full,'&#xD;&#xA;','\\n')"/>
-        <xsl:text>"</xsl:text>
-        <xsl:value-of select="$nl"/>
-      </xsl:when>
-      <xsl:when
-        test="contains(@label.full,'MusicXML Part') or contains(@label.full,'Part_')">
-        <xsl:value-of select="$indent"/>
-        <xsl:text>label=""</xsl:text>
-        <xsl:value-of select="$nl"/>
-      </xsl:when>
-    </xsl:choose>
-    <xsl:if test="@label.abbr">
+    <xsl:if test="mei:label or @label.full">
+      <xsl:variable name="label">
+        <xsl:choose>
+          <xsl:when test="mei:label[not(mei:abbr)]">
+            <xsl:apply-templates select="mei:label[not(mei:abbr)]"/>
+          </xsl:when>
+          <xsl:when test="@label.full">
+            <xsl:value-of select="@label.full"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:value-of select="$indent"/>
+      <xsl:text>label="</xsl:text>
+      <xsl:value-of select="replace($label,'&#xD;&#xA;','\\n')"/>
+      <xsl:text>"</xsl:text>
+      <xsl:value-of select="$nl"/>
+    </xsl:if>
+    <xsl:if test="mei:label[mei:abbr] or @label.abbr">
+      <xsl:variable name="labelabbr">
+        <xsl:choose>
+          <xsl:when test="mei:label[mei:abbr]">
+            <xsl:apply-templates select="mei:label[mei:abbr]"/>
+          </xsl:when>
+          <xsl:when test="@label.abbr">
+            <xsl:value-of select="@label.abbr"/>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:variable>
       <xsl:value-of select="$indent"/>
       <xsl:text>label2="</xsl:text>
-      <xsl:value-of select="replace(@label.abbr,'&#xD;&#xA;','\\n')"/>
+      <xsl:value-of select="replace($labelabbr,'&#xD;&#xA;','\\n')"/>
       <xsl:text>"</xsl:text>
       <xsl:value-of select="$nl"/>
     </xsl:if>
@@ -1841,7 +1852,8 @@
       in the last measure.
     -->
     <xsl:if test="count(following::mei:measure)=0">
-      <xsl:apply-templates select="//mei:phrase|//mei:slur|//mei:tie|//mei:line" mode="special"/>
+      <xsl:apply-templates select="//mei:phrase|//mei:slur|//mei:tie|//mei:line"
+        mode="special"/>
     </xsl:if>
 
     <xsl:value-of select="$indent"/>
@@ -3039,7 +3051,7 @@
 
     <xsl:variable name="thisnote">
       <xsl:value-of select="@xml:id"/>
-    </xsl:variable>    
+    </xsl:variable>
     <xsl:if test="@tie='i' or @tie='m'">
       <!-- Mup will ignore a tie if the 2nd note/chord isn't in the same
           layer. The <tie> element may be used as a replacement in this case.
@@ -3048,7 +3060,8 @@
           Otherwise, the tie element will be processed in the last measure. -->
       <xsl:text>~</xsl:text>
       <xsl:variable name="tiedir">
-        <xsl:value-of select="following::mei:tie[@startid=$thisnote]/@curvedir"/>
+        <xsl:value-of select="following::mei:tie[@startid=$thisnote]/@curvedir"
+        />
       </xsl:variable>
       <xsl:choose>
         <xsl:when test="$tiedir = 'below'">
@@ -3133,6 +3146,13 @@
   <xsl:template name="tupletstart">
     <xsl:if test="starts-with(@tuplet, 'i') and not(ancestor::mei:tuplet)">
       <xsl:text>{</xsl:text>
+      <xsl:if test="preceding::mei:clefchange">
+        <xsl:if
+          test="generate-id(preceding::mei:note[1]/following::mei:clefchange[1])=generate-id(preceding::mei:clefchange[1])">
+          <xsl:apply-templates select="preceding::mei:clefchange[1]"
+            mode="clefchangePrecedingTuplet"/>
+        </xsl:if>
+      </xsl:if>
     </xsl:if>
   </xsl:template>
 
@@ -3822,6 +3842,33 @@
   </xsl:template>
 
   <xsl:template match="mei:clefchange">
+    <xsl:if
+      test="count(following-sibling::*[not(comment())]) &gt; 0
+      and not(following::*[name()='note' or name()='chord' or name()='rest'][1][starts-with(@tuplet, 'i')])">
+      <xsl:text>&lt;&lt;staff </xsl:text>
+      <xsl:if test="@line or @shape">
+        <xsl:text>clef=</xsl:text>
+        <xsl:choose>
+          <!-- Add other clefs here later! -->
+          <xsl:when test="@shape='G' and @line='2'">
+            <xsl:text>treble</xsl:text>
+          </xsl:when>
+          <xsl:when test="@shape='C' and @line='3'">
+            <xsl:text>alto</xsl:text>
+          </xsl:when>
+          <xsl:when test="@shape='C' and @line='4'">
+            <xsl:text>tenor</xsl:text>
+          </xsl:when>
+          <xsl:when test="@shape='F' and @line='4'">
+            <xsl:text>bass</xsl:text>
+          </xsl:when>
+        </xsl:choose>
+        <xsl:text>&gt;&gt; </xsl:text>
+      </xsl:if>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="mei:clefchange" mode="clefchangePrecedingTuplet">
     <xsl:if test="count(following-sibling::*[not(comment())]) &gt; 0">
       <xsl:text>&lt;&lt;staff </xsl:text>
       <xsl:if test="@line or @shape">
