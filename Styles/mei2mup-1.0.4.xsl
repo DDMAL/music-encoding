@@ -27,10 +27,10 @@
   CONTACT:  contact@music-encoding.org 
 -->
 
-<!DOCTYPE xsl:stylesheet [
+<!-- <!DOCTYPE xsl:stylesheet [
 <!ENTITY % ISOpub  SYSTEM 
    'http://text.lib.virginia.edu/charent/iso-pub.ent'>  %ISOpub;
-]>
+]> -->
 
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
   xmlns:mei="http://www.music-encoding.org/ns/mei"
