@@ -2882,16 +2882,17 @@
     <xsl:apply-templates
       select="mei:note[not(@staff)] | mei:note[@staff=ancestor::mei:staff/@n]"/>
     <xsl:if test="mei:note[@staff != ancestor::mei:staff/@n]">
+      <xsl:variable name="otherStaff">
+        <xsl:value-of select="mei:note[@staff != ancestor::mei:staff/@n][1]/@staff"/>
+      </xsl:variable>
       <xsl:text> with </xsl:text>
       <xsl:apply-templates select="mei:note[@staff != ancestor::mei:staff/@n]"/>
       <xsl:choose>
-        <xsl:when
-          test="mei:note[@staff != ancestor::mei:staff/@n][1] &gt; ancestor::mei:staff/@n">
-          <xsl:text> above</xsl:text>
+        <xsl:when test="$otherStaff &gt; ancestor::mei:staff/@n">
+          <xsl:text> below </xsl:text>
         </xsl:when>
-        <xsl:when
-          test="mei:note[@staff != ancestor::mei:staff/@n][1] &lt; ancestor::mei:staff/@n">
-          <xsl:text> below</xsl:text>
+        <xsl:when test="$otherStaff &lt; ancestor::mei:staff/@n">
+          <xsl:text> above </xsl:text>
         </xsl:when>
       </xsl:choose>
     </xsl:if>
