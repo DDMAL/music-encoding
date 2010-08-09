@@ -65,7 +65,8 @@
         test="every $i in tokenize(@source, '\s+') satisfies
           $i=//mei:source/@xml:id"
         >The values in @source must match the IDs of source
-        elements.</sch:assert></sch:rule>
+        elements.</sch:assert>
+    </sch:rule>
   </sch:pattern>
 
   <sch:pattern>
@@ -101,8 +102,8 @@
       <sch:let name="thisstaff" value="@n"/>
       <sch:let name="stafflines"
         value="preceding::mei:staffdef[@n=$thisstaff and @lines][1]/@lines"/>
-      <sch:assert test="number(@clef.line) &lt;= number($stafflines)">The
-        clef position must be less than or equal to the number of lines on the
+      <sch:assert test="number(@clef.line) &lt;= number($stafflines)">The clef
+        position must be less than or equal to the number of lines on the
         staff.</sch:assert>
     </sch:rule>
   </sch:pattern>
@@ -333,6 +334,18 @@
         test="@resp = //mei:persname[@xml:id=$thisresp and ancestor::mei:meihead]/@xml:id"
         >The value of @resp must be the ID of a persname element declared within
         the meiheader element.</sch:assert>
+    </sch:rule>
+  </sch:pattern>
+
+  <sch:pattern>
+    <sch:title>Check @tab.string</sch:title>
+    <sch:rule context="mei:*[@tab.string]">
+      <sch:let name="thisstaff" value="ancestor::mei:staff/@n"/>
+      <sch:assert
+        test="number(@tab.string) &lt;=
+          number(preceding::mei:staffdef[@n=$thisstaff]/@lines)"
+        >The value of tab.string must be less than or equal to the number of
+        lines on the staff.</sch:assert>
     </sch:rule>
   </sch:pattern>
 
