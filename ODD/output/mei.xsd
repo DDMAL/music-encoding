@@ -1,0 +1,5424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.mei-c.org/ns/mei" xmlns:mei="http://www.mei-c.org/ns/mei">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xmlxsd"/>
+  <!-- Schema generated from ODD source 2010-08-18T16:08:44Z. -->
+  <!---->
+  <xs:attributeGroup name="att.accidental.attributes">
+    <xs:attributeGroup ref="mei:att.accidental.attribute.accid"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.accidental.attribute.accid">
+    <xs:attribute name="accid">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="s"/>
+          <xs:enumeration value="f"/>
+          <xs:enumeration value="ss"/>
+          <xs:enumeration value="x"/>
+          <xs:enumeration value="ff"/>
+          <xs:enumeration value="xs"/>
+          <xs:enumeration value="tb"/>
+          <xs:enumeration value="n"/>
+          <xs:enumeration value="nf"/>
+          <xs:enumeration value="ns"/>
+          <xs:enumeration value="su"/>
+          <xs:enumeration value="sd"/>
+          <xs:enumeration value="fu"/>
+          <xs:enumeration value="fd"/>
+          <xs:enumeration value="nu"/>
+          <xs:enumeration value="nd"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.accidental.performed.attributes">
+    <xs:attributeGroup ref="mei:att.accidental.performed.attribute.accid.ges"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.accidental.performed.attribute.accid.ges">
+    <xs:attribute name="accid.ges">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="s"/>
+          <xs:enumeration value="f"/>
+          <xs:enumeration value="ss"/>
+          <xs:enumeration value="ff"/>
+          <xs:enumeration value="n"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.altsym.attributes">
+    <xs:attributeGroup ref="mei:att.altsym.attribute.altsym"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.altsym.attribute.altsym">
+    <xs:attribute name="altsym" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.articulation.attributes">
+    <xs:attributeGroup ref="mei:att.articulation.attribute.artic"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.articulation.attribute.artic">
+    <xs:attribute name="artic">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:enumeration value="acc"/>
+                  <xs:enumeration value="stacc"/>
+                  <xs:enumeration value="ten"/>
+                  <xs:enumeration value="stacciss"/>
+                  <xs:enumeration value="marc"/>
+                  <xs:enumeration value="marc-stacc"/>
+                  <xs:enumeration value="acc-marc"/>
+                  <xs:enumeration value="spicc"/>
+                  <xs:enumeration value="rip"/>
+                  <xs:enumeration value="doit"/>
+                  <xs:enumeration value="plop"/>
+                  <xs:enumeration value="fall"/>
+                  <xs:enumeration value="bend"/>
+                  <xs:enumeration value="flip"/>
+                  <xs:enumeration value="smear"/>
+                  <xs:enumeration value="dnbow"/>
+                  <xs:enumeration value="upbow"/>
+                  <xs:enumeration value="harm"/>
+                  <xs:enumeration value="snap"/>
+                  <xs:enumeration value="fingernail"/>
+                  <xs:enumeration value="ten-stacc"/>
+                  <xs:enumeration value="damp"/>
+                  <xs:enumeration value="dampall"/>
+                  <xs:enumeration value="open"/>
+                  <xs:enumeration value="stop"/>
+                  <xs:enumeration value="dbltongue"/>
+                  <xs:enumeration value="trpltongue"/>
+                  <xs:enumeration value="heel"/>
+                  <xs:enumeration value="toe"/>
+                  <xs:enumeration value="tap"/>
+                  <xs:enumeration value="lhpizz"/>
+                  <xs:enumeration value="dot"/>
+                  <xs:enumeration value="stroke"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.articulation.performed.attributes">
+    <xs:attributeGroup ref="mei:att.articulation.performed.attribute.artic.ges"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.articulation.performed.attribute.artic.ges">
+    <xs:attribute name="artic.ges">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:enumeration value="acc"/>
+                  <xs:enumeration value="stacc"/>
+                  <xs:enumeration value="ten"/>
+                  <xs:enumeration value="stacciss"/>
+                  <xs:enumeration value="marc"/>
+                  <xs:enumeration value="marc-stacc"/>
+                  <xs:enumeration value="acc-marc"/>
+                  <xs:enumeration value="spicc"/>
+                  <xs:enumeration value="rip"/>
+                  <xs:enumeration value="doit"/>
+                  <xs:enumeration value="plop"/>
+                  <xs:enumeration value="fall"/>
+                  <xs:enumeration value="bend"/>
+                  <xs:enumeration value="flip"/>
+                  <xs:enumeration value="smear"/>
+                  <xs:enumeration value="dnbow"/>
+                  <xs:enumeration value="upbow"/>
+                  <xs:enumeration value="harm"/>
+                  <xs:enumeration value="snap"/>
+                  <xs:enumeration value="fingernail"/>
+                  <xs:enumeration value="ten-stacc"/>
+                  <xs:enumeration value="damp"/>
+                  <xs:enumeration value="dampall"/>
+                  <xs:enumeration value="open"/>
+                  <xs:enumeration value="stop"/>
+                  <xs:enumeration value="dbltongue"/>
+                  <xs:enumeration value="trpltongue"/>
+                  <xs:enumeration value="heel"/>
+                  <xs:enumeration value="toe"/>
+                  <xs:enumeration value="tap"/>
+                  <xs:enumeration value="lhpizz"/>
+                  <xs:enumeration value="dot"/>
+                  <xs:enumeration value="stroke"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.augmentdots.attributes">
+    <xs:attributeGroup ref="mei:att.augmentdots.attribute.dots"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.augmentdots.attribute.dots">
+    <xs:attribute name="dots">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="4"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.authorized.attributes">
+    <xs:attributeGroup ref="mei:att.authorized.attribute.authority"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.authorized.attribute.authority">
+    <xs:attribute name="authority">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.barplacement.attributes">
+    <xs:attributeGroup ref="mei:att.barplacement.attribute.barplace"/>
+    <xs:attributeGroup ref="mei:att.barplacement.attribute.taktplace"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.barplacement.attribute.barplace">
+    <xs:attribute name="barplace">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="mensur"/>
+          <xs:enumeration value="staff"/>
+          <xs:enumeration value="takt"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.barplacement.attribute.taktplace">
+    <xs:attribute name="taktplace" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beaming.vis.attributes">
+    <xs:attributeGroup ref="mei:att.beaming.vis.attribute.beam.rend"/>
+    <xs:attributeGroup ref="mei:att.beaming.vis.attribute.beam.slope"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beaming.vis.attribute.beam.rend">
+    <xs:attribute name="beam.rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="acc">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="rit">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="norm">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beaming.vis.attribute.beam.slope">
+    <xs:attribute name="beam.slope" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.bibl.attribute.analog">
+    <xs:attribute name="analog">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.calendared.attribute.calendar">
+    <xs:attribute name="calendar" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cleffing.log.attributes">
+    <xs:attributeGroup ref="mei:att.cleffing.log.attribute.clef.shape"/>
+    <xs:attributeGroup ref="mei:att.cleffing.log.attribute.clef.line"/>
+    <xs:attributeGroup ref="mei:att.cleffing.log.attribute.clef.dis"/>
+    <xs:attributeGroup ref="mei:att.cleffing.log.attribute.clef.dis.place"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cleffing.log.attribute.clef.shape">
+    <xs:attribute name="clef.shape">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="G"/>
+          <xs:enumeration value="GG"/>
+          <xs:enumeration value="F"/>
+          <xs:enumeration value="C"/>
+          <xs:enumeration value="perc"/>
+          <xs:enumeration value="TAB"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cleffing.log.attribute.clef.line">
+    <xs:attribute name="clef.line" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cleffing.log.attribute.clef.dis">
+    <xs:attribute name="clef.dis">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:pattern value="8|15|22"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cleffing.log.attribute.clef.dis.place">
+    <xs:attribute name="clef.dis.place">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cleffing.vis.attributes">
+    <xs:attributeGroup ref="mei:att.cleffing.vis.attribute.clef.color"/>
+    <xs:attributeGroup ref="mei:att.cleffing.vis.attribute.clef.visible"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cleffing.vis.attribute.clef.color">
+    <xs:attribute name="clef.color">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="(x[0-9A-Fa-f]{6,6}|aqua|black|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cleffing.vis.attribute.clef.visible">
+    <xs:attribute name="clef.visible">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.clefshape.attributes">
+    <xs:attributeGroup ref="mei:att.clefshape.attribute.shape"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.clefshape.attribute.shape">
+    <xs:attribute name="shape">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="G"/>
+          <xs:enumeration value="GG"/>
+          <xs:enumeration value="F"/>
+          <xs:enumeration value="C"/>
+          <xs:enumeration value="perc"/>
+          <xs:enumeration value="TAB"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.color.attributes">
+    <xs:attributeGroup ref="mei:att.color.attribute.color"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.color.attribute.color">
+    <xs:attribute name="color">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="(x[0-9A-Fa-f]{6,6}|aqua|black|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.coloration.attributes">
+    <xs:attributeGroup ref="mei:att.coloration.attribute.colored"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.coloration.attribute.colored">
+    <xs:attribute name="colored">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.attribute.xmlid">
+    <xs:attribute ref="xml:id"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.attribute.n">
+    <xs:attribute name="n" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.controlevent.attributes">
+    <xs:attributeGroup ref="mei:att.participantident.attributes"/>
+    <xs:attributeGroup ref="mei:att.timestamp.musical.attributes"/>
+    <xs:attributeGroup ref="mei:att.timestamp.performed.attributes"/>
+    <xs:attributeGroup ref="mei:att.staffident.attributes"/>
+    <xs:attributeGroup ref="mei:att.controlevent.attribute.layer"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.controlevent.attribute.layer">
+    <xs:attribute name="layer">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.coordinated.attribute.ulx">
+    <xs:attribute name="ulx" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.coordinated.attribute.uly">
+    <xs:attribute name="uly" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.coordinated.attribute.lrx">
+    <xs:attribute name="lrx" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.coordinated.attribute.lry">
+    <xs:attribute name="lry" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.curvature.attributes">
+    <xs:attributeGroup ref="mei:att.curvature.attribute.bezier"/>
+    <xs:attributeGroup ref="mei:att.curvature.attribute.bulge"/>
+    <xs:attributeGroup ref="mei:att.curvature.attribute.curvedir"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.curvature.attribute.bezier">
+    <xs:attribute name="bezier">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.curvature.attribute.bulge">
+    <xs:attribute name="bulge">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.curvature.attribute.curvedir">
+    <xs:attribute name="curvedir">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="below">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.curverend.attributes">
+    <xs:attributeGroup ref="mei:att.curverend.attribute.rend"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.curverend.attribute.rend">
+    <xs:attribute name="rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="medium"/>
+          <xs:enumeration value="wide"/>
+          <xs:enumeration value="dashed"/>
+          <xs:enumeration value="dotted"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.datable.attribute.enddate">
+    <xs:attribute name="enddate">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="[0-9.,DHMPRSTWYZ/:+\-]+"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.datable.attribute.notafter">
+    <xs:attribute name="notafter">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="[0-9.,DHMPRSTWYZ/:+\-]+"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.datable.attribute.notbefore">
+    <xs:attribute name="notbefore">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="[0-9.,DHMPRSTWYZ/:+\-]+"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.datable.attribute.reg">
+    <xs:attribute name="reg">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="[0-9.,DHMPRSTWYZ/:+\-]+"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.datable.attribute.startdate">
+    <xs:attribute name="startdate">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union memberTypes="xs:date xs:gYear xs:gMonth xs:gDay xs:gYearMonth xs:gMonthDay xs:time xs:dateTime">
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="[0-9.,DHMPRSTWYZ/:+\-]+"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.datapointing.attribute.data">
+    <xs:attribute name="data" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.distances.attributes">
+    <xs:attributeGroup ref="mei:att.distances.attribute.dynam.dist"/>
+    <xs:attributeGroup ref="mei:att.distances.attribute.harm.dist"/>
+    <xs:attributeGroup ref="mei:att.distances.attribute.text.dist"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.distances.attribute.dynam.dist">
+    <xs:attribute name="dynam.dist" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.distances.attribute.harm.dist">
+    <xs:attribute name="harm.dist" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.distances.attribute.text.dist">
+    <xs:attribute name="text.dist" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.default.attributes">
+    <xs:attributeGroup ref="mei:att.duration.default.attribute.dur.default"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.default.attribute.dur.default">
+    <xs:attribute name="dur.default">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="long"/>
+          <xs:enumeration value="breve"/>
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="16"/>
+          <xs:enumeration value="32"/>
+          <xs:enumeration value="64"/>
+          <xs:enumeration value="128"/>
+          <xs:enumeration value="256"/>
+          <xs:enumeration value="512"/>
+          <xs:enumeration value="1024"/>
+          <xs:enumeration value="2048"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.musical.attributes">
+    <xs:attributeGroup ref="mei:att.duration.musical.attribute.dur"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.musical.attribute.dur">
+    <xs:attribute name="dur">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="long"/>
+          <xs:enumeration value="breve"/>
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2"/>
+          <xs:enumeration value="4"/>
+          <xs:enumeration value="8"/>
+          <xs:enumeration value="16"/>
+          <xs:enumeration value="32"/>
+          <xs:enumeration value="64"/>
+          <xs:enumeration value="128"/>
+          <xs:enumeration value="256"/>
+          <xs:enumeration value="512"/>
+          <xs:enumeration value="1024"/>
+          <xs:enumeration value="2048"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.performed.attributes">
+    <xs:attributeGroup ref="mei:att.duration.performed.attribute.dur.ges"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.performed.attribute.dur.ges">
+    <xs:attribute name="dur.ges">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.ratio.attributes">
+    <xs:attributeGroup ref="mei:att.duration.ratio.attribute.num"/>
+    <xs:attributeGroup ref="mei:att.duration.ratio.attribute.numbase"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.ratio.attribute.num">
+    <xs:attribute name="num" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.ratio.attribute.numbase">
+    <xs:attribute name="numbase" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.timestamp.attributes">
+    <xs:attributeGroup ref="mei:att.duration.timestamp.attribute.dur"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.duration.timestamp.attribute.dur">
+    <xs:attribute name="dur">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="([0-9]+m *\+ *)?[0-9]+(\.?[0-9]*)?"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.enclosingchars.attributes">
+    <xs:attributeGroup ref="mei:att.enclosingchars.attribute.enclose"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.enclosingchars.attribute.enclose">
+    <xs:attribute name="enclose">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="paren"/>
+          <xs:enumeration value="brack"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.event.attributes">
+    <xs:attributeGroup ref="mei:att.timestamp.musical.attributes"/>
+    <xs:attributeGroup ref="mei:att.timestamp.performed.attributes"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.fermatapresent.attributes">
+    <xs:attributeGroup ref="mei:att.fermatapresent.attribute.fermata"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.fermatapresent.attribute.fermata">
+    <xs:attribute name="fermata">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+          <xs:enumeration value="within"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffgroupingsym.attributes">
+    <xs:attributeGroup ref="mei:att.staffgroupingsym.attribute.symbol"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffgroupingsym.attribute.symbol">
+    <xs:attribute name="symbol">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="brace">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="bracket">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="line">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="none">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.handident.attributes">
+    <xs:attributeGroup ref="mei:att.handident.attribute.hand"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.handident.attribute.hand">
+    <xs:attribute name="hand" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.horizontalalign.attributes">
+    <xs:attributeGroup ref="mei:att.horizontalalign.attribute.halign"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.horizontalalign.attribute.halign">
+    <xs:attribute name="halign">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="right">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="center">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="justify">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.instrumentident.attributes">
+    <xs:attributeGroup ref="mei:att.instrumentident.attribute.instr"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.instrumentident.attribute.instr">
+    <xs:attribute name="instr" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.internetmedia.attribute.mimetype">
+    <xs:attribute name="mimetype">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.joined.attributes">
+    <xs:attributeGroup ref="mei:att.joined.attribute.join"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.joined.attribute.join">
+    <xs:attribute name="join" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.log.attributes">
+    <xs:attributeGroup ref="mei:att.keysigs.log.attribute.key.accid"/>
+    <xs:attributeGroup ref="mei:att.keysigs.log.attribute.key.mode"/>
+    <xs:attributeGroup ref="mei:att.keysigs.log.attribute.key.pname"/>
+    <xs:attributeGroup ref="mei:att.keysigs.log.attribute.key.sig"/>
+    <xs:attributeGroup ref="mei:att.keysigs.log.attribute.key.sig.mixed"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.log.attribute.key.accid">
+    <xs:attribute name="key.accid">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="s"/>
+          <xs:enumeration value="f"/>
+          <xs:enumeration value="ss"/>
+          <xs:enumeration value="ff"/>
+          <xs:enumeration value="n"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.log.attribute.key.mode">
+    <xs:attribute name="key.mode">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="major"/>
+          <xs:enumeration value="minor"/>
+          <xs:enumeration value="dorian"/>
+          <xs:enumeration value="phrygian"/>
+          <xs:enumeration value="lydian"/>
+          <xs:enumeration value="mixolydian"/>
+          <xs:enumeration value="aeolian"/>
+          <xs:enumeration value="locrian"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.log.attribute.key.pname">
+    <xs:attribute name="key.pname">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[a-g]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.log.attribute.key.sig">
+    <xs:attribute name="key.sig">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="mixed|0|[1-7][f|s]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.log.attribute.key.sig.mixed">
+    <xs:attribute name="key.sig.mixed">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.vis.attributes">
+    <xs:attributeGroup ref="mei:att.keysigs.vis.attribute.key.sig.show"/>
+    <xs:attributeGroup ref="mei:att.keysigs.vis.attribute.key.sig.showchange"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.vis.attribute.key.sig.show">
+    <xs:attribute name="key.sig.show">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.keysigs.vis.attribute.key.sig.showchange">
+    <xs:attribute name="key.sig.showchange">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.labels.attributes">
+    <xs:attributeGroup ref="mei:att.labels.attribute.label.abbr"/>
+    <xs:attributeGroup ref="mei:att.labels.attribute.label.full"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.labels.attribute.label.abbr">
+    <xs:attribute name="label.abbr">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.labels.attribute.label.full">
+    <xs:attribute name="label.full">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lang.attribute.xmllang">
+    <xs:attribute ref="xml:lang"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.layerident.attributes">
+    <xs:attributeGroup ref="mei:att.layerident.attribute.layer"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.layerident.attribute.layer">
+    <xs:attribute name="layer" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lineloc.attributes">
+    <xs:attributeGroup ref="mei:att.lineloc.attribute.line"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lineloc.attribute.line">
+    <xs:attribute name="line" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.linerend.attributes">
+    <xs:attributeGroup ref="mei:att.linerend.attribute.rend"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.linerend.attribute.rend">
+    <xs:attribute name="rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="narrow"/>
+          <xs:enumeration value="medium"/>
+          <xs:enumeration value="wide"/>
+          <xs:enumeration value="dashed"/>
+          <xs:enumeration value="dotted"/>
+          <xs:enumeration value="wavy"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.common.attribute.actuate">
+    <xs:attribute name="actuate">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="onLoad">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="onRequest">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="other">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="none">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.common.attribute.role">
+    <xs:attribute name="role" type="xs:anyURI">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.common.attribute.show">
+    <xs:attribute name="show">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="new">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="replace">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="other">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="none">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.common.attribute.targettype">
+    <xs:attribute name="targettype" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.common.attribute.title">
+    <xs:attribute name="title">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.external.attribute.entityref">
+    <xs:attribute name="entityref" type="xs:ENTITY">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.link.external.attribute.href">
+    <xs:attribute name="href" type="xs:anyURI">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lyricstyle.attributes">
+    <xs:attributeGroup ref="mei:att.lyricstyle.attribute.lyric.align"/>
+    <xs:attributeGroup ref="mei:att.lyricstyle.attribute.lyric.fam"/>
+    <xs:attributeGroup ref="mei:att.lyricstyle.attribute.lyric.name"/>
+    <xs:attributeGroup ref="mei:att.lyricstyle.attribute.lyric.size"/>
+    <xs:attributeGroup ref="mei:att.lyricstyle.attribute.lyric.style"/>
+    <xs:attributeGroup ref="mei:att.lyricstyle.attribute.lyric.weight"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lyricstyle.attribute.lyric.align">
+    <xs:attribute name="lyric.align" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lyricstyle.attribute.lyric.fam">
+    <xs:attribute name="lyric.fam" type="xs:token">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lyricstyle.attribute.lyric.name">
+    <xs:attribute name="lyric.name" type="xs:token">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lyricstyle.attribute.lyric.size">
+    <xs:attribute name="lyric.size" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lyricstyle.attribute.lyric.style">
+    <xs:attribute name="lyric.style">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="ital"/>
+          <xs:enumeration value="normal"/>
+          <xs:enumeration value="oblique"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lyricstyle.attribute.lyric.weight">
+    <xs:attribute name="lyric.weight">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="bold"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.measurement.attributes">
+    <xs:attributeGroup ref="mei:att.measurement.attribute.unit"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.measurement.attribute.unit">
+    <xs:attribute name="unit" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.width.attributes">
+    <xs:attributeGroup ref="mei:att.width.attribute.width"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.width.attribute.width">
+    <xs:attribute name="width" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.medium.attribute.medium">
+    <xs:attribute name="medium">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meiversion.attribute.meiversion">
+    <xs:attribute name="meiversion" default="2010-05">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="2010-05">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meterbar.attributes">
+    <xs:attributeGroup ref="mei:att.meterbar.attribute.complete"/>
+    <xs:attributeGroup ref="mei:att.meterbar.attribute.control"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meterbar.attribute.complete">
+    <xs:attribute name="complete">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="c">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="i">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="o">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meterbar.attribute.control">
+    <xs:attribute name="control">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meters.log.attributes">
+    <xs:attributeGroup ref="mei:att.meters.log.attribute.meter.count"/>
+    <xs:attributeGroup ref="mei:att.meters.log.attribute.meter.unit"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meters.log.attribute.meter.count">
+    <xs:attribute name="meter.count" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meters.log.attribute.meter.unit">
+    <xs:attribute name="meter.unit" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meters.vis.attributes">
+    <xs:attributeGroup ref="mei:att.meters.vis.attribute.meter.rend"/>
+    <xs:attributeGroup ref="mei:att.meters.vis.attribute.meter.showchange"/>
+    <xs:attributeGroup ref="mei:att.meters.vis.attribute.meter.sym"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meters.vis.attribute.meter.rend">
+    <xs:attribute name="meter.rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="denomsym">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="norm">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="invis">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meters.vis.attribute.meter.showchange">
+    <xs:attribute name="meter.showchange">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.meters.vis.attribute.meter.sym">
+    <xs:attribute name="meter.sym">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="common"/>
+          <xs:enumeration value="cut"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mmtempo.attributes">
+    <xs:attributeGroup ref="mei:att.mmtempo.attribute.mm"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mmtempo.attribute.mm">
+    <xs:attribute name="mm" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.multinummeasures.attributes">
+    <xs:attributeGroup ref="mei:att.multinummeasures.attribute.multi.number"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.multinummeasures.attribute.multi.number">
+    <xs:attribute name="multi.number">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.name.attribute.dbkey">
+    <xs:attribute name="dbkey" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.name.attribute.nymref">
+    <xs:attribute name="nymref" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.name.attribute.role">
+    <xs:attribute name="role">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.octave.attributes">
+    <xs:attributeGroup ref="mei:att.octave.attribute.oct"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.octave.attribute.oct">
+    <xs:attribute name="oct">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.octavedefault.attributes">
+    <xs:attributeGroup ref="mei:att.octavedefault.attribute.octave.default"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.octavedefault.attribute.octave.default">
+    <xs:attribute name="octave.default">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.onelinestaff.attributes">
+    <xs:attributeGroup ref="mei:att.onelinestaff.attribute.ontheline"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.onelinestaff.attribute.ontheline">
+    <xs:attribute name="ontheline">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.octavedisplacement.attributes">
+    <xs:attributeGroup ref="mei:att.octavedisplacement.attribute.dis"/>
+    <xs:attributeGroup ref="mei:att.octavedisplacement.attribute.dis.place"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.octavedisplacement.attribute.dis">
+    <xs:attribute name="dis">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:pattern value="8|15|22"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.octavedisplacement.attribute.dis.place">
+    <xs:attribute name="dis.place">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.participantident.attributes">
+    <xs:attributeGroup ref="mei:att.participantident.attribute.plist"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.participantident.attribute.plist">
+    <xs:attribute name="plist" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pitch.attributes">
+    <xs:attributeGroup ref="mei:att.pitch.attribute.pname"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pitch.attribute.pname">
+    <xs:attribute name="pname">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[a-g]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pitched.attributes">
+    <xs:attributeGroup ref="mei:att.pitch.attributes"/>
+    <xs:attributeGroup ref="mei:att.octave.attributes"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.placement.attributes">
+    <xs:attributeGroup ref="mei:att.placement.attribute.place"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.placement.attribute.place">
+    <xs:attribute name="place">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+          <xs:enumeration value="within"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.relativesize.attributes">
+    <xs:attributeGroup ref="mei:att.relativesize.attribute.size"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.relativesize.attribute.size">
+    <xs:attribute name="size">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="normal"/>
+          <xs:enumeration value="cue"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.responsibility.attributes">
+    <xs:attributeGroup ref="mei:att.responsibility.attribute.resp"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.responsibility.attribute.resp">
+    <xs:attribute name="resp" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scalable.attributes">
+    <xs:attributeGroup ref="mei:att.scalable.attribute.scale"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scalable.attribute.scale">
+    <xs:attribute name="scale">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[0-9]+(\.?[0-9]*)?%"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.sequence.attributes">
+    <xs:attributeGroup ref="mei:att.sequence.attribute.seq"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.sequence.attribute.seq">
+    <xs:attribute name="seq" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.slashcount.attributes">
+    <xs:attributeGroup ref="mei:att.slashcount.attribute.slash"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.slashcount.attribute.slash">
+    <xs:attribute name="slash">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:minInclusive value="1"/>
+          <xs:maxInclusive value="6"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.slurpresent.attributes">
+    <xs:attributeGroup ref="mei:att.slurpresent.attribute.slur"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.slurpresent.attribute.slur">
+    <xs:attribute name="slur">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:pattern value="[i|m|t][1-6]"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffident.attributes">
+    <xs:attributeGroup ref="mei:att.staffident.attribute.staff"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffident.attribute.staff">
+    <xs:attribute name="staff" use="required">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffloc.attributes">
+    <xs:attributeGroup ref="mei:att.staffloc.attribute.loc"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffloc.attribute.loc">
+    <xs:attribute name="loc" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.startid.attributes">
+    <xs:attributeGroup ref="mei:att.startid.attribute.startid"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.startid.attribute.startid">
+    <xs:attribute name="startid" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.startendid.attributes">
+    <xs:attributeGroup ref="mei:att.startid.attributes"/>
+    <xs:attributeGroup ref="mei:att.startendid.attribute.endid"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.startendid.attribute.endid">
+    <xs:attribute name="endid" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.stemmed.attributes">
+    <xs:attributeGroup ref="mei:att.stemmed.attribute.stem.dir"/>
+    <xs:attributeGroup ref="mei:att.stemmed.attribute.stem.len"/>
+    <xs:attributeGroup ref="mei:att.stemmed.attribute.stem.pos"/>
+    <xs:attributeGroup ref="mei:att.stemmed.attribute.stem.x"/>
+    <xs:attributeGroup ref="mei:att.stemmed.attribute.stem.y"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.stemmed.attribute.stem.dir">
+    <xs:attribute name="stem.dir">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="up"/>
+          <xs:enumeration value="down"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.stemmed.attribute.stem.len">
+    <xs:attribute name="stem.len" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.stemmed.attribute.stem.pos">
+    <xs:attribute name="stem.pos">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="left"/>
+          <xs:enumeration value="right"/>
+          <xs:enumeration value="center"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.stemmed.attribute.stem.x">
+    <xs:attribute name="stem.x" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.stemmed.attribute.stem.y">
+    <xs:attribute name="stem.y" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.syltext.attributes">
+    <xs:attributeGroup ref="mei:att.syltext.attribute.syl"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.syltext.attribute.syl">
+    <xs:attribute name="syl">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.textstyle.attributes">
+    <xs:attributeGroup ref="mei:att.textstyle.attribute.text.fam"/>
+    <xs:attributeGroup ref="mei:att.textstyle.attribute.text.name"/>
+    <xs:attributeGroup ref="mei:att.textstyle.attribute.text.size"/>
+    <xs:attributeGroup ref="mei:att.textstyle.attribute.text.style"/>
+    <xs:attributeGroup ref="mei:att.textstyle.attribute.text.weight"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.textstyle.attribute.text.fam">
+    <xs:attribute name="text.fam" type="xs:token">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.textstyle.attribute.text.name">
+    <xs:attribute name="text.name" type="xs:token">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.textstyle.attribute.text.size">
+    <xs:attribute name="text.size" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.textstyle.attribute.text.style">
+    <xs:attribute name="text.style">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="ital"/>
+          <xs:enumeration value="normal"/>
+          <xs:enumeration value="oblique"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.textstyle.attribute.text.weight">
+    <xs:attribute name="text.weight">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="bold"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tiepresent.attributes">
+    <xs:attributeGroup ref="mei:att.tiepresent.attribute.tie"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tiepresent.attribute.tie">
+    <xs:attribute name="tie">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[i|m|t]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.timestamp.musical.attributes">
+    <xs:attributeGroup ref="mei:att.timestamp.musical.attribute.tstamp"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.timestamp.musical.attribute.tstamp">
+    <xs:attribute name="tstamp">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:decimal">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.timestamp.performed.attributes">
+    <xs:attributeGroup ref="mei:att.timestamp.performed.attribute.tstamp.ges"/>
+    <xs:attributeGroup ref="mei:att.timestamp.performed.attribute.tstamp.real"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.timestamp.performed.attribute.tstamp.ges">
+    <xs:attribute name="tstamp.ges" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.timestamp.performed.attribute.tstamp.real">
+    <xs:attribute name="tstamp.real" type="xs:time">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.transposition.attributes">
+    <xs:attributeGroup ref="mei:att.transposition.attribute.trans.diat"/>
+    <xs:attributeGroup ref="mei:att.transposition.attribute.trans.semi"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.transposition.attribute.trans.diat">
+    <xs:attribute name="trans.diat" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.transposition.attribute.trans.semi">
+    <xs:attribute name="trans.semi" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tupletpresent.attributes">
+    <xs:attributeGroup ref="mei:att.tupletpresent.attribute.tuplet"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tupletpresent.attribute.tuplet">
+    <xs:attribute name="tuplet">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:pattern value="[i|m|t][1-6]"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typed.attribute.type">
+    <xs:attribute name="type" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typed.attribute.subtype">
+    <xs:attribute name="subtype" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typography.attributes">
+    <xs:attributeGroup ref="mei:att.typography.attribute.fontfam"/>
+    <xs:attributeGroup ref="mei:att.typography.attribute.fontname"/>
+    <xs:attributeGroup ref="mei:att.typography.attribute.fontsize"/>
+    <xs:attributeGroup ref="mei:att.typography.attribute.fontstyle"/>
+    <xs:attributeGroup ref="mei:att.typography.attribute.fontweight"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typography.attribute.fontfam">
+    <xs:attribute name="fontfam" type="xs:token">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typography.attribute.fontname">
+    <xs:attribute name="fontname" type="xs:token">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typography.attribute.fontsize">
+    <xs:attribute name="fontsize" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typography.attribute.fontstyle">
+    <xs:attribute name="fontstyle">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="ital"/>
+          <xs:enumeration value="normal"/>
+          <xs:enumeration value="oblique"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.typography.attribute.fontweight">
+    <xs:attribute name="fontweight">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="bold"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visibility.attributes">
+    <xs:attributeGroup ref="mei:att.visibility.attribute.visible"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visibility.attribute.visible">
+    <xs:attribute name="visible">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.ho.attributes">
+    <xs:attributeGroup ref="mei:att.visualoffset.ho.attribute.ho"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.ho.attribute.ho">
+    <xs:attribute name="ho" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.to.attributes">
+    <xs:attributeGroup ref="mei:att.visualoffset.to.attribute.to"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.to.attribute.to">
+    <xs:attribute name="to" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.vo.attributes">
+    <xs:attributeGroup ref="mei:att.visualoffset.vo.attribute.vo"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.vo.attribute.vo">
+    <xs:attribute name="vo" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset.attributes">
+    <xs:attributeGroup ref="mei:att.visualoffset.ho.attributes"/>
+    <xs:attributeGroup ref="mei:att.visualoffset.to.attributes"/>
+    <xs:attributeGroup ref="mei:att.visualoffset.vo.attributes"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.ho.attributes">
+    <xs:attributeGroup ref="mei:att.visualoffset2.ho.attribute.startho"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.ho.attribute.endho"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.ho.attribute.startho">
+    <xs:attribute name="startho" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.ho.attribute.endho">
+    <xs:attribute name="endho" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.to.attributes">
+    <xs:attributeGroup ref="mei:att.visualoffset2.to.attribute.startto"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.to.attribute.endto"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.to.attribute.startto">
+    <xs:attribute name="startto" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.to.attribute.endto">
+    <xs:attribute name="endto" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.vo.attributes">
+    <xs:attributeGroup ref="mei:att.visualoffset2.vo.attribute.startvo"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.vo.attribute.endvo"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.vo.attribute.startvo">
+    <xs:attribute name="startvo" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.vo.attribute.endvo">
+    <xs:attribute name="endvo" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.visualoffset2.attributes">
+    <xs:attributeGroup ref="mei:att.visualoffset2.ho.attributes"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.to.attributes"/>
+    <xs:attributeGroup ref="mei:att.visualoffset2.vo.attributes"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.xy.attributes">
+    <xs:attributeGroup ref="mei:att.xy.attribute.x"/>
+    <xs:attributeGroup ref="mei:att.xy.attribute.y"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.xy.attribute.x">
+    <xs:attribute name="x" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.xy.attribute.y">
+    <xs:attribute name="y" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.xy2.attributes">
+    <xs:attributeGroup ref="mei:att.xy2.attribute.x2"/>
+    <xs:attributeGroup ref="mei:att.xy2.attribute.y2"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.xy2.attribute.x2">
+    <xs:attribute name="x2" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.xy2.attribute.y2">
+    <xs:attribute name="y2" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.accid.log.attribute.func">
+    <xs:attribute name="func">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="caution">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="edit">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.accid.vis.attribute.place">
+    <xs:attribute name="place">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="below">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="staff">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.barline.log.attribute.rend">
+    <xs:attribute name="rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="dashed"/>
+          <xs:enumeration value="dotted"/>
+          <xs:enumeration value="dbl"/>
+          <xs:enumeration value="dbldashed"/>
+          <xs:enumeration value="dbldotted"/>
+          <xs:enumeration value="end"/>
+          <xs:enumeration value="invis"/>
+          <xs:enumeration value="rptstart"/>
+          <xs:enumeration value="rptboth"/>
+          <xs:enumeration value="rptend"/>
+          <xs:enumeration value="single"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.chord.vis.attribute.cluster">
+    <xs:attribute name="cluster">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="whbox"/>
+          <xs:enumeration value="blbox"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.custos.log.attribute.target">
+    <xs:attribute name="target" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.dot.log.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="aug">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="div">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.measure.log.attribute.left">
+    <xs:attribute name="left">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="dashed"/>
+          <xs:enumeration value="dotted"/>
+          <xs:enumeration value="dbl"/>
+          <xs:enumeration value="dbldashed"/>
+          <xs:enumeration value="dbldotted"/>
+          <xs:enumeration value="end"/>
+          <xs:enumeration value="invis"/>
+          <xs:enumeration value="rptstart"/>
+          <xs:enumeration value="rptboth"/>
+          <xs:enumeration value="rptend"/>
+          <xs:enumeration value="single"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.measure.log.attribute.right">
+    <xs:attribute name="right">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="dashed"/>
+          <xs:enumeration value="dotted"/>
+          <xs:enumeration value="dbl"/>
+          <xs:enumeration value="dbldashed"/>
+          <xs:enumeration value="dbldotted"/>
+          <xs:enumeration value="end"/>
+          <xs:enumeration value="invis"/>
+          <xs:enumeration value="rptstart"/>
+          <xs:enumeration value="rptboth"/>
+          <xs:enumeration value="rptend"/>
+          <xs:enumeration value="single"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.note.ges.attribute.oct.ges">
+    <xs:attribute name="oct.ges">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="9"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.note.ges.attribute.pname.ges">
+    <xs:attribute name="pname.ges">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[a-g]|none"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.note.ges.attribute.pnum">
+    <xs:attribute name="pnum" type="xs:nonNegativeInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.note.vis.attribute.headshape">
+    <xs:attribute name="headshape">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="quarter"/>
+          <xs:enumeration value="half"/>
+          <xs:enumeration value="whole"/>
+          <xs:enumeration value="dblwhole"/>
+          <xs:enumeration value="filldiamond"/>
+          <xs:enumeration value="diamond"/>
+          <xs:enumeration value="dwdiamond"/>
+          <xs:enumeration value="fillisotriangle"/>
+          <xs:enumeration value="isotriangle"/>
+          <xs:enumeration value="dwhisotriangle"/>
+          <xs:enumeration value="fillpiewedge"/>
+          <xs:enumeration value="piewedge"/>
+          <xs:enumeration value="dwhpiewedge"/>
+          <xs:enumeration value="fillrectangle"/>
+          <xs:enumeration value="rectangle"/>
+          <xs:enumeration value="dwhrectangle"/>
+          <xs:enumeration value="fillrtriangle"/>
+          <xs:enumeration value="rtriangle"/>
+          <xs:enumeration value="dwrtriangle"/>
+          <xs:enumeration value="fillurtriangle"/>
+          <xs:enumeration value="urtriangle"/>
+          <xs:enumeration value="dwurtriangle"/>
+          <xs:enumeration value="fillsemicircle"/>
+          <xs:enumeration value="semicircle"/>
+          <xs:enumeration value="dwsemicircle"/>
+          <xs:enumeration value="fillslash"/>
+          <xs:enumeration value="slash"/>
+          <xs:enumeration value="dwslash"/>
+          <xs:enumeration value="x"/>
+          <xs:enumeration value="blank"/>
+          <xs:enumeration value="circlex"/>
+          <xs:enumeration value="cross"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pad.log.attribute.num">
+    <xs:attribute name="num" use="required" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.sb.vis.attribute.rend">
+    <xs:attribute name="rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="hash">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.ges.attribute.tune.pname">
+    <xs:attribute name="tune.pname">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[a-g]"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.ges.attribute.tune.Hz">
+    <xs:attribute name="tune.Hz" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.ges.attribute.tune.temper">
+    <xs:attribute name="tune.temper">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="equal"/>
+          <xs:enumeration value="just"/>
+          <xs:enumeration value="mean"/>
+          <xs:enumeration value="pythagorean"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.ending.rend">
+    <xs:attribute name="ending.rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="top">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="barred">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="grouped">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.mnum.visible">
+    <xs:attribute name="mnum.visible">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.music.name">
+    <xs:attribute name="music.name" type="xs:token">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.music.size">
+    <xs:attribute name="music.size" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.optimize">
+    <xs:attribute name="optimize">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.height">
+    <xs:attribute name="page.height" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.width">
+    <xs:attribute name="page.width" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.units">
+    <xs:attribute name="page.units">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="in"/>
+          <xs:enumeration value="cm"/>
+          <xs:enumeration value="mm"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.topmar">
+    <xs:attribute name="page.topmar" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.botmar">
+    <xs:attribute name="page.botmar" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.leftmar">
+    <xs:attribute name="page.leftmar" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.rightmar">
+    <xs:attribute name="page.rightmar" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.panels">
+    <xs:attribute name="page.panels">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:minInclusive value="1"/>
+          <xs:maxInclusive value="2"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.page.scale">
+    <xs:attribute name="page.scale">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="[0-9]+(\.?[0-9]*)?%"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="[0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.spacing.packexp">
+    <xs:attribute name="spacing.packexp" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.spacing.packfact">
+    <xs:attribute name="spacing.packfact" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.spacing.staff">
+    <xs:attribute name="spacing.staff" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.spacing.system">
+    <xs:attribute name="spacing.system">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.system.leftmar">
+    <xs:attribute name="system.leftmar" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.system.rightmar">
+    <xs:attribute name="system.rightmar" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.system.topmar">
+    <xs:attribute name="system.topmar" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.section.vis.attribute.restart">
+    <xs:attribute name="restart">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.space.vis.attribute.compressable">
+    <xs:attribute name="compressable">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.vis.attribute.grid.show">
+    <xs:attribute name="grid.show">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.vis.attribute.layerscheme">
+    <xs:attribute name="layerscheme">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="1"/>
+          <xs:enumeration value="2o"/>
+          <xs:enumeration value="2f"/>
+          <xs:enumeration value="3o"/>
+          <xs:enumeration value="3f"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.vis.attribute.lines">
+    <xs:attribute name="lines" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.vis.attribute.lines.color">
+    <xs:attribute name="lines.color">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.vis.attribute.lines.visible">
+    <xs:attribute name="lines.visible">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.vis.attribute.spacing">
+    <xs:attribute name="spacing" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffgrp.vis.attribute.barthru">
+    <xs:attribute name="barthru">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.syl.log.attribute.con">
+    <xs:attribute name="con">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="s">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="d">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="u">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="t">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.syl.log.attribute.wordpos">
+    <xs:attribute name="wordpos">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="i">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="m">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="t">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.regularmethod.attribute.method">
+    <xs:attribute name="method">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="silent">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="tags">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamed.attributes">
+    <xs:attributeGroup ref="mei:att.beamed.attribute.beam"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamed.attribute.beam">
+    <xs:attribute name="beam">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction>
+          <xs:simpleType>
+            <xs:list>
+              <xs:simpleType>
+                <xs:restriction base="xs:token">
+                  <xs:pattern value="[i|m|t][1-6]"/>
+                </xs:restriction>
+              </xs:simpleType>
+            </xs:list>
+          </xs:simpleType>
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamedwith.attributes">
+    <xs:attributeGroup ref="mei:att.beamedwith.attribute.beam.with"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamedwith.attribute.beam.with">
+    <xs:attribute name="beam.with">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beaming.log.attributes">
+    <xs:attributeGroup ref="mei:att.beaming.log.attribute.beam.group"/>
+    <xs:attributeGroup ref="mei:att.beaming.log.attribute.beam.rests"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beaming.log.attribute.beam.group">
+    <xs:attribute name="beam.group">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beaming.log.attribute.beam.rests">
+    <xs:attribute name="beam.rests">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamrend.attributes">
+    <xs:attributeGroup ref="mei:att.beamrend.attribute.rend"/>
+    <xs:attributeGroup ref="mei:att.beamrend.attribute.slope"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamrend.attribute.rend">
+    <xs:attribute name="rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="acc">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="rit">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="norm">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamrend.attribute.slope">
+    <xs:attribute name="slope" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamsecondary.attributes">
+    <xs:attributeGroup ref="mei:att.beamsecondary.attribute.breaksec"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beamsecondary.attribute.breaksec">
+    <xs:attribute name="breaksec" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cutout.attributes">
+    <xs:attributeGroup ref="mei:att.cutout.attribute.cutout"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.cutout.attribute.cutout">
+    <xs:attribute name="cutout" default="cutout">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="cutout">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.expandable.attributes">
+    <xs:attributeGroup ref="mei:att.expandable.attribute.expand"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.expandable.attribute.expand">
+    <xs:attribute name="expand">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.graced.attributes">
+    <xs:attributeGroup ref="mei:att.graced.attribute.grace"/>
+    <xs:attributeGroup ref="mei:att.graced.attribute.grace.time"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.graced.attribute.grace">
+    <xs:attribute name="grace">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="acc"/>
+          <xs:enumeration value="unacc"/>
+          <xs:enumeration value="unknown"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.graced.attribute.grace.time">
+    <xs:attribute name="grace.time">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[0-9]+(\.?[0-9]*)?%"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lvpresent.attributes">
+    <xs:attributeGroup ref="mei:att.lvpresent.attribute.lv"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.lvpresent.attribute.lv">
+    <xs:attribute name="lv">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.numbered.attributes">
+    <xs:attributeGroup ref="mei:att.numbered.attribute.num"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.numbered.attribute.num">
+    <xs:attribute name="num" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.numberplacement.attributes">
+    <xs:attributeGroup ref="mei:att.numberplacement.attribute.num.place"/>
+    <xs:attributeGroup ref="mei:att.numberplacement.attribute.num.visible"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.numberplacement.attribute.num.place">
+    <xs:attribute name="num.place">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.numberplacement.attribute.num.visible">
+    <xs:attribute name="num.visible">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.slurrend.attributes">
+    <xs:attributeGroup ref="mei:att.slurrend.attribute.slur.rend"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.slurrend.attribute.slur.rend">
+    <xs:attribute name="slur.rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="medium"/>
+          <xs:enumeration value="wide"/>
+          <xs:enumeration value="dashed"/>
+          <xs:enumeration value="dotted"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.stemmed.cmn.attribute.stem.mod">
+    <xs:attribute name="stem.mod">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="1slash"/>
+          <xs:enumeration value="2slash"/>
+          <xs:enumeration value="3slash"/>
+          <xs:enumeration value="4slash"/>
+          <xs:enumeration value="5slash"/>
+          <xs:enumeration value="6slash"/>
+          <xs:enumeration value="sprech"/>
+          <xs:enumeration value="z"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.stemmed.cmn.attribute.stem.with">
+    <xs:attribute name="stem.with">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tierend.attributes">
+    <xs:attributeGroup ref="mei:att.tierend.attribute.tie.rend"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tierend.attribute.tie.rend">
+    <xs:attribute name="tie.rend">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="medium"/>
+          <xs:enumeration value="wide"/>
+          <xs:enumeration value="dashed"/>
+          <xs:enumeration value="dotted"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.arpeg.log.attribute.order">
+    <xs:attribute name="order">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="up">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="down">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="nonarp">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.arpeg.vis.attribute.arrow">
+    <xs:attribute name="arrow">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.beatrpt.vis.attribute.rend">
+    <xs:attribute name="rend" use="required">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union>
+          <xs:simpleType>
+            <xs:restriction base="xs:positiveInteger">
+              <xs:pattern value="4|8|16|32|64|128"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="mixed"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.bend.ges.attribute.amount">
+    <xs:attribute name="amount">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union>
+          <xs:simpleType>
+            <xs:restriction base="xs:decimal">
+              <xs:pattern value="1|\.25|\.5|\.75"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="full"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.btrem.log.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="meas">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="unmeas">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.fermata.vis.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="inv">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="norm">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ftrem.ges.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="meas">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="unmeas">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.gliss.vis.attribute.text">
+    <xs:attribute name="text">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.hairpin.log.attribute.form">
+    <xs:attribute name="form" use="required">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="cres">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="dim">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.hairpin.vis.attribute.opening">
+    <xs:attribute name="opening" type="xs:decimal">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harppedal.log.attribute.c">
+    <xs:attribute name="c" default="n">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="f">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="n">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="s">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harppedal.log.attribute.d">
+    <xs:attribute name="d" default="n">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="f">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="n">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="s">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harppedal.log.attribute.e">
+    <xs:attribute name="e" default="n">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="f">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="n">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="s">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harppedal.log.attribute.f">
+    <xs:attribute name="f" default="n">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="f">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="n">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="s">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harppedal.log.attribute.g">
+    <xs:attribute name="g" default="n">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="f">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="n">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="s">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harppedal.log.attribute.a">
+    <xs:attribute name="a" default="n">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="f">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="n">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="s">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harppedal.log.attribute.b">
+    <xs:attribute name="b" default="n">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="f">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="n">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="s">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.multirest.vis.attribute.block">
+    <xs:attribute name="block">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.note.ges.attribute.gliss">
+    <xs:attribute name="gliss">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="i"/>
+          <xs:enumeration value="m"/>
+          <xs:enumeration value="t"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.octave.log.attribute.coll">
+    <xs:attribute name="coll">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="coll">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pedal.log.attribute.dir">
+    <xs:attribute name="dir" use="required">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="down">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="up">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="half">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="bounce">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pedal.vis.attribute.style">
+    <xs:attribute name="style">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="line">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="pedstar">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="altpedstar">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pianopedals.attributes">
+    <xs:attributeGroup ref="mei:att.pianopedals.attribute.pedal.style"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pianopedals.attribute.pedal.style">
+    <xs:attribute name="pedal.style">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="line">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="pedstar">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="altpedstar">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.rehearsal.attributes">
+    <xs:attributeGroup ref="mei:att.rehearsal.attribute.reh.enclose"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.rehearsal.attribute.reh.enclose">
+    <xs:attribute name="reh.enclose">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="box">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="circle">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="none">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.scoredef.vis.attribute.grid.show">
+    <xs:attribute name="grid.show">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.anl.attributes">
+    <xs:attributeGroup ref="mei:att.common.anl.attributes"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.ges.attributes">
+    <xs:attributeGroup ref="mei:att.duration.performed.attributes"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.log.attributes">
+    <xs:attributeGroup ref="mei:att.event.attributes"/>
+    <xs:attributeGroup ref="mei:att.beamedwith.attributes"/>
+    <xs:attributeGroup ref="mei:att.augmentdots.attributes"/>
+    <xs:attributeGroup ref="mei:att.duration.ratio.attributes"/>
+    <xs:attributeGroup ref="mei:att.startendid.attributes"/>
+    <xs:attributeGroup ref="mei:att.tuplet.log.attribute.dur"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.log.attribute.dur">
+    <xs:attribute name="dur">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.vis.attributes">
+    <xs:attributeGroup ref="mei:att.numberplacement.attributes"/>
+    <xs:attributeGroup ref="mei:att.tuplet.vis.attribute.bracket.place"/>
+    <xs:attributeGroup ref="mei:att.tuplet.vis.attribute.bracket.visible"/>
+    <xs:attributeGroup ref="mei:att.tuplet.vis.attribute.dur.visible"/>
+    <xs:attributeGroup ref="mei:att.tuplet.vis.attribute.num.format"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.vis.attribute.bracket.place">
+    <xs:attribute name="bracket.place">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="above"/>
+          <xs:enumeration value="below"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.vis.attribute.bracket.visible">
+    <xs:attribute name="bracket.visible">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.vis.attribute.dur.visible">
+    <xs:attribute name="dur.visible">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tuplet.vis.attribute.num.format">
+    <xs:attribute name="num.format">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="count">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="ratio">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ligature.log.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="recta"/>
+          <xs:enumeration value="obliqua"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.log.attributes">
+    <xs:attributeGroup ref="mei:att.duration.ratio.attributes"/>
+    <xs:attributeGroup ref="mei:att.mensur.log.attribute.modusmaior"/>
+    <xs:attributeGroup ref="mei:att.mensur.log.attribute.modusminor"/>
+    <xs:attributeGroup ref="mei:att.mensur.log.attribute.prolatio"/>
+    <xs:attributeGroup ref="mei:att.mensur.log.attribute.tempus"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.log.attribute.modusmaior">
+    <xs:attribute name="modusmaior">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:minInclusive value="2"/>
+          <xs:maxInclusive value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.log.attribute.modusminor">
+    <xs:attribute name="modusminor">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:minInclusive value="2"/>
+          <xs:maxInclusive value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.log.attribute.prolatio">
+    <xs:attribute name="prolatio">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:minInclusive value="2"/>
+          <xs:maxInclusive value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.log.attribute.tempus">
+    <xs:attribute name="tempus">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:minInclusive value="2"/>
+          <xs:maxInclusive value="3"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.vis.attribute.dot">
+    <xs:attribute name="dot">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.vis.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="horizontal">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="vertical">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.vis.attribute.orient">
+    <xs:attribute name="orient">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="reversed|90CW|90CCW"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensur.vis.attribute.sign">
+    <xs:attribute name="sign">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="C"/>
+          <xs:enumeration value="O"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.log.attributes">
+    <xs:attributeGroup ref="mei:att.mensur.log.attributes"/>
+    <xs:attributeGroup ref="mei:att.mensuration.log.attribute.mensur.dot"/>
+    <xs:attributeGroup ref="mei:att.mensuration.log.attribute.mensur.orient"/>
+    <xs:attributeGroup ref="mei:att.mensuration.log.attribute.mensur.sign"/>
+    <xs:attributeGroup ref="mei:att.mensuration.log.attribute.mensur.slash"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.log.attribute.mensur.dot">
+    <xs:attribute name="mensur.dot">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.log.attribute.mensur.orient">
+    <xs:attribute name="mensur.orient">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="reversed|90CW|90CCW"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.log.attribute.mensur.sign">
+    <xs:attribute name="mensur.sign">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="C"/>
+          <xs:enumeration value="O"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.log.attribute.mensur.slash">
+    <xs:attribute name="mensur.slash" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.vis.attributes">
+    <xs:attributeGroup ref="mei:att.mensuration.vis.attribute.mensur.form"/>
+    <xs:attributeGroup ref="mei:att.mensuration.vis.attribute.mensur.loc"/>
+    <xs:attributeGroup ref="mei:att.mensuration.vis.attribute.mensur.size"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.vis.attribute.mensur.form">
+    <xs:attribute name="mensur.form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="horizontal">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="vertical">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.vis.attribute.mensur.loc">
+    <xs:attribute name="mensur.loc" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mensuration.vis.attribute.mensur.size">
+    <xs:attribute name="mensur.size">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="normal"/>
+          <xs:enumeration value="cue"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.note.log.attribute.lig">
+    <xs:attribute name="lig">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="recta">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="obliqua">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.rest.vis.attribute.spaces">
+    <xs:attribute name="spaces" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.log.attribute.proport.num">
+    <xs:attribute name="proport.num" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.log.attribute.proport.numbase">
+    <xs:attribute name="proport.numbase" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ineume.log.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="liquescent1"/>
+          <xs:enumeration value="liquescent2"/>
+          <xs:enumeration value="tied"/>
+          <xs:enumeration value="tiedliquescent1"/>
+          <xs:enumeration value="tiedliquescent2"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ineume.log.attribute.name">
+    <xs:attribute name="name">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="pessubpunctis"/>
+          <xs:enumeration value="climacus"/>
+          <xs:enumeration value="scandicus"/>
+          <xs:enumeration value="bistropha"/>
+          <xs:enumeration value="tristropha"/>
+          <xs:enumeration value="pressusminor"/>
+          <xs:enumeration value="pressusmaior"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.uneume.log.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="liquescent1"/>
+          <xs:enumeration value="liquescent2"/>
+          <xs:enumeration value="liquescent3"/>
+          <xs:enumeration value="quilismatic"/>
+          <xs:enumeration value="rectangular"/>
+          <xs:enumeration value="rhombic"/>
+          <xs:enumeration value="tied"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.uneume.log.attribute.name">
+    <xs:attribute name="name">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="punctum"/>
+          <xs:enumeration value="virga"/>
+          <xs:enumeration value="pes"/>
+          <xs:enumeration value="clivis"/>
+          <xs:enumeration value="torculus"/>
+          <xs:enumeration value="torculusresupinus"/>
+          <xs:enumeration value="porrectus"/>
+          <xs:enumeration value="porrectusflexus"/>
+          <xs:enumeration value="apostropha"/>
+          <xs:enumeration value="oriscus"/>
+          <xs:enumeration value="pressusmaior"/>
+          <xs:enumeration value="pressusminor"/>
+          <xs:enumeration value="virgastrata"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.anl.attributes">
+    <xs:attributeGroup ref="mei:att.alignment.attributes"/>
+    <xs:attributeGroup ref="mei:att.common.anl.attribute.copyof"/>
+    <xs:attributeGroup ref="mei:att.common.anl.attribute.corresp"/>
+    <xs:attributeGroup ref="mei:att.common.anl.attribute.next"/>
+    <xs:attributeGroup ref="mei:att.common.anl.attribute.prev"/>
+    <xs:attributeGroup ref="mei:att.common.anl.attribute.sameas"/>
+    <xs:attributeGroup ref="mei:att.common.anl.attribute.synch"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.anl.attribute.copyof">
+    <xs:attribute name="copyof" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.anl.attribute.corresp">
+    <xs:attribute name="corresp" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.anl.attribute.next">
+    <xs:attribute name="next" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.anl.attribute.prev">
+    <xs:attribute name="prev" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.anl.attribute.sameas">
+    <xs:attribute name="sameas" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.common.anl.attribute.synch">
+    <xs:attribute name="synch" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harmonicfunction.attributes">
+    <xs:attributeGroup ref="mei:att.harmonicfunction.attribute.hfunc"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harmonicfunction.attribute.hfunc">
+    <xs:attribute name="hfunc" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.intervalharmonic.attributes">
+    <xs:attributeGroup ref="mei:att.intervalharmonic.attribute.inth"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.intervalharmonic.attribute.inth">
+    <xs:attribute name="inth" type="xs:NMTOKENS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.intervallicdesc.attributes">
+    <xs:attributeGroup ref="mei:att.intervalharmonic.attributes"/>
+    <xs:attributeGroup ref="mei:att.intervallicdesc.attribute.intm"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.intervallicdesc.attribute.intm">
+    <xs:attribute name="intm" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.melodicfunction.attributes">
+    <xs:attributeGroup ref="mei:att.melodicfunction.attribute.mfunc"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.melodicfunction.attribute.mfunc">
+    <xs:attribute name="mfunc" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pitchclass.attributes">
+    <xs:attributeGroup ref="mei:att.pitchclass.attribute.pclass"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.pitchclass.attribute.pclass">
+    <xs:attribute name="pclass">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="11"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.solfa.attributes">
+    <xs:attributeGroup ref="mei:att.solfa.attribute.psolfa"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.solfa.attribute.psolfa">
+    <xs:attribute name="psolfa">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ornamentaccid.attributes">
+    <xs:attributeGroup ref="mei:att.ornamentaccid.attribute.accidupper"/>
+    <xs:attributeGroup ref="mei:att.ornamentaccid.attribute.accidlower"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ornamentaccid.attribute.accidupper">
+    <xs:attribute name="accidupper">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="s"/>
+          <xs:enumeration value="f"/>
+          <xs:enumeration value="ss"/>
+          <xs:enumeration value="x"/>
+          <xs:enumeration value="ff"/>
+          <xs:enumeration value="xs"/>
+          <xs:enumeration value="tb"/>
+          <xs:enumeration value="n"/>
+          <xs:enumeration value="nf"/>
+          <xs:enumeration value="ns"/>
+          <xs:enumeration value="su"/>
+          <xs:enumeration value="sd"/>
+          <xs:enumeration value="fu"/>
+          <xs:enumeration value="fd"/>
+          <xs:enumeration value="nu"/>
+          <xs:enumeration value="nd"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.ornamentaccid.attribute.accidlower">
+    <xs:attribute name="accidlower">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="s"/>
+          <xs:enumeration value="f"/>
+          <xs:enumeration value="ss"/>
+          <xs:enumeration value="x"/>
+          <xs:enumeration value="ff"/>
+          <xs:enumeration value="xs"/>
+          <xs:enumeration value="tb"/>
+          <xs:enumeration value="n"/>
+          <xs:enumeration value="nf"/>
+          <xs:enumeration value="ns"/>
+          <xs:enumeration value="su"/>
+          <xs:enumeration value="sd"/>
+          <xs:enumeration value="fu"/>
+          <xs:enumeration value="fd"/>
+          <xs:enumeration value="nu"/>
+          <xs:enumeration value="nd"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mordent.log.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="inv">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="norm">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.mordent.log.attribute.long">
+    <xs:attribute name="long">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.turn.log.attribute.delayed">
+    <xs:attribute name="delayed">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.turn.log.attribute.form">
+    <xs:attribute name="form">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="inv">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="norm">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.crit.attribute.cause">
+    <xs:attribute name="cause" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.source.attributes">
+    <xs:attributeGroup ref="mei:att.source.attribute.source"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.source.attribute.source">
+    <xs:attribute name="source" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.edit.attribute.cert">
+    <xs:attribute name="cert">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="high"/>
+          <xs:enumeration value="medium"/>
+          <xs:enumeration value="low"/>
+          <xs:enumeration value="unknown"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.edit.attribute.evidence">
+    <xs:attribute name="evidence" type="xs:NMTOKEN">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.agentident.attribute.agent">
+    <xs:attribute name="agent">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.extent.attribute.extent">
+    <xs:attribute name="extent">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.reasonident.attribute.reason">
+    <xs:attribute name="reason">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.facsimile.attribute.facs">
+    <xs:attribute name="facs" type="xs:IDREFS">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tabular.attribute.colspan">
+    <xs:attribute name="colspan" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.tabular.attribute.rowspan">
+    <xs:attribute name="rowspan" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.fretlocation.attribute.fret">
+    <xs:attribute name="fret">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:minInclusive value="1"/>
+          <xs:maxInclusive value="5"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harm.log.attribute.chordref">
+    <xs:attribute name="chordref" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harm.vis.attribute.extender">
+    <xs:attribute name="extender">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.harm.vis.attribute.rendgrid">
+    <xs:attribute name="rendgrid">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="grid">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="gridname">
+            <xs:annotation>
+              <xs:documentation/>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.alignment.attributes">
+    <xs:attributeGroup ref="mei:att.alignment.attribute.when"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.alignment.attribute.when">
+    <xs:attribute name="when" type="xs:IDREF">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.verse.log.attribute.refrain">
+    <xs:attribute name="refrain">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="true"/>
+          <xs:enumeration value="false"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.verse.log.attribute.rhythm">
+    <xs:attribute name="rhythm">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.channelized.attributes">
+    <xs:attributeGroup ref="mei:att.channelized.attribute.midi.channel"/>
+    <xs:attributeGroup ref="mei:att.channelized.attribute.midi.duty"/>
+    <xs:attributeGroup ref="mei:att.channelized.attribute.midi.port"/>
+    <xs:attributeGroup ref="mei:att.channelized.attribute.midi.track"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.channelized.attribute.midi.channel">
+    <xs:attribute name="midi.channel">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:maxInclusive value="16"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.channelized.attribute.midi.duty">
+    <xs:attribute name="midi.duty">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:pattern value="[0-9]+(\.?[0-9]*)?%"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.channelized.attribute.midi.port">
+    <xs:attribute name="midi.port">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="127"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.channelized.attribute.midi.track">
+    <xs:attribute name="midi.track" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.midiinstrument.attribute.midi.instrnum">
+    <xs:attribute name="midi.instrnum">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="127"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.midiinstrument.attribute.midi.instrname">
+    <xs:attribute name="midi.instrname">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:token">
+          <xs:enumeration value="Acoustic_Grand_Piano"/>
+          <xs:enumeration value="Bright_Acoustic_Piano"/>
+          <xs:enumeration value="Electric_Grand_Piano"/>
+          <xs:enumeration value="Honky-tonk_Piano"/>
+          <xs:enumeration value="Electric_Piano_1"/>
+          <xs:enumeration value="Electric_Piano_2"/>
+          <xs:enumeration value="Harpsichord"/>
+          <xs:enumeration value="Clavi"/>
+          <xs:enumeration value="Celesta"/>
+          <xs:enumeration value="Glockenspiel"/>
+          <xs:enumeration value="Music_Box"/>
+          <xs:enumeration value="Vibraphone"/>
+          <xs:enumeration value="Marimba"/>
+          <xs:enumeration value="Xylophone"/>
+          <xs:enumeration value="Tubular_Bells"/>
+          <xs:enumeration value="Dulcimer"/>
+          <xs:enumeration value="Drawbar_Organ"/>
+          <xs:enumeration value="Percussive_Organ"/>
+          <xs:enumeration value="Rock_Organ"/>
+          <xs:enumeration value="Church_Organ"/>
+          <xs:enumeration value="Reed_Organ"/>
+          <xs:enumeration value="Accordion"/>
+          <xs:enumeration value="Harmonica"/>
+          <xs:enumeration value="Tango_Accordion"/>
+          <xs:enumeration value="Acoustic_Guitar_nylon"/>
+          <xs:enumeration value="Acoustic_Guitar_steel"/>
+          <xs:enumeration value="Electric_Guitar_jazz"/>
+          <xs:enumeration value="Electric_Guitar_clean"/>
+          <xs:enumeration value="Electric_Guitar_muted"/>
+          <xs:enumeration value="Overdriven_Guitar"/>
+          <xs:enumeration value="Distortion_Guitar"/>
+          <xs:enumeration value="Guitar_harmonics"/>
+          <xs:enumeration value="Acoustic_Bass"/>
+          <xs:enumeration value="Electric_Bass_finger"/>
+          <xs:enumeration value="Electric_Bass_pick"/>
+          <xs:enumeration value="Fretless_Bass"/>
+          <xs:enumeration value="Slap_Bass_1"/>
+          <xs:enumeration value="Slap_Bass_2"/>
+          <xs:enumeration value="Synth_Bass_1"/>
+          <xs:enumeration value="Synth_Bass_2"/>
+          <xs:enumeration value="Violin"/>
+          <xs:enumeration value="Viola"/>
+          <xs:enumeration value="Cello"/>
+          <xs:enumeration value="Contrabass"/>
+          <xs:enumeration value="Tremolo_Strings"/>
+          <xs:enumeration value="Pizzicato_Strings"/>
+          <xs:enumeration value="Orchestral_Harp"/>
+          <xs:enumeration value="Timpani"/>
+          <xs:enumeration value="String_Ensemble_1"/>
+          <xs:enumeration value="String_Ensemble_2"/>
+          <xs:enumeration value="SynthStrings_1"/>
+          <xs:enumeration value="SynthStrings_2"/>
+          <xs:enumeration value="Choir_Aahs"/>
+          <xs:enumeration value="Voice_Oohs"/>
+          <xs:enumeration value="Synth_Voice"/>
+          <xs:enumeration value="Orchestra_Hit"/>
+          <xs:enumeration value="Trumpet"/>
+          <xs:enumeration value="Trombone"/>
+          <xs:enumeration value="Tuba"/>
+          <xs:enumeration value="Muted_Trumpet"/>
+          <xs:enumeration value="French_Horn"/>
+          <xs:enumeration value="Brass_Section"/>
+          <xs:enumeration value="SynthBrass_1"/>
+          <xs:enumeration value="SynthBrass_2"/>
+          <xs:enumeration value="Soprano_Sax"/>
+          <xs:enumeration value="Alto_Sax"/>
+          <xs:enumeration value="Tenor_Sax"/>
+          <xs:enumeration value="Baritone_Sax"/>
+          <xs:enumeration value="Oboe"/>
+          <xs:enumeration value="English_Horn"/>
+          <xs:enumeration value="Bassoon"/>
+          <xs:enumeration value="Clarinet"/>
+          <xs:enumeration value="Piccolo"/>
+          <xs:enumeration value="Flute"/>
+          <xs:enumeration value="Recorder"/>
+          <xs:enumeration value="Pan_Flute"/>
+          <xs:enumeration value="Blown_Bottle"/>
+          <xs:enumeration value="Shakuhachi"/>
+          <xs:enumeration value="Whistle"/>
+          <xs:enumeration value="Ocarina"/>
+          <xs:enumeration value="Lead_1_square"/>
+          <xs:enumeration value="Lead_2_sawtooth"/>
+          <xs:enumeration value="Lead_3_calliope"/>
+          <xs:enumeration value="Lead_4_chiff"/>
+          <xs:enumeration value="Lead_5_charang"/>
+          <xs:enumeration value="Lead_6_voice"/>
+          <xs:enumeration value="Lead_7_fifths"/>
+          <xs:enumeration value="Lead_8_bass_and_lead"/>
+          <xs:enumeration value="Pad_1_new_age"/>
+          <xs:enumeration value="Pad_2_warm"/>
+          <xs:enumeration value="Pad_3_polysynth"/>
+          <xs:enumeration value="Pad_4_choir"/>
+          <xs:enumeration value="Pad_5_bowed"/>
+          <xs:enumeration value="Pad_6_metallic"/>
+          <xs:enumeration value="Pad_7_halo"/>
+          <xs:enumeration value="Pad_8_sweep"/>
+          <xs:enumeration value="FX_1_rain"/>
+          <xs:enumeration value="FX_2_soundtrack"/>
+          <xs:enumeration value="FX_3_crystal"/>
+          <xs:enumeration value="FX_4_atmosphere"/>
+          <xs:enumeration value="FX_5_brightness"/>
+          <xs:enumeration value="FX_6_goblins"/>
+          <xs:enumeration value="FX_7_echoes"/>
+          <xs:enumeration value="FX_8_sci-fi"/>
+          <xs:enumeration value="Sitar"/>
+          <xs:enumeration value="Banjo"/>
+          <xs:enumeration value="Shamisen"/>
+          <xs:enumeration value="Koto"/>
+          <xs:enumeration value="Kalimba"/>
+          <xs:enumeration value="Bagpipe"/>
+          <xs:enumeration value="Fiddle"/>
+          <xs:enumeration value="Shanai"/>
+          <xs:enumeration value="Tinkle_Bell"/>
+          <xs:enumeration value="Agogo"/>
+          <xs:enumeration value="Steel_Drums"/>
+          <xs:enumeration value="Woodblock"/>
+          <xs:enumeration value="Taiko_Drum"/>
+          <xs:enumeration value="Melodic_Tom"/>
+          <xs:enumeration value="Synth_Drum"/>
+          <xs:enumeration value="Reverse_Cymbal"/>
+          <xs:enumeration value="Guitar_Fret_Noise"/>
+          <xs:enumeration value="Breath_Noise"/>
+          <xs:enumeration value="Seashore"/>
+          <xs:enumeration value="Bird_Tweet"/>
+          <xs:enumeration value="Telephone_Ring"/>
+          <xs:enumeration value="Helicopter"/>
+          <xs:enumeration value="Applause"/>
+          <xs:enumeration value="Gunshot"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.midinumber.attribute.num">
+    <xs:attribute name="num" use="required">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="127"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.miditempo.attributes">
+    <xs:attributeGroup ref="mei:att.miditempo.attribute.midi.tempo"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.miditempo.attribute.midi.tempo">
+    <xs:attribute name="midi.tempo">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:positiveInteger">
+          <xs:minInclusive value="10"/>
+          <xs:maxInclusive value="1000"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.midivalue.attributes">
+    <xs:attributeGroup ref="mei:att.midivalue.attribute.val"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.midivalue.attribute.val">
+    <xs:attribute name="val">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:nonNegativeInteger">
+          <xs:maxInclusive value="127"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.timebase.attributes">
+    <xs:attributeGroup ref="mei:att.timebase.attribute.ppq"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.timebase.attribute.ppq">
+    <xs:attribute name="ppq" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.staffdef.ges.attribute.tab.strings">
+    <xs:attribute name="tab.strings">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.note.ges.attribute.tab.fret">
+    <xs:attribute name="tab.fret">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:union>
+          <xs:simpleType>
+            <xs:restriction base="xs:nonNegativeInteger">
+              <xs:minInclusive value="1"/>
+              <xs:maxInclusive value="9"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType>
+            <xs:restriction base="xs:token">
+              <xs:pattern value="o"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="att.note.ges.attribute.tab.string">
+    <xs:attribute name="tab.string" type="xs:positiveInteger">
+      <xs:annotation>
+        <xs:documentation/>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:attributeGroup>
+  <xs:element name="addressline" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="artic">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="body" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="chord">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element ref="mei:note"/>
+        <xs:element ref="mei:artic"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="custos">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="dir" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="dynam" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="expansion">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="fw" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="group">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:choice>
+          <xs:element ref="mei:music"/>
+          <xs:element ref="mei:group"/>
+        </xs:choice>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element ref="mei:music"/>
+          <xs:element ref="mei:group"/>
+        </xs:choice>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="grpsym">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="instrgrp" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="mei">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mei:meihead"/>
+        <xs:element ref="mei:music"/>
+      </xs:sequence>
+      <xs:attribute ref="xml:id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="music">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice minOccurs="0">
+        <xs:element ref="mei:body"/>
+        <xs:element ref="mei:group"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="note">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="pgdesc" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="rest">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="space">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="tempo" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="meihead">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:altmeiid"/>
+        <xs:element ref="mei:filedesc"/>
+        <xs:element minOccurs="0" ref="mei:revisiondesc"/>
+      </xs:sequence>
+      <xs:attribute name="type">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="music">
+              <xs:annotation>
+                <xs:documentation/>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="corpus">
+              <xs:annotation>
+                <xs:documentation/>
+              </xs:annotation>
+            </xs:enumeration>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="accessdesc" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="acqsource" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="altmeiid" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="application" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="change" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="changedesc" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="classcode" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="classification">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="mei:classcode"/>
+        <xs:element ref="mei:keywords"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="creation" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="editionstmt" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="extent" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="filedesc">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="mei:titlestmt"/>
+        <xs:element minOccurs="0" ref="mei:editionstmt"/>
+        <xs:element minOccurs="0" ref="mei:extent"/>
+        <xs:element minOccurs="0" ref="mei:fingerprint"/>
+        <xs:element ref="mei:pubstmt"/>
+        <xs:element minOccurs="0" ref="mei:seriesstmt"/>
+        <xs:element minOccurs="0" ref="mei:notesstmt"/>
+        <xs:element minOccurs="0" ref="mei:sourcedesc"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="fingerprint" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="hand">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:attribute name="initial">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="true"/>
+            <xs:enumeration value="false"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="keywords">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="mei:term"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="language" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="langusage">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="mei:language"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="notesstmt" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="physdesc" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="price" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="pubstmt">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="mei:unpub"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="resp" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="respstmt">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:resp"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="revisiondesc">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="mei:change"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="seriesstmt" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="source">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="mei:titlestmt"/>
+        <xs:element minOccurs="0" ref="mei:editionstmt"/>
+        <xs:element ref="mei:pubstmt"/>
+        <xs:element minOccurs="0" ref="mei:physdesc"/>
+        <xs:element minOccurs="0" ref="mei:seriesstmt"/>
+        <xs:element minOccurs="0" ref="mei:notesstmt"/>
+        <xs:element minOccurs="0" ref="mei:langusage"/>
+        <xs:element minOccurs="0" ref="mei:classification"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sourcedesc">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="mei:source"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="sysreq" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="term">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:term"/>
+      </xs:sequence>
+      <xs:attribute name="classcode" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="titlestmt" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="unpub" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="userestrict" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="eventlist">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="mei:event"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="event" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="tuplet" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="lem">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:expansion"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="rdg">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:expansion"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="choice">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:choice"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="surface">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:zone"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="zone">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="figdesc" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="td" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="th" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="tr">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element ref="mei:th"/>
+        <xs:element ref="mei:td"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="barre">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="chorddef">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:chordmember"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="mei:barre"/>
+      </xs:sequence>
+      <xs:attribute name="pos">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="chordmember">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="fing">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:union>
+            <xs:simpleType>
+              <xs:restriction base="xs:positiveInteger">
+                <xs:minInclusive value="1"/>
+                <xs:maxInclusive value="4"/>
+              </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType>
+              <xs:restriction base="xs:token">
+                <xs:pattern value="x|o"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:union>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="when">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="absolute">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:attribute>
+      <xs:attribute name="interval">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:decimal">
+            <xs:minInclusive value="1"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="since" type="xs:IDREF">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cc">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="chan">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="num" use="required">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:positiveInteger">
+            <xs:maxInclusive value="16"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="chanpr">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="cue" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="hex" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="marker" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="metatext" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="noteoff">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="noteon">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="port">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="prog">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="seqnum">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="num" use="required">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:nonNegativeInteger">
+            <xs:maxInclusive value="65535"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="trkname" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="vel">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:attribute name="form" use="required">
+        <xs:annotation>
+          <xs:documentation/>
+        </xs:annotation>
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="on">
+              <xs:annotation>
+                <xs:documentation/>
+              </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="off">
+              <xs:annotation>
+                <xs:documentation/>
+              </xs:annotation>
+            </xs:enumeration>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="item" type="xs:string">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+  <xs:element name="symboldef" abstract="true">
+    <xs:annotation>
+      <xs:documentation/>
+    </xs:annotation>
+  </xs:element>
+</xs:schema>

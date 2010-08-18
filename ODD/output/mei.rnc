@@ -1,0 +1,3614 @@
+default namespace = "http://www.mei-c.org/ns/mei"
+namespace a = "http://relaxng.org/ns/compatibility/annotations/1.0"
+namespace loc = "http:/local-namespace/"
+namespace rng = "http://relaxng.org/ns/structure/1.0"
+namespace sch = "http://purl.oclc.org/dsdl/schematron"
+namespace xd = "http://www.oxygenxml.com/ns/doc/xsl"
+namespace xhtml = "http://www.w3.org/1000/xhtml"
+
+# Schema generated from ODD source 2010-08-18T16:08:44Z. 
+
+#
+att.accidental.attributes = att.accidental.attribute.accid
+att.accidental.attribute.accid =
+  
+  ##
+  attribute accid {
+    "s"
+    | "f"
+    | "ss"
+    | "x"
+    | "ff"
+    | "xs"
+    | "tb"
+    | "n"
+    | "nf"
+    | "ns"
+    | "su"
+    | "sd"
+    | "fu"
+    | "fd"
+    | "nu"
+    | "nd"
+  }?
+att.accidental.performed.attributes =
+  att.accidental.performed.attribute.accid.ges
+att.accidental.performed.attribute.accid.ges =
+  
+  ##
+  attribute accid.ges { "s" | "f" | "ss" | "ff" | "n" }?
+att.altsym.attributes = att.altsym.attribute.altsym
+att.altsym.attribute.altsym =
+  
+  ##
+  attribute altsym { xsd:IDREF }?
+att.articulation.attributes = att.articulation.attribute.artic
+att.articulation.attribute.artic =
+  
+  ##
+  attribute artic {
+    list {
+      ("acc"
+       | "stacc"
+       | "ten"
+       | "stacciss"
+       | "marc"
+       | "marc-stacc"
+       | "acc-marc"
+       | "spicc"
+       | "rip"
+       | "doit"
+       | "plop"
+       | "fall"
+       | "bend"
+       | "flip"
+       | "smear"
+       | "dnbow"
+       | "upbow"
+       | "harm"
+       | "snap"
+       | "fingernail"
+       | "ten-stacc"
+       | "damp"
+       | "dampall"
+       | "open"
+       | "stop"
+       | "dbltongue"
+       | "trpltongue"
+       | "heel"
+       | "toe"
+       | "tap"
+       | "lhpizz"
+       | "dot"
+       | "stroke")+
+    }
+  }?
+att.articulation.performed.attributes =
+  att.articulation.performed.attribute.artic.ges
+att.articulation.performed.attribute.artic.ges =
+  
+  ##
+  attribute artic.ges {
+    list {
+      ("acc"
+       | "stacc"
+       | "ten"
+       | "stacciss"
+       | "marc"
+       | "marc-stacc"
+       | "acc-marc"
+       | "spicc"
+       | "rip"
+       | "doit"
+       | "plop"
+       | "fall"
+       | "bend"
+       | "flip"
+       | "smear"
+       | "dnbow"
+       | "upbow"
+       | "harm"
+       | "snap"
+       | "fingernail"
+       | "ten-stacc"
+       | "damp"
+       | "dampall"
+       | "open"
+       | "stop"
+       | "dbltongue"
+       | "trpltongue"
+       | "heel"
+       | "toe"
+       | "tap"
+       | "lhpizz"
+       | "dot"
+       | "stroke")+
+    }
+  }?
+att.augmentdots.attributes = att.augmentdots.attribute.dots
+att.augmentdots.attribute.dots =
+  
+  ##
+  attribute dots {
+    xsd:nonNegativeInteger { maxInclusive = "4" }
+  }?
+att.authorized.attributes = att.authorized.attribute.authority
+att.authorized.attribute.authority =
+  
+  ##
+  attribute authority { text }?
+att.barplacement.attributes =
+  att.barplacement.attribute.barplace,
+  att.barplacement.attribute.taktplace
+att.barplacement.attribute.barplace =
+  
+  ##
+  attribute barplace { "mensur" | "staff" | "takt" }?
+att.barplacement.attribute.taktplace =
+  
+  ##
+  attribute taktplace { xsd:nonNegativeInteger }?
+att.beaming.vis.attributes =
+  att.beaming.vis.attribute.beam.rend,
+  att.beaming.vis.attribute.beam.slope
+att.beaming.vis.attribute.beam.rend =
+  
+  ##
+  attribute beam.rend {
+    
+    ##
+    "acc"
+    | 
+      ##
+      "rit"
+    | 
+      ##
+      "norm"
+  }?
+att.beaming.vis.attribute.beam.slope =
+  
+  ##
+  attribute beam.slope { xsd:decimal }?
+att.bibl.attribute.analog =
+  
+  ##
+  attribute analog { text }?
+att.calendared.attribute.calendar =
+  
+  ##
+  attribute calendar { xsd:NMTOKEN }?
+att.cleffing.log.attributes =
+  att.cleffing.log.attribute.clef.shape,
+  att.cleffing.log.attribute.clef.line,
+  att.cleffing.log.attribute.clef.dis,
+  att.cleffing.log.attribute.clef.dis.place
+att.cleffing.log.attribute.clef.shape =
+  
+  ##
+  attribute clef.shape { "G" | "GG" | "F" | "C" | "perc" | "TAB" }?
+att.cleffing.log.attribute.clef.line =
+  
+  ##
+  attribute clef.line { xsd:positiveInteger }?
+att.cleffing.log.attribute.clef.dis =
+  
+  ##
+  attribute clef.dis {
+    xsd:positiveInteger { pattern = "8|15|22" }
+  }?
+att.cleffing.log.attribute.clef.dis.place =
+  
+  ##
+  attribute clef.dis.place { "above" | "below" }?
+att.cleffing.vis.attributes =
+  att.cleffing.vis.attribute.clef.color,
+  att.cleffing.vis.attribute.clef.visible
+att.cleffing.vis.attribute.clef.color =
+  
+  ##
+  attribute clef.color {
+    xsd:token {
+      pattern =
+        "(x[0-9A-Fa-f]{6,6}|aqua|black|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)"
+    }
+  }?
+att.cleffing.vis.attribute.clef.visible =
+  
+  ##
+  attribute clef.visible { "true" | "false" }?
+att.clefshape.attributes = att.clefshape.attribute.shape
+att.clefshape.attribute.shape =
+  
+  ##
+  attribute shape { "G" | "GG" | "F" | "C" | "perc" | "TAB" }?
+att.color.attributes = att.color.attribute.color
+att.color.attribute.color =
+  
+  ##
+  attribute color {
+    xsd:token {
+      pattern =
+        "(x[0-9A-Fa-f]{6,6}|aqua|black|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)"
+    }
+  }?
+att.coloration.attributes = att.coloration.attribute.colored
+att.coloration.attribute.colored =
+  
+  ##
+  attribute colored { "true" | "false" }?
+att.common.attribute.xmlid =
+  
+  ##
+  attribute xml:id { xsd:ID }?
+att.common.attribute.n =
+  
+  ##
+  attribute n { xsd:NMTOKEN }?
+att.controlevent.attributes =
+  att.participantident.attributes,
+  att.timestamp.musical.attributes,
+  att.timestamp.performed.attributes,
+  att.staffident.attributes,
+  att.controlevent.attribute.layer
+att.controlevent.attribute.layer =
+  
+  ##
+  attribute layer { text }?
+att.coordinated.attribute.ulx =
+  
+  ##
+  attribute ulx { xsd:nonNegativeInteger }?
+att.coordinated.attribute.uly =
+  
+  ##
+  attribute uly { xsd:nonNegativeInteger }?
+att.coordinated.attribute.lrx =
+  
+  ##
+  attribute lrx { xsd:nonNegativeInteger }?
+att.coordinated.attribute.lry =
+  
+  ##
+  attribute lry { xsd:nonNegativeInteger }?
+att.curvature.attributes =
+  att.curvature.attribute.bezier,
+  att.curvature.attribute.bulge,
+  att.curvature.attribute.curvedir
+att.curvature.attribute.bezier =
+  
+  ##
+  attribute bezier { text }?
+att.curvature.attribute.bulge =
+  
+  ##
+  attribute bulge { text }?
+att.curvature.attribute.curvedir =
+  
+  ##
+  attribute curvedir {
+    
+    ##
+    "above"
+    | 
+      ##
+      "below"
+  }?
+att.curverend.attributes = att.curverend.attribute.rend
+att.curverend.attribute.rend =
+  
+  ##
+  attribute rend { "medium" | "wide" | "dashed" | "dotted" }?
+att.datable.attribute.enddate =
+  
+  ##
+  attribute enddate {
+    xsd:date
+    | xsd:gYear
+    | xsd:gMonth
+    | xsd:gDay
+    | xsd:gYearMonth
+    | xsd:gMonthDay
+    | xsd:time
+    | xsd:dateTime
+    | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
+  }?
+att.datable.attribute.notafter =
+  
+  ##
+  attribute notafter {
+    xsd:date
+    | xsd:gYear
+    | xsd:gMonth
+    | xsd:gDay
+    | xsd:gYearMonth
+    | xsd:gMonthDay
+    | xsd:time
+    | xsd:dateTime
+    | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
+  }?
+att.datable.attribute.notbefore =
+  
+  ##
+  attribute notbefore {
+    xsd:date
+    | xsd:gYear
+    | xsd:gMonth
+    | xsd:gDay
+    | xsd:gYearMonth
+    | xsd:gMonthDay
+    | xsd:time
+    | xsd:dateTime
+    | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
+  }?
+att.datable.attribute.reg =
+  
+  ##
+  attribute reg {
+    xsd:date
+    | xsd:gYear
+    | xsd:gMonth
+    | xsd:gDay
+    | xsd:gYearMonth
+    | xsd:gMonthDay
+    | xsd:time
+    | xsd:dateTime
+    | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
+  }?
+att.datable.attribute.startdate =
+  
+  ##
+  attribute startdate {
+    xsd:date
+    | xsd:gYear
+    | xsd:gMonth
+    | xsd:gDay
+    | xsd:gYearMonth
+    | xsd:gMonthDay
+    | xsd:time
+    | xsd:dateTime
+    | xsd:token { pattern = "[0-9.,DHMPRSTWYZ/:+\-]+" }
+  }?
+att.datapointing.attribute.data =
+  
+  ##
+  attribute data { xsd:IDREFS }?
+att.distances.attributes =
+  att.distances.attribute.dynam.dist,
+  att.distances.attribute.harm.dist,
+  att.distances.attribute.text.dist
+att.distances.attribute.dynam.dist =
+  
+  ##
+  attribute dynam.dist { xsd:decimal }?
+att.distances.attribute.harm.dist =
+  
+  ##
+  attribute harm.dist { xsd:decimal }?
+att.distances.attribute.text.dist =
+  
+  ##
+  attribute text.dist { xsd:decimal }?
+att.duration.default.attributes =
+  att.duration.default.attribute.dur.default
+att.duration.default.attribute.dur.default =
+  
+  ##
+  attribute dur.default {
+    "long"
+    | "breve"
+    | "1"
+    | "2"
+    | "4"
+    | "8"
+    | "16"
+    | "32"
+    | "64"
+    | "128"
+    | "256"
+    | "512"
+    | "1024"
+    | "2048"
+  }?
+att.duration.musical.attributes = att.duration.musical.attribute.dur
+att.duration.musical.attribute.dur =
+  
+  ##
+  attribute dur {
+    "long"
+    | "breve"
+    | "1"
+    | "2"
+    | "4"
+    | "8"
+    | "16"
+    | "32"
+    | "64"
+    | "128"
+    | "256"
+    | "512"
+    | "1024"
+    | "2048"
+  }?
+att.duration.performed.attributes =
+  att.duration.performed.attribute.dur.ges
+att.duration.performed.attribute.dur.ges =
+  
+  ##
+  attribute dur.ges { text }?
+att.duration.ratio.attributes =
+  att.duration.ratio.attribute.num, att.duration.ratio.attribute.numbase
+att.duration.ratio.attribute.num =
+  
+  ##
+  attribute num { xsd:positiveInteger }?
+att.duration.ratio.attribute.numbase =
+  
+  ##
+  attribute numbase { xsd:positiveInteger }?
+att.duration.timestamp.attributes = att.duration.timestamp.attribute.dur
+att.duration.timestamp.attribute.dur =
+  
+  ##
+  attribute dur {
+    xsd:token { pattern = "([0-9]+m *\+ *)?[0-9]+(\.?[0-9]*)?" }
+  }?
+att.enclosingchars.attributes = att.enclosingchars.attribute.enclose
+att.enclosingchars.attribute.enclose =
+  
+  ##
+  attribute enclose { "paren" | "brack" }?
+att.event.attributes =
+  att.timestamp.musical.attributes, att.timestamp.performed.attributes
+att.fermatapresent.attributes = att.fermatapresent.attribute.fermata
+att.fermatapresent.attribute.fermata =
+  
+  ##
+  attribute fermata { "above" | "below" | "within" }?
+att.staffgroupingsym.attributes = att.staffgroupingsym.attribute.symbol
+att.staffgroupingsym.attribute.symbol =
+  
+  ##
+  attribute symbol {
+    
+    ##
+    "brace"
+    | 
+      ##
+      "bracket"
+    | 
+      ##
+      "line"
+    | 
+      ##
+      "none"
+  }?
+att.handident.attributes = att.handident.attribute.hand
+att.handident.attribute.hand =
+  
+  ##
+  attribute hand { xsd:IDREF }?
+att.horizontalalign.attributes = att.horizontalalign.attribute.halign
+att.horizontalalign.attribute.halign =
+  
+  ##
+  attribute halign {
+    
+    ##
+    "left"
+    | 
+      ##
+      "right"
+    | 
+      ##
+      "center"
+    | 
+      ##
+      "justify"
+  }?
+att.instrumentident.attributes = att.instrumentident.attribute.instr
+att.instrumentident.attribute.instr =
+  
+  ##
+  attribute instr { xsd:IDREF }?
+att.internetmedia.attribute.mimetype =
+  
+  ##
+  attribute mimetype { text }?
+att.joined.attributes = att.joined.attribute.join
+att.joined.attribute.join =
+  
+  ##
+  attribute join { xsd:IDREFS }?
+att.keysigs.log.attributes =
+  att.keysigs.log.attribute.key.accid,
+  att.keysigs.log.attribute.key.mode,
+  att.keysigs.log.attribute.key.pname,
+  att.keysigs.log.attribute.key.sig,
+  att.keysigs.log.attribute.key.sig.mixed
+att.keysigs.log.attribute.key.accid =
+  
+  ##
+  attribute key.accid { "s" | "f" | "ss" | "ff" | "n" }?
+att.keysigs.log.attribute.key.mode =
+  
+  ##
+  attribute key.mode {
+    "major"
+    | "minor"
+    | "dorian"
+    | "phrygian"
+    | "lydian"
+    | "mixolydian"
+    | "aeolian"
+    | "locrian"
+  }?
+att.keysigs.log.attribute.key.pname =
+  
+  ##
+  attribute key.pname {
+    xsd:token { pattern = "[a-g]" }
+  }?
+att.keysigs.log.attribute.key.sig =
+  
+  ##
+  attribute key.sig {
+    xsd:token { pattern = "mixed|0|[1-7][f|s]" }
+  }?
+att.keysigs.log.attribute.key.sig.mixed =
+  
+  ##
+  attribute key.sig.mixed { text }?
+att.keysigs.vis.attributes =
+  att.keysigs.vis.attribute.key.sig.show,
+  att.keysigs.vis.attribute.key.sig.showchange
+att.keysigs.vis.attribute.key.sig.show =
+  
+  ##
+  attribute key.sig.show { "true" | "false" }?
+att.keysigs.vis.attribute.key.sig.showchange =
+  
+  ##
+  attribute key.sig.showchange { "true" | "false" }?
+att.labels.attributes =
+  att.labels.attribute.label.abbr, att.labels.attribute.label.full
+att.labels.attribute.label.abbr =
+  
+  ##
+  attribute label.abbr { text }?
+att.labels.attribute.label.full =
+  
+  ##
+  attribute label.full { text }?
+att.lang.attribute.xmllang =
+  
+  ##
+  attribute xml:lang { xsd:language }?
+att.layerident.attributes = att.layerident.attribute.layer
+att.layerident.attribute.layer =
+  
+  ##
+  attribute layer { xsd:positiveInteger }?
+att.lineloc.attributes = att.lineloc.attribute.line
+att.lineloc.attribute.line =
+  
+  ##
+  attribute line { xsd:positiveInteger }?
+att.linerend.attributes = att.linerend.attribute.rend
+att.linerend.attribute.rend =
+  
+  ##
+  attribute rend {
+    "narrow" | "medium" | "wide" | "dashed" | "dotted" | "wavy"
+  }?
+att.link.common.attribute.actuate =
+  
+  ##
+  attribute actuate {
+    
+    ##
+    "onLoad"
+    | 
+      ##
+      "onRequest"
+    | 
+      ##
+      "other"
+    | 
+      ##
+      "none"
+  }?
+att.link.common.attribute.role =
+  
+  ##
+  attribute role { xsd:anyURI }?
+att.link.common.attribute.show =
+  
+  ##
+  attribute show {
+    
+    ##
+    "new"
+    | 
+      ##
+      "replace"
+    | 
+      ##
+      "other"
+    | 
+      ##
+      "none"
+  }?
+att.link.common.attribute.targettype =
+  
+  ##
+  attribute targettype { xsd:NMTOKEN }?
+att.link.common.attribute.title =
+  
+  ##
+  attribute title { text }?
+att.link.external.attribute.entityref =
+  
+  ##
+  attribute entityref { xsd:ENTITY }?
+att.link.external.attribute.href =
+  
+  ##
+  attribute href { xsd:anyURI }?
+att.lyricstyle.attributes =
+  att.lyricstyle.attribute.lyric.align,
+  att.lyricstyle.attribute.lyric.fam,
+  att.lyricstyle.attribute.lyric.name,
+  att.lyricstyle.attribute.lyric.size,
+  att.lyricstyle.attribute.lyric.style,
+  att.lyricstyle.attribute.lyric.weight
+att.lyricstyle.attribute.lyric.align =
+  
+  ##
+  attribute lyric.align { xsd:decimal }?
+att.lyricstyle.attribute.lyric.fam =
+  
+  ##
+  attribute lyric.fam { xsd:token }?
+att.lyricstyle.attribute.lyric.name =
+  
+  ##
+  attribute lyric.name { xsd:token }?
+att.lyricstyle.attribute.lyric.size =
+  
+  ##
+  attribute lyric.size { xsd:decimal }?
+att.lyricstyle.attribute.lyric.style =
+  
+  ##
+  attribute lyric.style { "ital" | "normal" | "oblique" }?
+att.lyricstyle.attribute.lyric.weight =
+  
+  ##
+  attribute lyric.weight { "bold" }?
+att.measurement.attributes = att.measurement.attribute.unit
+att.measurement.attribute.unit =
+  
+  ##
+  attribute unit { xsd:NMTOKEN }?
+att.width.attributes = att.width.attribute.width
+att.width.attribute.width =
+  
+  ##
+  attribute width { xsd:decimal }?
+att.medium.attribute.medium =
+  
+  ##
+  attribute medium { text }?
+att.meiversion.attribute.meiversion =
+  
+  ##
+  [ a:defaultValue = "2010-05" ]
+  attribute meiversion {
+    
+    ##
+    "2010-05"
+  }?
+att.meterbar.attributes =
+  att.meterbar.attribute.complete, att.meterbar.attribute.control
+att.meterbar.attribute.complete =
+  
+  ##
+  attribute complete {
+    
+    ##
+    "c"
+    | 
+      ##
+      "i"
+    | 
+      ##
+      "o"
+  }?
+att.meterbar.attribute.control =
+  
+  ##
+  attribute control { "true" | "false" }?
+att.meters.log.attributes =
+  att.meters.log.attribute.meter.count,
+  att.meters.log.attribute.meter.unit
+att.meters.log.attribute.meter.count =
+  
+  ##
+  attribute meter.count { xsd:decimal }?
+att.meters.log.attribute.meter.unit =
+  
+  ##
+  attribute meter.unit { xsd:decimal }?
+att.meters.vis.attributes =
+  att.meters.vis.attribute.meter.rend,
+  att.meters.vis.attribute.meter.showchange,
+  att.meters.vis.attribute.meter.sym
+att.meters.vis.attribute.meter.rend =
+  
+  ##
+  attribute meter.rend {
+    
+    ##
+    "denomsym"
+    | 
+      ##
+      "norm"
+    | 
+      ##
+      "invis"
+  }?
+att.meters.vis.attribute.meter.showchange =
+  
+  ##
+  attribute meter.showchange { "true" | "false" }?
+att.meters.vis.attribute.meter.sym =
+  
+  ##
+  attribute meter.sym { "common" | "cut" }?
+att.mmtempo.attributes = att.mmtempo.attribute.mm
+att.mmtempo.attribute.mm =
+  
+  ##
+  attribute mm { xsd:positiveInteger }?
+att.multinummeasures.attributes =
+  att.multinummeasures.attribute.multi.number
+att.multinummeasures.attribute.multi.number =
+  
+  ##
+  attribute multi.number { "true" | "false" }?
+att.name.attribute.dbkey =
+  
+  ##
+  attribute dbkey { xsd:NMTOKEN }?
+att.name.attribute.nymref =
+  
+  ##
+  attribute nymref { xsd:IDREF }?
+att.name.attribute.role =
+  
+  ##
+  attribute role { text }?
+att.octave.attributes = att.octave.attribute.oct
+att.octave.attribute.oct =
+  
+  ##
+  attribute oct {
+    xsd:nonNegativeInteger { maxInclusive = "9" }
+  }?
+att.octavedefault.attributes =
+  att.octavedefault.attribute.octave.default
+att.octavedefault.attribute.octave.default =
+  
+  ##
+  attribute octave.default {
+    xsd:nonNegativeInteger { maxInclusive = "9" }
+  }?
+att.onelinestaff.attributes = att.onelinestaff.attribute.ontheline
+att.onelinestaff.attribute.ontheline =
+  
+  ##
+  attribute ontheline { "true" | "false" }?
+att.octavedisplacement.attributes =
+  att.octavedisplacement.attribute.dis,
+  att.octavedisplacement.attribute.dis.place
+att.octavedisplacement.attribute.dis =
+  
+  ##
+  attribute dis {
+    xsd:positiveInteger { pattern = "8|15|22" }
+  }?
+att.octavedisplacement.attribute.dis.place =
+  
+  ##
+  attribute dis.place { "above" | "below" }?
+att.participantident.attributes = att.participantident.attribute.plist
+att.participantident.attribute.plist =
+  
+  ##
+  attribute plist { xsd:IDREFS }?
+att.pitch.attributes = att.pitch.attribute.pname
+att.pitch.attribute.pname =
+  
+  ##
+  attribute pname {
+    xsd:token { pattern = "[a-g]" }
+  }?
+att.pitched.attributes = att.pitch.attributes, att.octave.attributes
+att.placement.attributes = att.placement.attribute.place
+att.placement.attribute.place =
+  
+  ##
+  attribute place { "above" | "below" | "within" }?
+att.relativesize.attributes = att.relativesize.attribute.size
+att.relativesize.attribute.size =
+  
+  ##
+  attribute size { "normal" | "cue" }?
+att.responsibility.attributes = att.responsibility.attribute.resp
+att.responsibility.attribute.resp =
+  
+  ##
+  attribute resp { xsd:IDREFS }?
+att.scalable.attributes = att.scalable.attribute.scale
+att.scalable.attribute.scale =
+  
+  ##
+  attribute scale {
+    xsd:token { pattern = "[0-9]+(\.?[0-9]*)?%" }
+  }?
+att.sequence.attributes = att.sequence.attribute.seq
+att.sequence.attribute.seq =
+  
+  ##
+  attribute seq { xsd:positiveInteger }?
+att.slashcount.attributes = att.slashcount.attribute.slash
+att.slashcount.attribute.slash =
+  
+  ##
+  attribute slash {
+    xsd:positiveInteger { minInclusive = "1" maxInclusive = "6" }
+  }?
+att.slurpresent.attributes = att.slurpresent.attribute.slur
+att.slurpresent.attribute.slur =
+  
+  ##
+  attribute slur {
+    list {
+      xsd:token { pattern = "[i|m|t][1-6]" }+
+    }
+  }?
+att.staffident.attributes = att.staffident.attribute.staff
+att.staffident.attribute.staff =
+  
+  ##
+  attribute staff { text }
+att.staffloc.attributes = att.staffloc.attribute.loc
+att.staffloc.attribute.loc =
+  
+  ##
+  attribute loc { xsd:nonNegativeInteger }?
+att.startid.attributes = att.startid.attribute.startid
+att.startid.attribute.startid =
+  
+  ##
+  attribute startid { xsd:IDREF }?
+att.startendid.attributes =
+  att.startid.attributes, att.startendid.attribute.endid
+att.startendid.attribute.endid =
+  
+  ##
+  attribute endid { xsd:IDREF }?
+att.stemmed.attributes =
+  att.stemmed.attribute.stem.dir,
+  att.stemmed.attribute.stem.len,
+  att.stemmed.attribute.stem.pos,
+  att.stemmed.attribute.stem.x,
+  att.stemmed.attribute.stem.y
+att.stemmed.attribute.stem.dir =
+  
+  ##
+  attribute stem.dir { "up" | "down" }?
+att.stemmed.attribute.stem.len =
+  
+  ##
+  attribute stem.len { xsd:decimal }?
+att.stemmed.attribute.stem.pos =
+  
+  ##
+  attribute stem.pos { "left" | "right" | "center" }?
+att.stemmed.attribute.stem.x =
+  
+  ##
+  attribute stem.x { xsd:decimal }?
+att.stemmed.attribute.stem.y =
+  
+  ##
+  attribute stem.y { xsd:decimal }?
+att.syltext.attributes = att.syltext.attribute.syl
+att.syltext.attribute.syl =
+  
+  ##
+  attribute syl { text }?
+att.textstyle.attributes =
+  att.textstyle.attribute.text.fam,
+  att.textstyle.attribute.text.name,
+  att.textstyle.attribute.text.size,
+  att.textstyle.attribute.text.style,
+  att.textstyle.attribute.text.weight
+att.textstyle.attribute.text.fam =
+  
+  ##
+  attribute text.fam { xsd:token }?
+att.textstyle.attribute.text.name =
+  
+  ##
+  attribute text.name { xsd:token }?
+att.textstyle.attribute.text.size =
+  
+  ##
+  attribute text.size { xsd:decimal }?
+att.textstyle.attribute.text.style =
+  
+  ##
+  attribute text.style { "ital" | "normal" | "oblique" }?
+att.textstyle.attribute.text.weight =
+  
+  ##
+  attribute text.weight { "bold" }?
+att.tiepresent.attributes = att.tiepresent.attribute.tie
+att.tiepresent.attribute.tie =
+  
+  ##
+  attribute tie {
+    xsd:token { pattern = "[i|m|t]" }
+  }?
+att.timestamp.musical.attributes =
+  att.timestamp.musical.attribute.tstamp
+att.timestamp.musical.attribute.tstamp =
+  
+  ##
+  attribute tstamp {
+    xsd:decimal { minInclusive = "0" }
+  }?
+att.timestamp.performed.attributes =
+  att.timestamp.performed.attribute.tstamp.ges,
+  att.timestamp.performed.attribute.tstamp.real
+att.timestamp.performed.attribute.tstamp.ges =
+  
+  ##
+  attribute tstamp.ges { xsd:nonNegativeInteger }?
+att.timestamp.performed.attribute.tstamp.real =
+  
+  ##
+  attribute tstamp.real { xsd:time }?
+att.transposition.attributes =
+  att.transposition.attribute.trans.diat,
+  att.transposition.attribute.trans.semi
+att.transposition.attribute.trans.diat =
+  
+  ##
+  attribute trans.diat { xsd:decimal }?
+att.transposition.attribute.trans.semi =
+  
+  ##
+  attribute trans.semi { xsd:decimal }?
+att.tupletpresent.attributes = att.tupletpresent.attribute.tuplet
+att.tupletpresent.attribute.tuplet =
+  
+  ##
+  attribute tuplet {
+    list {
+      xsd:token { pattern = "[i|m|t][1-6]" }+
+    }
+  }?
+att.typed.attribute.type =
+  
+  ##
+  attribute type { xsd:NMTOKEN }?
+att.typed.attribute.subtype =
+  
+  ##
+  attribute subtype { xsd:NMTOKEN }?
+att.typography.attributes =
+  att.typography.attribute.fontfam,
+  att.typography.attribute.fontname,
+  att.typography.attribute.fontsize,
+  att.typography.attribute.fontstyle,
+  att.typography.attribute.fontweight
+att.typography.attribute.fontfam =
+  
+  ##
+  attribute fontfam { xsd:token }?
+att.typography.attribute.fontname =
+  
+  ##
+  attribute fontname { xsd:token }?
+att.typography.attribute.fontsize =
+  
+  ##
+  attribute fontsize { xsd:decimal }?
+att.typography.attribute.fontstyle =
+  
+  ##
+  attribute fontstyle { "ital" | "normal" | "oblique" }?
+att.typography.attribute.fontweight =
+  
+  ##
+  attribute fontweight { "bold" }?
+att.visibility.attributes = att.visibility.attribute.visible
+att.visibility.attribute.visible =
+  
+  ##
+  attribute visible { "true" | "false" }?
+att.visualoffset.ho.attributes = att.visualoffset.ho.attribute.ho
+att.visualoffset.ho.attribute.ho =
+  
+  ##
+  attribute ho { xsd:decimal }?
+att.visualoffset.to.attributes = att.visualoffset.to.attribute.to
+att.visualoffset.to.attribute.to =
+  
+  ##
+  attribute to { xsd:decimal }?
+att.visualoffset.vo.attributes = att.visualoffset.vo.attribute.vo
+att.visualoffset.vo.attribute.vo =
+  
+  ##
+  attribute vo { xsd:decimal }?
+att.visualoffset.attributes =
+  att.visualoffset.ho.attributes,
+  att.visualoffset.to.attributes,
+  att.visualoffset.vo.attributes
+att.visualoffset2.ho.attributes =
+  att.visualoffset2.ho.attribute.startho,
+  att.visualoffset2.ho.attribute.endho
+att.visualoffset2.ho.attribute.startho =
+  
+  ##
+  attribute startho { xsd:decimal }?
+att.visualoffset2.ho.attribute.endho =
+  
+  ##
+  attribute endho { xsd:decimal }?
+att.visualoffset2.to.attributes =
+  att.visualoffset2.to.attribute.startto,
+  att.visualoffset2.to.attribute.endto
+att.visualoffset2.to.attribute.startto =
+  
+  ##
+  attribute startto { xsd:decimal }?
+att.visualoffset2.to.attribute.endto =
+  
+  ##
+  attribute endto { xsd:decimal }?
+att.visualoffset2.vo.attributes =
+  att.visualoffset2.vo.attribute.startvo,
+  att.visualoffset2.vo.attribute.endvo
+att.visualoffset2.vo.attribute.startvo =
+  
+  ##
+  attribute startvo { xsd:decimal }?
+att.visualoffset2.vo.attribute.endvo =
+  
+  ##
+  attribute endvo { xsd:decimal }?
+att.visualoffset2.attributes =
+  att.visualoffset2.ho.attributes,
+  att.visualoffset2.to.attributes,
+  att.visualoffset2.vo.attributes
+att.xy.attributes = att.xy.attribute.x, att.xy.attribute.y
+att.xy.attribute.x =
+  
+  ##
+  attribute x { xsd:decimal }?
+att.xy.attribute.y =
+  
+  ##
+  attribute y { xsd:decimal }?
+att.xy2.attributes = att.xy2.attribute.x2, att.xy2.attribute.y2
+att.xy2.attribute.x2 =
+  
+  ##
+  attribute x2 { xsd:decimal }?
+att.xy2.attribute.y2 =
+  
+  ##
+  attribute y2 { xsd:decimal }?
+att.accid.log.attribute.func =
+  
+  ##
+  attribute func {
+    
+    ##
+    "caution"
+    | 
+      ##
+      "edit"
+  }?
+att.accid.vis.attribute.place =
+  
+  ##
+  attribute place {
+    
+    ##
+    "above"
+    | 
+      ##
+      "below"
+    | 
+      ##
+      "staff"
+  }?
+att.barline.log.attribute.rend =
+  
+  ##
+  attribute rend {
+    "dashed"
+    | "dotted"
+    | "dbl"
+    | "dbldashed"
+    | "dbldotted"
+    | "end"
+    | "invis"
+    | "rptstart"
+    | "rptboth"
+    | "rptend"
+    | "single"
+  }?
+att.chord.vis.attribute.cluster =
+  
+  ##
+  attribute cluster { "whbox" | "blbox" }?
+att.custos.log.attribute.target =
+  
+  ##
+  attribute target { xsd:IDREF }?
+att.dot.log.attribute.form =
+  
+  ##
+  attribute form {
+    
+    ##
+    "aug"
+    | 
+      ##
+      "div"
+  }?
+att.measure.log.attribute.left =
+  
+  ##
+  attribute left {
+    "dashed"
+    | "dotted"
+    | "dbl"
+    | "dbldashed"
+    | "dbldotted"
+    | "end"
+    | "invis"
+    | "rptstart"
+    | "rptboth"
+    | "rptend"
+    | "single"
+  }?
+att.measure.log.attribute.right =
+  
+  ##
+  attribute right {
+    "dashed"
+    | "dotted"
+    | "dbl"
+    | "dbldashed"
+    | "dbldotted"
+    | "end"
+    | "invis"
+    | "rptstart"
+    | "rptboth"
+    | "rptend"
+    | "single"
+  }?
+att.note.ges.attribute.oct.ges =
+  
+  ##
+  attribute oct.ges {
+    xsd:nonNegativeInteger { maxInclusive = "9" }
+  }?
+att.note.ges.attribute.pname.ges =
+  
+  ##
+  attribute pname.ges {
+    xsd:token { pattern = "[a-g]|none" }
+  }?
+att.note.ges.attribute.pnum =
+  
+  ##
+  attribute pnum { xsd:nonNegativeInteger }?
+att.note.vis.attribute.headshape =
+  
+  ##
+  attribute headshape {
+    "quarter"
+    | "half"
+    | "whole"
+    | "dblwhole"
+    | "filldiamond"
+    | "diamond"
+    | "dwdiamond"
+    | "fillisotriangle"
+    | "isotriangle"
+    | "dwhisotriangle"
+    | "fillpiewedge"
+    | "piewedge"
+    | "dwhpiewedge"
+    | "fillrectangle"
+    | "rectangle"
+    | "dwhrectangle"
+    | "fillrtriangle"
+    | "rtriangle"
+    | "dwrtriangle"
+    | "fillurtriangle"
+    | "urtriangle"
+    | "dwurtriangle"
+    | "fillsemicircle"
+    | "semicircle"
+    | "dwsemicircle"
+    | "fillslash"
+    | "slash"
+    | "dwslash"
+    | "x"
+    | "blank"
+    | "circlex"
+    | "cross"
+  }?
+att.pad.log.attribute.num =
+  
+  ##
+  attribute num { xsd:decimal }
+att.sb.vis.attribute.rend =
+  
+  ##
+  attribute rend {
+    
+    ##
+    "hash"
+  }?
+att.scoredef.ges.attribute.tune.pname =
+  
+  ##
+  attribute tune.pname {
+    xsd:token { pattern = "[a-g]" }
+  }?
+att.scoredef.ges.attribute.tune.Hz =
+  
+  ##
+  attribute tune.Hz { xsd:decimal }?
+att.scoredef.ges.attribute.tune.temper =
+  
+  ##
+  attribute tune.temper { "equal" | "just" | "mean" | "pythagorean" }?
+att.scoredef.vis.attribute.ending.rend =
+  
+  ##
+  attribute ending.rend {
+    
+    ##
+    "top"
+    | 
+      ##
+      "barred"
+    | 
+      ##
+      "grouped"
+  }?
+att.scoredef.vis.attribute.mnum.visible =
+  
+  ##
+  attribute mnum.visible { "true" | "false" }?
+att.scoredef.vis.attribute.music.name =
+  
+  ##
+  attribute music.name { xsd:token }?
+att.scoredef.vis.attribute.music.size =
+  
+  ##
+  attribute music.size { xsd:decimal }?
+att.scoredef.vis.attribute.optimize =
+  
+  ##
+  attribute optimize { "true" | "false" }?
+att.scoredef.vis.attribute.page.height =
+  
+  ##
+  attribute page.height { xsd:decimal }?
+att.scoredef.vis.attribute.page.width =
+  
+  ##
+  attribute page.width { xsd:decimal }?
+att.scoredef.vis.attribute.page.units =
+  
+  ##
+  attribute page.units { "in" | "cm" | "mm" }?
+att.scoredef.vis.attribute.page.topmar =
+  
+  ##
+  attribute page.topmar { xsd:decimal }?
+att.scoredef.vis.attribute.page.botmar =
+  
+  ##
+  attribute page.botmar { xsd:decimal }?
+att.scoredef.vis.attribute.page.leftmar =
+  
+  ##
+  attribute page.leftmar { xsd:decimal }?
+att.scoredef.vis.attribute.page.rightmar =
+  
+  ##
+  attribute page.rightmar { xsd:decimal }?
+att.scoredef.vis.attribute.page.panels =
+  
+  ##
+  attribute page.panels {
+    xsd:positiveInteger { minInclusive = "1" maxInclusive = "2" }
+  }?
+att.scoredef.vis.attribute.page.scale =
+  
+  ##
+  attribute page.scale {
+    xsd:token { pattern = "[0-9]+(\.?[0-9]*)?%" }
+    | xsd:token { pattern = "[0-9]+(\.?[0-9]*)?:[0-9]+(\.?[0-9]*)?" }
+  }?
+att.scoredef.vis.attribute.spacing.packexp =
+  
+  ##
+  attribute spacing.packexp { xsd:decimal }?
+att.scoredef.vis.attribute.spacing.packfact =
+  
+  ##
+  attribute spacing.packfact { xsd:decimal }?
+att.scoredef.vis.attribute.spacing.staff =
+  
+  ##
+  attribute spacing.staff { xsd:decimal }?
+att.scoredef.vis.attribute.spacing.system =
+  
+  ##
+  attribute spacing.system { text }?
+att.scoredef.vis.attribute.system.leftmar =
+  
+  ##
+  attribute system.leftmar { xsd:decimal }?
+att.scoredef.vis.attribute.system.rightmar =
+  
+  ##
+  attribute system.rightmar { xsd:decimal }?
+att.scoredef.vis.attribute.system.topmar =
+  
+  ##
+  attribute system.topmar { xsd:decimal }?
+att.section.vis.attribute.restart =
+  
+  ##
+  attribute restart { "true" | "false" }?
+att.space.vis.attribute.compressable =
+  
+  ##
+  attribute compressable { "true" | "false" }?
+att.staffdef.vis.attribute.grid.show =
+  
+  ##
+  attribute grid.show { "true" | "false" }?
+att.staffdef.vis.attribute.layerscheme =
+  
+  ##
+  attribute layerscheme { "1" | "2o" | "2f" | "3o" | "3f" }?
+att.staffdef.vis.attribute.lines =
+  
+  ##
+  attribute lines { xsd:positiveInteger }?
+att.staffdef.vis.attribute.lines.color =
+  
+  ##
+  attribute lines.color { text }?
+att.staffdef.vis.attribute.lines.visible =
+  
+  ##
+  attribute lines.visible { "true" | "false" }?
+att.staffdef.vis.attribute.spacing =
+  
+  ##
+  attribute spacing { xsd:decimal }?
+att.staffgrp.vis.attribute.barthru =
+  
+  ##
+  attribute barthru { "true" | "false" }?
+att.syl.log.attribute.con =
+  
+  ##
+  attribute con {
+    
+    ##
+    "s"
+    | 
+      ##
+      "d"
+    | 
+      ##
+      "u"
+    | 
+      ##
+      "t"
+  }?
+att.syl.log.attribute.wordpos =
+  
+  ##
+  attribute wordpos {
+    
+    ##
+    "i"
+    | 
+      ##
+      "m"
+    | 
+      ##
+      "t"
+  }?
+att.regularmethod.attribute.method =
+  
+  ##
+  attribute method {
+    
+    ##
+    "silent"
+    | 
+      ##
+      "tags"
+  }?
+att.beamed.attributes = att.beamed.attribute.beam
+att.beamed.attribute.beam =
+  
+  ##
+  attribute beam {
+    list {
+      xsd:token { pattern = "[i|m|t][1-6]" }+
+    }
+  }?
+att.beamedwith.attributes = att.beamedwith.attribute.beam.with
+att.beamedwith.attribute.beam.with =
+  
+  ##
+  attribute beam.with { "above" | "below" }?
+att.beaming.log.attributes =
+  att.beaming.log.attribute.beam.group,
+  att.beaming.log.attribute.beam.rests
+att.beaming.log.attribute.beam.group =
+  
+  ##
+  attribute beam.group { text }?
+att.beaming.log.attribute.beam.rests =
+  
+  ##
+  attribute beam.rests { "true" | "false" }?
+att.beamrend.attributes =
+  att.beamrend.attribute.rend, att.beamrend.attribute.slope
+att.beamrend.attribute.rend =
+  
+  ##
+  attribute rend {
+    
+    ##
+    "acc"
+    | 
+      ##
+      "rit"
+    | 
+      ##
+      "norm"
+  }?
+att.beamrend.attribute.slope =
+  
+  ##
+  attribute slope { xsd:decimal }?
+att.beamsecondary.attributes = att.beamsecondary.attribute.breaksec
+att.beamsecondary.attribute.breaksec =
+  
+  ##
+  attribute breaksec { xsd:positiveInteger }?
+att.cutout.attributes = att.cutout.attribute.cutout
+att.cutout.attribute.cutout =
+  
+  ##
+  [ a:defaultValue = "cutout" ]
+  attribute cutout {
+    
+    ##
+    "cutout"
+  }?
+att.expandable.attributes = att.expandable.attribute.expand
+att.expandable.attribute.expand =
+  
+  ##
+  attribute expand { "true" | "false" }?
+att.graced.attributes =
+  att.graced.attribute.grace, att.graced.attribute.grace.time
+att.graced.attribute.grace =
+  
+  ##
+  attribute grace { "acc" | "unacc" | "unknown" }?
+att.graced.attribute.grace.time =
+  
+  ##
+  attribute grace.time {
+    xsd:token { pattern = "[0-9]+(\.?[0-9]*)?%" }
+  }?
+att.lvpresent.attributes = att.lvpresent.attribute.lv
+att.lvpresent.attribute.lv =
+  
+  ##
+  attribute lv { "true" | "false" }?
+att.numbered.attributes = att.numbered.attribute.num
+att.numbered.attribute.num =
+  
+  ##
+  attribute num { xsd:positiveInteger }?
+att.numberplacement.attributes =
+  att.numberplacement.attribute.num.place,
+  att.numberplacement.attribute.num.visible
+att.numberplacement.attribute.num.place =
+  
+  ##
+  attribute num.place { "above" | "below" }?
+att.numberplacement.attribute.num.visible =
+  
+  ##
+  attribute num.visible { "true" | "false" }?
+att.slurrend.attributes = att.slurrend.attribute.slur.rend
+att.slurrend.attribute.slur.rend =
+  
+  ##
+  attribute slur.rend { "medium" | "wide" | "dashed" | "dotted" }?
+att.stemmed.cmn.attribute.stem.mod =
+  
+  ##
+  attribute stem.mod {
+    "1slash"
+    | "2slash"
+    | "3slash"
+    | "4slash"
+    | "5slash"
+    | "6slash"
+    | "sprech"
+    | "z"
+  }?
+att.stemmed.cmn.attribute.stem.with =
+  
+  ##
+  attribute stem.with { "above" | "below" }?
+att.tierend.attributes = att.tierend.attribute.tie.rend
+att.tierend.attribute.tie.rend =
+  
+  ##
+  attribute tie.rend { "medium" | "wide" | "dashed" | "dotted" }?
+att.arpeg.log.attribute.order =
+  
+  ##
+  attribute order {
+    
+    ##
+    "up"
+    | 
+      ##
+      "down"
+    | 
+      ##
+      "nonarp"
+  }?
+att.arpeg.vis.attribute.arrow =
+  
+  ##
+  attribute arrow { "true" | "false" }?
+att.beatrpt.vis.attribute.rend =
+  
+  ##
+  attribute rend {
+    xsd:positiveInteger { pattern = "4|8|16|32|64|128" }
+    | xsd:token { pattern = "mixed" }
+  }
+att.bend.ges.attribute.amount =
+  
+  ##
+  attribute amount {
+    xsd:decimal { pattern = "1|\.25|\.5|\.75" }
+    | xsd:token { pattern = "full" }
+  }?
+att.btrem.log.attribute.form =
+  
+  ##
+  attribute form {
+    
+    ##
+    "meas"
+    | 
+      ##
+      "unmeas"
+  }?
+att.fermata.vis.attribute.form =
+  
+  ##
+  attribute form {
+    
+    ##
+    "inv"
+    | 
+      ##
+      "norm"
+  }?
+att.ftrem.ges.attribute.form =
+  
+  ##
+  attribute form {
+    
+    ##
+    "meas"
+    | 
+      ##
+      "unmeas"
+  }?
+att.gliss.vis.attribute.text =
+  
+  ##
+  attribute text { text }?
+att.hairpin.log.attribute.form =
+  
+  ##
+  attribute form {
+    
+    ##
+    "cres"
+    | 
+      ##
+      "dim"
+  }
+att.hairpin.vis.attribute.opening =
+  
+  ##
+  attribute opening { xsd:decimal }?
+att.harppedal.log.attribute.c =
+  
+  ##
+  [ a:defaultValue = "n" ]
+  attribute c {
+    
+    ##
+    "f"
+    | 
+      ##
+      "n"
+    | 
+      ##
+      "s"
+  }?
+att.harppedal.log.attribute.d =
+  
+  ##
+  [ a:defaultValue = "n" ]
+  attribute d {
+    
+    ##
+    "f"
+    | 
+      ##
+      "n"
+    | 
+      ##
+      "s"
+  }?
+att.harppedal.log.attribute.e =
+  
+  ##
+  [ a:defaultValue = "n" ]
+  attribute e {
+    
+    ##
+    "f"
+    | 
+      ##
+      "n"
+    | 
+      ##
+      "s"
+  }?
+att.harppedal.log.attribute.f =
+  
+  ##
+  [ a:defaultValue = "n" ]
+  attribute f {
+    
+    ##
+    "f"
+    | 
+      ##
+      "n"
+    | 
+      ##
+      "s"
+  }?
+att.harppedal.log.attribute.g =
+  
+  ##
+  [ a:defaultValue = "n" ]
+  attribute g {
+    
+    ##
+    "f"
+    | 
+      ##
+      "n"
+    | 
+      ##
+      "s"
+  }?
+att.harppedal.log.attribute.a =
+  
+  ##
+  [ a:defaultValue = "n" ]
+  attribute a {
+    
+    ##
+    "f"
+    | 
+      ##
+      "n"
+    | 
+      ##
+      "s"
+  }?
+att.harppedal.log.attribute.b =
+  
+  ##
+  [ a:defaultValue = "n" ]
+  attribute b {
+    
+    ##
+    "f"
+    | 
+      ##
+      "n"
+    | 
+      ##
+      "s"
+  }?
+att.multirest.vis.attribute.block =
+  
+  ##
+  attribute block { "true" | "false" }?
+att.note.ges.attribute.gliss =
+  
+  ##
+  attribute gliss { "i" | "m" | "t" }?
+att.octave.log.attribute.coll =
+  
+  ##
+  attribute coll {
+    
+    ##
+    "coll"
+  }?
+att.pedal.log.attribute.dir =
+  
+  ##
+  attribute dir {
+    
+    ##
+    "down"
+    | 
+      ##
+      "up"
+    | 
+      ##
+      "half"
+    | 
+      ##
+      "bounce"
+  }
+att.pedal.vis.attribute.style =
+  
+  ##
+  attribute style {
+    
+    ##
+    "line"
+    | 
+      ##
+      "pedstar"
+    | 
+      ##
+      "altpedstar"
+  }?
+att.pianopedals.attributes = att.pianopedals.attribute.pedal.style
+att.pianopedals.attribute.pedal.style =
+  
+  ##
+  attribute pedal.style {
+    
+    ##
+    "line"
+    | 
+      ##
+      "pedstar"
+    | 
+      ##
+      "altpedstar"
+  }?
+att.rehearsal.attributes = att.rehearsal.attribute.reh.enclose
+att.rehearsal.attribute.reh.enclose =
+  
+  ##
+  attribute reh.enclose {
+    
+    ##
+    "box"
+    | 
+      ##
+      "circle"
+    | 
+      ##
+      "none"
+  }?
+att.scoredef.vis.attribute.grid.show =
+  
+  ##
+  attribute grid.show { "true" | "false" }?
+att.tuplet.anl.attributes = att.common.anl.attributes
+att.tuplet.ges.attributes = att.duration.performed.attributes
+att.tuplet.log.attributes =
+  att.event.attributes,
+  att.beamedwith.attributes,
+  att.augmentdots.attributes,
+  att.duration.ratio.attributes,
+  att.startendid.attributes,
+  att.tuplet.log.attribute.dur
+att.tuplet.log.attribute.dur =
+  
+  ##
+  attribute dur { text }?
+att.tuplet.vis.attributes =
+  att.numberplacement.attributes,
+  att.tuplet.vis.attribute.bracket.place,
+  att.tuplet.vis.attribute.bracket.visible,
+  att.tuplet.vis.attribute.dur.visible,
+  att.tuplet.vis.attribute.num.format
+att.tuplet.vis.attribute.bracket.place =
+  
+  ##
+  attribute bracket.place { "above" | "below" }?
+att.tuplet.vis.attribute.bracket.visible =
+  
+  ##
+  attribute bracket.visible { "true" | "false" }?
+att.tuplet.vis.attribute.dur.visible =
+  
+  ##
+  attribute dur.visible { "true" | "false" }?
+att.tuplet.vis.attribute.num.format =
+  
+  ##
+  attribute num.format {
+    
+    ##
+    "count"
+    | 
+      ##
+      "ratio"
+  }?
+att.ligature.log.attribute.form =
+  
+  ##
+  attribute form { "recta" | "obliqua" }?
+att.mensur.log.attributes =
+  att.duration.ratio.attributes,
+  att.mensur.log.attribute.modusmaior,
+  att.mensur.log.attribute.modusminor,
+  att.mensur.log.attribute.prolatio,
+  att.mensur.log.attribute.tempus
+att.mensur.log.attribute.modusmaior =
+  
+  ##
+  attribute modusmaior {
+    xsd:positiveInteger { minInclusive = "2" maxInclusive = "3" }
+  }?
+att.mensur.log.attribute.modusminor =
+  
+  ##
+  attribute modusminor {
+    xsd:positiveInteger { minInclusive = "2" maxInclusive = "3" }
+  }?
+att.mensur.log.attribute.prolatio =
+  
+  ##
+  attribute prolatio {
+    xsd:positiveInteger { minInclusive = "2" maxInclusive = "3" }
+  }?
+att.mensur.log.attribute.tempus =
+  
+  ##
+  attribute tempus {
+    xsd:positiveInteger { minInclusive = "2" maxInclusive = "3" }
+  }?
+att.mensur.vis.attribute.dot =
+  
+  ##
+  attribute dot { "true" | "false" }?
+att.mensur.vis.attribute.form =
+  
+  ##
+  attribute form {
+    
+    ##
+    "horizontal"
+    | 
+      ##
+      "vertical"
+  }?
+att.mensur.vis.attribute.orient =
+  
+  ##
+  attribute orient {
+    xsd:token { pattern = "reversed|90CW|90CCW" }
+  }?
+att.mensur.vis.attribute.sign =
+  
+  ##
+  attribute sign { "C" | "O" }?
+att.mensuration.log.attributes =
+  att.mensur.log.attributes,
+  att.mensuration.log.attribute.mensur.dot,
+  att.mensuration.log.attribute.mensur.orient,
+  att.mensuration.log.attribute.mensur.sign,
+  att.mensuration.log.attribute.mensur.slash
+att.mensuration.log.attribute.mensur.dot =
+  
+  ##
+  attribute mensur.dot { "true" | "false" }?
+att.mensuration.log.attribute.mensur.orient =
+  
+  ##
+  attribute mensur.orient {
+    xsd:token { pattern = "reversed|90CW|90CCW" }
+  }?
+att.mensuration.log.attribute.mensur.sign =
+  
+  ##
+  attribute mensur.sign { "C" | "O" }?
+att.mensuration.log.attribute.mensur.slash =
+  
+  ##
+  attribute mensur.slash { xsd:positiveInteger }?
+att.mensuration.vis.attributes =
+  att.mensuration.vis.attribute.mensur.form,
+  att.mensuration.vis.attribute.mensur.loc,
+  att.mensuration.vis.attribute.mensur.size
+att.mensuration.vis.attribute.mensur.form =
+  
+  ##
+  attribute mensur.form {
+    
+    ##
+    "horizontal"
+    | 
+      ##
+      "vertical"
+  }?
+att.mensuration.vis.attribute.mensur.loc =
+  
+  ##
+  attribute mensur.loc { xsd:positiveInteger }?
+att.mensuration.vis.attribute.mensur.size =
+  
+  ##
+  attribute mensur.size { "normal" | "cue" }?
+att.note.log.attribute.lig =
+  
+  ##
+  attribute lig {
+    
+    ##
+    "recta"
+    | 
+      ##
+      "obliqua"
+  }?
+att.rest.vis.attribute.spaces =
+  
+  ##
+  attribute spaces { xsd:positiveInteger }?
+att.staffdef.log.attribute.proport.num =
+  
+  ##
+  attribute proport.num { xsd:positiveInteger }?
+att.staffdef.log.attribute.proport.numbase =
+  
+  ##
+  attribute proport.numbase { xsd:positiveInteger }?
+att.ineume.log.attribute.form =
+  
+  ##
+  attribute form {
+    "liquescent1"
+    | "liquescent2"
+    | "tied"
+    | "tiedliquescent1"
+    | "tiedliquescent2"
+  }?
+att.ineume.log.attribute.name =
+  
+  ##
+  attribute name {
+    "pessubpunctis"
+    | "climacus"
+    | "scandicus"
+    | "bistropha"
+    | "tristropha"
+    | "pressusminor"
+    | "pressusmaior"
+  }?
+att.uneume.log.attribute.form =
+  
+  ##
+  attribute form {
+    "liquescent1"
+    | "liquescent2"
+    | "liquescent3"
+    | "quilismatic"
+    | "rectangular"
+    | "rhombic"
+    | "tied"
+  }?
+att.uneume.log.attribute.name =
+  
+  ##
+  attribute name {
+    "punctum"
+    | "virga"
+    | "pes"
+    | "clivis"
+    | "torculus"
+    | "torculusresupinus"
+    | "porrectus"
+    | "porrectusflexus"
+    | "apostropha"
+    | "oriscus"
+    | "pressusmaior"
+    | "pressusminor"
+    | "virgastrata"
+  }?
+att.common.anl.attributes =
+  att.alignment.attributes,
+  att.common.anl.attribute.copyof,
+  att.common.anl.attribute.corresp,
+  att.common.anl.attribute.next,
+  att.common.anl.attribute.prev,
+  att.common.anl.attribute.sameas,
+  att.common.anl.attribute.synch
+att.common.anl.attribute.copyof =
+  
+  ##
+  attribute copyof { xsd:IDREF }?
+att.common.anl.attribute.corresp =
+  
+  ##
+  attribute corresp { xsd:IDREFS }?
+att.common.anl.attribute.next =
+  
+  ##
+  attribute next { xsd:IDREFS }?
+att.common.anl.attribute.prev =
+  
+  ##
+  attribute prev { xsd:IDREFS }?
+att.common.anl.attribute.sameas =
+  
+  ##
+  attribute sameas { xsd:IDREFS }?
+att.common.anl.attribute.synch =
+  
+  ##
+  attribute synch { xsd:IDREFS }?
+att.harmonicfunction.attributes = att.harmonicfunction.attribute.hfunc
+att.harmonicfunction.attribute.hfunc =
+  
+  ##
+  attribute hfunc { xsd:NMTOKEN }?
+att.intervalharmonic.attributes = att.intervalharmonic.attribute.inth
+att.intervalharmonic.attribute.inth =
+  
+  ##
+  attribute inth { xsd:NMTOKENS }?
+att.intervallicdesc.attributes =
+  att.intervalharmonic.attributes, att.intervallicdesc.attribute.intm
+att.intervallicdesc.attribute.intm =
+  
+  ##
+  attribute intm { xsd:NMTOKEN }?
+att.melodicfunction.attributes = att.melodicfunction.attribute.mfunc
+att.melodicfunction.attribute.mfunc =
+  
+  ##
+  attribute mfunc { xsd:NMTOKEN }?
+att.pitchclass.attributes = att.pitchclass.attribute.pclass
+att.pitchclass.attribute.pclass =
+  
+  ##
+  attribute pclass {
+    xsd:nonNegativeInteger { maxInclusive = "11" }
+  }?
+att.solfa.attributes = att.solfa.attribute.psolfa
+att.solfa.attribute.psolfa =
+  
+  ##
+  attribute psolfa { text }?
+att.ornamentaccid.attributes =
+  att.ornamentaccid.attribute.accidupper,
+  att.ornamentaccid.attribute.accidlower
+att.ornamentaccid.attribute.accidupper =
+  
+  ##
+  attribute accidupper {
+    "s"
+    | "f"
+    | "ss"
+    | "x"
+    | "ff"
+    | "xs"
+    | "tb"
+    | "n"
+    | "nf"
+    | "ns"
+    | "su"
+    | "sd"
+    | "fu"
+    | "fd"
+    | "nu"
+    | "nd"
+  }?
+att.ornamentaccid.attribute.accidlower =
+  
+  ##
+  attribute accidlower {
+    "s"
+    | "f"
+    | "ss"
+    | "x"
+    | "ff"
+    | "xs"
+    | "tb"
+    | "n"
+    | "nf"
+    | "ns"
+    | "su"
+    | "sd"
+    | "fu"
+    | "fd"
+    | "nu"
+    | "nd"
+  }?
+att.mordent.log.attribute.form =
+  
+  ##
+  attribute form {
+    
+    ##
+    "inv"
+    | 
+      ##
+      "norm"
+  }?
+att.mordent.log.attribute.long =
+  
+  ##
+  attribute long { "true" | "false" }?
+att.turn.log.attribute.delayed =
+  
+  ##
+  attribute delayed { "true" | "false" }?
+att.turn.log.attribute.form =
+  
+  ##
+  attribute form {
+    
+    ##
+    "inv"
+    | 
+      ##
+      "norm"
+  }?
+att.crit.attribute.cause =
+  
+  ##
+  attribute cause { xsd:NMTOKEN }?
+att.source.attributes = att.source.attribute.source
+att.source.attribute.source =
+  
+  ##
+  attribute source { xsd:IDREFS }?
+att.edit.attribute.cert =
+  
+  ##
+  attribute cert { "high" | "medium" | "low" | "unknown" }?
+att.edit.attribute.evidence =
+  
+  ##
+  attribute evidence { xsd:NMTOKEN }?
+att.agentident.attribute.agent =
+  
+  ##
+  attribute agent { text }?
+att.extent.attribute.extent =
+  
+  ##
+  attribute extent { text }?
+att.reasonident.attribute.reason =
+  
+  ##
+  attribute reason { text }?
+att.facsimile.attribute.facs =
+  
+  ##
+  attribute facs { xsd:IDREFS }?
+att.tabular.attribute.colspan =
+  
+  ##
+  attribute colspan { xsd:positiveInteger }?
+att.tabular.attribute.rowspan =
+  
+  ##
+  attribute rowspan { xsd:positiveInteger }?
+att.fretlocation.attribute.fret =
+  
+  ##
+  attribute fret {
+    xsd:positiveInteger { minInclusive = "1" maxInclusive = "5" }
+  }?
+att.harm.log.attribute.chordref =
+  
+  ##
+  attribute chordref { xsd:IDREF }?
+att.harm.vis.attribute.extender =
+  
+  ##
+  attribute extender { "true" | "false" }?
+att.harm.vis.attribute.rendgrid =
+  
+  ##
+  attribute rendgrid {
+    
+    ##
+    "grid"
+    | 
+      ##
+      "gridname"
+  }?
+att.alignment.attributes = att.alignment.attribute.when
+att.alignment.attribute.when =
+  
+  ##
+  attribute when { xsd:IDREF }?
+att.verse.log.attribute.refrain =
+  
+  ##
+  attribute refrain { "true" | "false" }?
+att.verse.log.attribute.rhythm =
+  
+  ##
+  attribute rhythm { text }?
+att.channelized.attributes =
+  att.channelized.attribute.midi.channel,
+  att.channelized.attribute.midi.duty,
+  att.channelized.attribute.midi.port,
+  att.channelized.attribute.midi.track
+att.channelized.attribute.midi.channel =
+  
+  ##
+  attribute midi.channel {
+    xsd:positiveInteger { maxInclusive = "16" }
+  }?
+att.channelized.attribute.midi.duty =
+  
+  ##
+  attribute midi.duty {
+    xsd:token { pattern = "[0-9]+(\.?[0-9]*)?%" }
+  }?
+att.channelized.attribute.midi.port =
+  
+  ##
+  attribute midi.port {
+    xsd:nonNegativeInteger { maxInclusive = "127" }
+  }?
+att.channelized.attribute.midi.track =
+  
+  ##
+  attribute midi.track { xsd:positiveInteger }?
+att.midiinstrument.attribute.midi.instrnum =
+  
+  ##
+  attribute midi.instrnum {
+    xsd:nonNegativeInteger { maxInclusive = "127" }
+  }?
+att.midiinstrument.attribute.midi.instrname =
+  
+  ##
+  attribute midi.instrname {
+    "Acoustic_Grand_Piano"
+    | "Bright_Acoustic_Piano"
+    | "Electric_Grand_Piano"
+    | "Honky-tonk_Piano"
+    | "Electric_Piano_1"
+    | "Electric_Piano_2"
+    | "Harpsichord"
+    | "Clavi"
+    | "Celesta"
+    | "Glockenspiel"
+    | "Music_Box"
+    | "Vibraphone"
+    | "Marimba"
+    | "Xylophone"
+    | "Tubular_Bells"
+    | "Dulcimer"
+    | "Drawbar_Organ"
+    | "Percussive_Organ"
+    | "Rock_Organ"
+    | "Church_Organ"
+    | "Reed_Organ"
+    | "Accordion"
+    | "Harmonica"
+    | "Tango_Accordion"
+    | "Acoustic_Guitar_nylon"
+    | "Acoustic_Guitar_steel"
+    | "Electric_Guitar_jazz"
+    | "Electric_Guitar_clean"
+    | "Electric_Guitar_muted"
+    | "Overdriven_Guitar"
+    | "Distortion_Guitar"
+    | "Guitar_harmonics"
+    | "Acoustic_Bass"
+    | "Electric_Bass_finger"
+    | "Electric_Bass_pick"
+    | "Fretless_Bass"
+    | "Slap_Bass_1"
+    | "Slap_Bass_2"
+    | "Synth_Bass_1"
+    | "Synth_Bass_2"
+    | "Violin"
+    | "Viola"
+    | "Cello"
+    | "Contrabass"
+    | "Tremolo_Strings"
+    | "Pizzicato_Strings"
+    | "Orchestral_Harp"
+    | "Timpani"
+    | "String_Ensemble_1"
+    | "String_Ensemble_2"
+    | "SynthStrings_1"
+    | "SynthStrings_2"
+    | "Choir_Aahs"
+    | "Voice_Oohs"
+    | "Synth_Voice"
+    | "Orchestra_Hit"
+    | "Trumpet"
+    | "Trombone"
+    | "Tuba"
+    | "Muted_Trumpet"
+    | "French_Horn"
+    | "Brass_Section"
+    | "SynthBrass_1"
+    | "SynthBrass_2"
+    | "Soprano_Sax"
+    | "Alto_Sax"
+    | "Tenor_Sax"
+    | "Baritone_Sax"
+    | "Oboe"
+    | "English_Horn"
+    | "Bassoon"
+    | "Clarinet"
+    | "Piccolo"
+    | "Flute"
+    | "Recorder"
+    | "Pan_Flute"
+    | "Blown_Bottle"
+    | "Shakuhachi"
+    | "Whistle"
+    | "Ocarina"
+    | "Lead_1_square"
+    | "Lead_2_sawtooth"
+    | "Lead_3_calliope"
+    | "Lead_4_chiff"
+    | "Lead_5_charang"
+    | "Lead_6_voice"
+    | "Lead_7_fifths"
+    | "Lead_8_bass_and_lead"
+    | "Pad_1_new_age"
+    | "Pad_2_warm"
+    | "Pad_3_polysynth"
+    | "Pad_4_choir"
+    | "Pad_5_bowed"
+    | "Pad_6_metallic"
+    | "Pad_7_halo"
+    | "Pad_8_sweep"
+    | "FX_1_rain"
+    | "FX_2_soundtrack"
+    | "FX_3_crystal"
+    | "FX_4_atmosphere"
+    | "FX_5_brightness"
+    | "FX_6_goblins"
+    | "FX_7_echoes"
+    | "FX_8_sci-fi"
+    | "Sitar"
+    | "Banjo"
+    | "Shamisen"
+    | "Koto"
+    | "Kalimba"
+    | "Bagpipe"
+    | "Fiddle"
+    | "Shanai"
+    | "Tinkle_Bell"
+    | "Agogo"
+    | "Steel_Drums"
+    | "Woodblock"
+    | "Taiko_Drum"
+    | "Melodic_Tom"
+    | "Synth_Drum"
+    | "Reverse_Cymbal"
+    | "Guitar_Fret_Noise"
+    | "Breath_Noise"
+    | "Seashore"
+    | "Bird_Tweet"
+    | "Telephone_Ring"
+    | "Helicopter"
+    | "Applause"
+    | "Gunshot"
+  }?
+att.midinumber.attribute.num =
+  
+  ##
+  attribute num {
+    xsd:nonNegativeInteger { maxInclusive = "127" }
+  }
+att.miditempo.attributes = att.miditempo.attribute.midi.tempo
+att.miditempo.attribute.midi.tempo =
+  
+  ##
+  attribute midi.tempo {
+    xsd:positiveInteger { minInclusive = "10" maxInclusive = "1000" }
+  }?
+att.midivalue.attributes = att.midivalue.attribute.val
+att.midivalue.attribute.val =
+  
+  ##
+  attribute val {
+    xsd:nonNegativeInteger { maxInclusive = "127" }
+  }?
+att.timebase.attributes = att.timebase.attribute.ppq
+att.timebase.attribute.ppq =
+  
+  ##
+  attribute ppq { xsd:positiveInteger }?
+att.staffdef.ges.attribute.tab.strings =
+  
+  ##
+  attribute tab.strings { text }?
+att.note.ges.attribute.tab.fret =
+  
+  ##
+  attribute tab.fret {
+    xsd:nonNegativeInteger { minInclusive = "1" maxInclusive = "9" }
+    | xsd:token { pattern = "o" }
+  }?
+att.note.ges.attribute.tab.string =
+  
+  ##
+  attribute tab.string { xsd:positiveInteger }?
+mei_model.annotLike.shared = notAllowed
+mei_model.biblLike.shared = notAllowed
+mei_model.biblPart.shared = notAllowed
+mei_model.captionLike.shared = notAllowed
+mei_model.controleventLike.shared = notAllowed
+mei_model.dateLike.shared = notAllowed
+mei_model.editionLike.shared = notAllowed
+mei_model.eventLike.shared = notAllowed
+mei_model.identifierLike.shared = notAllowed
+mei_model.instrdefLike.shared = notAllowed
+mei_model.keyaccidLike.shared = notAllowed
+mei_model.keysigLike.shared = notAllowed
+mei_model.labelLike.shared = notAllowed
+mei_model.layerdefLike.shared = notAllowed
+mei_model.layerLike.shared = notAllowed
+mei_model.lbLike.shared = notAllowed
+mei_model.layerPart.shared = notAllowed
+mei_model.mdivLike.shared = notAllowed
+mei_model.metaLike.score.shared_sequenceOptional = empty
+mei_model.milestoneLike.music.shared = notAllowed
+mei_model.milestoneLike.text.shared = notAllowed
+mei_model.nameLike.shared = notAllowed
+mei_model.noteModifierLike.shared = notAllowed
+mei_model.paracontentPart.shared = notAllowed
+mei_model.pLike.shared = notAllowed
+mei_model.partLike.shared = notAllowed
+mei_model.partsLike.shared = notAllowed
+mei_model.rendLike.shared = notAllowed
+mei_model.scoredefLike.shared = notAllowed
+mei_model.scoreLike.shared = notAllowed
+mei_model.scorePart.shared = notAllowed
+mei_model.sectionLike.shared = notAllowed
+mei_model.sectionPart.shared = notAllowed
+mei_model.staffdefLike.shared = notAllowed
+mei_model.staffdefPart.shared = notAllowed
+mei_model.staffgrpLike.shared = notAllowed
+mei_model.staffLike.shared = notAllowed
+mei_model.staffPart.shared = notAllowed
+mei_model.textcomponentLike.shared = notAllowed
+mei_model.textphraseLike.shared = notAllowed
+mei_model.textphraseLike.limited.shared = notAllowed
+mei_model.titleLike.shared = notAllowed
+mei_model.editorialdeclPart.header = notAllowed
+mei_model.encodingPart.header_sequenceOptional = empty
+mei_model.frontPart.header = notAllowed
+mei_model.headerPart.header_sequenceOptional = empty
+mei_model.physdescPart.header = notAllowed
+mei_model.pubstmtPart.header = notAllowed
+mei_model.eventLike.measureFilling.cmn = notAllowed
+mei_model.measureLike.cmn = notAllowed
+mei_model.measurePart.cmn = notAllowed
+mei_model.eventLike.neumes.neumes = notAllowed
+mei_model.syllablePart.neumes = notAllowed
+mei_model.appLike.critapp = notAllowed
+mei_model.rdgPart.critapp = notAllowed
+mei_model.choicePart.edittrans = notAllowed
+mei_model.editLike.edittrans = notAllowed
+mei_model.transcriptionLike.edittrans = notAllowed
+mei_model.facsimileLike.facsimile = notAllowed
+mei_model.graphicLike.figtable = notAllowed
+mei_model.figdescLike.figtable = notAllowed
+mei_model.tableLike.figtable = notAllowed
+mei_model.chordtableLike.harmony = notAllowed
+mei_model.alignLike.linkalign = notAllowed
+mei_model.lyricsLike.lyrics = notAllowed
+mei_model.sylLike.lyrics = notAllowed
+mei_model.verseLike.lyrics = notAllowed
+mei_model.midiLike.midi = notAllowed
+mei_model.nameLike.agent.namesdates = notAllowed
+mei_model.locrefLike.ptrref = notAllowed
+mei_model.ptrLike.ptrref = notAllowed
+mei_model.backLike.text = notAllowed
+mei_model.divLike.text = notAllowed
+mei_model.frontLike.text = notAllowed
+mei_model.headLike.text = notAllowed
+mei_model.lLike.text = notAllowed
+mei_model.listLike.text = notAllowed
+mei_model.graphicprimitiveLike.usersymbols = notAllowed
+mei_model.symboltableLike.usersymbols = notAllowed
+mei_addressline =
+  
+  ##
+  element addressline {
+    (text
+     | mei_model.textphraseLike.shared
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans)*,
+    empty
+  }
+mei_artic =
+  
+  ##
+  element artic { empty, empty }
+mei_body =
+  
+  ##
+  element body { mei_model.mdivLike.shared+, empty }
+mei_chord =
+  
+  ##
+  element chord {
+    ((mei_note | mei_artic)*)
+    >> sch:pattern [
+         id = "chord-constraint-Check_instr"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = ""
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "every $i in tokenize(@instr, '\s+') satisfies           $i=preceding::mei:instrdef[@xml:id]/@xml:id"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    empty
+  }
+mei_custos =
+  
+  ##
+  element custos {
+    empty
+    >> sch:pattern [
+         id = "custos-constraint-Check_custostarget"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:custos[@target]"
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "thistarget" value = "@target" ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@target = following::mei:note[@xml:id=$thistarget]/@xml:id"
+             "The\x{a}" ~
+             "          value of @target must be the ID of a note element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    empty
+  }
+mei_dir =
+  
+  ##
+  element dir {
+    ((text
+      | mei_model.textphraseLike.limited.shared
+      | mei_model.graphicprimitiveLike.usersymbols
+      | mei_model.editLike.edittrans
+      | mei_model.transcriptionLike.edittrans)*)
+    >> sch:pattern [
+         id =
+           "dir-constraint-Start-type_attributes_required_on_some_control_events"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = ""
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "@startid or @tstamp or @tstamp.ges or @tstamp.real"
+             "\x{a}" ~
+             "          Must have one of the attributes: startid, tstamp, tstamp.ges or\x{a}" ~
+             "          tstamp.real"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    empty
+  }
+mei_dynam =
+  
+  ##
+  element dynam {
+    ((text
+      | mei_model.textphraseLike.limited.shared
+      | mei_model.editLike.edittrans
+      | mei_model.transcriptionLike.edittrans)*)
+    >> sch:pattern [
+         id =
+           "dynam-constraint-Start-type_attributes_required_on_some_control_events"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = ""
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "@startid or @tstamp or @tstamp.ges or @tstamp.real"
+             "\x{a}" ~
+             "          Must have one of the attributes: startid, tstamp, tstamp.ges or\x{a}" ~
+             "          tstamp.real"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    empty
+  }
+mei_expansion =
+  
+  ##
+  element expansion {
+    empty
+    >> sch:pattern [
+         id = "expansion-constraint-Check_expansionplist"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:expansion[@plist]"
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "every $i in tokenize(@plist, '\s+') satisfies           $i=ancestor::mei:section/descendant::mei:*[name()='section' or            name()='ending' or name()='rdg'][@xml:id]/@xml:id"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    empty
+  }
+mei_fw =
+  
+  ##
+  element fw {
+    (text
+     | mei_model.textcomponentLike.shared
+     | mei_model.textphraseLike.limited.shared
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans
+     | mei_model.appLike.critapp)*,
+    empty
+  }
+mei_group =
+  
+  ##
+  element group {
+    (mei_music | mei_group), (mei_music | mei_group)*, empty
+  }
+mei_grpsym =
+  
+  ##
+  element grpsym { mei_model.labelLike.shared*, empty }
+mei_instrgrp =
+  
+  ##
+  element instrgrp { mei_model.instrdefLike.shared+, empty }
+mei_mei =
+  
+  ##
+  element mei {
+    mei_meihead,
+    mei_music
+    >> sch:pattern [
+         id = "mei-constraint-Check_when"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:*[@when]"
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "@when = preceding::mei:when/@xml:id"
+             "The value of\x{a}" ~
+             "          @when must be the ID of a when element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id = "mei-constraint-Check_source"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:*[@source]"
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "every $i in tokenize(@source, '\s+') satisfies           $i=//mei:source/@xml:id"
+             "The values in @source must match the IDs of source\x{a}" ~
+             "          elements."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id = "mei-constraint-Check_altsym"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:*[@altsym]"
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "thisaltsym" value = "@altsym" ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@altsym = preceding::mei:symboldef[@xml:id=$thisaltsym]/@xml:id"
+             "The value of @altsym must be the ID of a symboldef\x{a}" ~
+             "          element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id = "mei-constraint-Check_xmllang"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:*[starts-with(@xml:lang, 'x-')]"
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "thislang" value = "@xml:lang" ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@xml:lang = //mei:language[@xml:id=$thislang]/@xml:id"
+             "The value of @xml:lang must be the ID of a language\x{a}" ~
+             "          element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id = "mei-constraint-Check_classcode"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:*[@classcode]"
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "thisclasscode" value = "@classcode" ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@classcode = preceding::mei:classcode[@xml:id=$thisclasscode]/@xml:id"
+             "The value of @classcode must be the ID of a classcode\x{a}" ~
+             "          element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id = "mei-constraint-Check_hand"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:*[@hand]"
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "thishand" value = "@hand" ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@hand = preceding::mei:hand[@xml:id=$thishand]/@xml:id"
+             "The\x{a}" ~
+             "          value of @hand must be the ID of a hand element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id = "mei-constraint-Check_resp"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:*[@resp]"
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "thisresp" value = "@resp" ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@resp = //mei:persname[@xml:id=$thisresp and ancestor::mei:meihead]/@xml:id"
+             "The value of @resp must be the ID of a persname element declared\x{a}" ~
+             "          within the meiheader element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    
+    ##
+    attribute xml:id { xsd:ID }?,
+    empty
+  }
+mei_music =
+  
+  ##
+  element music {
+    mei_model.facsimileLike.facsimile*,
+    mei_model.frontLike.text?,
+    (mei_body | mei_group)?,
+    mei_model.backLike.text?,
+    empty
+  }
+mei_note =
+  
+  ##
+  element note {
+    ((mei_model.eventLike.shared
+      | mei_model.noteModifierLike.shared
+      | mei_model.verseLike.lyrics
+      | mei_model.sylLike.lyrics
+      | mei_model.appLike.critapp
+      | mei_model.editLike.edittrans
+      | mei_model.transcriptionLike.edittrans)*)
+    >> sch:pattern [
+         id = "note-constraint-Check_instr"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = ""
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "every $i in tokenize(@instr, '\s+') satisfies           $i=preceding::mei:instrdef[@xml:id]/@xml:id"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    empty
+  }
+mei_pgdesc =
+  
+  ##
+  element pgdesc {
+    (text
+     | mei_model.graphicprimitiveLike.usersymbols
+     | mei_model.textcomponentLike.shared
+     | mei_model.annotLike.shared
+     | mei_model.locrefLike.ptrref)*,
+    empty
+  }
+mei_rest =
+  
+  ##
+  element rest {
+    empty
+    >> sch:pattern [
+         id = "rest-constraint-Check_restline"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:rest[@line]"
+           "\x{a}" ~
+           "               "
+           sch:let [
+             name = "thisstaff"
+             value = "ancestor::mei:staff/@n"
+           ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "number(@line) <= number(preceding::mei:staffdef[@n=$thisstaff and @lines][1]/@lines)"
+             "The value of @line must be less than or equal to the number of lines\x{a}" ~
+             "          on the staff."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ]
+    >> sch:pattern [
+         id = "rest-constraint-Check_instr"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = ""
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "every $i in tokenize(@instr, '\s+') satisfies           $i=preceding::mei:instrdef[@xml:id]/@xml:id"
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    empty
+  }
+mei_space =
+  
+  ##
+  element space { empty, empty }
+mei_tempo =
+  
+  ##
+  element tempo {
+    (text
+     | mei_model.textphraseLike.limited.shared
+     | mei_model.graphicprimitiveLike.usersymbols
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans)*,
+    empty
+  }
+mei_meihead =
+  
+  ##
+  element meihead {
+    mei_altmeiid*,
+    mei_filedesc,
+    mei_model.headerPart.header_sequenceOptional,
+    mei_revisiondesc?,
+    
+    ##
+    attribute type {
+      
+      ##
+      "music"
+      | 
+        ##
+        "corpus"
+    }?,
+    empty
+  }
+mei_accessdesc =
+  
+  ##
+  element accessdesc {
+    (text | mei_model.textphraseLike.limited.shared)*, empty
+  }
+mei_acqsource =
+  
+  ##
+  element acqsource {
+    (text | mei_model.textphraseLike.limited.shared)*, empty
+  }
+mei_altmeiid =
+  
+  ##
+  element altmeiid {
+    (text | mei_model.textphraseLike.limited.shared)*, empty
+  }
+mei_application =
+  
+  ##
+  element application {
+    mei_model.nameLike.shared+,
+    (mei_model.ptrLike.ptrref* | mei_model.pLike.shared*),
+    
+    ##
+    attribute version { text }?,
+    empty
+  }
+mei_change =
+  
+  ##
+  element change {
+    mei_respstmt, mei_changedesc, mei_model.dateLike.shared, empty
+  }
+mei_changedesc =
+  
+  ##
+  element changedesc { mei_model.pLike.shared+, empty }
+mei_classcode =
+  
+  ##
+  element classcode { text, empty }
+mei_classification =
+  
+  ##
+  element classification { (mei_classcode | mei_keywords)+, empty }
+mei_creation =
+  
+  ##
+  element creation { mei_model.textcomponentLike.shared+, empty }
+mei_editionstmt =
+  
+  ##
+  element editionstmt {
+    (mei_model.editionLike.shared, mei_respstmt*)+, empty
+  }
+mei_extent =
+  
+  ##
+  element extent {
+    (text | mei_model.textphraseLike.limited.shared)*, empty
+  }
+mei_filedesc =
+  
+  ##
+  element filedesc {
+    mei_titlestmt,
+    mei_editionstmt?,
+    mei_extent?,
+    mei_fingerprint?,
+    mei_pubstmt,
+    mei_seriesstmt?,
+    mei_notesstmt?,
+    mei_sourcedesc?,
+    empty
+  }
+mei_fingerprint =
+  
+  ##
+  element fingerprint { text, empty }
+mei_hand =
+  
+  ##
+  element hand {
+    (text | mei_model.textphraseLike.limited.shared)*,
+    
+    ##
+    attribute initial { "true" | "false" }?,
+    empty
+  }
+mei_keywords =
+  
+  ##
+  element keywords { mei_term+, empty }
+mei_language =
+  
+  ##
+  element language {
+    (text | mei_model.textphraseLike.limited.shared)*, empty
+  }
+mei_langusage =
+  
+  ##
+  element langusage { mei_language+, empty }
+mei_notesstmt =
+  
+  ##
+  element notesstmt { mei_model.annotLike.shared+, empty }
+mei_physdesc =
+  
+  ##
+  element physdesc { mei_model.physdescPart.header+, empty }
+mei_price =
+  
+  ##
+  element price {
+    (text | mei_model.textphraseLike.limited.shared)*, empty
+  }
+mei_pubstmt =
+  
+  ##
+  element pubstmt {
+    (mei_unpub? | mei_model.pubstmtPart.header*), empty
+  }
+mei_resp =
+  
+  ##
+  element resp { text, empty }
+mei_respstmt =
+  
+  ##
+  element respstmt {
+    (mei_resp
+     | mei_model.nameLike.shared
+     | mei_model.nameLike.agent.namesdates)*,
+    empty
+  }
+mei_revisiondesc =
+  
+  ##
+  element revisiondesc { mei_change+, empty }
+mei_seriesstmt =
+  
+  ##
+  element seriesstmt {
+    mei_model.titleLike.shared+,
+    mei_respstmt*,
+    mei_model.identifierLike.shared*,
+    (mei_model.listLike.text | mei_seriesstmt*),
+    empty
+  }
+mei_source =
+  
+  ##
+  element source {
+    mei_model.identifierLike.shared*,
+    mei_titlestmt?,
+    mei_editionstmt?,
+    mei_pubstmt,
+    mei_physdesc?,
+    mei_seriesstmt?,
+    mei_notesstmt?,
+    mei_langusage?,
+    mei_classification?,
+    empty
+  }
+mei_sourcedesc =
+  
+  ##
+  element sourcedesc { mei_source+, empty }
+mei_sysreq =
+  
+  ##
+  element sysreq {
+    (text | mei_model.textphraseLike.limited.shared)*, empty
+  }
+mei_term =
+  
+  ##
+  element term {
+    (text | mei_term | mei_model.textphraseLike.limited.shared)*,
+    
+    ##
+    attribute classcode { xsd:IDREF }?,
+    empty
+  }
+mei_titlestmt =
+  
+  ##
+  element titlestmt {
+    mei_model.titleLike.shared+, mei_respstmt*, empty
+  }
+mei_unpub =
+  
+  ##
+  element unpub { text, empty }
+mei_userestrict =
+  
+  ##
+  element userestrict {
+    (text | mei_model.textphraseLike.limited.shared)*, empty
+  }
+mei_eventlist =
+  
+  ##
+  element eventlist { mei_event+, empty }
+mei_event =
+  
+  ##
+  element event {
+    (text
+     | mei_model.textphraseLike.limited.shared
+     | mei_model.tableLike.figtable
+     | mei_model.listLike.text)*,
+    empty
+  }
+mei_tuplet =
+  
+  ##
+  element tuplet {
+    (mei_model.eventLike.shared
+     | mei_model.appLike.critapp
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans)+,
+    empty
+  }
+mei_lem =
+  
+  ##
+  element lem {
+    mei_expansion*,
+    (mei_model.appLike.critapp
+     | mei_model.divLike.text
+     | mei_model.milestoneLike.music.shared
+     | mei_model.scoredefLike.shared
+     | mei_model.staffdefLike.shared
+     | mei_model.staffgrpLike.shared
+     | mei_model.annotLike.shared
+     | mei_model.graphicprimitiveLike.usersymbols
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans
+     | mei_model.rdgPart.critapp)*,
+    empty
+  }
+mei_rdg =
+  
+  ##
+  element rdg {
+    mei_expansion*,
+    (mei_model.appLike.critapp
+     | mei_model.divLike.text
+     | mei_model.milestoneLike.music.shared
+     | mei_model.scoredefLike.shared
+     | mei_model.staffdefLike.shared
+     | mei_model.staffgrpLike.shared
+     | mei_model.annotLike.shared
+     | mei_model.graphicprimitiveLike.usersymbols
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans
+     | mei_model.rdgPart.critapp)*,
+    empty
+  }
+mei_choice =
+  
+  ##
+  element choice {
+    (mei_choice | mei_model.choicePart.edittrans)*, empty
+  }
+mei_surface =
+  
+  ##
+  element surface {
+    mei_model.figdescLike.figtable*,
+    mei_model.graphicLike.figtable*,
+    mei_zone*,
+    empty
+  }
+mei_zone =
+  
+  ##
+  element zone {
+    mei_model.figdescLike.figtable*,
+    mei_model.graphicLike.figtable*,
+    empty
+  }
+mei_figdesc =
+  
+  ##
+  element figdesc {
+    (text
+     | mei_model.graphicprimitiveLike.usersymbols
+     | mei_model.textcomponentLike.shared
+     | mei_model.annotLike.shared)*,
+    empty
+  }
+mei_td =
+  
+  ##
+  element td {
+    (text
+     | mei_model.textcomponentLike.shared
+     | mei_model.textphraseLike.shared
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans)*,
+    empty
+  }
+mei_th =
+  
+  ##
+  element th {
+    (text
+     | mei_model.textcomponentLike.shared
+     | mei_model.textphraseLike.shared
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans)*,
+    empty
+  }
+mei_tr =
+  
+  ##
+  element tr { (mei_th | mei_td)+, empty }
+mei_barre =
+  
+  ##
+  element barre {
+    empty
+    >> sch:pattern [
+         id = "barre-constraint-Check_barrestartid_and_endid"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:barre"
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "from" value = "@startid" ]
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "to" value = "@endid" ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@startid = preceding-sibling::mei:chordmember[@xml:id=$from]/@xml:id"
+             "The value of @startid must be the ID of a chordmember\x{a}" ~
+             "          element."
+           ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@endid = preceding-sibling::mei:chordmember[@xml:id=$to]/@xml:id"
+             "The value of @endid must be the ID of a chordmember\x{a}" ~
+             "          element."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    empty
+  }
+mei_chorddef =
+  
+  ##
+  element chorddef {
+    mei_chordmember*,
+    mei_barre*,
+    
+    ##
+    attribute pos { text }?,
+    empty
+  }
+mei_chordmember =
+  
+  ##
+  element chordmember {
+    empty,
+    
+    ##
+    attribute fing {
+      xsd:positiveInteger { minInclusive = "1" maxInclusive = "4" }
+      | xsd:token { pattern = "x|o" }
+    }?,
+    empty
+  }
+mei_when =
+  
+  ##
+  element when {
+    empty
+    >> sch:pattern [
+         id = "when-constraint-Check_whensince"
+         "\x{a}" ~
+         "            "
+         sch:rule [
+           context = "mei:when[@since]"
+           "\x{a}" ~
+           "               "
+           sch:let [ name = "thissince" value = "@since" ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test =
+               "@since = preceding-sibling::mei:when[@xml:id=$thissince]/@xml:id"
+             "The value of @since must be the ID of a preceding sibling when\x{a}" ~
+             "          element."
+           ]
+           "\x{a}" ~
+           "               "
+           sch:assert [
+             test = "@interval and @unit"
+             "If @since is present, @interval\x{a}" ~
+             "          and @unit are also required."
+           ]
+           "\x{a}" ~
+           "            "
+         ]
+         "\x{a}" ~
+         "         "
+       ],
+    
+    ##
+    attribute absolute { text }?,
+    
+    ##
+    attribute interval {
+      xsd:decimal { minInclusive = "1" }
+    }?,
+    
+    ##
+    attribute since { xsd:IDREF }?,
+    empty
+  }
+mei_cc =
+  
+  ##
+  element cc { empty, empty }
+mei_chan =
+  
+  ##
+  element chan {
+    empty,
+    
+    ##
+    attribute num {
+      xsd:positiveInteger { maxInclusive = "16" }
+    },
+    empty
+  }
+mei_chanpr =
+  
+  ##
+  element chanpr { empty, empty }
+mei_cue =
+  
+  ##
+  element cue { text, empty }
+mei_hex =
+  
+  ##
+  element hex { text, empty }
+mei_marker =
+  
+  ##
+  element marker { text, empty }
+mei_metatext =
+  
+  ##
+  element metatext { text, empty }
+mei_noteoff =
+  
+  ##
+  element noteoff { empty, empty }
+mei_noteon =
+  
+  ##
+  element noteon { empty, empty }
+mei_port =
+  
+  ##
+  element port { empty, empty }
+mei_prog =
+  
+  ##
+  element prog { empty, empty }
+mei_seqnum =
+  
+  ##
+  element seqnum {
+    empty,
+    
+    ##
+    attribute num {
+      xsd:nonNegativeInteger { maxInclusive = "65535" }
+    },
+    empty
+  }
+mei_trkname =
+  
+  ##
+  element trkname { text, empty }
+mei_vel =
+  
+  ##
+  element vel {
+    empty,
+    
+    ##
+    attribute form {
+      
+      ##
+      "on"
+      | 
+        ##
+        "off"
+    },
+    empty
+  }
+mei_item =
+  
+  ##
+  element item {
+    (text
+     | mei_model.textcomponentLike.shared
+     | mei_model.textphraseLike.shared
+     | mei_model.editLike.edittrans
+     | mei_model.transcriptionLike.edittrans)*,
+    empty
+  }
+mei_symboldef =
+  
+  ##
+  element symboldef {
+    mei_model.graphicprimitiveLike.usersymbols+, empty
+  }
+start = mei_mei
