@@ -1,54 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<!-- 
-    name: rng2odd.xsl
-    
-    author: Raffaele Viglianti
-    
-    description: This script converts ../RelaxSchema/mei19-all.rng into a valid TEI ODD file
-
-    
--->
-
-
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
   xmlns="http://www.tei-c.org/ns/1.0" xmlns:rng="http://relaxng.org/ns/structure/1.0"
   xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
   xmlns:xhtml="http://www.w3.org/1000/xhtml" xml:lang="en"
   xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:loc="http:/local-namespace/"
+  xmlns:xd="http://www.oxygenxml.com/ns/doc/xsl"
   xpath-default-namespace="http://relaxng.org/ns/structure/1.0">
 
-  <!-- Dependencies -->
   <xsl:import href="TEI/xhtml2tei.xsl" xpath-default-namespace="http://www.tei-c.org/ns/1.0"
     exclude-result-prefixes="#all"/>
 
+  <xd:doc scope="stylesheet">
+    <xd:desc>
+      <xd:p><xd:b>Created on:</xd:b> 2009</xd:p>
+      <xd:p><xd:b>Author:</xd:b> Raffaele Viglianti</xd:p>
+      <xd:p><xd:b>Author:</xd:b> Perry Roland</xd:p>
+      <xd:p>This script converts ../ModularizationTesting/mei-all.rng into a valid TEI ODD file</xd:p>
+      <xd:p>Includes XSLT from TEI <xd:i>xhtml2tei</xd:i>, 
+        to convert HTML documentation from the source into TEI.</xd:p>
+    </xd:desc>
+  </xd:doc>
+
   <xsl:output encoding="UTF-8" indent="yes" method="xml"/>
 
-  <!-- Variables -->
-
-  <!-- name: datatypes
-         decription: relative path to datatypes.rng, included in MEI rng
-    -->
-  <xsl:variable name="datatypes">../RNG/datatypes.rng</xsl:variable>
-
-  <!-- name: nl
-         description: new line character for retty print
-    -->
+  <!-- ********
+    Variables 
+  ******** -->
+  
+  <xd:doc>
+    <xd:desc><xd:p>New line character for pretty print</xd:p></xd:desc>
+  </xd:doc>
   <xsl:variable name="nl" select="'&#10;'"/>
 
-  <!-- Functions -->
+  <xd:doc>
+    <xd:desc><xd:p>Relative path to root.</xd:p></xd:desc>
+  </xd:doc>
+  <xsl:variable name="path_to_root" select="'../'"/>
 
-  <!-- name: make-namespace-node.
-         description: copy an element adding namespace "rng".
-         handle-models: determins ODD suffix when referring models from elements (only used by Element Classes template below; false() by default)
-         recursive: copy children elements recursively.-->
+  <xd:doc>
+    <xd:desc>
+      <xd:p>Stores names of and relative paths to imported RNG modules.</xd:p>
+    </xd:desc>
+  </xd:doc>
+  <xsl:variable name="modules">
+    <loc:modules>
+      <xsl:for-each select="//include[ends-with(@href, '_Module.rng')]">
+        <loc:module>
+          <loc:name><xsl:value-of select="substring-before(@href, '_Module')"/></loc:name>
+          <loc:path>
+            <xsl:value-of select="$path_to_root"/>
+            <xsl:text>RNG/</xsl:text>
+            <xsl:value-of select="@href"/></loc:path>
+        </loc:module>
+      </xsl:for-each>
+    </loc:modules>
+  </xsl:variable>
+
+  <xd:doc>
+    <xd:desc>
+      <xd:p>Stores relative paths to imported RNGs that are note modules.</xd:p>
+    </xd:desc>
+  </xd:doc>
+  <xsl:variable name="other_imports">
+    <loc:imports>
+      <xsl:for-each select="//include[not(ends-with(@href, '_Module.rng'))]">
+        <loc:import>
+          <loc:name><xsl:value-of select="substring-before(@href, '.rng')"/></loc:name>
+          <loc:path>
+            <xsl:value-of select="$path_to_root"/>
+            <xsl:text>RNG/</xsl:text>
+            <xsl:value-of select="@href"/></loc:path>
+        </loc:import>
+      </xsl:for-each>
+    </loc:imports>
+  </xsl:variable>
+ 
+  <xd:doc>
+    <xd:desc>
+      <xd:p>Aggregates all the documents aggregated. The script will process this variable further.</xd:p>
+    </xd:desc>
+  </xd:doc>
+ <xsl:variable name="aggregation">
+   <loc:aggregation>
+     <loc:datatypes>
+       <xsl:sequence select="document($other_imports//loc:import[loc:name='datatypes']/loc:path)"/>
+     </loc:datatypes>
+     <loc:schematron>
+       <xsl:sequence select="document($other_imports//loc:import[loc:name='coConstraints']/loc:path)"/>
+     </loc:schematron>
+     <loc:other_imports>
+       <xsl:for-each select="$other_imports//loc:import">
+         <!-- Exclude datatypes, schematron constraints and defaultClassDecls (empty) -->
+         <xsl:if test="loc:name != 'datatypes' and loc:name != 'coConstraints' and loc:name != 'defaultClassDecls'">
+          <loc:div name="{loc:name}">
+           <xsl:sequence select="document(loc:path)"/></loc:div>
+         </xsl:if>
+       </xsl:for-each>
+     </loc:other_imports>
+     <loc:modules>
+       <xsl:for-each select="$modules//loc:module">
+         <loc:div name="{loc:name}"><xsl:sequence select="document(loc:path)"/></loc:div>
+       </xsl:for-each>
+     </loc:modules>
+   </loc:aggregation>
+ </xsl:variable>
+
+<!-- Uncomment this and comment MAIN for debugging $aggregation -->
+<!--<xsl:template match="/">
+  <xsl:sequence select="$aggregation"/>
+  
+  <xsl:for-each select="$aggregation//define[starts-with(@name,'model.')][not(zeroOrMore/choice)]">
+    <xsl:for-each select="$aggregation//define[starts-with(@name,'content.')]/descendant::ref[@name=current()/@name]">
+     
+        
+        <xsl:choose>
+          <xsl:when test="ancestor::choice[parent::zeroOrMore]"><!-\-<xsl:text> YES</xsl:text>-\-></xsl:when>
+          <xsl:otherwise>
+            <xsl:message><xsl:text>Element: </xsl:text><xsl:value-of select="@name"/>
+            <xsl:text> NO</xsl:text>
+            <xsl:text>Structure: </xsl:text>
+            <xsl:value-of select="parent::*/parent::*/name()"/>
+            <xsl:text>/</xsl:text>
+            <xsl:value-of select="parent::*/name()"/></xsl:message>
+          </xsl:otherwise>
+        </xsl:choose>
+      
+      
+    </xsl:for-each>
+  </xsl:for-each>
+  
+  
+</xsl:template>-->
+
+
+  <!-- ******** 
+    Functions 
+  ******** -->
+
+  <xd:doc>
+    <xd:desc>
+      <xd:p>copy an element adding namespace <xd:i>rng</xd:i>.</xd:p>
+        <xd:ul>
+          <xd:li><xd:b>handle-models</xd:b>: determines ODD suffix when referring models from elements (only used by Element Classes template below; false() by default)</xd:li>
+          <xd:li><xd:b>recursive</xd:b>: copy children elements recursively</xd:li>
+        </xd:ul>
+    </xd:desc>
+  </xd:doc>
   <xsl:template name="make-namespace-node">
     <xsl:param name="handle-models" select="false()"/>
     <xsl:param name="recursive"/>
-    <!-- Ignoring _DUMMY models (may be osbolete) -->
     <!-- Ignoring leftover xhtml documentation -->
     <xsl:if
-      test="not(contains(@name, '_DUMMY')) and not(self::*[namespace-uri()='http://www.w3.org/1999/xhtml'])">
+      test="not(self::*[namespace-uri()='http://www.w3.org/1999/xhtml'])">
       <xsl:element name="rng:{local-name(.)}">
         <xsl:choose>
           <!-- Handle ODD suffix if required -->
@@ -57,23 +161,34 @@
               <xsl:when test="self::ref and starts-with(@name, 'model.')">
                 <xsl:variable name="this-mdl" select="@name"/>
                 <xsl:attribute name="name">
-                  <xsl:for-each select="ancestor::grammar//define[@name=$this-mdl]">
+                  <!-- Problem with combine interleave. If more than one, the name is repeated. Making sure to get only the first one for now -->
+                  <xsl:for-each select="ancestor::loc:aggregation//define[@name=$this-mdl][not(preceding::define[@name=$this-mdl])]">
                     <!-- Determine suffix -->
+                    <xsl:variable name="mdlName">
+                      <xsl:choose>
+                        <xsl:when test="starts-with(ancestor::loc:div/@name, 'shared_')">
+                          <xsl:value-of select="@name"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:value-of select="concat(@name, '.', ancestor::loc:div/@name)"/>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:variable>
                     <xsl:choose>
                       <!-- one element (no suffix) -->
                       <!-- Problem: alternation doesn't seem to be handled by roma, so it won't have suffix for now. -->
-                      <xsl:when test="ref">
-                        <xsl:value-of select="@name"/>
+                      <xsl:when test="ref or choice">
+                        <xsl:value-of select="$mdlName"/>
                       </xsl:when>
                       <!--only one of the members (alternation)-->
-                      <xsl:when test="choice">
+                      <!--<xsl:when test="choice">
                         <xsl:value-of select="@name"/>
                         <xsl:text>_alternation</xsl:text>
-                      </xsl:when>
+                      </xsl:when>-->
                       <!-- members may be provided, in sequence, but are optional (sequenceOptional) -->
                       <xsl:when
                         test="optional and not(optional/*[not(self::ref)]) and not(zeroOrMore)">
-                        <xsl:value-of select="@name"/>
+                        <xsl:value-of select="$mdlName"/>
                         <xsl:text>_sequenceOptional</xsl:text>
                       </xsl:when>
                       <!-- members may be provided one or more times, in sequence, but are optional (sequenceOptionalRepeatable) -->
@@ -81,6 +196,9 @@
                         test="zeroOrMore and not(zeroOrMore/*[not(self::ref)]) and not(optional)">
                         <xsl:value-of select="@name"/>
                         <xsl:text>_sequenceOptionalRepeatable</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="zeroOrMore/choice and not(optional)">
+                        <xsl:value-of select="$mdlName"/>
                       </xsl:when>
                       <!-- If it doens't fit in any of the previous cases, it's a macro -->
                       <xsl:otherwise>
@@ -102,7 +220,6 @@
             <xsl:sequence select="@*"/>
           </xsl:otherwise>
         </xsl:choose>
-
         <!-- recursive? -->
         <xsl:choose>
           <!-- ON -->
@@ -136,9 +253,12 @@
   </xsl:template>
 
 
-  <!-- MAIN -->
+  <!-- ********
+      MAIN 
+  ******** -->
   <xsl:template match="/">
 
+    <!-- Oxygen-specific link to TEI schema. -->
     <xsl:processing-instruction name="oxygen">
       <xsl:text>RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="xml"</xsl:text>
     </xsl:processing-instruction>
@@ -190,7 +310,8 @@
           <change who="#PR" when="{current-date()}">Changed order of content and attlist
             declarations, fixed problem generating @usage</change>
           <change who="#RV" when="{current-date()}">Integrated Schematron rules within element
-            declarations.</change>
+          declarations.</change>
+          <change who="#RV" when="{current-date()}">Integrated modules.</change>
         </revisionDesc>
       </teiHeader>
       <text>
@@ -202,19 +323,40 @@
 
           <schemaSpec ident="mei" start="mei" ns="http://www.mei-c.org/ns/mei">
 
-            <!-- DATA -->
+            <!-- MODULES -->
+            <xsl:value-of select="$nl"/>
+            <xsl:comment>****</xsl:comment>
+            <xsl:value-of select="$nl"/>
+            <xsl:comment>Modules</xsl:comment>
+            <xsl:value-of select="$nl"/>
+            <xsl:comment>Number of modules found in original RNG: <xsl:value-of
+              select="count($modules//loc:module)"/>
+            </xsl:comment>
+            <xsl:value-of select="$nl"/>
+            <xsl:comment>****</xsl:comment>
+            <xsl:value-of select="$nl"/>
+            <xsl:for-each select="$modules//loc:module">
+              <macroSpec module="tei" type="pe" ident="MEI.{loc:name}">
+                <desc/>
+                <content>
+                  <rng:ref name="IGNORE"/>
+                </content>
+              </macroSpec>
+            </xsl:for-each>
+
+            <!-- DATATYPES -->
             <xsl:value-of select="$nl"/>
             <xsl:comment>****</xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>Datatype Macros</xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>Number of definitions found in original RNG: <xsl:value-of
-                select="count(document($datatypes)//define[starts-with(@name, 'data.')])"/>
+                select="count($aggregation//loc:datatypes//define[starts-with(@name, 'data.')])"/>
             </xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>****</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:apply-templates select="document($datatypes)//define[starts-with(@name, 'data.')]"/>
+            <xsl:apply-templates select="$aggregation//loc:datatypes//define[starts-with(@name, 'data.')]"/>
 
             <!-- ATTRIBUTES -->
             <xsl:value-of select="$nl"/>
@@ -223,12 +365,12 @@
             <xsl:comment>Attribute Classes</xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>Number of definitions found in original RNG: <xsl:value-of
-                select="count(//define[starts-with(@name, 'att.')])"/>
+                select="count($aggregation//define[starts-with(@name, 'att.')])"/>
             </xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>****</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:apply-templates select="//define[starts-with(@name, 'att.')]"/>
+            <xsl:apply-templates select="$aggregation//define[starts-with(@name, 'att.')]"/>
 
             <!--MODELS AND MACROS-->
             <xsl:value-of select="$nl"/>
@@ -237,12 +379,12 @@
             <xsl:comment>Defintion of Model and Macro Classes</xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>Number of definitions found in original RNG: <xsl:value-of
-                select="count(//define[starts-with(@name, 'model.')])"/>
+                select="count($aggregation//define[starts-with(@name, 'model.')])"/>
             </xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>****</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:apply-templates select="//define[starts-with(@name, 'model.')]"/>
+            <xsl:apply-templates select="$aggregation//define[starts-with(@name, 'model.')]"/>
 
             <!-- ELEMENTS -->
             <!-- N.B. If the modularization of element, attlist.element and content.element
@@ -255,12 +397,12 @@
             <xsl:comment>Defintion of Model Classes</xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>Number of definitions found in original RNG: <xsl:value-of
-                select="count(//define[starts-with(@name, 'model.')])"/>
+                select="count($aggregation//define[starts-with(@name, 'model.')])"/>
             </xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:comment>****</xsl:comment>
             <xsl:value-of select="$nl"/>
-            <xsl:apply-templates select="//define[not(contains(@name, '.'))]"/>
+            <xsl:apply-templates select="$aggregation//define[not(contains(@name, '.'))]"/>
           </schemaSpec>
 
         </body>
@@ -270,11 +412,6 @@
 
   <!-- Data Template-->
   <xsl:template match="//define[starts-with(@name, 'data.')]">
-    <!-- 
-            Attributes found in RNG: @name
-            Content found in RNG: a:documentation, data, choice, text, list, ref
-            
-        -->
     <!-- in TEI's ODD, *all* datatype macros have module="tei" 
          This might change if there are datatypes specific to certain modules. i.e. mensural, neume -->
     <macroSpec module="mei" type="dt" ident="{@name}">
@@ -293,11 +430,14 @@
 
   <!-- Attributes Template -->
   <xsl:template match="//define[starts-with(@name, 'att.')]">
-    <!-- 
-            Attributes found in RNG: @name
-            Content found in RNG: a:documentation, optional, ref, attribute, empty 
-        -->
-    <classSpec type="atts" ident="{@name}">
+    <classSpec type="atts" module="MEI.{ancestor::loc:div/@name}">
+      <!-- Handling att.stemmed, the only attribute class with @combine -->
+      <xsl:attribute name="ident">
+        <xsl:value-of select="@name"/>
+        <xsl:if test="@name='att.stemmed' and ancestor::loc:div/@name='cmn'">
+          <xsl:text>.cmn</xsl:text>
+        </xsl:if>
+      </xsl:attribute>
       <desc>
         <xsl:apply-templates select="a:documentation"/>
       </desc>
@@ -347,7 +487,7 @@
                     <!-- N.B. attributes like @maxoccurs are available here, are they used for lists in PR's rng? -->
                     <xsl:for-each select="data | ref">
                       <xsl:call-template name="make-namespace-node">
-                        <xsl:with-param name="recursive"/>
+                        <xsl:with-param name="recursive" select="true()"/>
                       </xsl:call-template>
                     </xsl:for-each>
                   </datatype>
@@ -398,10 +538,10 @@
 
   <!-- MODELS and MACROS -->
   <xsl:template match="//define[starts-with(@name, 'model.')]">
-    <!-- 
-            Attributes found in RNG: @name
-            Content found in RNG: ref, choice, optional, zeroOrMore
-        -->
+    <!--<xsl:message>
+      <xsl:value-of select="@name"/><xsl:text> from:</xsl:text>
+      <xsl:value-of select="ancestor::loc:div/@name"/>      
+    </xsl:message>-->
     <!-- 
             Determine if it's an ODD model or macro 
             (N.B.: Conditions in this switch *must* match the conditions in the suffix switch in xsl:template name="make-namespace-node" above.)
@@ -411,31 +551,52 @@
       <!-- This switch is based on the conditions expressed in xsl:template name="make-namespace-node" above. -->
       <xsl:when
         test="(ref)
-                            or
-                            (choice)
-                            or
-                            (optional and not(optional/*[not(self::ref)]) and not(zeroOrMore))
-                            or
-                            (zeroOrMore and not(zeroOrMore/*[not(self::ref)]) and not(optional))">
-        <classSpec type="model" ident="{@name}">
+              or
+              (choice)
+              or
+              (optional and not(optional/*[not(self::ref)]) and not(zeroOrMore))
+              or
+              (zeroOrMore and not(zeroOrMore/*[not(self::ref)]) and not(optional))
+              or
+              (zeroOrMore/choice and not (optional))">
+        <classSpec type="model" module="MEI.{ancestor::loc:div/@name}">
+          <!-- If not in shared_Module, add module name to element. Attempt to avoid combine problems? Killed for now -->
+          <xsl:attribute name="ident">
+            <xsl:choose>
+              <xsl:when test="starts-with(ancestor::loc:div/@name, 'shared_')">
+                <xsl:value-of select="@name"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@name"/>
+                <xsl:text>.</xsl:text>
+                <xsl:value-of select="ancestor::loc:div/@name"/>
+              </xsl:otherwise>
+          </xsl:choose>
+          </xsl:attribute>
           <xsl:variable name="model-name" select="@name"/>
           <desc>
             <xsl:apply-templates select="a:documentation"/>
           </desc>
-          <!-- 
-                        Memebrship to other Model Classes
-                    -->
+          <!--  Memebrship to other Model Classes -->
           <classes>
             <xsl:for-each
               select="ancestor::grammar//define[starts-with(@name, 'model.')]//ref[@name=$model-name]">
               <memberOf key="{ancestor::define/@name}"/>
+              
+              <!-- If not in shared module, calculate dependecies -->
+              <!--<xsl:if test="not(starts-with(ancestor::loc:div/@name, 'shared_'))">
+                <memberOf key="{@name}"/>
+              </xsl:if>-->
             </xsl:for-each>
           </classes>
         </classSpec>
       </xsl:when>
       <!-- If it doens't fit in any of the previous cases, it's a macro -->
       <xsl:otherwise>
-        <macroSpec type="pe" ident="macro.{substring-after(@name, 'model.')}">
+        <xsl:if test="@combine">
+          <xsl:message>WARNING: Identified Macro with @combine. Possible model? Name: <xsl:value-of select="@name"/></xsl:message>
+        </xsl:if>
+        <macroSpec type="pe" ident="macro.{substring-after(@name, 'model.')}"  module="MEI.{ancestor::loc:div/@name}">
           <desc>
             <xsl:apply-templates select="a:documentation"/>
           </desc>
@@ -462,7 +623,7 @@
             Content found in RNG: zeroOrMore|oneOrMoreref|empty|ref|optional|choice|text 
         -->
     <xsl:variable name="element-name" select="@name"/>
-    <elementSpec ident="{@name}">
+    <elementSpec ident="{@name}"  module="MEI.{ancestor::loc:div/@name}">
       <desc>
         <xsl:apply-templates select="element/a:documentation"/>
       </desc>
@@ -507,12 +668,12 @@
 
       <!-- Schematron rules -->
       <xsl:for-each
-        select="ancestor::grammar//sch:pattern/sch:rule">
+        select="//loc:schematron//sch:pattern/sch:rule">
         <xsl:variable name="context_nrml" select="normalize-space(@context)"/>
-        
+        <!--<xsl:message><xsl:value-of select="$context_nrml"></xsl:value-of></xsl:message>-->
         <xsl:choose>
           <!-- If the current element is mei, add all generic patterns -->
-          <xsl:when test="$element-name = 'mei' and starts-with($context_nrml, '*')">
+          <xsl:when test="$element-name = 'mei' and starts-with($context_nrml, 'mei:*')">
               <constraintSpec
                 ident="{
                 if (parent::sch:pattern/sch:title != '') 
@@ -533,7 +694,7 @@
                   <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron">
                     <xsl:sequence select="@* except @context"/>
                     <xsl:attribute name="context">
-                        <xsl:text>mei:</xsl:text>
+                        <!--<xsl:text>mei:</xsl:text>--> <!-- obsolete -->
                         <xsl:value-of select="@context"/>
                     </xsl:attribute>
                     <xsl:for-each select="*">
@@ -546,14 +707,14 @@
           </xsl:when>
           <!-- Other specific patterns -->
           <xsl:when test="
-            matches($context_nrml, concat('^\s?', $element-name, '\s?$'))
-            or matches($context_nrml, concat('^\s?', $element-name, '\s?\|'))
-            or matches($context_nrml, concat('\|\s?', $element-name, '\s?$'))
-            or matches($context_nrml, concat('\|\s?', $element-name, '\s?\|'))
-            or ( matches($context_nrml, concat('^\s?', $element-name, '\s?\[.*\]\s?$')) and not(matches($context_nrml, '\|')) )
-            or matches($context_nrml, concat('^\s?', $element-name, '\s?\[.*\]\s?\|'))
-            or matches($context_nrml, concat('\|\s?', $element-name, '\s?\[.*\]\s?$'))
-            or matches($context_nrml, concat('\|\s?', $element-name, '\s?\[.*\]\s?\|'))
+            matches($context_nrml, concat('^\s?', 'mei:', $element-name, '\s?$'))
+            or matches($context_nrml, concat('^\s?', 'mei:', $element-name, '\s?\|'))
+            or matches($context_nrml, concat('\|\s?', 'mei:', $element-name, '\s?$'))
+            or matches($context_nrml, concat('\|\s?', 'mei:', $element-name, '\s?\|'))
+            or ( matches($context_nrml, concat('^\s?', 'mei:', $element-name, '\s?\[.*\]\s?$')) and not(matches($context_nrml, '\|')) )
+            or matches($context_nrml, concat('^\s?', 'mei:', $element-name, '\s?\[.*\]\s?\|'))
+            or matches($context_nrml, concat('\|\s?', 'mei:', $element-name, '\s?\[.*\]\s?$'))
+            or matches($context_nrml, concat('\|\s?', 'mei:', $element-name, '\s?\[.*\]\s?\|'))
             ">
             <constraintSpec
               ident="{
@@ -580,13 +741,13 @@
                       <xsl:when test="contains($context_nrml, '|')">
                         <xsl:for-each select="tokenize($context_nrml, '\|')">
                           <xsl:if test="matches(., concat('^\s?', $element-name, '(\s?\[.*\])?\s?$'))">
-                            <xsl:text>mei:</xsl:text>
+                            <!--<xsl:text>mei:</xsl:text>--> <!-- obsolete -->
                             <xsl:value-of select="replace(., '^\s', '')"/>
                           </xsl:if>
                         </xsl:for-each>
                       </xsl:when>
                       <xsl:otherwise>
-                        <xsl:text>mei:</xsl:text>
+                        <!--<xsl:text>mei:</xsl:text>--> <!-- obsolete -->
                         <xsl:value-of select="@context"/>
                       </xsl:otherwise>
                     </xsl:choose>
@@ -643,7 +804,7 @@
                       <!-- N.B. attributes like @maxoccurs are available here, are they used for lists in PR's rng? -->
                       <xsl:for-each select="data | ref">
                         <xsl:call-template name="make-namespace-node">
-                          <xsl:with-param name="recursive"/>
+                          <xsl:with-param name="recursive" select="true()"/>
                         </xsl:call-template>
                       </xsl:for-each>
                     </datatype>
