@@ -1451,6 +1451,7 @@
         <data type="decimal"/>
       </attribute>
     </optional>
+    <ref name="att.stemmed.cmn"/>
   </define>
 
   <define name="att.syltext" combine="interleave">
@@ -1981,6 +1982,7 @@
     <ref name="att.articulation.performed"/>
     <ref name="att.duration.performed"/>
     <ref name="att.instrumentident"/>
+    <ref name="att.chord.ges.cmn"/>
   </define>
 
   <define name="att.chord.log" combine="interleave">
@@ -2001,6 +2003,7 @@
     <ref name="att.slurpresent"/>
     <ref name="att.tiepresent"/>
     <ref name="att.tupletpresent"/>
+    <ref name="att.chord.log.cmn"/>
   </define>
 
   <define name="att.chord.vis" combine="interleave">
@@ -2018,6 +2021,7 @@
     <ref name="att.visualoffset.ho"/>
     <ref name="att.visualoffset.to"/>
     <ref name="att.xy"/>
+    <ref name="att.chord.vis.cmn"/>
     <optional>
       <attribute name="cluster">
         <a:documentation xml:lang="eng">indicates an alternative notehead should
@@ -2276,6 +2280,7 @@
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.duration.default"/>
     <ref name="att.octavedefault"/>
+    <ref name="att.layerdef.log.cmn"/>
   </define>
 
   <define name="att.layerdef.vis" combine="interleave">
@@ -2347,6 +2352,9 @@
     <ref name="att.articulation.performed"/>
     <ref name="att.duration.performed"/>
     <ref name="att.instrumentident"/>
+    <ref name="att.note.ges.cmn"/>
+    <ref name="att.note.ges.mensural"/>
+    <ref name="att.note.ges.tablature"/>
     <optional>
       <attribute name="oct.ges">
         <a:documentation xml:lang="eng">records performed octave information
@@ -2383,6 +2391,8 @@
     <ref name="att.slurpresent"/>
     <ref name="att.tiepresent"/>
     <ref name="att.tupletpresent"/>
+    <ref name="att.note.log.cmn"/>
+    <ref name="att.note.log.mensural"/>
   </define>
 
   <define name="att.note.vis" combine="interleave">
@@ -2397,6 +2407,7 @@
     <ref name="att.visualoffset.ho"/>
     <ref name="att.visualoffset.to"/>
     <ref name="att.xy"/>
+    <ref name="att.note.vis.cmn"/>
     <optional>
       <attribute name="headshape">
         <a:documentation xml:lang="eng">used to override the headshape normally
@@ -2501,6 +2512,7 @@
     <ref name="att.visualoffset2"/>
     <ref name="att.xy"/>
     <ref name="att.xy2"/>
+    <ref name="att.phrase.vis.cmn"/>
   </define>
 
   <define name="att.rest.anl" combine="interleave">
@@ -2513,6 +2525,7 @@
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <ref name="att.duration.performed"/>
     <ref name="att.instrumentident"/>
+    <ref name="att.rest.ges.mensural"/>
   </define>
 
   <define name="att.rest.log" combine="interleave">
@@ -2522,6 +2535,7 @@
     <ref name="att.duration.musical"/>
     <ref name="att.fermatapresent"/>
     <ref name="att.tupletpresent"/>
+    <ref name="att.rest.log.cmn"/>
   </define>
 
   <define name="att.rest.vis" combine="interleave">
@@ -2531,6 +2545,8 @@
     <ref name="att.relativesize"/>
     <ref name="att.visualoffset"/>
     <ref name="att.xy"/>
+    <ref name="att.rest.vis.cmn"/>
+    <ref name="att.rest.vis.mensural"/>
   </define>
 
   <define name="att.sb.anl" combine="interleave">
@@ -2637,6 +2653,8 @@
     <ref name="att.meters.log"/>
     <ref name="att.octavedefault"/>
     <ref name="att.transposition"/>
+    <ref name="att.scoredef.log.cmn"/>
+    <ref name="att.scoredef.log.mensural"/>
   </define>
 
   <define name="att.scoredef.vis" combine="interleave">
@@ -2651,6 +2669,8 @@
     <ref name="att.multinummeasures"/>
     <ref name="att.onelinestaff"/>
     <ref name="att.textstyle"/>
+    <ref name="att.scoredef.vis.cmn"/>
+    <ref name="att.scoredef.vis.mensural"/>
     <optional>
       <attribute name="ending.rend">
         <a:documentation xml:lang="eng">describes where ending marks should be
@@ -2850,6 +2870,7 @@
     <ref name="att.duration.musical"/>
     <ref name="att.fermatapresent"/>
     <ref name="att.tupletpresent"/>
+    <ref name="att.space.log.cmn"/>
   </define>
 
   <define name="att.space.vis" combine="interleave">
@@ -2896,6 +2917,7 @@
       the CMN repertoire</a:documentation>
     <ref name="att.instrumentident"/>
     <ref name="att.timebase"/>
+    <ref name="att.staffdef.ges.tablature"/>
   </define>
 
   <define name="att.staffdef.log" combine="interleave">
@@ -2907,6 +2929,8 @@
     <ref name="att.meters.log"/>
     <ref name="att.octavedefault"/>
     <ref name="att.transposition"/>
+    <ref name="att.staffdef.log.cmn"/>
+    <ref name="att.staffdef.log.mensural"/>
   </define>
 
   <define name="att.staffdef.vis" combine="interleave">
@@ -2923,6 +2947,8 @@
     <ref name="att.scalable"/>
     <ref name="att.textstyle"/>
     <ref name="att.visibility"/>
+    <ref name="att.staffdef.vis.cmn"/>
+    <ref name="att.staffdef.vis.mensural"/>
     <optional>
       <attribute name="grid.show">
         <a:documentation xml:lang="eng">determines whether to display guitar
@@ -3122,6 +3148,8 @@
         <ref name="dynam"/>
         <ref name="phrase"/>
         <ref name="tempo"/>
+        <ref name="model.controleventLike.cmn"/>
+        <ref name="model.controleventLike.harmony"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -3175,6 +3203,8 @@
         <ref name="pad"/>
         <ref name="rest"/>
         <ref name="space"/>
+        <ref name="model.eventLike.cmn"/>
+        <ref name="model.eventLike.mensural"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -3234,6 +3264,9 @@
       <ref name="model.eventLike"/>
       <ref name="model.eventLike.neumes"/>
       <ref name="model.midiLike"/>
+      <ref name="model.layerPart.cmn"/>
+      <ref name="model.layerPart.mensural"/>
+      <ref name="model.layerPart.neumes"/>
     </choice>
   </define>
 
@@ -3420,6 +3453,7 @@
         <ref name="model.sectionLike"/>
         <ref name="model.endingLike"/>
         <ref name="model.staffLike"/>
+        <ref name="model.sectionPart.cmn"/>
       </choice>
     </zeroOrMore>
   </define>
@@ -3437,6 +3471,7 @@
       <choice>
         <ref name="clef"/>
         <ref name="model.keysigLike"/>
+        <ref name="model.staffdefPart.mensural"/>
       </choice>
     </zeroOrMore>
   </define>

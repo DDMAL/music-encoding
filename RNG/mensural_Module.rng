@@ -234,12 +234,12 @@
     </optional>
   </define>
 
-  <define name="att.note.ges" combine="interleave">
+  <define name="att.note.ges.mensural" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <ref name="att.duration.ratio"/>
   </define>
 
-  <define name="att.note.log" combine="interleave">
+  <define name="att.note.log.mensural" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <optional>
       <attribute name="lig">
@@ -276,12 +276,12 @@
     <empty/>
   </define>
 
-  <define name="att.rest.ges" combine="interleave">
+  <define name="att.rest.ges.mensural" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <ref name="att.duration.ratio"/>
   </define>
 
-  <define name="att.rest.vis" combine="interleave">
+  <define name="att.rest.vis.mensural" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.lineloc"/>
     <optional>
@@ -293,7 +293,7 @@
     </optional>
   </define>
 
-  <define name="att.scoredef.log" combine="interleave">
+  <define name="att.scoredef.log.mensural" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for a score in the
       mensural repertoire. The values set in these attributes act as score-wide
       defaults for attributes that are not set in descendant elements. The
@@ -309,13 +309,13 @@
     <ref name="att.mensuration.log"/>
   </define>
 
-  <define name="att.scoredef.vis" combine="interleave">
+  <define name="att.scoredef.vis.mensural" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for scoredef in the
       mensural repertoire</a:documentation>
     <ref name="att.mensuration.vis"/>
   </define>
 
-  <define name="att.staffdef.log" combine="interleave">
+  <define name="att.staffdef.log.mensural" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
       the mensural repertoire</a:documentation>
     <ref name="att.mensuration.log"/>
@@ -338,14 +338,14 @@
     </optional>
   </define>
 
-  <define name="att.staffdef.vis" combine="interleave">
+  <define name="att.staffdef.vis.mensural" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for the mensural
       repertoire</a:documentation>
     <ref name="att.mensuration.vis"/>
   </define>
 
   <!-- Declare module model classes -->
-  <define name="model.eventLike" combine="interleave">
+  <define name="model.eventLike.mensural" combine="interleave">
     <zeroOrMore>
       <choice>
         <ref name="ligature"/>
@@ -355,7 +355,7 @@
     </zeroOrMore>
   </define>
 
-  <define name="model.layerPart" combine="interleave">
+  <define name="model.layerPart.mensural" combine="interleave">
     <a:documentation xml:lang="eng">groups notated events at the layer
       level.</a:documentation>
     <zeroOrMore>
@@ -367,7 +367,7 @@
     </zeroOrMore>
   </define>
 
-  <define name="model.staffdefPart" combine="interleave">
+  <define name="model.staffdefPart.mensural" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear more than
       once in the declaration of staff features.</a:documentation>
     <zeroOrMore>

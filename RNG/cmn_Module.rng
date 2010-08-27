@@ -248,7 +248,7 @@
     </optional>
   </define>
 
-  <define name="att.stemmed" combine="interleave">
+  <define name="att.stemmed.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Attributes that describe the properties of
       stemmed features; that is, chords and notes</a:documentation>
     <optional>
@@ -506,16 +506,16 @@
     <ref name="att.numberplacement"/>
   </define>
 
-  <define name="att.chord.ges" combine="interleave">
+  <define name="att.chord.ges.cmn" combine="interleave">
     <ref name="att.graced"/>
   </define>
 
-  <define name="att.chord.log" combine="interleave">
+  <define name="att.chord.log.cmn" combine="interleave">
     <ref name="att.beamed"/>
     <ref name="att.lvpresent"/>
   </define>
 
-  <define name="att.chord.vis" combine="interleave">
+  <define name="att.chord.vis.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for chord. The
       slur, slur.dir, slur.rend, tie, tie.dir, and tie.rend attributes here are
       "syntactic sugar" for these attributes on each of the chord's individual
@@ -805,7 +805,7 @@
     <ref name="att.xy"/>
   </define>
 
-  <define name="att.layerdef.log" combine="interleave">
+  <define name="att.layerdef.log.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.beaming.log"/>
   </define>
@@ -968,7 +968,7 @@
     <ref name="att.expandable"/>
   </define>
 
-  <define name="att.note.ges" combine="interleave">
+  <define name="att.note.ges.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Gestural domain attributes</a:documentation>
     <ref name="att.graced"/>
     <optional>
@@ -980,13 +980,13 @@
     </optional>
   </define>
 
-  <define name="att.note.log" combine="interleave">
+  <define name="att.note.log.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.beamed"/>
     <ref name="att.lvpresent"/>
   </define>
 
-  <define name="att.note.vis" combine="interleave">
+  <define name="att.note.vis.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.beamsecondary"/>
   </define>
@@ -1108,7 +1108,7 @@
     </optional>
   </define>
 
-  <define name="att.phrase.vis" combine="interleave">
+  <define name="att.phrase.vis.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.curvature"/>
     <ref name="att.curverend"/>
@@ -1176,22 +1176,22 @@
     <ref name="att.xy"/>
   </define>
 
-  <define name="att.rest.log" combine="interleave">
+  <define name="att.rest.log.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.beamed"/>
   </define>
 
-  <define name="att.rest.vis" combine="interleave">
+  <define name="att.rest.vis.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <empty/>
   </define>
 
-  <define name="att.scoredef.log" combine="interleave">
+  <define name="att.scoredef.log.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes</a:documentation>
     <ref name="att.beaming.log"/>
   </define>
 
-  <define name="att.scoredef.vis" combine="interleave">
+  <define name="att.scoredef.vis.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes</a:documentation>
     <ref name="att.beaming.vis"/>
     <ref name="att.pianopedals"/>
@@ -1239,17 +1239,17 @@
     <ref name="att.curverend"/>
   </define>
 
-  <define name="att.space.log" combine="interleave">
+  <define name="att.space.log.cmn" combine="interleave">
     <ref name="att.beamed"/>
   </define>
 
-  <define name="att.staffdef.log" combine="interleave">
+  <define name="att.staffdef.log.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Logical domain attributes for staffdef in
       the CMN repertoire</a:documentation>
     <ref name="att.beaming.log"/>
   </define>
 
-  <define name="att.staffdef.vis" combine="interleave">
+  <define name="att.staffdef.vis.cmn" combine="interleave">
     <a:documentation xml:lang="eng">Visual domain attributes for staffdef in the
       CMN repertoire</a:documentation>
     <ref name="att.beaming.vis"/>
@@ -1391,7 +1391,7 @@
   </define>
 
   <!-- Declare module model classes -->
-  <define name="model.controleventLike" combine="interleave">
+  <define name="model.controleventLike.cmn" combine="interleave">
     <a:documentation xml:lang="eng">groups control events that appear in CMN
       notation.</a:documentation>
     <zeroOrMore>
@@ -1413,7 +1413,7 @@
     </zeroOrMore>
   </define>
 
-  <define name="model.layerPart" combine="interleave">
+  <define name="model.layerPart.cmn" combine="interleave">
     <a:documentation xml:lang="eng">groups notated events at the layer
       level.</a:documentation>
     <zeroOrMore>
@@ -1423,7 +1423,7 @@
     </zeroOrMore>
   </define>
 
-  <define name="model.eventLike" combine="interleave">
+  <define name="model.eventLike.cmn" combine="interleave">
     <a:documentation xml:lang="eng">groups events that appear in CMN
       notation.</a:documentation>
     <zeroOrMore>
@@ -1483,7 +1483,7 @@
     <ref name="ossia"/>
   </define>
 
-  <define name="model.sectionPart" combine="interleave">
+  <define name="model.sectionPart.cmn" combine="interleave">
     <a:documentation xml:lang="eng">groups elements that may appear as part of a
       section.</a:documentation>
     <zeroOrMore>
