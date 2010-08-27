@@ -153,7 +153,7 @@
     <!-- Ignoring leftover xhtml documentation -->
     <xsl:if
       test="not(self::*[namespace-uri()='http://www.w3.org/1999/xhtml'])">
-      <xsl:element name="rng:{local-name(.)}">
+      <xsl:element name="rng:{local-name(.)}" exclude-result-prefixes="loc a xhtml xd">
         <xsl:choose>
           <!-- Handle ODD suffix if required -->
           <xsl:when test="$handle-models">
@@ -165,18 +165,18 @@
                   <xsl:for-each select="ancestor::loc:aggregation//define[@name=$this-mdl][not(preceding::define[@name=$this-mdl])]">
                     <!-- Determine suffix -->
                     <xsl:variable name="mdlName">
-                      <xsl:choose>
-                        <xsl:when test="starts-with(ancestor::loc:div/@name, 'shared_')">
+                      <xsl:value-of select="@name"/>
+                      <!--<xsl:choose>
+                        <xsl:when test="starts-with(ancestor::loc:div/@name, 'shared')">
                           <xsl:value-of select="@name"/>
                         </xsl:when>
                         <xsl:otherwise>
                           <xsl:value-of select="concat(@name, '.', ancestor::loc:div/@name)"/>
                         </xsl:otherwise>
-                      </xsl:choose>
+                      </xsl:choose>-->
                     </xsl:variable>
                     <xsl:choose>
-                      <!-- one element (no suffix) -->
-                      <!-- Problem: alternation doesn't seem to be handled by roma, so it won't have suffix for now. -->
+                      <!-- one element (no suffix) or choice (default behaviour) -->
                       <xsl:when test="ref or choice">
                         <xsl:value-of select="$mdlName"/>
                       </xsl:when>
@@ -260,10 +260,10 @@
 
     <!-- Oxygen-specific link to TEI schema. -->
     <xsl:processing-instruction name="oxygen">
-      <xsl:text>RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="xml"</xsl:text>
+      <xsl:text>RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_odds.rng" type="xml"</xsl:text>
     </xsl:processing-instruction>
 
-    <TEI>
+    <TEI xsl:exclude-result-prefixes="loc a xhtml xd">
 
       <teiHeader>
         <fileDesc>
@@ -321,7 +321,7 @@
         <body>
           <p>MEI</p>
 
-          <schemaSpec ident="mei" start="mei" ns="http://www.mei-c.org/ns/mei">
+          <!--<schemaSpec ident="mei" start="mei" ns="http://www.mei-c.org/ns/mei">-->
 
             <!-- MODULES -->
             <xsl:value-of select="$nl"/>
@@ -336,12 +336,11 @@
             <xsl:comment>****</xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:for-each select="$modules//loc:module">
-              <macroSpec module="tei" type="pe" ident="MEI.{loc:name}">
-                <desc/>
-                <content>
-                  <rng:ref name="IGNORE"/>
-                </content>
-              </macroSpec>
+              <moduleSpec ident="{loc:name}">
+                <desc>
+                  <xsl:apply-templates select="a:documentation"/>
+                </desc>
+              </moduleSpec>
             </xsl:for-each>
 
             <!-- DATATYPES -->
@@ -403,18 +402,78 @@
             <xsl:comment>****</xsl:comment>
             <xsl:value-of select="$nl"/>
             <xsl:apply-templates select="$aggregation//define[not(contains(@name, '.'))]"/>
-          </schemaSpec>
+          <!--</schemaSpec>-->
 
         </body>
       </text>
     </TEI>
+    
+    <!-- CREATE STANDARD CUSTOMISATIONS -->
+    <xsl:result-document href="../ODD/mei-all.xml">
+      <xsl:processing-instruction name="oxygen">
+        <xsl:text>RNGSchema="http://www.tei-c.org/release/xml/tei/custom/schema/relaxng/tei_all.rng" type="xml"</xsl:text>
+      </xsl:processing-instruction>
+      <TEI xmlns:rng="http://relaxng.org/ns/structure/1.0"
+        xmlns="http://www.tei-c.org/ns/1.0"  xsl:exclude-result-prefixes="loc a xhtml xd">
+        <teiHeader>
+          <fileDesc>
+            <titleStmt>
+              <title>MEI (Music Encoding Initiative) - ALL</title>
+              <respStmt>
+                <resp>Authored by</resp>
+                <name xml:id="RV">Raffaele Viglianti</name>
+              </respStmt>
+            </titleStmt>
+            <publicationStmt>
+              <p>Automatically Generated</p>
+            </publicationStmt>
+            <sourceDesc>
+              <p>created on 2010-08-26T22:09:54.285+02:00</p>
+            </sourceDesc>
+          </fileDesc>
+        </teiHeader>
+        <text>
+          <front>
+            <divGen type="toc"/>
+          </front>
+          <body>
+            
+            <schemaSpec ident="mei" start="mei" ns="http://www.music-encoding.org/ns/mei">
+              
+              <moduleRef key="MEI.shared"/>
+              <moduleRef key="MEI.header"/>
+              <moduleRef key="MEI.cmn"/>
+              <moduleRef key="MEI.mensural"/>
+              <moduleRef key="MEI.neumes"/>
+              <moduleRef key="MEI.analysis"/>
+              <moduleRef key="MEI.cmnOrnaments"/>
+              <moduleRef key="MEI.corpus"/>
+              <moduleRef key="MEI.critapp"/>
+              <moduleRef key="MEI.edittrans"/>
+              <moduleRef key="MEI.facsimile"/>
+              <moduleRef key="MEI.figtable"/>
+              <moduleRef key="MEI.harmony"/>
+              <moduleRef key="MEI.linkalign"/>
+              <moduleRef key="MEI.lyrics"/>
+              <moduleRef key="MEI.midi"/>
+              <moduleRef key="MEI.namesdates"/>
+              <moduleRef key="MEI.ptrref"/>
+              <moduleRef key="MEI.tablature"/>
+              <moduleRef key="MEI.text"/>
+              <moduleRef key="MEI.usersymbols"/>
+              
+            </schemaSpec>
+            
+          </body></text></TEI>
+    </xsl:result-document>
+    
   </xsl:template>
 
   <!-- Data Template-->
   <xsl:template match="//define[starts-with(@name, 'data.')]">
     <!-- in TEI's ODD, *all* datatype macros have module="tei" 
          This might change if there are datatypes specific to certain modules. i.e. mensural, neume -->
-    <macroSpec module="mei" type="dt" ident="{@name}">
+    <macroSpec module="mei" type="dt" ident="{@name}" xsl:exclude-result-prefixes="loc a xhtml xd">
       <desc>
         <xsl:apply-templates select="a:documentation"/>
       </desc>
@@ -430,7 +489,8 @@
 
   <!-- Attributes Template -->
   <xsl:template match="//define[starts-with(@name, 'att.')]">
-    <classSpec type="atts" module="MEI.{ancestor::loc:div/@name}">
+    <xsl:variable name="thisAtt" select="@name"/>
+    <classSpec type="atts" module="MEI.{ancestor::loc:div/@name}" xsl:exclude-result-prefixes="loc a xhtml xd">
       <!-- Handling att.stemmed, the only attribute class with @combine -->
       <xsl:attribute name="ident">
         <xsl:value-of select="@name"/>
@@ -446,9 +506,21 @@
             -->
       <xsl:if test="ref">
         <classes>
+          <xsl:variable name="modulesnames">
+            <xsl:text>_</xsl:text>
+            <xsl:for-each select="$modules//loc:module/loc:name">
+              <xsl:value-of select="concat(.,'_')"/>
+            </xsl:for-each>
+          </xsl:variable>
+          
           <xsl:for-each select="ref">
-            <memberOf key="{@name}"/>
+            <!--<xsl:if test="not(contains($modulesnames, concat('_', substring-after(@name, concat($thisAtt, '.')), '_')))">-->
+              <memberOf key="{@name}"/>
           </xsl:for-each>
+          
+          <!--<xsl:if test="contains($modulesnames, concat('_', tokenize(@name, '\.')[last()], '_'))">
+            <memberOf key="{substring-before(@name, concat('.', tokenize(@name, '\.')[last()]))}"/>
+          </xsl:if>-->
         </classes>
       </xsl:if>
       <xsl:if test="descendant::attribute">
@@ -459,7 +531,10 @@
               <!-- Convert 
                                 att.common.attribute.id -> att.common.attribute.xml:id
                                 att.lang.attribute.lang -> att.lang.attribute.xml:lang 
-                            when found -->
+                                when found -->
+              <xsl:if test="@ns='http://www.w3.org/1999/xlink'">
+                <xsl:sequence select="@ns"/>
+              </xsl:if>
               <xsl:attribute name="ident">
                 <xsl:choose>
                   <xsl:when test="@name='id'">
@@ -559,11 +634,11 @@
               (zeroOrMore and not(zeroOrMore/*[not(self::ref)]) and not(optional))
               or
               (zeroOrMore/choice and not (optional))">
-        <classSpec type="model" module="MEI.{ancestor::loc:div/@name}">
+        <classSpec type="model" ident="{@name}" module="MEI.{ancestor::loc:div/@name}" xsl:exclude-result-prefixes="loc a xhtml xd">
           <!-- If not in shared_Module, add module name to element. Attempt to avoid combine problems? Killed for now -->
-          <xsl:attribute name="ident">
+          <!--<xsl:attribute name="ident">
             <xsl:choose>
-              <xsl:when test="starts-with(ancestor::loc:div/@name, 'shared_')">
+              <xsl:when test="starts-with(ancestor::loc:div/@name, 'shared')">
                 <xsl:value-of select="@name"/>
               </xsl:when>
               <xsl:otherwise>
@@ -572,15 +647,16 @@
                 <xsl:value-of select="ancestor::loc:div/@name"/>
               </xsl:otherwise>
           </xsl:choose>
-          </xsl:attribute>
+          </xsl:attribute>-->
           <xsl:variable name="model-name" select="@name"/>
           <desc>
             <xsl:apply-templates select="a:documentation"/>
           </desc>
           <!--  Memebrship to other Model Classes -->
-          <classes>
+          <xsl:if test="ancestor::loc:aggregation//define[starts-with(@name, 'model.')]//ref[@name=$model-name]">
+            <classes>
             <xsl:for-each
-              select="ancestor::grammar//define[starts-with(@name, 'model.')]//ref[@name=$model-name]">
+              select="ancestor::loc:aggregation//define[starts-with(@name, 'model.')]//ref[@name=$model-name]">
               <memberOf key="{ancestor::define/@name}"/>
               
               <!-- If not in shared module, calculate dependecies -->
@@ -588,7 +664,8 @@
                 <memberOf key="{@name}"/>
               </xsl:if>-->
             </xsl:for-each>
-          </classes>
+            </classes>
+          </xsl:if>
         </classSpec>
       </xsl:when>
       <!-- If it doens't fit in any of the previous cases, it's a macro -->
@@ -596,7 +673,7 @@
         <xsl:if test="@combine">
           <xsl:message>WARNING: Identified Macro with @combine. Possible model? Name: <xsl:value-of select="@name"/></xsl:message>
         </xsl:if>
-        <macroSpec type="pe" ident="macro.{substring-after(@name, 'model.')}"  module="MEI.{ancestor::loc:div/@name}">
+        <macroSpec type="pe" ident="macro.{substring-after(@name, 'model.')}"  module="MEI.{ancestor::loc:div/@name}" xsl:exclude-result-prefixes="loc a xhtml xd">
           <desc>
             <xsl:apply-templates select="a:documentation"/>
           </desc>
@@ -623,24 +700,25 @@
             Content found in RNG: zeroOrMore|oneOrMoreref|empty|ref|optional|choice|text 
         -->
     <xsl:variable name="element-name" select="@name"/>
-    <elementSpec ident="{@name}"  module="MEI.{ancestor::loc:div/@name}">
+    <elementSpec ident="{@name}"  module="MEI.{ancestor::loc:div/@name}" xsl:exclude-result-prefixes="loc a xhtml xd">
       <desc>
         <xsl:apply-templates select="element/a:documentation"/>
       </desc>
       <!-- 
-                N.B. ignoring child::empty -> does it make sense to have an empty attribute?
+                N.B. ignoring child::empty -> does it make sense to have an empty attribute? May be obsolete
             -->
-      <xsl:if test="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/ref">
+      <xsl:if test="ancestor::loc:aggregation//define[@name=concat('attlist.',$element-name)]/ref
+        | ancestor::loc:aggregation//define[starts-with(@name, 'model.')]//ref[@name=$element-name]">
         <classes>
           <xsl:for-each
-            select="ancestor::grammar//define[@name=concat('attlist.',$element-name)]/ref">
+            select="ancestor::loc:aggregation//define[@name=concat('attlist.',$element-name)]/ref">
             <memberOf key="{@name}"/>
           </xsl:for-each>
           <!-- 
                     Membership to Model Classes
                     -->
           <xsl:for-each
-            select="ancestor::grammar//define[starts-with(@name, 'model.')]//ref[@name=$element-name]">
+            select="ancestor::loc:aggregation//define[starts-with(@name, 'model.')]//ref[@name=$element-name]">
             <memberOf key="{ancestor::define/@name}"/>
           </xsl:for-each>
         </classes>
@@ -674,13 +752,22 @@
         <xsl:choose>
           <!-- If the current element is mei, add all generic patterns -->
           <xsl:when test="$element-name = 'mei' and starts-with($context_nrml, 'mei:*')">
-              <constraintSpec
+            
+            <constraintSpec ident="set_ns" scheme="isoschematron">
+              <constraint>
+                <sch:ns uri="http://www.music-encoding.org/ns/mei" prefix="mei"/>
+              </constraint>
+            </constraintSpec>            
+            
+            <constraintSpec
                 ident="{
                 if (parent::sch:pattern/sch:title != '') 
                 then translate(translate(normalize-space(parent::sch:pattern/sch:title), ' ', '_'), '/\@:()[]', '') 
                 else 'generic_rule-no_title'
                 }"
                 scheme="isoschematron">
+                
+                
                 <constraint>
                   
                   <xsl:message>
@@ -691,12 +778,8 @@
                     <xsl:text>'</xsl:text>
                   </xsl:message>
                   
-                  <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron">
-                    <xsl:sequence select="@* except @context"/>
-                    <xsl:attribute name="context">
-                        <!--<xsl:text>mei:</xsl:text>--> <!-- obsolete -->
-                        <xsl:value-of select="@context"/>
-                    </xsl:attribute>
+                  <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron" exclude-result-prefixes="loc a xhtml xd">
+                    <xsl:sequence select="@*"/>
                     <xsl:for-each select="*">
                       <xsl:copy-of select="." copy-namespaces="no"/>
                     </xsl:for-each>
@@ -734,13 +817,13 @@
                   <xsl:text>'</xsl:text>
                 </xsl:message>
                 
-                <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron">
+                <xsl:element name="sch:rule" namespace="http://purl.oclc.org/dsdl/schematron" exclude-result-prefixes="loc a xhtml xd">
                   <xsl:sequence select="@* except @context"/>
                   <xsl:attribute name="context">
                     <xsl:choose>
                       <xsl:when test="contains($context_nrml, '|')">
                         <xsl:for-each select="tokenize($context_nrml, '\|')">
-                          <xsl:if test="matches(., concat('^\s?', $element-name, '(\s?\[.*\])?\s?$'))">
+                          <xsl:if test="matches(., concat('^\s?', 'mei:', $element-name, '(\s?\[.*\])?\s?$'))">
                             <!--<xsl:text>mei:</xsl:text>--> <!-- obsolete -->
                             <xsl:value-of select="replace(., '^\s', '')"/>
                           </xsl:if>
@@ -852,6 +935,7 @@
         </attList>
       </xsl:if>
     </elementSpec>
+    
   </xsl:template>
 
 </xsl:stylesheet>
