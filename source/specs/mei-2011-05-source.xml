@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?oxygen RNGSchema="../../../trunk/schemaDevelopment/ODD/tei_odds.rng" type="xml"?>
+<?oxygen RNGSchema="../tei_odds.rng" type="xml"?>
 <TEI xmlns:rng="http://relaxng.org/ns/structure/1.0" xmlns:sch="http://purl.oclc.org/dsdl/schematron" xmlns="http://www.tei-c.org/ns/1.0">
   <teiHeader>
     <fileDesc>
@@ -121,6 +121,7 @@
       <change who="#PR" when="2011-06-30">Added shape attribute to att.fermata.vis</change>
       <change who="#PR" when="2011-07-01">Added 2011-07-01 to mei-2011-05-source.xml: made att.artic.log and att.accid.log members of att.controlevent and
         att.staffloc; made att.dot.log member of att.controlevent.</change>
+        <change who="#PR" when="2011-08-10">Moved schema-defining elements from &lt;body&gt; to &lt;back&gt;.</change>
     </revisionDesc>
   </teiHeader>
   <text>
@@ -277,7 +278,14 @@
     </front>
     <body>
       <div>
-        <!--<p>MEI</p>-->
+      <!--
+          <head>MEI Guidelines</head>
+          <p>MEI</p>
+        -->
+      </div>
+    </body>
+    <back>
+      <div>
 
         <!-- Module definitions -->
         <moduleSpec ident="MEI">
@@ -9279,7 +9287,7 @@
           <constraintSpec ident="Start-_and_end-type_attributes_required_on_some_control_events" scheme="isoschematron">
             <constraint>
               <sch:rule context="mei:phrase">
-                <sch:assert test="@startid or @tstamp or @tstamp.ges or 
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or
                 @tstamp.real"> Must have one of the attributes: startid, tstamp,
                   tstamp.ges or tstamp.real</sch:assert>
                 <sch:assert test="@endid or @dur">Must have one of the attributes: dur or endid</sch:assert>
@@ -13399,7 +13407,7 @@
             <constraint>
               <sch:rule context="mei:when[@since]">
                 <sch:let name="thissince" value="@since"/>
-                <sch:assert test="@since = 
+                <sch:assert test="@since =
                 preceding-sibling::mei:when[@xml:id=$thissince]/@xml:id">The value of @since must be the ID of a
                   preceding sibling when element.</sch:assert>
                 <sch:assert test="@interval and @inttype">If @since is present, @interval and @inttype are also required.</sch:assert>
@@ -14439,6 +14447,6 @@
           </content>
         </elementSpec>
       </div>
-    </body>
+    </back>
   </text>
 </TEI>
