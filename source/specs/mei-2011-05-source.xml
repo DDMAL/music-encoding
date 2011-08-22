@@ -196,6 +196,11 @@
         evaluate attribute; made att.pointing a member of att.targets; made any entities that were
         members of att.link.(in|ex)ternal members of att.pointing; made any entities that were
         members of att.participantident members of att.targets.</change>
+      <change who="#PR" when="2011-08-22">Re-worked transition to anyURI -- Renamed att.targets
+        class back to att.plist and added target attribute (allowing multiple URLs) to att.pointing
+        class. Members of att.plist are now att.controlevent, annot, and expansion. Members of
+        att.pointing are now avFile, barLine, bibl, contents, ending, graphic, lem, measure, pb,
+        ptr, ref, rdg, and section.</change>
     </revisionDesc>
   </teiHeader>
   <text>
@@ -2447,7 +2452,7 @@
             example, a slur/phrase marking must be drawn between or over a group of notes. The slur
             is therefore a control event.</desc>
           <classes>
-            <memberOf key="att.targets"/>
+            <memberOf key="att.plist"/>
             <memberOf key="att.timestamp.musical"/>
             <memberOf key="att.timestamp.performed"/>
             <memberOf key="att.staffident"/>
@@ -2940,9 +2945,6 @@
         </classSpec>
         <classSpec type="atts" module="MEI.shared" ident="att.pointing">
           <desc>Attributes common to all linking elements</desc>
-          <classes>
-            <memberOf key="att.targets"/>
-          </classes>
           <attList>
             <attDef ns="http://www.w3.org/1999/xlink" ident="actuate" usage="opt">
               <desc>defines whether a link occurs automatically or must be requested by the user. It
@@ -2991,6 +2993,13 @@
                   <desc>behavior other than permitted by the other values of this attribute</desc>
                 </valItem>
               </valList>
+            </attDef>
+            <attDef ident="target" usage="opt">
+              <desc>allows the use of one or more previously-undeclared URIs to identify an external
+                electronic object.</desc>
+              <datatype>
+                <rng:ref name="data.URIS"/>
+              </datatype>
             </attDef>
             <attDef ident="targettype" usage="opt">
               <desc>in contrast with the role attribute, allows the target resource to be
@@ -3295,12 +3304,12 @@
             </attDef>
           </attList>
         </classSpec>
-        <classSpec type="atts" module="MEI.shared" ident="att.targets">
-          <desc>Attributes listing the participants in a collection</desc>
+        <classSpec type="atts" module="MEI.shared" ident="att.plist">
+          <desc>Attributes listing the participants in a user-defined collection</desc>
           <attList>
             <attDef ident="plist" usage="opt">
-              <desc>contains a space separated list of ID references that identify logical events
-                that participate in a collection, such as notes under a phrase mark.</desc>
+              <desc>contains a space separated list of references that identify logical events that
+                participate in a collection, such as notes under a phrase mark.</desc>
               <datatype>
                 <rng:ref name="data.URIS"/>
               </datatype>
@@ -3963,11 +3972,9 @@
             any convenient typology of annotation suitable to the work in hand; e.g. annotation,
             gloss, citation, digression, preliminary, temporary, etc.</desc>
           <classes>
-            <!-- Because annot is a member of att.pointing, which is in turn a member of
-              att.targets, which provides @plist, annot is *not* a member of att.controlevent.
-              The attributes defined in att.controlevent (att.timestamp.musical, att.timestamp.performed,
-              att.staffident, and att.layerident), minus those in att.targets *are* provided
-              here directly. -->
+            <!-- Some attributes defined in att.controlevent (att.timestamp.musical, att.timestamp.performed,
+              att.staffident, and att.layerident) are provided
+              here directly instead of making annot a member of att.controlevent. -->
             <memberOf key="att.startendid"/>
             <memberOf key="att.duration.timestamp"/>
             <memberOf key="att.timestamp.musical"/>
@@ -8650,7 +8657,7 @@
             <memberOf key="att.annot.vis"/>
             <memberOf key="att.annot.ges"/>
             <memberOf key="att.annot.anl"/>
-            <memberOf key="att.pointing"/>
+            <memberOf key="att.plist"/>
             <memberOf key="att.responsibility"/>
             <memberOf key="model.annotLike"/>
           </classes>
@@ -9225,7 +9232,7 @@
             <memberOf key="att.common"/>
             <memberOf key="att.source"/>
             <memberOf key="att.typed"/>
-            <memberOf key="att.targets"/>
+            <memberOf key="att.plist"/>
           </classes>
           <content>
             <rng:empty/>
@@ -10992,7 +10999,7 @@
           <classes>
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
-            <memberOf key="att.targets"/>
+            <memberOf key="att.pointing"/>
           </classes>
           <content>
             <rng:optional>
@@ -11034,7 +11041,7 @@
           <exemplum>
             <egXML xmlns="http://www.tei-c.org/ns/Examples"
               xmlns:xlink="http://www.w3.org/1999/xlink">
-              <contents xlink:href="http://www.contentProvider.org/toc/foo.html"/>
+              <contents xlink:href="http://www.contentProvider.org/toc/toc01.html"/>
             </egXML>
           </exemplum>
         </elementSpec>
@@ -11056,6 +11063,21 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
+          <!-- To make it possible to generate a DTD, <content> must read:
+              <content>
+                <rng:zeroOrMore>
+                  <rng:choice>
+                    <rng:text/>
+                    <rng:ref name="model.headLike"/>
+                    <rng:ref name="model.textcomponentLike"/>
+                    <rng:ref name="model.textphraseLike"/>
+                    <rng:ref name="model.editLike"/>
+                    <rng:ref name="model.transcriptionLike"/>
+                    <rng:ref name="model.incipLike"/>
+                  </rng:choice>
+                </rng:zeroOrMore>
+              </content>
+          </content> -->
         </elementSpec>
         <elementSpec ident="creation" module="MEI.header">
           <desc>creation ― Non-bibliographic creation details for the work being encoded, in
@@ -11765,13 +11787,14 @@
         <elementSpec ident="relatedItem" module="MEI.header">
           <desc>related item ― contains or references another bibliographic item which is related to
             the present one in some specified manner, for example as a constituent or alternative
-            version of it. A URI for the related item should be placed in the &lt;identifier&gt;
-            sub-element. This element is modelled on the relatedItem element in the Text Encoding
-            Initiative (TEI) and MODS schemas.</desc>
+            version of it. A URI for the related item may be placed in the target attribute or in an
+            &lt;identifier&gt; sub-element. This element is modelled on the relatedItem element in
+            the Text Encoding Initiative (TEI) and MODS schemas.</desc>
           <classes>
             <memberOf key="att.datapointing"/>
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
+            <memberOf key="att.pointing"/>
           </classes>
           <content>
             <rng:zeroOrMore>
@@ -14038,7 +14061,7 @@
             <memberOf key="att.declaring"/>
             <memberOf key="att.internetmedia"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="att.targets"/>
+            <memberOf key="att.pointing"/>
             <memberOf key="att.measurement"/>
             <memberOf key="att.typed"/>
             <memberOf key="att.width"/>
@@ -14063,7 +14086,6 @@
           <classes>
             <memberOf key="att.common"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="att.pointing"/>
             <memberOf key="att.xy"/>
             <memberOf key="model.figureLike"/>
           </classes>
@@ -15027,7 +15049,7 @@
             <memberOf key="att.declaring"/>
             <memberOf key="att.internetmedia"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="att.targets"/>
+            <memberOf key="att.pointing"/>
             <memberOf key="att.typed"/>
           </classes>
           <content>
