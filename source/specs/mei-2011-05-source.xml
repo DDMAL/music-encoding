@@ -3709,30 +3709,20 @@
         <memberOf key="att.color"/>
       </classes>
     </classSpec>
-    <classSpec ident="att.clefChange.anl" module="MEI.shared" type="atts">
+    <classSpec type="atts" module="MEI.shared" ident="att.clefGrp.anl">
       <desc>Analytical domain attributes</desc>
       <classes>
         <memberOf key="att.common.anl"/>
       </classes>
     </classSpec>
-    <classSpec ident="att.clefChange.ges" module="MEI.shared" type="atts">
+    <classSpec type="atts" module="MEI.shared" ident="att.clefGrp.ges">
       <desc>Gestural domain attributes</desc>
     </classSpec>
-    <classSpec ident="att.clefChange.log" module="MEI.shared" type="atts">
+    <classSpec type="atts" module="MEI.shared" ident="att.clefGrp.log">
       <desc>Logical domain attributes</desc>
-      <classes>
-        <memberOf key="att.clefshape"/>
-        <memberOf key="att.lineloc"/>
-        <memberOf key="att.octave"/>
-        <memberOf key="att.octavedisplacement"/>
-      </classes>
     </classSpec>
-    <classSpec ident="att.clefChange.vis" module="MEI.shared" type="atts">
+    <classSpec type="atts" module="MEI.shared" ident="att.clefGrp.vis">
       <desc>Visual domain attributes</desc>
-      <classes>
-        <memberOf key="att.altsym"/>
-        <memberOf key="att.color"/>
-      </classes>
     </classSpec>
     <classSpec ident="att.custos.anl" module="MEI.shared" type="atts">
       <desc>Analytical domain attributes</desc>
@@ -7485,9 +7475,6 @@
         <memberOf key="model.rdgPart.critapp"/>
       </classes>
     </classSpec>
-    <classSpec ident="model.clefChangePart" module="MEI.shared" type="model">
-      <desc>groups elements that contain information regarding changes of clef.</desc>
-    </classSpec>
     <classSpec ident="model.dateLike" module="MEI.shared" type="model">
       <desc>groups elements containing date expressions.</desc>
       <classes>
@@ -8263,9 +8250,11 @@
           <sch:rule context="mei:barLine[@taktplace]">
             <sch:let name="staff" value="ancestor::mei:staff/@n"/>
             <sch:let name="staffpos"
-              value="count(ancestor::mei:staff/preceding-sibling::mei:staff) +                 1"/>
+              value="count(ancestor::mei:staff/preceding-sibling::mei:staff) +
+                1"/>
             <sch:assert
-              test="number(@taktplace) &lt;= number(2 *                 preceding::mei:staffDef[@n=$staff and @lines][1]/@lines)"
+              test="number(@taktplace) &lt;= number(2 *
+                preceding::mei:staffDef[@n=$staff and @lines][1]/@lines)"
             />
           </sch:rule>
         </constraint>
@@ -8410,10 +8399,11 @@
     </elementSpec>
     <elementSpec ident="clef" module="MEI.shared">
       <desc>clef ― Indication of the exact location of a particular note on the staff and,
-        therefore, the other notes as well. This element provides an alternative to the staff
+        therefore, the other notes as well. This element can be used as an alternative to the staff
         element's clef.* attributes. It should be used when specific display info, such as size or
         color, needs to be recorded for the clef or when multiple, simultaneous clefs occur on a
-        single staff.</desc>
+        single staff. This element may also be used within the staff context to indicate changes of
+        clef.</desc>
       <classes>
         <memberOf key="att.common"/>
         <memberOf key="att.facsimile"/>
@@ -8421,7 +8411,7 @@
         <memberOf key="att.clef.ges"/>
         <memberOf key="att.clef.log"/>
         <memberOf key="att.clef.vis"/>
-        <memberOf key="model.clefChangePart"/>
+        <memberOf key="model.eventLike"/>
         <memberOf key="model.staffDefPart"/>
       </classes>
       <content>
@@ -8432,7 +8422,9 @@
           <sch:rule context="mei:clef[ancestor::mei:staffDef[@lines]]">
             <sch:let name="thisstaff" value="ancestor::mei:staffDef/@n"/>
             <sch:assert
-              test="number(@line) &lt;=                 number(ancestor::mei:staffDef[@n=$thisstaff and                 @lines][1]/@lines)"
+              test="number(@line) &lt;=
+                number(ancestor::mei:staffDef[@n=$thisstaff and
+                @lines][1]/@lines)"
               >The clef position must be less than or equal to the number of lines on the
               staff.</sch:assert>
           </sch:rule>
@@ -8443,41 +8435,33 @@
           <sch:rule context="mei:clef[ancestor::mei:staffDef[not(@lines)]]">
             <sch:let name="thisstaff" value="ancestor::mei:staffDef/@n"/>
             <sch:assert
-              test="number(@line) &lt;=                 number(preceding::mei:staffDef[@n=$thisstaff and                 @lines][1]/@lines)"
+              test="number(@line) &lt;=
+                number(preceding::mei:staffDef[@n=$thisstaff and
+                @lines][1]/@lines)"
               >The clef position must be less than or equal to the number of lines on the
               staff.</sch:assert>
           </sch:rule>
         </constraint>
       </constraintSpec>
     </elementSpec>
-    <elementSpec ident="clefChange" module="MEI.shared">
-      <desc>clef change ― A temporary change of clef.</desc>
+    <elementSpec ident="clefGrp" module="MEI.shared">
+      <desc>clef group ― A set of simultaneously-occurring clefs</desc>
       <classes>
         <memberOf key="att.common"/>
         <memberOf key="att.event"/>
         <memberOf key="att.facsimile"/>
-        <memberOf key="att.clefChange.log"/>
-        <memberOf key="att.clefChange.vis"/>
-        <memberOf key="att.clefChange.ges"/>
-        <memberOf key="att.clefChange.anl"/>
+        <memberOf key="att.clefGrp.log"/>
+        <memberOf key="att.clefGrp.vis"/>
+        <memberOf key="att.clefGrp.ges"/>
+        <memberOf key="att.clefGrp.anl"/>
         <memberOf key="model.eventLike"/>
+        <memberOf key="model.staffDefPart"/>
       </classes>
       <content>
-        <rng:ref name="model.clefChangePart_sequenceOptionalRepeatable"/>
+        <rng:oneOrMore>
+          <rng:ref name="clef"/>
+        </rng:oneOrMore>
       </content>
-      <constraintSpec ident="Check_clef_position_clefChange" scheme="isoschematron">
-        <constraint>
-          <sch:rule context="mei:clefChange[@line]">
-            <sch:let name="thisstaff" value="ancestor::staff/@n"/>
-            <sch:let name="staffpos"
-              value="count(ancestor::mei:staff/preceding-sibling::mei:staff) +                 1"/>
-            <sch:assert
-              test="number(@line) &lt;=                 number(preceding::mei:staffDef[@n=$thisstaff and                 @lines][1]/@lines) or number(@line) &lt;=                 number(preceding::mei:staffDef[@n=$staffpos and                 @lines][1]/@lines)"
-              >The clef position must be less than or equal to the number of lines on the
-              staff.</sch:assert>
-          </sch:rule>
-        </constraint>
-      </constraintSpec>
     </elementSpec>
     <elementSpec ident="custos" module="MEI.shared">
       <desc>custos ― Symbol placed at the end of a line of music to indicate the first note of the
@@ -8568,7 +8552,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:dir">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -8627,7 +8612,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:dynam">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -8715,7 +8701,6 @@
         <memberOf key="att.trans"/>
         <memberOf key="att.typed"/>
         <memberOf key="model.editorialLike"/>
-        <!--<memberOf key="model.choicePart"/>-->
       </classes>
       <content>
         <rng:zeroOrMore>
@@ -9129,7 +9114,8 @@
         <constraint>
           <sch:rule context="mei:*[@staff]">
             <sch:assert
-              test="every $i in tokenize(@staff, '\s+') satisfies                 $i=//mei:staffDef/@n"
+              test="every $i in tokenize(@staff, '\s+') satisfies
+                $i=//mei:staffDef/@n"
               >The values in @staff must correspond to @n attribute of a staffDef
               element.</sch:assert>
           </sch:rule>
@@ -9522,7 +9508,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:phrase">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
             <sch:assert test="@endid or @dur">Must have one of the attributes: dur or
@@ -9635,7 +9622,9 @@
           <sch:rule context="mei:rest[@line]">
             <sch:let name="thisstaff" value="ancestor::mei:staff/@n"/>
             <sch:assert
-              test="number(@line) &lt;=                 number(preceding::mei:staffDef[@n=$thisstaff and                 @lines][1]/@lines)"
+              test="number(@line) &lt;=
+                number(preceding::mei:staffDef[@n=$thisstaff and
+                @lines][1]/@lines)"
               >The value of @line must be less than or equal to the number of lines on the
               staff.</sch:assert>
           </sch:rule>
@@ -9937,8 +9926,11 @@
             <sch:let name="thisstaff" value="@n"/>
             <sch:assert test="@n">A staffDef must have an n attribute.</sch:assert>
             <sch:assert
-              test="@lines or preceding::mei:staffDef[@n=$thisstaff                 and @lines]">The
+              test="@lines or preceding::mei:staffDef[@n=$thisstaff
+                and @lines]">The
               first occurrence of a staff must declare the number of staff lines.</sch:assert>
+            <sch:assert test="count(mei:clef) + count(mei:clefGrp) &lt; 2">Only one clef or clefGrp
+              is permitted.</sch:assert>
           </sch:rule>
         </constraint>
       </constraintSpec>
@@ -9955,7 +9947,8 @@
           <sch:rule context="mei:staffDef[@clef.line and not(@lines)]">
             <sch:let name="thisstaff" value="@n"/>
             <sch:let name="stafflines"
-              value="preceding::mei:staffDef[@n=$thisstaff and                 @lines][1]/@lines"/>
+              value="preceding::mei:staffDef[@n=$thisstaff and
+                @lines][1]/@lines"/>
             <sch:assert test="number(@clef.line) &lt;= number($stafflines)">The clef position must
               be less than or equal to the number of lines on the staff.</sch:assert>
           </sch:rule>
@@ -9976,7 +9969,8 @@
             <sch:let name="countTokens" value="count(tokenize(normalize-space(@tab.strings), '\s'))"/>
             <sch:let name="thisStaff" value="@n"/>
             <sch:assert
-              test="$countTokens = 1 or $countTokens = preceding::mei:staffDef[@n=$thisStaff and                 @lines][1]/@lines"
+              test="$countTokens = 1 or $countTokens = preceding::mei:staffDef[@n=$thisStaff and
+                @lines][1]/@lines"
               >The tab.strings attribute must have the same number of values as there are staff
               lines.</sch:assert>
           </sch:rule>
@@ -9997,7 +9991,8 @@
                 value="count(tokenize(normalize-space(@lines.color), '\s'))"/>
               <sch:let name="thisStaff" value="@n"/>
               <sch:assert
-                test="$countTokens = 1 or $countTokens = preceding::mei:staffDef[@n=$thisStaff and                     @lines][1]/@lines"
+                test="$countTokens = 1 or $countTokens = preceding::mei:staffDef[@n=$thisStaff and
+                    @lines][1]/@lines"
                 >The lines.color attribute must have either 1) a single value or 2) the same number
                 of values as there are staff lines.</sch:assert>
             </sch:rule>
@@ -11868,7 +11863,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:beamSpan">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
             <sch:assert test="@endid or @dur">Must have one of the attributes: dur or
@@ -11926,7 +11922,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:bend">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -12007,7 +12004,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:fermata">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                   @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                  @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -12072,7 +12070,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:hairpin">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
             <sch:assert test="@endid or @dur">Must have one of the attributes: dur or
@@ -12101,7 +12100,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:harpPedal">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -12140,7 +12140,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:gliss">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -12328,7 +12329,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:octave">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
             <sch:assert test="@endid or @dur">Must have one of the attributes: dur or
@@ -12405,7 +12407,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:pedal">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -12468,7 +12471,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:slur">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
             <sch:assert test="@endid or @dur">Must have one of the attributes: dur or
@@ -12498,7 +12502,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:tie">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
             <sch:assert test="@endid or @dur">Must have one of the attributes: dur or
@@ -12563,7 +12568,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:tupletSpan">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
             <sch:assert test="@endid or @dur">Must have one of the attributes: dur or
@@ -12737,7 +12743,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:mordent">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -12772,7 +12779,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:trill">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
@@ -13832,7 +13840,8 @@
         scheme="isoschematron">
         <constraint>
           <sch:rule context="mei:harm">
-            <sch:assert test="@startid or @tstamp or @tstamp.ges or                 @tstamp.real">
+            <sch:assert test="@startid or @tstamp or @tstamp.ges or
+                @tstamp.real">
               Must have one of the attributes: startid, tstamp, tstamp.ges or
               tstamp.real</sch:assert>
           </sch:rule>
