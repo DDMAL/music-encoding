@@ -2677,9 +2677,9 @@
       <attList>
         <attDef ident="meiversion" usage="opt">
           <desc>records the version of MEI used by the file.</desc>
-          <defaultVal>2011-05</defaultVal>
+          <defaultVal>2012</defaultVal>
           <valList type="closed">
-            <valItem ident="2011-05">
+            <valItem ident="2012">
               <desc>this version of the schema</desc>
             </valItem>
           </valList>
@@ -11814,6 +11814,14 @@
           </rng:zeroOrMore>
         </rng:choice>
       </content>
+      <attList>
+        <attDef ident="reg" usage="opt">
+          <desc>gives the value of a date in standard ISO form.</desc>
+          <datatype>
+            <rng:ref name="data.ISODATE"/>
+          </datatype>
+        </attDef>
+      </attList>
     </elementSpec>
     <elementSpec ident="arpeg" module="MEI.cmn">
       <desc>arpeggiation ― Indicates that the notes of a chord are to be performed successively
