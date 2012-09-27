@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
-  <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"/>
+  <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"
+    use-character-maps="delimiters"/>
   <xsl:strip-space elements="*"/>
-  
+  <xsl:character-map name="delimiters">
+    <xsl:output-character character="&#xE501;" string="&lt;staffGrp&gt;"/>
+    <xsl:output-character character="&#xE502;" string="&lt;/staffGrp&gt;"/>
+  </xsl:character-map>
+  <xsl:variable name="staffGrpStart">
+    <xsl:text>&#xE501;</xsl:text>
+  </xsl:variable>
+  <xsl:variable name="staffGrpEnd">
+    <xsl:text>&#xE502;</xsl:text>
+  </xsl:variable>
+
   <!-- global variables -->
   <xsl:variable name="nl">
     <xsl:text>&#xa;</xsl:text>
@@ -34,18 +45,114 @@
 
   <xsl:template match="part-list" mode="layout">
     <!-- Create the basic content of $defaultLayout. -->
-    <staffGrp>
-      <xsl:variable name="temptree">
-        <xsl:apply-templates select="score-part|part-group" mode="layout"/>
-      </xsl:variable>
-      <xsl:variable name="temptree2">
-        <xsl:apply-templates select="$temptree" mode="numberStaves"/>
-      </xsl:variable>
-      <xsl:copy-of select="$temptree2/staffGrp|$temptree2/staffDef"/>
-      <xsl:apply-templates select="$temptree2/part-group[@type='start' and group-symbol]"
-        mode="grpSym"/>
-      <xsl:comment> Resolve grpSym elements into staffGrp elements! </xsl:comment>
-    </staffGrp>
+    <xsl:variable name="outerStaffGrp">
+      <xsl:element name="fooBar">
+        <xsl:variable name="outerStaffGrpContent">
+          <xsl:variable name="temptree">
+            <xsl:apply-templates select="score-part|part-group" mode="layout"/>
+          </xsl:variable>
+          <xsl:variable name="temptree2">
+            <xsl:apply-templates select="$temptree" mode="numberStaves"/>
+          </xsl:variable>
+          <xsl:copy-of select="$temptree2/staffGrp|$temptree2/staffDef"/>
+          <xsl:apply-templates select="$temptree2/part-group[@type='start' and group-symbol]"
+            mode="grpSym"/>
+        </xsl:variable>
+        <xsl:choose>
+          <xsl:when test="$outerStaffGrpContent/grpSym">
+            <!--Resolve grpSym elements into staffGrp elements! -->
+            <xsl:call-template name="resolveGrpSym">
+              <xsl:with-param name="in">
+                <xsl:copy-of select="$outerStaffGrpContent"/>
+              </xsl:with-param>
+              <xsl:with-param name="maxLevel">
+                <xsl:value-of select="number(max($outerStaffGrpContent/grpSym/@level))"/>
+              </xsl:with-param>
+              <xsl:with-param name="pass" select="number(1)"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:copy-of select="$outerStaffGrpContent"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:element>
+    </xsl:variable>
+    <xsl:copy-of select="$outerStaffGrp"/>
+  </xsl:template>
+
+  <xsl:template name="resolveGrpSym">
+    <xsl:param name="in"/>
+    <xsl:param name="maxLevel"/>
+    <xsl:param name="pass"/>
+    <xsl:variable name="staves" select="max($in//staffDef/@n)"/>
+    <xsl:variable name="newOuterStaffGrpContent">
+      <xsl:message>IN PASS <xsl:value-of select="$pass"/> NUMBER OF STAVES = <xsl:value-of select="$staves"/></xsl:message>      
+      <xsl:for-each select="$in/node()">
+        <xsl:choose>
+          <xsl:when test="name()='staffDef'">
+            <xsl:variable name="thisStaff" select="number(@n)"/>
+            <xsl:choose>
+              <xsl:when test="following::grpSym[number(@start)=$thisStaff and
+                number(@level)=$pass]">
+                <xsl:value-of select="$staffGrpStart"/>
+                <grpSym>
+                  <xsl:copy-of select="following::grpSym[number(@start)=$thisStaff and
+                    number(@level)=$pass][1]/@symbol"/>
+                  <xsl:copy-of select="following::grpSym[number(@start)=$thisStaff and
+                    number(@level)=$pass][1]/@barthru"/>
+                  <xsl:copy-of select="following::grpSym[number(@start)=$thisStaff and
+                    number(@level)=$pass][1]/label"/>
+                  <xsl:copy-of select="following::grpSym[number(@start)=$thisStaff and
+                    number(@level)=$pass][1]/label.abbr"/>
+                </grpSym>
+                <xsl:copy-of select="."/>
+              </xsl:when>
+              <xsl:when test="following::grpSym[number(@end)=$thisStaff and
+                number(@level)=$pass]">
+                <xsl:copy-of select="."/>
+                <xsl:value-of select="$staffGrpEnd"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:copy-of select="."/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:when test="name()='staffGrp'">
+            <xsl:copy-of select="."/>
+          </xsl:when>
+          <xsl:when test="name()='grpSym'">
+            <xsl:if test="not(number(@level)=$pass)">
+              <xsl:copy-of select="."/>
+            </xsl:if>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:copy-of select="."/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
+    </xsl:variable>
+    
+    <!--<xsl:copy-of select="$newOuterStaffGrpContent"/>-->
+
+    <!-- Recurse if the maximum nesting level hasn't yet been reached -->
+    <xsl:choose>
+      <xsl:when test="$pass &lt;= $maxLevel">
+        <xsl:call-template name="resolveGrpSym">
+          <xsl:with-param name="in">
+            <xsl:copy-of select="$newOuterStaffGrpContent"/>
+          </xsl:with-param>
+          <xsl:with-param name="maxLevel">
+            <xsl:value-of select="$maxLevel"/>
+          </xsl:with-param>
+          <xsl:with-param name="pass" select="number($pass + 1)"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- still need to remove redundant outer staffGrp element! -->
+        <xsl:copy-of select="$newOuterStaffGrpContent"/>
+      </xsl:otherwise>
+    </xsl:choose>
+
   </xsl:template>
 
   <xsl:template match="score-part" mode="layout">
@@ -85,7 +192,7 @@
               <xsl:value-of select="$partID"/>
             </xsl:with-param>
             <xsl:with-param name="staffNum"/>
-          </xsl:call-template>          
+          </xsl:call-template>
           <!-- instrument definition -->
           <xsl:choose>
             <xsl:when test="midi-instrument">
