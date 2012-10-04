@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
-  <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"
-    use-character-maps="delimiters"/>
-  <xsl:strip-space elements="*"/>
-  <xsl:character-map name="delimiters">
-    <xsl:output-character character="&#xE501;" string="&lt;staffGrp&gt;"/>
-    <xsl:output-character character="&#xE502;" string="&lt;/staffGrp&gt;"/>
-  </xsl:character-map>
-  <xsl:variable name="staffGrpStart">
-    <xsl:text>&#xE501;</xsl:text>
-  </xsl:variable>
-  <xsl:variable name="staffGrpEnd">
-    <xsl:text>&#xE502;</xsl:text>
-  </xsl:variable>
+  <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"/>
 
   <!-- global variables -->
   <xsl:variable name="nl">
@@ -39,124 +27,194 @@
     </xsl:choose>
   </xsl:variable>
 
+  <!-- Match document root -->
   <xsl:template match="/">
-    <xsl:copy-of select="$defaultLayout"/>
+    <music>
+      <!--<music xmlns="http://www.music-encoding.org/ns/mei">-->
+      <body>
+        <mdiv>
+          <score>
+            <scoreDef>
+              <xsl:copy-of select="$defaultLayout"/>
+            </scoreDef>
+          </score>
+        </mdiv>
+      </body>
+    </music>
   </xsl:template>
 
   <xsl:template match="part-list" mode="layout">
-    <!-- Create the basic content of $defaultLayout. -->
+    <!-- outerStaffGrp holds basic layout info -->
     <xsl:variable name="outerStaffGrp">
-      <xsl:element name="fooBar">
-        <xsl:variable name="outerStaffGrpContent">
-          <xsl:variable name="temptree">
-            <xsl:apply-templates select="score-part|part-group" mode="layout"/>
-          </xsl:variable>
-          <xsl:variable name="temptree2">
-            <xsl:apply-templates select="$temptree" mode="numberStaves"/>
-          </xsl:variable>
-          <xsl:copy-of select="$temptree2/staffGrp|$temptree2/staffDef"/>
-          <xsl:apply-templates select="$temptree2/part-group[@type='start' and group-symbol]"
-            mode="grpSym"/>
+      <staffGrp>
+        <xsl:variable name="temptree">
+          <!-- Create staffDef elements, copy part-group elements  -->
+          <xsl:apply-templates select="score-part|part-group" mode="layout"/>
         </xsl:variable>
-        <xsl:choose>
-          <xsl:when test="$outerStaffGrpContent/grpSym">
-            <!--Resolve grpSym elements into staffGrp elements! -->
-            <xsl:call-template name="resolveGrpSym">
-              <xsl:with-param name="in">
-                <xsl:copy-of select="$outerStaffGrpContent"/>
-              </xsl:with-param>
-              <xsl:with-param name="maxLevel">
-                <xsl:value-of select="number(max($outerStaffGrpContent/grpSym/@level))"/>
-              </xsl:with-param>
-              <xsl:with-param name="pass" select="number(1)"/>
-            </xsl:call-template>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:copy-of select="$outerStaffGrpContent"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:element>
+        <xsl:variable name="temptree2">
+          <!-- Number staves -->
+          <xsl:apply-templates select="$temptree" mode="numberStaves"/>
+        </xsl:variable>
+        <!-- Emit staffGrp and staffDef elements already created -->
+        <xsl:copy-of select="$temptree2/staffGrp|$temptree2/staffDef"/>
+        <!-- Create stand-off staff grouping symbols -->
+        <xsl:apply-templates select="$temptree2/part-group[@type='start' and group-symbol]"
+          mode="grpSym"/>
+      </staffGrp>
     </xsl:variable>
-    <xsl:copy-of select="$outerStaffGrp"/>
+
+    <xsl:choose>
+      <xsl:when test="$outerStaffGrp//grpSym">
+        <!-- If there are stand-off grouping symbols, resolve them -->
+        <xsl:call-template name="resolveGrpSym">
+          <xsl:with-param name="in">
+            <xsl:copy-of select="$outerStaffGrp"/>
+          </xsl:with-param>
+          <xsl:with-param name="maxLevel">
+            <xsl:value-of select="number(max($outerStaffGrp//grpSym/@level))"/>
+          </xsl:with-param>
+          <xsl:with-param name="pass" select="number(1)"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- If there are no stand-off grouping symbols, processing of layout info is complete -->
+        <xsl:copy-of select="$outerStaffGrp"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="resolveGrpSym">
+    <!-- This template is called recursively as long as there are grpSym elements in the
+      tree fragment passed to it -->
     <xsl:param name="in"/>
     <xsl:param name="maxLevel"/>
     <xsl:param name="pass"/>
-    <xsl:variable name="staves" select="max($in//staffDef/@n)"/>
-    <xsl:variable name="newOuterStaffGrpContent">
-      <xsl:message>IN PASS <xsl:value-of select="$pass"/> NUMBER OF STAVES = <xsl:value-of select="$staves"/></xsl:message>      
-      <xsl:for-each select="$in/node()">
-        <xsl:choose>
-          <xsl:when test="name()='staffDef'">
-            <xsl:variable name="thisStaff" select="number(@n)"/>
+    <xsl:variable name="newOuterStaffGrp">
+      <staffGrp>
+        <xsl:for-each select="$in/staffGrp">
+          <xsl:for-each select="staffDef | staffGrp">
             <xsl:choose>
-              <xsl:when test="following::grpSym[number(@start)=$thisStaff and
-                number(@level)=$pass]">
-                <xsl:value-of select="$staffGrpStart"/>
-                <grpSym>
-                  <xsl:copy-of select="following::grpSym[number(@start)=$thisStaff and
-                    number(@level)=$pass][1]/@symbol"/>
-                  <xsl:copy-of select="following::grpSym[number(@start)=$thisStaff and
-                    number(@level)=$pass][1]/@barthru"/>
-                  <xsl:copy-of select="following::grpSym[number(@start)=$thisStaff and
-                    number(@level)=$pass][1]/label"/>
-                  <xsl:copy-of select="following::grpSym[number(@start)=$thisStaff and
-                    number(@level)=$pass][1]/label.abbr"/>
-                </grpSym>
-                <xsl:copy-of select="."/>
+              <xsl:when test="local-name()='staffDef'">
+                <xsl:variable name="thisStaff">
+                  <xsl:value-of select="number(@n)"/>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when
+                    test="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]">
+                    <xsl:variable name="start">
+                      <xsl:value-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@start"
+                      />
+                    </xsl:variable>
+                    <xsl:variable name="end">
+                      <xsl:value-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@end"
+                      />
+                    </xsl:variable>
+                    <staffGrp>
+                      <xsl:copy-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@symbol"/>
+                      <xsl:copy-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@barthru"/>
+                      <xsl:copy-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@label"/>
+                      <xsl:copy-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@label.abbr"/>
+                      <xsl:copy-of select="."/>
+                      <xsl:copy-of
+                        select="following-sibling::staffDef[number(@n) &lt;= $end] | following-sibling::staffGrp[staffDef[number(@n) &lt;= $end]]"
+                      />
+                    </staffGrp>
+                  </xsl:when>
+                  <xsl:when
+                    test="following::grpSym[number(@level)=$pass and number(@start) &lt;= $thisStaff and number(@end) &gt;=$thisStaff]">
+                    <!-- This node is in the range defined by a grpSym for this pass and has already been copied -->
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:copy-of select="."/>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:when>
-              <xsl:when test="following::grpSym[number(@end)=$thisStaff and
-                number(@level)=$pass]">
-                <xsl:copy-of select="."/>
-                <xsl:value-of select="$staffGrpEnd"/>
+              <xsl:when test="local-name()='staffGrp'">
+                <xsl:variable name="thisStaff">
+                  <xsl:value-of select="number(staffDef[1]/@n)"/>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when
+                    test="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]">
+                    <xsl:variable name="start">
+                      <xsl:value-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@start"
+                      />
+                    </xsl:variable>
+                    <xsl:variable name="end">
+                      <xsl:value-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@end"
+                      />
+                    </xsl:variable>
+                    <staffGrp>
+                      <xsl:copy-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@symbol"/>
+                      <xsl:copy-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@barthru"/>
+                      <xsl:copy-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@label"/>
+                      <xsl:copy-of
+                        select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@label.abbr"/>
+                      <xsl:copy-of select="."/>
+                      <xsl:copy-of
+                        select="following-sibling::staffDef[number(@n) &lt;= $end] | following-sibling::staffGrp[staffDef[number(@n) &lt;= $end]]"
+                      />
+                    </staffGrp>
+                  </xsl:when>
+                  <xsl:when
+                    test="following::grpSym[number(@level)=$pass and number(@start) &lt;= $thisStaff and number(@end) &gt;=$thisStaff]">
+                    <!-- This node is in the range defined by a grpSym for this pass and has already been copied -->
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:copy-of select="."/>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:when>
-              <xsl:otherwise>
-                <xsl:copy-of select="."/>
-              </xsl:otherwise>
             </xsl:choose>
-          </xsl:when>
-          <xsl:when test="name()='staffGrp'">
-            <xsl:copy-of select="."/>
-          </xsl:when>
-          <xsl:when test="name()='grpSym'">
-            <xsl:if test="not(number(@level)=$pass)">
-              <xsl:copy-of select="."/>
-            </xsl:if>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:copy-of select="."/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:for-each>
+          </xsl:for-each>
+        </xsl:for-each>
+        <xsl:for-each select="$in/staffGrp/grpSym[@level != $pass]">
+          <!-- Pass through any grpSym elements not processed in this pass -->
+          <xsl:copy-of select="."/>
+        </xsl:for-each>
+      </staffGrp>
     </xsl:variable>
-    
-    <!--<xsl:copy-of select="$newOuterStaffGrpContent"/>-->
-
-    <!-- Recurse if the maximum nesting level hasn't yet been reached -->
     <xsl:choose>
       <xsl:when test="$pass &lt;= $maxLevel">
+        <!-- Recurse -->
         <xsl:call-template name="resolveGrpSym">
           <xsl:with-param name="in">
-            <xsl:copy-of select="$newOuterStaffGrpContent"/>
+            <xsl:copy-of select="$newOuterStaffGrp"/>
           </xsl:with-param>
           <xsl:with-param name="maxLevel">
-            <xsl:value-of select="$maxLevel"/>
+            <xsl:value-of select="number($maxLevel)"/>
           </xsl:with-param>
           <xsl:with-param name="pass" select="number($pass + 1)"/>
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <!-- still need to remove redundant outer staffGrp element! -->
-        <xsl:copy-of select="$newOuterStaffGrpContent"/>
+        <!-- Emit the new outer staffGrp element -->
+        <!-- Remove redundant outer staffGrp element -->
+        <xsl:choose>
+          <xsl:when test="count($newOuterStaffGrp/staffGrp/*) = 1">
+            <xsl:copy-of select="$newOuterStaffGrp/staffGrp/staffGrp"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:copy-of select="$newOuterStaffGrp"/>
+          </xsl:otherwise>
+        </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
-
   </xsl:template>
 
   <xsl:template match="score-part" mode="layout">
-    <!-- Create staffDef elements in $defaultLayout -->
+    <!-- Create staffDef elements -->
     <xsl:variable name="partID">
       <xsl:value-of select="@id"/>
     </xsl:variable>
@@ -201,11 +259,14 @@
                   <xsl:variable name="midiID">
                     <xsl:value-of select="@id"/>
                   </xsl:variable>
-                  <xsl:attribute name="n">
+                  <!--<xsl:attribute name="n">
+                    <!-\- Clean up instrDef name by replacing space w/ underscore 
+                    and parentheses with null -\->
                     <xsl:value-of
-                      select="replace(normalize-space(preceding-sibling::score-instrument[@id=$midiID]),
-                      ' ', '_')"/>
-                  </xsl:attribute>
+                      select="replace(replace(normalize-space(preceding-sibling::score-instrument[@id=$midiID]),
+                      ' ', '_'),'[\(\)]', '')"
+                    />
+                  </xsl:attribute>-->
                   <xsl:attribute name="xml:id">
                     <xsl:value-of select="$midiID"/>
                   </xsl:attribute>
@@ -260,17 +321,21 @@
               <xsl:variable name="midiID">
                 <xsl:value-of select="@id"/>
               </xsl:variable>
-              <xsl:attribute name="n">
+              <!--<xsl:attribute name="n">
+                <!-\- Clean up instrDef name by replacing space w/ underscore 
+                    and parentheses with null -\->
                 <xsl:value-of
-                  select="replace(normalize-space(preceding-sibling::score-instrument[@id=$midiID]),
-                  ' ', '_')"/>
-              </xsl:attribute>
+                  select="replace(replace(normalize-space(preceding-sibling::score-instrument[@id=$midiID]),
+                  ' ', '_'),'[\(\)]', '')"
+                />
+              </xsl:attribute>-->
               <xsl:attribute name="xml:id">
                 <xsl:value-of select="$midiID"/>
               </xsl:attribute>
               <xsl:attribute name="midi.channel">
                 <xsl:value-of select="midi-channel"/>
               </xsl:attribute>
+              <!-- It appears that MusicXML is using 1-based program numbers. Convert to 0-based. -->
               <xsl:attribute name="midi.instrnum">
                 <xsl:value-of select="number(midi-program) - 1"/>
               </xsl:attribute>
@@ -294,7 +359,7 @@
   </xsl:template>
 
   <xsl:template match="staffDef|staffGrp|part-group" mode="numberStaves">
-    <!-- Number staves in $defaultLayout -->
+    <!-- Number staves -->
     <xsl:choose>
       <xsl:when test="name()='staffDef'">
         <staffDef>
@@ -324,7 +389,7 @@
   </xsl:template>
 
   <xsl:template match="part-group[@type='start']" mode="grpSym">
-    <!-- Create stand-off staff grouping symbols. -->
+    <!-- Create stand-off staff grouping symbols -->
     <grpSym level="{@number}">
       <xsl:attribute name="symbol">
         <xsl:value-of select="group-symbol"/>
