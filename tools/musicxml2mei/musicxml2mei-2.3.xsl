@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
+  xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink"
+  exclude-result-prefixes="mei">
   <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"/>
 
   <!-- global variables -->
@@ -11,6 +13,187 @@
   </xsl:variable>
   <xsl:variable name="progversion">
     <xsl:text>v. 2.3.0</xsl:text>
+  </xsl:variable>
+  <xsl:variable name="midiNamesPitched">
+    <!-- ordered list of General MIDI program names (program numbers 0-127) -->
+    <instrName>Acoustic_Grand_Piano</instrName>
+    <instrName>Bright_Acoustic_Piano</instrName>
+    <instrName>Electric_Grand_Piano</instrName>
+    <instrName>Honky-tonk_Piano</instrName>
+    <instrName>Electric_Piano_1</instrName>
+    <instrName>Electric_Piano_2</instrName>
+    <instrName>Harpsichord</instrName>
+    <instrName>Clavi</instrName>
+    <instrName>Celesta</instrName>
+    <instrName>Glockenspiel</instrName>
+    <instrName>Music_Box</instrName>
+    <instrName>Vibraphone</instrName>
+    <instrName>Marimba</instrName>
+    <instrName>Xylophone</instrName>
+    <instrName>Tubular_Bells</instrName>
+    <instrName>Dulcimer</instrName>
+    <instrName>Drawbar_Organ</instrName>
+    <instrName>Percussive_Organ</instrName>
+    <instrName>Rock_Organ</instrName>
+    <instrName>Church_Organ</instrName>
+    <instrName>Reed_Organ</instrName>
+    <instrName>Accordion</instrName>
+    <instrName>Harmonica</instrName>
+    <instrName>Tango_Accordion</instrName>
+    <instrName>Acoustic_Guitar_nylon</instrName>
+    <instrName>Acoustic_Guitar_steel</instrName>
+    <instrName>Electric_Guitar_jazz</instrName>
+    <instrName>Electric_Guitar_clean</instrName>
+    <instrName>Electric_Guitar_muted</instrName>
+    <instrName>Overdriven_Guitar</instrName>
+    <instrName>Distortion_Guitar</instrName>
+    <instrName>Guitar_harmonics</instrName>
+    <instrName>Acoustic_Bass</instrName>
+    <instrName>Electric_Bass_finger</instrName>
+    <instrName>Electric_Bass_pick</instrName>
+    <instrName>Fretless_Bass</instrName>
+    <instrName>Slap_Bass_1</instrName>
+    <instrName>Slap_Bass_2</instrName>
+    <instrName>Synth_Bass_1</instrName>
+    <instrName>Synth_Bass_2</instrName>
+    <instrName>Violin</instrName>
+    <instrName>Viola</instrName>
+    <instrName>Cello</instrName>
+    <instrName>Contrabass</instrName>
+    <instrName>Tremolo_Strings</instrName>
+    <instrName>Pizzicato_Strings</instrName>
+    <instrName>Orchestral_Harp</instrName>
+    <instrName>Timpani</instrName>
+    <instrName>String_Ensemble_1</instrName>
+    <instrName>String_Ensemble_2</instrName>
+    <instrName>SynthStrings_1</instrName>
+    <instrName>SynthStrings_2</instrName>
+    <instrName>Choir_Aahs</instrName>
+    <instrName>Voice_Oohs</instrName>
+    <instrName>Synth_Voice</instrName>
+    <instrName>Orchestra_Hit</instrName>
+    <instrName>Trumpet</instrName>
+    <instrName>Trombone</instrName>
+    <instrName>Tuba</instrName>
+    <instrName>Muted_Trumpet</instrName>
+    <instrName>French_Horn</instrName>
+    <instrName>Brass_Section</instrName>
+    <instrName>SynthBrass_1</instrName>
+    <instrName>SynthBrass_2</instrName>
+    <instrName>Soprano_Sax</instrName>
+    <instrName>Alto_Sax</instrName>
+    <instrName>Tenor_Sax</instrName>
+    <instrName>Baritone_Sax</instrName>
+    <instrName>Oboe</instrName>
+    <instrName>English_Horn</instrName>
+    <instrName>Bassoon</instrName>
+    <instrName>Clarinet</instrName>
+    <instrName>Piccolo</instrName>
+    <instrName>Flute</instrName>
+    <instrName>Recorder</instrName>
+    <instrName>Pan_Flute</instrName>
+    <instrName>Blown_Bottle</instrName>
+    <instrName>Shakuhachi</instrName>
+    <instrName>Whistle</instrName>
+    <instrName>Ocarina</instrName>
+    <instrName>Lead_1_square</instrName>
+    <instrName>Lead_2_sawtooth</instrName>
+    <instrName>Lead_3_calliope</instrName>
+    <instrName>Lead_4_chiff</instrName>
+    <instrName>Lead_5_charang</instrName>
+    <instrName>Lead_6_voice</instrName>
+    <instrName>Lead_7_fifths</instrName>
+    <instrName>Lead_8_bass_and_lead</instrName>
+    <instrName>Pad_1_new_age</instrName>
+    <instrName>Pad_2_warm</instrName>
+    <instrName>Pad_3_polysynth</instrName>
+    <instrName>Pad_4_choir</instrName>
+    <instrName>Pad_5_bowed</instrName>
+    <instrName>Pad_6_metallic</instrName>
+    <instrName>Pad_7_halo</instrName>
+    <instrName>Pad_8_sweep</instrName>
+    <instrName>FX_1_rain</instrName>
+    <instrName>FX_2_soundtrack</instrName>
+    <instrName>FX_3_crystal</instrName>
+    <instrName>FX_4_atmosphere</instrName>
+    <instrName>FX_5_brightness</instrName>
+    <instrName>FX_6_goblins</instrName>
+    <instrName>FX_7_echoes</instrName>
+    <instrName>FX_8_sci-fi</instrName>
+    <instrName>Sitar</instrName>
+    <instrName>Banjo</instrName>
+    <instrName>Shamisen</instrName>
+    <instrName>Koto</instrName>
+    <instrName>Kalimba</instrName>
+    <instrName>Bagpipe</instrName>
+    <instrName>Fiddle</instrName>
+    <instrName>Shanai</instrName>
+    <instrName>Tinkle_Bell</instrName>
+    <instrName>Agogo</instrName>
+    <instrName>Steel_Drums</instrName>
+    <instrName>Woodblock</instrName>
+    <instrName>Taiko_Drum</instrName>
+    <instrName>Melodic_Tom</instrName>
+    <instrName>Synth_Drum</instrName>
+    <instrName>Reverse_Cymbal</instrName>
+    <instrName>Guitar_Fret_Noise</instrName>
+    <instrName>Breath_Noise</instrName>
+    <instrName>Seashore</instrName>
+    <instrName>Bird_Tweet</instrName>
+    <instrName>Telephone_Ring</instrName>
+    <instrName>Helicopter</instrName>
+    <instrName>Applause</instrName>
+    <instrName>Gunshot</instrName>
+  </xsl:variable>
+  <xsl:variable name="midiNamesUnpitched">
+    <!-- ordered list of General MIDI percussion instrument names (key numbers 35-81) -->
+    <instrName>Acoustic_Bass_Drum</instrName>
+    <instrName>Bass_Drum_1</instrName>
+    <instrName>Side_Stick</instrName>
+    <instrName>Acoustic_Snare</instrName>
+    <instrName>Hand_Clap</instrName>
+    <instrName>Electric_Snare</instrName>
+    <instrName>Low_Floor_Tom</instrName>
+    <instrName>Closed_Hi_Hat</instrName>
+    <instrName>High_Floor_Tom</instrName>
+    <instrName>Pedal_Hi-Hat</instrName>
+    <instrName>Low_Tom</instrName>
+    <instrName>Open_Hi-Hat</instrName>
+    <instrName>Low-Mid_Tom</instrName>
+    <instrName>Hi-Mid_Tom</instrName>
+    <instrName>Crash_Cymbal_1</instrName>
+    <instrName>High_Tom</instrName>
+    <instrName>Ride_Cymbal_1</instrName>
+    <instrName>Chinese_Cymbal</instrName>
+    <instrName>Ride_Bell</instrName>
+    <instrName>Tambourine</instrName>
+    <instrName>Splash_Cymbal</instrName>
+    <instrName>Cowbell</instrName>
+    <instrName>Crash_Cymbal_2</instrName>
+    <instrName>Vibraslap</instrName>
+    <instrName>Ride_Cymbal_2</instrName>
+    <instrName>Hi_Bongo</instrName>
+    <instrName>Low_Bongo</instrName>
+    <instrName>Mute_Hi_Conga</instrName>
+    <instrName>Open_Hi_Conga</instrName>
+    <instrName>Low_Conga</instrName>
+    <instrName>High_Timbale</instrName>
+    <instrName>Low_Timbale</instrName>
+    <instrName>High_Agogo</instrName>
+    <instrName>Low_Agogo</instrName>
+    <instrName>Cabasa</instrName>
+    <instrName>Maracas</instrName>
+    <instrName>Short_Whistle</instrName>
+    <instrName>Long_Whistle</instrName>
+    <instrName>Short_Guiro</instrName>
+    <instrName>Long_Guiro</instrName>
+    <instrName>Claves</instrName>
+    <instrName>Hi_Wood_Block</instrName>
+    <instrName>Low_Wood_Block</instrName>
+    <instrName>Mute_Cuica</instrName>
+    <instrName>Open_Cuica</instrName>
+    <instrName>Mute_Triangle</instrName>
+    <instrName>Open_Triangle</instrName>
   </xsl:variable>
   <xsl:variable name="defaultLayout">
     <xsl:choose>
@@ -29,24 +212,179 @@
 
   <!-- Match document root -->
   <xsl:template match="/">
-    <music>
-      <!--<music xmlns="http://www.music-encoding.org/ns/mei">-->
-      <body>
-        <mdiv>
-          <score>
-            <scoreDef>
-              <xsl:copy-of select="$defaultLayout"/>
-            </scoreDef>
-          </score>
-        </mdiv>
-      </body>
-    </music>
+    <mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="2012">
+      <xsl:apply-templates select="score-timewise" mode="header"/>
+      <music>
+        <body>
+          <mdiv>
+            <score>
+              <scoreDef>
+                <xsl:copy-of select="$defaultLayout"/>
+              </scoreDef>
+            </score>
+          </mdiv>
+        </body>
+      </music>
+    </mei>
+  </xsl:template>
+
+  <xsl:template match="score-timewise" mode="header">
+    <meiHead xmlns="http://www.music-encoding.org/ns/mei">
+      <fileDesc>
+        <titleStmt>
+          <title>
+            <xsl:value-of select="normalize-space(work/work-title)"/>
+            <xsl:if test="normalize-space(work/work-number)!=''">
+              <xsl:text>, </xsl:text>
+              <xsl:value-of select="normalize-space(work/work-number)"/>
+            </xsl:if>
+            <xsl:if test="normalize-space(movement-number)!=''">
+              <xsl:text>, </xsl:text>
+              <xsl:value-of select="normalize-space(movement-number)"/>
+            </xsl:if>
+            <xsl:if test="normalize-space(movement-title)!=''">
+              <xsl:if
+                test="normalize-space(concat(work/work-title,work/work-number,movement-number))!=''">
+                <xsl:text>. </xsl:text>
+              </xsl:if>
+              <xsl:value-of select="normalize-space(movement-title)"/>
+            </xsl:if>
+          </title>
+          <xsl:if test="identification/creator">
+            <respStmt>
+              <xsl:for-each select="identification/creator">
+                <xsl:value-of select="$nl"/>
+                <resp>
+                  <xsl:value-of select="./@type"/>
+                </resp>
+                <name>
+                  <xsl:value-of select="normalize-space(.)"/>
+                </name>
+              </xsl:for-each>
+            </respStmt>
+          </xsl:if>
+        </titleStmt>
+        <pubStmt/>
+        <xsl:if test="work/work-title or movement-title">
+          <sourceDesc>
+            <source>
+              <titleStmt>
+                <title>
+                  <xsl:value-of select="normalize-space(work/work-title)"/>
+                  <xsl:if test="normalize-space(work/work-number)!=''">
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="normalize-space(work/work-number)"/>
+                  </xsl:if>
+                  <xsl:if test="normalize-space(movement-number)!=''">
+                    <xsl:text>, </xsl:text>
+                    <xsl:value-of select="normalize-space(movement-number)"/>
+                  </xsl:if>
+                  <xsl:if test="normalize-space(movement-title)!=''">
+                    <xsl:if
+                      test="normalize-space(concat(work/work-title,work/work-number,movement-number))!=''">
+                      <xsl:text>. </xsl:text>
+                    </xsl:if>
+                    <xsl:value-of select="normalize-space(movement-title)"/>
+                  </xsl:if>
+                </title>
+                <xsl:if test="identification">
+                  <respStmt>
+                    <xsl:for-each select="identification/creator">
+                      <xsl:value-of select="$nl"/>
+                      <resp>
+                        <xsl:value-of select="./@type"/>
+                      </resp>
+                      <name>
+                        <xsl:value-of select="normalize-space(.)"/>
+                      </name>
+                    </xsl:for-each>
+                    <xsl:for-each select="identification/encoding/encoder">
+                      <name>
+                        <xsl:attribute name="role">
+                          <xsl:value-of select="./@type"/>
+                        </xsl:attribute>
+                        <xsl:value-of select="normalize-space(.)"/>
+                      </name>
+                    </xsl:for-each>
+                    <xsl:if
+                      test="not(identification/creator) and not(identification/encoding/encoder)">
+                      <name/>
+                    </xsl:if>
+                  </respStmt>
+                </xsl:if>
+              </titleStmt>
+              <pubStmt>
+                <xsl:if test="identification/rights">
+                  <availability>
+                    <useRestrict>
+                      <xsl:value-of select="identification/rights"/>
+                    </useRestrict>
+                  </availability>
+                </xsl:if>
+              </pubStmt>
+            </source>
+          </sourceDesc>
+        </xsl:if>
+      </fileDesc>
+      <encodingDesc>
+        <projectDesc>
+          <p>Transcoded from a MusicXML<xsl:if test="@version"> version <xsl:value-of
+                select="@version"/>
+            </xsl:if> file on <date>
+              <xsl:value-of select="format-date(current-date(), '[Y]-[M02]-[D02]')"/>
+            </date> using an XSLT stylesheet (<xsl:value-of select="$progname"/><xsl:text> </xsl:text>
+            <xsl:value-of select="$progversion"/>).</p>
+          <xsl:if test="identification/encoding/software">
+            <xsl:variable name="software">
+              <xsl:value-of select="count(identification/encoding/software)"/>
+            </xsl:variable>
+            <p>The MusicXML source file was generated using <xsl:for-each
+                select="identification/encoding/software">
+                <xsl:value-of select="."/>
+                <xsl:if test="count(following-sibling::software) &gt; 1">
+                  <xsl:text>, </xsl:text>
+                </xsl:if>
+                <xsl:if test="count(following-sibling::software) = 1">
+                  <xsl:choose>
+                    <xsl:when test="count(preceding-sibling::software) = 0">
+                      <xsl:text> and </xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:text>, and </xsl:text>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:if>
+              </xsl:for-each>
+              <xsl:if test="identification/encoding/encoding-date"> on <date>
+                  <xsl:value-of select="identification/encoding/encoding-date"/>
+                </date>
+              </xsl:if>.</p>
+          </xsl:if>
+        </projectDesc>
+      </encodingDesc>
+      <xsl:if test="work/*">
+        <workDesc>
+          <work>
+            <xsl:if test="normalize-space(work/work-number) != ''">
+              <identifier>
+                <xsl:value-of select="normalize-space(work/work-number)"/>
+              </identifier>
+            </xsl:if>
+            <titleStmt>
+              <title>
+                <xsl:value-of select="normalize-space(work/work-title)"/>
+              </title>
+            </titleStmt>
+          </work>
+        </workDesc>
+      </xsl:if>
+    </meiHead>
   </xsl:template>
 
   <xsl:template match="part-list" mode="layout">
     <!-- outerStaffGrp holds basic layout info -->
     <xsl:variable name="outerStaffGrp">
-      <staffGrp>
+      <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:variable name="temptree">
           <!-- Create staffDef elements, copy part-group elements  -->
           <xsl:apply-templates select="score-part|part-group" mode="layout"/>
@@ -56,7 +394,7 @@
           <xsl:apply-templates select="$temptree" mode="numberStaves"/>
         </xsl:variable>
         <!-- Emit staffGrp and staffDef elements already created -->
-        <xsl:copy-of select="$temptree2/staffGrp|$temptree2/staffDef"/>
+        <xsl:copy-of select="$temptree2/mei:staffGrp|$temptree2/mei:staffDef"/>
         <!-- Create stand-off staff grouping symbols -->
         <xsl:apply-templates select="$temptree2/part-group[@type='start' and group-symbol]"
           mode="grpSym"/>
@@ -90,9 +428,9 @@
     <xsl:param name="maxLevel"/>
     <xsl:param name="pass"/>
     <xsl:variable name="newOuterStaffGrp">
-      <staffGrp>
-        <xsl:for-each select="$in/staffGrp">
-          <xsl:for-each select="staffDef | staffGrp">
+      <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:for-each select="$in/mei:staffGrp">
+          <xsl:for-each select="mei:staffDef | mei:staffGrp">
             <xsl:choose>
               <xsl:when test="local-name()='staffDef'">
                 <xsl:variable name="thisStaff">
@@ -111,7 +449,7 @@
                         select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@end"
                       />
                     </xsl:variable>
-                    <staffGrp>
+                    <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
                       <xsl:copy-of
                         select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@symbol"/>
                       <xsl:copy-of
@@ -122,7 +460,7 @@
                         select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@label.abbr"/>
                       <xsl:copy-of select="."/>
                       <xsl:copy-of
-                        select="following-sibling::staffDef[number(@n) &lt;= $end] | following-sibling::staffGrp[staffDef[number(@n) &lt;= $end]]"
+                        select="following-sibling::mei:staffDef[number(@n) &lt;= $end] | following-sibling::mei:staffGrp[mei:staffDef[number(@n) &lt;= $end]]"
                       />
                     </staffGrp>
                   </xsl:when>
@@ -137,7 +475,7 @@
               </xsl:when>
               <xsl:when test="local-name()='staffGrp'">
                 <xsl:variable name="thisStaff">
-                  <xsl:value-of select="number(staffDef[1]/@n)"/>
+                  <xsl:value-of select="number(mei:staffDef[1]/@n)"/>
                 </xsl:variable>
                 <xsl:choose>
                   <xsl:when
@@ -152,7 +490,7 @@
                         select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@end"
                       />
                     </xsl:variable>
-                    <staffGrp>
+                    <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
                       <xsl:copy-of
                         select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@symbol"/>
                       <xsl:copy-of
@@ -163,7 +501,7 @@
                         select="following::grpSym[number(@level)=$pass and number(@start)=$thisStaff]/@label.abbr"/>
                       <xsl:copy-of select="."/>
                       <xsl:copy-of
-                        select="following-sibling::staffDef[number(@n) &lt;= $end] | following-sibling::staffGrp[staffDef[number(@n) &lt;= $end]]"
+                        select="following-sibling::mei:staffDef[number(@n) &lt;= $end] | following-sibling::mei:staffGrp[mei:staffDef[number(@n) &lt;= $end]]"
                       />
                     </staffGrp>
                   </xsl:when>
@@ -179,7 +517,7 @@
             </xsl:choose>
           </xsl:for-each>
         </xsl:for-each>
-        <xsl:for-each select="$in/staffGrp/grpSym[@level != $pass]">
+        <xsl:for-each select="$in/mei:staffGrp/grpSym[@level != $pass]">
           <!-- Pass through any grpSym elements not processed in this pass -->
           <xsl:copy-of select="."/>
         </xsl:for-each>
@@ -199,11 +537,11 @@
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <!-- Emit the new outer staffGrp element -->
         <!-- Remove redundant outer staffGrp element -->
+        <!-- Emit the new outer staffGrp element -->
         <xsl:choose>
-          <xsl:when test="count($newOuterStaffGrp/staffGrp/*) = 1">
-            <xsl:copy-of select="$newOuterStaffGrp/staffGrp/staffGrp"/>
+          <xsl:when test="count($newOuterStaffGrp/mei:staffGrp/*) = 1">
+            <xsl:copy-of select="$newOuterStaffGrp/mei:staffGrp/mei:staffGrp"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:copy-of select="$newOuterStaffGrp"/>
@@ -231,7 +569,7 @@
         <!-- When the part uses a single staff, create a staffDef element, get its
           attributes by calling makeStaffAttributes, then make a child instrument
           definition. -->
-        <staffDef>
+        <staffDef xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="xml:id">
             <xsl:value-of select="$partID"/>
           </xsl:attribute>
@@ -255,41 +593,62 @@
           <xsl:choose>
             <xsl:when test="midi-instrument">
               <xsl:for-each select="midi-instrument">
-                <instrDef>
-                  <xsl:variable name="midiID">
-                    <xsl:value-of select="@id"/>
-                  </xsl:variable>
-                  <!--<xsl:attribute name="n">
-                    <!-\- Clean up instrDef name by replacing space w/ underscore 
-                    and parentheses with null -\->
-                    <xsl:value-of
-                      select="replace(replace(normalize-space(preceding-sibling::score-instrument[@id=$midiID]),
-                      ' ', '_'),'[\(\)]', '')"
-                    />
-                  </xsl:attribute>-->
+                <instrDef xmlns="http://www.music-encoding.org/ns/mei">
                   <xsl:attribute name="xml:id">
-                    <xsl:value-of select="$midiID"/>
+                    <xsl:value-of select="@id"/>
                   </xsl:attribute>
                   <xsl:attribute name="midi.channel">
                     <xsl:value-of select="midi-channel"/>
                   </xsl:attribute>
                   <!-- It appears that MusicXML is using 1-based program numbers. Convert to 0-based. -->
+                  <xsl:variable name="midiProgram">
+                    <xsl:value-of select="number(midi-program)"/>
+                  </xsl:variable>
                   <xsl:attribute name="midi.instrnum">
-                    <xsl:value-of select="number(midi-program) - 1"/>
+                    <xsl:value-of select="$midiProgram - 1"/>
                   </xsl:attribute>
+                  <xsl:choose>
+                    <xsl:when test="midi-channel != 10">
+                      <xsl:attribute name="midi.instrname">
+                        <!-- Get MIDI instrument name from $midiNamesPitched -->
+                        <xsl:value-of select="$midiNamesPitched/instrName[position()=$midiProgram]"
+                        />
+                      </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="midi-channel = 10">
+                      <xsl:attribute name="midi.instrname">
+                        <!-- Get MIDI instrument name from $midiNamesUnpitched -->
+                        <xsl:variable name="midiUnpitched">
+                          <xsl:value-of select="number(midi-unpitched) - 35"/>
+                        </xsl:variable>
+                        <xsl:value-of
+                          select="$midiNamesUnpitched/instrName[position()=$midiUnpitched]"/>
+                      </xsl:attribute>
+                    </xsl:when>
+                  </xsl:choose>
+                  <xsl:if test="volume">
+                    <xsl:attribute name="midi.volume">
+                      <xsl:value-of select="volume"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                  <xsl:if test="pan">
+                    <xsl:attribute name="midi.pan">
+                      <xsl:value-of select="pan"/>
+                    </xsl:attribute>
+                  </xsl:if>
                 </instrDef>
               </xsl:for-each>
             </xsl:when>
             <xsl:when test="score-instrument">
               <xsl:for-each select="score-instrument">
-                <instrDef>
+                <instrDef xmlns="http://www.music-encoding.org/ns/mei">
                   <xsl:attribute name="xml:id">
                     <xsl:value-of select="@id"/>
                   </xsl:attribute>
                   <xsl:attribute name="midi.channel">
                     <xsl:value-of select="count(preceding::score-instrument)+1"/>
                   </xsl:attribute>
-                  <xsl:attribute name="midi.instrnum">1</xsl:attribute>
+                  <xsl:attribute name="midi.instrnum">0</xsl:attribute>
                 </instrDef>
               </xsl:for-each>
             </xsl:when>
@@ -297,9 +656,9 @@
         </staffDef>
       </xsl:when>
       <xsl:otherwise>
-        <!-- When there's more than one staff in the part, create a staffGrp, a midi instrument
+        <!-- When there's more than one staff in the part, create a staffGrp and midi instrument
              definition(s) for the group, then the required number of MEI staffDef elements. -->
-        <staffGrp>
+        <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="xml:id">
             <xsl:value-of select="$partID"/>
           </xsl:attribute>
@@ -317,28 +676,48 @@
           </xsl:if>
           <!-- instrument definition -->
           <xsl:for-each select="midi-instrument">
-            <instrDef>
-              <xsl:variable name="midiID">
-                <xsl:value-of select="@id"/>
-              </xsl:variable>
-              <!--<xsl:attribute name="n">
-                <!-\- Clean up instrDef name by replacing space w/ underscore 
-                    and parentheses with null -\->
-                <xsl:value-of
-                  select="replace(replace(normalize-space(preceding-sibling::score-instrument[@id=$midiID]),
-                  ' ', '_'),'[\(\)]', '')"
-                />
-              </xsl:attribute>-->
+            <instrDef xmlns="http://www.music-encoding.org/ns/mei">
               <xsl:attribute name="xml:id">
-                <xsl:value-of select="$midiID"/>
+                <xsl:value-of select="@id"/>
               </xsl:attribute>
               <xsl:attribute name="midi.channel">
                 <xsl:value-of select="midi-channel"/>
               </xsl:attribute>
               <!-- It appears that MusicXML is using 1-based program numbers. Convert to 0-based. -->
+              <xsl:variable name="midiProgram">
+                <xsl:value-of select="number(midi-program)"/>
+              </xsl:variable>
               <xsl:attribute name="midi.instrnum">
-                <xsl:value-of select="number(midi-program) - 1"/>
+                <xsl:value-of select="$midiProgram - 1"/>
               </xsl:attribute>
+              <xsl:choose>
+                <xsl:when test="midi-channel != 10">
+                  <xsl:attribute name="midi.instrname">
+                    <!-- Get MIDI instrument name from $midiNamesPitched -->
+                    <xsl:value-of select="$midiNamesPitched/instrName[position()=$midiProgram]"/>
+                  </xsl:attribute>
+                </xsl:when>
+                <xsl:when test="midi-channel = 10">
+                  <xsl:attribute name="midi.instrname">
+                    <!-- Get MIDI instrument name from $midiNamesUnpitched -->
+                    <xsl:variable name="midiUnpitched">
+                      <xsl:value-of select="number(midi-unpitched) - 35"/>
+                    </xsl:variable>
+                    <xsl:value-of select="$midiNamesUnpitched/instrName[position()=$midiUnpitched]"
+                    />
+                  </xsl:attribute>
+                </xsl:when>
+              </xsl:choose>
+              <xsl:if test="volume">
+                <xsl:attribute name="midi.volume">
+                  <xsl:value-of select="volume"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:if test="pan">
+                <xsl:attribute name="midi.pan">
+                  <xsl:value-of select="pan"/>
+                </xsl:attribute>
+              </xsl:if>
             </instrDef>
           </xsl:for-each>
           <xsl:call-template name="makeStaff">
@@ -358,24 +737,24 @@
     <xsl:copy-of select="."/>
   </xsl:template>
 
-  <xsl:template match="staffDef|staffGrp|part-group" mode="numberStaves">
+  <xsl:template match="mei:staffDef|mei:staffGrp|part-group" mode="numberStaves">
     <!-- Number staves -->
     <xsl:choose>
-      <xsl:when test="name()='staffDef'">
-        <staffDef>
+      <xsl:when test="local-name()='staffDef'">
+        <staffDef xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="n">
-            <xsl:value-of select="count(preceding::staffDef) + 1"/>
+            <xsl:value-of select="count(preceding::mei:staffDef) + 1"/>
           </xsl:attribute>
           <xsl:copy-of select="@*|node()"/>
         </staffDef>
       </xsl:when>
-      <xsl:when test="name()='staffGrp'">
-        <staffGrp>
-          <xsl:copy-of select="@*|instrDef"/>
-          <xsl:for-each select="staffDef">
-            <staffDef>
+      <xsl:when test="local-name()='staffGrp'">
+        <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:copy-of select="@*|mei:instrDef"/>
+          <xsl:for-each select="mei:staffDef">
+            <staffDef xmlns="http://www.music-encoding.org/ns/mei">
               <xsl:attribute name="n">
-                <xsl:value-of select="count(preceding::staffDef) + 1"/>
+                <xsl:value-of select="count(preceding::mei:staffDef) + 1"/>
               </xsl:attribute>
               <xsl:copy-of select="@*|node()"/>
             </staffDef>
@@ -395,14 +774,14 @@
         <xsl:value-of select="group-symbol"/>
       </xsl:attribute>
       <xsl:attribute name="start">
-        <xsl:value-of select="following-sibling::staffDef[1]/@n"/>
+        <xsl:value-of select="following-sibling::mei:staffDef[1]/@n"/>
       </xsl:attribute>
       <xsl:variable name="level">
         <xsl:value-of select="@number"/>
       </xsl:variable>
       <xsl:attribute name="end">
         <xsl:for-each select="following-sibling::part-group[@type='stop' and @number=$level][1]">
-          <xsl:value-of select="preceding-sibling::staffDef[1]/@n"/>
+          <xsl:value-of select="preceding-sibling::mei:staffDef[1]/@n"/>
         </xsl:for-each>
       </xsl:attribute>
       <xsl:if test="group-name">
@@ -428,7 +807,7 @@
     <xsl:param name="needed">1</xsl:param>
     <xsl:param name="made">0</xsl:param>
     <xsl:if test="$made &lt; $needed">
-      <staffDef>
+      <staffDef xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:call-template name="makeStaffAttributes">
           <xsl:with-param name="partID">
             <xsl:value-of select="$partID"/>
