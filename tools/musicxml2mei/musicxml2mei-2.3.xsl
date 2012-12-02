@@ -234,95 +234,7 @@
   <xsl:template match="/">
     <mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="2012">
       <xsl:apply-templates select="score-timewise" mode="header"/>
-      <music>
-        <body>
-          <mdiv>
-            <score>
-              <scoreDef>
-                <xsl:attribute name="ppq">
-                  <xsl:value-of select="$scorePPQ"/>
-                </xsl:attribute>
-                <!-- Look in first measure for score-level meter signature -->
-                <xsl:if test="descendant::measure[1]/part/attributes">
-                  <xsl:if test="descendant::measure[1]/part/attributes[time/beats]">
-                    <xsl:attribute name="meter.count">
-                      <xsl:value-of
-                        select="descendant::part[attributes/time/beats][1]/attributes/time/beats"/>
-                    </xsl:attribute>
-                  </xsl:if>
-                  <xsl:if test="descendant::measure[1]/part/attributes[time/beat-type]">
-                    <xsl:attribute name="meter.unit">
-                      <xsl:value-of
-                        select="descendant::part[attributes/time/beat-type][1]/attributes/time/beat-type"
-                      />
-                    </xsl:attribute>
-                  </xsl:if>
-                  <xsl:variable name="symbol">
-                    <xsl:value-of
-                      select="descendant::part[attributes/time/@symbol][1]/attributes/time/@symbol"
-                    />
-                  </xsl:variable>
-                  <xsl:choose>
-                    <xsl:when test="$symbol='common'">
-                      <xsl:attribute name="meter.sym">common</xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="$symbol='cut'">
-                      <xsl:attribute name="meter.sym">cut</xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="$symbol='single-number'">
-                      <xsl:attribute name="meter.rend">denomsym</xsl:attribute>
-                    </xsl:when>
-                    <xsl:when
-                      test="descendant::part[attributes/time/senza-misura][1]/attributes/time/senza-misura">
-                      <xsl:attribute name="meter.rend">invis</xsl:attribute>
-                    </xsl:when>
-                  </xsl:choose>
-                </xsl:if>
-
-                <!-- Look in first measure for score-level key signature and mode -->
-                <xsl:if test="descendant::part/attributes[not(transpose)]/key">
-                  <xsl:variable name="keysig">
-                    <xsl:value-of select="descendant::part[attributes[not(transpose) and
-                      key]][1]/attributes/key/fifths"/>
-                  </xsl:variable>
-                  <xsl:choose>
-                    <xsl:when test="$keysig=''">
-                      <xsl:attribute name="key.sig">
-                        <xsl:text>0</xsl:text>
-                      </xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="$keysig=0">
-                      <xsl:attribute name="key.sig">
-                        <xsl:value-of select="$keysig"/>
-                      </xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="$keysig &gt; 0">
-                      <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"
-                        />s</xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="$keysig &lt; 0">
-                      <xsl:attribute name="key.sig">
-                        <xsl:value-of select="abs($keysig)"/>f</xsl:attribute>
-                    </xsl:when>
-                  </xsl:choose>
-                  <xsl:if test="descendant::part/attributes/key/mode">
-                    <xsl:attribute name="key.mode">
-                      <xsl:value-of
-                        select="descendant::part[attributes/key/mode][1]/attributes/key/mode"/>
-                    </xsl:attribute>
-                  </xsl:if>
-                </xsl:if>
-
-                <!-- If any staves are not printed, then staff optimization is in effect. -->
-                <xsl:if test="//measure/part/attributes/staff-details/@print-object='no'">
-                  <xsl:attribute name="optimize">true</xsl:attribute>
-                </xsl:if>
-                <xsl:copy-of select="$defaultLayout"/>
-              </scoreDef>
-            </score>
-          </mdiv>
-        </body>
-      </music>
+      <xsl:apply-templates select="score-timewise" mode="music"/>
     </mei>
   </xsl:template>
 
@@ -532,6 +444,18 @@
                   </availability>
                 </xsl:if>
               </pubStmt>
+              <xsl:if test="count(distinct-values(//*/@xml:lang)) &gt; 0">
+                <langUsage>
+                  <xsl:for-each select="distinct-values(//*/@xml:lang)">
+                    <!-- Identify all the languages used anywhere in the document. -->
+                    <language>
+                      <xsl:attribute name="xml:id">
+                        <xsl:value-of select="."/>
+                      </xsl:attribute>
+                    </language>
+                  </xsl:for-each>
+                </langUsage>
+              </xsl:if>
               <xsl:if test="identification/encoding/software">
                 <notesStmt>
                   <xsl:variable name="software">
@@ -633,6 +557,301 @@
         </workDesc>
       </xsl:if>
     </meiHead>
+  </xsl:template>
+
+  <xsl:template match="score-timewise" mode="music">
+    <music xmlns="http://www.music-encoding.org/ns/mei">
+      <body>
+        <mdiv>
+          <score>
+            <scoreDef>
+              <xsl:attribute name="ppq">
+                <xsl:value-of select="$scorePPQ"/>
+              </xsl:attribute>
+              <!-- Look in first measure for score-level meter signature -->
+              <xsl:if test="descendant::measure[1]/part/attributes">
+                <xsl:if test="descendant::measure[1]/part/attributes[time/beats]">
+                  <xsl:attribute name="meter.count">
+                    <xsl:value-of
+                      select="descendant::part[attributes/time/beats][1]/attributes/time/beats"/>
+                  </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="descendant::measure[1]/part/attributes[time/beat-type]">
+                  <xsl:attribute name="meter.unit">
+                    <xsl:value-of
+                      select="descendant::part[attributes/time/beat-type][1]/attributes/time/beat-type"
+                    />
+                  </xsl:attribute>
+                </xsl:if>
+                <xsl:variable name="symbol">
+                  <xsl:value-of
+                    select="descendant::part[attributes/time/@symbol][1]/attributes/time/@symbol"/>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="$symbol='common'">
+                    <xsl:attribute name="meter.sym">common</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="$symbol='cut'">
+                    <xsl:attribute name="meter.sym">cut</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="$symbol='single-number'">
+                    <xsl:attribute name="meter.rend">denomsym</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when
+                    test="descendant::part[attributes/time/senza-misura][1]/attributes/time/senza-misura">
+                    <xsl:attribute name="meter.rend">invis</xsl:attribute>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:if>
+              <!-- Look in first measure for score-level key signature and mode -->
+              <xsl:if test="descendant::part/attributes[not(transpose)]/key">
+                <xsl:variable name="keysig">
+                  <xsl:value-of select="descendant::part[attributes[not(transpose) and
+                    key]][1]/attributes/key/fifths"/>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="$keysig=''">
+                    <xsl:attribute name="key.sig">
+                      <xsl:text>0</xsl:text>
+                    </xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="$keysig=0">
+                    <xsl:attribute name="key.sig">
+                      <xsl:value-of select="$keysig"/>
+                    </xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="$keysig &gt; 0">
+                    <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="$keysig &lt; 0">
+                    <xsl:attribute name="key.sig">
+                      <xsl:value-of select="abs($keysig)"/>f</xsl:attribute>
+                  </xsl:when>
+                </xsl:choose>
+                <xsl:if test="descendant::part/attributes/key/mode">
+                  <xsl:attribute name="key.mode">
+                    <xsl:value-of
+                      select="descendant::part[attributes/key/mode][1]/attributes/key/mode"/>
+                  </xsl:attribute>
+                </xsl:if>
+              </xsl:if>
+              <!-- If any staves are not printed, then staff optimization is in effect. -->
+              <xsl:if test="//measure/part/attributes/staff-details/@print-object='no'">
+                <xsl:attribute name="optimize">true</xsl:attribute>
+              </xsl:if>
+              <!-- Look in first measure for other score-level attributes -->
+              <xsl:apply-templates select="defaults"/>
+
+              <!-- Create page headers and footers -->
+              <xsl:call-template name="credits"/>
+
+              <!-- Copy already-calculated layout here -->
+              <xsl:copy-of select="$defaultLayout"/>
+            </scoreDef>
+            <section>
+              <!-- PROCESS MEASURES HERE -->
+            </section>
+          </score>
+        </mdiv>
+      </body>
+    </music>
+  </xsl:template>
+
+  <xsl:template name="credits">
+    <!-- PROCESS CREDITS HERE -->
+    <xsl:variable name="pageHeight">
+      <xsl:value-of select="defaults/page-layout/page-height"/>
+    </xsl:variable>
+    <!--<xsl:message><xsl:text>Where am I? </xsl:text>
+      <xsl:value-of  select="local-name(.)"/>
+    </xsl:message>-->
+    <xsl:if test="credit[number(@page)=1]/credit-words[@default-y &gt; ($pageHeight div 2)]">
+      <pgHead xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:for-each select="credit[number(@page)=1]/credit-words[@default-y &gt; ($pageHeight div
+          2)]">
+          <p>
+            <xsl:attribute name="x" select="@default-x"/>
+            <xsl:attribute name="y" select="@default-x"/>
+            <xsl:call-template name="fontProperties"/>
+          </p>
+        </xsl:for-each>
+      </pgHead>
+    </xsl:if>
+    <xsl:if test="credit[number(@page)=1]/credit-words[@default-y &lt; ($pageHeight div 2)]">
+      <pgFoot xmlns="http://www.music-encoding.org/ns/mei"> </pgFoot>
+    </xsl:if>
+    <xsl:if test="credit[number(@page)=2]/credit-words[@default-y &gt; ($pageHeight div 2)]">
+      <pgHead2 xmlns="http://www.music-encoding.org/ns/mei"> </pgHead2>
+    </xsl:if>
+    <xsl:if test="credit[number(@page)=2]/credit-words[@default-y &lt; ($pageHeight div 2)]">
+      <pgFoot2 xmlns="http://www.music-encoding.org/ns/mei"> </pgFoot2>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="fontProperties">
+    <!-- When there are typographic properties, wrap a rend sub-element around the content. -->
+    <xsl:choose>
+      <xsl:when test="@font-family|@font-style|@font-size|@font-weight|@justify|@halign|@valign">
+        <rend xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:if test="@font-family">
+            <xsl:attribute name="fontfam">
+              <xsl:value-of select="normalize-space(@font-family)"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@font-style">
+            <xsl:attribute name="fontstyle">
+              <xsl:choose>
+                <xsl:when test="lower-case(substring(@font-style,1,4))='ital'">
+                  <xsl:text>ital</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="@font-style"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@font-size">
+            <xsl:attribute name="fontsize">
+              <xsl:value-of select="@font-size"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@font-weight and @font-weight != 'normal'">
+            <xsl:attribute name="fontweight">
+              <xsl:value-of select="@font-weight"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="@halign">
+              <xsl:attribute name="halign">
+                <xsl:value-of select="@halign"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="@justify">
+              <xsl:attribute name="halign">
+                <xsl:value-of select="@justify"/>
+              </xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+          <xsl:if test="@valign">
+            <xsl:copy-of select="@valign"/>
+          </xsl:if>
+          <!-- replace a significant linebreak with <lb/> -->
+          <xsl:choose>
+            <xsl:when test="contains(.,'&#xA;')">
+              <xsl:value-of select="normalize-space(substring-before(.,'&#xA;'))"/>
+              <lb/>
+              <xsl:value-of select="normalize-space(substring-after(.,'&#xA;'))"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </rend>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- replace a significant linebreak with <lb/> -->
+        <xsl:choose>
+          <xsl:when test="contains(.,'&#xA;')">
+            <xsl:value-of select="normalize-space(substring-before(.,'&#xA;'))"/>
+            <lb/>
+            <xsl:value-of select="normalize-space(substring-after(.,'&#xA;'))"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="defaults">
+    <!-- CURRENTLY, THE VALUES IN defaults/ ARE PASSED THROUGH
+           UNCHANGED.   THESE SHOULD BE CONVERTED TO MEI VALUES. -->
+    <!-- Process various font options -->
+    <xsl:for-each select="music-font">
+      <xsl:attribute name="music.name">
+        <xsl:value-of select="@font-family"/>
+      </xsl:attribute>
+      <xsl:attribute name="music.size">
+        <xsl:value-of select="@font-size"/>
+      </xsl:attribute>
+    </xsl:for-each>
+    <xsl:for-each select="word-font">
+      <xsl:attribute name="text.name">
+        <xsl:value-of select="@font-family"/>
+      </xsl:attribute>
+      <xsl:attribute name="text.size">
+        <xsl:value-of select="@font-size"/>
+      </xsl:attribute>
+    </xsl:for-each>
+    <xsl:for-each select="lyric-font">
+      <xsl:attribute name="lyric.name">
+        <xsl:value-of select="@font-family"/>
+      </xsl:attribute>
+      <xsl:attribute name="lyric.size">
+        <xsl:value-of select="@font-size"/>
+      </xsl:attribute>
+    </xsl:for-each>
+    <!-- Page scaling. Record MusicXML page scale: ratio of virtual units
+         (tenths of interline space) to real-world units (millimeters). -->
+    <xsl:for-each select="scaling">
+      <xsl:attribute name="page.scale"><xsl:value-of select="tenths"/>:<xsl:value-of
+          select="millimeters"/></xsl:attribute>
+    </xsl:for-each>
+    <!-- MusicXML real-world units are millimeters -->
+    <xsl:attribute name="page.units">mm</xsl:attribute>
+    <!-- Page layout options -->
+    <xsl:for-each select="page-layout">
+      <xsl:attribute name="page.height">
+        <xsl:value-of select="page-height"/>
+      </xsl:attribute>
+      <xsl:attribute name="page.width">
+        <xsl:value-of select="page-width"/>
+      </xsl:attribute>
+      <xsl:for-each select="page-margins[1]">
+        <xsl:attribute name="page.leftmar">
+          <xsl:value-of select="left-margin"/>
+        </xsl:attribute>
+        <xsl:attribute name="page.rightmar">
+          <xsl:value-of select="right-margin"/>
+        </xsl:attribute>
+        <xsl:attribute name="page.topmar">
+          <xsl:value-of select="top-margin"/>
+        </xsl:attribute>
+        <xsl:attribute name="page.botmar">
+          <xsl:value-of select="bottom-margin"/>
+        </xsl:attribute>
+      </xsl:for-each>
+    </xsl:for-each>
+    <!-- System layout options -->
+    <xsl:for-each select="system-layout">
+      <xsl:for-each select="system-margins">
+        <xsl:attribute name="system.leftmar">
+          <xsl:value-of select="left-margin"/>
+        </xsl:attribute>
+        <xsl:attribute name="system.rightmar">
+          <xsl:value-of select="right-margin"/>
+        </xsl:attribute>
+      </xsl:for-each>
+      <xsl:for-each select="system-distance">
+        <xsl:attribute name="spacing.system">
+          <xsl:value-of select="."/>
+        </xsl:attribute>
+      </xsl:for-each>
+      <xsl:for-each select="top-system-distance">
+        <xsl:attribute name="system.topmar">
+          <xsl:value-of select="."/>
+        </xsl:attribute>
+      </xsl:for-each>
+    </xsl:for-each>
+    <!-- Staff layout options -->
+    <xsl:for-each select="staff-layout">
+      <xsl:for-each select="staff-distance">
+        <xsl:attribute name="spacing.staff">
+          <xsl:value-of select="."/>
+        </xsl:attribute>
+      </xsl:for-each>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="part-list" mode="layout">
