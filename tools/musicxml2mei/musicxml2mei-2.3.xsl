@@ -3,6 +3,7 @@
   xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink"
   exclude-result-prefixes="mei">
   <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"/>
+  <xsl:strip-space elements="*"/>
 
   <!-- global variables -->
   <xsl:variable name="nl">
@@ -658,34 +659,77 @@
   </xsl:template>
 
   <xsl:template name="credits">
-    <!-- PROCESS CREDITS HERE -->
     <xsl:variable name="pageHeight">
       <xsl:value-of select="defaults/page-layout/page-height"/>
     </xsl:variable>
-    <!--<xsl:message><xsl:text>Where am I? </xsl:text>
-      <xsl:value-of  select="local-name(.)"/>
-    </xsl:message>-->
     <xsl:if test="credit[number(@page)=1]/credit-words[@default-y &gt; ($pageHeight div 2)]">
       <pgHead xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:for-each select="credit[number(@page)=1]/credit-words[@default-y &gt; ($pageHeight div
           2)]">
-          <p>
-            <xsl:attribute name="x" select="@default-x"/>
-            <xsl:attribute name="y" select="@default-x"/>
-            <xsl:call-template name="fontProperties"/>
-          </p>
+          <xsl:call-template name="credit"/>
         </xsl:for-each>
       </pgHead>
     </xsl:if>
     <xsl:if test="credit[number(@page)=1]/credit-words[@default-y &lt; ($pageHeight div 2)]">
-      <pgFoot xmlns="http://www.music-encoding.org/ns/mei"> </pgFoot>
+      <pgFoot xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:for-each select="credit[number(@page)=1]/credit-words[@default-y &lt; ($pageHeight div
+          2)]">
+          <xsl:call-template name="credit"/>
+        </xsl:for-each>
+      </pgFoot>
     </xsl:if>
     <xsl:if test="credit[number(@page)=2]/credit-words[@default-y &gt; ($pageHeight div 2)]">
-      <pgHead2 xmlns="http://www.music-encoding.org/ns/mei"> </pgHead2>
+      <pgHead2 xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:for-each select="credit[number(@page)=2]/credit-words[@default-y &gt; ($pageHeight div
+          2)]">
+          <xsl:call-template name="credit"/>
+        </xsl:for-each>
+      </pgHead2>
     </xsl:if>
     <xsl:if test="credit[number(@page)=2]/credit-words[@default-y &lt; ($pageHeight div 2)]">
-      <pgFoot2 xmlns="http://www.music-encoding.org/ns/mei"> </pgFoot2>
+      <pgFoot2 xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:for-each select="credit[number(@page)=2]/credit-words[@default-y &lt; ($pageHeight div
+          2)]">
+          <xsl:call-template name="credit"/>
+        </xsl:for-each>
+      </pgFoot2>
     </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="credit">
+    <p xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:if test="../credit-type">
+        <xsl:attribute name="n" select="replace(normalize-space(../credit-type), '\s', '_')"/>
+      </xsl:if>
+      <xsl:attribute name="x" select="@default-x"/>
+      <xsl:attribute name="y" select="@default-y"/>
+      <xsl:choose>
+        <xsl:when test="contains(../credit-type, 'page number')">
+          <xsl:processing-instruction name="pageNum"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="fontProperties"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </p>
+    <xsl:for-each select="following-sibling::credit-words[not(@default-y)]">
+      <p xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:if test="../credit-type">
+          <xsl:attribute name="n" select="replace(normalize-space(../credit-type), '\s', '_')"/>
+        </xsl:if>
+        <xsl:attribute name="x" select="if (@default-x) then @default-x else
+          preceding-sibling::credit-words[@default-x][1]/@default-x"/>
+        <xsl:attribute name="y" select="preceding-sibling::credit-words[@default-y][1]/@default-y"/>
+        <xsl:choose>
+          <xsl:when test="contains(../credit-type, 'page number')">
+            <xsl:processing-instruction name="pageNum"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:call-template name="fontProperties"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </p>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template name="fontProperties">
@@ -735,17 +779,16 @@
           <xsl:if test="@valign">
             <xsl:copy-of select="@valign"/>
           </xsl:if>
-          <!-- replace a significant linebreak with <lb/> -->
-          <xsl:choose>
-            <xsl:when test="contains(.,'&#xA;')">
-              <xsl:value-of select="normalize-space(substring-before(.,'&#xA;'))"/>
+          <!-- replace linebreak with <lb/> -->
+          <!--<xsl:analyze-string select="." regex="\n">
+            <xsl:matching-substring>
               <lb/>
-              <xsl:value-of select="normalize-space(substring-after(.,'&#xA;'))"/>
-            </xsl:when>
-            <xsl:otherwise>
+            </xsl:matching-substring>
+            <xsl:non-matching-substring>
               <xsl:value-of select="normalize-space(.)"/>
-            </xsl:otherwise>
-          </xsl:choose>
+            </xsl:non-matching-substring>
+          </xsl:analyze-string>-->
+          <xsl:value-of select="normalize-space(.)"/>
         </rend>
       </xsl:when>
       <xsl:otherwise>
@@ -766,7 +809,7 @@
 
   <xsl:template match="defaults">
     <!-- CURRENTLY, THE VALUES IN defaults/ ARE PASSED THROUGH
-           UNCHANGED.   THESE SHOULD BE CONVERTED TO MEI VALUES. -->
+           UNCHANGED. THESE SHOULD BE CONVERTED TO MEI VALUES. -->
     <!-- Process various font options -->
     <xsl:for-each select="music-font">
       <xsl:attribute name="music.name">
