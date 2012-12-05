@@ -1038,90 +1038,43 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template name="leastCommonMultiple">
-    <xsl:param name="in"/>
-    <xsl:choose>
-      <xsl:when test="count($in//divisions) &gt; 2">
-        <xsl:variable name="out">
-          <xsl:for-each select="$in//divisions[position() &lt; last()]">
-            <xsl:variable name="a">
-              <xsl:value-of select="."/>
-            </xsl:variable>
-            <xsl:variable name="b">
-              <xsl:value-of select="following-sibling::divisions[1]"/>
-            </xsl:variable>
-            <xsl:variable name="y">
-              <xsl:call-template name="greatestCommonDenominator">
-                <xsl:with-param name="a">
-                  <xsl:value-of select="$a"/>
-                </xsl:with-param>
-                <xsl:with-param name="b">
-                  <xsl:value-of select="$b"/>
-                </xsl:with-param>
-              </xsl:call-template>
-            </xsl:variable>
-            <divisions>
-              <xsl:value-of select="($a * $b) div $y"/>
-            </divisions>
-          </xsl:for-each>
-        </xsl:variable>
-        <xsl:call-template name="leastCommonMultiple">
-          <xsl:with-param name="in">
-            <xsl:copy-of select="$out"/>
-          </xsl:with-param>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:variable name="a">
-          <xsl:value-of select="$in//divisions[1]"/>
-        </xsl:variable>
-        <xsl:variable name="b">
-          <xsl:value-of select="$in//divisions[2]"/>
-        </xsl:variable>
-        <xsl:variable name="y">
-          <xsl:call-template name="greatestCommonDenominator">
-            <xsl:with-param name="a">
-              <xsl:value-of select="$a"/>
-            </xsl:with-param>
-            <xsl:with-param name="b">
-              <xsl:value-of select="$b"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:value-of select="($a * $b) div $y"/>
-      </xsl:otherwise>
-    </xsl:choose>
+  <xsl:template name="credit">
+    <!-- For MEI 2013, <anchoredText> should be substituted for <p> elements below. -->
+    <p xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:if test="../credit-type">
+        <xsl:attribute name="n" select="replace(normalize-space(../credit-type), '\s', '_')"/>
+      </xsl:if>
+      <xsl:attribute name="x" select="@default-x"/>
+      <xsl:attribute name="y" select="@default-y"/>
+      <xsl:choose>
+        <xsl:when test="contains(../credit-type, 'page number')">
+          <xsl:processing-instruction name="pageNum"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:call-template name="fontProperties"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </p>
+    <xsl:for-each select="following-sibling::credit-words[not(@default-y)]">
+      <p xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:if test="../credit-type">
+          <xsl:attribute name="n" select="replace(normalize-space(../credit-type), '\s', '_')"/>
+        </xsl:if>
+        <xsl:attribute name="x" select="if (@default-x) then @default-x else
+          preceding-sibling::credit-words[@default-x][1]/@default-x"/>
+        <xsl:attribute name="y" select="preceding-sibling::credit-words[@default-y][1]/@default-y"/>
+        <xsl:choose>
+          <xsl:when test="contains(../credit-type, 'page number')">
+            <xsl:processing-instruction name="pageNum"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:call-template name="fontProperties"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </p>
+    </xsl:for-each>
   </xsl:template>
-
-  <xsl:template name="greatestCommonDenominator">
-    <xsl:param name="a"/>
-    <xsl:param name="b"/>
-    <xsl:variable name="min">
-      <xsl:value-of select="min(($a, $b))"/>
-    </xsl:variable>
-    <xsl:variable name="max">
-      <xsl:value-of select="max(($a, $b))"/>
-    </xsl:variable>
-    <xsl:variable name="x">
-      <xsl:value-of select="$max - $min"/>
-    </xsl:variable>
-    <xsl:choose>
-      <xsl:when test="$x = $min">
-        <xsl:value-of select="$x"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="greatestCommonDenominator">
-          <xsl:with-param name="a">
-            <xsl:value-of select="$min"/>
-          </xsl:with-param>
-          <xsl:with-param name="b">
-            <xsl:value-of select="$x"/>
-          </xsl:with-param>
-        </xsl:call-template>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
+  
   <xsl:template name="credits">
     <xsl:variable name="pageHeight">
       <xsl:value-of select="defaults/page-layout/page-height"/>
@@ -1159,44 +1112,7 @@
       </pgFoot2>
     </xsl:if>
   </xsl:template>
-
-  <xsl:template name="credit">
-    <!-- For MEI 2013, <anchoredText> should be substituted for <p> elements below. -->
-    <p xmlns="http://www.music-encoding.org/ns/mei">
-      <xsl:if test="../credit-type">
-        <xsl:attribute name="n" select="replace(normalize-space(../credit-type), '\s', '_')"/>
-      </xsl:if>
-      <xsl:attribute name="x" select="@default-x"/>
-      <xsl:attribute name="y" select="@default-y"/>
-      <xsl:choose>
-        <xsl:when test="contains(../credit-type, 'page number')">
-          <xsl:processing-instruction name="pageNum"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:call-template name="fontProperties"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </p>
-    <xsl:for-each select="following-sibling::credit-words[not(@default-y)]">
-      <p xmlns="http://www.music-encoding.org/ns/mei">
-        <xsl:if test="../credit-type">
-          <xsl:attribute name="n" select="replace(normalize-space(../credit-type), '\s', '_')"/>
-        </xsl:if>
-        <xsl:attribute name="x" select="if (@default-x) then @default-x else
-          preceding-sibling::credit-words[@default-x][1]/@default-x"/>
-        <xsl:attribute name="y" select="preceding-sibling::credit-words[@default-y][1]/@default-y"/>
-        <xsl:choose>
-          <xsl:when test="contains(../credit-type, 'page number')">
-            <xsl:processing-instruction name="pageNum"/>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:call-template name="fontProperties"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </p>
-    </xsl:for-each>
-  </xsl:template>
-
+  
   <xsl:template name="fontProperties">
     <!-- When there are typographic properties, wrap a rend sub-element around the content. -->
     <xsl:choose>
@@ -1252,7 +1168,342 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+  
+  <xsl:template name="greatestCommonDenominator">
+    <xsl:param name="a"/>
+    <xsl:param name="b"/>
+    <xsl:variable name="min">
+      <xsl:value-of select="min(($a, $b))"/>
+    </xsl:variable>
+    <xsl:variable name="max">
+      <xsl:value-of select="max(($a, $b))"/>
+    </xsl:variable>
+    <xsl:variable name="x">
+      <xsl:value-of select="$max - $min"/>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="$x = $min">
+        <xsl:value-of select="$x"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="greatestCommonDenominator">
+          <xsl:with-param name="a">
+            <xsl:value-of select="$min"/>
+          </xsl:with-param>
+          <xsl:with-param name="b">
+            <xsl:value-of select="$x"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+  
+  <xsl:template name="leastCommonMultiple">
+    <xsl:param name="in"/>
+    <xsl:choose>
+      <xsl:when test="count($in//divisions) &gt; 2">
+        <xsl:variable name="out">
+          <xsl:for-each select="$in//divisions[position() &lt; last()]">
+            <xsl:variable name="a">
+              <xsl:value-of select="."/>
+            </xsl:variable>
+            <xsl:variable name="b">
+              <xsl:value-of select="following-sibling::divisions[1]"/>
+            </xsl:variable>
+            <xsl:variable name="y">
+              <xsl:call-template name="greatestCommonDenominator">
+                <xsl:with-param name="a">
+                  <xsl:value-of select="$a"/>
+                </xsl:with-param>
+                <xsl:with-param name="b">
+                  <xsl:value-of select="$b"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:variable>
+            <divisions>
+              <xsl:value-of select="($a * $b) div $y"/>
+            </divisions>
+          </xsl:for-each>
+        </xsl:variable>
+        <xsl:call-template name="leastCommonMultiple">
+          <xsl:with-param name="in">
+            <xsl:copy-of select="$out"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:variable name="a">
+          <xsl:value-of select="$in//divisions[1]"/>
+        </xsl:variable>
+        <xsl:variable name="b">
+          <xsl:value-of select="$in//divisions[2]"/>
+        </xsl:variable>
+        <xsl:variable name="y">
+          <xsl:call-template name="greatestCommonDenominator">
+            <xsl:with-param name="a">
+              <xsl:value-of select="$a"/>
+            </xsl:with-param>
+            <xsl:with-param name="b">
+              <xsl:value-of select="$b"/>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="($a * $b) div $y"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
 
+  <xsl:template name="makeStaff">
+    <!-- This template is called recursively to create the desired number
+      of staves for a part. -->
+    <xsl:param name="partID"/>
+    <xsl:param name="needed">1</xsl:param>
+    <xsl:param name="made">0</xsl:param>
+    <xsl:if test="$made &lt; $needed">
+      <staffDef xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:call-template name="makeStaffAttributes">
+          <xsl:with-param name="partID">
+            <xsl:value-of select="$partID"/>
+          </xsl:with-param>
+          <xsl:with-param name="staffNum">
+            <xsl:value-of select="string($made + 1)"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </staffDef>
+      <xsl:call-template name="makeStaff">
+        <xsl:with-param name="partID">
+          <xsl:value-of select="$partID"/>
+        </xsl:with-param>
+        <xsl:with-param name="needed">
+          <xsl:value-of select="$needed"/>
+        </xsl:with-param>
+        <xsl:with-param name="made">
+          <xsl:value-of select="$made + 1"/>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template name="makeStaffAttributes">
+    <!-- This template collects staff attributes from the first measure. -->
+    <xsl:param name="partID"/>
+    <xsl:param name="staffNum"/>
+    <xsl:variable name="scoreFifths">
+      <xsl:value-of select="following::part[attributes[not(transpose) and
+        key]][1]/attributes/key/fifths"/>
+    </xsl:variable>
+    <xsl:variable name="scoreMode">
+      <xsl:value-of select="following::part[attributes[not(transpose) and
+        key]][1]/attributes/key/mode"/>
+    </xsl:variable>    
+    <xsl:for-each select="following::measure[1]/part[@id=$partID]/attributes">
+      <xsl:choose>
+        <xsl:when test="$staffNum=''">
+          <!-- number of staff lines -->
+          <xsl:attribute name="lines">
+            <xsl:choose>
+              <xsl:when test="staff-details/staff-lines">
+                <xsl:value-of select="staff-details[1]/staff-lines"/>
+              </xsl:when>
+              <xsl:otherwise>5</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <!-- clef -->
+          <xsl:for-each select="clef[1]">
+            <xsl:choose>
+              <!-- percussion clef -->
+              <xsl:when test="sign='percussion'">
+                <xsl:attribute name="clef.shape">perc</xsl:attribute>
+              </xsl:when>
+              <!-- TAB "clef" -->
+              <xsl:when test="sign='TAB'">
+                <xsl:attribute name="clef.shape">TAB</xsl:attribute>
+                <xsl:attribute name="tab.strings">
+                  <xsl:variable name="tabstrings">
+                    <xsl:for-each select="following-sibling::staff-details">
+                      <xsl:for-each select="staff-tuning">
+                        <xsl:sort select="@line" order="descending"/>
+                        <xsl:variable name="thisstring">
+                          <xsl:value-of select="tuning-step"/>
+                        </xsl:variable>
+                        <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
+                        <xsl:value-of select="tuning-octave"/>
+                        <xsl:text> </xsl:text>
+                      </xsl:for-each>
+                    </xsl:for-each>
+                  </xsl:variable>
+                  <xsl:value-of select="normalize-space($tabstrings)"/>
+                </xsl:attribute>
+                <!-- transposition via capo -->
+                <xsl:if test="following-sibling::staff-details/capo">
+                  <xsl:attribute name="trans.semi">
+                    <xsl:value-of select="following-sibling::staff-details[1]/capo"/>
+                  </xsl:attribute>
+                </xsl:if>
+              </xsl:when>
+              <!-- "normal" clef -->
+              <xsl:otherwise>
+                <xsl:attribute name="clef.line">
+                  <xsl:value-of select="line"/>
+                </xsl:attribute>
+                <xsl:attribute name="clef.shape">
+                  <xsl:value-of select="sign"/>
+                </xsl:attribute>
+                <xsl:if test="clef-octave-change">
+                  <xsl:if test="abs(number(clef-octave-change)) != 0">
+                    <xsl:attribute name="clef.trans">
+                      <xsl:choose>
+                        <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
+                        <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
+                        <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
+                        <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                      </xsl:choose>
+                    </xsl:attribute>
+                  </xsl:if>
+                </xsl:if>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:for-each>
+          <!-- staff transposition -->
+          <xsl:if test="transpose">
+            <xsl:attribute name="trans.semi">
+              <xsl:choose>
+                <xsl:when test="transpose/octave-change">
+                  <xsl:variable name="octavechange">
+                    <xsl:value-of select="transpose[1]/octave-change"/>
+                  </xsl:variable>
+                  <xsl:variable name="chromatic">
+                    <xsl:value-of select="transpose[1]/chromatic"/>
+                  </xsl:variable>
+                  <xsl:value-of select="$chromatic + (12 * $octavechange)"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="transpose[1]/chromatic"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:if test="transpose/diatonic">
+              <xsl:attribute name="trans.diat">
+                <xsl:value-of select="transpose[1]/diatonic"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:if>
+          <xsl:for-each select="divisions">
+            <xsl:if test="number(.) != $scorePPQ">
+              <xsl:attribute name="ppq">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:for-each>
+          <!-- staff key signature-->
+          <xsl:if test="key">
+            <xsl:variable name="keysig">
+              <xsl:value-of select="key/fifths"/>
+            </xsl:variable>
+            <xsl:if test="$keysig != $scoreFifths">
+              <xsl:choose>
+                <xsl:when test="$keysig=0">
+                  <xsl:attribute name="key.sig">
+                    <xsl:value-of select="$keysig"/>
+                  </xsl:attribute>
+                </xsl:when>
+                <xsl:when test="$keysig &gt; 0">
+                  <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="$keysig &lt; 0">
+                  <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
+                  />f</xsl:attribute>
+                </xsl:when>
+              </xsl:choose>
+              <!-- staff key mode -->
+              <xsl:if test="key/mode and key/mode != $scoreMode">
+                <xsl:attribute name="key.mode">
+                  <xsl:value-of select="key/mode"/>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:if>
+          </xsl:if>
+        </xsl:when>
+        <xsl:otherwise>
+          <!-- number of staff lines -->
+          <xsl:attribute name="lines">
+            <xsl:choose>
+              <xsl:when test="staff-details[@number=string($staffNum)]/staff-lines">
+                <xsl:value-of select="staff-details[@number=string($staffNum)]/staff-lines"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>5</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:for-each select="clef[@number=string($staffNum)]">
+            <xsl:choose>
+              <!-- percussion clef -->
+              <xsl:when test="sign='percussion'">
+                <xsl:attribute name="clef.shape">perc</xsl:attribute>
+              </xsl:when>
+              <!-- TAB "clef" -->
+              <xsl:when test="sign='TAB'">
+                <xsl:attribute name="clef.shape">TAB</xsl:attribute>
+                <xsl:attribute name="tab.strings">
+                  <xsl:variable name="tabstrings">
+                    <xsl:for-each select="following-sibling::staff-details">
+                      <xsl:for-each select="staff-tuning">
+                        <xsl:sort select="@line" order="descending"/>
+                        <xsl:variable name="thisstring">
+                          <xsl:value-of select="tuning-step"/>
+                        </xsl:variable>
+                        <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
+                        <xsl:value-of select="tuning-octave"/>
+                        <xsl:text> </xsl:text>
+                      </xsl:for-each>
+                    </xsl:for-each>
+                  </xsl:variable>
+                  <xsl:value-of select="normalize-space($tabstrings)"/>
+                </xsl:attribute>
+                <!-- transposition via capo -->
+                <xsl:if test="following-sibling::staff-details/capo">
+                  <xsl:attribute name="trans.semi">
+                    <xsl:value-of select="following-sibling::staff-details/capo"/>
+                  </xsl:attribute>
+                </xsl:if>
+              </xsl:when>
+              <!-- "normal" clef -->
+              <xsl:otherwise>
+                <xsl:attribute name="lines">
+                  <xsl:choose>
+                    <xsl:when test="staff-details[@number=string($staffNum)]/staff-lines">
+                      <xsl:value-of select="staff-details[@number=string($staffNum)]/staff-lines"/>
+                    </xsl:when>
+                    <xsl:otherwise>5</xsl:otherwise>
+                  </xsl:choose>
+                </xsl:attribute>
+                <xsl:attribute name="clef.line">
+                  <xsl:value-of select="line"/>
+                </xsl:attribute>
+                <xsl:attribute name="clef.shape">
+                  <xsl:value-of select="sign"/>
+                </xsl:attribute>
+                <xsl:if test="clef-octave-change">
+                  <xsl:if test="abs(number(clef-octave-change)) != 0">
+                    <xsl:attribute name="clef.trans">
+                      <xsl:choose>
+                        <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
+                        <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
+                        <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
+                        <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                      </xsl:choose>
+                    </xsl:attribute>
+                  </xsl:if>
+                </xsl:if>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:for-each>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
+  </xsl:template>
+  
   <xsl:template name="resolveGrpSym">
     <!-- This template is called recursively as long as there are grpSym elements in the
       tree fragment passed to it -->
@@ -1375,258 +1626,6 @@
         </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
-
-  <xsl:template name="makeStaff">
-    <!-- This template is called recursively to create the desired number
-      of staves for a part. -->
-    <xsl:param name="partID"/>
-    <xsl:param name="needed">1</xsl:param>
-    <xsl:param name="made">0</xsl:param>
-    <xsl:if test="$made &lt; $needed">
-      <staffDef xmlns="http://www.music-encoding.org/ns/mei">
-        <xsl:call-template name="makeStaffAttributes">
-          <xsl:with-param name="partID">
-            <xsl:value-of select="$partID"/>
-          </xsl:with-param>
-          <xsl:with-param name="staffNum">
-            <xsl:value-of select="string($made + 1)"/>
-          </xsl:with-param>
-        </xsl:call-template>
-      </staffDef>
-      <xsl:call-template name="makeStaff">
-        <xsl:with-param name="partID">
-          <xsl:value-of select="$partID"/>
-        </xsl:with-param>
-        <xsl:with-param name="needed">
-          <xsl:value-of select="$needed"/>
-        </xsl:with-param>
-        <xsl:with-param name="made">
-          <xsl:value-of select="$made + 1"/>
-        </xsl:with-param>
-      </xsl:call-template>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template name="makeStaffAttributes">
-    <!-- This template collects staff attributes from the first measure. -->
-    <xsl:param name="partID"/>
-    <xsl:param name="staffNum"/>
-    <xsl:variable name="scoreFifths">
-      <xsl:value-of select="following::part[attributes[not(transpose) and
-        key]][1]/attributes/key/fifths"/>
-    </xsl:variable>
-    <xsl:variable name="scoreMode">
-      <xsl:value-of select="following::part[attributes[not(transpose) and
-        key]][1]/attributes/key/mode"/>
-    </xsl:variable>
-
-    <xsl:for-each select="following::measure[1]/part[@id=$partID]/attributes">
-      <xsl:choose>
-        <xsl:when test="$staffNum=''">
-          <!-- number of staff lines -->
-          <xsl:attribute name="lines">
-            <xsl:choose>
-              <xsl:when test="staff-details/staff-lines">
-                <xsl:value-of select="staff-details[1]/staff-lines"/>
-              </xsl:when>
-              <xsl:otherwise>5</xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-          <!-- clef -->
-          <xsl:for-each select="clef[1]">
-            <xsl:choose>
-              <!-- percussion clef -->
-              <xsl:when test="sign='percussion'">
-                <xsl:attribute name="clef.shape">perc</xsl:attribute>
-              </xsl:when>
-              <!-- TAB "clef" -->
-              <xsl:when test="sign='TAB'">
-                <xsl:attribute name="clef.shape">TAB</xsl:attribute>
-                <xsl:attribute name="tab.strings">
-                  <xsl:variable name="tabstrings">
-                    <xsl:for-each select="following-sibling::staff-details">
-                      <xsl:for-each select="staff-tuning">
-                        <xsl:sort select="@line" order="descending"/>
-                        <xsl:variable name="thisstring">
-                          <xsl:value-of select="tuning-step"/>
-                        </xsl:variable>
-                        <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
-                        <xsl:value-of select="tuning-octave"/>
-                        <xsl:text> </xsl:text>
-                      </xsl:for-each>
-                    </xsl:for-each>
-                  </xsl:variable>
-                  <xsl:value-of select="normalize-space($tabstrings)"/>
-                </xsl:attribute>
-                <!-- transposition via capo -->
-                <xsl:if test="following-sibling::staff-details/capo">
-                  <xsl:attribute name="trans.semi">
-                    <xsl:value-of select="following-sibling::staff-details[1]/capo"/>
-                  </xsl:attribute>
-                </xsl:if>
-              </xsl:when>
-              <!-- "normal" clef -->
-              <xsl:otherwise>
-                <xsl:attribute name="clef.line">
-                  <xsl:value-of select="line"/>
-                </xsl:attribute>
-                <xsl:attribute name="clef.shape">
-                  <xsl:value-of select="sign"/>
-                </xsl:attribute>
-                <xsl:if test="clef-octave-change">
-                  <xsl:if test="abs(number(clef-octave-change)) != 0">
-                    <xsl:attribute name="clef.trans">
-                      <xsl:choose>
-                        <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
-                        <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
-                        <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
-                        <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
-                      </xsl:choose>
-                    </xsl:attribute>
-                  </xsl:if>
-                </xsl:if>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:for-each>
-          <!-- staff transposition -->
-          <xsl:if test="transpose">
-            <xsl:attribute name="trans.semi">
-              <xsl:choose>
-                <xsl:when test="transpose/octave-change">
-                  <xsl:variable name="octavechange">
-                    <xsl:value-of select="transpose[1]/octave-change"/>
-                  </xsl:variable>
-                  <xsl:variable name="chromatic">
-                    <xsl:value-of select="transpose[1]/chromatic"/>
-                  </xsl:variable>
-                  <xsl:value-of select="$chromatic + (12 * $octavechange)"/>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="transpose[1]/chromatic"/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-            <xsl:if test="transpose/diatonic">
-              <xsl:attribute name="trans.diat">
-                <xsl:value-of select="transpose[1]/diatonic"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:if>
-          <xsl:for-each select="divisions">
-            <xsl:if test="number(.) != $scorePPQ">
-              <xsl:attribute name="ppq">
-                <xsl:value-of select="."/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:for-each>
-          <!-- staff key signature-->
-          <xsl:if test="key">
-            <xsl:variable name="keysig">
-              <xsl:value-of select="key/fifths"/>
-            </xsl:variable>
-            <xsl:if test="$keysig != $scoreFifths">
-              <xsl:choose>
-                <xsl:when test="$keysig=0">
-                  <xsl:attribute name="key.sig">
-                    <xsl:value-of select="$keysig"/>
-                  </xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$keysig &gt; 0">
-                  <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$keysig &lt; 0">
-                  <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
-                    />f</xsl:attribute>
-                </xsl:when>
-              </xsl:choose>
-              <!-- staff key mode -->
-              <xsl:if test="key/mode and key/mode != $scoreMode">
-                <xsl:attribute name="key.mode">
-                  <xsl:value-of select="key/mode"/>
-                </xsl:attribute>
-              </xsl:if>
-            </xsl:if>
-          </xsl:if>
-        </xsl:when>
-        <xsl:otherwise>
-          <!-- number of staff lines -->
-          <xsl:attribute name="lines">
-            <xsl:choose>
-              <xsl:when test="staff-details[@number=string($staffNum)]/staff-lines">
-                <xsl:value-of select="staff-details[@number=string($staffNum)]/staff-lines"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>5</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-          <xsl:for-each select="clef[@number=string($staffNum)]">
-            <xsl:choose>
-              <!-- percussion clef -->
-              <xsl:when test="sign='percussion'">
-                <xsl:attribute name="clef.shape">perc</xsl:attribute>
-              </xsl:when>
-              <!-- TAB "clef" -->
-              <xsl:when test="sign='TAB'">
-                <xsl:attribute name="clef.shape">TAB</xsl:attribute>
-                <xsl:attribute name="tab.strings">
-                  <xsl:variable name="tabstrings">
-                    <xsl:for-each select="following-sibling::staff-details">
-                      <xsl:for-each select="staff-tuning">
-                        <xsl:sort select="@line" order="descending"/>
-                        <xsl:variable name="thisstring">
-                          <xsl:value-of select="tuning-step"/>
-                        </xsl:variable>
-                        <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
-                        <xsl:value-of select="tuning-octave"/>
-                        <xsl:text> </xsl:text>
-                      </xsl:for-each>
-                    </xsl:for-each>
-                  </xsl:variable>
-                  <xsl:value-of select="normalize-space($tabstrings)"/>
-                </xsl:attribute>
-                <!-- transposition via capo -->
-                <xsl:if test="following-sibling::staff-details/capo">
-                  <xsl:attribute name="trans.semi">
-                    <xsl:value-of select="following-sibling::staff-details/capo"/>
-                  </xsl:attribute>
-                </xsl:if>
-              </xsl:when>
-              <!-- "normal" clef -->
-              <xsl:otherwise>
-                <xsl:attribute name="lines">
-                  <xsl:choose>
-                    <xsl:when test="staff-details[@number=string($staffNum)]/staff-lines">
-                      <xsl:value-of select="staff-details[@number=string($staffNum)]/staff-lines"/>
-                    </xsl:when>
-                    <xsl:otherwise>5</xsl:otherwise>
-                  </xsl:choose>
-                </xsl:attribute>
-                <xsl:attribute name="clef.line">
-                  <xsl:value-of select="line"/>
-                </xsl:attribute>
-                <xsl:attribute name="clef.shape">
-                  <xsl:value-of select="sign"/>
-                </xsl:attribute>
-                <xsl:if test="clef-octave-change">
-                  <xsl:if test="abs(number(clef-octave-change)) != 0">
-                    <xsl:attribute name="clef.trans">
-                      <xsl:choose>
-                        <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
-                        <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
-                        <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
-                        <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
-                      </xsl:choose>
-                    </xsl:attribute>
-                  </xsl:if>
-                </xsl:if>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:for-each>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:for-each>
   </xsl:template>
 
 </xsl:stylesheet>
