@@ -231,14 +231,14 @@
     </xsl:choose>
   </xsl:variable>
 
-  <!-- Match document root -->
+  <!-- 'Match' templates -->
   <xsl:template match="/">
     <mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="2012">
       <xsl:apply-templates select="score-timewise" mode="header"/>
       <xsl:apply-templates select="score-timewise" mode="music"/>
     </mei>
   </xsl:template>
-  
+
   <xsl:template match="score-timewise" mode="header">
     <meiHead xmlns="http://www.music-encoding.org/ns/mei">
       <fileDesc>
@@ -300,143 +300,141 @@
             <xsl:text>).</xsl:text>
           </annot>
         </notesStmt>
-        <xsl:if test="work/work-title or movement-title">
-          <sourceDesc>
-            <source>
-              <titleStmt>
-                <title>
-                  <xsl:value-of select="normalize-space(work/work-title)"/>
-                  <xsl:if test="normalize-space(work/work-number) != ''">
-                    <xsl:text>, </xsl:text>
-                    <xsl:value-of select="normalize-space(work/work-number)"/>
-                  </xsl:if>
-                  <xsl:if test="normalize-space(movement-number) != ''">
-                    <xsl:text>, </xsl:text>
-                    <xsl:if test="number(normalize-space(movement-number))">
-                      <xsl:text>no. </xsl:text>
-                    </xsl:if>
-                    <xsl:value-of select="normalize-space(movement-number)"/>
-                  </xsl:if>
-                  <xsl:if test="normalize-space(movement-title) != ''">
-                    <xsl:if
-                      test="normalize-space(concat(work/work-title,work/work-number,movement-number))
-                      != ''">
-                      <xsl:text>. </xsl:text>
-                    </xsl:if>
-                    <xsl:value-of select="normalize-space(movement-title)"/>
-                  </xsl:if>
-                </title>
-                <xsl:if test="identification">
-                  <respStmt>
-                    <xsl:for-each select="identification/creator">
-                      <xsl:value-of select="$nl"/>
-                      <resp>
-                        <xsl:value-of select="@type"/>
-                      </resp>
-                      <name>
-                        <xsl:value-of select="normalize-space(.)"/>
-                      </name>
-                    </xsl:for-each>
-                    <xsl:for-each select="identification/encoding/encoder">
-                      <name>
-                        <xsl:attribute name="role">
-                          <xsl:value-of select="@type"/>
-                        </xsl:attribute>
-                        <xsl:value-of select="normalize-space(.)"/>
-                      </name>
-                    </xsl:for-each>
-                    <xsl:if test="not(identification/creator) and
-                      not(identification/encoding/encoder)">
-                      <name/>
-                    </xsl:if>
-                  </respStmt>
+        <sourceDesc>
+          <source>
+            <titleStmt>
+              <title>
+                <xsl:value-of select="normalize-space(work/work-title)"/>
+                <xsl:if test="normalize-space(work/work-number) != ''">
+                  <xsl:text>, </xsl:text>
+                  <xsl:value-of select="normalize-space(work/work-number)"/>
                 </xsl:if>
-              </titleStmt>
-              <pubStmt>
-                <xsl:if test="identification/rights">
-                  <availability>
-                    <useRestrict>
-                      <xsl:value-of select="identification/rights"/>
-                    </useRestrict>
-                  </availability>
+                <xsl:if test="normalize-space(movement-number) != ''">
+                  <xsl:text>, </xsl:text>
+                  <xsl:if test="number(normalize-space(movement-number))">
+                    <xsl:text>no. </xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="normalize-space(movement-number)"/>
                 </xsl:if>
-              </pubStmt>
-              <xsl:if test="count(distinct-values(//*/@xml:lang)) &gt; 0">
-                <langUsage>
-                  <xsl:for-each select="distinct-values(//*/@xml:lang)">
-                    <!-- Identify all the languages used anywhere in the document. -->
-                    <language>
-                      <xsl:attribute name="xml:id">
-                        <xsl:value-of select="."/>
-                      </xsl:attribute>
-                    </language>
+                <xsl:if test="normalize-space(movement-title) != ''">
+                  <xsl:if
+                    test="normalize-space(concat(work/work-title,work/work-number,movement-number))
+                    != ''">
+                    <xsl:text>. </xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="normalize-space(movement-title)"/>
+                </xsl:if>
+              </title>
+              <xsl:if test="identification">
+                <respStmt>
+                  <xsl:for-each select="identification/creator">
+                    <xsl:value-of select="$nl"/>
+                    <resp>
+                      <xsl:value-of select="@type"/>
+                    </resp>
+                    <name>
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </name>
                   </xsl:for-each>
-                </langUsage>
-              </xsl:if>
-              <xsl:if test="identification/encoding/software">
-                <notesStmt>
-                  <xsl:variable name="software">
-                    <xsl:value-of select="count(identification/encoding/software)"/>
-                  </xsl:variable>
-                  <annot>
-                    <xsl:text>Created </xsl:text>
-                    <xsl:if test="identification/encoding/encoder">
-                      <xsl:text>by </xsl:text>
-                      <xsl:for-each select="identification/encoding/encoder">
-                        <xsl:value-of select="."/>
-                        <xsl:if test="count(following-sibling::encoder) &gt; 1">
-                          <xsl:text>, </xsl:text>
-                        </xsl:if>
-                        <xsl:if test="count(following-sibling::encoder) = 1">
-                          <xsl:choose>
-                            <xsl:when test="count(preceding-sibling::encoder) = 0">
-                              <xsl:text> and </xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                              <xsl:text>, and </xsl:text>
-                            </xsl:otherwise>
-                          </xsl:choose>
-                        </xsl:if>
-                      </xsl:for-each>
-                      <xsl:text> </xsl:text>
-                    </xsl:if>
-                    <xsl:if test="identification/encoding/software">
-                      <xsl:text>using </xsl:text>
-                      <xsl:for-each select="identification/encoding/software">
-                        <xsl:value-of select="."/>
-                        <xsl:if test="count(following-sibling::software) &gt; 1">
-                          <xsl:text>, </xsl:text>
-                        </xsl:if>
-                        <xsl:if test="count(following-sibling::software) = 1">
-                          <xsl:choose>
-                            <xsl:when test="count(preceding-sibling::software) = 0">
-                              <xsl:text> and </xsl:text>
-                            </xsl:when>
-                            <xsl:otherwise>
-                              <xsl:text>, and </xsl:text>
-                            </xsl:otherwise>
-                          </xsl:choose>
-                        </xsl:if>
-                      </xsl:for-each>
-                    </xsl:if>
-                    <xsl:if test="identification/encoding/encoding-date">
-                      <xsl:text> on </xsl:text>
-                      <date>
-                        <xsl:value-of select="identification/encoding/encoding-date"/>
-                      </date>
-                    </xsl:if>
-                    <xsl:text>.</xsl:text>
-                  </annot>
-                  <xsl:if test="identification/encoding/encoding-description">
-                    <annot>
-                      <xsl:value-of select="identification/encoding/encoding-description"/>
-                    </annot>
+                  <xsl:for-each select="identification/encoding/encoder">
+                    <name>
+                      <xsl:attribute name="role">
+                        <xsl:value-of select="@type"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </name>
+                  </xsl:for-each>
+                  <xsl:if test="not(identification/creator) and
+                    not(identification/encoding/encoder)">
+                    <name/>
                   </xsl:if>
-                </notesStmt>
+                </respStmt>
               </xsl:if>
-            </source>
-          </sourceDesc>
-        </xsl:if>
+            </titleStmt>
+            <pubStmt>
+              <xsl:if test="identification/rights">
+                <availability>
+                  <useRestrict>
+                    <xsl:value-of select="identification/rights"/>
+                  </useRestrict>
+                </availability>
+              </xsl:if>
+            </pubStmt>
+            <xsl:if test="count(distinct-values(//*/@xml:lang)) &gt; 0">
+              <langUsage>
+                <xsl:for-each select="distinct-values(//*/@xml:lang)">
+                  <!-- Identify all the languages used anywhere in the document. -->
+                  <language>
+                    <xsl:attribute name="xml:id">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                  </language>
+                </xsl:for-each>
+              </langUsage>
+            </xsl:if>
+            <xsl:if test="identification/encoding/software">
+              <notesStmt>
+                <xsl:variable name="software">
+                  <xsl:value-of select="count(identification/encoding/software)"/>
+                </xsl:variable>
+                <annot>
+                  <xsl:text>Created </xsl:text>
+                  <xsl:if test="identification/encoding/encoder">
+                    <xsl:text>by </xsl:text>
+                    <xsl:for-each select="identification/encoding/encoder">
+                      <xsl:value-of select="."/>
+                      <xsl:if test="count(following-sibling::encoder) &gt; 1">
+                        <xsl:text>, </xsl:text>
+                      </xsl:if>
+                      <xsl:if test="count(following-sibling::encoder) = 1">
+                        <xsl:choose>
+                          <xsl:when test="count(preceding-sibling::encoder) = 0">
+                            <xsl:text> and </xsl:text>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:text>, and </xsl:text>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:if>
+                    </xsl:for-each>
+                    <xsl:text> </xsl:text>
+                  </xsl:if>
+                  <xsl:if test="identification/encoding/software">
+                    <xsl:text>using </xsl:text>
+                    <xsl:for-each select="identification/encoding/software">
+                      <xsl:value-of select="."/>
+                      <xsl:if test="count(following-sibling::software) &gt; 1">
+                        <xsl:text>, </xsl:text>
+                      </xsl:if>
+                      <xsl:if test="count(following-sibling::software) = 1">
+                        <xsl:choose>
+                          <xsl:when test="count(preceding-sibling::software) = 0">
+                            <xsl:text> and </xsl:text>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:text>, and </xsl:text>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </xsl:if>
+                  <xsl:if test="identification/encoding/encoding-date">
+                    <xsl:text> on </xsl:text>
+                    <date>
+                      <xsl:value-of select="identification/encoding/encoding-date"/>
+                    </date>
+                  </xsl:if>
+                  <xsl:text>.</xsl:text>
+                </annot>
+                <xsl:if test="identification/encoding/encoding-description">
+                  <annot>
+                    <xsl:value-of select="identification/encoding/encoding-description"/>
+                  </annot>
+                </xsl:if>
+              </notesStmt>
+            </xsl:if>
+          </source>
+        </sourceDesc>
       </fileDesc>
       <xsl:if test="work/*">
         <workDesc>
@@ -558,10 +556,10 @@
               </xsl:if>
               <!-- Look in first measure for other score-level attributes -->
               <xsl:apply-templates select="defaults"/>
-              
+
               <!-- Create page headers and footers -->
               <xsl:call-template name="credits"/>
-              
+
               <!-- Copy already-calculated layout here -->
               <xsl:copy-of select="$defaultLayout"/>
             </scoreDef>
@@ -573,7 +571,7 @@
       </body>
     </music>
   </xsl:template>
-  
+
   <xsl:template match="defaults">
     <!-- CURRENTLY, THE VALUES IN defaults/ ARE PASSED THROUGH
            UNCHANGED. THESE SHOULD BE CONVERTED TO MEI VALUES. -->
@@ -606,7 +604,7 @@
          (tenths of interline space) to real-world units (millimeters). -->
     <xsl:for-each select="scaling">
       <xsl:attribute name="page.scale"><xsl:value-of select="tenths"/>:<xsl:value-of
-        select="millimeters"/></xsl:attribute>
+          select="millimeters"/></xsl:attribute>
     </xsl:for-each>
     <!-- MusicXML real-world units are millimeters -->
     <xsl:attribute name="page.units">mm</xsl:attribute>
@@ -663,7 +661,7 @@
       </xsl:for-each>
     </xsl:for-each>
   </xsl:template>
-  
+
   <xsl:template match="part-group[@type='start']" mode="grpSym">
     <!-- Create stand-off staff grouping symbols -->
     <grpSym level="{@number}">
@@ -716,7 +714,7 @@
       </xsl:if>
     </grpSym>
   </xsl:template>
-  
+
   <xsl:template match="part-group" mode="layout">
     <xsl:copy-of select="."/>
   </xsl:template>
@@ -740,7 +738,7 @@
           mode="grpSym"/>
       </staffGrp>
     </xsl:variable>
-    
+
     <xsl:choose>
       <xsl:when test="$outerStaffGrp//grpSym">
         <!-- If there are stand-off grouping symbols, resolve them -->
@@ -760,7 +758,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="score-part" mode="layout">
     <!-- Create staffDef elements -->
     <xsl:variable name="partID">
@@ -817,7 +815,7 @@
             </xsl:with-param>
             <xsl:with-param name="staffNum"/>
           </xsl:call-template>
-          
+
           <!-- instrument definition -->
           <xsl:choose>
             <xsl:when test="midi-instrument">
@@ -896,9 +894,9 @@
               </xsl:for-each>
             </xsl:when>
           </xsl:choose>
-          
+
           <!-- CREATE LAYERDEFS HERE? -->
-          
+
         </staffDef>
       </xsl:when>
       <xsl:otherwise>
@@ -1007,7 +1005,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="mei:staffDef|mei:staffGrp|part-group" mode="numberStaves">
     <!-- Number staves -->
     <xsl:choose>
@@ -1038,43 +1036,93 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template
+    match="*[@font-family|@font-style|@font-size|@font-weight|@justify|@halign|@valign|@color]">
+    <rend xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:if test="@font-family">
+        <xsl:attribute name="fontfam">
+          <xsl:value-of select="normalize-space(@font-family)"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@font-style">
+        <xsl:attribute name="fontstyle">
+          <xsl:choose>
+            <xsl:when test="lower-case(substring(normalize-space(@font-style),1,4))='ital'">
+              <xsl:text>ital</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space(@font-style)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@font-size">
+        <xsl:attribute name="fontsize">
+          <xsl:value-of select="@font-size"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@font-weight ">
+        <xsl:attribute name="fontweight">
+          <xsl:value-of select="@font-weight"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="@halign">
+          <xsl:attribute name="halign">
+            <xsl:value-of select="@halign"/>
+          </xsl:attribute>
+        </xsl:when>
+        <xsl:when test="@justify">
+          <xsl:attribute name="halign">
+            <xsl:value-of select="@justify"/>
+          </xsl:attribute>
+        </xsl:when>
+      </xsl:choose>
+      <xsl:if test="@valign">
+        <xsl:copy-of select="@valign"/>
+      </xsl:if>
+      <xsl:if test="matches(normalize-space(@color),
+        '(#([0-9A-Fa-f]{2,2})?[0-9A-Fa-f]{6,6}|aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)')">
+        <!--  MEI 2013 will support ARGB values -->
+        <xsl:copy-of select="@color"/>
+      </xsl:if>
+      <!--<xsl:apply-templates/>-->
+      <xsl:value-of select="normalize-space(.)"/>
+    </rend>
+  </xsl:template>
+
+  <!-- Named templates -->
   <xsl:template name="credit">
-    <!-- For MEI 2013, <anchoredText> should be substituted for <p> elements below. -->
-    <p xmlns="http://www.music-encoding.org/ns/mei">
+    <anchoredText xmlns="http://www.music-encoding.org/ns/mei">
       <xsl:if test="../credit-type">
         <xsl:attribute name="n" select="replace(normalize-space(../credit-type), '\s', '_')"/>
       </xsl:if>
       <xsl:attribute name="x" select="@default-x"/>
       <xsl:attribute name="y" select="@default-y"/>
       <xsl:choose>
-        <xsl:when test="contains(../credit-type, 'page number')">
+        <xsl:when test="contains(../credit-type, 'page number') or matches(normalize-space(.),
+          '^[0-9]+$')">
           <xsl:processing-instruction name="pageNum"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:call-template name="fontProperties"/>
+          <xsl:apply-templates select="."/>
         </xsl:otherwise>
       </xsl:choose>
-    </p>
-    <xsl:for-each select="following-sibling::credit-words[not(@default-y)]">
-      <p xmlns="http://www.music-encoding.org/ns/mei">
-        <xsl:if test="../credit-type">
-          <xsl:attribute name="n" select="replace(normalize-space(../credit-type), '\s', '_')"/>
-        </xsl:if>
-        <xsl:attribute name="x" select="if (@default-x) then @default-x else
-          preceding-sibling::credit-words[@default-x][1]/@default-x"/>
-        <xsl:attribute name="y" select="preceding-sibling::credit-words[@default-y][1]/@default-y"/>
+      <xsl:for-each select="following-sibling::credit-words[not(@default-y)]">
+        <lb/>
         <xsl:choose>
-          <xsl:when test="contains(../credit-type, 'page number')">
+          <xsl:when test="contains(../credit-type, 'page number') or matches(normalize-space(.),
+            '^[0-9]+$')">
             <xsl:processing-instruction name="pageNum"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:call-template name="fontProperties"/>
+            <xsl:apply-templates select="."/>
           </xsl:otherwise>
         </xsl:choose>
-      </p>
-    </xsl:for-each>
+      </xsl:for-each>
+    </anchoredText>
   </xsl:template>
-  
+
   <xsl:template name="credits">
     <xsl:variable name="pageHeight">
       <xsl:value-of select="defaults/page-layout/page-height"/>
@@ -1112,63 +1160,7 @@
       </pgFoot2>
     </xsl:if>
   </xsl:template>
-  
-  <xsl:template name="fontProperties">
-    <!-- When there are typographic properties, wrap a rend sub-element around the content. -->
-    <xsl:choose>
-      <xsl:when test="@font-family|@font-style|@font-size|@font-weight|@justify|@halign|@valign">
-        <rend xmlns="http://www.music-encoding.org/ns/mei">
-          <xsl:if test="@font-family">
-            <xsl:attribute name="fontfam">
-              <xsl:value-of select="normalize-space(@font-family)"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="@font-style">
-            <xsl:attribute name="fontstyle">
-              <xsl:choose>
-                <xsl:when test="lower-case(substring(@font-style,1,4))='ital'">
-                  <xsl:text>ital</xsl:text>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="@font-style"/>
-                </xsl:otherwise>
-              </xsl:choose>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="@font-size">
-            <xsl:attribute name="fontsize">
-              <xsl:value-of select="@font-size"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="@font-weight and @font-weight != 'normal'">
-            <xsl:attribute name="fontweight">
-              <xsl:value-of select="@font-weight"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:choose>
-            <xsl:when test="@halign">
-              <xsl:attribute name="halign">
-                <xsl:value-of select="@halign"/>
-              </xsl:attribute>
-            </xsl:when>
-            <xsl:when test="@justify">
-              <xsl:attribute name="halign">
-                <xsl:value-of select="@justify"/>
-              </xsl:attribute>
-            </xsl:when>
-          </xsl:choose>
-          <xsl:if test="@valign">
-            <xsl:copy-of select="@valign"/>
-          </xsl:if>
-          <xsl:value-of select="normalize-space(.)"/>
-        </rend>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="normalize-space(.)"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-  
+
   <xsl:template name="greatestCommonDenominator">
     <xsl:param name="a"/>
     <xsl:param name="b"/>
@@ -1197,7 +1189,7 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template name="leastCommonMultiple">
     <xsl:param name="in"/>
     <xsl:choose>
@@ -1283,7 +1275,7 @@
       </xsl:call-template>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template name="makeStaffAttributes">
     <!-- This template collects staff attributes from the first measure. -->
     <xsl:param name="partID"/>
@@ -1295,7 +1287,7 @@
     <xsl:variable name="scoreMode">
       <xsl:value-of select="following::part[attributes[not(transpose) and
         key]][1]/attributes/key/mode"/>
-    </xsl:variable>    
+    </xsl:variable>
     <xsl:for-each select="following::measure[1]/part[@id=$partID]/attributes">
       <xsl:choose>
         <xsl:when test="$staffNum=''">
@@ -1412,7 +1404,7 @@
                 </xsl:when>
                 <xsl:when test="$keysig &lt; 0">
                   <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
-                  />f</xsl:attribute>
+                    />f</xsl:attribute>
                 </xsl:when>
               </xsl:choose>
               <!-- staff key mode -->
@@ -1503,7 +1495,7 @@
       </xsl:choose>
     </xsl:for-each>
   </xsl:template>
-  
+
   <xsl:template name="resolveGrpSym">
     <!-- This template is called recursively as long as there are grpSym elements in the
       tree fragment passed to it -->
