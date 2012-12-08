@@ -1036,61 +1036,6 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template
-    match="*[@font-family|@font-style|@font-size|@font-weight|@justify|@halign|@valign|@color]">
-    <rend xmlns="http://www.music-encoding.org/ns/mei">
-      <xsl:if test="@font-family">
-        <xsl:attribute name="fontfam">
-          <xsl:value-of select="normalize-space(@font-family)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="@font-style">
-        <xsl:attribute name="fontstyle">
-          <xsl:choose>
-            <xsl:when test="lower-case(substring(normalize-space(@font-style),1,4))='ital'">
-              <xsl:text>ital</xsl:text>
-            </xsl:when>
-            <xsl:otherwise>
-              <xsl:value-of select="normalize-space(@font-style)"/>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="@font-size">
-        <xsl:attribute name="fontsize">
-          <xsl:value-of select="@font-size"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="@font-weight ">
-        <xsl:attribute name="fontweight">
-          <xsl:value-of select="@font-weight"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:choose>
-        <xsl:when test="@halign">
-          <xsl:attribute name="halign">
-            <xsl:value-of select="@halign"/>
-          </xsl:attribute>
-        </xsl:when>
-        <xsl:when test="@justify">
-          <xsl:attribute name="halign">
-            <xsl:value-of select="@justify"/>
-          </xsl:attribute>
-        </xsl:when>
-      </xsl:choose>
-      <xsl:if test="@valign">
-        <xsl:copy-of select="@valign"/>
-      </xsl:if>
-      <xsl:if test="matches(normalize-space(@color),
-        '(#([0-9A-Fa-f]{2,2})?[0-9A-Fa-f]{6,6}|aqua|black|blue|fuchsia|gray|green|lime|maroon|navy|olive|purple|red|silver|teal|white|yellow)')">
-        <!--  MEI 2013 will support ARGB values -->
-        <xsl:copy-of select="@color"/>
-      </xsl:if>
-      <!--<xsl:apply-templates/>-->
-      <xsl:value-of select="normalize-space(.)"/>
-    </rend>
-  </xsl:template>
-
   <!-- Named templates -->
   <xsl:template name="credit">
     <anchoredText xmlns="http://www.music-encoding.org/ns/mei">
@@ -1105,7 +1050,8 @@
           <xsl:processing-instruction name="pageNum"/>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:apply-templates select="."/>
+          <xsl:call-template name="textProperties1"/>
+          <!--<xsl:apply-templates select="."/>-->
         </xsl:otherwise>
       </xsl:choose>
       <xsl:for-each select="following-sibling::credit-words[not(@default-y)]">
@@ -1116,7 +1062,8 @@
             <xsl:processing-instruction name="pageNum"/>
           </xsl:when>
           <xsl:otherwise>
-            <xsl:apply-templates select="."/>
+            <xsl:call-template name="textProperties1"/>
+            <!--<xsl:apply-templates select="."/>-->
           </xsl:otherwise>
         </xsl:choose>
       </xsl:for-each>
@@ -1616,6 +1563,137 @@
             <xsl:copy-of select="$newOuterStaffGrp"/>
           </xsl:otherwise>
         </xsl:choose>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="textProperties1">
+    <xsl:choose>
+      <xsl:when test="contains(@enclosure, 'square') or contains(@enclosure, 'rectangle') or
+        contains(@enclosure, 'circle') or contains(@enclosure, 'oval')">
+        <rend xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="rend">
+            <xsl:choose>
+              <xsl:when test="contains(@enclosure, 'square') or contains(@enclosure, 'rectangle')">
+                <xsl:text>box</xsl:text>
+              </xsl:when>
+              <xsl:when test="contains(@enclosure, 'circle') or contains(@enclosure, 'oval')">
+                <xsl:text>circle</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:choose>
+            <xsl:when
+              test="@font-family|@font-style|@font-size|@font-weight|@justify|@halign|@valign|@color|@underline">
+              <xsl:call-template name="textProperties2"/>
+            </xsl:when>
+            <xsl:when test="@line-through">
+              <xsl:call-template name="textProperties3"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </rend>
+      </xsl:when>
+      <xsl:when
+        test="@font-family|@font-style|@font-size|@font-weight|@justify|@halign|@valign|@color|@underline">
+        <xsl:call-template name="textProperties2"/>
+      </xsl:when>
+      <xsl:when test="@line-through ">
+        <xsl:call-template name="textProperties3"/>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="textProperties2">
+    <xsl:choose>
+      <xsl:when
+        test="@font-family|@font-style|@font-size|@font-weight|@justify|@halign|@valign|@color|@underline">
+        <rend xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:if test="@font-family">
+            <xsl:attribute name="fontfam">
+              <xsl:value-of select="normalize-space(@font-family)"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@font-style">
+            <xsl:attribute name="fontstyle">
+              <xsl:choose>
+                <xsl:when test="lower-case(substring(normalize-space(@font-style),1,4))='ital'">
+                  <xsl:text>ital</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="normalize-space(@font-style)"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@font-size">
+            <xsl:attribute name="fontsize">
+              <xsl:value-of select="@font-size"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="@font-weight ">
+            <xsl:attribute name="fontweight">
+              <xsl:value-of select="@font-weight"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="@halign">
+              <xsl:attribute name="halign">
+                <xsl:value-of select="@halign"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="@justify">
+              <xsl:attribute name="halign">
+                <xsl:value-of select="@justify"/>
+              </xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+          <xsl:if test="@valign">
+            <xsl:copy-of select="@valign"/>
+          </xsl:if>
+          <xsl:if test="matches(normalize-space(@color),
+            '(#([0-9A-Fa-f]{2,2})?[0-9A-Fa-f]{6,6})')">
+            <!--  MEI 2013 will support ARGB values -->
+            <xsl:copy-of select="@color"/>
+          </xsl:if>
+          <xsl:if test="@underline">
+            <xsl:attribute name="rend">
+              <xsl:text>underline</xsl:text>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="@line-through ">
+              <xsl:call-template name="textProperties3"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="normalize-space(.)"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </rend>
+      </xsl:when>
+      <xsl:when test="@line-through ">
+        <xsl:call-template name="textProperties3"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="textProperties3">
+    <xsl:choose>
+      <xsl:when test="@line-through ">
+        <rend xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="rend">
+            <xsl:text>strike</xsl:text>
+          </xsl:attribute>
+          <xsl:value-of select="normalize-space(.)"/>
+        </rend>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="normalize-space(.)"/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
