@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
   xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="http://music-encoding.org/tools/musicxml2mei"
   exclude-result-prefixes="mei">
   <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"/>
   <xsl:strip-space elements="*"/>
@@ -1036,7 +1037,35 @@
     </xsl:choose>
   </xsl:template>
 
+  <!-- Functions -->
+  <!-- f:hex2integer provided by Thomas Weber -->
+  <xsl:function name="f:hex2integer" as="xs:integer*">
+    <!-- Accepts hexstrings of arbitrary length as argument (only integer precision is the limit) 
+         Also can take a sequence of hex strings. Then will return a sequence of integers. -->
+    <xsl:param name="hex" as="xs:string*"/>
+    <xsl:for-each select="$hex">
+      <xsl:variable name="hexLength" select="string-length()"/>
+      <!-- "string-length(substring-before(..))" gets us the value of the byte -->
+      <xsl:sequence select="string-length(substring-before('0123456789ABCDEF',
+        upper-case(substring(.,$hexLength,1)) (: this returns the last (lowest) byte :) ))
+        (: Now we look for higher bytes and add them, if present :) + (if($hexLength gt 1)
+        then 16 * f:hex2integer(substring(.,1,$hexLength - 1)) (: recurse, stripping last (lowest)
+        byte :) else 0)"/>
+    </xsl:for-each>
+  </xsl:function>
+
   <!-- Named templates -->
+  <!-- aarrggbb2css provided by Thomas Weber -->
+  <xsl:template name="aarrggbb2css" as="xs:string">
+    <!-- Expects parameter of form '#aarrggbb' -->
+    <xsl:param name="aarrggbb" as="xs:string"/>
+    <xsl:value-of select="('rgba(', for $startByte in (4,6,8) (: Red, green and blue start at
+      byte 4, 6 and 8 :) return concat( (: In each iteration, :)
+      f:hex2integer(substring($aarrggbb,$startByte,2)), (: ... return the decimal value :) ','
+      (: ... and a trailing comma :)  ), f:hex2integer(substring($aarrggbb,2,2)) div 255, (:
+      alpha value is between 0 and 1 => divide by 255 :) ')' )" separator=""/>
+  </xsl:template>
+
   <xsl:template name="credit">
     <anchoredText xmlns="http://www.music-encoding.org/ns/mei">
       <xsl:if test="../credit-type">
@@ -1653,11 +1682,24 @@
           <xsl:if test="@valign">
             <xsl:copy-of select="@valign"/>
           </xsl:if>
-          <xsl:if test="matches(normalize-space(@color),
-            '(#([0-9A-Fa-f]{2,2})?[0-9A-Fa-f]{6,6})')">
-            <!--  MEI 2013 will support ARGB values -->
-            <xsl:copy-of select="@color"/>
-          </xsl:if>
+          <xsl:choose>
+            <xsl:when test="matches(normalize-space(@color), '(#[0-9A-Fa-f]{8,8})')">
+              <!-- convert MusicXML CSS4 color value to CSS3 rgba value -->
+              <xsl:attribute name="color">
+                <xsl:call-template name="aarrggbb2css">
+                  <xsl:with-param name="aarrggbb">
+                    <xsl:value-of select="@color"/>
+                  </xsl:with-param>
+                </xsl:call-template>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(normalize-space(@color),
+              '^#[0-9A-Fa-f]{6,6}$|^aqua$|^black$|^blue$|^fuchsia$|^gray$|^green$|^lime$|^maroon$|^navy$|^olive$|^purple$|^red$|^silver$|^teal$|^white$|^yellow')">
+              <xsl:attribute name="color">
+                <xsl:value-of select="normalize-space(@color)"/>
+              </xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
           <xsl:if test="@underline">
             <xsl:attribute name="rend">
               <xsl:text>underline</xsl:text>
