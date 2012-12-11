@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
     meiversion="2012">
     <meiHead>
         <fileDesc>
             <titleStmt>
-                <title>The cage: an electronic transcription of the work by Charles Ives</title>
+                <title>The cage: an electronic transcription.</title>
                 <respStmt>
-                    <persName role="creator">Maja Hartwig</persName>
+                    <resp>composed by:</resp>
+                    <persName role="composer" authority="GND" authURI="http://d-nb.info/gnd/"
+                        dbkey="118556142">Charles Ives</persName>
+                    <resp>encoded by:</resp>
+                    <persName role="encoder">Maja Hartwig</persName>
                 </respStmt>
             </titleStmt>
             <pubStmt>
                 <respStmt>
-                    <corpName dbkey="5115204-6" authURI="http://d-nb.info/gnd" authority="GND"
-                        >Musikwissenschaftliches Seminar<geogName>Detmold</geogName>
-                        <geogName>Germany</geogName><address>
-                    <addrLine>Gartenstraße 20</addrLine>
-                    <addrLine>32756 Detmold</addrLine>
-                </address></corpName>
+                    <corpName n="2" xml:id="corpName2" dbkey="5115204-6"
+                        authURI="http://d-nb.info/gnd" authority="GND">Musikwissenschaftliches
+                        Seminar
+                        <address>
+                  <addrLine>Gartenstrasse 20</addrLine><addrLine>32756 <geogName dbkey="7004442" authURI="www.getty.edu/research/tools/vocabularies/tgn" authority="TGN">Detmold</geogName>
+                 <geogName dbkey="7000084" authURI="www.getty.edu/research/tools/vocabularies/tgn" authority="TGN">Germany</geogName>
+                  </addrLine>
+                  </address>
+                    </corpName>
                 </respStmt>
-                <date>2012</date>
                 <availability>
                     <useRestrict> This encoding is in the public domain. However, the sources used
                         to create it may be under copyright. We believe their use by the MEI project
@@ -32,38 +38,128 @@
                 <title>MEI Sample Collection</title>
                 <respStmt>
                     <corpName role="publisher">MEI Project</corpName>
-                    <corpName role="funder">German Research Foundation</corpName>
-                    <corpName role="funder">National Endowment for the Humanities</corpName>
+                    <corpName role="funder" dbkey="2007744-0" authURI="http://d-nb.info/gnd"
+                        authority="GND">German Research
+                        Foundation<address>
+                     <addrLine>Kennedyallee 40</addrLine>
+                     <addrLine><geogName dbkey="7005090" authURI="www.getty.edu/research/tools/vocabularies/tgn" authority="TGN">Bonn</geogName></addrLine>
+                     <addrLine><geogName dbkey="7000084" authURI="www.getty.edu/research/tools/vocabularies/tgn" authority="TGN">Germany</geogName></addrLine>
+                  </address></corpName>
+                    <corpName role="funder" dbkey="18183-3" authURI="http://d-nb.info/gnd/18183-3"
+                        authority="Deutsche Nationalbibliothek">National Endowment for the
+                        Humanities<address>
+                     <addrLine>1100 Pennsylvania Avenue N.W.</addrLine>
+                     <addrLine><geogName dbkey="7013962" authURI="www.getty.edu/research/tools/vocabularies/tgn" authority="TGN">Washington, DC</geogName> 20004</addrLine>
+                     <addrLine><geogName dbkey="7012149" authURI="www.getty.edu/research/tools/vocabularies/tgn" authority="TGN">United States</geogName></addrLine>
+                  </address>
+                    </corpName>
                 </respStmt>
+                <identifier>
+                    <ref target="http:www.music-encoding.org/Support/MEI_Sample_Collection"/>
+                </identifier>
             </seriesStmt>
             <sourceDesc>
                 <source>
+                    <identifier authURI="http://imslp.org/wiki/114_Songs_%28Ives,_Charles%29"
+                        authority="IMSLP" type="pdf_scan"/>
                     <titleStmt>
-                        <title>The Cage from Two Songs (1906)</title>
+                        <title authURI="http://d-nb.info/gnd/" dbkey="7721590-4" authority="GND">The
+                            Cage</title>
                         <respStmt>
-                            <persName role="composer" dbkey="118556142"
-                                authority="Deutsche Nationalbibliothek"
-                                authURI="http://d-nb.info/gnd">Charles Ives</persName>
+                            <persName role="composer" authority="GND"
+                                authURI="http://d-nb.info/gnd/" dbkey="118556142">Charles
+                                Ives</persName>
                         </respStmt>
                     </titleStmt>
+                    <pubStmt>
+                        <respStmt>
+                            <corpName role="publisher">Redding, Conn.: C.E. Ives<date>(1922)</date>
+                            </corpName>
+                            <corpName role="publisher">New Music Edition Corp., n.d.<geogName>New
+                                    York</geogName><date>[1932]</date>
+                            </corpName>
+                        </respStmt>
+                    </pubStmt>
+                    <seriesStmt>
+                        <title>114 Songs</title>
+                    </seriesStmt>
+                    <perfMedium>
+                        <instrumentation>
+                            <instrVoice>Voice</instrVoice>
+                            <instrVoice>Piano</instrVoice>
+                        </instrumentation>
+                    </perfMedium>
+                    <classification>
+                        <termList>
+                            <term/>
+                        </termList>
+                    </classification>
                 </source>
             </sourceDesc>
         </fileDesc>
         <encodingDesc>
             <samplingDecl>
-                <p>This encoding contains chords about two staves, no meter count and unit.</p>
-                <p>Encoding without ID´s.</p>
+                <p>Handcoded example.</p>
             </samplingDecl>
         </encodingDesc>
+        <workDesc>
+            <work>
+                <titleStmt>
+                    <title>The cage</title>
+                    <respStmt>
+                        <resp>composed by:</resp>
+                        <persName authority="GND" authURI="http://d-nb.info/gnd/" dbkey="118556142"
+                            >Charles Ives</persName>
+                    </respStmt>
+                </titleStmt>
+                <history>
+                    <eventList>
+                        <event>First Performance <date>1962</date></event>
+                    </eventList>
+                </history>
+                <notesStmt>
+                    <annot>Lied mit Text vom Komponisten.</annot>
+                </notesStmt>
+                <incip>
+                    <incipText>
+                        <p>A leopard went around his cage from one side back</p>
+                    </incipText>
+                    <score>
+                        <scoreDef>
+                            <staffGrp>
+                                <staffDef n="1"> </staffDef>
+                                <staffDef n="2"/>
+                                <staffDef n="3"/>
+                            </staffGrp>
+                        </scoreDef>
+                        <section>
+                            <measure n="1">
+                                <staff n="1">
+                                    <layer>
+                                        <mRest/>
+                                    </layer>
+                                </staff>
+                                <staff n="2">
+                                    <layer/>
+                                </staff>
+                                <staff n="3">
+                                    <layer/>
+                                </staff>
+                            </measure>
+                        </section>
+                    </score>
+                </incip>
+            </work>
+        </workDesc>
         <revisionDesc>
             <change n="1">
                 <respStmt>
                     <persName>Maja Hartwig</persName>
                 </respStmt>
                 <changeDesc>
-                    <p>Encoding the file.</p>
+                    <p>Encoded the file in July 2012 by hand.</p>
                 </changeDesc>
-                <date reg="2012-07-02"/>
+                <date>July 2012</date>
             </change>
         </revisionDesc>
     </meiHead>
@@ -71,7 +167,7 @@
         <body>
             <mdiv>
                 <score>
-                    <scoreDef>
+                    <scoreDef key.sig="0">
                         <staffGrp>
                             <staffDef lines="5" n="1" clef.shape="G" clef.line="2" key.sig="0"/>
                             <staffGrp symbol="brace">
@@ -121,7 +217,7 @@
                             </staff>
                             <staff n="3">
                                 <layer n="1">
-                                    <chord stem.dir="up">
+                                    <chord stem.dir="up" xml:id="chord_1">
                                         <note pname="f" dur="2" oct="3" accid="s"/>
                                         <note pname="b" oct="4" dur="2"/>
                                     </chord>
@@ -164,7 +260,7 @@
                             </staff>
                             <dir place="above" staff="2">evenly and mechanically, <lb/>no ritard.,
                                 cresc., accel. etc. <lb/>(repeat 2 or 3 times)</dir>
-                            <dynam staff="2" place="below" tstamp="0.5">f</dynam>
+                            <dynam staff="3" place="above" startid="#chord_1">f</dynam>
                         </measure>
                         <measure n="2" right="invis">
                             <staff n="1" def="1">
@@ -405,6 +501,7 @@
                                         <note pname="c" accid="s" oct="5" dur="2" stem.dir="down"/>
                                     </chord>
                                 </layer>
+                                <!-- arpeggio! -->
                             </staff>
                             <staff n="3">
                                 <layer n="1">
@@ -421,7 +518,6 @@
                                     <space dur="2"/>
                                 </layer>
                             </staff>
-                            <arpeg tstamp="6" staff="2 3" order="up"/>
                         </measure>
                         <measure n="4" right="dashed">
                             <staff n="1">
@@ -542,30 +638,43 @@
                         <measure n="5" right="end">
                             <staff n="1">
                                 <layer>
-                                    <note pname="a" oct="4" dur="4" stem.dir="up"/>
-                                    <note pname="a" oct="4" dur="2" tie="i" stem.dir="up"/>
+                                    <note pname="a" oct="4" dur="4" stem.dir="up">
+                                        <syl wordpos="i" con="d">won</syl>
+                                    </note>
+                                    <note pname="a" oct="4" dur="2" tie="i" stem.dir="up">
+                                        <syl wordpos="t">der</syl>
+                                    </note>
                                     <note pname="a" oct="4" dur="8" tie="t"/>
                                     <note pname="f" oct="4" dur="8" stem.dir="up" accid="s"
-                                        slur="i1"/>
+                                        slur="i1">
+                                        <syl>"Is</syl>
+                                    </note>
                                     <note pname="g" oct="4" dur="8" stem.dir="up" accid="s"
                                         slur="t1"/>
-                                    <note pname="a" oct="4" dur="8" stem.dir="up" accid="s"/>
+                                    <note pname="a" oct="4" dur="8" stem.dir="up" accid="s">
+                                        <syl>life</syl>
+                                    </note>
                                     <note pname="g" oct="4" dur="8" accid="s" stem.dir="up">
+                                        <syl wordpos="i" con="d">an</syl>
                                         <artic artic="stacc" place="above"/>
                                     </note>
                                     <note pname="f" oct="4" dur="8" stem.dir="up" accid="s">
-                                        <artic artic="stacc" place="above"/>
+                                        <syl wordpos="m">y</syl>
+                                        <artic artic="stacc" place="above"> </artic>
                                     </note>
                                     <note pname="e" oct="4" dur="8" stem.dir="up">
+                                        <syl wordpos="t">thing</syl>
                                         <artic artic="stacc" place="above"/>
                                     </note>
                                     <note pname="d" oct="4" dur="8" stem.dir="up">
+                                        <syl>like</syl>
                                         <artic artic="stacc"/>
                                     </note>
                                     <note pname="e" oct="4" dur="8" stem.dir="up">
+                                        <syl>that?"</syl>
                                         <artic artic="stacc"/>
                                     </note>
-                                    <rest dur="8"/>
+                                    <rest dur="8" fermata="above"/>
                                 </layer>
                             </staff>
                             <staff n="2">
@@ -592,7 +701,7 @@
                                         </note>
                                     </chord>
                                     <rest dur="8"/>
-                                    <rest dur="8"/>
+                                    <rest dur="8" fermata="above"/>
                                 </layer>
                                 <layer n="2">
                                     <chord>
@@ -658,9 +767,6 @@
                                     <space dur="8"/>
                                 </layer>
                             </staff>
-                            <arpeg staff="2 3" tstamp="1" order="up"/>
-                            <fermata place="above" staff="1" tstamp="8.5"/>
-                            <fermata place="above" staff="2" tstamp="8.5"/>
                         </measure>
                     </section>
                 </score>
