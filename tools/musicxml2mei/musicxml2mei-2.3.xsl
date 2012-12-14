@@ -2,7 +2,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
   xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="http://music-encoding.org/tools/musicxml2mei"
-  exclude-result-prefixes="mei">
+  exclude-result-prefixes="mei xs f">
   <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"/>
   <xsl:strip-space elements="*"/>
 
@@ -531,15 +531,15 @@
                       <xsl:text>0</xsl:text>
                     </xsl:attribute>
                   </xsl:when>
-                  <xsl:when test="$keysig=0">
+                  <xsl:when test="number($keysig)=0">
                     <xsl:attribute name="key.sig">
                       <xsl:value-of select="$keysig"/>
                     </xsl:attribute>
                   </xsl:when>
-                  <xsl:when test="$keysig &gt; 0">
+                  <xsl:when test="number($keysig) &gt; 0">
                     <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
                   </xsl:when>
-                  <xsl:when test="$keysig &lt; 0">
+                  <xsl:when test="number($keysig) &lt; 0">
                     <xsl:attribute name="key.sig">
                       <xsl:value-of select="abs($keysig)"/>f</xsl:attribute>
                   </xsl:when>
@@ -564,9 +564,60 @@
               <!-- Copy already-calculated layout here -->
               <xsl:copy-of select="$defaultLayout"/>
             </scoreDef>
-            <section>
-              <!-- PROCESS MEASURES HERE -->
-            </section>
+
+            <!-- Process score measures -->
+            <!-- Measures are grouped based on criteria in the group-ending-with attribute -->
+            <xsl:for-each-group select="measure"
+              group-ending-with="measure[part/barline/repeat[@direction='backward'] or
+              following-sibling::measure[1][part/barline[@location='left']/repeat[@direction='forward']]
+              or part/barline/ending[@type='stop'] or
+              part/barline[@location='right']/bar-style='light-light' or
+              following-sibling::measure[1][part/barline/ending[@type='start']] or
+              following-sibling::measure[1][part/attributes[time or key]]]">
+
+              <!-- Other potential (sub?) section-ending conditions:
+following-sibling::measure[1][print/page-layout] or
+following-sibling::measure[1][print/system-layout] or
+following-sibling::measure[1][print/staff-layout] or
+following-sibling::measure[1][print/measure-layout] or
+following-sibling::measure[1][attributes[staves]] or
+following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
+
+              <!-- Create sections/endings based on the grouping of measures -->
+              <xsl:choose>
+                <xsl:when test="part/barline/ending[@type='start']">
+                  <ending>
+                    <xsl:attribute name="n">
+                      <xsl:choose>
+                        <xsl:when test="part/barline/ending[@type='start'] != ''">
+                          <xsl:value-of
+                            select="part[barline/ending[@type='start']][1]/barline[ending[@type='start']][1]/ending"
+                          />
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:value-of
+                            select="part[barline/ending[@type='start']][1]/barline[ending[@type='start']][1]/ending/@number"
+                          />
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:for-each-group select="current-group()"
+                      group-starting-with="measure[part/attributes[time or key]]">
+                      <xsl:apply-templates select="current-group()" mode="stage1"/>
+                    </xsl:for-each-group>
+                  </ending>
+                </xsl:when>
+                <xsl:otherwise>
+                  <section>
+                    <xsl:for-each-group select="current-group()"
+                      group-starting-with="measure[part/attributes[time or key]]">
+                      <xsl:apply-templates select="current-group()" mode="stage1"/>
+                    </xsl:for-each-group>
+                  </section>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:for-each-group>
+
           </score>
         </mdiv>
       </body>
@@ -663,6 +714,1204 @@
     </xsl:for-each>
   </xsl:template>
 
+  <xsl:template match="measure" mode="stage1">
+    <!-- Process each measure -->
+    <!-- Page breaks and system breaks precede the measure. -->
+    <xsl:if test="part[print/@new-page='yes']">
+      <pb xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:if test="normalize-space(part[print/@new-page='yes'][1]/print/@page-number) != ''">
+          <xsl:attribute name="n">
+            <xsl:value-of select="part[print/@new-page='yes'][1]/print/@page-number"/>
+          </xsl:attribute>
+        </xsl:if>
+      </pb>
+    </xsl:if>
+    <xsl:if test="part[print/@new-system='yes']">
+      <sb xmlns="http://www.music-encoding.org/ns/mei"/>
+    </xsl:if>
+
+    <xsl:if test="count(preceding::measure) &gt; 0">
+      <!-- Ignore music and layout parameters in the first measure since these have already
+        been placed in score/scoreDef -->
+
+      <!-- Score-level info precedes the measure. -->
+      <xsl:if test="part/attributes[not(preceding-sibling::note) and
+        not(preceding-sibling::forward)][time or key] | part[print/page-layout or
+        print/system-layout]">
+        <scoreDef xmlns="http://www.music-encoding.org/ns/mei">
+          <!-- Time signature -->
+          <xsl:if test="part/attributes[1]/time">
+            <xsl:attribute name="meter.count">
+              <xsl:value-of select="part[attributes[1]/time/beats][1]/attributes/time/beats"/>
+            </xsl:attribute>
+            <xsl:attribute name="meter.unit">
+              <xsl:value-of select="part[attributes[1]/time/beat-type][1]/attributes/time/beat-type"
+              />
+            </xsl:attribute>
+            <xsl:choose>
+              <xsl:when test="part/attributes[1]/time/@symbol='common'">
+                <xsl:attribute name="meter.sym">common</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="part/attributes[1]/time/@symbol='cut'">
+                <xsl:attribute name="meter.sym">cut</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="part/attributes[1]/time/@symbol='single-number'">
+                <xsl:attribute name="meter.rend">denomsym</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="part/attributes[1]/time/senza-misura">
+                <xsl:attribute name="meter.rend">invis</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:if>
+          <xsl:if test="part/attributes[1]/key">
+            <xsl:variable name="keysig">
+              <xsl:value-of select="part[attributes[not(transpose) and
+                key]][1]/attributes[not(transpose)][1]/key/fifths"/>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="number($keysig)=0">
+                <xsl:attribute name="key.sig">
+                  <xsl:value-of select="$keysig"/>
+                </xsl:attribute>
+              </xsl:when>
+              <xsl:when test="number($keysig) &gt; 0">
+                <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="number($keysig) &lt; 0">
+                <xsl:attribute name="key.sig">
+                  <xsl:value-of select="abs(number($keysig))"/>f</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+            <xsl:if test="part[1]/attributes[1]/key/mode">
+              <xsl:attribute name="key.mode">
+                <xsl:value-of select="part[1]/attributes[1]/key/mode"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:if>
+          <!-- Page layout info -->
+          <xsl:for-each select="part[print/page-layout][1]/print/page-layout">
+            <xsl:for-each select="page-height">
+              <xsl:attribute name="page.height">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:for-each>
+            <xsl:for-each select="page-width">
+              <xsl:attribute name="page.width">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:for-each>
+            <xsl:for-each select="page-margins">
+              <xsl:attribute name="page.leftmar">
+                <xsl:value-of select="left-margin"/>
+              </xsl:attribute>
+              <xsl:attribute name="page.rightmar">
+                <xsl:value-of select="right-margin"/>
+              </xsl:attribute>
+              <xsl:attribute name="page.topmar">
+                <xsl:value-of select="top-margin"/>
+              </xsl:attribute>
+              <xsl:attribute name="page.botmar">
+                <xsl:value-of select="bottom-margin"/>
+              </xsl:attribute>
+            </xsl:for-each>
+          </xsl:for-each>
+          <!-- System layout info -->
+          <xsl:for-each select="part[print/system-layout][1]/print/system-layout">
+            <xsl:for-each select="system-margins">
+              <xsl:attribute name="system.leftmar">
+                <xsl:value-of select="left-margin"/>
+              </xsl:attribute>
+              <xsl:attribute name="system.rightmar">
+                <xsl:value-of select="right-margin"/>
+              </xsl:attribute>
+            </xsl:for-each>
+            <xsl:for-each select="system-distance">
+              <xsl:attribute name="spacing.system">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:for-each>
+            <xsl:for-each select="top-system-distance">
+              <xsl:attribute name="system.topmar">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:for-each>
+          </xsl:for-each>
+        </scoreDef>
+        <!-- Staff-level info -->
+        <xsl:for-each select="part[attributes[not(preceding-sibling::note) and
+          not(preceding-sibling::forward)][clef or divisions or key or staff-details[*] or
+          transpose] or print[*]]">
+          <xsl:variable name="partID">
+            <xsl:value-of select="@id"/>
+          </xsl:variable>
+          <xsl:variable name="scoreFifths">
+            <xsl:value-of select="preceding::part[attributes[not(transpose) and
+              key]][1]/attributes/key[1]/fifths"/>
+          </xsl:variable>
+          <xsl:variable name="scoreMode">
+            <xsl:value-of select="preceding::part[attributes[not(transpose) and
+              key]][1]/attributes/key[1]/mode"/>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="local-name($defaultLayout//*[@xml:id=$partID]) = 'staffDef'">
+              <!-- Part has only 1 staff -->
+              <xsl:variable name="staffAttrib">
+                <xsl:copy-of select="print/staff-layout"/>
+                <xsl:copy-of select="attributes/clef or divisions or key or staff-details[*] or
+                  transpose"/>
+              </xsl:variable>
+
+              <!--<xsl:value-of select="$nl"/>
+              <xsl:comment>StaffAttrib</xsl:comment>
+              <xsl:value-of select="$nl"/>
+              <xsl:copy-of select="$staffAttrib"/>-->
+
+              <xsl:variable name="staffDefTemp">
+                <xsl:for-each select="$defaultLayout//*[@xml:id=$partID]">
+                  <staffDef>
+                    <xsl:variable name="thisStaff">
+                      <xsl:value-of select="position()"/>
+                    </xsl:variable>
+                    <xsl:copy-of select="@n"/>
+                    <xsl:copy-of select="$staffAttrib/*[number(@number) = $thisStaff]"/>
+                    <xsl:choose>
+                      <xsl:when test="$thisStaff = 1">
+                        <xsl:copy-of select="$staffAttrib/clef[not(@number)][1]"/>
+                        <xsl:copy-of select="$staffAttrib/divisions"/>
+                        <xsl:copy-of select="$staffAttrib/key[not(@number)][1]"/>
+                        <xsl:copy-of select="$staffAttrib/staff-details[not(@number)][1]"/>
+                        <xsl:copy-of select="$staffAttrib/staff-layout[not(@number)][1]"/>
+                        <xsl:copy-of select="$staffAttrib/transpose"/>
+                      </xsl:when>
+                    </xsl:choose>
+                  </staffDef>
+                </xsl:for-each>
+              </xsl:variable>
+
+              <!--<xsl:value-of select="$nl"/>
+              <xsl:comment>StaffDefTemp</xsl:comment>
+              <xsl:value-of select="$nl"/>
+              <xsl:copy-of select="$staffDefTemp"/>-->
+
+              <xsl:for-each select="$staffDefTemp/staffDef[*]">
+                <staffDef xmlns="http://www.music-encoding.org/ns/mei">
+                  <xsl:copy-of select="@n"/>
+                  <!-- staff lines -->
+                  <xsl:for-each select="staff-details/staff-lines">
+                    <xsl:attribute name="lines">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                  </xsl:for-each>
+                  <!-- clef -->
+                  <xsl:for-each select="clef">
+                    <xsl:choose>
+                      <!-- percussion clef -->
+                      <xsl:when test="sign='percussion'">
+                        <xsl:attribute name="clef.shape">perc</xsl:attribute>
+                      </xsl:when>
+                      <!-- TAB "clef" -->
+                      <xsl:when test="sign='TAB'">
+                        <xsl:attribute name="clef.shape">TAB</xsl:attribute>
+                      </xsl:when>
+                      <!-- "normal" clef -->
+                      <xsl:otherwise>
+                        <xsl:attribute name="clef.line">
+                          <xsl:value-of select="line"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="clef.shape">
+                          <xsl:value-of select="sign"/>
+                        </xsl:attribute>
+                        <xsl:if test="clef-octave-change">
+                          <xsl:if test="abs(number(clef-octave-change)) != 0">
+                            <xsl:attribute name="clef.trans">
+                              <xsl:choose>
+                                <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
+                                <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
+                                <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
+                                <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                              </xsl:choose>
+                            </xsl:attribute>
+                          </xsl:if>
+                        </xsl:if>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:for-each>
+                  <!-- tuning for TAB staff -->
+                  <xsl:if test="staff-details/staff-tuning">
+                    <xsl:attribute name="tab.strings">
+                      <xsl:variable name="tabstrings">
+                        <xsl:for-each select="staff-details/staff-tuning">
+                          <xsl:sort select="@line" order="descending"/>
+                          <xsl:variable name="thisstring">
+                            <xsl:value-of select="tuning-step"/>
+                          </xsl:variable>
+                          <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
+                          <xsl:value-of select="tuning-octave"/>
+                          <xsl:text> </xsl:text>
+                        </xsl:for-each>
+                      </xsl:variable>
+                      <xsl:value-of select="normalize-space($tabstrings)"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                  <!-- transposition via capo -->
+                  <xsl:if test="staff-details/capo">
+                    <xsl:attribute name="trans.semi">
+                      <xsl:value-of select="staff-details[capo]/capo"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                  <!-- staff spacing -->
+                  <xsl:for-each select="staff-layout/staff-distance">
+                    <xsl:attribute name="spacing">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                  </xsl:for-each>
+                  <!-- staff size -->
+                  <xsl:for-each select="staff-details/staff-size">
+                    <xsl:attribute name="scale">
+                      <xsl:value-of select="."/>
+                      <xsl:text>%</xsl:text>
+                    </xsl:attribute>
+                  </xsl:for-each>
+                  <!-- staff transposition -->
+                  <xsl:if test="transpose">
+                    <xsl:attribute name="trans.semi">
+                      <xsl:choose>
+                        <xsl:when test="transpose/octave-change">
+                          <xsl:variable name="octavechange">
+                            <xsl:value-of select="transpose[1]/octave-change"/>
+                          </xsl:variable>
+                          <xsl:variable name="chromatic">
+                            <xsl:value-of select="transpose[1]/chromatic"/>
+                          </xsl:variable>
+                          <xsl:value-of select="$chromatic + (12 * $octavechange)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:value-of select="transpose[1]/chromatic"/>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:if test="transpose/diatonic">
+                      <xsl:attribute name="trans.diat">
+                        <xsl:value-of select="transpose[1]/diatonic"/>
+                      </xsl:attribute>
+                    </xsl:if>
+                  </xsl:if>
+                  <!-- ppq -->
+                  <xsl:for-each select="divisions">
+                    <xsl:if test="number(.) != $scorePPQ">
+                      <xsl:attribute name="ppq">
+                        <xsl:value-of select="."/>
+                      </xsl:attribute>
+                    </xsl:if>
+                  </xsl:for-each>
+                  <!-- staff key signature -->
+                  <xsl:if test="key">
+                    <xsl:variable name="keysig">
+                      <xsl:value-of select="key/fifths"/>
+                    </xsl:variable>
+                    <xsl:if test="$keysig != $scoreFifths">
+                      <xsl:choose>
+                        <xsl:when test="number($keysig)=0">
+                          <xsl:attribute name="key.sig">
+                            <xsl:value-of select="$keysig"/>
+                          </xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="number($keysig) &gt; 0">
+                          <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"
+                            />s</xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="number($keysig) &lt; 0">
+                          <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
+                            />f</xsl:attribute>
+                        </xsl:when>
+                      </xsl:choose>
+                      <!-- staff key mode -->
+                      <xsl:if test="key/mode and key/mode != $scoreMode">
+                        <xsl:attribute name="key.mode">
+                          <xsl:value-of select="key/mode"/>
+                        </xsl:attribute>
+                      </xsl:if>
+                    </xsl:if>
+                  </xsl:if>
+                </staffDef>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:when test="local-name($defaultLayout//*[@xml:id=$partID]) = 'staffGrp'">
+              <!-- Part has multiple staves -->
+              <xsl:variable name="staffAttrib">
+                <xsl:copy-of select="print/staff-layout"/>
+                <xsl:copy-of select="attributes/clef or divisions or key or staff-details[*] or
+                  transpose"/>
+              </xsl:variable>
+              <xsl:variable name="staffDefTemp">
+                <xsl:for-each select="$defaultLayout//*[@xml:id=$partID]/*[local-name()='staffDef']">
+                  <staffDef>
+                    <xsl:variable name="thisStaff">
+                      <xsl:value-of select="position()"/>
+                    </xsl:variable>
+                    <xsl:copy-of select="@n"/>
+                    <xsl:copy-of select="$staffAttrib/*[number(@number) = $thisStaff]"/>
+                    <xsl:choose>
+                      <xsl:when test="$thisStaff = 1">
+                        <xsl:copy-of select="$staffAttrib/clef[not(@number)][1]"/>
+                        <xsl:copy-of select="$staffAttrib/divisions"/>
+                        <xsl:copy-of select="$staffAttrib/key[not(@number)][1]"/>
+                        <xsl:copy-of select="$staffAttrib/staff-details[not(@number)][1]"/>
+                        <xsl:copy-of select="$staffAttrib/staff-layout[not(@number)][1]"/>
+                        <xsl:copy-of select="$staffAttrib/transpose"/>
+                      </xsl:when>
+                    </xsl:choose>
+                  </staffDef>
+                </xsl:for-each>
+              </xsl:variable>
+              <xsl:for-each select="$staffDefTemp/staffDef[*]">
+                <staffDef xmlns="http://www.music-encoding.org/ns/mei">
+                  <xsl:copy-of select="@n"/>
+                  <!-- staff lines -->
+                  <xsl:for-each select="staff-details/staff-lines">
+                    <xsl:attribute name="lines">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                  </xsl:for-each>
+                  <!-- clef -->
+                  <xsl:for-each select="clef">
+                    <xsl:choose>
+                      <!-- percussion clef -->
+                      <xsl:when test="sign='percussion'">
+                        <xsl:attribute name="clef.shape">perc</xsl:attribute>
+                      </xsl:when>
+                      <!-- TAB "clef" -->
+                      <xsl:when test="sign='TAB'">
+                        <xsl:attribute name="clef.shape">TAB</xsl:attribute>
+                      </xsl:when>
+                      <!-- "normal" clef -->
+                      <xsl:otherwise>
+                        <xsl:attribute name="clef.line">
+                          <xsl:value-of select="line"/>
+                        </xsl:attribute>
+                        <xsl:attribute name="clef.shape">
+                          <xsl:value-of select="sign"/>
+                        </xsl:attribute>
+                        <xsl:if test="clef-octave-change">
+                          <xsl:if test="abs(number(clef-octave-change)) != 0">
+                            <xsl:attribute name="clef.trans">
+                              <xsl:choose>
+                                <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
+                                <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
+                                <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
+                                <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                              </xsl:choose>
+                            </xsl:attribute>
+                          </xsl:if>
+                        </xsl:if>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:for-each>
+                  <!-- tuning for TAB staff -->
+                  <xsl:if test="staff-details/staff-tuning">
+                    <xsl:attribute name="tab.strings">
+                      <xsl:variable name="tabstrings">
+                        <xsl:for-each select="staff-details/staff-tuning">
+                          <xsl:sort select="@line" order="descending"/>
+                          <xsl:variable name="thisstring">
+                            <xsl:value-of select="tuning-step"/>
+                          </xsl:variable>
+                          <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
+                          <xsl:value-of select="tuning-octave"/>
+                          <xsl:text> </xsl:text>
+                        </xsl:for-each>
+                      </xsl:variable>
+                      <xsl:value-of select="normalize-space($tabstrings)"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                  <!-- transposition via capo -->
+                  <xsl:if test="staff-details/capo">
+                    <xsl:attribute name="trans.semi">
+                      <xsl:value-of select="staff-details[capo]/capo"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                  <!-- staff spacing -->
+                  <xsl:for-each select="staff-layout/staff-distance">
+                    <xsl:attribute name="spacing">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                  </xsl:for-each>
+                  <!-- staff size -->
+                  <xsl:for-each select="staff-details/staff-size">
+                    <xsl:attribute name="scale">
+                      <xsl:value-of select="."/>
+                      <xsl:text>%</xsl:text>
+                    </xsl:attribute>
+                  </xsl:for-each>
+                  <!-- staff transposition -->
+                  <xsl:if test="transpose">
+                    <xsl:attribute name="trans.semi">
+                      <xsl:choose>
+                        <xsl:when test="transpose/octave-change">
+                          <xsl:variable name="octavechange">
+                            <xsl:value-of select="transpose[1]/octave-change"/>
+                          </xsl:variable>
+                          <xsl:variable name="chromatic">
+                            <xsl:value-of select="transpose[1]/chromatic"/>
+                          </xsl:variable>
+                          <xsl:value-of select="$chromatic + (12 * $octavechange)"/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:value-of select="transpose[1]/chromatic"/>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:if test="transpose/diatonic">
+                      <xsl:attribute name="trans.diat">
+                        <xsl:value-of select="transpose[1]/diatonic"/>
+                      </xsl:attribute>
+                    </xsl:if>
+                  </xsl:if>
+                  <!-- ppq -->
+                  <xsl:for-each select="divisions">
+                    <xsl:if test="number(.) != $scorePPQ">
+                      <xsl:attribute name="ppq">
+                        <xsl:value-of select="."/>
+                      </xsl:attribute>
+                    </xsl:if>
+                  </xsl:for-each>
+                  <!-- staff key signature -->
+                  <xsl:if test="key">
+                    <xsl:variable name="keysig">
+                      <xsl:value-of select="key/fifths"/>
+                    </xsl:variable>
+                    <xsl:if test="$keysig != $scoreFifths">
+                      <xsl:choose>
+                        <xsl:when test="number($keysig)=0">
+                          <xsl:attribute name="key.sig">
+                            <xsl:value-of select="$keysig"/>
+                          </xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="number($keysig) &gt; 0">
+                          <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"
+                            />s</xsl:attribute>
+                        </xsl:when>
+                        <xsl:when test="number($keysig) &lt; 0">
+                          <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
+                            />f</xsl:attribute>
+                        </xsl:when>
+                      </xsl:choose>
+                      <!-- staff key mode -->
+                      <xsl:if test="key/mode and key/mode != $scoreMode">
+                        <xsl:attribute name="key.mode">
+                          <xsl:value-of select="key/mode"/>
+                        </xsl:attribute>
+                      </xsl:if>
+                    </xsl:if>
+                  </xsl:if>
+                </staffDef>
+              </xsl:for-each>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:for-each>
+      </xsl:if>
+
+      <measure xmlns="http://www.music-encoding.org/ns/mei">
+        <!-- number -->
+        <xsl:attribute name="n">
+          <xsl:value-of select="@number"/>
+        </xsl:attribute>
+        <!-- metrical conformance -->
+        <xsl:if test="@implicit='yes'">
+          <xsl:attribute name="metcon">i</xsl:attribute>
+        </xsl:if>
+        <!-- generated ID -->
+        <xsl:attribute name="xml:id">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:attribute>
+        <xsl:choose>
+          <!-- When the *following measure* has its left barline attribute set, make that the right
+            attribute on *this* measure -->
+          <xsl:when test="following-sibling::measure[1]/part/barline[@location='left']/bar-style">
+            <xsl:variable name="barstyle">
+              <xsl:value-of select="following-sibling::measure[1]/part[1]/barline/bar-style"/>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="$barstyle='dotted'">
+                <xsl:attribute name="right">dotted</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='dashed'">
+                <xsl:attribute name="right">dashed</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-light'">
+                <xsl:attribute name="right">dbl</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-light'">
+                <xsl:choose>
+                  <xsl:when
+                    test="following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                    <xsl:choose>
+                      <xsl:when test="part/barline/repeat/@direction='backward'">
+                        <xsl:attribute name="right">rptboth</xsl:attribute>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:attribute name="right">rptstart</xsl:attribute>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-heavy'">
+                <xsl:choose>
+                  <xsl:when test="part/barline/repeat/@direction='backward'">
+                    <xsl:attribute name="right">rptend</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">end</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-heavy'">
+                <xsl:choose>
+                  <xsl:when test="part/barline/repeat/@direction='backward' and
+                    following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                    <xsl:attribute name="right">rptboth</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='none'">
+                <xsl:attribute name="right">invis</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+          <!-- Set this measure's right attribute when the *following measure* doesn't have a left
+            barline specified,  -->
+          <xsl:when test="part/barline[@location='right']/bar-style">
+            <xsl:variable name="barstyle">
+              <xsl:value-of select="part[1]/barline/bar-style"/>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="$barstyle='dotted'">
+                <xsl:attribute name="right">dotted</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='dashed'">
+                <xsl:attribute name="right">dashed</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-light'">
+                <xsl:attribute name="right">dbl</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-heavy'">
+                <xsl:choose>
+                  <xsl:when test="part/barline/repeat/@direction='backward'">
+                    <xsl:choose>
+                      <xsl:when
+                        test="following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                        <xsl:attribute name="right">rptboth</xsl:attribute>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:attribute name="right">rptend</xsl:attribute>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">end</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-light'">
+                <xsl:choose>
+                  <xsl:when
+                    test="following-sibling::measure[1]/part/barline/repeat[@direction='forward']">
+                    <xsl:attribute name="right">rptstart</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-heavy'">
+                <xsl:choose>
+                  <xsl:when test="part/barline/repeat[@direction='backward'] and
+                    following-sibling::measure[1]/part/barline/repeat[@direction='forward']">
+                    <xsl:attribute name="right">rptboth</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='none'">
+                <xsl:attribute name="right">invis</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+          <!-- This stylesheet doesn't handle a barline in the middle of a measure -->
+        </xsl:choose>
+
+        <!-- Set left attribute -->
+        <xsl:if test="part/barline[@location='left']/bar-style">
+          <xsl:variable name="lbarstyle">
+            <xsl:value-of select="part/barline/bar-style"/>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="$lbarstyle='dotted'">
+              <xsl:attribute name="left">dotted</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='dashed'">
+              <xsl:attribute name="left">dashed</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='light-light'">
+              <xsl:attribute name="left">dbl</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='light-heavy'">
+              <xsl:choose>
+                <xsl:when test="part/barline/repeat/@direction='backward'">
+                  <xsl:choose>
+                    <xsl:when
+                      test="preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+                      <xsl:attribute name="left">rptend</xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:attribute name="left">end</xsl:attribute>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="right">end</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='heavy-light'">
+              <xsl:choose>
+                <xsl:when test="part/barline/repeat/@direction='forward'">
+                  <xsl:attribute name="left">rptstart</xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="left">dbl</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='heavy-heavy'">
+              <xsl:choose>
+                <xsl:when test="part/barline/repeat/@direction='forward' and
+                  preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+                  <xsl:attribute name="left">rptboth</xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="left">dbl</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='none'">
+              <xsl:attribute name="left">invis</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
+
+        <!-- Set left attribute if bar-style is not present -->
+        <xsl:if test="part/barline[@location='left'][repeat]">
+          <xsl:choose>
+            <xsl:when test="part/barline/repeat/@direction='forward'">
+              <xsl:attribute name="left">rptstart</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="part/barline/repeat/@direction='forward' and
+              preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+              <xsl:attribute name="left">rptboth</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
+
+        <!-- Set right attribute -->
+        <xsl:if test="part/barline[@location='right'][repeat]">
+          <xsl:choose>
+            <xsl:when test="part/barline/repeat/@direction='backward'">
+              <xsl:attribute name="right">rptend</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="part/barline/repeat/@direction='backward' and
+              following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+              <xsl:attribute name="right">rptboth</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
+
+        <!-- Copy the measure width -->
+        <xsl:if test="@width">
+          <xsl:attribute name="width">
+            <xsl:value-of select="@width"/>
+          </xsl:attribute>
+        </xsl:if>
+      </measure>
+
+      <!-- Hold the measure in $measure for later processing -->
+      <!--<xsl:variable name="measure">
+      <measure>
+        <!-\- Measure attributes -\->
+        <xsl:if test="@implicit='yes'">
+          <xsl:attribute name="complete">i</xsl:attribute>
+        </xsl:if>
+        <!-\- DUCHEMIN - need alphanumeric measure numbers! -\->
+        <xsl:attribute name="n">
+          <xsl:value-of select="@number"/>
+        </xsl:attribute>
+        <!-\-<xsl:analyze-string select="normalize-space(@number)" regex="^([0-9]+)$">
+          <xsl:matching-substring>
+            <xsl:attribute name="n">
+              <xsl:value-of select="regex-group(1)"/>
+            </xsl:attribute>
+          </xsl:matching-substring>
+        </xsl:analyze-string>-\->
+        <xsl:attribute name="xml:id">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:attribute>
+        <xsl:choose>
+          <xsl:when
+            test="following-sibling::measure[1]/part/barline[@location='left']/bar-style">
+            <!-\- When the *following measure* has its left barline attribute set, also set the right
+               attribute on *this* measure -\->
+            <xsl:variable name="barstyle">
+              <xsl:value-of
+                select="following-sibling::measure[1]/part[1]/barline/bar-style"
+              />
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="$barstyle='dotted'">
+                <xsl:attribute name="right">dotted</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='dashed'">
+                <xsl:attribute name="right">dashed</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-light'">
+                <xsl:attribute name="right">dbl</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-light'">
+                <xsl:choose>
+                  <xsl:when
+                    test="following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                    <xsl:choose>
+                      <xsl:when test="part/barline/repeat/@direction='backward'">
+                        <xsl:attribute name="right">rptboth</xsl:attribute>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:attribute name="right">rptstart</xsl:attribute>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-heavy'">
+                <xsl:choose>
+                  <xsl:when test="part/barline/repeat/@direction='backward'">
+                    <xsl:attribute name="right">rptend</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">end</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-heavy'">
+                <xsl:choose>
+                  <xsl:when
+                    test="part/barline/repeat/@direction='backward' and following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                    <xsl:attribute name="right">rptboth</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='none'">
+                <xsl:attribute name="right">invis</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:when test="part/barline[@location='right']/bar-style">
+            <!-\- Set this measure's right attribute -\->
+            <xsl:variable name="barstyle">
+              <xsl:value-of select="part[1]/barline/bar-style"/>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="$barstyle='dotted'">
+                <xsl:attribute name="right">dotted</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='dashed'">
+                <xsl:attribute name="right">dashed</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-light'">
+                <xsl:attribute name="right">dbl</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-heavy'">
+                <xsl:choose>
+                  <xsl:when test="part/barline/repeat/@direction='backward'">
+                    <xsl:choose>
+                      <xsl:when
+                        test="following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                        <xsl:attribute name="right">rptboth</xsl:attribute>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:attribute name="right">rptend</xsl:attribute>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">end</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-light'">
+                <xsl:choose>
+                  <xsl:when
+                    test="following-sibling::measure[1]/part/barline/repeat[@direction='forward']">
+                    <xsl:attribute name="right">rptstart</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-heavy'">
+                <xsl:choose>
+                  <xsl:when
+                    test="part/barline/repeat[@direction='backward'] and following-sibling::measure[1]/part/barline/repeat[@direction='forward']">
+                    <xsl:attribute name="right">rptboth</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='none'">
+                <xsl:attribute name="right">invis</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+          <!-\- This stylesheet doesn't handle a barline in the middle of a measure -\->
+        </xsl:choose>
+
+        <xsl:if test="part/barline[@location='left']/bar-style">
+          <!-\- Set this measure's left attribute -\->
+          <xsl:variable name="lbarstyle">
+            <xsl:value-of select="part/barline/bar-style"/>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="$lbarstyle='dotted'">
+              <xsl:attribute name="left">dotted</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='dashed'">
+              <xsl:attribute name="left">dashed</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='light-light'">
+              <xsl:attribute name="left">dbl</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='light-heavy'">
+              <xsl:choose>
+                <xsl:when test="part/barline/repeat/@direction='backward'">
+                  <xsl:choose>
+                    <xsl:when
+                      test="preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+                      <xsl:attribute name="left">rptend</xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:attribute name="left">end</xsl:attribute>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="right">end</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='heavy-light'">
+              <xsl:choose>
+                <xsl:when test="part/barline/repeat/@direction='forward'">
+                  <xsl:attribute name="left">rptstart</xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="left">dbl</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='heavy-heavy'">
+              <xsl:choose>
+                <xsl:when
+                  test="part/barline/repeat/@direction='forward' and preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+                  <xsl:attribute name="left">rptboth</xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="left">dbl</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='none'">
+              <xsl:attribute name="left">invis</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
+        
+        <!-\- Occasionally bar-style is not present, in which case: -\->
+        <xsl:if test="part/barline[@location='left'][repeat]">
+          <!-\- Set this measure's left attribute -\->
+            <xsl:choose>
+              <xsl:when test="part/barline/repeat/@direction='forward'">
+                <xsl:attribute name="left">rptstart</xsl:attribute>
+              </xsl:when>
+              <xsl:when
+                test="part/barline/repeat/@direction='forward' and preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+                <xsl:attribute name="left">rptboth</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+        </xsl:if>
+        
+        <xsl:if test="part/barline[@location='right'][repeat]">
+          <!-\- Set this measure's right attribute -\->
+          <xsl:choose>
+            <xsl:when test="part/barline/repeat/@direction='backward'">
+              <xsl:attribute name="right">rptend</xsl:attribute>
+            </xsl:when>
+            <xsl:when
+              test="part/barline/repeat/@direction='backward' and following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+              <xsl:attribute name="right">rptboth</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
+
+        <xsl:if test="@width">
+          <!-\- If it exists, grab the measure width -\->
+          <xsl:attribute name="width">
+            <xsl:value-of select="@width"/>
+          </xsl:attribute>
+        </xsl:if>
+
+        <!-\- Process measure contents -\->
+        <xsl:for-each select="part">
+          <!-\- Events  -\->
+          <xsl:for-each-group
+            select="note[not(chord)]|backup|attributes|forward"
+            group-ending-with="backup">
+            <xsl:apply-templates select="current-group()" mode="stage1"/>
+          </xsl:for-each-group>
+        </xsl:for-each>
+
+        <!-\-<xsl:for-each select="part">
+          <!-\- Control events -\->
+          <xsl:variable name="controlevents">
+            <xsl:apply-templates select="note/notations/articulations/caesura"
+              mode="stage1"/>
+            <xsl:apply-templates select="note/notations/dynamics" mode="stage1"/>
+            <xsl:apply-templates select="direction" mode="stage1"/>
+            <xsl:apply-templates select="note/notations/tuplet[@type='start']"
+              mode="stage1"/>
+            <xsl:apply-templates
+              select="note/notations/slur[@type='start' or @type='continue']"
+              mode="stage1"/>
+            <xsl:apply-templates select="note/notations/tied[@type='start']"
+              mode="stage1"/>
+            <xsl:apply-templates select="note/notations/fermata" mode="stage1"/>
+            <xsl:apply-templates select="note/notations/ornaments" mode="stage1"/>
+            <xsl:apply-templates
+              select="note[not(chord) and notations/arpeggiate]" mode="arpeg"/>
+            <xsl:apply-templates select="harmony" mode="stage1"/>
+            <xsl:apply-templates
+              select="note/notations/technical/pull-off[@type='start']"
+              mode="stage1"/>
+          </xsl:variable>
+          <xsl:for-each select="$controlevents/*">
+            <!-\- For ease of reading, sort the control events on the tstamp.ges attribute. -\->
+            <xsl:sort select="@tstamp.ges" data-type="number"/>
+            <xsl:copy-of select="."/>
+          </xsl:for-each>
+        </xsl:for-each>
+      -\->
+      </measure>
+    </xsl:variable>
+-->
+
+      <!-- Further process $measure -->
+      <!--<xsl:for-each select="$measure/measure">
+      <measure>
+        <xsl:copy-of select="@*"/>
+        <!-\- Create temporary part elements for use in the step below -\->
+        <xsl:for-each-group select="chord|clefchange|note|rest|space|mrest"
+          group-by="@part">
+          <xsl:variable name="partorg">
+            <part>
+              <xsl:attribute name="n">
+                <xsl:value-of select="current-grouping-key()"/>
+              </xsl:attribute>
+              <xsl:for-each-group select="current-group()" group-by="@layer">
+                <layer>
+                  <xsl:attribute name="n">
+                    <xsl:value-of select="current-grouping-key()"/>
+                  </xsl:attribute>
+                  <xsl:copy-of select="current-group()"/>
+                </layer>
+              </xsl:for-each-group>
+            </part>
+          </xsl:variable>
+
+          <!-\- Further process $partorg: create staff and layer elements. -\->
+          <xsl:variable name="stafforg">
+            <xsl:for-each select="$partorg/part">
+              <xsl:variable name="thispart">
+                <xsl:value-of select="@n"/>
+              </xsl:variable>
+              <xsl:for-each select="layer">
+                <xsl:variable name="thislayer">
+                  <xsl:value-of select="@n"/>
+                </xsl:variable>
+                <xsl:variable name="staves">
+                  <xsl:value-of select="distinct-values(*/@staff)"/>
+                </xsl:variable>
+                <xsl:variable name="countstaves">
+                  <xsl:value-of select="count(distinct-values(*/@staff))"/>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="$countstaves=1">
+                    <!-\- The 'voice' lies on a single staff -\->
+                    <xsl:for-each select="distinct-values(*/@staff)">
+                      <staff>
+                        <xsl:attribute name="n">
+                          <xsl:value-of select="."/>
+                        </xsl:attribute>
+                        <xsl:copy-of
+                          select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*"
+                        />
+                      </staff>
+                    </xsl:for-each>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <!-\- The 'voice' crosses staves -\->
+                    <xsl:for-each select="distinct-values(*/@staff)">
+                      <xsl:variable name="thisstaff">
+                        <xsl:value-of select="."/>
+                      </xsl:variable>
+                      <staff>
+                        <xsl:attribute name="n">
+                          <xsl:value-of select="$thisstaff"/>
+                        </xsl:attribute>
+                        <xsl:for-each
+                          select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*[name()='note' or name()='chord' or name()='rest' or name()='pad' or name()='space' or name()='clefchange']">
+                          <!-\- Fill the unused time on 'the other staff' with space -\->
+                          <xsl:choose>
+                            <xsl:when test="@staff=$thisstaff">
+                              <xsl:copy-of select="."/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:apply-templates select="." mode="insertspace"
+                              />
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </xsl:for-each>
+                      </staff>
+                    </xsl:for-each>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:for-each>
+            </xsl:for-each>
+          </xsl:variable>
+
+          <!-\- Further process $stafforg: sort by staff, then by layer -\->
+          <xsl:variable name="stafforg2">
+            <xsl:for-each select="$stafforg/staff">
+              <xsl:sort select="@n"/>
+              <staff>
+                <xsl:copy-of select="@*"/>
+                <xsl:for-each-group select="child::*" group-by="@layer">
+                  <xsl:sort select="current-grouping-key()"/>
+                  <layer>
+                    <xsl:attribute name="n">
+                      <xsl:value-of select="current-grouping-key()"/>
+                    </xsl:attribute>
+                    <xsl:copy-of select="current-group()"/>
+                  </layer>
+                </xsl:for-each-group>
+              </staff>
+            </xsl:for-each>
+          </xsl:variable>
+
+          <!-\- Further process $stafforg2: create beam elements -\->
+          <xsl:variable name="stafforg3">
+            <xsl:for-each-group select="$stafforg2/staff" group-by="@n">
+              <xsl:variable name="thisstaff">
+                <xsl:value-of select="current-grouping-key()"/>
+              </xsl:variable>
+              <xsl:variable name="stafflayer">
+                <staff>
+                  <xsl:copy-of select="@*"/>
+                  <xsl:copy-of select="$stafforg2/staff[@n=$thisstaff]/layer"/>
+                </staff>
+              </xsl:variable>
+              <xsl:for-each select="$stafflayer/staff">
+                <staff>
+                  <xsl:copy-of select="@*"/>
+                  <xsl:for-each select="layer">
+                    <xsl:sort select="@n"/>
+                    <layer>
+                      <xsl:copy-of select="@*[not(name()='n')]"/>
+                      <xsl:attribute name="n">
+                        <xsl:value-of select="position()"/>
+                      </xsl:attribute>
+                      <xsl:if test="*[@tstamp.ges][1]/@tstamp.ges != 0">
+                        <!-\- If the 1st event in the layer doesn't have a timestamp of 0, insert space. -\->
+                        <space>
+                          <xsl:attribute name="xml:id">
+                            <xsl:value-of
+                              select="generate-id(*[@tstamp.ges][1]/@tstamp.ges)"
+                            />
+                          </xsl:attribute>
+                          <xsl:attribute name="tstamp.ges">0</xsl:attribute>
+                          <xsl:attribute name="dur.ges">
+                            <xsl:value-of select="*[@tstamp.ges][1]/@tstamp.ges"
+                            />
+                          </xsl:attribute>
+                        </space>
+                      </xsl:if>
+                      <xsl:for-each select="*">
+                        <xsl:choose>
+                          <xsl:when test="starts-with(@beam,'i')">
+                            <xsl:text>&startbeam;</xsl:text>
+                            <xsl:apply-templates select="." mode="dropattrs"/>
+                          </xsl:when>
+                          <xsl:when test="starts-with(@beam,'t')">
+                            <xsl:apply-templates select="." mode="dropattrs"/>
+                            <xsl:text>&endbeam;</xsl:text>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:apply-templates select="." mode="dropattrs"/>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:for-each>
+                    </layer>
+                  </xsl:for-each>
+                </staff>
+              </xsl:for-each>
+            </xsl:for-each-group>
+          </xsl:variable>
+
+          <!-\- Emit the final results -\->
+          <xsl:copy-of select="$stafforg3"/>
+
+        </xsl:for-each-group>
+
+        <!-\- Copy controlevents -\->
+        <xsl:copy-of
+          select="annot|arpeg|beamspan|bend|dir|dynam|fermata|gliss|hairpin|
+                  harm|lyrics|midi|mordent|octave|pedal|reh|slur|tempo|tie|
+                  trill|tupletspan|turn"/>
+
+        <!-\- Copy graphic primitives -\->
+        <xsl:copy-of select="curve|line"/>
+
+      </measure>
+    </xsl:for-each>
+  -->
+    </xsl:if>
+
+  </xsl:template>
+
   <xsl:template match="part-group[@type='start']" mode="grpSym">
     <!-- Create stand-off staff grouping symbols -->
     <grpSym level="{@number}">
@@ -700,7 +1949,7 @@
           <xsl:choose>
             <xsl:when test="group-abbreviation-display">
               <xsl:value-of select="replace(replace(normalize-space(group-abbreviation-display),
-                'flat',                 '&#x266d;'), 'sharp', '&#x266f;')"/>
+                'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
             </xsl:when>
             <xsl:otherwise>
               <xsl:value-of select="group-abbreviation"/>
@@ -1137,6 +2386,28 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template name="getstaffnum">
+    <!-- Assign a staff number from $defaultLayout -->
+    <xsl:param name="partID">P1</xsl:param>
+    <xsl:param name="partstaff">1</xsl:param>
+
+    <!--<xsl:variable name="ingroup">
+      <xsl:value-of
+        select="$defaultLayout//staffGrp[@xml:id=$partID]/staffDef[position()=$partstaff]/@n"/>
+    </xsl:variable>
+    <xsl:variable name="indef">
+      <xsl:value-of select="$defaultLayout//staffDef[@xml:id=$partID]/@n"/>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="$ingroup != ''">
+        <xsl:value-of select="$ingroup"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="$indef"/>
+      </xsl:otherwise>
+    </xsl:choose>-->
+  </xsl:template>
+
   <xsl:template name="greatestCommonDenominator">
     <xsl:param name="a"/>
     <xsl:param name="b"/>
@@ -1470,6 +2741,26 @@
         </xsl:otherwise>
       </xsl:choose>
     </xsl:for-each>
+    <xsl:choose>
+      <xsl:when test="$staffNum = '' and
+        following::measure[1]/part[@id=$partID]/print/staff-layout/staff-distance">
+        <xsl:for-each
+          select="following::measure[1]/part[@id=$partID]/print/staff-layout/staff-distance[1]">
+          <xsl:attribute name="spacing">
+            <xsl:value-of select="."/>
+          </xsl:attribute>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:for-each
+          select="following::measure[1]/part[@id=$partID]/print/staff-layout[string(@number)=$staffNum]/staff-distance">
+          <xsl:attribute name="spacing">
+            <xsl:value-of select="$staffNum"/>
+            <xsl:value-of select="."/>
+          </xsl:attribute>
+        </xsl:for-each>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="resolveGrpSym">
