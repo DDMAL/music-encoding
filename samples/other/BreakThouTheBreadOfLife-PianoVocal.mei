@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../../schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
    <meiHead>
@@ -7,6 +8,7 @@
             <title>Break Thou the Bread of Life : an electronic transcription of the work by Davide
                Marney</title>
             <respStmt>
+               <resp>Machine-readable transcription by: </resp>
                <persName role="creator">Maja Hartwig</persName>
                <persName role="creator">Kristina Richts</persName>
             </respStmt>
@@ -59,8 +61,7 @@
          <sourceDesc>
             <source>
                <titleStmt>
-                  <title>Break Thou the Bread of Life : an electronic transcription of the work by
-                     Davide Marney</title>
+                  <title>Break Thou the Bread of Life</title>
                   <title type="uniform"/>
                   <respStmt>
                      <persName role="composer">Davide Marney</persName>
@@ -114,22 +115,93 @@
       <workDesc>
          <work>
             <titleStmt>
+               <title>Break Thou the Bread of Life</title>
                <title type="uniform"/>
                <respStmt>
                   <persName role="composer">Davide Marney</persName>
                </respStmt>
             </titleStmt>
+            <key pname="d" mode="major"/>
+            <tempo mm="92"/>
+            <meter count="4" unit="4"/>
+            <perfMedium>
+               <instrumentation>
+                  <instrVoice>Voice</instrVoice>
+                  <instrVoice>Piano</instrVoice>
+               </instrumentation>
+            </perfMedium>
+            <classification>
+               <termList>
+                  <term/>
+               </termList>
+            </classification>
+            <incip>
+               <score>
+                  <scoreDef meter.count="4" meter.unit="4" key.sig="2s" key.mode="major">
+                     <staffGrp>
+                        <staffDef n="1" clef.line="2" clef.shape="G" key.sig="2s" key.mode="major"
+                           lines="5"/>
+                        <staffGrp barthru="true" symbol="brace">
+                           <staffDef n="2" clef.line="2" clef.shape="G" key.sig="2s" lines="5"/>
+                           <staffDef n="3" clef.shape="F" clef.line="4" key.sig="2s" lines="5"/>
+                        </staffGrp>
+                     </staffGrp>
+                  </scoreDef>
+                  <section>
+                     <measure n="1" left="rptstart">
+                        <staff n="1">
+                           <layer n="1">
+                              <mRest/>
+                           </layer>
+                        </staff>
+                        <staff n="2">
+                           <layer n="1">
+                              <rest dur="4"/>
+                              <rest dur="8"/>
+                              <note pname="a" oct="3" dur="8"/>
+                              <beam>
+                                 <note pname="d" oct="4" dur="8" tie="i"/>
+                                 <chord dur="8" tie="i">
+                                    <note pname="a" oct="3"/>
+                                    <note pname="d" oct="4"/>
+                                 </chord>
+                                 <chord dur="8">
+                                    <note pname="g" oct="3"/>
+                                    <note pname="a" oct="3" tie="i"/>
+                                    <note pname="d" oct="4" tie="i"/>
+                                 </chord>
+                                 <chord dur="8">
+                                    <note pname="f" oct="3" accid.ges="s"/>
+                                    <note pname="a" oct="3"/>
+                                    <note pname="d" oct="4"/>
+                                 </chord>
+                              </beam>
+                           </layer>
+                        </staff>
+                        <staff n="3">
+                           <layer>
+                              <beam>
+                                 <note pname="d" oct="2" dur="8" tie="i"/>
+                                 <chord dur="8" tie="i">
+                                    <note pname="d" oct="2"/>
+                                    <note pname="a" oct="2"/>
+                                 </chord>
+                                 <chord dur="2" dots="1">
+                                    <note pname="d" oct="2"/>
+                                    <note pname="a" oct="2"/>
+                                    <note pname="d" oct="3"/>
+                                 </chord>
+                              </beam>
+                           </layer>
+                        </staff>
+                     </measure>
+                  </section>
+               </score>
+            </incip>
          </work>
       </workDesc>
       <revisionDesc>
          <change n="1">
-            <respStmt/>
-            <changeDesc>
-               <p>The original .</p>
-            </changeDesc>
-            <date/>
-         </change>
-         <change n="2">
             <respStmt>
                <persName xml:id="MH"> Maja Hartwig </persName>
             </respStmt>
@@ -139,7 +211,7 @@
             </changeDesc>
             <date reg="2011-05-12"/>
          </change>
-         <change n="3">
+         <change n="2">
             <respStmt>
                <persName xml:id="KR"> Kristina Richts </persName>
             </respStmt>
@@ -149,7 +221,7 @@
             </changeDesc>
             <date reg="2011-10-21"/>
          </change>
-         <change n="4">
+         <change n="3">
             <respStmt>
                <persName resp="#MH"/>
             </respStmt>
@@ -159,7 +231,7 @@
             </changeDesc>
             <date reg="2011-10-20"/>
          </change>
-         <change n="5">
+         <change n="4">
             <respStmt>
                <persName resp="#KR"/>
             </respStmt>

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../../schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
    <meiHead>
@@ -116,6 +117,55 @@
                      authority="GND">Dionisio Aguado y García</persName>
                </respStmt>
             </titleStmt>
+            <key pname="g" mode="major"/>
+            <tempo mm="92"/>
+            <meter count="3" unit="8"/>
+            <perfMedium>
+               <instrumentation>
+                  <instrVoice>Guitar</instrVoice>
+               </instrumentation>
+            </perfMedium>
+            <classification>
+               <termList>
+                  <term/>
+               </termList>
+            </classification>
+            <incip>
+               <score>
+                  <scoreDef meter.count="3" meter.unit="8" key.sig="1s" key.mode="major">
+                     <staffGrp>
+                        <staffDef n="1" clef.line="2" clef.shape="G" clef.dis="8"
+                           clef.dis.place="below" lines="5"/>
+                     </staffGrp>
+                  </scoreDef>
+                  <section>
+                     <measure n="1">
+                        <staff n="1">
+                           <layer n="1">
+                              <rest dur="8"/>
+                              <beam>
+                                 <note pname="b" oct="5" dur="16" stem.dir="up"/>
+                                 <note pname="c" oct="6" dur="16" stem.dir="up"/>
+                                 <note pname="d" oct="6" dur="8" stem.dir="up"/>
+                              </beam>
+                           </layer>
+                           <layer n="2">
+                              <chord dur="4" dots="1" stem.dir="down">
+                                 <note pname="g" oct="4"/>
+                                 <note pname="b" oct="4"/>
+                              </chord>
+                           </layer>
+                        </staff>
+                        <dir tstamp="1" place="within" staff="1">0</dir>
+                        <dir tstamp="1" place="within" staff="1">0</dir>
+                        <tempo tstamp="1" place="above" staff="1" mm="92"/>
+                        <dir tstamp="2" place="above" staff="1">1</dir>
+                        <dir tstamp="2.5" place="above" staff="1">2</dir>
+                        <dir tstamp="3" place="above" staff="1">4</dir>
+                     </measure>
+                  </section>
+               </score>
+            </incip>
          </work>
       </workDesc>
       <revisionDesc>
@@ -164,7 +214,7 @@
          <mdiv>
             <score>
                <scoreDef meter.count="3" meter.unit="8" key.sig="1s" key.mode="major">
-                  <pgHead>   
+                  <pgHead>
                      <title>
                         <rend>WALZER G-DUR</rend>
                      </title>
@@ -175,7 +225,6 @@
                   <pgFoot>
                      <p><rend halign="center" valign="bottom">© Jürgen Knuth</rend></p>
                   </pgFoot>
-
                   <staffGrp>
                      <staffDef n="1" clef.line="2" clef.shape="G" clef.dis="8"
                         clef.dis.place="below" lines="5"/>
@@ -201,7 +250,7 @@
                      </staff>
                      <dir tstamp="1" place="within" staff="1">0</dir>
                      <dir tstamp="1" place="within" staff="1">0</dir>
-                     <tempo tstamp="1" place="above" staff="1"/> <!--Viertel = 92-98-->
+                     <tempo tstamp="1" place="above" staff="1" mm="92"/>
                      <dir tstamp="2" place="above" staff="1">1</dir>
                      <dir tstamp="2.5" place="above" staff="1">2</dir>
                      <dir tstamp="3" place="above" staff="1">4</dir>
@@ -337,8 +386,7 @@
                            <rest xml:id="d30278e893" dur="8" vo="-7"/>
                         </layer>
                      </staff>
-                     <dir tstamp="1" place="within" staff="1">2
-                     </dir>
+                     <dir tstamp="1" place="within" staff="1">2 </dir>
                      <dir tstamp="1" place="within" staff="1">3</dir>
                   </measure>
                   <measure n="9" xml:id="d30278e906" left="rptstart">
@@ -399,8 +447,7 @@
                               stem.dir="down"/>
                         </layer>
                      </staff>
-                     <dir tstamp="2" place="within" staff="1">1
-                     </dir>
+                     <dir tstamp="2" place="within" staff="1">1 </dir>
                      <dir tstamp="2" place="within" staff="1">3</dir>
                   </measure>
                   <sb/>
@@ -519,8 +566,7 @@
                            </beam>
                         </layer>
                      </staff>
-                     <dir tstamp="1" place="within" staff="1">3
-                     </dir>
+                     <dir tstamp="1" place="within" staff="1">3 </dir>
                      <dir tstamp="1" place="within" staff="1">0</dir>
                      <dir tstamp="1" place="above" staff="1">2</dir>
                      <dir tstamp="3" place="within" staff="1">4</dir>
@@ -542,8 +588,7 @@
                            <rest xml:id="d30278e1919" dur="8" vo="-7"/>
                         </layer>
                      </staff>
-                     <dir tstamp="1" place="within" staff="1">4
-                     </dir>
+                     <dir tstamp="1" place="within" staff="1">4 </dir>
                      <dir tstamp="1" place="within" staff="1">1</dir>
                   </measure>
                   <measure n="17" xml:id="d30278e1931">

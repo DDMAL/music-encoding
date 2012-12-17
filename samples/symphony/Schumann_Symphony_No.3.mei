@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../../schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
    <meiHead>
@@ -82,13 +83,13 @@
                   <availability>
                      <useRestrict>Copyright 2005, Center for Computer Assisted Research in the
                         Humanities</useRestrict>
-                     <!--initial enc. date: 2005-04-22-->
                   </availability>
                </pubStmt>
                <classification>
                   <termList>
-                     <!--term: symphony-->
-                     <term classcode="#OCLC_DDC"/>
+                     <term classcode="#OCLC_DDC">
+                        <term>Symphony</term>
+                     </term>
                      <term classcode="#LoC_lcco"/>
                   </termList>
                   <classCode xml:id="LoC_lcco" authority="Library of Congress"
@@ -124,11 +125,12 @@
       </workDesc>
       <revisionDesc>
          <change n="1">
-            <respStmt/>
+            <respStmt><corpName>CCARH</corpName></respStmt>
             <changeDesc>
-               <p>original .</p>
+               <p>The original MusicXML file was generated using Finale 2011 for Windows and Dolet
+                  Light for Finale 2011.</p>
             </changeDesc>
-            <date/>
+            <date>2005-04-22</date>
          </change>
          <change n="2">
             <respStmt>
