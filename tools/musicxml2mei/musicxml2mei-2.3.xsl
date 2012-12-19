@@ -468,6 +468,19 @@
                   <xsl:value-of select="normalize-space(movement-title)"/>
                 </xsl:if>
               </title>
+              <xsl:if test="identification/creator">
+                <respStmt>
+                  <xsl:for-each select="identification/creator">
+                    <xsl:value-of select="$nl"/>
+                    <resp>
+                      <xsl:value-of select="@type"/>
+                    </resp>
+                    <name>
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </name>
+                  </xsl:for-each>
+                </respStmt>
+              </xsl:if>
             </titleStmt>
           </work>
         </workDesc>
@@ -1304,171 +1317,109 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:when>
         </xsl:choose>
       </xsl:for-each>
+    </xsl:if>
 
-      <xsl:variable name="measure">
-        <measure xmlns="http://www.music-encoding.org/ns/mei">
-          <!-- number -->
-          <xsl:attribute name="n">
-            <xsl:value-of select="@number"/>
-          </xsl:attribute>
-          <!-- metrical conformance -->
-          <xsl:if test="@implicit='yes'">
-            <xsl:attribute name="metcon">i</xsl:attribute>
-          </xsl:if>
-          <!-- generated ID -->
-          <xsl:attribute name="xml:id">
-            <xsl:value-of select="generate-id()"/>
-          </xsl:attribute>
-          <xsl:choose>
-            <!-- When the *following measure* has its left barline attribute set, make that the right
+    <xsl:variable name="measure">
+      <measure xmlns="http://www.music-encoding.org/ns/mei">
+        <!-- number -->
+        <xsl:attribute name="n">
+          <xsl:value-of select="@number"/>
+        </xsl:attribute>
+        <!-- metrical conformance -->
+        <xsl:if test="@implicit='yes'">
+          <xsl:attribute name="metcon">i</xsl:attribute>
+        </xsl:if>
+        <!-- generated ID -->
+        <xsl:attribute name="xml:id">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:attribute>
+        <xsl:choose>
+          <!-- When the *following measure* has its left barline attribute set, make that the right
             attribute on *this* measure -->
-            <xsl:when test="following-sibling::measure[1]/part/barline[@location='left']/bar-style">
-              <xsl:variable name="barstyle">
-                <xsl:value-of select="following-sibling::measure[1]/part[1]/barline/bar-style"/>
-              </xsl:variable>
-              <xsl:choose>
-                <xsl:when test="$barstyle='dotted'">
-                  <xsl:attribute name="right">dotted</xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$barstyle='dashed'">
-                  <xsl:attribute name="right">dashed</xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$barstyle='light-light'">
-                  <xsl:attribute name="right">dbl</xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$barstyle='heavy-light'">
-                  <xsl:choose>
-                    <xsl:when
-                      test="following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
-                      <xsl:choose>
-                        <xsl:when test="part/barline/repeat/@direction='backward'">
-                          <xsl:attribute name="right">rptboth</xsl:attribute>
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:attribute name="right">rptstart</xsl:attribute>
-                        </xsl:otherwise>
-                      </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:attribute name="right">dbl</xsl:attribute>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:when>
-                <xsl:when test="$barstyle='light-heavy'">
-                  <xsl:choose>
-                    <xsl:when test="part/barline/repeat/@direction='backward'">
-                      <xsl:attribute name="right">rptend</xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:attribute name="right">end</xsl:attribute>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:when>
-                <xsl:when test="$barstyle='heavy-heavy'">
-                  <xsl:choose>
-                    <xsl:when test="part/barline/repeat/@direction='backward' and
-                      following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
-                      <xsl:attribute name="right">rptboth</xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:attribute name="right">dbl</xsl:attribute>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:when>
-                <xsl:when test="$barstyle='none'">
-                  <xsl:attribute name="right">invis</xsl:attribute>
-                </xsl:when>
-              </xsl:choose>
-            </xsl:when>
-            <!-- Set this measure's right attribute when the *following measure* doesn't have a left
-            barline specified,  -->
-            <xsl:when test="part/barline[@location='right']/bar-style">
-              <xsl:variable name="barstyle">
-                <xsl:value-of select="part[1]/barline/bar-style"/>
-              </xsl:variable>
-              <xsl:choose>
-                <xsl:when test="$barstyle='dotted'">
-                  <xsl:attribute name="right">dotted</xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$barstyle='dashed'">
-                  <xsl:attribute name="right">dashed</xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$barstyle='light-light'">
-                  <xsl:attribute name="right">dbl</xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$barstyle='light-heavy'">
-                  <xsl:choose>
-                    <xsl:when test="part/barline/repeat/@direction='backward'">
-                      <xsl:choose>
-                        <xsl:when
-                          test="following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
-                          <xsl:attribute name="right">rptboth</xsl:attribute>
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:attribute name="right">rptend</xsl:attribute>
-                        </xsl:otherwise>
-                      </xsl:choose>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:attribute name="right">end</xsl:attribute>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:when>
-                <xsl:when test="$barstyle='heavy-light'">
-                  <xsl:choose>
-                    <xsl:when
-                      test="following-sibling::measure[1]/part/barline/repeat[@direction='forward']">
-                      <xsl:attribute name="right">rptstart</xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:attribute name="right">dbl</xsl:attribute>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:when>
-                <xsl:when test="$barstyle='heavy-heavy'">
-                  <xsl:choose>
-                    <xsl:when test="part/barline/repeat[@direction='backward'] and
-                      following-sibling::measure[1]/part/barline/repeat[@direction='forward']">
-                      <xsl:attribute name="right">rptboth</xsl:attribute>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:attribute name="right">dbl</xsl:attribute>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:when>
-                <xsl:when test="$barstyle='none'">
-                  <xsl:attribute name="right">invis</xsl:attribute>
-                </xsl:when>
-              </xsl:choose>
-            </xsl:when>
-            <!-- This stylesheet doesn't handle a barline in the middle of a measure -->
-          </xsl:choose>
-
-          <!-- Set left attribute -->
-          <xsl:if test="part/barline[@location='left']/bar-style">
-            <xsl:variable name="lbarstyle">
-              <xsl:value-of select="part/barline/bar-style"/>
+          <xsl:when test="following-sibling::measure[1]/part/barline[@location='left']/bar-style">
+            <xsl:variable name="barstyle">
+              <xsl:value-of select="following-sibling::measure[1]/part[1]/barline/bar-style"/>
             </xsl:variable>
             <xsl:choose>
-              <xsl:when test="$lbarstyle='dotted'">
-                <xsl:attribute name="left">dotted</xsl:attribute>
+              <xsl:when test="$barstyle='dotted'">
+                <xsl:attribute name="right">dotted</xsl:attribute>
               </xsl:when>
-              <xsl:when test="$lbarstyle='dashed'">
-                <xsl:attribute name="left">dashed</xsl:attribute>
+              <xsl:when test="$barstyle='dashed'">
+                <xsl:attribute name="right">dashed</xsl:attribute>
               </xsl:when>
-              <xsl:when test="$lbarstyle='light-light'">
-                <xsl:attribute name="left">dbl</xsl:attribute>
+              <xsl:when test="$barstyle='light-light'">
+                <xsl:attribute name="right">dbl</xsl:attribute>
               </xsl:when>
-              <xsl:when test="$lbarstyle='light-heavy'">
+              <xsl:when test="$barstyle='heavy-light'">
+                <xsl:choose>
+                  <xsl:when
+                    test="following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                    <xsl:choose>
+                      <xsl:when test="part/barline/repeat/@direction='backward'">
+                        <xsl:attribute name="right">rptboth</xsl:attribute>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:attribute name="right">rptstart</xsl:attribute>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-heavy'">
+                <xsl:choose>
+                  <xsl:when test="part/barline/repeat/@direction='backward'">
+                    <xsl:attribute name="right">rptend</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">end</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='heavy-heavy'">
+                <xsl:choose>
+                  <xsl:when test="part/barline/repeat/@direction='backward' and
+                    following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                    <xsl:attribute name="right">rptboth</xsl:attribute>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="$barstyle='none'">
+                <xsl:attribute name="right">invis</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+          <!-- Set this measure's right attribute when the *following measure* doesn't have a left
+            barline specified,  -->
+          <xsl:when test="part/barline[@location='right']/bar-style">
+            <xsl:variable name="barstyle">
+              <xsl:value-of select="part[1]/barline/bar-style"/>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="$barstyle='dotted'">
+                <xsl:attribute name="right">dotted</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='dashed'">
+                <xsl:attribute name="right">dashed</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-light'">
+                <xsl:attribute name="right">dbl</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="$barstyle='light-heavy'">
                 <xsl:choose>
                   <xsl:when test="part/barline/repeat/@direction='backward'">
                     <xsl:choose>
                       <xsl:when
-                        test="preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
-                        <xsl:attribute name="left">rptend</xsl:attribute>
+                        test="following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+                        <xsl:attribute name="right">rptboth</xsl:attribute>
                       </xsl:when>
                       <xsl:otherwise>
-                        <xsl:attribute name="left">end</xsl:attribute>
+                        <xsl:attribute name="right">rptend</xsl:attribute>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:when>
@@ -1477,86 +1428,149 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:when>
-              <xsl:when test="$lbarstyle='heavy-light'">
+              <xsl:when test="$barstyle='heavy-light'">
                 <xsl:choose>
-                  <xsl:when test="part/barline/repeat/@direction='forward'">
-                    <xsl:attribute name="left">rptstart</xsl:attribute>
+                  <xsl:when
+                    test="following-sibling::measure[1]/part/barline/repeat[@direction='forward']">
+                    <xsl:attribute name="right">rptstart</xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="left">dbl</xsl:attribute>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:when>
-              <xsl:when test="$lbarstyle='heavy-heavy'">
+              <xsl:when test="$barstyle='heavy-heavy'">
                 <xsl:choose>
-                  <xsl:when test="part/barline/repeat/@direction='forward' and
-                    preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
-                    <xsl:attribute name="left">rptboth</xsl:attribute>
+                  <xsl:when test="part/barline/repeat[@direction='backward'] and
+                    following-sibling::measure[1]/part/barline/repeat[@direction='forward']">
+                    <xsl:attribute name="right">rptboth</xsl:attribute>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:attribute name="left">dbl</xsl:attribute>
+                    <xsl:attribute name="right">dbl</xsl:attribute>
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:when>
-              <xsl:when test="$lbarstyle='none'">
-                <xsl:attribute name="left">invis</xsl:attribute>
+              <xsl:when test="$barstyle='none'">
+                <xsl:attribute name="right">invis</xsl:attribute>
               </xsl:when>
             </xsl:choose>
-          </xsl:if>
+          </xsl:when>
+          <!-- This stylesheet doesn't handle a barline in the middle of a measure -->
+        </xsl:choose>
 
-          <!-- Set left attribute if bar-style is not present -->
-          <xsl:if test="part/barline[@location='left'][repeat]">
-            <xsl:choose>
-              <xsl:when test="part/barline/repeat/@direction='forward'">
-                <xsl:attribute name="left">rptstart</xsl:attribute>
-              </xsl:when>
-              <xsl:when test="part/barline/repeat/@direction='forward' and
-                preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
-                <xsl:attribute name="left">rptboth</xsl:attribute>
-              </xsl:when>
-            </xsl:choose>
-          </xsl:if>
+        <!-- Set left attribute -->
+        <xsl:if test="part/barline[@location='left']/bar-style">
+          <xsl:variable name="lbarstyle">
+            <xsl:value-of select="part/barline/bar-style"/>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="$lbarstyle='dotted'">
+              <xsl:attribute name="left">dotted</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='dashed'">
+              <xsl:attribute name="left">dashed</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='light-light'">
+              <xsl:attribute name="left">dbl</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='light-heavy'">
+              <xsl:choose>
+                <xsl:when test="part/barline/repeat/@direction='backward'">
+                  <xsl:choose>
+                    <xsl:when
+                      test="preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+                      <xsl:attribute name="left">rptend</xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:attribute name="left">end</xsl:attribute>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="right">end</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='heavy-light'">
+              <xsl:choose>
+                <xsl:when test="part/barline/repeat/@direction='forward'">
+                  <xsl:attribute name="left">rptstart</xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="left">dbl</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='heavy-heavy'">
+              <xsl:choose>
+                <xsl:when test="part/barline/repeat/@direction='forward' and
+                  preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+                  <xsl:attribute name="left">rptboth</xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="left">dbl</xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:when test="$lbarstyle='none'">
+              <xsl:attribute name="left">invis</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
 
-          <!-- Set right attribute -->
-          <xsl:if test="part/barline[@location='right'][repeat]">
-            <xsl:choose>
-              <xsl:when test="part/barline/repeat/@direction='backward'">
-                <xsl:attribute name="right">rptend</xsl:attribute>
-              </xsl:when>
-              <xsl:when test="part/barline/repeat/@direction='backward' and
-                following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
-                <xsl:attribute name="right">rptboth</xsl:attribute>
-              </xsl:when>
-            </xsl:choose>
-          </xsl:if>
+        <!-- Set left attribute if bar-style is not present -->
+        <xsl:if test="part/barline[@location='left'][repeat]">
+          <xsl:choose>
+            <xsl:when test="part/barline/repeat/@direction='forward'">
+              <xsl:attribute name="left">rptstart</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="part/barline/repeat/@direction='forward' and
+              preceding-sibling::measure[1]/part/barline/repeat/@direction='backward'">
+              <xsl:attribute name="left">rptboth</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
 
-          <!-- Copy the measure width -->
-          <xsl:if test="@width">
-            <xsl:attribute name="width">
-              <xsl:value-of select="@width"/>
-            </xsl:attribute>
-          </xsl:if>
+        <!-- Set right attribute -->
+        <xsl:if test="part/barline[@location='right'][repeat]">
+          <xsl:choose>
+            <xsl:when test="part/barline/repeat/@direction='backward'">
+              <xsl:attribute name="right">rptend</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="part/barline/repeat/@direction='backward' and
+              following-sibling::measure[1]/part/barline/repeat/@direction='forward'">
+              <xsl:attribute name="right">rptboth</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
 
-          <xsl:value-of select="$nl"/>
-          <xsl:comment>
-            <!-- Process measure contents -->
-            <xsl:for-each select="part">
-              <!-- Events -->
-              <xsl:for-each-group select="note[not(chord)]|backup|attributes|forward"
-                group-ending-with="backup">
-                <xsl:apply-templates select="current-group()" mode="measContent"/>
-              </xsl:for-each-group>
-            </xsl:for-each>
-          </xsl:comment>
-          <xsl:value-of select="$nl"/>
+        <!-- Copy the measure width -->
+        <xsl:if test="@width">
+          <xsl:attribute name="width">
+            <xsl:value-of select="@width"/>
+          </xsl:attribute>
+        </xsl:if>
 
-        </measure>
-      </xsl:variable>
+        <xsl:value-of select="$nl"/>
+        <xsl:comment>
+          <!-- Process measure contents -->
+          <xsl:for-each select="part">
+            <!-- Events -->
+            <xsl:for-each-group select="note[not(chord)]|backup|attributes|forward"
+              group-ending-with="backup">
+              <xsl:apply-templates select="current-group()" mode="measContent"/>
+            </xsl:for-each-group>
+          </xsl:for-each>
+        </xsl:comment>
+        <xsl:value-of select="$nl"/>
 
-      <xsl:copy-of select="$measure"/>
+      </measure>
+    </xsl:variable>
+
+    <xsl:copy-of select="$measure"/>
 
 
-      <!--
+    <!--
         <!-\-<xsl:for-each select="part">
           <!-\- Control events -\->
           <xsl:variable name="controlevents">
@@ -1591,8 +1605,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </xsl:variable>
 -->
 
-      <!-- Further process $measure -->
-      <!--<xsl:for-each select="$measure/measure">
+    <!-- Further process $measure -->
+    <!--<xsl:for-each select="$measure/measure">
       <measure>
         <xsl:copy-of select="@*"/>
         <!-\- Create temporary part elements for use in the step below -\->
@@ -1614,8 +1628,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </part>
           </xsl:variable>
 -->
-      <!-- Further process $partorg: create staff and layer elements. -->
-      <!--<xsl:variable name="stafforg">
+    <!-- Further process $partorg: create staff and layer elements. -->
+    <!--<xsl:variable name="stafforg">
             <xsl:for-each select="$partorg/part">
               <xsl:variable name="thispart">
                 <xsl:value-of select="@n"/>
@@ -1675,8 +1689,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </xsl:for-each>
           </xsl:variable>
 -->
-      <!-- Further process $stafforg: sort by staff, then by layer -->
-      <!--<xsl:variable name="stafforg2">
+    <!-- Further process $stafforg: sort by staff, then by layer -->
+    <!--<xsl:variable name="stafforg2">
             <xsl:for-each select="$stafforg/staff">
               <xsl:sort select="@n"/>
               <staff>
@@ -1694,8 +1708,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </xsl:for-each>
           </xsl:variable>
 -->
-      <!-- Further process $stafforg2: create beam elements -->
-      <!--<xsl:variable name="stafforg3">
+    <!-- Further process $stafforg2: create beam elements -->
+    <!--<xsl:variable name="stafforg3">
             <xsl:for-each-group select="$stafforg2/staff" group-by="@n">
               <xsl:variable name="thisstaff">
                 <xsl:value-of select="current-grouping-key()"/>
@@ -1753,12 +1767,12 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </xsl:for-each-group>
           </xsl:variable>
 -->
-      <!-- Emit the final results -->
-      <!--<xsl:copy-of select="$stafforg3"/>-->
+    <!-- Emit the final results -->
+    <!--<xsl:copy-of select="$stafforg3"/>-->
 
-      <!--</xsl:for-each-group>-->
+    <!--</xsl:for-each-group>-->
 
-      <!--<!-\- Copy controlevents -\->
+    <!--<!-\- Copy controlevents -\->
         <xsl:copy-of
           select="annot|arpeg|beamspan|bend|dir|dynam|fermata|gliss|hairpin|
                   harm|lyrics|midi|mordent|octave|pedal|reh|slur|tempo|tie|
@@ -1767,10 +1781,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <!-\- Copy graphic primitives -\->
         <xsl:copy-of select="curve|line"/-->
 
-      <!--      </measure>-->
-      <!--    </xsl:for-each>-->
+    <!--      </measure>-->
+    <!--    </xsl:for-each>-->
 
-    </xsl:if>
 
   </xsl:template>
 
