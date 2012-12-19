@@ -916,6 +916,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:choose>
           <xsl:when test="local-name($defaultLayout//*[@xml:id=$partID]) = 'staffDef'">
             <!-- Part has only 1 staff -->
+            <!-- Gather staff qualities -->
             <xsl:variable name="staffAttrib">
               <xsl:copy-of select="print/staff-layout"/>
               <xsl:copy-of select="attributes/clef"/>
@@ -931,6 +932,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:copy-of select="$staffAttrib"/>-->
 
             <xsl:variable name="staffDefTemp">
+              <!-- Gather staff-specific qualities -->
               <xsl:for-each select="$defaultLayout//*[@xml:id=$partID]">
                 <staffDef>
                   <xsl:variable name="thisStaff">
@@ -953,6 +955,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:value-of select="$nl"/>
               <xsl:copy-of select="$staffDefTemp"/>-->
 
+            <!-- Process staff-specific qualities -->
             <xsl:for-each select="$staffDefTemp/staffDef[*]">
               <staffDef xmlns="http://www.music-encoding.org/ns/mei">
                 <xsl:copy-of select="@n"/>
@@ -997,6 +1000,35 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                     </xsl:otherwise>
                   </xsl:choose>
                 </xsl:for-each>
+                <!-- staff key signature -->
+                <xsl:if test="key">
+                  <xsl:variable name="keysig">
+                    <xsl:value-of select="key/fifths"/>
+                  </xsl:variable>
+                  <!-- <xsl:if test="$keysig != $scoreFifths">-->
+                  <xsl:choose>
+                    <xsl:when test="number($keysig)=0">
+                      <xsl:attribute name="key.sig">
+                        <xsl:value-of select="$keysig"/>
+                      </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="number($keysig) &gt; 0">
+                      <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"
+                        />s</xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="number($keysig) &lt; 0">
+                      <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
+                        />f</xsl:attribute>
+                    </xsl:when>
+                  </xsl:choose>
+                  <!-- staff key mode -->
+                  <xsl:if test="key/mode and key/mode != $scoreMode">
+                    <xsl:attribute name="key.mode">
+                      <xsl:value-of select="key/mode"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                </xsl:if>
+                <!--</xsl:if>-->
                 <!-- tuning for TAB staff -->
                 <xsl:if test="staff-details/staff-tuning">
                   <xsl:attribute name="tab.strings">
@@ -1014,19 +1046,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                     <xsl:value-of select="normalize-space($tabstrings)"/>
                   </xsl:attribute>
                 </xsl:if>
-                <!-- staff spacing -->
-                <xsl:for-each select="staff-layout/staff-distance">
-                  <xsl:attribute name="spacing">
-                    <xsl:value-of select="."/>
-                  </xsl:attribute>
-                </xsl:for-each>
-                <!-- staff size -->
-                <xsl:for-each select="staff-details/staff-size">
-                  <xsl:attribute name="scale">
-                    <xsl:value-of select="."/>
-                    <xsl:text>%</xsl:text>
-                  </xsl:attribute>
-                </xsl:for-each>
                 <!-- staff transposition -->
                 <xsl:choose>
                   <!-- transposed -->
@@ -1068,48 +1087,25 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                     </xsl:attribute>
                   </xsl:if>
                 </xsl:for-each>
-                <!-- staff key signature -->
-                <xsl:if test="key">
-                  <xsl:variable name="keysig">
-                    <xsl:value-of select="key/fifths"/>
-                  </xsl:variable>
-
-                  <!--<xsl:message>
-                      key = <xsl:value-of select="$keysig"/>
-                      scoreFifths = <xsl:value-of select="$scoreFifths"/>
-                      scoreMode = <xsl:value-of select="$scoreMode"/>
-                    </xsl:message>-->
-
-                  <!-- <xsl:if test="$keysig != $scoreFifths">-->
-                  <xsl:choose>
-                    <xsl:when test="number($keysig)=0">
-                      <xsl:attribute name="key.sig">
-                        <xsl:value-of select="$keysig"/>
-                      </xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="number($keysig) &gt; 0">
-                      <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"
-                        />s</xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="number($keysig) &lt; 0">
-                      <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
-                        />f</xsl:attribute>
-                    </xsl:when>
-                  </xsl:choose>
-                  <!-- staff key mode -->
-                  <xsl:if test="key/mode and key/mode != $scoreMode">
-                    <xsl:attribute name="key.mode">
-                      <xsl:value-of select="key/mode"/>
-                    </xsl:attribute>
-                  </xsl:if>
-                </xsl:if>
-                <!--</xsl:if>-->
+                <!-- staff spacing -->
+                <xsl:for-each select="staff-layout/staff-distance">
+                  <xsl:attribute name="spacing">
+                    <xsl:value-of select="."/>
+                  </xsl:attribute>
+                </xsl:for-each>
+                <!-- staff size -->
+                <xsl:for-each select="staff-details/staff-size">
+                  <xsl:attribute name="scale">
+                    <xsl:value-of select="."/>
+                    <xsl:text>%</xsl:text>
+                  </xsl:attribute>
+                </xsl:for-each>
               </staffDef>
             </xsl:for-each>
           </xsl:when>
           <xsl:when test="local-name($defaultLayout//*[@xml:id=$partID]) = 'staffGrp'">
             <!-- Part has multiple staves -->
-
+            <!--  Gather staff qualities -->
             <xsl:variable name="staffAttrib">
               <xsl:copy-of select="print/staff-layout"/>
               <xsl:copy-of select="attributes/clef"/>
@@ -1124,6 +1120,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:value-of select="$nl"/>
               <xsl:copy-of select="$staffAttrib"/>-->
 
+            <!-- Gather staff-specific qualities -->
             <xsl:variable name="staffDefTemp">
               <xsl:for-each select="$defaultLayout//*[@xml:id=$partID]/*[local-name()='staffDef']">
                 <staffDef>
@@ -1157,6 +1154,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:value-of select="$nl"/>
               <xsl:copy-of select="$staffDefTemp"/>-->
 
+            <!-- Process staff-specific qualities -->
             <xsl:for-each select="$staffDefTemp/staffDef[*]">
               <staffDef xmlns="http://www.music-encoding.org/ns/mei">
                 <xsl:copy-of select="@n"/>
@@ -1201,6 +1199,35 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                     </xsl:otherwise>
                   </xsl:choose>
                 </xsl:for-each>
+                <!-- staff key signature -->
+                <xsl:if test="key">
+                  <xsl:variable name="keysig">
+                    <xsl:value-of select="key/fifths"/>
+                  </xsl:variable>
+                  <!-- <xsl:if test="$keysig != $scoreFifths">-->
+                  <xsl:choose>
+                    <xsl:when test="number($keysig)=0">
+                      <xsl:attribute name="key.sig">
+                        <xsl:value-of select="$keysig"/>
+                      </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="number($keysig) &gt; 0">
+                      <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"
+                        />s</xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="number($keysig) &lt; 0">
+                      <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
+                        />f</xsl:attribute>
+                    </xsl:when>
+                  </xsl:choose>
+                  <!-- staff key mode -->
+                  <xsl:if test="key/mode and key/mode != $scoreMode">
+                    <xsl:attribute name="key.mode">
+                      <xsl:value-of select="key/mode"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                </xsl:if>
+                <!--</xsl:if>-->
                 <!-- tuning for TAB staff -->
                 <xsl:if test="staff-details/staff-tuning">
                   <xsl:attribute name="tab.strings">
@@ -1218,19 +1245,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                     <xsl:value-of select="normalize-space($tabstrings)"/>
                   </xsl:attribute>
                 </xsl:if>
-                <!-- staff spacing -->
-                <xsl:for-each select="staff-layout/staff-distance">
-                  <xsl:attribute name="spacing">
-                    <xsl:value-of select="."/>
-                  </xsl:attribute>
-                </xsl:for-each>
-                <!-- staff size -->
-                <xsl:for-each select="staff-details/staff-size">
-                  <xsl:attribute name="scale">
-                    <xsl:value-of select="."/>
-                    <xsl:text>%</xsl:text>
-                  </xsl:attribute>
-                </xsl:for-each>
                 <!-- staff transposition -->
                 <xsl:choose>
                   <!-- transposed -->
@@ -1272,36 +1286,19 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                     </xsl:attribute>
                   </xsl:if>
                 </xsl:for-each>
-                <!-- staff key signature -->
-                <xsl:if test="key">
-                  <xsl:variable name="keysig">
-                    <xsl:value-of select="key/fifths"/>
-                  </xsl:variable>
-
-                  <!--<xsl:if test="$keysig != $scoreFifths">-->
-                  <xsl:choose>
-                    <xsl:when test="number($keysig)=0">
-                      <xsl:attribute name="key.sig">
-                        <xsl:value-of select="$keysig"/>
-                      </xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="number($keysig) &gt; 0">
-                      <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"
-                        />s</xsl:attribute>
-                    </xsl:when>
-                    <xsl:when test="number($keysig) &lt; 0">
-                      <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
-                        />f</xsl:attribute>
-                    </xsl:when>
-                  </xsl:choose>
-                  <!-- staff key mode -->
-                  <xsl:if test="key/mode and key/mode != $scoreMode">
-                    <xsl:attribute name="key.mode">
-                      <xsl:value-of select="key/mode"/>
-                    </xsl:attribute>
-                  </xsl:if>
-                </xsl:if>
-                <!--</xsl:if>-->
+                <!-- staff spacing -->
+                <xsl:for-each select="staff-layout/staff-distance">
+                  <xsl:attribute name="spacing">
+                    <xsl:value-of select="."/>
+                  </xsl:attribute>
+                </xsl:for-each>
+                <!-- staff size -->
+                <xsl:for-each select="staff-details/staff-size">
+                  <xsl:attribute name="scale">
+                    <xsl:value-of select="."/>
+                    <xsl:text>%</xsl:text>
+                  </xsl:attribute>
+                </xsl:for-each>
               </staffDef>
             </xsl:for-each>
           </xsl:when>
@@ -2407,7 +2404,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:attribute name="lines">
             <xsl:choose>
               <xsl:when test="staff-details/staff-lines">
-                <xsl:value-of select="staff-details[1]/staff-lines"/>
+                <xsl:value-of select="staff-details[staff-lines][1]/staff-lines"/>
               </xsl:when>
               <xsl:otherwise>5</xsl:otherwise>
             </xsl:choose>
@@ -2447,6 +2444,51 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:otherwise>
             </xsl:choose>
           </xsl:for-each>
+          <!-- staff key signature-->
+          <xsl:if test="key">
+            <xsl:variable name="keysig">
+              <xsl:value-of select="key/fifths"/>
+            </xsl:variable>
+            <xsl:if test="$keysig != $scoreFifths">
+              <xsl:choose>
+                <xsl:when test="$keysig=0">
+                  <xsl:attribute name="key.sig">
+                    <xsl:value-of select="$keysig"/>
+                  </xsl:attribute>
+                </xsl:when>
+                <xsl:when test="$keysig &gt; 0">
+                  <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="$keysig &lt; 0">
+                  <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
+                    />f</xsl:attribute>
+                </xsl:when>
+              </xsl:choose>
+              <!-- staff key mode -->
+              <xsl:if test="key/mode and key/mode != $scoreMode">
+                <xsl:attribute name="key.mode">
+                  <xsl:value-of select="key/mode"/>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:if>
+          </xsl:if>
+          <!-- tuning for TAB staff -->
+          <xsl:if test="staff-details/staff-tuning">
+            <xsl:attribute name="tab.strings">
+              <xsl:variable name="tabstrings">
+                <xsl:for-each select="staff-details/staff-tuning">
+                  <xsl:sort select="@line" order="descending"/>
+                  <xsl:variable name="thisstring">
+                    <xsl:value-of select="tuning-step"/>
+                  </xsl:variable>
+                  <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
+                  <xsl:value-of select="tuning-octave"/>
+                  <xsl:text> </xsl:text>
+                </xsl:for-each>
+              </xsl:variable>
+              <xsl:value-of select="normalize-space($tabstrings)"/>
+            </xsl:attribute>
+          </xsl:if>
           <!-- staff transposition -->
           <xsl:choose>
             <!-- transposed -->
@@ -2480,6 +2522,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:when>
           </xsl:choose>
+          <!-- ppq -->
           <xsl:for-each select="divisions">
             <xsl:if test="number(.) != $scorePPQ">
               <xsl:attribute name="ppq">
@@ -2487,34 +2530,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:for-each>
-          <!-- staff key signature-->
-          <xsl:if test="key">
-            <xsl:variable name="keysig">
-              <xsl:value-of select="key/fifths"/>
-            </xsl:variable>
-            <xsl:if test="$keysig != $scoreFifths">
-              <xsl:choose>
-                <xsl:when test="$keysig=0">
-                  <xsl:attribute name="key.sig">
-                    <xsl:value-of select="$keysig"/>
-                  </xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$keysig &gt; 0">
-                  <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
-                </xsl:when>
-                <xsl:when test="$keysig &lt; 0">
-                  <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
-                    />f</xsl:attribute>
-                </xsl:when>
-              </xsl:choose>
-              <!-- staff key mode -->
-              <xsl:if test="key/mode and key/mode != $scoreMode">
-                <xsl:attribute name="key.mode">
-                  <xsl:value-of select="key/mode"/>
-                </xsl:attribute>
-              </xsl:if>
-            </xsl:if>
-          </xsl:if>
         </xsl:when>
         <xsl:otherwise>
           <!-- number of staff lines -->
@@ -2528,6 +2543,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
+          <!-- clef -->
           <xsl:for-each select="clef[@number=string($staffNum)]">
             <xsl:choose>
               <!-- percussion clef -->
@@ -2537,28 +2553,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <!-- TAB "clef" -->
               <xsl:when test="sign='TAB'">
                 <xsl:attribute name="clef.shape">TAB</xsl:attribute>
-                <xsl:attribute name="tab.strings">
-                  <xsl:variable name="tabstrings">
-                    <xsl:for-each select="following-sibling::staff-details">
-                      <xsl:for-each select="staff-tuning">
-                        <xsl:sort select="@line" order="descending"/>
-                        <xsl:variable name="thisstring">
-                          <xsl:value-of select="tuning-step"/>
-                        </xsl:variable>
-                        <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
-                        <xsl:value-of select="tuning-octave"/>
-                        <xsl:text> </xsl:text>
-                      </xsl:for-each>
-                    </xsl:for-each>
-                  </xsl:variable>
-                  <xsl:value-of select="normalize-space($tabstrings)"/>
-                </xsl:attribute>
-                <!-- transposition via capo -->
-                <xsl:if test="following-sibling::staff-details/capo">
-                  <xsl:attribute name="trans.semi">
-                    <xsl:value-of select="following-sibling::staff-details/capo"/>
-                  </xsl:attribute>
-                </xsl:if>
               </xsl:when>
               <!-- "normal" clef -->
               <xsl:otherwise>
@@ -2583,6 +2577,111 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                 </xsl:if>
               </xsl:otherwise>
             </xsl:choose>
+          </xsl:for-each>
+          <!-- staff key signature-->
+          <xsl:if test="key">
+            <xsl:variable name="keysig">
+              <xsl:choose>
+                <xsl:when test="key[@number=string($staffNum)]">
+                  <xsl:value-of select="key[@number=string($staffNum)]/fifths"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="key[1]/fifths"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="$keysig != $scoreFifths">
+              <xsl:choose>
+                <xsl:when test="$keysig=0">
+                  <xsl:attribute name="key.sig">
+                    <xsl:value-of select="$keysig"/>
+                  </xsl:attribute>
+                </xsl:when>
+                <xsl:when test="$keysig &gt; 0">
+                  <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="$keysig &lt; 0">
+                  <xsl:attribute name="key.sig"><xsl:value-of select="abs($keysig)"
+                    />f</xsl:attribute>
+                </xsl:when>
+              </xsl:choose>
+              <!-- staff key mode -->
+              <xsl:if test="key/mode">
+                <xsl:variable name="keyMode">
+                  <xsl:choose>
+                    <xsl:when test="key[@number=string($staffNum)]">
+                      <xsl:value-of select="key[@number=string($staffNum)]/mode"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="key[1]/mode"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:if test="$keyMode != $scoreMode">
+                  <xsl:attribute name="key.mode">
+                    <xsl:value-of select="$keyMode"/>
+                  </xsl:attribute>
+                </xsl:if>
+              </xsl:if>
+            </xsl:if>
+          </xsl:if>
+          <!-- tuning for TAB staff -->
+          <xsl:if test="staff-details[@number=string($staffNum)]/staff-tuning">
+            <xsl:attribute name="tab.strings">
+              <xsl:variable name="tabstrings">
+                <xsl:for-each select="staff-details[@number=string($staffNum)]/staff-tuning">
+                  <xsl:sort select="@line" order="descending"/>
+                  <xsl:variable name="thisstring">
+                    <xsl:value-of select="tuning-step"/>
+                  </xsl:variable>
+                  <xsl:value-of select="translate(tuning-step,'ABCDEFG','abcdefg')"/>
+                  <xsl:value-of select="tuning-octave"/>
+                  <xsl:text> </xsl:text>
+                </xsl:for-each>
+              </xsl:variable>
+              <xsl:value-of select="normalize-space($tabstrings)"/>
+            </xsl:attribute>
+          </xsl:if>
+          <!-- staff transposition -->
+          <xsl:choose>
+            <!-- transposed -->
+            <xsl:when test="transpose[@number=string($staffNum)]">
+              <xsl:attribute name="trans.semi">
+                <xsl:choose>
+                  <xsl:when test="transpose[@number=string($staffNum)]/octave-change">
+                    <xsl:variable name="octavechange">
+                      <xsl:value-of select="transpose[@number=string($staffNum)]/octave-change"/>
+                    </xsl:variable>
+                    <xsl:variable name="chromatic">
+                      <xsl:value-of select="transpose[@number=string($staffNum)]/chromatic"/>
+                    </xsl:variable>
+                    <xsl:value-of select="$chromatic + (12 * $octavechange)"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="transpose[@number=string($staffNum)]/chromatic"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:attribute>
+              <xsl:if test="transpose[@number=string($staffNum)]/diatonic">
+                <xsl:attribute name="trans.diat">
+                  <xsl:value-of select="transpose[@number=string($staffNum)]/diatonic"/>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:when>
+            <!-- transposed by capo -->
+            <xsl:when test="staff-details[@number=string($staffNum)]/capo">
+              <xsl:attribute name="trans.semi">
+                <xsl:value-of select="staff-details[@number=string($staffNum)]/capo"/>
+              </xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+          <!-- ppq -->
+          <xsl:for-each select="divisions">
+            <xsl:if test="number(.) != $scorePPQ">
+              <xsl:attribute name="ppq">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:if>
           </xsl:for-each>
         </xsl:otherwise>
       </xsl:choose>
