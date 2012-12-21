@@ -240,400 +240,152 @@
     </mei>
   </xsl:template>
 
-  <xsl:template match="score-timewise" mode="header">
-    <meiHead xmlns="http://www.music-encoding.org/ns/mei">
-      <fileDesc>
-        <titleStmt>
-          <title>
-            <xsl:value-of select="normalize-space(work/work-title)"/>
-            <xsl:if test="normalize-space(work/work-number) != ''">
-              <xsl:text>, </xsl:text>
-              <xsl:value-of select="normalize-space(work/work-number)"/>
-            </xsl:if>
-            <xsl:if test="normalize-space(movement-number) != ''">
-              <xsl:text>, </xsl:text>
-              <xsl:if test="number(normalize-space(movement-number))">
-                <xsl:text>no. </xsl:text>
-              </xsl:if>
-              <xsl:value-of select="normalize-space(movement-number)"/>
-            </xsl:if>
-            <xsl:if test="normalize-space(movement-title) != ''">
-              <xsl:if
-                test="normalize-space(concat(work/work-title,work/work-number,movement-number)) !=
-                ''">
-                <xsl:text>. </xsl:text>
-              </xsl:if>
-              <xsl:value-of select="normalize-space(movement-title)"/>
-            </xsl:if>
-          </title>
-          <xsl:if test="identification/creator">
-            <respStmt>
-              <xsl:for-each select="identification/creator">
-                <xsl:value-of select="$nl"/>
-                <resp>
-                  <xsl:value-of select="@type"/>
-                </resp>
-                <name>
-                  <xsl:value-of select="normalize-space(.)"/>
-                </name>
-              </xsl:for-each>
-            </respStmt>
-          </xsl:if>
-        </titleStmt>
-        <pubStmt/>
-        <!-- File encoding date, etc. goes in notesStmt here -->
-        <notesStmt>
-          <annot>
-            <xsl:text>Transcoded from a MusicXML </xsl:text>
-            <xsl:if test="@version">
-              <xsl:text>version </xsl:text>
-              <xsl:value-of select="@version"/>
-              <xsl:text> </xsl:text>
-            </xsl:if>
-            <xsl:text>file on </xsl:text>
-            <date>
-              <xsl:value-of select="format-date(current-date(), '[Y]-[M02]-[D02]')"/>
-            </date>
-            <xsl:text>using an XSLT stylesheet (</xsl:text>
-            <xsl:value-of select="$progname"/>
-            <xsl:text> </xsl:text>
-            <xsl:value-of select="$progversion"/>
-            <xsl:text>).</xsl:text>
-          </annot>
-        </notesStmt>
-        <sourceDesc>
-          <source>
-            <titleStmt>
-              <title>
-                <xsl:value-of select="normalize-space(work/work-title)"/>
-                <xsl:if test="normalize-space(work/work-number) != ''">
-                  <xsl:text>, </xsl:text>
-                  <xsl:value-of select="normalize-space(work/work-number)"/>
-                </xsl:if>
-                <xsl:if test="normalize-space(movement-number) != ''">
-                  <xsl:text>, </xsl:text>
-                  <xsl:if test="number(normalize-space(movement-number))">
-                    <xsl:text>no. </xsl:text>
-                  </xsl:if>
-                  <xsl:value-of select="normalize-space(movement-number)"/>
-                </xsl:if>
-                <xsl:if test="normalize-space(movement-title) != ''">
-                  <xsl:if
-                    test="normalize-space(concat(work/work-title,work/work-number,movement-number))
-                    != ''">
-                    <xsl:text>. </xsl:text>
-                  </xsl:if>
-                  <xsl:value-of select="normalize-space(movement-title)"/>
-                </xsl:if>
-              </title>
-              <xsl:if test="identification">
-                <respStmt>
-                  <xsl:for-each select="identification/creator">
-                    <xsl:value-of select="$nl"/>
-                    <resp>
-                      <xsl:value-of select="@type"/>
-                    </resp>
-                    <name>
-                      <xsl:value-of select="normalize-space(.)"/>
-                    </name>
-                  </xsl:for-each>
-                  <xsl:for-each select="identification/encoding/encoder">
-                    <name>
-                      <xsl:attribute name="role">
-                        <xsl:value-of select="@type"/>
-                      </xsl:attribute>
-                      <xsl:value-of select="normalize-space(.)"/>
-                    </name>
-                  </xsl:for-each>
-                  <xsl:if test="not(identification/creator) and
-                    not(identification/encoding/encoder)">
-                    <name/>
-                  </xsl:if>
-                </respStmt>
-              </xsl:if>
-            </titleStmt>
-            <pubStmt>
-              <xsl:if test="identification/rights">
-                <availability>
-                  <useRestrict>
-                    <xsl:value-of select="identification/rights"/>
-                  </useRestrict>
-                </availability>
-              </xsl:if>
-            </pubStmt>
-            <xsl:if test="count(distinct-values(//*/@xml:lang)) &gt; 0">
-              <langUsage>
-                <xsl:for-each select="distinct-values(//*/@xml:lang)">
-                  <!-- Identify all the languages used anywhere in the document. -->
-                  <language>
-                    <xsl:attribute name="xml:id">
-                      <xsl:value-of select="."/>
-                    </xsl:attribute>
-                  </language>
-                </xsl:for-each>
-              </langUsage>
-            </xsl:if>
-            <xsl:if test="identification/encoding/software">
-              <notesStmt>
-                <xsl:variable name="software">
-                  <xsl:value-of select="count(identification/encoding/software)"/>
-                </xsl:variable>
-                <annot>
-                  <xsl:text>Created </xsl:text>
-                  <xsl:if test="identification/encoding/encoder">
-                    <xsl:text>by </xsl:text>
-                    <xsl:for-each select="identification/encoding/encoder">
-                      <xsl:value-of select="."/>
-                      <xsl:if test="count(following-sibling::encoder) &gt; 1">
-                        <xsl:text>, </xsl:text>
-                      </xsl:if>
-                      <xsl:if test="count(following-sibling::encoder) = 1">
-                        <xsl:choose>
-                          <xsl:when test="count(preceding-sibling::encoder) = 0">
-                            <xsl:text> and </xsl:text>
-                          </xsl:when>
-                          <xsl:otherwise>
-                            <xsl:text>, and </xsl:text>
-                          </xsl:otherwise>
-                        </xsl:choose>
-                      </xsl:if>
-                    </xsl:for-each>
-                    <xsl:text> </xsl:text>
-                  </xsl:if>
-                  <xsl:if test="identification/encoding/software">
-                    <xsl:text>using </xsl:text>
-                    <xsl:for-each select="identification/encoding/software">
-                      <xsl:value-of select="."/>
-                      <xsl:if test="count(following-sibling::software) &gt; 1">
-                        <xsl:text>, </xsl:text>
-                      </xsl:if>
-                      <xsl:if test="count(following-sibling::software) = 1">
-                        <xsl:choose>
-                          <xsl:when test="count(preceding-sibling::software) = 0">
-                            <xsl:text> and </xsl:text>
-                          </xsl:when>
-                          <xsl:otherwise>
-                            <xsl:text>, and </xsl:text>
-                          </xsl:otherwise>
-                        </xsl:choose>
-                      </xsl:if>
-                    </xsl:for-each>
-                  </xsl:if>
-                  <xsl:if test="identification/encoding/encoding-date">
-                    <xsl:text> on </xsl:text>
-                    <date>
-                      <xsl:value-of select="identification/encoding/encoding-date"/>
-                    </date>
-                  </xsl:if>
-                  <xsl:text>.</xsl:text>
-                </annot>
-                <xsl:if test="identification/encoding/encoding-description">
-                  <annot>
-                    <xsl:value-of select="identification/encoding/encoding-description"/>
-                  </annot>
-                </xsl:if>
-              </notesStmt>
-            </xsl:if>
-          </source>
-        </sourceDesc>
-      </fileDesc>
-      <xsl:if test="work/*">
-        <workDesc>
-          <work>
-            <xsl:if test="normalize-space(work/work-number) != ''">
-              <identifier>
-                <xsl:value-of select="normalize-space(work/work-number)"/>
-              </identifier>
-            </xsl:if>
-            <titleStmt>
-              <title>
-                <xsl:value-of select="normalize-space(work/work-title)"/>
-                <xsl:if test="normalize-space(work/work-number) != ''">
-                  <xsl:text>, </xsl:text>
-                  <xsl:value-of select="normalize-space(work/work-number)"/>
-                </xsl:if>
-                <xsl:if test="normalize-space(movement-number) != ''">
-                  <xsl:text>, </xsl:text>
-                  <xsl:if test="number(normalize-space(movement-number))">
-                    <xsl:text>no. </xsl:text>
-                  </xsl:if>
-                  <xsl:value-of select="normalize-space(movement-number)"/>
-                </xsl:if>
-                <xsl:if test="normalize-space(movement-title) != ''">
-                  <xsl:if
-                    test="normalize-space(concat(work/work-title,work/work-number,movement-number))
-                    != ''">
-                    <xsl:text>. </xsl:text>
-                  </xsl:if>
-                  <xsl:value-of select="normalize-space(movement-title)"/>
-                </xsl:if>
-              </title>
-              <xsl:if test="identification/creator">
-                <respStmt>
-                  <xsl:for-each select="identification/creator">
-                    <xsl:value-of select="$nl"/>
-                    <resp>
-                      <xsl:value-of select="@type"/>
-                    </resp>
-                    <name>
-                      <xsl:value-of select="normalize-space(.)"/>
-                    </name>
-                  </xsl:for-each>
-                </respStmt>
-              </xsl:if>
-            </titleStmt>
-          </work>
-        </workDesc>
-      </xsl:if>
-    </meiHead>
-  </xsl:template>
-
-  <xsl:template match="score-timewise" mode="music">
-    <music xmlns="http://www.music-encoding.org/ns/mei">
-      <body>
-        <mdiv>
-          <score>
-            <scoreDef>
-              <xsl:attribute name="ppq">
-                <xsl:value-of select="$scorePPQ"/>
-              </xsl:attribute>
-              <!-- Look in first measure for score-level meter signature -->
-              <xsl:if test="descendant::measure[1]/part/attributes">
-                <xsl:if test="descendant::measure[1]/part/attributes[time/beats]">
-                  <xsl:attribute name="meter.count">
-                    <xsl:value-of
-                      select="descendant::part[attributes/time/beats][1]/attributes/time/beats"/>
-                  </xsl:attribute>
-                </xsl:if>
-                <xsl:if test="descendant::measure[1]/part/attributes[time/beat-type]">
-                  <xsl:attribute name="meter.unit">
-                    <xsl:value-of
-                      select="descendant::part[attributes/time/beat-type][1]/attributes/time/beat-type"
-                    />
-                  </xsl:attribute>
-                </xsl:if>
-                <xsl:variable name="symbol">
-                  <xsl:value-of
-                    select="descendant::part[attributes/time/@symbol][1]/attributes/time/@symbol"/>
-                </xsl:variable>
-                <xsl:choose>
-                  <xsl:when test="$symbol='common'">
-                    <xsl:attribute name="meter.sym">common</xsl:attribute>
-                  </xsl:when>
-                  <xsl:when test="$symbol='cut'">
-                    <xsl:attribute name="meter.sym">cut</xsl:attribute>
-                  </xsl:when>
-                  <xsl:when test="$symbol='single-number'">
-                    <xsl:attribute name="meter.rend">denomsym</xsl:attribute>
-                  </xsl:when>
-                  <xsl:when
-                    test="descendant::part[attributes/time/senza-misura][1]/attributes/time/senza-misura">
-                    <xsl:attribute name="meter.rend">invis</xsl:attribute>
-                  </xsl:when>
-                </xsl:choose>
-              </xsl:if>
-              <!-- Look in first measure for score-level key signature and mode -->
-              <xsl:if test="descendant::part/attributes[not(transpose)]/key">
-                <xsl:variable name="keysig">
-                  <xsl:value-of select="descendant::part[attributes[not(transpose) and
-                    key]][1]/attributes/key/fifths"/>
-                </xsl:variable>
-                <xsl:choose>
-                  <xsl:when test="$keysig=''">
-                    <xsl:attribute name="key.sig">
-                      <xsl:text>0</xsl:text>
-                    </xsl:attribute>
-                  </xsl:when>
-                  <xsl:when test="number($keysig)=0">
-                    <xsl:attribute name="key.sig">
-                      <xsl:value-of select="$keysig"/>
-                    </xsl:attribute>
-                  </xsl:when>
-                  <xsl:when test="number($keysig) &gt; 0">
-                    <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
-                  </xsl:when>
-                  <xsl:when test="number($keysig) &lt; 0">
-                    <xsl:attribute name="key.sig">
-                      <xsl:value-of select="abs($keysig)"/>f</xsl:attribute>
-                  </xsl:when>
-                </xsl:choose>
-                <xsl:if test="descendant::part/attributes/key/mode">
-                  <xsl:attribute name="key.mode">
-                    <xsl:value-of
-                      select="descendant::part[attributes/key/mode][1]/attributes/key/mode"/>
-                  </xsl:attribute>
-                </xsl:if>
-              </xsl:if>
-              <!-- If any staves are not printed, then staff optimization is in effect. -->
-              <xsl:if test="//measure/part/attributes/staff-details/@print-object='no'">
-                <xsl:attribute name="optimize">true</xsl:attribute>
-              </xsl:if>
-              <!-- Look in first measure for other score-level attributes -->
-              <xsl:apply-templates select="defaults"/>
-
-              <!-- Create page headers and footers -->
-              <xsl:call-template name="credits"/>
-
-              <!-- Copy already-calculated layout here -->
-              <xsl:copy-of select="$defaultLayout"/>
-            </scoreDef>
-
-            <!-- Process score measures -->
-            <!-- Measures are grouped based on criteria in the group-ending-with attribute -->
-            <xsl:for-each-group select="measure"
-              group-ending-with="measure[part/barline/repeat[@direction='backward'] or
-              following-sibling::measure[1][part/barline[@location='left']/repeat[@direction='forward']]
-              or part/barline/ending[@type='stop'] or
-              part/barline[@location='right']/bar-style='light-light' or
-              following-sibling::measure[1][part/barline/ending[@type='start']] or
-              following-sibling::measure[1][part/attributes[time or key]]]">
-
-              <!-- Other potential (sub?) section-ending conditions:
-following-sibling::measure[1][print/page-layout] or
-following-sibling::measure[1][print/system-layout] or
-following-sibling::measure[1][print/staff-layout] or
-following-sibling::measure[1][print/measure-layout] or
-following-sibling::measure[1][attributes[staves]] or
-following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
-
-              <!-- Create sections/endings based on the grouping of measures -->
+  <xsl:template match="attributes" mode="stage1">
+    <!-- Process mid-measure MusicXML attributes -->
+    <xsl:choose>
+      <xsl:when test="count(following-sibling::*[not(name()='barline')])=0">
+        <xsl:for-each select="clef">
+          <clef xmlns="http://www.music-encoding.org/ns/mei">
+            <xsl:variable name="partID">
+              <xsl:value-of select="ancestor::part[1]/@id"/>
+            </xsl:variable>
+            <xsl:variable name="partStaff">
               <xsl:choose>
-                <xsl:when test="part/barline/ending[@type='start']">
-                  <ending>
-                    <xsl:attribute name="n">
-                      <xsl:choose>
-                        <xsl:when test="part/barline/ending[@type='start'] != ''">
-                          <xsl:value-of
-                            select="part[barline/ending[@type='start']][1]/barline[ending[@type='start']][1]/ending"
-                          />
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:value-of
-                            select="part[barline/ending[@type='start']][1]/barline[ending[@type='start']][1]/ending/@number"
-                          />
-                        </xsl:otherwise>
-                      </xsl:choose>
-                    </xsl:attribute>
-                    <xsl:for-each-group select="current-group()"
-                      group-starting-with="measure[part/attributes[time or key]]">
-                      <xsl:apply-templates select="current-group()" mode="measContent"/>
-                    </xsl:for-each-group>
-                  </ending>
+                <xsl:when test="@number">
+                  <xsl:value-of select="@number"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:attribute name="part">
+              <xsl:value-of select="$partID"/>
+            </xsl:attribute>
+            <xsl:attribute name="layer">
+              <xsl:choose>
+                <xsl:when test="preceding::note[1]/voice">
+                  <xsl:value-of select="preceding::note[1]/voice"/>
                 </xsl:when>
                 <xsl:otherwise>
-                  <section>
-                    <xsl:for-each-group select="current-group()"
-                      group-starting-with="measure[part/attributes[time or key]]">
-                      <xsl:apply-templates select="current-group()" mode="measContent"/>
-                    </xsl:for-each-group>
-                  </section>
+                  <xsl:text>1</xsl:text>
                 </xsl:otherwise>
               </xsl:choose>
-            </xsl:for-each-group>
-          </score>
-        </mdiv>
-      </body>
-    </music>
+            </xsl:attribute>
+            <xsl:attribute name="staff">
+              <xsl:call-template name="getStaffnum">
+                <xsl:with-param name="partID">
+                  <xsl:value-of select="$partID"/>
+                </xsl:with-param>
+                <xsl:with-param name="partStaff">
+                  <xsl:value-of select="$partStaff"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="tstamp.ges">
+              <xsl:call-template name="getTimestamp.ges"/>
+            </xsl:attribute>
+            <xsl:attribute name="shape">
+              <xsl:choose>
+                <xsl:when test="sign='percussion'">
+                  <xsl:text>perc</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="sign"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="line">
+              <xsl:value-of select="line"/>
+            </xsl:attribute>
+            <xsl:if test="clef-octave-change">
+              <xsl:if test="abs(number(clef-octave-change)) != 0">
+                <xsl:attribute name="trans">
+                  <xsl:choose>
+                    <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
+                    <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
+                    <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
+                    <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                  </xsl:choose>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:if>
+          </clef>
+        </xsl:for-each>
+      </xsl:when>
+      <xsl:when test="preceding-sibling::note | preceding-sibling::forward |
+        preceding-sibling::chord">
+        <!-- Mid-measure attributes -->
+        <xsl:for-each select="clef">
+          <clef xmlns="http://www.music-encoding.org/ns/mei">
+            <xsl:variable name="partID">
+              <xsl:value-of select="ancestor::part[1]/@id"/>
+            </xsl:variable>
+            <xsl:variable name="partStaff">
+              <xsl:choose>
+                <xsl:when test="@number">
+                  <xsl:value-of select="@number"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:attribute name="part">
+              <xsl:value-of select="$partID"/>
+            </xsl:attribute>
+            <xsl:attribute name="layer">
+              <xsl:choose>
+                <xsl:when test="following::note[1]/voice">
+                  <xsl:value-of select="following::note[1]/voice"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>1</xsl:text>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="staff">
+              <xsl:call-template name="getStaffnum">
+                <xsl:with-param name="partID">
+                  <xsl:value-of select="$partID"/>
+                </xsl:with-param>
+                <xsl:with-param name="partStaff">
+                  <xsl:value-of select="$partStaff"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="tstamp.ges">
+              <xsl:call-template name="getTimestamp.ges"/>
+            </xsl:attribute>
+            <xsl:attribute name="shape">
+              <xsl:choose>
+                <xsl:when test="sign='percussion'">
+                  <xsl:text>perc</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="sign"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:attribute name="line">
+              <xsl:value-of select="line"/>
+            </xsl:attribute>
+            <xsl:if test="clef-octave-change">
+              <xsl:if test="abs(number(clef-octave-change)) != 0">
+                <xsl:attribute name="trans">
+                  <xsl:choose>
+                    <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
+                    <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
+                    <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
+                    <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                  </xsl:choose>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:if>
+          </clef>
+        </xsl:for-each>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="backup" mode="stage1">
+    <!-- This is a no-op!  Backup elements don't require any action in MEI. -->
   </xsl:template>
 
   <xsl:template match="defaults">
@@ -724,6 +476,23 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         </xsl:attribute>
       </xsl:for-each>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="forward" mode="stage1">
+    <!-- Forward skips in time have to be filled with space in MEI when 
+         they are followed by events; i.e., notes -->
+    <xsl:if test="following-sibling::note">
+      <space xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:attribute name="xml:id">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:attribute>
+        <xsl:attribute name="tstamp.ges">
+          <xsl:call-template name="getTimestamp.ges"/>
+        </xsl:attribute>
+        <xsl:call-template name="gesturalDuration"/>
+        <xsl:call-template name="assignPart-Layer-Staff-Beam-Tuplet"/>
+      </space>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="measure" mode="measContent">
@@ -1550,18 +1319,18 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             <xsl:value-of select="@width"/>
           </xsl:attribute>
         </xsl:if>
-
         <xsl:value-of select="$nl"/>
-        <xsl:comment>
-          <!-- Process measure contents -->
-          <xsl:for-each select="part">
-            <!-- Events -->
-            <xsl:for-each-group select="note[not(chord)]|backup|attributes|forward"
-              group-ending-with="backup">
-              <xsl:apply-templates select="current-group()" mode="measContent"/>
-            </xsl:for-each-group>
-          </xsl:for-each>
-        </xsl:comment>
+
+        <!-- Process measure contents -->
+        <xsl:for-each select="part">
+          <!-- Events -->
+          <xsl:for-each-group select="note[not(chord)] | attributes | backup | forward"
+            group-ending-with="backup">
+            <!--<xsl:for-each-group select="note[not(chord)]|backup|attributes|forward"
+              group-ending-with="backup">-->
+            <xsl:apply-templates select="current-group()" mode="stage1"/>
+          </xsl:for-each-group>
+        </xsl:for-each>
         <xsl:value-of select="$nl"/>
 
       </measure>
@@ -1575,24 +1344,24 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <!-\- Control events -\->
           <xsl:variable name="controlevents">
             <xsl:apply-templates select="note/notations/articulations/caesura"
-              mode="measContent"/>
-            <xsl:apply-templates select="note/notations/dynamics" mode="measContent"/>
-            <xsl:apply-templates select="direction" mode="measContent"/>
+              mode="stage1"/>
+            <xsl:apply-templates select="note/notations/dynamics" mode="stage1"/>
+            <xsl:apply-templates select="direction" mode="stage1"/>
             <xsl:apply-templates select="note/notations/tuplet[@type='start']"
-              mode="measContent"/>
+              mode="stage1"/>
             <xsl:apply-templates
               select="note/notations/slur[@type='start' or @type='continue']"
-              mode="measContent"/>
+              mode="stage1"/>
             <xsl:apply-templates select="note/notations/tied[@type='start']"
-              mode="measContent"/>
-            <xsl:apply-templates select="note/notations/fermata" mode="measContent"/>
-            <xsl:apply-templates select="note/notations/ornaments" mode="measContent"/>
+              mode="stage1"/>
+            <xsl:apply-templates select="note/notations/fermata" mode="stage1"/>
+            <xsl:apply-templates select="note/notations/ornaments" mode="stage1"/>
             <xsl:apply-templates
               select="note[not(chord) and notations/arpeggiate]" mode="arpeg"/>
-            <xsl:apply-templates select="harmony" mode="measContent"/>
+            <xsl:apply-templates select="harmony" mode="stage1"/>
             <xsl:apply-templates
               select="note/notations/technical/pull-off[@type='start']"
-              mode="measContent"/>
+              mode="stage1"/>
           </xsl:variable>
           <xsl:for-each select="$controlevents/*">
             <!-\- For ease of reading, sort the control events on the tstamp.ges attribute. -\->
@@ -1631,11 +1400,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <!-- Further process $partorg: create staff and layer elements. -->
     <!--<xsl:variable name="stafforg">
             <xsl:for-each select="$partorg/part">
-              <xsl:variable name="thispart">
+              <xsl:variable name="thisPart">
                 <xsl:value-of select="@n"/>
               </xsl:variable>
               <xsl:for-each select="layer">
-                <xsl:variable name="thislayer">
+                <xsl:variable name="thisLayer">
                   <xsl:value-of select="@n"/>
                 </xsl:variable>
                 <xsl:variable name="staves">
@@ -1653,7 +1422,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                           <xsl:value-of select="."/>
                         </xsl:attribute>
                         <xsl:copy-of
-                          select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*"
+                          select="$partorg/part[@n=$thisPart]/layer[@n=$thisLayer]/*"
                         />
                       </staff>
                     </xsl:for-each>
@@ -1669,7 +1438,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                           <xsl:value-of select="$thisstaff"/>
                         </xsl:attribute>
                         <xsl:for-each
-                          select="$partorg/part[@n=$thispart]/layer[@n=$thislayer]/*[name()='note' or name()='chord' or name()='rest' or name()='pad' or name()='space' or name()='clefchange']">
+                          select="$partorg/part[@n=$thisPart]/layer[@n=$thisLayer]/*[name()='note' or name()='chord' or name()='rest' or name()='pad' or name()='space' or name()='clefchange']">
                           <!-\- Fill the unused time on 'the other staff' with space -\->
                           <xsl:choose>
                             <xsl:when test="@staff=$thisstaff">
@@ -1785,6 +1554,649 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <!--    </xsl:for-each>-->
 
 
+  </xsl:template>
+
+  <xsl:template match="mei:chord" mode="chordThis">
+    <!-- Copy some note attributes to the parent chord -->
+    <xsl:variable name="chordthis2">
+      <chord xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:attribute name="xml:id">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:attribute>
+
+        <!-- Copy note attributes that always rightfully belong to the whole chord -->
+        <xsl:copy-of select="mei:note[1]/@dots | mei:note[1]/@dur | mei:note[1]/@dur.ges |
+          mei:note[1]/@stem.dir | mei:note[1]/@stem.len | mei:note[1]/@tstamp.ges |
+          mei:note[1]/@tuplet"/>
+
+        <!-- Copy these attrs if even *one* of the notes has the attr -->
+        <xsl:if test="mei:note[@fermata]">
+          <xsl:copy-of select="mei:note[@fermata][1]/@fermata"/>
+        </xsl:if>
+        <xsl:if test="mei:note[@grace]">
+          <xsl:copy-of select="mei:note[@grace][1]/@grace"/>
+        </xsl:if>
+        <xsl:if test="mei:note[@beam]">
+          <xsl:copy-of select="mei:note[@beam][1]/@beam"/>
+        </xsl:if>
+        <xsl:if test="mei:note[@stem.x]">
+          <xsl:copy-of select="mei:note[@stem.x][1]/@stem.x"/>
+        </xsl:if>
+
+        <!-- Copy these attrs if *all* notes have the the same value for the attribute -->
+        <xsl:if test="count(mei:note[@part])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@part))=1">
+            <xsl:copy-of select="mei:note[@part][1]/@part"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@staff])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@staff))=1">
+            <xsl:copy-of select="mei:note[@staff][1]/@staff"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@layer])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@layer))=1">
+            <xsl:copy-of select="mei:note[@staff][1]/@layer"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@size])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@size))=1">
+            <xsl:copy-of select="mei:note[@size][1]/@size"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@instr])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@instr))=1">
+            <xsl:copy-of select="mei:note[@instr][1]/@instr"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@beam])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@beam))=1">
+            <xsl:copy-of select="mei:note[@beam][1]/@beam"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@tie])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@tie))=1">
+            <xsl:copy-of select="mei:note[@tie][1]/@tie"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@grace.time])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@grace.time))=1">
+            <xsl:copy-of select="mei:note[@grace.time][1]/@grace.time"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@headshape])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@headshape))=1">
+            <xsl:copy-of select="mei:note[@altsym][1]/@headshape"/>
+          </xsl:if>
+        </xsl:if>
+        <xsl:if test="count(mei:note[@x])=count(mei:note)">
+          <xsl:if test="count(distinct-values(mei:note/@x))=1">
+            <xsl:copy-of select="mei:note[@x][1]/@x"/>
+          </xsl:if>
+        </xsl:if>
+
+        <!-- Copy notes -->
+        <xsl:copy-of select="mei:note"/>
+      </chord>
+    </xsl:variable>
+    <xsl:apply-templates select="$chordthis2/mei:chord" mode="thinNoteAttributes"/>
+  </xsl:template>
+
+  <xsl:template match="mei:chord" mode="thinNoteAttributes">
+    <!-- Eliminate note attributes copied to parent chord -->
+    <chord xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:copy-of select="@*"/>
+      <xsl:variable name="sortedStaff">
+        <xsl:perform-sort select="distinct-values(mei:note/@staff)">
+          <xsl:sort select="." data-type="number"/>
+        </xsl:perform-sort>
+      </xsl:variable>
+      <xsl:attribute name="staff">
+        <xsl:value-of select="$sortedStaff"/>
+      </xsl:attribute>
+      <xsl:variable name="sortedLayer">
+        <xsl:perform-sort select="distinct-values(mei:note/@layer)">
+          <xsl:sort select="." data-type="number"/>
+        </xsl:perform-sort>
+      </xsl:variable>
+      <xsl:attribute name="layer">
+        <xsl:value-of select="$sortedLayer"/>
+      </xsl:attribute>
+      <xsl:for-each select="mei:note">
+        <xsl:sort select="@staff"/>
+        <xsl:sort select="@layer"/>
+        <note xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:copy-of select="@xml:id"/>
+          <xsl:for-each select="@*">
+            <xsl:variable name="thisAttr">
+              <xsl:value-of select="name(.)"/>
+            </xsl:variable>
+            <!-- Copy any other note attributes (except @id which was handled above) that
+            don't already exist on the parent chord -->
+            <xsl:if test="not(ancestor::mei:chord/@*[name()=$thisAttr])">
+              <xsl:copy-of select="."/>
+            </xsl:if>
+          </xsl:for-each>
+          <!-- Copy any children of the note -->
+          <xsl:copy-of select="child::*"/>
+        </note>
+      </xsl:for-each>
+    </chord>
+  </xsl:template>
+
+  <xsl:template match="mei:staffDef|mei:staffGrp|part-group" mode="numberStaves">
+    <!-- Number staves -->
+    <xsl:choose>
+      <xsl:when test="local-name()='staffDef'">
+        <staffDef xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="n">
+            <xsl:value-of select="count(preceding::mei:staffDef) + 1"/>
+          </xsl:attribute>
+          <xsl:copy-of select="@*|node()"/>
+        </staffDef>
+      </xsl:when>
+      <xsl:when test="local-name()='staffGrp'">
+        <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:copy-of select="@*|mei:instrDef"/>
+          <xsl:for-each select="mei:staffDef">
+            <staffDef xmlns="http://www.music-encoding.org/ns/mei">
+              <xsl:attribute name="n">
+                <xsl:value-of select="count(preceding::mei:staffDef) + 1"/>
+              </xsl:attribute>
+              <xsl:copy-of select="@*|node()"/>
+            </staffDef>
+          </xsl:for-each>
+        </staffGrp>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:copy-of select="(.)"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="note[not(chord)]" mode="stage1">
+    <!-- Non-chord tones -->
+    <xsl:choose>
+      <xsl:when test="following-sibling::note[1][chord]">
+        <xsl:variable name="chordthis">
+          <chord xmlns="http://www.music-encoding.org/ns/mei">
+            <xsl:apply-templates select="." mode="oneNote"/>
+          </chord>
+        </xsl:variable>
+        <xsl:apply-templates select="$chordthis/mei:chord" mode="chordThis"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="." mode="oneNote"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="note" mode="oneNote">
+    <!-- Create a note/rest element -->
+    <xsl:choose>
+      <xsl:when test="rest">
+        <!-- This is a rest! -->
+        <!--<xsl:variable name="thisvoice">
+          <xsl:value-of select="voice"/>
+        </xsl:variable>-->
+        <rest xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="xml:id">
+            <xsl:value-of select="generate-id()"/>
+          </xsl:attribute>
+          <xsl:attribute name="tstamp.ges">
+            <xsl:call-template name="getTimestamp.ges"/>
+          </xsl:attribute>
+          <xsl:if test="type">
+            <xsl:attribute name="dur">
+              <xsl:call-template name="notatedDuration"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:call-template name="notatedDot"/>
+          <xsl:call-template name="fermata"/>
+          <xsl:if test="duration">
+            <xsl:call-template name="gesturalDuration"/>
+          </xsl:if>
+          <xsl:call-template name="assignPart-Layer-Staff-Beam-Tuplet"/>
+          <xsl:call-template name="position"/>
+          <xsl:call-template name="restvo"/>
+          <xsl:call-template name="size"/>
+        </rest>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- This is a 'pitched' or 'unpitched' note -->
+        <!-- None of the Beyond MIDI examples include unpitched notes. -->
+        <note xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="xml:id">
+            <xsl:value-of select="generate-id()"/>
+          </xsl:attribute>
+          <xsl:attribute name="tstamp.ges">
+            <xsl:call-template name="getTimestamp.ges"/>
+          </xsl:attribute>
+          <xsl:if test="@print-object='no'">
+            <xsl:attribute name="visible">false</xsl:attribute>
+          </xsl:if>
+
+          <!-- Is this a grace note? -->
+          <xsl:if test="grace">
+            <xsl:choose>
+              <xsl:when test="grace/@steal-time-following">
+                <xsl:attribute name="grace">acc</xsl:attribute>
+                <xsl:attribute name="grace.time">
+                  <xsl:value-of select="grace/@steal-time-following"/>
+                </xsl:attribute>
+                <xsl:if test="grace/@slash='yes'">
+                  <xsl:attribute name="stem.mod">1slash</xsl:attribute>
+                </xsl:if>
+              </xsl:when>
+              <xsl:when test="grace/@steal-time-previous">
+                <xsl:attribute name="grace">unacc</xsl:attribute>
+                <xsl:attribute name="grace.time">
+                  <xsl:value-of select="grace/@steal-time-previous"/>
+                </xsl:attribute>
+                <xsl:if test="grace/@slash='yes'">
+                  <xsl:attribute name="stem.mod">1slash</xsl:attribute>
+                </xsl:if>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:attribute name="grace">unacc</xsl:attribute>
+                <xsl:if test="grace/@slash='yes'">
+                  <xsl:attribute name="stem.mod">1slash</xsl:attribute>
+                </xsl:if>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:if>
+
+          <!-- Notated pitch -->
+          <xsl:choose>
+            <xsl:when test="pitch">
+              <xsl:attribute name="pname">
+                <xsl:value-of select="lower-case(pitch/step)"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+              <!-- This note is unpitched, e.g., for unpitched percussion or of indeterminate pitch. -->
+              <xsl:attribute name="pname">
+                <xsl:value-of select="lower-case(unpitched/display-step)"/>
+              </xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
+
+          <!-- Notated accidental in attribute. This block is turned off by default, but can be
+               turned on with the accidattr stylesheet parameter. -->
+          <!--<xsl:if test="$accidattr='yes'">
+            <xsl:choose>
+              <xsl:when test="accidental/@editorial='yes'">
+                <xsl:attribute name="accid.editorial">
+                  <xsl:choose>
+                    <xsl:when test="accidental = 'sharp'">s</xsl:when>
+                    <xsl:when test="accidental = 'natural'">n</xsl:when>
+                    <xsl:when test="accidental = 'flat'">f</xsl:when>
+                    <xsl:when test="accidental = 'double-sharp'">x</xsl:when>
+                    <xsl:when test="accidental = 'sharp-sharp'">ss</xsl:when>
+                    <xsl:when test="accidental = 'flat-flat'">ff</xsl:when>
+                    <xsl:when test="accidental = 'natural-sharp'">ns</xsl:when>
+                    <xsl:when test="accidental = 'natural-flat'">nf</xsl:when>
+                    <xsl:when test="accidental = 'quarter-flat'">fd</xsl:when>
+                    <xsl:when test="accidental = 'quarter-sharp'">su</xsl:when>
+                  </xsl:choose>
+                </xsl:attribute>
+                <!-\- Accidental enclosure in attribute -\->
+                <xsl:choose>
+                  <xsl:when test="accidental/@parentheses='yes'">
+                    <xsl:attribute name="enclose.accid">paren</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="accidental/@bracket='yes'">
+                    <xsl:attribute name="enclose.accid">brack</xsl:attribute>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="accidental">
+                <xsl:attribute name="accid">
+                  <xsl:choose>
+                    <xsl:when test="accidental = 'sharp'">s</xsl:when>
+                    <xsl:when test="accidental = 'natural'">n</xsl:when>
+                    <xsl:when test="accidental = 'flat'">f</xsl:when>
+                    <xsl:when test="accidental = 'double-sharp'">x</xsl:when>
+                    <xsl:when test="accidental = 'sharp-sharp'">ss</xsl:when>
+                    <xsl:when test="accidental = 'flat-flat'">ff</xsl:when>
+                    <xsl:when test="accidental = 'natural-sharp'">ns</xsl:when>
+                    <xsl:when test="accidental = 'natural-flat'">nf</xsl:when>
+                    <xsl:when test="accidental = 'quarter-flat'">fd</xsl:when>
+                    <xsl:when test="accidental = 'quarter-sharp'">su</xsl:when>
+                  </xsl:choose>
+                </xsl:attribute>
+                <!-\- Accidental enclosure in attribute -\->
+                <xsl:choose>
+                  <xsl:when test="accidental/@parentheses='yes'">
+                    <xsl:attribute name="enclose.accid">paren</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="accidental/@bracket='yes'">
+                    <xsl:attribute name="enclose.accid">brack</xsl:attribute>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:if>
+-->
+          <!-- Notated/performed octave -->
+          <xsl:choose>
+            <xsl:when test="pitch">
+              <xsl:variable name="thisPart">
+                <xsl:value-of select="ancestor::part/@id"/>
+              </xsl:variable>
+              <xsl:variable name="partStaff">
+                <xsl:choose>
+                  <xsl:when test="staff">
+                    <xsl:value-of select="staff"/>
+                  </xsl:when>
+                  <xsl:otherwise>1</xsl:otherwise>
+                </xsl:choose>
+              </xsl:variable>
+              <xsl:variable name="octave-shift">
+                <xsl:value-of select="count(preceding::octave-shift[not(@type='stop') and
+                  ancestor::part/@id=$thisPart and ancestor::direction/staff=$partStaff]) -
+                  count(preceding::octave-shift[@type='stop' and ancestor::part/@id=$thisPart and
+                  ancestor::direction/staff=$partStaff])"/>
+              </xsl:variable>
+              <xsl:choose>
+                <xsl:when test="$octave-shift &gt; 0">
+                  <xsl:variable name="shift">
+                    <xsl:variable name="size">
+                      <xsl:value-of select="preceding::octave-shift[1][not(@type='stop') and
+                        ancestor::part/@id=$thisPart and
+                        ancestor::direction/staff=$partStaff]/@size"/>
+                    </xsl:variable>
+                    <xsl:choose>
+                      <xsl:when test="$size=8">1</xsl:when>
+                      <xsl:when test="$size=15">2</xsl:when>
+                    </xsl:choose>
+                  </xsl:variable>
+                  <xsl:variable name="direction">
+                    <xsl:value-of select="preceding::octave-shift[1][not(@type='stop') and
+                      ancestor::part/@id=$thisPart and ancestor::direction/staff=$partStaff]/@type"
+                    />
+                  </xsl:variable>
+                  <xsl:choose>
+                    <xsl:when test="$direction='down'">
+                      <xsl:attribute name="oct">
+                        <xsl:value-of select="pitch/octave - $shift"/>
+                      </xsl:attribute>
+                    </xsl:when>
+                    <xsl:when test="$direction='up'">
+                      <xsl:attribute name="oct">
+                        <xsl:value-of select="pitch/octave + $shift"/>
+                      </xsl:attribute>
+                    </xsl:when>
+                  </xsl:choose>
+                  <xsl:attribute name="oct.ges">
+                    <xsl:value-of select="pitch/octave"/>
+                  </xsl:attribute>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="oct">
+                    <xsl:value-of select="pitch/octave"/>
+                  </xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+              <!-- This note is of indeterminate pitch. -->
+              <xsl:attribute name="oct">
+                <xsl:value-of select="unpitched/display-octave"/>
+              </xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
+
+          <!-- String tablature -->
+          <xsl:if test="notations/technical/string">
+            <xsl:attribute name="tab.string">
+              <xsl:value-of select="notations/technical/string"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:if test="notations/technical/fret">
+            <xsl:attribute name="tab.fret">
+              <xsl:value-of select="notations/technical/fret"/>
+            </xsl:attribute>
+          </xsl:if>
+
+          <!-- Note attributes -->
+          <xsl:variable name="notatedDuration">
+            <xsl:call-template name="notatedDuration"/>
+          </xsl:variable>
+          <xsl:if test="$notatedDuration != ''">
+            <xsl:attribute name="dur">
+              <xsl:value-of select="$notatedDuration"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:call-template name="notatedDot"/>
+          <xsl:call-template name="fermata"/>
+          <!-- <!-\- Articulations in attributes. This block is turned off by default, but can be
+               turned on with the articattr stylesheet parameter. -\->
+          <xsl:if test="$articattr='yes'">
+            <xsl:call-template name="artics"/>
+          </xsl:if> -->
+          <xsl:call-template name="gesturalDuration"/>
+          <xsl:call-template name="assignPart-Layer-Staff-Beam-Tuplet"/>
+          <xsl:call-template name="position"/>
+          <xsl:call-template name="size"/>
+
+          <!-- Notated tie in attribute:
+               I'm using notations/tied here instead of note/tie because note/tie
+               doesn't provide indication of middle notes in a tie, only start and stop.
+               None of the current MusicXML examples record the position of ties. -->
+          <xsl:choose>
+            <xsl:when test="notations/tied/@type='start' and notations/tied/@type='stop'">
+              <xsl:attribute name="tie">m</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notations/tied/@type='start'">
+              <xsl:attribute name="tie">i</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notations/tied/@type='stop'">
+              <xsl:attribute name="tie">t</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+
+          <!-- Stem attributes: direction and length
+               MusicXML uses a text value of 'none' to record a zero-length stem, but
+               stem/@relative-y or @default-y to record non-zero stem length. -->
+          <xsl:choose>
+            <xsl:when test="stem='up'">
+              <xsl:attribute name="stem.dir">up</xsl:attribute>
+              <xsl:if test="stem/@relative-y != 0">
+                <xsl:attribute name="stem.len">
+                  <xsl:value-of select="abs(round-half-to-even(stem/@relative-y div 10,3))"/>
+                </xsl:attribute>
+              </xsl:if>
+              <!--<xsl:if test="stem/@default-y">
+                <xsl:attribute name="stem.y">
+                  <xsl:value-of
+                    select="abs(round-half-to-even(stem/@default-y div 10,3))"/>
+                </xsl:attribute>
+              </xsl:if>-->
+            </xsl:when>
+            <xsl:when test="stem='down'">
+              <xsl:attribute name="stem.dir">down</xsl:attribute>
+              <xsl:if test="stem/@relative-y != 0">
+                <xsl:attribute name="stem.len">
+                  <xsl:value-of select="abs(round-half-to-even(stem/@relative-y div 10,3))"/>
+                </xsl:attribute>
+              </xsl:if>
+              <!--<xsl:if test="stem/@default-y">
+                <xsl:attribute name="stem.y">
+                  <xsl:value-of
+                    select="abs(round-half-to-even(stem/@default-y,3))"/>
+                </xsl:attribute>
+              </xsl:if>-->
+            </xsl:when>
+            <xsl:when test="stem='none'">
+              <xsl:attribute name="stem.len">0</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="stem='double'">
+              <!-- This stylesheet doesn't handle 'double' stems
+              because this is an indication of multiple layers. -->
+            </xsl:when>
+          </xsl:choose>
+
+          <!-- Bowed tremolo -->
+          <xsl:if test="notations/ornaments/tremolo">
+            <xsl:attribute name="stem.mod">
+              <xsl:value-of select="notations/ornaments/tremolo"/>
+              <xsl:text>slash</xsl:text>
+            </xsl:attribute>
+          </xsl:if>
+
+          <!-- Notehead shape -->
+          <!-- It's not usually necessary to be explicit about whether
+          the notehead is filled or not since the shape ought to be
+          filled if the duration is <= quarter and open otherwise.
+          However, this part of the stylesheet can be tweaked later. -->
+          <xsl:choose>
+            <xsl:when test="notehead='slash'">
+              <xsl:attribute name="headshape">slash</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='triangle'">
+              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='diamond'">
+              <xsl:attribute name="headshape">diamond</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='square'">
+              <xsl:attribute name="headshape">rectangle</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='cross'">
+              <xsl:attribute name="headshape">cross</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='x'">
+              <xsl:attribute name="headshape">x</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='circle-x'">
+              <xsl:attribute name="headshape">circlex</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='inverted triangle'">
+              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='arrow down'">
+              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+              <!-- Mup doesn't support centered stems -->
+              <xsl:attribute name="stem.pos">center</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='arrow up'">
+              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+              <!-- Mup doesn't support centered stems -->
+              <xsl:attribute name="stem.pos">center</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='slashed'">
+              <!-- addslash must be added to the list of allowed values
+              for the headshape attribute -->
+              <xsl:attribute name="headshape">addslash</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='back slashed'">
+              <!-- addbackslash must be added to the list of allowed
+              values for the headshape attribute -->
+              <xsl:attribute name="headshape">addbackslash</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='normal'">
+              <!-- Regular notehead, this is a no-op! -->
+            </xsl:when>
+            <xsl:when test="notehead='none'">
+              <xsl:attribute name="headshape">blank</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='do'">
+              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='re'">
+              <xsl:attribute name="headshape">semicircle</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='mi'">
+              <xsl:attribute name="headshape">diamond</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='fa'">
+              <xsl:attribute name="headshape">righttriangle</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='so'">
+              <!-- Regular notehead, this is a no-op! -->
+            </xsl:when>
+            <xsl:when test="notehead='la'">
+              <xsl:attribute name="headshape">rectangle</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="notehead='ti'">
+              <xsl:attribute name="headshape">piewedge</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+
+          <!-- Gestural accidentals in attribute -->
+          <xsl:choose>
+            <xsl:when test="pitch/alter = 2">
+              <xsl:attribute name="accid.ges">ss</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="pitch/alter = 1">
+              <xsl:attribute name="accid.ges">s</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="pitch/alter = -1">
+              <xsl:attribute name="accid.ges">f</xsl:attribute>
+            </xsl:when>
+            <xsl:when test="pitch/alter = -2">
+              <xsl:attribute name="accid.ges">ff</xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+
+          <!-- Instrument assignment -->
+          <xsl:if test="instrument">
+            <xsl:attribute name="instr">
+              <xsl:value-of select="instrument/@id"/>
+            </xsl:attribute>
+            <xsl:variable name="notenum">
+              <xsl:value-of select="instrument/@id"/>
+            </xsl:variable>
+            <xsl:if test="preceding::midi-instrument[@id=$notenum]/midi-unpitched">
+              <xsl:attribute name="pnum">
+                <xsl:value-of select="preceding::midi-instrument[@id=$notenum][1]/midi-unpitched"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:if>
+
+          <!-- Lyrics in attribute, if requested via the sylattr stylesheet parameter. -->
+          <!-- <xsl:if test="$sylattr='yes'">
+            <xsl:if test="lyric">
+              <xsl:attribute name="syl">
+                <xsl:for-each select="lyric">
+                  <xsl:value-of select="text"/>
+                  <xsl:if test="syllabic='begin' or syllabic='middle'">
+                    <xsl:text>-</xsl:text>
+                  </xsl:if>
+                  <xsl:if test="extend">
+                    <xsl:text>_</xsl:text>
+                  </xsl:if>
+                  <xsl:if test="position() != last()">
+                    <xsl:text>//</xsl:text>
+                  </xsl:if>
+                </xsl:for-each>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:if>-->
+
+          <xsl:call-template name="accidentals"/>
+          <xsl:call-template name="articulations"/>
+
+          <!-- Unless attributes are explicitly requested (via stylesheet parameters),
+               create sub-elements for accidentals and articulations so that placement
+               can be recorded. -->
+          <!--<xsl:if test="$accidattr='no'">
+            <xsl:call-template name="accidentals"/>
+          </xsl:if>
+          <xsl:if test="$articattr='no'">
+            <xsl:call-template name="articulations"/>
+          </xsl:if>
+          <xsl:if test="$sylattr='no'">
+            <xsl:apply-templates select="lyric" mode="stage1"/>
+          </xsl:if>-->
+
+        </note>
+        <xsl:if test="following-sibling::note[1][chord]">
+          <xsl:apply-templates select="following-sibling::note[1][chord]" mode="oneNote"/>
+        </xsl:if>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="part-group[@type='start']" mode="grpSym">
@@ -2131,34 +2543,400 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="mei:staffDef|mei:staffGrp|part-group" mode="numberStaves">
-    <!-- Number staves -->
-    <xsl:choose>
-      <xsl:when test="local-name()='staffDef'">
-        <staffDef xmlns="http://www.music-encoding.org/ns/mei">
-          <xsl:attribute name="n">
-            <xsl:value-of select="count(preceding::mei:staffDef) + 1"/>
-          </xsl:attribute>
-          <xsl:copy-of select="@*|node()"/>
-        </staffDef>
-      </xsl:when>
-      <xsl:when test="local-name()='staffGrp'">
-        <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
-          <xsl:copy-of select="@*|mei:instrDef"/>
-          <xsl:for-each select="mei:staffDef">
-            <staffDef xmlns="http://www.music-encoding.org/ns/mei">
-              <xsl:attribute name="n">
-                <xsl:value-of select="count(preceding::mei:staffDef) + 1"/>
+  <xsl:template match="score-timewise" mode="header">
+    <meiHead xmlns="http://www.music-encoding.org/ns/mei">
+      <fileDesc>
+        <titleStmt>
+          <title>
+            <xsl:value-of select="normalize-space(work/work-title)"/>
+            <xsl:if test="normalize-space(work/work-number) != ''">
+              <xsl:text>, </xsl:text>
+              <xsl:value-of select="normalize-space(work/work-number)"/>
+            </xsl:if>
+            <xsl:if test="normalize-space(movement-number) != ''">
+              <xsl:text>, </xsl:text>
+              <xsl:if test="number(normalize-space(movement-number))">
+                <xsl:text>no. </xsl:text>
+              </xsl:if>
+              <xsl:value-of select="normalize-space(movement-number)"/>
+            </xsl:if>
+            <xsl:if test="normalize-space(movement-title) != ''">
+              <xsl:if
+                test="normalize-space(concat(work/work-title,work/work-number,movement-number)) !=
+                ''">
+                <xsl:text>. </xsl:text>
+              </xsl:if>
+              <xsl:value-of select="normalize-space(movement-title)"/>
+            </xsl:if>
+          </title>
+          <xsl:if test="identification/creator">
+            <respStmt>
+              <xsl:for-each select="identification/creator">
+                <xsl:value-of select="$nl"/>
+                <resp>
+                  <xsl:value-of select="@type"/>
+                </resp>
+                <name>
+                  <xsl:value-of select="normalize-space(.)"/>
+                </name>
+              </xsl:for-each>
+            </respStmt>
+          </xsl:if>
+        </titleStmt>
+        <pubStmt/>
+        <!-- File encoding date, etc. goes in notesStmt here -->
+        <notesStmt>
+          <annot>
+            <xsl:text>Transcoded from a MusicXML </xsl:text>
+            <xsl:if test="@version">
+              <xsl:text>version </xsl:text>
+              <xsl:value-of select="@version"/>
+              <xsl:text> </xsl:text>
+            </xsl:if>
+            <xsl:text>file on </xsl:text>
+            <date>
+              <xsl:value-of select="format-date(current-date(), '[Y]-[M02]-[D02]')"/>
+            </date>
+            <xsl:text>using an XSLT stylesheet (</xsl:text>
+            <xsl:value-of select="$progname"/>
+            <xsl:text> </xsl:text>
+            <xsl:value-of select="$progversion"/>
+            <xsl:text>).</xsl:text>
+          </annot>
+        </notesStmt>
+        <sourceDesc>
+          <source>
+            <titleStmt>
+              <title>
+                <xsl:value-of select="normalize-space(work/work-title)"/>
+                <xsl:if test="normalize-space(work/work-number) != ''">
+                  <xsl:text>, </xsl:text>
+                  <xsl:value-of select="normalize-space(work/work-number)"/>
+                </xsl:if>
+                <xsl:if test="normalize-space(movement-number) != ''">
+                  <xsl:text>, </xsl:text>
+                  <xsl:if test="number(normalize-space(movement-number))">
+                    <xsl:text>no. </xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="normalize-space(movement-number)"/>
+                </xsl:if>
+                <xsl:if test="normalize-space(movement-title) != ''">
+                  <xsl:if
+                    test="normalize-space(concat(work/work-title,work/work-number,movement-number))
+                    != ''">
+                    <xsl:text>. </xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="normalize-space(movement-title)"/>
+                </xsl:if>
+              </title>
+              <xsl:if test="identification">
+                <respStmt>
+                  <xsl:for-each select="identification/creator">
+                    <xsl:value-of select="$nl"/>
+                    <resp>
+                      <xsl:value-of select="@type"/>
+                    </resp>
+                    <name>
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </name>
+                  </xsl:for-each>
+                  <xsl:for-each select="identification/encoding/encoder">
+                    <name>
+                      <xsl:attribute name="role">
+                        <xsl:value-of select="@type"/>
+                      </xsl:attribute>
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </name>
+                  </xsl:for-each>
+                  <xsl:if test="not(identification/creator) and
+                    not(identification/encoding/encoder)">
+                    <name/>
+                  </xsl:if>
+                </respStmt>
+              </xsl:if>
+            </titleStmt>
+            <pubStmt>
+              <xsl:if test="identification/rights">
+                <availability>
+                  <useRestrict>
+                    <xsl:value-of select="identification/rights"/>
+                  </useRestrict>
+                </availability>
+              </xsl:if>
+            </pubStmt>
+            <xsl:if test="count(distinct-values(//*/@xml:lang)) &gt; 0">
+              <langUsage>
+                <xsl:for-each select="distinct-values(//*/@xml:lang)">
+                  <!-- Identify all the languages used anywhere in the document. -->
+                  <language>
+                    <xsl:attribute name="xml:id">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                  </language>
+                </xsl:for-each>
+              </langUsage>
+            </xsl:if>
+            <xsl:if test="identification/encoding/software">
+              <notesStmt>
+                <xsl:variable name="software">
+                  <xsl:value-of select="count(identification/encoding/software)"/>
+                </xsl:variable>
+                <annot>
+                  <xsl:text>Created </xsl:text>
+                  <xsl:if test="identification/encoding/encoder">
+                    <xsl:text>by </xsl:text>
+                    <xsl:for-each select="identification/encoding/encoder">
+                      <xsl:value-of select="."/>
+                      <xsl:if test="count(following-sibling::encoder) &gt; 1">
+                        <xsl:text>, </xsl:text>
+                      </xsl:if>
+                      <xsl:if test="count(following-sibling::encoder) = 1">
+                        <xsl:choose>
+                          <xsl:when test="count(preceding-sibling::encoder) = 0">
+                            <xsl:text> and </xsl:text>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:text>, and </xsl:text>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:if>
+                    </xsl:for-each>
+                    <xsl:text> </xsl:text>
+                  </xsl:if>
+                  <xsl:if test="identification/encoding/software">
+                    <xsl:text>using </xsl:text>
+                    <xsl:for-each select="identification/encoding/software">
+                      <xsl:value-of select="."/>
+                      <xsl:if test="count(following-sibling::software) &gt; 1">
+                        <xsl:text>, </xsl:text>
+                      </xsl:if>
+                      <xsl:if test="count(following-sibling::software) = 1">
+                        <xsl:choose>
+                          <xsl:when test="count(preceding-sibling::software) = 0">
+                            <xsl:text> and </xsl:text>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:text>, and </xsl:text>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:if>
+                    </xsl:for-each>
+                  </xsl:if>
+                  <xsl:if test="identification/encoding/encoding-date">
+                    <xsl:text> on </xsl:text>
+                    <date>
+                      <xsl:value-of select="identification/encoding/encoding-date"/>
+                    </date>
+                  </xsl:if>
+                  <xsl:text>.</xsl:text>
+                </annot>
+                <xsl:if test="identification/encoding/encoding-description">
+                  <annot>
+                    <xsl:value-of select="identification/encoding/encoding-description"/>
+                  </annot>
+                </xsl:if>
+              </notesStmt>
+            </xsl:if>
+          </source>
+        </sourceDesc>
+      </fileDesc>
+      <xsl:if test="work/*">
+        <workDesc>
+          <work>
+            <xsl:if test="normalize-space(work/work-number) != ''">
+              <identifier>
+                <xsl:value-of select="normalize-space(work/work-number)"/>
+              </identifier>
+            </xsl:if>
+            <titleStmt>
+              <title>
+                <xsl:value-of select="normalize-space(work/work-title)"/>
+                <xsl:if test="normalize-space(work/work-number) != ''">
+                  <xsl:text>, </xsl:text>
+                  <xsl:value-of select="normalize-space(work/work-number)"/>
+                </xsl:if>
+                <xsl:if test="normalize-space(movement-number) != ''">
+                  <xsl:text>, </xsl:text>
+                  <xsl:if test="number(normalize-space(movement-number))">
+                    <xsl:text>no. </xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="normalize-space(movement-number)"/>
+                </xsl:if>
+                <xsl:if test="normalize-space(movement-title) != ''">
+                  <xsl:if
+                    test="normalize-space(concat(work/work-title,work/work-number,movement-number))
+                    != ''">
+                    <xsl:text>. </xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="normalize-space(movement-title)"/>
+                </xsl:if>
+              </title>
+              <xsl:if test="identification/creator">
+                <respStmt>
+                  <xsl:for-each select="identification/creator">
+                    <xsl:value-of select="$nl"/>
+                    <resp>
+                      <xsl:value-of select="@type"/>
+                    </resp>
+                    <name>
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </name>
+                  </xsl:for-each>
+                </respStmt>
+              </xsl:if>
+            </titleStmt>
+          </work>
+        </workDesc>
+      </xsl:if>
+    </meiHead>
+  </xsl:template>
+
+  <xsl:template match="score-timewise" mode="music">
+    <music xmlns="http://www.music-encoding.org/ns/mei">
+      <body>
+        <mdiv>
+          <score>
+            <scoreDef>
+              <xsl:attribute name="ppq">
+                <xsl:value-of select="$scorePPQ"/>
               </xsl:attribute>
-              <xsl:copy-of select="@*|node()"/>
-            </staffDef>
-          </xsl:for-each>
-        </staffGrp>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:copy-of select="(.)"/>
-      </xsl:otherwise>
-    </xsl:choose>
+              <!-- Look in first measure for score-level meter signature -->
+              <xsl:if test="descendant::measure[1]/part/attributes">
+                <xsl:if test="descendant::measure[1]/part/attributes[time/beats]">
+                  <xsl:attribute name="meter.count">
+                    <xsl:value-of
+                      select="descendant::part[attributes/time/beats][1]/attributes/time/beats"/>
+                  </xsl:attribute>
+                </xsl:if>
+                <xsl:if test="descendant::measure[1]/part/attributes[time/beat-type]">
+                  <xsl:attribute name="meter.unit">
+                    <xsl:value-of
+                      select="descendant::part[attributes/time/beat-type][1]/attributes/time/beat-type"
+                    />
+                  </xsl:attribute>
+                </xsl:if>
+                <xsl:variable name="symbol">
+                  <xsl:value-of
+                    select="descendant::part[attributes/time/@symbol][1]/attributes/time/@symbol"/>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="$symbol='common'">
+                    <xsl:attribute name="meter.sym">common</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="$symbol='cut'">
+                    <xsl:attribute name="meter.sym">cut</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="$symbol='single-number'">
+                    <xsl:attribute name="meter.rend">denomsym</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when
+                    test="descendant::part[attributes/time/senza-misura][1]/attributes/time/senza-misura">
+                    <xsl:attribute name="meter.rend">invis</xsl:attribute>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:if>
+              <!-- Look in first measure for score-level key signature and mode -->
+              <xsl:if test="descendant::part/attributes[not(transpose)]/key">
+                <xsl:variable name="keysig">
+                  <xsl:value-of select="descendant::part[attributes[not(transpose) and
+                    key]][1]/attributes/key/fifths"/>
+                </xsl:variable>
+                <xsl:choose>
+                  <xsl:when test="$keysig=''">
+                    <xsl:attribute name="key.sig">
+                      <xsl:text>0</xsl:text>
+                    </xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="number($keysig)=0">
+                    <xsl:attribute name="key.sig">
+                      <xsl:value-of select="$keysig"/>
+                    </xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="number($keysig) &gt; 0">
+                    <xsl:attribute name="key.sig"><xsl:value-of select="$keysig"/>s</xsl:attribute>
+                  </xsl:when>
+                  <xsl:when test="number($keysig) &lt; 0">
+                    <xsl:attribute name="key.sig">
+                      <xsl:value-of select="abs($keysig)"/>f</xsl:attribute>
+                  </xsl:when>
+                </xsl:choose>
+                <xsl:if test="descendant::part/attributes/key/mode">
+                  <xsl:attribute name="key.mode">
+                    <xsl:value-of
+                      select="descendant::part[attributes/key/mode][1]/attributes/key/mode"/>
+                  </xsl:attribute>
+                </xsl:if>
+              </xsl:if>
+              <!-- If any staves are not printed, then staff optimization is in effect. -->
+              <xsl:if test="//measure/part/attributes/staff-details/@print-object='no'">
+                <xsl:attribute name="optimize">true</xsl:attribute>
+              </xsl:if>
+              <!-- Look in first measure for other score-level attributes -->
+              <xsl:apply-templates select="defaults"/>
+
+              <!-- Create page headers and footers -->
+              <xsl:call-template name="credits"/>
+
+              <!-- Copy already-calculated layout here -->
+              <xsl:copy-of select="$defaultLayout"/>
+            </scoreDef>
+
+            <!-- Process score measures -->
+            <!-- Measures are grouped based on criteria in the group-ending-with attribute -->
+            <xsl:for-each-group select="measure"
+              group-ending-with="measure[part/barline/repeat[@direction='backward'] or
+              following-sibling::measure[1][part/barline[@location='left']/repeat[@direction='forward']]
+              or part/barline/ending[@type='stop'] or
+              part/barline[@location='right']/bar-style='light-light' or
+              following-sibling::measure[1][part/barline/ending[@type='start']] or
+              following-sibling::measure[1][part/attributes[time or key]]]">
+
+              <!-- Other potential (sub?) section-ending conditions:
+following-sibling::measure[1][print/page-layout] or
+following-sibling::measure[1][print/system-layout] or
+following-sibling::measure[1][print/staff-layout] or
+following-sibling::measure[1][print/measure-layout] or
+following-sibling::measure[1][attributes[staves]] or
+following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
+
+              <!-- Create sections/endings based on the grouping of measures -->
+              <xsl:choose>
+                <xsl:when test="part/barline/ending[@type='start']">
+                  <ending>
+                    <xsl:attribute name="n">
+                      <xsl:choose>
+                        <xsl:when test="part/barline/ending[@type='start'] != ''">
+                          <xsl:value-of
+                            select="part[barline/ending[@type='start']][1]/barline[ending[@type='start']][1]/ending"
+                          />
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:value-of
+                            select="part[barline/ending[@type='start']][1]/barline[ending[@type='start']][1]/ending/@number"
+                          />
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:for-each-group select="current-group()"
+                      group-starting-with="measure[part/attributes[time or key]]">
+                      <xsl:apply-templates select="current-group()" mode="measContent"/>
+                    </xsl:for-each-group>
+                  </ending>
+                </xsl:when>
+                <xsl:otherwise>
+                  <section>
+                    <xsl:for-each-group select="current-group()"
+                      group-starting-with="measure[part/attributes[time or key]]">
+                      <xsl:apply-templates select="current-group()" mode="measContent"/>
+                    </xsl:for-each-group>
+                  </section>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:for-each-group>
+          </score>
+        </mdiv>
+      </body>
+    </music>
   </xsl:template>
 
   <!-- Functions -->
@@ -2188,6 +2966,372 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       f:hex2integer(substring($aarrggbb,$startByte,2)), (: ... return the decimal value :) ','
       (: ... and a trailing comma :)  ), f:hex2integer(substring($aarrggbb,2,2)) div 255, (:
       alpha value is between 0 and 1 => divide by 255 :) ')' )" separator=""/>
+  </xsl:template>
+
+  <xsl:template name="accidentals">
+    <!-- Accidentals in elements so that exact placement can be recorded -->
+    <xsl:for-each select="accidental">
+      <xsl:variable name="thisaccid">
+        <xsl:value-of select="normalize-space(.)"/>
+      </xsl:variable>
+      <accid xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:choose>
+          <xsl:when test="@editorial='yes'">
+            <xsl:attribute name="type">editorial</xsl:attribute>
+          </xsl:when>
+          <xsl:when test="@cautionary='yes'">
+            <xsl:attribute name="type">cautionary</xsl:attribute>
+          </xsl:when>
+        </xsl:choose>
+        <xsl:choose>
+          <xsl:when test="@parentheses='yes'">
+            <xsl:attribute name="enclose.accid">paren</xsl:attribute>
+          </xsl:when>
+          <xsl:when test="@bracket='yes'">
+            <xsl:attribute name="enclose.accid">brack</xsl:attribute>
+          </xsl:when>
+        </xsl:choose>
+        <xsl:attribute name="accid">
+          <xsl:choose>
+            <xsl:when test="$thisaccid = 'sharp'">s</xsl:when>
+            <xsl:when test="$thisaccid = 'natural'">n</xsl:when>
+            <xsl:when test="$thisaccid = 'flat'">f</xsl:when>
+            <xsl:when test="$thisaccid = 'double-sharp'">x</xsl:when>
+            <xsl:when test="$thisaccid = 'sharp-sharp'">ss</xsl:when>
+            <xsl:when test="$thisaccid = 'flat-flat'">ff</xsl:when>
+            <xsl:when test="$thisaccid = 'natural-sharp'">ns</xsl:when>
+            <xsl:when test="$thisaccid = 'natural-flat'">nf</xsl:when>
+            <xsl:when test="$thisaccid = 'quarter-flat'">fd</xsl:when>
+            <xsl:when test="$thisaccid = 'quarter-sharp'">su</xsl:when>
+          </xsl:choose>
+        </xsl:attribute>
+        <xsl:call-template name="position"/>
+        <!-- Accid element must allow rend in order to use fontproperties
+        <xsl:call-template name="fontproperties"/> -->
+      </accid>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="articulations">
+    <!-- This template creates artic sub-elements so that placement of the articulations
+    can be recorded. -->
+    <xsl:for-each select="notations/articulations/*">
+      <artic xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:choose>
+          <xsl:when test="name()='accent'">
+            <xsl:attribute name="artic">acc</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='strong-accent'">
+            <xsl:attribute name="artic">marc</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='staccato'">
+            <xsl:attribute name="artic">stacc</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='tenuto'">
+            <xsl:attribute name="artic">ten</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='detached-legato'">
+            <xsl:attribute name="artic">ten-stacc</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='staccatissimo'">
+            <xsl:attribute name="artic">stacciss</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+        </xsl:choose>
+        <xsl:call-template name="position"/>
+        <!-- The artic element must allow rend in order to use fontproperties -->
+        <!-- <xsl:call-template name="fontproperties"/> -->
+      </artic>
+    </xsl:for-each>
+
+    <xsl:for-each select="notations/technical/*[not(name()='string' or name()='fret' or
+      name()='pull-off')]">
+      <!-- Tests for string and jazz articulations and for notation/technical elements
+      other than tab string and fret indications and pull-offs which are handled elsewhere.
+      What about hammer-ons? -->
+      <artic>
+        <xsl:choose>
+          <xsl:when test="name()='up-bow'">
+            <xsl:attribute name="artic">upbow</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='down-bow'">
+            <xsl:attribute name="artic">dnbow</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='harmonic'">
+            <xsl:attribute name="artic">harm</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='open-string'">
+            <xsl:attribute name="artic">open</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='snap-pizzicato'">
+            <xsl:attribute name="artic">snap</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='tap'">
+            <xsl:attribute name="artic">tap</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='pluck'">
+            <xsl:attribute name="artic">lhpizz</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='double-tongue'">
+            <xsl:attribute name="artic">dbltongue</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='triple-tongue'">
+            <xsl:attribute name="artic">trpltongue</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='stopped'">
+            <xsl:attribute name="artic">stop</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='bend'">
+            <xsl:attribute name="artic">bend</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='heel'">
+            <xsl:attribute name="artic">heel</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='toe'">
+            <xsl:attribute name="artic">toe</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="name()='fingernails'">
+            <xsl:attribute name="artic">fingernail</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+        </xsl:choose>
+        <xsl:call-template name="position"/>
+        <!-- The artic element must allow rend in order to use fontproperties -->
+        <!-- <xsl:call-template name="fontproperties"/> -->
+      </artic>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="assignPart-Layer-Staff-Beam-Tuplet">
+    <xsl:variable name="partID">
+      <xsl:value-of select="ancestor::part[1]/@id"/>
+    </xsl:variable>
+
+    <!-- Part assignment -->
+    <xsl:attribute name="part">
+      <xsl:value-of select="$partID"/>
+    </xsl:attribute>
+
+    <!-- Staff assignment -->
+    <xsl:variable name="partStaff">
+      <xsl:choose>
+        <xsl:when test="staff">
+          <xsl:value-of select="staff"/>
+        </xsl:when>
+        <xsl:otherwise>1</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:attribute name="staff">
+      <xsl:call-template name="getStaffnum">
+        <xsl:with-param name="partID">
+          <xsl:value-of select="$partID"/>
+        </xsl:with-param>
+        <xsl:with-param name="partStaff">
+          <xsl:value-of select="$partStaff"/>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:attribute>
+
+    <!-- Layer (voice) assignment -->
+    <!-- This is a voice within a part, not a layer on a staff as in MEI. -->
+    <xsl:variable name="thisvoice">
+      <xsl:choose>
+        <xsl:when test="voice">
+          <xsl:value-of select="voice"/>
+        </xsl:when>
+        <xsl:otherwise>1</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:attribute name="layer">
+      <xsl:value-of select="$thisvoice"/>
+    </xsl:attribute>
+
+    <!-- Beam assignment -->
+    <!-- MEI only records the start, continuation, and end of the primary beam -->
+    <xsl:choose>
+      <xsl:when test="beam[@number='1']='begin'">
+        <!--<xsl:variable name="beamlevel">
+          <xsl:value-of select="(count(preceding-sibling::*[beam[@number='1']='begin' and
+            voice=$thisvoice]) + 1) - count(preceding-sibling::*[beam[@number='1']='end' and
+            voice=$thisvoice])"/>
+        </xsl:variable>-->
+        <xsl:attribute name="beam">
+          <xsl:text>i</xsl:text>
+          <!--<xsl:value-of select="$beamlevel"/>-->
+        </xsl:attribute>
+      </xsl:when>
+      <xsl:when test="beam[@number ='1']='continue'">
+        <!--<xsl:variable name="beamlevel">
+          <xsl:value-of select="count(preceding-sibling::*[beam[@number='1']='begin' and
+            voice=$thisvoice]) - count(preceding-sibling::*[beam[@number='1']='end' and
+            voice=$thisvoice])"/>
+        </xsl:variable>-->
+        <xsl:attribute name="beam">
+          <xsl:text>m</xsl:text>
+          <!--<xsl:value-of select="$beamlevel"/>-->
+        </xsl:attribute>
+      </xsl:when>
+      <xsl:when test="beam[@number='1']='end'">
+        <!--<xsl:variable name="beamlevel">
+          <xsl:value-of select="count(preceding-sibling::*[beam[@number='1']='begin' and
+            voice=$thisvoice]) - count(preceding-sibling::*[beam[@number='1']='end' and
+            voice=$thisvoice])"/>
+        </xsl:variable>-->
+        <xsl:attribute name="beam">
+          <xsl:text>t</xsl:text>
+          <!--<xsl:value-of select="$beamlevel"/>-->
+        </xsl:attribute>
+      </xsl:when>
+      <xsl:when test="rest and (preceding-sibling::*[beam][1]/beam='begin' or
+        preceding-sibling::*[beam][1]/beam='continue') and
+        (following-sibling::*[beam][1]/beam='end' or following-sibling::*[beam][1]/beam='continue')">
+        <!-- In MusicXML rests under a beam do not have a 'continue' beam element so this data has to be supplied. -->
+        <xsl:if test="preceding-sibling::*[beam][1]/voice=$thisvoice and
+          following-sibling::*[beam][1]/voice=$thisvoice">
+          <!--<xsl:variable name="beamlevel">
+            <xsl:value-of select="count(preceding-sibling::*[beam[@number='1']='begin' and
+              voice=$thisvoice]) - count(preceding-sibling::*[beam[@number='1']='end' and
+              voice=$thisvoice])"/>
+          </xsl:variable>-->
+          <xsl:attribute name="beam">m<!--<xsl:value-of select="$beamlevel"/>--></xsl:attribute>
+        </xsl:if>
+      </xsl:when>
+    </xsl:choose>
+
+    <!-- Tuplet attribute -->
+    <xsl:if test="notations/tuplet or time-modification">
+      <xsl:attribute name="tuplet">
+        <xsl:choose>
+          <xsl:when test="notations/tuplet[@type='start']">
+            <xsl:text>i</xsl:text>
+            <xsl:choose>
+              <xsl:when test="notations/tuplet/@number">
+                <xsl:value-of select="notations/tuplet/@number"/>
+              </xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:when test="notations/tuplet[@type='stop']">
+            <xsl:text>t</xsl:text>
+            <xsl:choose>
+              <xsl:when test="notations/tuplet/@number">
+                <xsl:value-of select="notations/tuplet/@number"/>
+              </xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:otherwise>
+            <!-- MusicXML doesn't have a tuplet of type 'continue' -->
+            <xsl:text>m</xsl:text>
+            <xsl:choose>
+              <xsl:when test="preceding::note[notations/tuplet][1]/notations/tuplet/@number">
+                <xsl:value-of select="preceding::note[notations/tuplet][1]/notations/tuplet/@number"
+                />
+              </xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="credit">
@@ -2258,143 +3402,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:call-template name="credit"/>
         </xsl:for-each>
       </pgFoot2>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template name="getstaffnum">
-    <!-- Assign a staff number from $defaultLayout -->
-    <xsl:param name="partID">P1</xsl:param>
-    <xsl:param name="partstaff">1</xsl:param>
-
-    <!--<xsl:variable name="ingroup">
-      <xsl:value-of
-        select="$defaultLayout//staffGrp[@xml:id=$partID]/staffDef[position()=$partstaff]/@n"/>
-    </xsl:variable>
-    <xsl:variable name="indef">
-      <xsl:value-of select="$defaultLayout//staffDef[@xml:id=$partID]/@n"/>
-    </xsl:variable>
-    <xsl:choose>
-      <xsl:when test="$ingroup != ''">
-        <xsl:value-of select="$ingroup"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:value-of select="$indef"/>
-      </xsl:otherwise>
-    </xsl:choose>-->
-  </xsl:template>
-
-  <xsl:template name="greatestCommonDenominator">
-    <xsl:param name="a"/>
-    <xsl:param name="b"/>
-    <xsl:variable name="min">
-      <xsl:value-of select="min(($a, $b))"/>
-    </xsl:variable>
-    <xsl:variable name="max">
-      <xsl:value-of select="max(($a, $b))"/>
-    </xsl:variable>
-    <xsl:variable name="x">
-      <xsl:value-of select="$max - $min"/>
-    </xsl:variable>
-    <xsl:choose>
-      <xsl:when test="$x = $min">
-        <xsl:value-of select="$x"/>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:call-template name="greatestCommonDenominator">
-          <xsl:with-param name="a">
-            <xsl:value-of select="$min"/>
-          </xsl:with-param>
-          <xsl:with-param name="b">
-            <xsl:value-of select="$x"/>
-          </xsl:with-param>
-        </xsl:call-template>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <xsl:template name="leastCommonMultiple">
-    <xsl:param name="in"/>
-    <xsl:choose>
-      <xsl:when test="count($in//divisions) &gt; 2">
-        <xsl:variable name="out">
-          <xsl:for-each select="$in//divisions[position() &lt; last()]">
-            <xsl:variable name="a">
-              <xsl:value-of select="."/>
-            </xsl:variable>
-            <xsl:variable name="b">
-              <xsl:value-of select="following-sibling::divisions[1]"/>
-            </xsl:variable>
-            <xsl:variable name="y">
-              <xsl:call-template name="greatestCommonDenominator">
-                <xsl:with-param name="a">
-                  <xsl:value-of select="$a"/>
-                </xsl:with-param>
-                <xsl:with-param name="b">
-                  <xsl:value-of select="$b"/>
-                </xsl:with-param>
-              </xsl:call-template>
-            </xsl:variable>
-            <divisions>
-              <xsl:value-of select="($a * $b) div $y"/>
-            </divisions>
-          </xsl:for-each>
-        </xsl:variable>
-        <xsl:call-template name="leastCommonMultiple">
-          <xsl:with-param name="in">
-            <xsl:copy-of select="$out"/>
-          </xsl:with-param>
-        </xsl:call-template>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:variable name="a">
-          <xsl:value-of select="$in//divisions[1]"/>
-        </xsl:variable>
-        <xsl:variable name="b">
-          <xsl:value-of select="$in//divisions[2]"/>
-        </xsl:variable>
-        <xsl:variable name="y">
-          <xsl:call-template name="greatestCommonDenominator">
-            <xsl:with-param name="a">
-              <xsl:value-of select="$a"/>
-            </xsl:with-param>
-            <xsl:with-param name="b">
-              <xsl:value-of select="$b"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:value-of select="($a * $b) div $y"/>
-      </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
-
-  <xsl:template name="makeStaff">
-    <!-- This template is called recursively to create the desired number
-      of staves for a part. -->
-    <xsl:param name="partID"/>
-    <xsl:param name="needed">1</xsl:param>
-    <xsl:param name="made">0</xsl:param>
-    <xsl:if test="$made &lt; $needed">
-      <staffDef xmlns="http://www.music-encoding.org/ns/mei">
-        <xsl:call-template name="defaultStaffAttributes">
-          <xsl:with-param name="partID">
-            <xsl:value-of select="$partID"/>
-          </xsl:with-param>
-          <xsl:with-param name="staffNum">
-            <xsl:value-of select="string($made + 1)"/>
-          </xsl:with-param>
-        </xsl:call-template>
-      </staffDef>
-      <xsl:call-template name="makeStaff">
-        <xsl:with-param name="partID">
-          <xsl:value-of select="$partID"/>
-        </xsl:with-param>
-        <xsl:with-param name="needed">
-          <xsl:value-of select="$needed"/>
-        </xsl:with-param>
-        <xsl:with-param name="made">
-          <xsl:value-of select="$made + 1"/>
-        </xsl:with-param>
-      </xsl:call-template>
     </xsl:if>
   </xsl:template>
 
@@ -2721,6 +3728,248 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template name="fermata">
+    <!-- Is there a fermata? -->
+    <xsl:for-each select="notations/fermata[1]">
+      <xsl:choose>
+        <xsl:when test="@type='upright'">
+          <xsl:attribute name="fermata">above</xsl:attribute>
+        </xsl:when>
+        <xsl:when test="@type='inverted'">
+          <xsl:attribute name="fermata">below</xsl:attribute>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="gesturalDuration">
+    <!-- Gestural duration -->
+    <xsl:attribute name="dur.ges">
+      <xsl:choose>
+        <xsl:when test="grace">
+          <xsl:text>0</xsl:text>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="duration"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
+  </xsl:template>
+
+  <xsl:template name="getStaffnum">
+    <!-- Assign a staff number from $defaultLayout -->
+    <xsl:param name="partID">P1</xsl:param>
+    <xsl:param name="partStaff">1</xsl:param>
+    <xsl:choose>
+      <xsl:when test="local-name($defaultLayout//*[@xml:id=$partID])='staffDef'">
+        <xsl:value-of select="$defaultLayout//*[@xml:id=$partID]/@n"/>
+      </xsl:when>
+      <xsl:when test="local-name($defaultLayout//*[@xml:id=$partID])='staffGrp'">
+        <xsl:value-of
+          select="$defaultLayout//*[@xml:id=$partID]//mei:staffDef[position()=$partStaff]/@n"/>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="getTimestamp.ges">
+    <!-- Assign a timestamp. -->
+    <xsl:variable name="thisPart">
+      <xsl:value-of select="ancestor::part[1]/@id"/>
+    </xsl:variable>
+    <xsl:variable name="divisions">
+      <xsl:choose>
+        <xsl:when test="ancestor::measure[1]/part[@id=$thisPart]/attributes/divisions">
+          <xsl:value-of select="ancestor::measure[1]/part[@id=$thisPart]/attributes/divisions"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of
+            select="preceding::measure[part[@id=$thisPart][attributes/divisions]][1]/part[@id=$thisPart]/attributes/divisions"
+          />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:variable name="dursum">
+      <xsl:value-of select="sum(preceding-sibling::note[not(chord)]/duration) +
+        sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duration)"/>
+    </xsl:variable>
+    <xsl:value-of select="round-half-to-even($dursum,3)"/>
+  </xsl:template>
+
+  <xsl:template name="greatestCommonDenominator">
+    <xsl:param name="a"/>
+    <xsl:param name="b"/>
+    <xsl:variable name="min">
+      <xsl:value-of select="min(($a, $b))"/>
+    </xsl:variable>
+    <xsl:variable name="max">
+      <xsl:value-of select="max(($a, $b))"/>
+    </xsl:variable>
+    <xsl:variable name="x">
+      <xsl:value-of select="$max - $min"/>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="$x = $min">
+        <xsl:value-of select="$x"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:call-template name="greatestCommonDenominator">
+          <xsl:with-param name="a">
+            <xsl:value-of select="$min"/>
+          </xsl:with-param>
+          <xsl:with-param name="b">
+            <xsl:value-of select="$x"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="leastCommonMultiple">
+    <xsl:param name="in"/>
+    <xsl:choose>
+      <xsl:when test="count($in//divisions) &gt; 2">
+        <xsl:variable name="out">
+          <xsl:for-each select="$in//divisions[position() &lt; last()]">
+            <xsl:variable name="a">
+              <xsl:value-of select="."/>
+            </xsl:variable>
+            <xsl:variable name="b">
+              <xsl:value-of select="following-sibling::divisions[1]"/>
+            </xsl:variable>
+            <xsl:variable name="y">
+              <xsl:call-template name="greatestCommonDenominator">
+                <xsl:with-param name="a">
+                  <xsl:value-of select="$a"/>
+                </xsl:with-param>
+                <xsl:with-param name="b">
+                  <xsl:value-of select="$b"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:variable>
+            <divisions>
+              <xsl:value-of select="($a * $b) div $y"/>
+            </divisions>
+          </xsl:for-each>
+        </xsl:variable>
+        <xsl:call-template name="leastCommonMultiple">
+          <xsl:with-param name="in">
+            <xsl:copy-of select="$out"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:variable name="a">
+          <xsl:value-of select="$in//divisions[1]"/>
+        </xsl:variable>
+        <xsl:variable name="b">
+          <xsl:value-of select="$in//divisions[2]"/>
+        </xsl:variable>
+        <xsl:variable name="y">
+          <xsl:call-template name="greatestCommonDenominator">
+            <xsl:with-param name="a">
+              <xsl:value-of select="$a"/>
+            </xsl:with-param>
+            <xsl:with-param name="b">
+              <xsl:value-of select="$b"/>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:value-of select="($a * $b) div $y"/>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="makeStaff">
+    <!-- This template is called recursively to create the desired number
+      of staves for a part. -->
+    <xsl:param name="partID"/>
+    <xsl:param name="needed">1</xsl:param>
+    <xsl:param name="made">0</xsl:param>
+    <xsl:if test="$made &lt; $needed">
+      <staffDef xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:call-template name="defaultStaffAttributes">
+          <xsl:with-param name="partID">
+            <xsl:value-of select="$partID"/>
+          </xsl:with-param>
+          <xsl:with-param name="staffNum">
+            <xsl:value-of select="string($made + 1)"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </staffDef>
+      <xsl:call-template name="makeStaff">
+        <xsl:with-param name="partID">
+          <xsl:value-of select="$partID"/>
+        </xsl:with-param>
+        <xsl:with-param name="needed">
+          <xsl:value-of select="$needed"/>
+        </xsl:with-param>
+        <xsl:with-param name="made">
+          <xsl:value-of select="$made + 1"/>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="notatedDot">
+    <!-- Notated dotted values -->
+    <xsl:if test="dot">
+      <xsl:attribute name="dots">
+        <xsl:value-of select="count(dot)"/>
+      </xsl:attribute>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="notatedDuration">
+    <!-- Notated duration derived from type element -->
+    <xsl:choose>
+      <xsl:when test="normalize-space(type) = 'long'">
+        <xsl:text>long</xsl:text>
+      </xsl:when>
+      <xsl:when test="normalize-space(type) = 'breve'">
+        <xsl:text>breve</xsl:text>
+      </xsl:when>
+      <xsl:when test="normalize-space(type) = 'whole'">
+        <xsl:text>1</xsl:text>
+      </xsl:when>
+      <xsl:when test="normalize-space(type) = 'half'">
+        <xsl:text>2</xsl:text>
+      </xsl:when>
+      <xsl:when test="normalize-space(type) = 'quarter'">
+        <xsl:text>4</xsl:text>
+      </xsl:when>
+      <xsl:when test="normalize-space(type) = 'eighth'">
+        <xsl:text>8</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:analyze-string select="normalize-space(type)" regex="^([0-9]+)(.*)$">
+          <xsl:matching-substring>
+            <xsl:value-of select="regex-group(1)"/>
+          </xsl:matching-substring>
+        </xsl:analyze-string>
+      </xsl:otherwise>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="position">
+    <!-- Make positional attributes -->
+    <!-- <xsl:if test="@default-x">
+      <xsl:attribute name="x"><xsl:value-of select="@default-x div 10"/></xsl:attribute>
+    </xsl:if> -->
+    <xsl:if test="@relative-x">
+      <xsl:attribute name="ho">
+        <xsl:value-of select="@relative-x div 10"/>
+      </xsl:attribute>
+    </xsl:if>
+    <!-- <xsl:if test="@default-y">
+      <xsl:attribute name="y"><xsl:value-of select="@default-y div 10"/></xsl:attribute>
+    </xsl:if> -->
+    <xsl:if test="@relative-y">
+      <xsl:attribute name="vo">
+        <xsl:value-of select="@relative-y div 10"/>
+      </xsl:attribute>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template name="resolveGrpSym">
     <!-- This template is called recursively as long as there are grpSym elements in the
       tree fragment passed to it -->
@@ -2843,6 +4092,28 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         </xsl:choose>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="restvo">
+    <!-- This template only applies to rests! -->
+    <!-- Right now vertical position is a copy of the display-step and
+         display-octave elements. -->
+    <!-- Ought to calculate from relative-y, absolute-y being unwieldy when it
+         comes to transposing parts; however, relative-y isn't used in the Beyond
+         MIDI examples. -->
+    <xsl:if test="rest/display-step">
+      <xsl:attribute name="vo">
+        <xsl:value-of select="rest/display-step"/>
+        <xsl:value-of select="rest/display-octave"/>
+      </xsl:attribute>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template name="size">
+    <!-- Notehead size -->
+    <xsl:if test="cue or type/@size='cue'">
+      <xsl:attribute name="size">cue</xsl:attribute>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="textProperties1">
