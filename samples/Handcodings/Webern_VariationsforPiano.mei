@@ -104,6 +104,65 @@
                             dbkey="118629786">Anton Webern</persName>
                     </respStmt>
                 </titleStmt>
+                <key/>
+                <tempo mm="160">Sehr Schnell</tempo>
+                <meter count="2" unit="4"/>
+                <incip>
+                    <score>
+                        <scoreDef>
+                            <staffGrp symbol="brace">
+                                <staffDef n="1" clef.shape="G" clef.line="2" lines="5"/>
+                                <staffDef n="2" clef.shape="F" clef.line="4" lines="5"/>
+                            </staffGrp>
+                        </scoreDef>
+                        <section>
+                            <measure metcon="false" n="0" type="upbeat">
+                                <staff n="1">
+                                    <layer>
+                                        <clef shape="F" line="4"/>
+                                        <space dur="8"/>
+                                        <note pname="g" oct="3" dur="8" stem.dir="down" accid="s"
+                                            xml:id="m0_s1_e1a"/>
+                                    </layer>
+                                </staff>
+                                <staff n="2">
+                                    <layer>
+                                        <clef shape="G" line="2"/>
+                                        <note pname="b" oct="5" dur="8" accid="f" xml:id="m0_s2_e1a"/>
+                                        <space dur="8"/>
+                                    </layer>
+                                </staff>
+                                <dir staff="1" place="above" type="bold">Sehr schnell</dir>
+                                <slur staff="1" startid="m0_s2_e1a" endid="m0_s2_e1a"/>
+                                <beamSpan staff="1" startid="#m0_s2_e1a" endid="#m0_s1_e1a"
+                                    beam.with="below"/>
+                            </measure>
+                            <measure n="1" left="rptstart" xml:id="m1a">
+                                <staffDef n="1" clef.shape="G" clef.line="2"/>
+                                <staff n="1">
+                                    <layer>
+                                        <space dur="8"/>
+                                        <note pname="a" oct="4" dur="8" xml:id="m1_s1_e1a" accid="n"
+                                            artic="stacc"/>
+                                        <rest dur="8"/>
+                                    </layer>
+                                </staff>
+                                <staff n="2">
+                                    <layer>
+                                        <rest dur="8"/>
+                                        <note pname="a" oct="4" dur="8" accid="n" artic="stacc"
+                                            xml:id="m1_s2_e2a"/>
+                                        <space dur="8"/>
+                                        <clef shape="F" line="4"/>
+                                    </layer>
+                                </staff>
+                                <dynam staff="1" place="below">p</dynam>
+                                <beamSpan staff="1" beam.with="below" startid="#m1_s2_e2a"
+                                    endid="#m1_s1_e1a"/>
+                            </measure>
+                        </section>
+                    </score>
+                </incip>
             </work>
         </workDesc>
         <revisionDesc>
@@ -129,7 +188,7 @@
                         </staffGrp>
                     </scoreDef>
                     <section>
-                        <measure metcon="false" n="0" type="upbeat" right="dbldashed">
+                        <measure metcon="false" n="0" type="upbeat">
                             <staff n="1">
                                 <layer>
                                     <clef shape="F" line="4"/>
@@ -150,7 +209,7 @@
                             <beamSpan staff="1" startid="#m0_s2_e1" endid="#m0_s1_e1"
                                 beam.with="below"/>
                         </measure>
-                        <measure n="1" left="dbldotted" xml:id="m1">
+                        <measure n="1" left="rptstart" xml:id="m1">
                             <staffDef n="1" clef.shape="G" clef.line="2"/>
                             <staff n="1">
                                 <layer>
@@ -418,7 +477,7 @@
                             <slur staff="1" startid="#m10_s1_e1" endid="#m10_s1_e3" curvedir="above"
                             />
                         </measure>
-                        <measure n="11" right="dbldotted" barplace="staff" next="m1" xml:id="m11">
+                        <measure n="11" right="rptend" barplace="staff" next="m1" xml:id="m11">
                             <staff n="1">
                                 <layer>
                                     <rest dur="4"/>

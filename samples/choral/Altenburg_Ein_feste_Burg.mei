@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../trunk/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
    <meiHead>
@@ -121,12 +121,102 @@
       <workDesc>
          <work>
             <titleStmt>
+               <title>Ein feste Burg ist unser Gott</title>
                <title type="uniform"/>
                <respStmt>
                   <persName role="composer" dbkey="11864839X" authURI="http://d-nb.info/gnd"
                      authority="GND">Michael Altenburg</persName>
                </respStmt>
             </titleStmt>
+            <key pname="c" mode="major"/>
+            <tempo/>
+            <meter count="4" unit="4" sym="common"/>
+            <incip>
+               <score>
+                  <scoreDef meter.count="4" meter.unit="4" meter.sym="common" key.sig="0"
+                     key.mode="major">
+                     <staffGrp>
+                        <staffGrp symbol="brace" barthru="true">
+                           <staffDef n="1" clef.line="2" clef.shape="G" key.sig="0" lines="5"
+                              label="Trompete 1" label.abbr="Tr 1"/>
+                           <staffDef n="2" clef.line="2" clef.shape="G" key.sig="0" lines="5"
+                              label="Trompete 2" label.abbr="Tr 2"/>
+                           <staffDef n="3" clef.line="2" clef.shape="G" key.sig="0" lines="5"
+                              label="Trompete 3" label.abbr="Tr 3"/>
+                        </staffGrp>
+                        <staffGrp symbol="bracket" barthru="true">
+                           <staffDef n="4" clef.shape="G" clef.dis="8" clef.dis.place="below"
+                              clef.line="2" label="Pos1 Tro 4" key.sig="0" label.abbr="P 1 Tr 4"
+                              lines="5"/>
+                           <staffDef n="5" clef.line="4" clef.shape="F" lines="5" key.sig="0"
+                              label="Posaune 2" label.abbr="Pos 2"/>
+                           <staffDef n="6" label="Posaune 3" label.abbr="Pos 3" clef.line="4"
+                              clef.shape="F" key.sig="0" lines="5"/>
+                        </staffGrp>
+                     </staffGrp>
+                  </scoreDef>
+                  <section>
+                     <measure n="1">
+                        <staff n="1">
+                           <layer n="1">
+                              <beam>
+                                 <note pname="c" oct="5" dur="8"/>
+                                 <note pname="d" oct="5" dur="8"/>
+                              </beam>
+                              <note pname="e" oct="5" dur="4"/>
+                              <beam>
+                                 <note pname="e" oct="5" dur="8"/>
+                                 <note pname="f" oct="5" dur="8"/>
+                              </beam>
+                              <note pname="g" oct="5" dur="4"/>
+                           </layer>
+                        </staff>
+                        <staff n="2">
+                           <layer n="1">
+                              <beam>
+                                 <note pname="e" oct="4" dur="8"/>
+                                 <note pname="f" oct="4" dur="8"/>
+                              </beam>
+                              <note pname="g" oct="4" dur="4"/>
+                              <beam>
+                                 <note pname="g" oct="4" dur="8"/>
+                                 <note pname="f" oct="4" dur="8"/>
+                                 <note pname="e" oct="4" dur="8"/>
+                                 <note pname="d" oct="4" dur="8"/>
+                              </beam>
+                           </layer>
+                        </staff>
+                        <staff n="3">
+                           <layer n="1">
+                              <rest dur="2"/>
+                              <beam>
+                                 <note pname="c" oct="5" dur="8"/>
+                                 <note pname="d" oct="5" dur="8"/>
+                              </beam>
+                              <note pname="e" oct="5" dur="4"/>
+                           </layer>
+                        </staff>
+                        <staff n="4">
+                           <layer n="1">
+                              <mRest dur="1"/>
+                           </layer>
+                        </staff>
+                        <staff n="5">
+                           <layer n="1">
+                              <note pname="c" oct="4" dur="1"/>
+                           </layer>
+                        </staff>
+                        <staff n="6">
+                           <layer n="1">
+                              <note pname="c" oct="3" dur="1"/>
+                           </layer>
+                        </staff>
+                        <dir tstamp="1" place="above" staff="1"> Ein feste Burg ist unser Gott
+                        </dir>
+                     </measure>
+                  </section>
+               </score>
+            </incip>
          </work>
       </workDesc>
       <revisionDesc>
@@ -266,7 +356,7 @@
                            <rend fontfam="Arial" fontsize="16">Ein feste Burg ist unser Gott</rend>
                         </title>
                      </dir>
-                     <slur tstamp="11" dur="0m+13.5" curvedir="below" startid="d16531e298"
+                     <slur tstamp="2.5" dur="0m+3" curvedir="below" startid="d16531e298"
                         endid="d16531e316" staff="2"/>
                   </measure>
                   <measure n="2" xml:id="d16531e570">
