@@ -137,8 +137,8 @@
                                 </staff>
                                 <staff n="2" xml:id="m1_s2_a">
                                     <layer>
-                                        <tuplet num="3" num.place="below" num.visible="true"
-                                            bracket.visible="false">
+                                        <tuplet num="3" numbase="2" num.place="below"
+                                            num.visible="true" bracket.visible="false">
                                             <beam>
                                                 <chord stem.dir="up" xml:id="m1_s2_c1_a">
                                                   <note pname="g" oct="3" dur="8"/>
@@ -154,9 +154,9 @@
                                                 </chord>
                                             </beam>
                                         </tuplet>
-                                        <tuplet copyof="m1_s2_e1_a"/>
-                                        <tuplet copyof="m1_s2_e1_a"/>
-                                        <tuplet copyof="m1_s2_e1_a"/>
+                                        <tuplet copyof="#m1_s2_e1_a"/>
+                                        <tuplet copyof="#m1_s2_e1_a"/>
+                                        <tuplet copyof="#m1_s2_e1_a"/>
                                     </layer>
                                 </staff>
                                 <staff n="3">
@@ -219,7 +219,7 @@
                             </staff>
                             <staff n="2" xml:id="m1_s2">
                                 <layer>
-                                    <tuplet num="3" num.place="below" num.visible="true"
+                                    <tuplet num="3" numbase="2" num.place="below" num.visible="true"
                                         bracket.visible="false" xml:id="m1_s2_e1">
                                         <beam>
                                             <chord stem.dir="up" xml:id="m1_s2_c1">
@@ -236,9 +236,9 @@
                                             </chord>
                                         </beam>
                                     </tuplet>
-                                    <tuplet copyof="m1_s2_e1"/>
-                                    <tuplet copyof="m1_s2_e1"/>
-                                    <tuplet copyof="m1_s2_e1"/>
+                                    <tuplet copyof="#m1_s2_e1"/>
+                                    <tuplet copyof="#m1_s2_e1"/>
+                                    <tuplet copyof="#m1_s2_e1"/>
                                 </layer>
                             </staff>
                             <staff n="3">
@@ -276,7 +276,7 @@
                             </staff>
                             <staff n="3" xml:id="m2_s3">
                                 <layer>
-                                    <tuplet n="3" num.visible="true" num.place="below"
+                                    <tuplet num="3" numbase="2" num.visible="true" num.place="below"
                                         bracket.visible="false" xml:id="m2_s3_e1">
                                         <beam>
                                             <note pname="g" oct="2" dur="8" slur="i1" stem.dir="up"/>
@@ -284,7 +284,7 @@
                                             <note pname="b" oct="2" dur="8" stem.dir="up"/>
                                         </beam>
                                     </tuplet>
-                                    <tuplet n="3" num.visible="true" num.place="below"
+                                    <tuplet num="3" numbase="2" num.visible="true" num.place="below"
                                         bracket.visible="false" xml:id="m2_s3_e2">
                                         <beam>
                                             <note pname="c" oct="3" dur="8" stem.dir="up"/>
@@ -486,14 +486,14 @@
                             </staff>
                             <staff n="3" xml:id="m15_s3">
                                 <layer>
-                                    <tuplet>
+                                    <tuplet num="3" num.visible="false" numbase="2">
                                         <beam>
                                             <note pname="d" oct="2" dur="8" xml:id="m15_s3_e1"/>
                                             <note pname="f" oct="2" dur="8" accid="s"/>
                                             <note pname="g" oct="2" dur="8"/>
                                         </beam>
                                     </tuplet>
-                                    <tuplet>
+                                    <tuplet num="3" numbase="2" num.visible="false">
                                         <beam>
                                             <note pname="a" oct="2" dur="8"/>
                                             <note pname="b" oct="2" dur="8" accid="n"/>
@@ -504,7 +504,7 @@
                                     <note pname="d" oct="3" dur="2" tie="i" stem.dir="up"/>
                                 </layer>
                             </staff>
-                            <slur staff="3" startid="m15_s3_e1" curvedir="below" endid="m15_s3_e6"/>
+                            <slur staff="3" startid="#m15_s3_e1" curvedir="below" endid="#m15_s3_e6"/>
                             <hairpin form="dim" staff="3" place="below" tstamp="3" dur="0m+4"/>
                         </measure>
                         <measure n="16" xml:id="m16">

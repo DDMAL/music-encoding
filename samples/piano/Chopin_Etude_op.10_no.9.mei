@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
    <meiHead>
@@ -65,8 +65,8 @@
                   </respStmt>
                </titleStmt>
                <pubStmt>
-                  <identifier type="URI"/>
-                  <!--http://kern.ccarh.org/cgi-bin/ksdata?l=users/craig/classical/chopin/etude&file=etude10-09.krn&f=xml-->
+                  <identifier type="URI" authority="KernScores"
+                     >http://kern.ccarh.org/cgi-bin/ksdata?l=users/craig/classical/chopin/etude&amp;file=etude10-09.krn&amp;f=xml</identifier>
                   <date>2011-05-12</date>
                   <respStmt>
                      <corpName>CCARH, Stanford University</corpName>
@@ -84,7 +84,7 @@
                <classification>
                   <termList>
                      <term classcode="#LoC_lcco">
-                        <identifier>M6-175.5</identifier>
+                        <identifier >M6-175.5</identifier>
                         <title>One solo instrument</title>
                      </term>
                   </termList>
@@ -113,8 +113,88 @@
                <respStmt>
                   <persName role="composer" dbkey="118520539" authority="GND"
                      authURI="http://d-nb.info/gnd">Frédéric Chopin</persName>
+                  <persName role="dedicatee" authority="GND" authURI="	http://d-nb.info/gnd/"
+                     dbkey="118573527">Franz Liszt</persName>
                </respStmt>
             </titleStmt>
+            <history>
+               <eventList>
+                  <event>Date of composition <date>1830-11</date></event>
+                  <event>Place first
+                        published<geogName>Leipzig</geogName>,<geogName>Paris</geogName>,and<geogName>London</geogName></event>
+               </eventList>
+            </history>
+            <key pname="f" mode="minor"/>
+            <tempo mm="96">Allegro molto agitato</tempo>
+            <meter count="6" unit="8"/>
+            <perfMedium>
+               <instrumentation>
+                  <instrVoice>Piano</instrVoice>
+               </instrumentation>
+            </perfMedium>
+            <incip>
+               <score>
+                  <scoreDef meter.count="6" meter.unit="8" key.sig="4f" key.mode="minor">
+                     <staffGrp symbol="brace" barthru="true">
+                        <staffDef n="1" clef.shape="G" lines="5" clef.line="2"/>
+                        <staffDef n="2" clef.line="4" clef.shape="F" lines="5"/>
+                     </staffGrp>
+                  </scoreDef>
+                  <section>
+                     <measure n="1">
+                        <staff n="1">
+                           <layer n="1">
+                              <rest dur="8"/>
+                              <beam>
+                                 <note pname="f" oct="4" dur="8" stem.dir="up">
+                                    <artic artic="stacc" place="below"/>
+                                 </note>
+                                 <note pname="g" oct="4" dur="8" stem.dir="up">
+                                    <artic artic="stacc" place="below"/>
+                                 </note>
+                              </beam>
+                              <rest dur="8"/>
+                              <beam>
+                                 <note pname="a" oct="4" dur="8" stem.dir="up" accid.ges="f">
+                                    <artic artic="stacc" place="below"/>
+                                 </note>
+                                 <note pname="b" oct="4" dur="8" stem.dir="up" accid.ges="f">
+                                    <artic artic="stacc" place="below"/>
+                                 </note>
+                              </beam>
+                           </layer>
+                        </staff>
+                        <staff n="2">
+                           <layer n="1">
+                              <beam>
+                                 <note pname="f" oct="2" dur="16" stem.dir="down"/>
+                                 <note pname="c" oct="3" dur="16" stem.dir="down"/>
+                                 <note pname="a" oct="3" dur="16" stem.dir="down" accid.ges="f"/>
+                                 <note pname="c" oct="3" dur="16" stem.dir="down"/>
+                                 <note pname="b" oct="3" dur="16" stem.dir="down" accid.ges="f"/>
+                                 <note pname="c" oct="3" dur="16" stem.dir="down"/>
+                              </beam>
+                              <beam>
+                                 <note pname="f" oct="2" dur="16" stem.dir="down"/>
+                                 <note pname="c" oct="3" dur="16" stem.dir="down"/>
+                                 <note pname="c" oct="4" dur="16" stem.dir="down"/>
+                                 <note pname="c" oct="3" dur="16" stem.dir="down"/>
+                                 <note pname="d" oct="4" dur="16" stem.dir="down" accid.ges="f"/>
+                                 <note pname="c" oct="3" dur="16" stem.dir="down"/>
+                              </beam>
+                           </layer>
+                        </staff>
+                        <dynam staff="1" place="below" tstamp="1">p</dynam>
+                        <dir staff="2" place="below" tstamp="1">legatissimo</dir>
+                        <dir staff="1" place="above" tstamp="1">Allegro molto agitato.</dir>
+                        <slur staff="1" curvedir="below" tstamp="2" dur="0m+3"/>
+                        <slur staff="1" curvedir="below" tstamp="5" dur="0m+6"/>
+                        <slur staff="2" curvedir="above" tstamp="0.5" dur="0m+3.5"/>
+                        <slur staff="2" curvedir="above" tstamp="4" dur="0m+6.5"/>
+                     </measure>
+                  </section>
+               </score>
+            </incip>
          </work>
       </workDesc>
       <revisionDesc>

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?xml-model href="mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
-   meiversion="2011-05">
+   meiversion="2012">
    <meiHead>
       <fileDesc>
          <titleStmt>
-            <title>Fröhlicher Landmann : an electronic transcription of the work by Robert
-               Schumann</title>
+            <title>Fröhlicher Landmann op. 68, No. 10 : an electronic transcription of the work by
+               Robert Schumann</title>
             <respStmt>
+               <persName role="composer" dbkey="118611666" authURI="http://d-nb.info/gnd"
+                  authority="Deusche Nationalbibliothek">Robert Schumann</persName>
                <persName role="creator">Maja Hartwig</persName>
             </respStmt>
          </titleStmt>
@@ -82,6 +84,13 @@
                      <useRestrict>Copyright 2001 by Craig Stuart Sapp</useRestrict>
                   </availability>
                </pubStmt>
+               <seriesStmt>
+                  <title>Album for the Youth</title>
+                  <respStmt>
+                     <persName role="composer" dbkey="118611666" authURI="http://d-nb.info/gnd"
+                        authority="Deusche Nationalbibliothek">Robert Schumann</persName>
+                  </respStmt>
+               </seriesStmt>
             </source>
          </sourceDesc>
       </fileDesc>
@@ -102,26 +111,79 @@
       </encodingDesc>
       <workDesc>
          <work>
+            <titleStmt>
+               <title>Fröhlicher Landmann</title>
+            </titleStmt>
             <history>
-               <creation/>
-               <eventList>
-                  <event/>
-               </eventList>
+               <creation>Date of composition<date>1848</date></creation>
             </history>
-            <classification>
-               <classCode/>
-               <termList>
-                  <term/>
-               </termList>
-            </classification>
-            <castList>
-               <castGrp>
-                  <castItem/>
-               </castGrp>
-            </castList>
-            <incip/>
-            <contents/>
-            <relatedItem/>
+            <key pname="f" mode="major"/>
+            <tempo>Frisch und munter</tempo>
+            <meter count="4" unit="4" sym="common"/>
+            <incip>
+               <score>
+                  <scoreDef meter.count="4" meter.unit="4" key.sig="1f" meter.sym="common">
+                     <staffGrp symbol="brace" barthru="true">
+                        <staffDef n="1" lines="5" clef.shape="G" clef.line="2"/>
+                        <staffDef n="2" lines="5" clef.shape="F" clef.line="4"/>
+                     </staffGrp>
+                  </scoreDef>
+                  <section>
+                     <measure n="1" type="upbeat" metcon="false">
+                        <staff n="1">
+                           <layer n="1">
+                              <rest dur="8"/>
+                           </layer>
+                        </staff>
+                        <staff n="2">
+                           <layer n="1">
+                              <note pname="c" oct="3" dur="8" stem.dir="up"/>
+                           </layer>
+                        </staff>
+                        <dynam staff="1" place="below" tstamp="1">f</dynam>
+                        <dir staff="1" place="above" tstamp="0.5">Frisch und munter</dir>
+                     </measure>
+                     <measure n="2">
+                        <staff n="1">
+                           <layer n="1">
+                              <rest dur="8"/>
+                              <chord dur="8" stem.dir="up">
+                                 <note pname="c" oct="4"/>
+                                 <note pname="f" oct="4"/>
+                                 <note pname="a" oct="4"/>
+                              </chord>
+                              <chord dur="8" stem.dir="up">
+                                 <note pname="c" oct="4"/>
+                                 <note pname="f" oct="4"/>
+                                 <note pname="a" oct="4"/>
+                              </chord>
+                              <rest dur="8"/>
+                              <rest dur="8"/>
+                              <chord dur="8" stem.dir="up">
+                                 <note pname="f" oct="4"/>
+                                 <note pname="a" oct="4"/>
+                                 <note pname="c" oct="5"/>
+                              </chord>
+                              <chord dur="8" stem.dir="up">
+                                 <note pname="f" oct="4"/>
+                                 <note pname="a" oct="4"/>
+                                 <note pname="c" oct="5"/>
+                              </chord>
+                              <rest dur="8"/>
+                           </layer>
+                        </staff>
+                        <staff n="2">
+                           <layer n="1">
+                              <note pname="f" oct="3" dur="4" dots="1" stem.dir="down"/>
+                              <note pname="a" oct="3" dur="8" stem.dir="down"/>
+                              <note pname="c" oct="4" dur="4" dots="1" stem.dir="down"/>
+                              <note pname="a" oct="3" dur="8" stem.dir="down"/>
+                           </layer>
+                        </staff>
+                     </measure>
+                  </section>
+               </score>
+            </incip>
          </work>
       </workDesc>
       <revisionDesc>

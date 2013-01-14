@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
-   <!-- Sonata in C major, 2/2, Allegro -->
-   <!--Woher stammt diese Quelle?, im PDF steht: Suite 1-->
    <meiHead>
-      <!--?-->
       <fileDesc>
          <titleStmt>
             <title>Sonata in C major, K. 514, L.1 : an electronic transcription of the work by
                Domenico Scarlatti</title>
-            <!--?-->
             <respStmt>
                <persName role="creator">Maja Hartwig</persName>
                <persName role="creator">Kristina Richts</persName>
@@ -83,8 +79,8 @@
                   </respStmt>
                </titleStmt>
                <pubStmt>
-                  <identifier type="URL"/>
-                  <!--http://kern.ccarh.org/cgi-bin/ksdata?l=users/craig/classical/scarlatti/longo&file=L001K514.krn&f=xml-->
+                  <identifier type="URL"
+                     >http://kern.ccarh.org/cgi-bin/ksdata?l=users/craig/classical/scarlatti/longo&amp;file=L001K514.krn&amp;f=xml</identifier>
                   <date>2011-10-13</date>
                   <respStmt>
                      <corpName>CCARH, Stanford University</corpName>
@@ -133,6 +129,58 @@
                      authority="GND">Domenico Scarlatti</persName>
                </respStmt>
             </titleStmt>
+            <key pname="c" mode="major"/>
+            <tempo mm="96">Allegro</tempo>
+            <meter count="2" unit="2" sym="cut"/>
+            <perfMedium>
+               <instrumentation>
+                  <instrVoice>Piano</instrVoice>
+               </instrumentation>
+            </perfMedium>
+            <incip>
+               <score>
+                  <scoreDef meter.count="2" meter.unit="2" meter.sym="common" key.sig="0">
+                     <staffGrp barthru="true" symbol="brace">
+                        <staffDef n="1" lines="5" clef.line="2" clef.shape="G"/>
+                        <staffDef n="2" lines="5" clef.shape="F" clef.line="4"/>
+                     </staffGrp>
+                  </scoreDef>
+                  <section>
+                     <measure n="1">
+                        <staff n="1">
+                           <layer n="1">
+                              <rest dur="8"/>
+                              <beam>
+                                 <note pname="c" oct="5" dur="8" stem.dir="down">
+                                    <artic artic="stacc" place="above"/>
+                                 </note>
+                                 <note pname="e" oct="5" dur="8" stem.dir="down">
+                                    <artic artic="stacc" place="above"/>
+                                 </note>
+                                 <note pname="g" oct="5" dur="8" stem.dir="down">
+                                    <artic artic="stacc" place="above"/>
+                                 </note>
+                              </beam>
+                              <note pname="c" oct="6" dur="2" stem.dir="down"/>
+                           </layer>
+                        </staff>
+                        <staff n="2">
+                           <layer n="1">
+                              <note pname="c" oct="3" dur="2" stem.dir="up"/>
+                              <rest dur="8"/>
+                              <beam>
+                                 <note pname="g" oct="4" dur="8" stem.dir="down"/>
+                                 <note pname="e" oct="4" dur="8" stem.dir="down"/>
+                                 <note pname="c" oct="4" dur="8" stem.dir="down"/>
+                              </beam>
+                           </layer>
+                        </staff>
+                        <slur staff="2" tstamp="2" dur="0m+2.5" curvedir="above"/>
+                        <dynam staff="1" place="below" tstamp="1">f</dynam>
+                     </measure>
+                  </section>
+               </score>
+            </incip>
          </work>
       </workDesc>
       <revisionDesc>
@@ -191,8 +239,8 @@
             <score>
                <scoreDef meter.count="2" meter.unit="2" meter.sym="common" key.sig="0">
                   <staffGrp barthru="true" symbol="brace">
-                     <staffDef n="1" xml:id="P1" lines="5"/>
-                     <staffDef n="2" xml:id="P2" lines="5"/>
+                     <staffDef n="1" xml:id="P1" lines="5" clef.line="2" clef.shape="G"/>
+                     <staffDef n="2" xml:id="P2" lines="5" clef.line="4" clef.shape="F"/>
                   </staffGrp>
                </scoreDef>
                <section>
@@ -507,9 +555,8 @@
                            <note xml:id="d1e1217" pname="g" oct="3" dur="2" stem.dir="down"/>
                            <beam>
                               <note pname="f" accid="s" oct="3" dur="16" grace="unknown"
-                                 stem.dir="up">
-                                 <note pname="g" oct="3" dur="16" grace="unknown" xml:id="die1219"/>
-                              </note>
+                                 stem.dir="up"/>
+                              <note pname="g" oct="3" dur="16" grace="unknown" xml:id="die1219"/>
                            </beam>
                            <clef shape="G" line="2"/>
                         </layer>
