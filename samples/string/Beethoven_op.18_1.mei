@@ -5,19 +5,18 @@
    <meiHead>
       <fileDesc>
          <titleStmt>
-            <title>Op. 18 no. 1 mvmnt 1</title>
+            <title>String Quartet No. 1</title>
+         	<title type="subtitle">Op. 18 No. 1</title>
+         	<title type="subtitle">an electronic transcription</title>
             <respStmt>
-               <resp>composed by: </resp>
-               <persName role="composer">Ludwig van Beethoven</persName>
-               <persName role="creator">Maja Hartwig</persName>
-               <persName role="creator">Kristina Richts</persName>
+               <persName role="creator">Ludwig van Beethoven</persName>
+               <persName role="encoder">Maja Hartwig</persName>
+               <persName role="encoder">Kristina Richts</persName>
             </respStmt>
          </titleStmt>
          <pubStmt>
             <respStmt>
-               <corpName dbkey="5115204-6" authURI="http://d-nb.info/gnd/5115204-6"
-                  authority="Deutsche Nationalbibliothek">Musikwissenschaftliches Seminar
-                  &lt;Detmold&gt;</corpName>
+               <corpName dbkey="5115204-6" authURI="http://d-nb.info/gnd/5115204-6" authority="Deutsche Nationalbibliothek">Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
             </respStmt>
             <address>
                   <addrLine>Gartenstrasse 20</addrLine>
@@ -37,27 +36,32 @@
             <title>MEI Sample Collection</title>
             <respStmt>
                <corpName role="publisher">MEI Project</corpName>
-               <corpName role="funder" dbkey="2007744-0" authURI="http://d-nb.info/gnd/2007744-0"
-                  authority="Deutsche Nationalbibliothek">German Research Foundation</corpName>
-               <corpName role="funder" dbkey="18183-3" authURI="http://d-nb.info/gnd/18183-3"
-                  authority="Deutsche Nationalbibliothek">National Endowment for the
-                  Humanities</corpName>
+               <corpName role="funder" dbkey="2007744-0" authURI="http://d-nb.info/gnd/2007744-0" authority="Deutsche Nationalbibliothek">German Research Foundation</corpName>
+               <corpName role="funder" dbkey="18183-3" authURI="http://d-nb.info/gnd/18183-3" authority="Deutsche Nationalbibliothek">National Endowment for the Humanities</corpName>
             </respStmt>
             <identifier>
-               <ref target="http://music-encoding.org/irgendEineUnterSeite"
-                  >http://music-encoding.org/irgendEineUnterSeite</ref>
+               <ref target="http://music-encoding.org/irgendEineUnterSeite">http://music-encoding.org/irgendEineUnterSeite</ref>
             </identifier>
          </seriesStmt>
          <sourceDesc>
             <source>
                <titleStmt>
-                  <title>Op. 18 no. 1 mvmnt 1</title>
+                  <title>String Quartet No. 1</title>
+               	<title type="subtitle">Op. 18 No. 1</title>
                   <respStmt>
-                     <resp>composer</resp>
-                     <name>Beethoven</name>
+                  	<persName role="composer" authority="GND" authURI="http://d-nb.info/gnd/" dbkey="118508288">Ludwig van Beethoven</persName>
+                  	<persName role="dedicatee">Franz Joseph Maximilian Fürst von Lobkowitz</persName>
                   </respStmt>
                </titleStmt>
-               <pubStmt/>
+            	<seriesStmt>
+            		<title>Sechs Quartette für 2 Violinen, Bratsche und Violoncell</title>
+            	</seriesStmt>
+            	<contents>
+            		<contentItem n="1">Allegro con brio</contentItem>
+            		<contentItem n="2">Adagio affettuoso ed appasionato</contentItem>
+            		<contentItem n="3">Scherzo. Allegro molto</contentItem>
+            		<contentItem n="4">Allegro</contentItem>
+            	</contents>
             </source>
          </sourceDesc>
       </fileDesc>
@@ -74,20 +78,25 @@
       </encodingDesc>
       <workDesc>
          <work>
-            <history>
-               <creation/>
-               <eventList>
-                  <event/>
-               </eventList>
+         	<titleStmt>
+         		<title>String Quartet No. 1</title>
+         		<title type="subtitle">Op. 18 No. 1</title>
+         	</titleStmt>
+         	<history>
+               <creation><date>1799</date></creation>
             </history>
-            <classification>
-               <classCode/>
-               <termList>
-                  <term/>
-               </termList>
-            </classification>
-            <incip/>
-            <contents/>
+         	<key pname="f" mode="major">F major</key>
+         	<tempo>Allegro con brio</tempo>
+         	<meter count="3" unit="4"/>
+         	<classification>
+         		<termList>
+         			<term classcode="#OCLC_DDC">
+         				<identifier>785</identifier>
+         				<title>Camber music</title>
+         			</term>
+         		</termList>
+         		<classCode xml:id="OCLC_DDC" authority="OCLC" authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
+         	</classification>
          </work>
       </workDesc>
       <revisionDesc>
@@ -96,8 +105,7 @@
                <persName resp="#MH"/>
             </respStmt>
             <changeDesc>
-               <p>Transformation with <ref target="#xsl_transformation">transformation.xsl</ref>,
-                  added a new scoreDef.</p>
+               <p>Transformation with <ref target="#xsl_transformation">transformation.xsl</ref>, added a new scoreDef.</p>
             </changeDesc>
             <date reg="2012-04-03"/>
          </change>
@@ -110,6 +118,15 @@
             </changeDesc>
             <date reg="2012-05-21"/>
          </change>
+      	<change n="3">
+      		<respStmt>
+      			<persName>Kristina Richts</persName>
+      		</respStmt>
+      		<changeDesc>
+      			<p>Revised the header.</p>
+      		</changeDesc>
+      		<date isodate="2013-01-25"/>
+      	</change>
       </revisionDesc>
    </meiHead>
    <music>
