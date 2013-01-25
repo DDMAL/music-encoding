@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../trunk/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
  meiversion="2012">
  <meiHead>
   <fileDesc>
    <titleStmt>
-    <title>Ein feste Burg ist unser Gott : an electronic transcription of the work by Johann
-     Sebastian Bach</title>
+    <title>Ein feste Burg ist unser Gott</title>
     <respStmt>
-     <persName role="creator">Maja Hartwig</persName>
+     <persName role="creator">Johann Sebastian Bach</persName>
+     <persName role="lyricist">Martin Luter</persName>
+     <persName role="encoder">Maja Hartwig</persName>
      <persName role="creator">Kristina Richts</persName>
     </respStmt>
    </titleStmt>
@@ -67,17 +68,17 @@
    <sourceDesc>
     <source>
      <titleStmt>
-      <title>Ein feste Burg ist unser Gott : an electronic transcription of the work by Johann
-       Sebastian Bach</title>
-      <title type="uniform">Choralbearbeitungen, BWV 714 - 740 &lt;Ein' feste Burg ist unser
-       Gott&gt;</title>
+      <title type="uniform">Choral Preludes</title>
+      <title type="BWV">BWV 714-765</title>
       <respStmt>
-       <persName role="" dbkey="11850553X" authURI="http://d-nb.info/gnd/11850553X" authority="GND"
-        >Johann Sebastian Bach</persName>
+       <persName role="composer" dbkey="11850553X" authURI="http://d-nb.info/gnd/11850553X"
+        authority="GND">Johann Sebastian Bach</persName>
       </respStmt>
      </titleStmt>
      <pubStmt>
-      <identifier type="URI">http://www.hausmusik.ch/schnellsuche?searchstring=Ein+feste+Burg+ist+unser+Gott&gt;submit=Suchen</identifier>
+      <identifier type="URI"
+       authURI="http://www.hausmusik.ch/notenregal/b/bach_joh_sebastian%281685-1750%29/bwv0525-0771_Orgelwerke/bwv0714-0740_Choralbearbeitungen/"
+       >http://www.hausmusik.ch/notenregal/b/bach_joh_sebastian%281685-1750%29/bwv0525-0771_Orgelwerke/bwv0714-0740_Choralbearbeitungen/</identifier>
       <date reg="2011-10-10"/>
       <respStmt>
        <corpName>Verein zur Förderung der Hausmusik</corpName>
@@ -90,16 +91,6 @@
        <useRestrict>©2007 Verein zur Förderung der Hausmusik</useRestrict>
       </availability>
      </pubStmt>
-     <classification>
-      <termList>
-       <term classcode="#OCLC_DDC"/>
-       <term classcode="#LoC_lcco"/>
-      </termList>
-      <classCode xml:id="LoC_lcco" authority="Library of Congress"
-       authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf"/>
-      <classCode xml:id="OCLC_DDC" authority="OCLC"
-       authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
-     </classification>
     </source>
    </sourceDesc>
   </fileDesc>
@@ -118,13 +109,144 @@
   <workDesc>
    <work>
     <titleStmt>
-     <title type="uniform">Choralbearbeitungen, BWV 714 - 740 &lt;Ein' feste Burg ist unser
-      Gott&gt;</title>
+     <title>Ein feste Burg ist unser Gott</title>
      <respStmt>
-      <persName role="" dbkey="11850553X" authURI="http://d-nb.info/gnd/11850553X" authority="GND"
-       >Johann Sebastian Bach</persName>
+      <persName role="composer" dbkey="11850553X" authURI="http://d-nb.info/gnd/11850553X"
+       authority="GND">Johann Sebastian Bach</persName>
      </respStmt>
     </titleStmt>
+    <key pname="d" mode="major">D-Dur</key>
+    <tempo>undefined</tempo>
+    <meter count="4" unit="4" sym="common"/>
+    <perfMedium>
+     <instrumentation>
+      <instrVoice>Sopran</instrVoice>
+      <instrVoice>Alt</instrVoice>
+      <instrVoice>Tenor</instrVoice>
+      <instrVoice>Bass</instrVoice>
+     </instrumentation>
+    </perfMedium>
+    <classification>
+     <termList>
+      <term classcode="#OCLC_DDC"><identifier>782</identifier>
+       <title>Vocal music</title></term>
+     </termList>
+     <classCode xml:id="OCLC_DDC" authority="OCLC"
+      authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
+    </classification>
+    <incip>
+     <incipText>
+      <p>Ein´ feste Burg ist unser Gott, ein´ gute Wehr und Waffen</p>
+     </incipText>
+     <score>
+      <scoreDef meter.count="4" meter.unit="4" meter.sym="common" key.sig="2s" key.mode="major">
+       <staffGrp barthru="true" symbol="brace">
+        <staffDef n="1" lines="5" clef.line="2" clef.shape="G"/>
+        <staffDef n="2" clef.shape="F" clef.line="4" lines="5"/>
+       </staffGrp>
+      </scoreDef>
+      <section>
+       <measure n="0" type="upbeat" metcon="false">
+        <staff n="1">
+         <layer n="1">
+          <note pname="d" oct="5" dur="4" stem.dir="up">
+           <verse n="1">
+            <syl>Ein´</syl>
+           </verse>
+           <verse n="2">
+            <syl>Er</syl>
+           </verse>
+          </note>
+         </layer>
+         <layer n="2">
+          <note pname="a" oct="4" dur="4" stem.dir="down"/>
+         </layer>
+        </staff>
+        <staff n="2">
+         <layer n="1">
+          <note pname="f" oct="4" dur="4" stem.dir="up"/>
+         </layer>
+         <layer n="2">
+          <beam>
+           <note pname="d" oct="4" dur="8" stem.dir="down"/>
+           <note pname="c" oct="4" dur="8" stem.dir="down"/>
+          </beam>
+         </layer>
+        </staff>
+       </measure>
+       <measure n="1">
+        <staff n="1">
+         <layer n="1">
+          <note pname="d" oct="5" dur="4" stem.dir="up">
+           <verse n="1">
+            <syl>fe</syl>
+           </verse>
+           <verse n="2">
+            <syl>hilft</syl>
+           </verse>
+          </note>
+          <note pname="d" oct="5" dur="4" stem.dir="up">
+           <verse n="1">
+            <syl>ste</syl>
+           </verse>
+           <verse n="2">
+            <syl>uns</syl>
+           </verse>
+          </note>
+          <beam>
+           <note pname="a" oct="4" dur="8" stem.dir="up">
+            <verse n="1">
+             <syl>Burg</syl>
+            </verse>
+            <verse n="2">
+             <syl>frei</syl>
+            </verse>
+           </note>
+           <note pname="b" oct="4" dur="8" stem.dir="up"/>
+          </beam>
+          <note pname="c" oct="5" dur="4" stem.dir="up">
+           <verse n="1">
+            <syl>ist</syl>
+           </verse>
+           <verse n="2">
+            <syl>aus</syl>
+           </verse>
+          </note>
+         </layer>
+         <layer n="2">
+          <note pname="d" oct="4" dur="4" stem.dir="down"/>
+          <beam>
+           <note pname="d" oct="4" dur="8" stem.dir="down"/>
+           <note pname="e" oct="4" dur="8" stem.dir="down"/>
+          </beam>
+          <note pname="f" oct="4" dur="4" stem.dir="down"/>
+          <note pname="g" oct="4" dur="4" stem.dir="down"/>
+         </layer>
+        </staff>
+        <staff n="2">
+         <layer n="1">
+          <note pname="f" oct="4" stem.dir="up"/>
+          <beam>
+           <note pname="b" oct="3" dur="8" stem.dir="up"/>
+           <note pname="c" oct="4" dur="8" stem.dir="up"/>
+          </beam>
+          <note pname="d" oct="4" dur="4" stem.dir="up"/>
+          <note pname="e" oct="4" dur="4" stem.dir="up"/>
+         </layer>
+         <layer n="2">
+          <note pname="b" oct="3" dur="4" stem.dir="down"/>
+          <beam>
+           <note pname="a" oct="3" dur="8" stem.dir="down"/>
+           <note pname="g" oct="3" dur="8" stem.dir="down"/>
+          </beam>
+          <note pname="f" oct="3" dur="4" stem.dir="down"/>
+          <note pname="e" oct="3" dur="4" stem.dir="down"/>
+         </layer>
+        </staff>
+       </measure>
+      </section>
+     </score>
+    </incip>
    </work>
   </workDesc>
   <revisionDesc>
@@ -143,7 +265,7 @@
      <p>Transcoded from a MusicXML version 1.0 file on 2011-05-12 using the <ref
        target="#xsl_mxl2mei_2.2.3">musicxml2mei</ref> stylesheet. </p>
     </changeDesc>
-    <date reg="2011-05-12"/>
+    <date isodate="2011-05-12"/>
    </change>
    <change n="3">
     <respStmt>
@@ -152,7 +274,7 @@
     <changeDesc>
      <p> Cleaned up MEI file automatically using <ref target="#xsl_ppq">ppq.xsl</ref>. </p>
     </changeDesc>
-    <date reg="2011-10-22"/>
+    <date isodate="2011-10-22"/>
    </change>
    <change n="4">
     <respStmt>
@@ -161,7 +283,16 @@
     <changeDesc>
      <p> Cleaned up MEI file automatically using <ref target="#xsl_header">Header.xsl</ref>. </p>
     </changeDesc>
-    <date reg="2011-12-01"/>
+    <date isodate="2011-12-01"/>
+   </change>
+   <change n="5">
+    <respStmt>
+     <persName resp="#MH"/>
+    </respStmt>
+    <changeDesc>
+     <p>revised header</p>
+    </changeDesc>
+    <date isodate="2013-01-25"/>
    </change>
   </revisionDesc>
  </meiHead>
