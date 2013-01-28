@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../trunk/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
    <meiHead meiversion="2012">
       <fileDesc>
          <titleStmt>
-            <title>Domine Deus, Deus virtutum : an electronic transcription of the work by Heinrich
-               Schütz</title>
+            <title>Domine Deus, Deus virtutum</title>
+         	<title type="subtitle">an electronic transcription</title>
             <respStmt>
-               <persName role="creator">Maja Hartwig</persName>
-               <persName role="creator">Kristina Richts</persName>
+            	<persName role="creator" cert="unknown" dbkey="11861116X" authURI="http://d-nb.info/gnd" authority="GND">Heinrich Schütz</persName>
+               <persName role="encoder">Maja Hartwig</persName>
+               <persName role="encoder">Kristina Richts</persName>
             </respStmt>
          </titleStmt>
          <pubStmt>
             <respStmt>
-               <corpName dbkey="5115204-6" authURI="http://d-nb.info/gnd" authority="GND"
-                  >Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
+               <corpName dbkey="5115204-6" authURI="http://d-nb.info/gnd" authority="GND" >Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
             </respStmt>
             <address>
                <addrLine>Gartenstrasse 20</addrLine>
@@ -38,9 +38,7 @@
             <title>MEI Sample Collection</title>
             <respStmt>
                <corpName role="publisher">MEI Project</corpName>
-               <corpName role="funder" dbkey="2007744-0" authURI="http://d-nb.info/gnd"
-                  authority="GND">German Research
-                  Foundation<address>
+               <corpName role="funder" dbkey="2007744-0" authURI="http://d-nb.info/gnd" authority="GND">German Research Foundation<address>
                      <addrLine>Kennedyallee 40</addrLine>
                      <addrLine>
                         <geogName dbkey="7005090" authURI="www.getty.edu/research/tools/vocabularies/tgn" authority="TGN">Bonn</geogName>
@@ -50,9 +48,7 @@
                      </addrLine>
                   </address>
                </corpName>
-               <corpName role="funder" dbkey="18183-3" authURI="http://d-nb.info/gnd/18183-3"
-                  authority="Deutsche Nationalbibliothek">National Endowment for the
-                  Humanities<address>
+               <corpName role="funder" dbkey="18183-3" authURI="http://d-nb.info/gnd/18183-3" authority="Deutsche Nationalbibliothek">National Endowment for the Humanities<address>
                      <addrLine>1100 Pennsylvania Avenue N.W.</addrLine>
                      <addrLine>
                         <geogName dbkey="7013962" authURI="www.getty.edu/research/tools/vocabularies/tgn" authority="TGN">Washington, DC</geogName> 20004</addrLine>
@@ -63,41 +59,24 @@
                </corpName>
             </respStmt>
             <identifier>
-               <ref target="http://music-encoding.org/irgendEineUnterSeite"
-                  >http://music-encoding.org/irgendEineUnterSeite</ref>
+               <ref target="http://music-encoding.org/irgendEineUnterSeite">http://music-encoding.org/irgendEineUnterSeite</ref>
             </identifier>
          </seriesStmt>
          <sourceDesc>
             <source>
                <titleStmt>
                   <title>Domine Deus, Deus virtutum</title>
-                  <title type="uniform"/>
                   <respStmt>
-                     <persName cert="unknown" dbkey="11861116X" authURI="http://d-nb.info/gnd"
-                        authority="GND">Heinrich Schütz</persName>
+                     <persName cert="unknown" dbkey="11861116X" authURI="http://d-nb.info/gnd" authority="GND">Heinrich Schütz</persName>
                   </respStmt>
                </titleStmt>
                <pubStmt>
-                  <identifier type="URI"
-                     >http://icking-music-archive.org/scores/schuetz/anon1/Domine-Deus-xml.zip</identifier>
-                  <date reg="2011-10-10"/>
+                  <identifier type="URI">http://icking-music-archive.org/scores/schuetz/anon1/Domine-Deus-xml.zip</identifier>
+                  <date isodate="2011-10-10"/>
                   <respStmt>
                      <name>Werner Icking Music Archive</name>
                   </respStmt>
-                  <availability>
-                     <useRestrict/>
-                  </availability>
                </pubStmt>
-               <classification>
-                  <termList>
-                     <term classcode="#OCLC_DDC"/>
-                     <term classcode="#LoC_lcco"/>
-                  </termList>
-                  <classCode xml:id="LoC_lcco" authority="Library of Congress"
-                     authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf"/>
-                  <classCode xml:id="OCLC_DDC" authority="OCLC"
-                     authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
-               </classification>
             </source>
          </sourceDesc>
       </fileDesc>
@@ -116,12 +95,41 @@
       <workDesc>
          <work>
             <titleStmt>
-               <title type="uniform"/>
+            	<title>Domine Deus, Deus virtutum</title>
                <respStmt>
-                  <persName cert="unknown" dbkey="11861116X" authURI="http://d-nb.info/gnd"
-                     authority="GND">Heinrich Schütz</persName>
+                  <persName cert="unknown" dbkey="11861116X" authURI="http://d-nb.info/gnd" authority="GND">Heinrich Schütz</persName>
                </respStmt>
             </titleStmt>
+         	<meter count="4" unit="4" sym="common"/>
+         	<perfMedium>
+         		<instrumentation>
+         			<instrVoice>Violine 1</instrVoice>
+         			<instrVoice>Violine 2</instrVoice>
+         			<instrVoice>Altus Chor 1</instrVoice>
+         			<instrVoice>Tenor Chor 1</instrVoice>
+         			<instrVoice>Bassus Chor 1</instrVoice>
+         			<instrVoice>Cantus 1 Chor 2</instrVoice>
+         			<instrVoice>Cantus 2 Chor 2</instrVoice>
+         			<instrVoice>Trombone Alto</instrVoice>
+         			<instrVoice>Trombone Tenor</instrVoice>
+         			<instrVoice>Trombone Basso</instrVoice>
+         			<instrVoice>Cantus Chor 3</instrVoice>
+         			<instrVoice>Altus Chor 3</instrVoice>
+         			<instrVoice>Tenor Chor 3</instrVoice>
+         			<instrVoice>Bassus Chor 3</instrVoice>
+         			<instrVoice>Violone</instrVoice>
+         			<instrVoice>Basso Continuo</instrVoice>
+         		</instrumentation>
+         	</perfMedium>
+         	<classification>
+         		<termList>
+         			<term classcode="#OCLC_DDC">
+         				<identifier></identifier>
+         				<title></title>
+         			</term>
+         		</termList>
+         		<classCode xml:id="OCLC_DDC" authority="OCLC" authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
+         	</classification>
          </work>
       </workDesc>
       <revisionDesc>
@@ -131,7 +139,7 @@
                <p>The original MusicXML file was generated using CapToMusic.py CapXML to MusicXML
                   converter version 1.15.</p>
             </changeDesc>
-            <date reg="2011-08-02"/>
+            <date isodate="2011-08-02"/>
          </change>
          <change n="2">
             <respStmt>
@@ -141,7 +149,7 @@
                <p>Transcoded from a MusicXML version 1.1 file on 2011-10-10 using the <ref
                      target="#xsl_mxl2mei_2.2.3">musicxml2mei</ref> stylesheet. </p>
             </changeDesc>
-            <date reg="2011-10-10"/>
+            <date isodate="2011-10-10"/>
          </change>
          <change n="3">
             <respStmt>
@@ -151,7 +159,7 @@
                <p> Cleaned up MEI file automatically using <ref target="#xsl_ppq">ppq.xsl</ref>.
                </p>
             </changeDesc>
-            <date reg="2011-10-21"/>
+            <date isodate="2011-10-21"/>
          </change>
          <change n="4">
             <respStmt>
@@ -161,8 +169,17 @@
                <p> Cleaned up MEI file automatically using <ref target="#xsl_header"
                      >Header.xsl</ref>. </p>
             </changeDesc>
-            <date reg="2011-12-06"/>
+            <date isodate="2011-12-06"/>
          </change>
+      	<change n="5">
+      		<respStmt>
+      			<persName>Kristina Richts</persName>
+      		</respStmt>
+      		<changeDesc>
+      			<p>Revised the header.</p>
+      		</changeDesc>
+      		<date isodate="2013-01-28"/>
+      	</change>
       </revisionDesc>
    </meiHead>
    <music meiversion="2012">
