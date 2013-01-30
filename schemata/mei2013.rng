@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-01-25T21:09:17Z. 
+Schema generated from ODD source 2013-01-30T21:19:16Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -10407,7 +10407,9 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(work
         description) – Grouping mechanism for information describing non-bibliographic aspects of a
         text.</a:documentation>
-      <ref name="work"/>
+      <oneOrMore>
+        <ref name="work"/>
+      </oneOrMore>
       <ref name="att.common.attributes"/>
       <empty/>
     </element>
