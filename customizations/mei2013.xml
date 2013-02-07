@@ -1040,6 +1040,9 @@
         <classSpec ident="model.respLike" module="MEI.shared" type="model" mode="add">
           <desc>Groups elements that are used to indicate intellectual or other significant
             responsibility, for example within a bibliographic citation.</desc>
+          <classes>
+            <memberOf key="model.biblPart"/>
+          </classes>
         </classSpec>
         <classSpec ident="model.workIdent" module="MEI.header" type="model" mode="add">
           <desc>groups elements that assist in the identification of a work.</desc>
@@ -1114,7 +1117,6 @@
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="model.biblPart"/>
             <memberOf key="model.respLike"/>
           </classes>
           <content>
@@ -1151,7 +1153,6 @@
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="model.biblPart"/>
             <memberOf key="model.respLike"/>
           </classes>
           <content>
@@ -1283,7 +1284,6 @@
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="model.biblPart"/>
             <memberOf key="model.respLike"/>
           </classes>
           <content>
@@ -1314,7 +1314,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>        
+        </elementSpec>
         <elementSpec ident="distributor" module="MEI.shared" mode="add">
           <desc>&#8211; Name of a person or other agency responsible for the distribution of a
             bibliographic item.</desc>
@@ -1341,7 +1341,6 @@
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="model.biblPart"/>
             <memberOf key="model.respLike"/>
           </classes>
           <content>
@@ -1459,7 +1458,6 @@
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="model.biblPart"/>
             <memberOf key="model.respLike"/>
           </classes>
           <content>
@@ -1591,7 +1589,6 @@
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="model.biblPart"/>
             <memberOf key="model.respLike"/>
           </classes>
           <content>
@@ -1609,7 +1606,6 @@
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="model.biblPart"/>
             <memberOf key="model.respLike"/>
           </classes>
           <content>
@@ -1821,7 +1817,6 @@
             <memberOf key="att.common"/>
             <memberOf key="att.bibl"/>
             <memberOf key="att.facsimile"/>
-            <memberOf key="model.biblPart"/>
             <memberOf key="model.respLike"/>
           </classes>
           <content>
@@ -2619,6 +2614,7 @@
             <memberOf key="att.common"/>
             <memberOf key="att.authorized"/>
             <memberOf key="att.bibl"/>
+            <memberOf key="att.coded"/>
             <memberOf key="att.facsimile"/>
           </classes>
           <content>
