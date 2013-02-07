@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink"
    meiversion="2012">
    <meiHead>
@@ -110,8 +111,13 @@
                <respStmt>
                   <persName role="composer" authURI="http://d-nb.info/gnd/" dbkey="118508288"
                      authority="Deutsche Nationalbibliothek">Ludwig van Beethoven</persName>
+                  <persName role="lyricist">Henry van Dyke</persName>
                </respStmt>
             </titleStmt>
+            <history>
+               <creation>Creation of the arrangement<date notbefore="2008" notafter="2010"
+                  /></creation>
+            </history>
             <key pname="d" mode="major">D-Dur</key>
             <tempo mm="120">Allegro assai</tempo>
             <meter count="4" unit="4"/>
@@ -147,31 +153,33 @@
                      <identifier>784</identifier>
                      <title>Instruments &amp; instrumental ensembles</title>
                   </term>
-               	<term classcode="#OSWD">
-               		<identifier>4129951-6</identifier>
-               		<title>Instrumentalmusik</title>
-               	</term>
-               	<term classcode="#OSWD">
-               		<identifier>4131523-6</identifier>
-               		<title>Orchestermusik</title>
-               	</term>
-               	<term classcode="#OSWD">
-               		<identifier>4055087-4</identifier>
-               		<title>Sinfonie</title>
-               	</term>
+                  <term classcode="#OSWD">
+                     <identifier>4129951-6</identifier>
+                     <title>Instrumentalmusik</title>
+                  </term>
+                  <term classcode="#OSWD">
+                     <identifier>4131523-6</identifier>
+                     <title>Orchestermusik</title>
+                  </term>
+                  <term classcode="#OSWD">
+                     <identifier>4055087-4</identifier>
+                     <title>Sinfonie</title>
+                  </term>
                </termList>
-            	<classCode xml:id="OCLC_DDC" authority="OCLC" authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
-            	<classCode xml:id="OSWD" authURI="BSZ" authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
+               <classCode xml:id="OCLC_DDC" authority="OCLC"
+                  authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
+               <classCode xml:id="OSWD" authURI="BSZ"
+                  authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
             </classification>
             <incip>
                <incipText>
                   <p>Joyful, joyful, we adore you, God of Glory, God of Love</p>
                </incipText>
-               <incipCode/>
+               <incipCode>*suusddddsuusds</incipCode>
                <score>
                   <staffDef n="4" label="Baritone" clef.line="4" clef.shape="F" key.sig="2s"/>
                   <section>
-                     <measure>
+                     <measure n="5">
                         <staff>
                            <layer>
                               <note pname="f" oct="3" dur="4"/>
@@ -181,7 +189,7 @@
                            </layer>
                         </staff>
                      </measure>
-                     <measure>
+                     <measure n="6">
                         <staff>
                            <layer>
                               <note pname="a" oct="3" dur="4"/>
