@@ -670,7 +670,7 @@
     </xsl:variable>
     <xsl:if test="$dirType != 'NULL'">
       <xsl:element name="{$dirType}" namespace="http://www.music-encoding.org/ns/mei">
-        <xsl:call-template name="dirBasicAttrs"/>
+        <xsl:call-template name="tstampAttrs"/>
         <xsl:for-each select="direction-type/*[@relative-x or @relative-y][1]">
           <xsl:call-template name="positionRelative"/>
         </xsl:for-each>
@@ -2239,7 +2239,7 @@
             <!-- <xsl:apply-templates select="note/notations/tuplet[@type='start']" mode="stage1"/> -->
             <xsl:apply-templates select="note/notations/slur[@type='start']" mode="stage1"/>
             <!-- note/notations/slur[@type='continue'] -->
-            <!-- <xsl:apply-templates select="note/notations/tied[@type='start']" mode="stage1"/>-->
+            <xsl:apply-templates select="note/notations/tied[@type='start']" mode="stage1"/>
             <xsl:apply-templates select="note/notations/fermata" mode="stage1"/>
             <!--<xsl:apply-templates select="note/notations/ornaments" mode="stage1"/>
             <xsl:apply-templates select="note[not(chord) and notations/arpeggiate]" mode="arpeg"/>
@@ -2928,9 +2928,9 @@
 
   <xsl:template match="note/notations/slur[@type='start']" mode="stage1">
     <slur xmlns="http://www.music-encoding.org/ns/mei">
-      <!-- Basic attributes -->
+      <!-- Tstamp attributes -->
       <xsl:for-each select="ancestor::note">
-        <xsl:call-template name="dirBasicAttrs"/>
+        <xsl:call-template name="tstampAttrs"/>
       </xsl:for-each>
       <!-- Attributes based on starting note -->
       <xsl:attribute name="startid">
@@ -2940,21 +2940,36 @@
       </xsl:attribute>
       <xsl:attribute name="curvedir">
         <xsl:choose>
-          <xsl:when test="@placement != ''">
-            <xsl:value-of select="@placement"/>
+          <xsl:when test="@orientation='under' or @placement='below'">
+            <xsl:attribute name="curvedir">below</xsl:attribute>
+          </xsl:when>
+          <xsl:when test="@orientation='over' or @placement='above'">
+            <xsl:attribute name="curvedir">above</xsl:attribute>
           </xsl:when>
           <xsl:otherwise>
             <xsl:choose>
               <xsl:when test="ancestor::note/stem='up'">
-                <xsl:text>below</xsl:text>
+                <xsl:attribute name="curvedir">below</xsl:attribute>
               </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>above</xsl:text>
-              </xsl:otherwise>
+              <xsl:when test="ancestor::note/stem='down'">
+                <xsl:attribute name="curvedir">above</xsl:attribute>
+              </xsl:when>
             </xsl:choose>
           </xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
+      <xsl:if test="@line-type='dashed' or @line-type='dotted' or @line-type='solid'">
+        <xsl:attribute name="rend">
+          <xsl:choose>
+            <xsl:when test="@line-type='solid'">
+              <xsl:text>narrow</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@line-type"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:if>
       <xsl:variable name="bezierStart">
         <xsl:value-of select="@bezier-x"/>
         <xsl:text>&#32;</xsl:text>
@@ -2980,11 +2995,6 @@
           </xsl:if>
         </xsl:for-each>
       </xsl:variable>
-      <xsl:variable name="bezierStart">
-        <xsl:value-of select="@bezier-x"/>
-        <xsl:text>&#32;</xsl:text>
-        <xsl:value-of select="@bezier-y"/>
-      </xsl:variable>
       <xsl:variable name="partID">
         <xsl:value-of select="ancestor::part[1]/@id"/>
       </xsl:variable>
@@ -3007,13 +3017,13 @@
         </xsl:call-template>
       </xsl:variable>
       <xsl:choose>
-        <!-- Ending note may actually precede starting note -->
+        <!-- Ending note may actually precede starting note in the encoded order of the file -->
         <xsl:when test="preceding::note[notations/slur[@type='stop' and @number=$slurNum] and
           ancestor::part/@id=$partID and generate-id(ancestor::measure[1])=$startMeasureID]
           and not(following::note[notations/slur[@type='stop' and @number=$slurNum] and
           ancestor::part/@id=$partID and generate-id(ancestor::measure[1])=$startMeasureID])">
           <xsl:variable name="startTimestamp.ges">
-            <xsl:for-each select="ancestor::note[1]">
+            <xsl:for-each select="ancestor::note">
               <xsl:call-template name="getTimestamp.ges"/>
             </xsl:for-each>
           </xsl:variable>
@@ -3055,9 +3065,6 @@
                     <xsl:value-of select="$bezierEnd"/>
                   </xsl:attribute>
                 </xsl:if>
-                <xsl:variable name="partID2">
-                  <xsl:value-of select="ancestor::part[1]/@id"/>
-                </xsl:variable>
                 <xsl:variable name="partStaff2">
                   <xsl:choose>
                     <xsl:when test="staff">
@@ -3069,7 +3076,7 @@
                 <xsl:variable name="staff2">
                   <xsl:call-template name="getStaffNum">
                     <xsl:with-param name="partID">
-                      <xsl:value-of select="$partID2"/>
+                      <xsl:value-of select="$partID"/>
                     </xsl:with-param>
                     <xsl:with-param name="partStaff">
                       <xsl:value-of select="$partStaff2"/>
@@ -3131,9 +3138,6 @@
                           <xsl:value-of select="$bezierEnd"/>
                         </xsl:attribute>
                       </xsl:if>
-                      <xsl:variable name="partID2">
-                        <xsl:value-of select="ancestor::part[1]/@id"/>
-                      </xsl:variable>
                       <xsl:variable name="partStaff2">
                         <xsl:choose>
                           <xsl:when test="staff">
@@ -3145,7 +3149,7 @@
                       <xsl:variable name="staff2">
                         <xsl:call-template name="getStaffNum">
                           <xsl:with-param name="partID">
-                            <xsl:value-of select="$partID2"/>
+                            <xsl:value-of select="$partID"/>
                           </xsl:with-param>
                           <xsl:with-param name="partStaff">
                             <xsl:value-of select="$partStaff2"/>
@@ -3189,7 +3193,7 @@
             </xsl:choose>
           </xsl:for-each>
         </xsl:when>
-        <!-- Ending note follows starting note -->
+        <!-- Ending note follows starting note in encoding order -->
         <xsl:when test="following::note[notations/slur[@type='stop' and @number=$slurNum] and
           ancestor::part[1]/@id=$partID][1]">
           <xsl:for-each select="following::note[notations/slur[@type='stop' and @number=$slurNum]
@@ -3234,9 +3238,6 @@
                 <xsl:value-of select="$bezierEnd"/>
               </xsl:attribute>
             </xsl:if>
-            <xsl:variable name="partID2">
-              <xsl:value-of select="ancestor::part[1]/@id"/>
-            </xsl:variable>
             <xsl:variable name="partStaff2">
               <xsl:choose>
                 <xsl:when test="staff">
@@ -3248,7 +3249,7 @@
             <xsl:variable name="staff2">
               <xsl:call-template name="getStaffNum">
                 <xsl:with-param name="partID">
-                  <xsl:value-of select="$partID2"/>
+                  <xsl:value-of select="$partID"/>
                 </xsl:with-param>
                 <xsl:with-param name="partStaff">
                   <xsl:value-of select="$partStaff2"/>
@@ -3265,18 +3266,7 @@
           </xsl:for-each>
         </xsl:when>
         <!-- Slur continued by following sibling -->
-        <xsl:otherwise>
-          <xsl:variable name="partID">
-            <xsl:value-of select="ancestor::part[1]/@id"/>
-          </xsl:variable>
-          <xsl:variable name="partStaff">
-            <xsl:choose>
-              <xsl:when test="ancestor::note[1]/staff">
-                <xsl:value-of select="ancestor::note[1]/staff"/>
-              </xsl:when>
-              <xsl:otherwise>1</xsl:otherwise>
-            </xsl:choose>
-          </xsl:variable>
+        <xsl:when test="following-sibling::slur[@type='continue']">
           <xsl:attribute name="staff">
             <xsl:call-template name="getStaffNum">
               <xsl:with-param name="partID">
@@ -3320,9 +3310,176 @@
             <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
               ').'))"/>
           </xsl:message>
-        </xsl:otherwise>
+        </xsl:when>
       </xsl:choose>
     </slur>
+  </xsl:template>
+
+  <xsl:template match="note/notations/tied[@type='start']" mode="stage1">
+    <tie xmlns="http://www.music-encoding.org/ns/mei">
+      <!-- Timestamp attributes -->
+      <xsl:for-each select="ancestor::note">
+        <xsl:call-template name="tstampAttrs"/>
+      </xsl:for-each>
+      <!-- Attributes based on starting note -->
+      <xsl:attribute name="startid">
+        <xsl:for-each select="ancestor::note">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:for-each>
+      </xsl:attribute>
+      <xsl:attribute name="curvedir">
+        <xsl:choose>
+          <xsl:when test="@orientation='under' or @placement='below'">
+            <xsl:attribute name="curvedir">below</xsl:attribute>
+          </xsl:when>
+          <xsl:when test="@orientation='over' or @placement='above'">
+            <xsl:attribute name="curvedir">above</xsl:attribute>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:choose>
+              <xsl:when test="ancestor::note/stem='up'">
+                <xsl:attribute name="curvedir">below</xsl:attribute>
+              </xsl:when>
+              <xsl:when test="ancestor::note/stem='down'">
+                <xsl:attribute name="curvedir">above</xsl:attribute>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+      <xsl:if test="@line-type='dashed' or @line-type='dotted' or @line-type='solid'">
+        <xsl:attribute name="rend">
+          <xsl:choose>
+            <xsl:when test="@line-type='solid'">
+              <xsl:text>narrow</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@line-type"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:variable name="bezierStart">
+        <xsl:value-of select="@bezier-x"/>
+        <xsl:text>&#32;</xsl:text>
+        <xsl:value-of select="@bezier-y"/>
+      </xsl:variable>
+      <xsl:if test="@default-y">
+        <xsl:attribute name="startvo">
+          <xsl:value-of select="format-number(@default-y  div 5, '###0.####')"/>
+        </xsl:attribute>
+      </xsl:if>
+      <!-- Attributes based on ending note -->
+      <xsl:variable name="startMeasureID">
+        <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+      </xsl:variable>
+      <xsl:variable name="startMeasurePos">
+        <xsl:for-each select="//measure">
+          <xsl:if test="generate-id()=$startMeasureID">
+            <xsl:value-of select="position()"/>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:variable name="partID">
+        <xsl:value-of select="ancestor::part[1]/@id"/>
+      </xsl:variable>
+      <xsl:variable name="partStaff">
+        <xsl:choose>
+          <xsl:when test="ancestor::note/staff">
+            <xsl:value-of select="ancestor::note/staff"/>
+          </xsl:when>
+          <xsl:otherwise>1</xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:variable name="staff1">
+        <xsl:call-template name="getStaffNum">
+          <xsl:with-param name="partID">
+            <xsl:value-of select="$partID"/>
+          </xsl:with-param>
+          <xsl:with-param name="partStaff">
+            <xsl:value-of select="$partStaff"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="pitch">
+        <xsl:value-of select="ancestor::note/pitch/step"/>
+      </xsl:variable>
+      <xsl:variable name="octave">
+        <xsl:value-of select="ancestor::note/pitch/octave"/>
+      </xsl:variable>
+      <xsl:variable name="voice">
+        <xsl:value-of select="ancestor::note/voice"/>
+      </xsl:variable>
+      <!-- Ignore <tied type="stop">, just look for next pitch -->
+      <xsl:for-each select="following::note[ancestor::part[1]/@id=$partID and pitch/step=$pitch and
+        pitch/octave=$octave and voice=$voice][1]">
+        <xsl:variable name="endMeasureID">
+          <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+        </xsl:variable>
+        <xsl:variable name="endMeasurePos">
+          <xsl:for-each select="//measure">
+            <xsl:if test="generate-id()=$endMeasureID">
+              <xsl:value-of select="position()"/>
+            </xsl:if>
+          </xsl:for-each>
+        </xsl:variable>
+        <xsl:attribute name="dur">
+          <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
+          <xsl:text>m+</xsl:text>
+          <xsl:call-template name="tstamp.ges2beat">
+            <xsl:with-param name="tstamp.ges">
+              <xsl:call-template name="getTimestamp.ges"/>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:attribute>
+        <xsl:attribute name="endid">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:attribute>
+        <xsl:if test="notations/tied[@type='stop']/@default-y">
+          <xsl:attribute name="endvo">
+            <xsl:value-of select="format-number(notations/tied[@type='stop']/@default-y div 5,
+              '###0.####')"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:variable name="bezierEnd">
+          <xsl:value-of select="notations/tied[@type='stop']/@bezier-x"/>
+          <xsl:text>&#32;</xsl:text>
+          <xsl:value-of select="notations/tied[@type='stop']/@bezier-y"/>
+        </xsl:variable>
+        <xsl:if test="concat($bezierStart,$bezierEnd) != '&#32;&#32;'">
+          <xsl:attribute name="bezier">
+            <xsl:value-of select="$bezierStart"/>
+            <xsl:text>&#32;</xsl:text>
+            <xsl:value-of select="$bezierEnd"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:variable name="partStaff2">
+          <xsl:choose>
+            <xsl:when test="staff">
+              <xsl:value-of select="staff"/>
+            </xsl:when>
+            <xsl:otherwise>1</xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:variable name="staff2">
+          <xsl:call-template name="getStaffNum">
+            <xsl:with-param name="partID">
+              <xsl:value-of select="$partID"/>
+            </xsl:with-param>
+            <xsl:with-param name="partStaff">
+              <xsl:value-of select="$partStaff2"/>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:attribute name="staff">
+          <xsl:value-of select="$staff1"/>
+          <xsl:if test="$staff2 != $staff1">
+            <xsl:text>&#32;</xsl:text>
+            <xsl:value-of select="$staff2"/>
+          </xsl:if>
+        </xsl:attribute>
+      </xsl:for-each>
+    </tie>
   </xsl:template>
 
   <xsl:template match="note" mode="oneNote">
@@ -5067,44 +5224,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:copy-of select="$credits/mei:pgFoot2"/>
   </xsl:template>
 
-  <xsl:template name="dirBasicAttrs">
-    <!-- Create basic attributes for MEI directives -->
-    <xsl:variable name="tstampGestural">
-      <xsl:call-template name="getTimestamp.ges"/>
-    </xsl:variable>
-    <xsl:attribute name="tstamp">
-      <xsl:call-template name="tstamp.ges2beat">
-        <xsl:with-param name="tstamp.ges">
-          <xsl:choose>
-            <!-- Using offset until it can be determined when to use @default-x -->
-            <xsl:when test="number(offset)">
-              <xsl:value-of select="format-number(number($tstampGestural) +
-                number(offset), '###0.####')"/>
-            </xsl:when>
-            <!--<xsl:when test="number(ancestor::direction[1]/offset) and
-              not(ancestor::direction[1]/direction-type/dynamics/@default-x)">
-              <xsl:value-of select="number($tstampGestural) + number(ancestor::direction[1]/offset)"
-              />
-            </xsl:when>-->
-            <xsl:otherwise>
-              <xsl:value-of select="format-number(number($tstampGestural), '###0.####')"/>
-            </xsl:otherwise>
-          </xsl:choose>
-        </xsl:with-param>
-      </xsl:call-template>
-    </xsl:attribute>
-    <xsl:attribute name="tstamp.ges">
-      <xsl:choose>
-        <xsl:when test="number(offset[@sound='yes'])">
-          <xsl:value-of select="$tstampGestural + number(offset[@sound='yes'])"/>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:value-of select="$tstampGestural"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:attribute>
-  </xsl:template>
-
   <xsl:template name="fermata">
     <!-- Create fermata attribute -->
     <xsl:for-each select="notations/fermata[1]">
@@ -5164,8 +5283,15 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <!--<xsl:value-of select="round-half-to-even($durSum,3)"/>-->
-    <xsl:value-of select="format-number($durSum, '###0.####')"/>
+    <xsl:choose>
+      <xsl:when test="./chord">
+        <xsl:value-of select="format-number($durSum -
+          preceding-sibling::note[not(chord)][1]/duration, '###0.####')"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:value-of select="format-number($durSum, '###0.####')"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="greatestCommonDenominator">
@@ -6199,7 +6325,21 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </title>
         </xsl:if>
       </title>
-      <xsl:for-each select="identification/creator[@type='composer' or @type='arranger' or
+      <xsl:if test="identification/creator">
+        <respStmt>
+          <xsl:for-each select="identification/creator">
+            <xsl:if test="not(@type='')">
+              <resp>
+                <xsl:value-of select="@type"/>
+              </resp>
+            </xsl:if>
+            <name>
+              <xsl:value-of select="normalize-space(.)"/>
+            </name>
+          </xsl:for-each>
+        </respStmt>
+      </xsl:if>
+      <!--<xsl:for-each select="identification/creator[@type='composer' or @type='arranger' or
         @type='librettist' or @type='lyricist']">
         <xsl:element name="{@type}">
           <xsl:value-of select="normalize-space(.)"/>
@@ -6221,8 +6361,46 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </name>
           </xsl:for-each>
         </respStmt>
-      </xsl:if>
+      </xsl:if>-->
     </titleStmt>
+  </xsl:template>
+
+  <xsl:template name="tstampAttrs">
+    <!-- Create tstamp attributes for MEI directives -->
+    <xsl:variable name="tstampGestural">
+      <xsl:call-template name="getTimestamp.ges"/>
+    </xsl:variable>
+    <xsl:attribute name="tstamp">
+      <xsl:call-template name="tstamp.ges2beat">
+        <xsl:with-param name="tstamp.ges">
+          <xsl:choose>
+            <!-- Using offset until it can be determined when to use @default-x -->
+            <xsl:when test="number(offset)">
+              <xsl:value-of select="format-number(number($tstampGestural) +
+                number(offset), '###0.####')"/>
+            </xsl:when>
+            <!--<xsl:when test="number(ancestor::direction[1]/offset) and
+              not(ancestor::direction[1]/direction-type/dynamics/@default-x)">
+              <xsl:value-of select="number($tstampGestural) + number(ancestor::direction[1]/offset)"
+              />
+            </xsl:when>-->
+            <xsl:otherwise>
+              <xsl:value-of select="format-number(number($tstampGestural), '###0.####')"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:with-param>
+      </xsl:call-template>
+    </xsl:attribute>
+    <xsl:attribute name="tstamp.ges">
+      <xsl:choose>
+        <xsl:when test="number(offset[@sound='yes'])">
+          <xsl:value-of select="$tstampGestural + number(offset[@sound='yes'])"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$tstampGestural"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:attribute>
   </xsl:template>
 
   <xsl:template name="tstamp.ges2beat">
