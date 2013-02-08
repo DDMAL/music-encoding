@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-01-30T21:19:16Z. 
+Schema generated from ODD source 2013-02-08T16:07:24Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -6227,16 +6227,12 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="extent"/>
       <ref name="physLoc"/>
       <ref name="relatedItem"/>
+      <ref name="model.respLike"/>
       <ref name="biblScope"/>
-      <ref name="contributor"/>
-      <ref name="creator"/>
-      <ref name="editor"/>
-      <ref name="funder"/>
       <ref name="genre"/>
       <ref name="imprint"/>
       <ref name="recipient"/>
       <ref name="series"/>
-      <ref name="sponsor"/>
       <ref name="textLang"/>
     </choice>
   </define>
@@ -7291,7 +7287,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Vertical line
         drawn through one or more staves that divides musical notation into metrical units. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="barLine-constraint-Check_barLinetaktplace">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -7306,7 +7301,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           />
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.pointing.attributes"/>
@@ -7451,7 +7445,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         the exact location of a particular note on the staff and, therefore, the other notes as
         well. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="clef-constraint-Check_clef_position_clef">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -7465,9 +7458,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             staff.</sch:assert>
         </sch:rule>
       </pattern>
-
-
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="clef-constraint-Check_clef_position_clef">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -7482,7 +7472,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             staff.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.event.attributes"/>
       <ref name="att.facsimile.attributes"/>
@@ -7561,7 +7550,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.transcriptionLike"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="dir-constraint-Start-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -7572,7 +7560,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.lang.attributes"/>
@@ -7610,7 +7597,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.transcriptionLike"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="dynam-constraint-Start-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -7621,7 +7607,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.lang.attributes"/>
@@ -7871,7 +7856,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.layerPart"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron" id="layer-constraint-Check_layern">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -7881,7 +7865,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             integer.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.facsimile.attributes"/>
@@ -7902,7 +7885,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <zeroOrMore>
         <ref name="model.instrDefLike"/>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron" id="layerDef-constraint-Check_layerDefn">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -7912,7 +7894,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             value must be present.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.layerDef.log.attributes"/>
@@ -7977,12 +7958,8 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         isolation or as part of an meiCorpus element. </a:documentation>
       <ref name="meiHead"/>
       <ref name="music"/>
-
       <ns xmlns="http://purl.oclc.org/dsdl/schematron" prefix="mei"
         uri="http://www.music-encoding.org/ns/mei"/>
-
-
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron" id="mei-constraint-Check_staff">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -7994,7 +7971,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             element.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.meiversion.attributes"/>
       <ref name="att.id.attributes"/>
       <empty/>
@@ -8280,7 +8256,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Indication of
         1) a "unified melodic idea" or 2) performance technique. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="phrase-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8293,7 +8268,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.phrase.log.attributes"/>
@@ -8394,7 +8368,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– A
         non-sounding event found in the source being transcribed. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron" id="rest-constraint-Check_restline">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -8407,7 +8380,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             staff.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.rest.log.attributes"/>
@@ -8545,7 +8517,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.sectionPart"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="section-constraint-Check_sectionexpansion">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8556,7 +8527,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             have descendant section, ending, or rdg elements that can be pointed to.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.facsimile.attributes"/>
@@ -8646,7 +8616,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.staffPart"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron" id="staff-constraint-Check_staffn">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -8656,7 +8625,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             integer.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.facsimile.attributes"/>
@@ -8681,7 +8649,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.staffDefPart"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron" id="staffDef-constraint-Check_staffDefn">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
           xmlns:sch="http://purl.oclc.org/dsdl/schematron"
@@ -8695,9 +8662,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             permitted.</sch:assert>
         </sch:rule>
       </pattern>
-
-
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="staffDef-constraint-Check_ancestor_staff">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8709,9 +8673,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             it must bear the same @n than this staff.</sch:assert>
         </sch:rule>
       </pattern>
-
-
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="staffDef-constraint-Check_clef_position_staffDef">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8722,9 +8683,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             than or equal to the number of lines on the staff.</sch:assert>
         </sch:rule>
       </pattern>
-
-
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="staffDef-constraint-Check_clef_position_staffDef_nolines">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8738,9 +8696,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             less than or equal to the number of lines on the staff.</sch:assert>
         </sch:rule>
       </pattern>
-
-
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="staffDef-constraint-Check_tab_strings">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8753,9 +8708,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             must have the same number of values as there are staff lines.</sch:assert>
         </sch:rule>
       </pattern>
-
-
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="staffDef-constraint-Check_tab_strings">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8771,9 +8723,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             lines.</sch:assert>
         </sch:rule>
       </pattern>
-
-
-
       <sch:pattern xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
@@ -8795,9 +8744,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             values as there are staff lines.</sch:assert>
         </sch:rule>
       </sch:pattern>
-
-
-
       <sch:pattern xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
@@ -8809,9 +8755,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             value of ppq on an ancestor scoreDef.</sch:assert>
         </sch:rule>
       </sch:pattern>
-
-
-
       <sch:pattern xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
@@ -8823,7 +8766,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             value of ppq on a preceding scoreDef.</sch:assert>
         </sch:rule>
       </sch:pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.staffDef.log.attributes"/>
@@ -8855,7 +8797,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <zeroOrMore>
         <ref name="grpSym"/>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="staffGrp-constraint-Check_staffGrp_unique_staff_n_values">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8869,7 +8810,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             for the n attribute.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.facsimile.attributes"/>
@@ -8915,7 +8855,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.transcriptionLike"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="tempo-constraint-tempo_in_header_disallow_most_attrs">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -8928,7 +8867,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             occurs in the header.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.lang.attributes"/>
@@ -9253,7 +9191,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <optional>
         <ref name="model.dateLike"/>
       </optional>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="change-constraint-change_requirements">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -9266,7 +9203,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             recorded in a resp attribute or respStmt element.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.bibl.attributes"/>
       <ref name="att.datable.attributes"/>
@@ -9624,7 +9560,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Incipit coded
         in a non-XML, plain text format, such as Plaine &amp; Easie Code.</a:documentation>
       <text/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="incipCode-constraint-Check_incipCode_form_mimetype">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -9635,7 +9570,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             attribute.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.bibl.attributes"/>
       <ref name="att.internetmedia.attributes"/>
@@ -10118,6 +10052,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="att.common.attributes"/>
       <ref name="att.authorized.attributes"/>
       <ref name="att.bibl.attributes"/>
+      <ref name="att.coded.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <empty/>
     </element>
@@ -10192,7 +10127,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       </oneOrMore>
       <zeroOrMore>
         <choice>
-          <ref name="editor"/>
           <ref name="respStmt"/>
         </choice>
       </zeroOrMore>
@@ -10322,7 +10256,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         <ref name="model.titleLike"/>
       </oneOrMore>
       <zeroOrMore>
-        <ref name="model.respLike"/>
+        <ref name="respStmt"/>
       </zeroOrMore>
       <ref name="att.bibl.attributes"/>
       <ref name="att.common.attributes"/>
@@ -12238,7 +12172,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.transcriptionLike"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="beam-constraint-When_not_copyof_beam_content">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12251,7 +12184,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             descendants.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.beam.log.attributes"/>
@@ -12267,7 +12199,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         Alternative element for explicitly encoding beams, particularly those which extend across
         bar lines. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="beamSpan-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12280,7 +12211,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.beamSpan.log.attributes"/>
@@ -12310,7 +12240,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         in pitch (often micro-tonal) upwards or downwards during the course of a
         note.</a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="bend-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12323,7 +12252,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.bend.log.attributes"/>
@@ -12372,7 +12300,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         May also occur over a bar line to indicate the end of a phrase or section. Sometimes called
         a 'hold' or 'pause'. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="fermata-constraint-Start-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12383,7 +12310,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.fermata.log.attributes"/>
@@ -12428,7 +12354,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Indicates
         continuous dynamics expressed on the score as wedge-shaped graphics, e.g. &lt; and &gt;. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="hairpin-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12441,7 +12366,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.hairpin.log.attributes"/>
@@ -12456,7 +12380,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(harp pedal) –
         Harp pedal diagram. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="harpPedal-constraint-Start-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12467,7 +12390,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.harpPedal.log.attributes"/>
@@ -12483,7 +12405,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         continuous or sliding movement from one pitch to another, usually indicated by a straight or
         wavy line. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="gliss-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12496,7 +12417,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.gliss.log.attributes"/>
@@ -12640,7 +12560,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– An indication
         that a passage should be performed one or more octaves above or below its written pitch. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="octave-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12653,7 +12572,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.octave.log.attributes"/>
@@ -12681,7 +12599,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           </oneOrMore>
         </group>
       </choice>
-
       <sch:pattern xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
@@ -12695,7 +12612,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             in this context.</sch:assert>
         </sch:rule>
       </sch:pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.ossia.log.attributes"/>
@@ -12710,7 +12626,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Piano pedal
         mark. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="pedal-constraint-Start-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12721,7 +12636,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.pedal.log.attributes"/>
@@ -12757,7 +12671,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Indication of
         1) a "unified melodic idea" or 2) performance technique. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="slur-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12770,7 +12683,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.typed.attributes"/>
@@ -12786,7 +12698,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– An indication
         that two notes of the same pitch form a single note with their combined rhythmic values. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="tie-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12799,7 +12710,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.typed.attributes"/>
@@ -12823,7 +12733,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.transcriptionLike"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="tuplet-constraint-When_not_copyof_tuplet_content">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12836,7 +12745,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             descendants.</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.tuplet.log.attributes"/>
@@ -12852,7 +12760,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         Alternative element for encoding tuplets, especially useful for tuplets that extend across
         bar lines. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="tupletSpan-constraint-Start-_and_end-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -12865,7 +12772,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             endid</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.tupletSpan.log.attributes"/>
@@ -13962,7 +13868,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         indicating rapid alternation of the main note with a secondary note, usually a step below,
         but sometimes a step above. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="mordent-constraint-Start-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -13973,7 +13878,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.mordent.log.attributes"/>
@@ -13988,7 +13892,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Rapid
         alternation of a note with one (usually at the interval of a second) above. </a:documentation>
       <empty/>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="trill-constraint-Start-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -13999,7 +13902,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.trill.log.attributes"/>
@@ -14949,7 +14851,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <zeroOrMore>
         <ref name="zone"/>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="graphic-constraint-graphic_child_of_zone">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -14960,7 +14861,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             children</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.internetmedia.attributes"/>
@@ -15367,7 +15267,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.figbassLike"/>
         </choice>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="harm-constraint-Start-type_attributes_required_on_some_control_events">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -15378,7 +15277,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <ref name="att.harm.log.attributes"/>
@@ -16371,7 +16269,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <zeroOrMore>
         <ref name="clip"/>
       </zeroOrMore>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="avFile-constraint-avFile_child_of_clip">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -16381,7 +16278,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <sch:assert test="count(mei:*) = 0">avFile child of clip cannot have children</sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <ref name="att.declaring.attributes"/>
       <ref name="att.internetmedia.attributes"/>
@@ -17091,11 +16987,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
   <define name="model.respLike">
     <choice>
       <ref name="respStmt"/>
-      <ref name="contributor"/>
-      <ref name="creator"/>
-      <ref name="editor"/>
-      <ref name="funder"/>
-      <ref name="sponsor"/>
     </choice>
   </define>
   <define name="model.workIdent">
@@ -17225,7 +17116,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
           <ref name="model.itemLike"/>
         </zeroOrMore>
       </choice>
-
       <pattern xmlns="http://purl.oclc.org/dsdl/schematron"
         id="componentGrp-constraint-checkComponentGrp">
         <sch:rule xmlns:rng="http://relaxng.org/ns/structure/1.0"
@@ -17238,7 +17128,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             allowed. </sch:assert>
         </sch:rule>
       </pattern>
-
       <ref name="att.common.attributes"/>
       <empty/>
     </element>
@@ -17262,60 +17151,11 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <empty/>
     </element>
   </define>
-  <define name="contributor">
-    <element name="contributor">
-      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– The name(s)
-        of the contributor(s) to the intellectual content of a work.</a:documentation>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textphraseLike.limited"/>
-        </choice>
-      </zeroOrMore>
-      <ref name="att.common.attributes"/>
-      <ref name="att.bibl.attributes"/>
-      <ref name="att.facsimile.attributes"/>
-      <empty/>
-    </element>
-  </define>
-  <define name="creator">
-    <element name="creator">
-      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– The name(s)
-        of the creator(s) of a work.</a:documentation>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textphraseLike.limited"/>
-        </choice>
-      </zeroOrMore>
-      <ref name="att.common.attributes"/>
-      <ref name="att.bibl.attributes"/>
-      <ref name="att.facsimile.attributes"/>
-      <empty/>
-    </element>
-  </define>
   <define name="distributor">
     <element name="distributor">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Name of a
         person or other agency responsible for the distribution of a bibliographic
         item.</a:documentation>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textphraseLike.limited"/>
-        </choice>
-      </zeroOrMore>
-      <ref name="att.common.attributes"/>
-      <ref name="att.bibl.attributes"/>
-      <ref name="att.facsimile.attributes"/>
-      <empty/>
-    </element>
-  </define>
-  <define name="editor">
-    <element name="editor">
-      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– The name of
-        the individual(s), institution(s) or organization(s) acting in an editorial
-        capacity.</a:documentation>
       <zeroOrMore>
         <choice>
           <text/>
@@ -17420,24 +17260,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="att.common.attributes"/>
       <ref name="att.authorized.attributes"/>
       <ref name="att.bibl.attributes"/>
-      <empty/>
-    </element>
-  </define>
-  <define name="funder">
-    <element name="funder">
-      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Names of
-        individuals, institutions, or organizations responsible for funding. Funders provide
-        financial support for a project; they are distinct from sponsors, who provide intellectual
-        support and authority.</a:documentation>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textphraseLike.limited"/>
-        </choice>
-      </zeroOrMore>
-      <ref name="att.common.attributes"/>
-      <ref name="att.bibl.attributes"/>
-      <ref name="att.facsimile.attributes"/>
       <empty/>
     </element>
   </define>
@@ -17671,7 +17493,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         <choice>
           <ref name="model.titleLike"/>
           <ref name="model.locrefLike"/>
-          <ref name="editor"/>
           <ref name="respStmt"/>
           <ref name="extent"/>
           <ref name="model.identifierLike"/>
@@ -17716,24 +17537,6 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="att.common.attributes"/>
       <ref name="att.authorized.attributes"/>
       <ref name="att.bibl.attributes"/>
-      <empty/>
-    </element>
-  </define>
-  <define name="sponsor">
-    <element name="sponsor">
-      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Names of
-        sponsoring individuals, organizations or institutions. Sponsors give their intellectual
-        authority to a project; they are to be distinguished from funders, who provide the funding
-        but do not necessarily take intellectual responsibility.</a:documentation>
-      <zeroOrMore>
-        <choice>
-          <text/>
-          <ref name="model.textphraseLike.limited"/>
-        </choice>
-      </zeroOrMore>
-      <ref name="att.common.attributes"/>
-      <ref name="att.bibl.attributes"/>
-      <ref name="att.facsimile.attributes"/>
       <empty/>
     </element>
   </define>
