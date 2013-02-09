@@ -4498,8 +4498,7 @@
         </projectDesc>
         <xsl:if test="matches(work/work-title, '\(.*\)') or matches(movement-title, '\(.*\)') or
           matches(work/work-title, 'excerpt', 'i') or matches(movement-title, 'excerpt', 'i')">
-          <xsl:variable name="warning">If the parenthetical part of the title indicates that only
-            part of this item was encoded, use a sampling declaration.</xsl:variable>
+          <xsl:variable name="warning">Sampling declaration may be necessary.</xsl:variable>
           <xsl:message>
             <xsl:value-of select="normalize-space($warning)"/>
           </xsl:message>
@@ -4751,8 +4750,19 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="name()='accent'">
             <xsl:text>acc</xsl:text>
           </xsl:when>
+          <xsl:when test="name()='breath-mark' or name()='caesura'">
+            <!-- This is a no-op. In MEI, a breath mark or caesura is a control element, 
+                 not a note articulation and is processed along with other control elements
+                 in the measure template. -->
+          </xsl:when>
+          <xsl:when test="name()='detached-legato'">
+            <xsl:text>ten-stacc</xsl:text>
+          </xsl:when>
           <xsl:when test="name()='strong-accent'">
             <xsl:text>marc</xsl:text>
+          </xsl:when>
+          <xsl:when test="name()='staccatissimo'">
+            <xsl:text>stacciss</xsl:text>
           </xsl:when>
           <xsl:when test="name()='staccato'">
             <xsl:text>stacc</xsl:text>
@@ -4760,33 +4770,22 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="name()='tenuto'">
             <xsl:text>ten</xsl:text>
           </xsl:when>
-          <xsl:when test="name()='detached-legato'">
-            <xsl:text>ten-stacc</xsl:text>
-          </xsl:when>
-          <xsl:when test="name()='staccatissimo'">
-            <xsl:text>stacciss</xsl:text>
-          </xsl:when>
           <!-- String articulations -->
           <xsl:when test="name()='spiccato'">
             <xsl:text>spicc</xsl:text>
           </xsl:when>
           <!-- Jazz articulations -->
-          <xsl:when test="name()='scoop'">
-            <xsl:text>rip</xsl:text>
-          </xsl:when>
-          <xsl:when test="name()='plop'">
-            <xsl:text>plop</xsl:text>
-          </xsl:when>
           <xsl:when test="name()='doit'">
             <xsl:text>doit</xsl:text>
           </xsl:when>
           <xsl:when test="name()='falloff'">
             <xsl:text>fall</xsl:text>
           </xsl:when>
-          <xsl:when test="name()='caesura'">
-            <!-- This is a no-op. In MEI a caesura is a control element, not a note
-                 articulation and is processed along with other control elements in
-                 the measure template. -->
+          <xsl:when test="name()='plop'">
+            <xsl:text>plop</xsl:text>
+          </xsl:when>
+          <xsl:when test="name()='scoop'">
+            <xsl:text>rip</xsl:text>
           </xsl:when>
         </xsl:choose>
         <xsl:text>&#32;</xsl:text>
@@ -4794,11 +4793,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:for-each select="notations/technical/*">
         <xsl:choose>
           <!-- String articulations -->
-          <xsl:when test="name()='up-bow'">
-            <xsl:text>upbow</xsl:text>
-          </xsl:when>
           <xsl:when test="name()='down-bow'">
             <xsl:text>dnbow</xsl:text>
+          </xsl:when>
+          <xsl:when test="name()='fingernails'">
+            <xsl:text>fingernail</xsl:text>
           </xsl:when>
           <xsl:when test="name()='harmonic'">
             <xsl:text>harm</xsl:text>
@@ -4806,16 +4805,22 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="name()='open-string'">
             <xsl:text>open</xsl:text>
           </xsl:when>
+          <xsl:when test="name()='pluck'">
+            <xsl:text>lhpizz</xsl:text>
+          </xsl:when>
           <xsl:when test="name()='snap-pizzicato'">
             <xsl:text>snap</xsl:text>
           </xsl:when>
           <xsl:when test="name()='tap'">
             <xsl:text>tap</xsl:text>
           </xsl:when>
-          <xsl:when test="name()='pluck'">
-            <xsl:text>lhpizz</xsl:text>
+          <xsl:when test="name()='up-bow'">
+            <xsl:text>upbow</xsl:text>
           </xsl:when>
           <!-- Wind articulations -->
+          <xsl:when test="name()='bend'">
+            <xsl:text>bend</xsl:text>
+          </xsl:when>
           <xsl:when test="name()='double-tongue'">
             <xsl:text>dbltongue</xsl:text>
           </xsl:when>
@@ -4825,18 +4830,12 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="name()='stopped'">
             <xsl:text>stop</xsl:text>
           </xsl:when>
-          <xsl:when test="name()='bend'">
-            <xsl:text>bend</xsl:text>
-          </xsl:when>
           <!-- Keyboard/organ articulations -->
           <xsl:when test="name()='heel'">
             <xsl:text>heel</xsl:text>
           </xsl:when>
           <xsl:when test="name()='toe'">
             <xsl:text>toe</xsl:text>
-          </xsl:when>
-          <xsl:when test="name()='fingernails'">
-            <xsl:text>fingernail</xsl:text>
           </xsl:when>
         </xsl:choose>
         <xsl:text>&#32;</xsl:text>
