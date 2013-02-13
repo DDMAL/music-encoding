@@ -399,17 +399,18 @@
           <!--<attDef ident="space" ns="http://www.w3.org/XML/1998/namespace" usage="opt">-->
           <attList>
             <attDef ident="xml:space" usage="opt">
-              <desc>allows one to signal whether an element's white space is "significant". The
-                behavior of xml:space cascades to all descendant elements, but it can be turned off
-                locally by setting the xml:space attribute to the value "default".</desc>
+              <desc>allows one to signal to an application whether an element's white space is
+                "significant". The behavior of xml:space cascades to all descendant elements, but it
+                can be turned off locally by setting the xml:space attribute to the value
+                "default".</desc>
               <valList type="closed">
                 <valItem ident="default">
                   <desc>allows the application to handle white space as necessary. Not including an
                     xml:space attribute produces the same result as using the default value.</desc>
                 </valItem>
                 <valItem ident="preserve">
-                  <desc>instructs the application to maintain white space as is, suggesting that it
-                    might have meaning.</desc>
+                  <desc>instructs the application to maintain white space "as-is", suggesting that
+                    it might have meaning.</desc>
                 </valItem>
               </valList>
             </attDef>
@@ -1109,7 +1110,7 @@
         </classSpec>
 
         <!-- New elements -->
-        <!--<elementSpec ident="arranger" module="MEI.shared" mode="add">
+        <elementSpec ident="arranger" module="MEI.shared" mode="add">
           <desc>&#8211; A person or organization who transcribes a musical composition, usually for
             a different medium from that of the original; in an arrangement the musical substance
             remains essentially unchanged.</desc>
@@ -1127,7 +1128,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>-->
+        </elementSpec>
         <elementSpec ident="audience" module="MEI.header" mode="add">
           <desc>&#8211; Defines the class of user for which the work is intended, as defined by age
             group (e.g., children, young adults, adults, etc.), educational level (e.g., primary,
@@ -1146,7 +1147,7 @@
             </rng:zeroOrMore>
           </content>
         </elementSpec>
-        <!--<elementSpec ident="author" module="MEI.shared" mode="add">
+        <elementSpec ident="author" module="MEI.shared" mode="add">
           <desc>&#8211; The name of the creator of the intellectual content of a non-musical,
             literary work.</desc>
           <classes>
@@ -1163,7 +1164,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>-->
+        </elementSpec>
         <elementSpec ident="biblList" module="MEI.shared" mode="add">
           <desc>&#8211; List of bibliographic references.</desc>
           <classes>
@@ -1277,7 +1278,7 @@
             </constraint>
           </constraintSpec>
         </elementSpec>
-        <!--<elementSpec ident="composer" module="MEI.shared" mode="add">
+        <elementSpec ident="composer" module="MEI.shared" mode="add">
           <desc>&#8211; The name of the creator of the intellectual content of a musical
             work.</desc>
           <classes>
@@ -1294,7 +1295,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>-->
+        </elementSpec>
         <elementSpec ident="context" module="MEI.header" mode="add">
           <desc>&#8211; The historical, social, intellectual, artistic, or other context within
             which the work was originally conceived (e.g., the 17th century restoration of the
@@ -1334,7 +1335,7 @@
             </rng:zeroOrMore>
           </content>
         </elementSpec>
-        <!--<elementSpec ident="editor" module="MEI.shared" mode="add">
+        <elementSpec ident="editor" module="MEI.shared" mode="add">
           <desc>&#8211; The name of the individual(s), institution(s) or organization(s) acting in
             an editorial capacity.</desc>
           <classes>
@@ -1351,7 +1352,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>-->
+        </elementSpec>
         <elementSpec ident="expression" module="MEI.frbr" mode="add">
           <desc>&#8211; Intellectual or artistic realization of a work.</desc>
           <classes>
@@ -1450,7 +1451,7 @@
             <rng:text/>
           </content>
         </elementSpec>
-        <!--<elementSpec ident="funder" module="MEI.shared" mode="add">
+        <elementSpec ident="funder" module="MEI.shared" mode="add">
           <desc>&#8211; Names of individuals, institutions, or organizations responsible for
             funding. Funders provide financial support for a project; they are distinct from
             sponsors, who provide intellectual support and authority.</desc>
@@ -1468,7 +1469,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>-->
+        </elementSpec>
         <elementSpec ident="genre" module="MEI.shared" mode="add">
           <desc>&#8211; Term or terms that designate a category characterizing a particular style,
             form, or content.</desc>
@@ -1582,7 +1583,7 @@
             </rng:zeroOrMore>
           </content>
         </elementSpec>
-        <!--<elementSpec ident="librettist" module="MEI.shared" mode="add">
+        <elementSpec ident="librettist" module="MEI.shared" mode="add">
           <desc>&#8211; Person or organization who is a writer of the text of an opera, oratorio,
             etc.</desc>
           <classes>
@@ -1599,8 +1600,8 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>-->
-        <!--<elementSpec ident="lyricist" module="MEI.shared" mode="add">
+        </elementSpec>
+        <elementSpec ident="lyricist" module="MEI.shared" mode="add">
           <desc>&#8211; Person or organization who is a writer of the text of a song.</desc>
           <classes>
             <memberOf key="att.common"/>
@@ -1616,7 +1617,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>-->
+        </elementSpec>
         <elementSpec ident="otherChar" module="MEI.header" mode="add">
           <desc>(other distinguishing characteristic) &#8211; Any characteristic that serves to
             differentiate a work or expression from another.</desc>
@@ -1808,7 +1809,7 @@
             </rng:zeroOrMore>
           </content>
         </elementSpec>
-        <!--<elementSpec ident="sponsor" module="MEI.shared" mode="add">
+        <elementSpec ident="sponsor" module="MEI.shared" mode="add">
           <desc>&#8211; Names of sponsoring individuals, organizations or institutions. Sponsors
             give their intellectual authority to a project; they are to be distinguished from
             funders, who provide the funding but do not necessarily take intellectual
@@ -1827,7 +1828,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec>-->
+        </elementSpec>
         <elementSpec ident="tapeConfig" module="MEI.header" mode="add">
           <desc>(tape configuration) &#8211; Number of tracks on a sound tape (e.g., eight track,
             twelve track).</desc>
@@ -1927,6 +1928,26 @@
             </rng:zeroOrMore>
            </content> -->
         </elementSpec>
+        <elementSpec ident="castList" module="MEI.shared" mode="replace">
+          <desc>&#8211; Contains a single cast list or dramatis personae.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.lang"/>
+            <memberOf key="model.listLike"/>
+          </classes>
+          <content>
+            <rng:optional>
+              <rng:ref name="model.headLike"/>
+            </rng:optional>
+            <rng:oneOrMore>
+              <rng:choice>
+                <rng:ref name="castItem"/>
+                <rng:ref name="castGrp"/>
+              </rng:choice>
+            </rng:oneOrMore>
+          </content>
+        </elementSpec>
         <elementSpec ident="change" module="MEI.header" mode="replace">
           <desc>&#8211; Individual change within the revision description.
             <!-- Additions, deletions, and
@@ -2010,11 +2031,7 @@
         </elementSpec>
         <elementSpec ident="event" module="MEI.header" mode="replace">
           <desc>&#8211; Contains a description of an event, including the dates and locations of its
-            occurrence and prominent participants.
-            <!-- When a single date can be associated with the event,
-        the attributes in the att.datable class may provide a more machine-processable alternative
-        than date elements within the content of &lt;event&gt;. &lt;table&gt; and &lt;list&gt;
-        elements are allowed within &lt;event&gt; in order to accommodate structured content.--></desc>
+            occurrence and prominent participants.</desc>
           <classes>
             <memberOf key="att.bibl"/>
             <memberOf key="att.calendared"/>
@@ -2024,44 +2041,35 @@
             <memberOf key="att.lang"/>
           </classes>
           <content>
-            <!-- The following generates an ambiguous model when converted to XSD schema.
-            Possible replacement:
             <rng:optional>
               <rng:ref name="model.headLike"/>
             </rng:optional>
+            <rng:choice>
+              <!-- A semi-structured description using name, date, and place elements -->
+              <rng:group>
+                <rng:zeroOrMore>
+                  <rng:ref name="model.eventPart"/>
+                </rng:zeroOrMore>
+              </rng:group>
+              <!-- A more free-form description using elements from the textcomponentLike class -->
+              <rng:group>
+                <rng:zeroOrMore>
+                  <rng:choice>
+                    <rng:ref name="model.pLike"/>
+                    <rng:ref name="model.tableLike"/>
+                    <!-- The list and castList elements from model.listLike are invoked here
+                      individually so that biblList can be shared by both the structured and 
+                      unstructured models. -->
+                    <rng:ref name="list"/>
+                    <rng:ref name="castList"/>
+                  </rng:choice>
+                </rng:zeroOrMore>
+              </rng:group>
+            </rng:choice>
             <rng:zeroOrMore>
               <rng:choice>
-                <rng:ref name="model.pLike"/>
-                <rng:ref name="model.tableLike"/>
-                <rng:ref name="model.eventPart"/>
+                <rng:ref name="biblList"/>
               </rng:choice>
-            </rng:zeroOrMore>
-            <rng:zeroOrMore>
-              <rng:ref name="biblList"/>
-            </rng:zeroOrMore>
-            -->
-            <rng:optional>
-              <rng:ref name="model.headLike"/>
-            </rng:optional>
-            <rng:zeroOrMore>
-              <rng:choice>
-                <rng:ref name="model.pLike"/>
-                <rng:ref name="model.tableLike"/>
-              </rng:choice>
-            </rng:zeroOrMore>
-            <rng:zeroOrMore>
-              <rng:choice>
-                <rng:ref name="model.eventPart"/>
-              </rng:choice>
-            </rng:zeroOrMore>
-            <rng:zeroOrMore>
-              <rng:choice>
-                <rng:ref name="model.pLike"/>
-                <rng:ref name="model.tableLike"/>
-              </rng:choice>
-            </rng:zeroOrMore>
-            <rng:zeroOrMore>
-              <rng:ref name="biblList"/>
             </rng:zeroOrMore>
           </content>
         </elementSpec>
