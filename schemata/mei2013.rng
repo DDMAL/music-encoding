@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-02-08T16:07:24Z. 
+Schema generated from ODD source 2013-02-13T21:46:44Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -10127,6 +10127,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       </oneOrMore>
       <zeroOrMore>
         <choice>
+          <ref name="editor"/>
           <ref name="respStmt"/>
         </choice>
       </zeroOrMore>
@@ -10430,25 +10431,27 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     <element name="event">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Contains a
         description of an event, including the dates and locations of its occurrence and prominent
-        participants. </a:documentation>
+        participants.</a:documentation>
       <optional>
         <ref name="model.headLike"/>
       </optional>
-      <zeroOrMore>
-        <choice>
-          <ref name="model.pLike"/>
-          <ref name="model.tableLike"/>
-        </choice>
-      </zeroOrMore>
-      <zeroOrMore>
-        <ref name="model.eventPart"/>
-      </zeroOrMore>
-      <zeroOrMore>
-        <choice>
-          <ref name="model.pLike"/>
-          <ref name="model.tableLike"/>
-        </choice>
-      </zeroOrMore>
+      <choice>
+        <group>
+          <zeroOrMore>
+            <ref name="model.eventPart"/>
+          </zeroOrMore>
+        </group>
+        <group>
+          <zeroOrMore>
+            <choice>
+              <ref name="model.pLike"/>
+              <ref name="model.tableLike"/>
+              <ref name="list"/>
+              <ref name="castList"/>
+            </choice>
+          </zeroOrMore>
+        </group>
+      </choice>
       <zeroOrMore>
         <ref name="biblList"/>
       </zeroOrMore>
@@ -11714,10 +11717,10 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <attribute name="dur">
         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">records the
           duration of the tuplet using the optionally dotted, relative durational values provided by
-          the data.DURATION datatype. When the tuplet duration is "irrational", a @dur may contain
-          multiple, space-separated values that add up to the total duration. For unmeasured music,
-          use the attributes found in att.duration.ratio (num and numbase) to capture the tuplet's
-          duration instead of this attribute.</a:documentation>
+          the data.DURATION datatype. When the tuplet duration is "irrational", the dur attribute
+          may contain multiple, space-separated values that add up to the total duration. For
+          unmeasured music, use the attributes found in att.duration.ratio (num and numbase) to
+          capture the tuplet's duration instead of this attribute.</a:documentation>
         <list>
           <oneOrMore>
             <data type="token">
@@ -16423,21 +16426,27 @@ Edition Location: http://www.tei-c.org/Vault/P5//
   </define>
   <define name="model.listLike">
     <choice>
+      <ref name="castList"/>
       <ref name="list"/>
       <ref name="biblList"/>
     </choice>
   </define>
   <define name="model.listLike_alternation">
     <choice>
+      <ref name="castList"/>
       <ref name="list"/>
       <ref name="biblList"/>
     </choice>
   </define>
   <define name="model.listLike_sequence">
+    <ref name="castList"/>
     <ref name="list"/>
     <ref name="biblList"/>
   </define>
   <define name="model.listLike_sequenceOptional">
+    <optional>
+      <ref name="castList"/>
+    </optional>
     <optional>
       <ref name="list"/>
     </optional>
@@ -16447,6 +16456,9 @@ Edition Location: http://www.tei-c.org/Vault/P5//
   </define>
   <define name="model.listLike_sequenceOptionalRepeatable">
     <zeroOrMore>
+      <ref name="castList"/>
+    </zeroOrMore>
+    <zeroOrMore>
       <ref name="list"/>
     </zeroOrMore>
     <zeroOrMore>
@@ -16454,6 +16466,9 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     </zeroOrMore>
   </define>
   <define name="model.listLike_sequenceRepeatable">
+    <oneOrMore>
+      <ref name="castList"/>
+    </oneOrMore>
     <oneOrMore>
       <ref name="list"/>
     </oneOrMore>
@@ -16932,9 +16947,9 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     <optional>
       <attribute name="xml:space">
         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">allows one to
-          signal whether an element's white space is "significant". The behavior of xml:space
-          cascades to all descendant elements, but it can be turned off locally by setting the
-          xml:space attribute to the value "default".</a:documentation>
+          signal to an application whether an element's white space is "significant". The behavior
+          of xml:space cascades to all descendant elements, but it can be turned off locally by
+          setting the xml:space attribute to the value "default".</a:documentation>
         <choice>
           <value>default</value>
           <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">allows the
@@ -16942,7 +16957,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             produces the same result as using the default value.</a:documentation>
           <value>preserve</value>
           <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">instructs
-            the application to maintain white space as is, suggesting that it might have
+            the application to maintain white space "as-is", suggesting that it might have
             meaning.</a:documentation>
         </choice>
       </attribute>
@@ -16987,6 +17002,14 @@ Edition Location: http://www.tei-c.org/Vault/P5//
   <define name="model.respLike">
     <choice>
       <ref name="respStmt"/>
+      <ref name="arranger"/>
+      <ref name="author"/>
+      <ref name="composer"/>
+      <ref name="editor"/>
+      <ref name="funder"/>
+      <ref name="librettist"/>
+      <ref name="lyricist"/>
+      <ref name="sponsor"/>
     </choice>
   </define>
   <define name="model.workIdent">
@@ -17003,6 +17026,24 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="work"/>
     </choice>
   </define>
+  <define name="arranger">
+    <element name="arranger">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– A person or
+        organization who transcribes a musical composition, usually for a different medium from that
+        of the original; in an arrangement the musical substance remains essentially
+        unchanged.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.bibl.attributes"/>
+      <ref name="att.facsimile.attributes"/>
+      <empty/>
+    </element>
+  </define>
   <define name="audience">
     <element name="audience">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Defines the
@@ -17018,6 +17059,22 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="att.common.attributes"/>
       <ref name="att.authorized.attributes"/>
       <ref name="att.bibl.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="author">
+    <element name="author">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– The name of
+        the creator of the intellectual content of a non-musical, literary work.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.bibl.attributes"/>
+      <ref name="att.facsimile.attributes"/>
       <empty/>
     </element>
   </define>
@@ -17132,6 +17189,22 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <empty/>
     </element>
   </define>
+  <define name="composer">
+    <element name="composer">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– The name of
+        the creator of the intellectual content of a musical work.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.bibl.attributes"/>
+      <ref name="att.facsimile.attributes"/>
+      <empty/>
+    </element>
+  </define>
   <define name="context">
     <element name="context">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– The
@@ -17156,6 +17229,23 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Name of a
         person or other agency responsible for the distribution of a bibliographic
         item.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.bibl.attributes"/>
+      <ref name="att.facsimile.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="editor">
+    <element name="editor">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– The name of
+        the individual(s), institution(s) or organization(s) acting in an editorial
+        capacity.</a:documentation>
       <zeroOrMore>
         <choice>
           <text/>
@@ -17263,6 +17353,24 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <empty/>
     </element>
   </define>
+  <define name="funder">
+    <element name="funder">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Names of
+        individuals, institutions, or organizations responsible for funding. Funders provide
+        financial support for a project; they are distinct from sponsors, who provide intellectual
+        support and authority.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.bibl.attributes"/>
+      <ref name="att.facsimile.attributes"/>
+      <empty/>
+    </element>
+  </define>
   <define name="genre">
     <element name="genre">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Term or terms
@@ -17363,6 +17471,38 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         </choice>
       </zeroOrMore>
       <ref name="att.common.attributes"/>
+      <ref name="att.facsimile.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="librettist">
+    <element name="librettist">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Person or
+        organization who is a writer of the text of an opera, oratorio, etc.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.bibl.attributes"/>
+      <ref name="att.facsimile.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="lyricist">
+    <element name="lyricist">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Person or
+        organization who is a writer of the text of a song.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.bibl.attributes"/>
       <ref name="att.facsimile.attributes"/>
       <empty/>
     </element>
@@ -17493,6 +17633,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         <choice>
           <ref name="model.titleLike"/>
           <ref name="model.locrefLike"/>
+          <ref name="editor"/>
           <ref name="respStmt"/>
           <ref name="extent"/>
           <ref name="model.identifierLike"/>
@@ -17537,6 +17678,24 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="att.common.attributes"/>
       <ref name="att.authorized.attributes"/>
       <ref name="att.bibl.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="sponsor">
+    <element name="sponsor">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Names of
+        sponsoring individuals, organizations or institutions. Sponsors give their intellectual
+        authority to a project; they are to be distinguished from funders, who provide the funding
+        but do not necessarily take intellectual responsibility.</a:documentation>
+      <zeroOrMore>
+        <choice>
+          <text/>
+          <ref name="model.textphraseLike.limited"/>
+        </choice>
+      </zeroOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.bibl.attributes"/>
+      <ref name="att.facsimile.attributes"/>
       <empty/>
     </element>
   </define>
