@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-02-13T21:46:44Z. 
+Schema generated from ODD source 2013-02-14T20:03:33Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -10252,12 +10252,12 @@ Edition Location: http://www.tei-c.org/Vault/P5//
   <define name="titleStmt">
     <element name="titleStmt">
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(title
-        statement) – Container for title and responsibility meta-data. </a:documentation>
+        statement) – Container for title and responsibility meta-data.</a:documentation>
       <oneOrMore>
         <ref name="model.titleLike"/>
       </oneOrMore>
       <zeroOrMore>
-        <ref name="respStmt"/>
+        <ref name="model.respLike"/>
       </zeroOrMore>
       <ref name="att.bibl.attributes"/>
       <ref name="att.common.attributes"/>
@@ -11431,8 +11431,8 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">half
           pedal.</a:documentation>
         <value>bounce</value>
-        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">depress then
-          immediately release the pedal.</a:documentation>
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">release then
+          immediately depress the pedal.</a:documentation>
       </choice>
     </attribute>
   </define>
