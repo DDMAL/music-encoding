@@ -2041,19 +2041,28 @@
             <memberOf key="att.lang"/>
           </classes>
           <content>
-            <rng:optional>
-              <rng:ref name="model.headLike"/>
-            </rng:optional>
             <rng:choice>
               <!-- A semi-structured description using name, date, and place elements -->
               <rng:group>
-                <rng:zeroOrMore>
-                  <rng:ref name="model.eventPart"/>
-                </rng:zeroOrMore>
+                <rng:optional>
+                  <!-- A descriptive label, such as "First performance in Denmark" -->
+                  <rng:ref name="model.headLike"/>
+                </rng:optional>
+                <rng:oneOrMore>
+                    <rng:ref name="model.eventPart"/>                  
+                </rng:oneOrMore>
+                <!-- A single paragraph is allowed here in order to "grandfather in" MerMEId.  This paragraph
+                will be deprecated following MEI2013!  The <head> element should be used instead. Once this
+                paragraph is eliminated, the preceding model.eventPart reference above and the choice below
+                can be made optional. Until then, at least one element from model.eventPart must be required
+                in order to avoid an ambiguous content model when converting to XSD. -->
+                <rng:optional>
+                  <rng:ref name="model.pLike"/>
+                </rng:optional>
               </rng:group>
               <!-- A more free-form description using elements from the textcomponentLike class -->
               <rng:group>
-                <rng:zeroOrMore>
+                <rng:oneOrMore>
                   <rng:choice>
                     <rng:ref name="model.pLike"/>
                     <rng:ref name="model.tableLike"/>
@@ -2063,7 +2072,7 @@
                     <rng:ref name="list"/>
                     <rng:ref name="castList"/>
                   </rng:choice>
-                </rng:zeroOrMore>
+                </rng:oneOrMore>
               </rng:group>
             </rng:choice>
             <rng:zeroOrMore>
@@ -2778,7 +2787,7 @@
             </attDef>
           </attList>
         </elementSpec>
-         <elementSpec ident="titleStmt" module="MEI.header" mode="replace">
+        <elementSpec ident="titleStmt" module="MEI.header" mode="replace">
           <desc>(title statement) &#8211; Container for title and responsibility meta-data.</desc>
           <classes>
             <memberOf key="att.bibl"/>
@@ -2794,7 +2803,7 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
-        </elementSpec> 
+        </elementSpec>
         <elementSpec ident="work" module="MEI.header" mode="replace">
           <desc>&#8211; Provides a detailed description of a work, specifically its history,
             language use, and high-level musical attributes: key, tempo, meter, and medium of

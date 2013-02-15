@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-02-14T20:03:33Z. 
+Schema generated from ODD source 2013-02-15T03:59:23Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -10432,24 +10432,27 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Contains a
         description of an event, including the dates and locations of its occurrence and prominent
         participants.</a:documentation>
-      <optional>
-        <ref name="model.headLike"/>
-      </optional>
       <choice>
         <group>
-          <zeroOrMore>
+          <optional>
+            <ref name="model.headLike"/>
+          </optional>
+          <oneOrMore>
             <ref name="model.eventPart"/>
-          </zeroOrMore>
+          </oneOrMore>
+          <optional>
+            <ref name="model.pLike"/>
+          </optional>
         </group>
         <group>
-          <zeroOrMore>
+          <oneOrMore>
             <choice>
               <ref name="model.pLike"/>
               <ref name="model.tableLike"/>
               <ref name="list"/>
               <ref name="castList"/>
             </choice>
-          </zeroOrMore>
+          </oneOrMore>
         </group>
       </choice>
       <zeroOrMore>
