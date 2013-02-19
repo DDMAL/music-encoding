@@ -1339,8 +1339,8 @@
             </xsl:attribute>
           </xsl:if>
           <xsl:value-of select="."/>
-
-          <!--<xsl:call-template name="fontproperties"/>-->
+          <xsl:call-template name="fontProperties"/>
+          <xsl:call-template name="color"/>
         </syl>
       </xsl:for-each>
       <xsl:if test="end-line">
@@ -2807,7 +2807,7 @@
       </xsl:when>
       <xsl:when test="local-name()='staffGrp'">
         <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
-          <xsl:copy-of select="@*|mei:instrDef"/>
+          <xsl:copy-of select="@*|mei:label|mei:instrDef"/>
           <xsl:for-each select="mei:staffDef">
             <staffDef xmlns="http://www.music-encoding.org/ns/mei">
               <xsl:attribute name="n">
@@ -2819,7 +2819,7 @@
         </staffGrp>
       </xsl:when>
       <xsl:otherwise>
-        <xsl:copy-of select="(.)"/>
+        <xsl:copy-of select="."/>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
@@ -2938,26 +2938,30 @@
           <xsl:value-of select="generate-id()"/>
         </xsl:for-each>
       </xsl:attribute>
-      <xsl:attribute name="curvedir">
-        <xsl:choose>
-          <xsl:when test="@orientation='under' or @placement='below'">
-            <xsl:attribute name="curvedir">below</xsl:attribute>
-          </xsl:when>
-          <xsl:when test="@orientation='over' or @placement='above'">
-            <xsl:attribute name="curvedir">above</xsl:attribute>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:choose>
-              <xsl:when test="ancestor::note/stem='up'">
-                <xsl:attribute name="curvedir">below</xsl:attribute>
-              </xsl:when>
-              <xsl:when test="ancestor::note/stem='down'">
-                <xsl:attribute name="curvedir">above</xsl:attribute>
-              </xsl:when>
-            </xsl:choose>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="@orientation='under' or @placement='below' or ancestor::note/stem='up'">
+          <xsl:attribute name="curvedir">
+            <xsl:text>below</xsl:text>
+          </xsl:attribute>
+        </xsl:when>
+        <xsl:when test="@orientation='over' or @placement='above' or ancestor::note/stem='down'">
+          <xsl:attribute name="curvedir">
+            <xsl:text>above</xsl:text>
+          </xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="measureNum">
+            <xsl:value-of select="ancestor::measure/@number"/>
+          </xsl:variable>
+          <xsl:variable name="warning">
+            <xsl:text>Slur curve direction missing</xsl:text>
+          </xsl:variable>
+          <xsl:message>
+            <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+              ').'))"/>
+          </xsl:message>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:if test="@line-type='dashed' or @line-type='dotted' or @line-type='solid'">
         <xsl:attribute name="rend">
           <xsl:choose>
@@ -3280,9 +3284,16 @@
           <xsl:attribute name="endid">
             <xsl:value-of select="generate-id(ancestor::note)"/>
           </xsl:attribute>
-          <xsl:attribute name="dur">
-            <xsl:text>0m+0</xsl:text>
-          </xsl:attribute>
+          <xsl:variable name="measureNum">
+            <xsl:value-of select="ancestor::measure/@number"/>
+          </xsl:variable>
+          <xsl:variable name="warning">
+            <xsl:text>Slur duration missing</xsl:text>
+          </xsl:variable>
+          <xsl:message>
+            <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+              ').'))"/>
+          </xsl:message>
           <xsl:if test="following-sibling::slur[@type='continue' and @number=$slurNum and
             @default-x]">
             <xsl:attribute name="endho">
@@ -3327,26 +3338,30 @@
           <xsl:value-of select="generate-id()"/>
         </xsl:for-each>
       </xsl:attribute>
-      <xsl:attribute name="curvedir">
-        <xsl:choose>
-          <xsl:when test="@orientation='under' or @placement='below'">
-            <xsl:attribute name="curvedir">below</xsl:attribute>
-          </xsl:when>
-          <xsl:when test="@orientation='over' or @placement='above'">
-            <xsl:attribute name="curvedir">above</xsl:attribute>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:choose>
-              <xsl:when test="ancestor::note/stem='up'">
-                <xsl:attribute name="curvedir">below</xsl:attribute>
-              </xsl:when>
-              <xsl:when test="ancestor::note/stem='down'">
-                <xsl:attribute name="curvedir">above</xsl:attribute>
-              </xsl:when>
-            </xsl:choose>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test="@orientation='under' or @placement='below' or ancestor::note/stem='up'">
+          <xsl:attribute name="curvedir">
+            <xsl:text>below</xsl:text>
+          </xsl:attribute>
+        </xsl:when>
+        <xsl:when test="@orientation='over' or @placement='above' or ancestor::note/stem='down'">
+          <xsl:attribute name="curvedir">
+            <xsl:text>above</xsl:text>
+          </xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="measureNum">
+            <xsl:value-of select="ancestor::measure/@number"/>
+          </xsl:variable>
+          <xsl:variable name="warning">
+            <xsl:text>Tie curve direction missing</xsl:text>
+          </xsl:variable>
+          <xsl:message>
+            <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+              ').'))"/>
+          </xsl:message>
+        </xsl:otherwise>
+      </xsl:choose>
       <xsl:if test="@line-type='dashed' or @line-type='dotted' or @line-type='solid'">
         <xsl:attribute name="rend">
           <xsl:choose>
@@ -3780,6 +3795,7 @@
           <xsl:call-template name="assignPart-Layer-Staff-Beam-Tuplet"/>
           <!--<xsl:call-template name="positionRelative"/>-->
           <xsl:call-template name="size"/>
+          <xsl:call-template name="color"/>
 
           <!-- Notated tie in attribute:
                I'm using notations/tied here instead of note/tie because note/tie
@@ -4041,7 +4057,7 @@
           <xsl:value-of select="preceding-sibling::mei:staffDef[1]/@n"/>
         </xsl:for-each>
       </xsl:attribute>
-      <!-- group label -->
+      <!-- group label as attribute -->
       <xsl:if test="group-name or group-name-display">
         <xsl:attribute name="label">
           <xsl:choose>
@@ -4055,7 +4071,7 @@
           </xsl:choose>
         </xsl:attribute>
       </xsl:if>
-      <!-- abbreviated group label -->
+      <!-- abbreviated group label as attribute -->
       <xsl:if test="group-abbreviation or group-abbreviation-display">
         <xsl:attribute name="label.abbr">
           <xsl:choose>
@@ -4073,6 +4089,74 @@
         <xsl:attribute name="barthru">
           <xsl:text>true</xsl:text>
         </xsl:attribute>
+      </xsl:if>
+      <!-- group label as element -->
+      <xsl:if test="group-name or group-name-display">
+        <label xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:choose>
+            <xsl:when test="group-name-display">
+              <xsl:value-of select="replace(replace(normalize-space(group-name-display), 'flat',
+                '&#x266d;'), 'sharp', '&#x266f;')"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:choose>
+                <xsl:when test="group-name[@font-family or @font-style or @font-size or
+                  @font-weight or @letter-spacing or @line-height or @justify  or @halign or @valign
+                  or @color or @rotation or @xml:space or @underline or @overline or @line-through
+                  or @dir or @enclosure]">
+                  <xsl:for-each select="group-name[@font-family or @font-style or @font-size or
+                    @font-weight or @letter-spacing or @line-height or @justify  or @halign or
+                    @valign or @color or @rotation or @xml:space or @underline
+                    or @overline or @line-through or @dir or @enclosure]">
+                    <xsl:call-template name="wrapRend">
+                      <xsl:with-param name="in">
+                        <xsl:value-of select="group-name"/>
+                      </xsl:with-param>
+                    </xsl:call-template>
+                  </xsl:for-each>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:value-of select="group-name"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:otherwise>
+          </xsl:choose>
+        </label>
+      </xsl:if>
+      <xsl:if test="group-abbreviation or group-abbreviation-display">
+        <label xmlns="http://www.music-encoding.org/ns/mei">
+          <abbr>
+            <xsl:choose>
+              <xsl:when test="group-abbreviation-display">
+                <xsl:value-of select="replace(replace(normalize-space(group-abbreviation-display),
+                  'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:choose>
+                  <xsl:when test="group-abbreviation[@font-family or @font-style or @font-size or
+                    @font-weight or @letter-spacing or @line-height or @justify  or @halign or
+                    @valign  or @color or @rotation or @xml:space or @underline or
+                    @overline or @line-through or @dir or @enclosure]">
+                    <xsl:for-each select="group-abbreviation[@font-family or @font-style or
+                      @font-size or @font-weight or @letter-spacing or
+                      @line-height or @justify  or @halign or @valign or @color
+                      or @rotation or @xml:space or @underline or @overline or
+                      @line-through or @dir or @enclosure]">
+                      <xsl:call-template name="wrapRend">
+                        <xsl:with-param name="in">
+                          <xsl:value-of select="group-abbreviation"/>
+                        </xsl:with-param>
+                      </xsl:call-template>
+                    </xsl:for-each>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="group-abbreviation"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:otherwise>
+            </xsl:choose>
+          </abbr>
+        </label>
       </xsl:if>
     </grpSym>
   </xsl:template>
@@ -4177,6 +4261,76 @@
             </xsl:with-param>
             <xsl:with-param name="staffNum"/>
           </xsl:call-template>
+
+          <!-- staff label as element -->
+          <xsl:if test="part-name or part-name-display">
+            <label xmlns="http://www.music-encoding.org/ns/mei">
+              <xsl:choose>
+                <xsl:when test="part-name-display">
+                  <xsl:value-of select="replace(replace(normalize-space(part-name-display), 'flat',
+                    '&#x266d;'), 'sharp', '&#x266f;')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:choose>
+                    <xsl:when test="part-name[@font-family or @font-style or @font-size or
+                      @font-weight or @letter-spacing or @line-height or @justify  or @halign or
+                      @valign or @color or @rotation or @xml:space or@underline or @overline
+                      or @line-through or @dir or @enclosure]">
+                      <xsl:for-each select="part-name[@font-family or @font-style or @font-size or
+                        @font-weight or @letter-spacing or @line-height or @justify  or @halign or
+                        @valign or @color or @rotation or @xml:space or @underline
+                        or @overline or @line-through or @dir or @enclosure]">
+                        <xsl:call-template name="wrapRend">
+                          <xsl:with-param name="in">
+                            <xsl:value-of select="part-name"/>
+                          </xsl:with-param>
+                        </xsl:call-template>
+                      </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="part-name"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:otherwise>
+              </xsl:choose>
+            </label>
+          </xsl:if>
+          <xsl:if test="part-abbreviation or part-abbreviation-display">
+            <label xmlns="http://www.music-encoding.org/ns/mei">
+              <abbr>
+                <xsl:choose>
+                  <xsl:when test="part-abbreviation-display">
+                    <xsl:value-of
+                      select="replace(replace(normalize-space(part-abbreviation-display),
+                      'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:choose>
+                      <xsl:when test="part-abbreviation[@font-family or @font-style or @font-size or
+                        @font-weight or @letter-spacing or @line-height or @justify  or @halign or
+                        @valign or @color or @rotation or @xml:space or @underline or @overline or
+                        @line-through or @dir or @enclosure]">
+                        <xsl:for-each select="part-abbreviation[@font-family or @font-style or
+                          @font-size or @font-weight or @letter-spacing or
+                          @line-height or @justify  or @halign or @valign or
+                          @color or @rotation or @xml:space or @underline or
+                          @overline or @line-through or @dir or @enclosure]">
+                          <xsl:call-template name="wrapRend">
+                            <xsl:with-param name="in">
+                              <xsl:value-of select="part-abbreviation"/>
+                            </xsl:with-param>
+                          </xsl:call-template>
+                        </xsl:for-each>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="part-abbreviation"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </abbr>
+            </label>
+          </xsl:if>
 
           <!-- instrument definition -->
           <xsl:choose>
@@ -4734,8 +4888,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:choose>
         </xsl:attribute>
         <xsl:call-template name="positionRelative"/>
-        <!-- Accid element must allow rend in order to use fontproperties
-        <xsl:call-template name="fontproperties"/> -->
+        <xsl:call-template name="fontProperties"/>
+        <xsl:call-template name="color"/>
       </accid>
     </xsl:for-each>
   </xsl:template>
@@ -4904,8 +5058,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:when>
         </xsl:choose>
         <xsl:call-template name="positionRelative"/>
-        <!-- The artic element must allow rend in order to use fontproperties -->
-        <!-- <xsl:call-template name="fontproperties"/> -->
+        <xsl:call-template name="fontProperties"/>
+        <xsl:call-template name="color"/>
       </artic>
     </xsl:for-each>
 
@@ -5030,8 +5184,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:when>
         </xsl:choose>
         <xsl:call-template name="positionRelative"/>
-        <!-- The artic element must allow rend in order to use fontproperties -->
-        <!-- <xsl:call-template name="fontproperties"/> -->
+        <xsl:call-template name="fontProperties"/>
+        <xsl:call-template name="color"/>
       </artic>
     </xsl:for-each>
   </xsl:template>
@@ -5174,6 +5328,28 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </xsl:if>
   </xsl:template>
 
+  <xsl:template name="color">
+    <xsl:choose>
+      <xsl:when test="matches(normalize-space(@color), '(#[0-9A-Fa-f]{8,8})')">
+        <!-- convert MusicXML CSS4 color value to CSS3 rgba value -->
+        <xsl:attribute name="color">
+          <xsl:call-template name="aarrggbb2css">
+            <xsl:with-param name="aarrggbb">
+              <xsl:value-of select="@color"/>
+            </xsl:with-param>
+          </xsl:call-template>
+        </xsl:attribute>
+      </xsl:when>
+      <xsl:when test="matches(normalize-space(@color),
+        '^#[0-9A-Fa-f]{6,6}$|^aqua$|^black$|^blue$|^fuchsia$|^gray$|^green$|^lime$|^maroon$|^navy$|^olive$|^purple$|^red$|^silver$|^teal$|^white$|^yellow')">
+        <!-- pass through hex and named color values -->
+        <xsl:attribute name="color">
+          <xsl:value-of select="normalize-space(@color)"/>
+        </xsl:attribute>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
   <xsl:template name="credits">
     <!-- Process MusicXML credit elements -->
     <xsl:variable name="pageHeight">
@@ -5235,6 +5411,37 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         </xsl:when>
       </xsl:choose>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="fontProperties">
+    <!-- Font name, size, style, and weight -->
+    <xsl:if test="@font-family">
+      <xsl:attribute name="fontfam">
+        <xsl:value-of select="normalize-space(@font-family)"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@font-size">
+      <xsl:attribute name="fontsize">
+        <xsl:value-of select="@font-size"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@font-style">
+      <xsl:attribute name="fontstyle">
+        <xsl:choose>
+          <xsl:when test="contains(@font-style, 'ital')">
+            <xsl:text>italic</xsl:text>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="@font-style"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@font-weight ">
+      <xsl:attribute name="fontweight">
+        <xsl:value-of select="@font-weight"/>
+      </xsl:attribute>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="gesturalDuration">
@@ -5836,6 +6043,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                         number(@start)=$thisStaff]/@label"/>
                       <xsl:copy-of select="following::grpSym[number(@level)=$pass and
                         number(@start)=$thisStaff]/@label.abbr"/>
+                      <xsl:copy-of select="following::grpSym[number(@level)=$pass and
+                        number(@start)=$thisStaff]/mei:label"/>
                       <xsl:copy-of select="."/>
                       <xsl:copy-of select="following-sibling::mei:staffDef[number(@n) &lt;= $end] |
                         following-sibling::mei:staffGrp[mei:staffDef[number(@n) &lt;= $end]]"/>
@@ -5874,6 +6083,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                         number(@start)=$thisStaff]/@label"/>
                       <xsl:copy-of select="following::grpSym[number(@level)=$pass and
                         number(@start)=$thisStaff]/@label.abbr"/>
+                      <xsl:copy-of select="following::grpSym[number(@level)=$pass and
+                        number(@start)=$thisStaff]/mei:label"/>
                       <xsl:copy-of select="."/>
                       <xsl:copy-of select="following-sibling::mei:staffDef[number(@n) &lt;= $end] |
                         following-sibling::mei:staffGrp[mei:staffDef[number(@n) &lt;= $end]]"/>
@@ -6295,13 +6506,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <!-- Create titleStmt element -->
     <titleStmt xmlns="http://www.music-encoding.org/ns/mei">
       <title>
-        <xsl:value-of select="normalize-space(work/work-title)"/>
+        <xsl:if test="normalize-space(work/work-title) != ''">
+          <xsl:value-of select="normalize-space(work/work-title)"/>
+        </xsl:if>
         <xsl:variable name="identifier">
           <xsl:if test="normalize-space(work/work-number) != ''">
             <xsl:value-of select="normalize-space(work/work-number)"/>
           </xsl:if>
           <xsl:if test="normalize-space(movement-number) != ''">
-            <xsl:text>, </xsl:text>
             <xsl:if test="number(normalize-space(movement-number))">
               <xsl:text>no. </xsl:text>
             </xsl:if>
@@ -6309,7 +6521,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:if>
         </xsl:variable>
         <xsl:if test="normalize-space($identifier) != ''">
-          <xsl:text>, </xsl:text>
+          <xsl:if test="normalize-space(work/work-title) != ''">
+            <xsl:text>, </xsl:text>
+          </xsl:if>
           <identifier>
             <xsl:value-of select="$identifier"/>
           </identifier>
@@ -6327,14 +6541,24 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:if test="identification/creator">
         <respStmt>
           <xsl:for-each select="identification/creator">
-            <xsl:if test="not(@type='')">
+            <!-- name + @role -->
+            <name>
+              <xsl:if test="normalize-space(@type) !=''">
+                <xsl:attribute name="role">
+                  <xsl:value-of select="@type"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:value-of select="normalize-space(.)"/>
+            </name>
+            <!-- TEI-like respStmt content -->
+            <!--<xsl:if test="not(@type='')">
               <resp>
                 <xsl:value-of select="@type"/>
               </resp>
             </xsl:if>
             <name>
               <xsl:value-of select="normalize-space(.)"/>
-            </name>
+            </name>-->
           </xsl:for-each>
         </respStmt>
       </xsl:if>
@@ -6448,27 +6672,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <!-- Wrap text with positional or renditional attributes w/ MEI rend element -->
     <xsl:param name="in"/>
     <rend xmlns="http://www.music-encoding.org/ns/mei">
-      <!-- Separate attributes first -->
-      <xsl:if test="@font-family">
-        <xsl:attribute name="fontfam">
-          <xsl:value-of select="normalize-space(@font-family)"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="@font-style">
-        <xsl:attribute name="fontstyle">
-          <xsl:value-of select="@font-style"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="@font-size">
-        <xsl:attribute name="fontsize">
-          <xsl:value-of select="@font-size"/>
-        </xsl:attribute>
-      </xsl:if>
-      <xsl:if test="@font-weight ">
-        <xsl:attribute name="fontweight">
-          <xsl:value-of select="@font-weight"/>
-        </xsl:attribute>
-      </xsl:if>
+      <!-- Individual attributes first -->
+      <xsl:call-template name="fontProperties"/>
       <xsl:choose>
         <xsl:when test="@halign">
           <xsl:attribute name="halign">
@@ -6487,28 +6692,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:if test="@rotation">
         <xsl:copy-of select="@rotation"/>
       </xsl:if>
-      <xsl:choose>
-        <xsl:when test="matches(normalize-space(@color), '(#[0-9A-Fa-f]{8,8})')">
-          <!-- convert MusicXML CSS4 color value to CSS3 rgba value -->
-          <xsl:attribute name="color">
-            <xsl:call-template name="aarrggbb2css">
-              <xsl:with-param name="aarrggbb">
-                <xsl:value-of select="@color"/>
-              </xsl:with-param>
-            </xsl:call-template>
-          </xsl:attribute>
-        </xsl:when>
-        <xsl:when test="matches(normalize-space(@color),
-          '^#[0-9A-Fa-f]{6,6}$|^aqua$|^black$|^blue$|^fuchsia$|^gray$|^green$|^lime$|^maroon$|^navy$|^olive$|^purple$|^red$|^silver$|^teal$|^white$|^yellow')">
-          <!-- pass through hex and named color values -->
-          <xsl:attribute name="color">
-            <xsl:value-of select="normalize-space(@color)"/>
-          </xsl:attribute>
-        </xsl:when>
-      </xsl:choose>
+      <xsl:call-template name="color"/>
       <xsl:copy-of select="@xml:lang"/>
       <xsl:copy-of select="@xml:space"/>
-      <!-- Other values go in @rend -->
+      <!-- Other properties go in @rend -->
       <xsl:if test="@underline | @overline |@line-through | @dir | @enclosure | @print-object='no'">
         <xsl:variable name="rendValue">
           <xsl:if test="@underline">
