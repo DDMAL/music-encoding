@@ -5340,7 +5340,7 @@
         <xsl:if test="matches(work/work-title, '[\(\[].*[\)\]]') or matches(movement-title,
           '[\(\[].*[\)\]]') or matches(work/work-title, 'excerpt', 'i') or
           matches(movement-title, 'excerpt', 'i') or matches(work/work-title,
-          'pages?&#32;') or matches(movement-title, 'pages?&#32;')">
+          'pages?&#32;', 'i') or matches(movement-title, 'pages?&#32;', 'i')">
           <xsl:variable name="warning">Sampling declaration may be necessary.</xsl:variable>
           <xsl:message>
             <xsl:value-of select="normalize-space($warning)"/>
