@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE xsl:stylesheet [
-<!ENTITY beamstart     "&#xE501;">
+<!ENTITY beamstart    "&#xE501;">
 <!ENTITY beamend      "&#xE502;">
-<!ENTITY tupletstart     "&#xE503;">
-<!ENTITY tupletend      "&#xE504;">
+<!ENTITY tupletstart  "&#xE503;">
+<!ENTITY tupletend    "&#xE504;">
 ]>
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
@@ -216,10 +216,23 @@
   </xsl:variable>
   <xsl:variable name="scorePPQ">
     <xsl:variable name="staffPPQvalues">
-      <xsl:for-each select="//measure[1]//attributes/divisions[not(.=following::divisions)]">
-        <xsl:sort data-type="number"/>
-        <xsl:copy-of select="."/>
-      </xsl:for-each>
+      <xsl:choose>
+        <xsl:when test="//measure[1]//attributes/divisions[not(.=following::divisions)]">
+          <xsl:for-each select="//measure[1]//attributes/divisions[not(.=following::divisions)]">
+            <xsl:sort data-type="number"/>
+            <xsl:copy-of select="."/>
+          </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="errorMessage">
+            <xsl:text>Conversion requires attributes/divisions in m.
+              1</xsl:text>
+          </xsl:variable>
+          <xsl:message terminate="yes">
+            <xsl:value-of select="normalize-space($errorMessage)"/>
+          </xsl:message>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:variable>
     <xsl:choose>
       <xsl:when test="count($staffPPQvalues//divisions) = 1">
@@ -1104,6 +1117,13 @@
             <xsl:value-of select="preceding::part[@id=$thisPart and
               attributes/divisions][1]/attributes/divisions"/>
           </xsl:when>
+          <xsl:when test="following::part[@id=$thisPart and attributes/divisions]">
+            <xsl:value-of select="following::part[@id=$thisPart and
+              attributes/divisions][1]/attributes/divisions"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="$scorePPQ"/>
+          </xsl:otherwise>
         </xsl:choose>
       </xsl:variable>
       <xsl:variable name="meterCount">
@@ -2876,12 +2896,19 @@
         <xsl:variable name="ppq">
           <xsl:choose>
             <xsl:when test="ancestor::part[attributes/divisions]">
-              <xsl:value-of select="ancestor::part[attributes/divisions]/attributes/divisions"/>
+              <xsl:value-of select="ancestor::part[attributes/divisions]/attributes/divisions[1]"/>
             </xsl:when>
             <xsl:when test="preceding::part[@id=$thisPart and attributes/divisions]">
               <xsl:value-of select="preceding::part[@id=$thisPart and
                 attributes/divisions][1]/attributes/divisions"/>
             </xsl:when>
+            <xsl:when test="following::part[@id=$thisPart and attributes/divisions]">
+              <xsl:value-of select="following::part[@id=$thisPart and
+                attributes/divisions][1]/attributes/divisions"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$scorePPQ"/>
+            </xsl:otherwise>
           </xsl:choose>
         </xsl:variable>
         <xsl:variable name="meterCount">
@@ -2894,6 +2921,7 @@
                 attributes/time][1]/attributes/time/beats"/>
             </xsl:when>
             <xsl:otherwise>
+              <xsl:message>HERE!</xsl:message>
               <xsl:value-of select="sum(ancestor::part/note/duration) div $ppq"/>
             </xsl:otherwise>
           </xsl:choose>
@@ -7543,6 +7571,13 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:value-of select="preceding::part[@id=$thisPart and
             attributes/divisions][1]/attributes/divisions"/>
         </xsl:when>
+        <xsl:when test="following::part[@id=$thisPart and attributes/divisions]">
+          <xsl:value-of select="following::part[@id=$thisPart and
+            attributes/divisions][1]/attributes/divisions"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="$scorePPQ"/>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
     <xsl:variable name="meterUnit">
