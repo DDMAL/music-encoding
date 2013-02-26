@@ -223,6 +223,10 @@
             <xsl:copy-of select="."/>
           </xsl:for-each>
         </xsl:when>
+        <!-- Supply ppq based on duration of first note? -->
+        <!--<xsl:when test="//measure[1]//note[duration]">
+          
+        </xsl:when>-->
         <xsl:otherwise>
           <xsl:variable name="errorMessage">
             <xsl:text>Conversion requires attributes/divisions in m.
@@ -2003,7 +2007,7 @@
         </xsl:attribute>
         <!-- metrical conformance -->
         <xsl:if test="@implicit='yes'">
-          <xsl:attribute name="metcon">i</xsl:attribute>
+          <xsl:attribute name="metcon">false</xsl:attribute>
         </xsl:if>
         <!-- generated ID -->
         <xsl:attribute name="xml:id">
@@ -2921,7 +2925,6 @@
                 attributes/time][1]/attributes/time/beats"/>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:message>HERE!</xsl:message>
               <xsl:value-of select="sum(ancestor::part/note/duration) div $ppq"/>
             </xsl:otherwise>
           </xsl:choose>
@@ -2992,11 +2995,25 @@
           <xsl:attribute name="tstamp.ges">
             <xsl:call-template name="getTimestamp.ges"/>
           </xsl:attribute>
-          <xsl:for-each select="type[1]">
-            <xsl:attribute name="dur">
-              <xsl:call-template name="notatedDuration"/>
-            </xsl:attribute>
-          </xsl:for-each>
+          <xsl:choose>
+            <xsl:when test="type">
+              <xsl:attribute name="dur">
+                <xsl:call-template name="notatedDuration"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:attribute name="dur">
+                <xsl:call-template name="quantizedDuration">
+                  <xsl:with-param name="duration">
+                    <xsl:value-of select="duration"/>
+                  </xsl:with-param>
+                  <xsl:with-param name="ppq">
+                    <xsl:value-of select="$ppq"/>
+                  </xsl:with-param>
+                </xsl:call-template>
+              </xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
           <xsl:call-template name="notatedDot"/>
           <xsl:call-template name="fermata"/>
           <xsl:if test="duration">
@@ -6196,13 +6213,29 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:variable name="durSum">
       <xsl:choose>
         <xsl:when test="local-name(.)='clef'">
-          <xsl:value-of select="sum(../preceding-sibling::note[not(chord)]/duration) +
-            sum(../preceding-sibling::forward/duration) -
-            sum(../preceding-sibling::backup/duration)"/>
+          <xsl:variable name="durSumTemp">
+            <xsl:value-of select="sum(../preceding-sibling::note[not(chord)]/duration) +
+              sum(../preceding-sibling::forward/duration) -
+              sum(../preceding-sibling::backup/duration)"/>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="$durSumTemp &lt; 0">0</xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$durSumTemp"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
-          <xsl:value-of select="sum(preceding-sibling::note[not(chord)]/duration) +
-            sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duration)"/>
+          <xsl:variable name="durSumTemp">
+            <xsl:value-of select="sum(preceding-sibling::note[not(chord)]/duration) +
+              sum(preceding-sibling::forward/duration) - sum(preceding-sibling::backup/duration)"/>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="$durSumTemp &lt; 0">0</xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="$durSumTemp"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
