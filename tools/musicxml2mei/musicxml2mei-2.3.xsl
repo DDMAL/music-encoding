@@ -303,6 +303,7 @@
           <xsl:when test=". = 'natural'">n</xsl:when>
           <xsl:when test=". = 'flat'">f</xsl:when>
           <xsl:when test=". = 'double-sharp'">x</xsl:when>
+          <xsl:when test=". = 'double-flat'">ff</xsl:when>
           <xsl:when test=". = 'sharp-sharp'">ss</xsl:when>
           <xsl:when test=". = 'flat-flat'">ff</xsl:when>
           <xsl:when test=". = 'natural-sharp'">ns</xsl:when>
@@ -319,6 +320,7 @@
           <xsl:when test=". = 'natural'">n</xsl:when>
           <xsl:when test=". = 'flat'">f</xsl:when>
           <xsl:when test=". = 'double-sharp'">x</xsl:when>
+          <xsl:when test=". = 'double-flat'">ff</xsl:when>
           <xsl:when test=". = 'sharp-sharp'">ss</xsl:when>
           <xsl:when test=". = 'flat-flat'">ff</xsl:when>
           <xsl:when test=". = 'natural-sharp'">ns</xsl:when>
@@ -3093,6 +3095,7 @@
                 <xsl:when test="accidental = 'natural'">n</xsl:when>
                 <xsl:when test="accidental = 'flat'">f</xsl:when>
                 <xsl:when test="accidental = 'double-sharp'">x</xsl:when>
+                <xsl:when test="accidental = 'double-flat'">ff</xsl:when>
                 <xsl:when test="accidental = 'sharp-sharp'">ss</xsl:when>
                 <xsl:when test="accidental = 'flat-flat'">ff</xsl:when>
                 <xsl:when test="accidental = 'natural-sharp'">ns</xsl:when>
@@ -3394,6 +3397,7 @@
                   <xsl:when test="$precedingAccidental = 'natural'">n</xsl:when>
                   <xsl:when test="$precedingAccidental = 'flat'">f</xsl:when>
                   <xsl:when test="$precedingAccidental = 'double-sharp'">x</xsl:when>
+                  <xsl:when test="$precedingAccidental = 'double-flat'">ff</xsl:when>
                   <xsl:when test="$precedingAccidental = 'sharp-sharp'">ss</xsl:when>
                   <xsl:when test="$precedingAccidental = 'flat-flat'">ff</xsl:when>
                   <xsl:when test="$precedingAccidental = 'natural-sharp'">ns</xsl:when>
@@ -5613,6 +5617,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             <xsl:when test="$thisAccid = 'natural'">n</xsl:when>
             <xsl:when test="$thisAccid = 'flat'">f</xsl:when>
             <xsl:when test="$thisAccid = 'double-sharp'">x</xsl:when>
+            <xsl:when test="$thisAccid = 'double-flat'">ff</xsl:when>
             <xsl:when test="$thisAccid = 'sharp-sharp'">ss</xsl:when>
             <xsl:when test="$thisAccid = 'flat-flat'">ff</xsl:when>
             <xsl:when test="$thisAccid = 'natural-sharp'">ns</xsl:when>
