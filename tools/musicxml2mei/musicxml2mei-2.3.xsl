@@ -3000,7 +3000,9 @@
           <xsl:choose>
             <xsl:when test="type">
               <xsl:attribute name="dur">
-                <xsl:call-template name="notatedDuration"/>
+                <xsl:for-each select="type">
+                  <xsl:call-template name="notatedDuration"/>
+                </xsl:for-each>
               </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
