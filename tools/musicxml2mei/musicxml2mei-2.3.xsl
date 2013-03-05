@@ -422,12 +422,20 @@
           </xsl:attribute>
           <xsl:if test="clef-octave-change">
             <xsl:if test="abs(number(clef-octave-change)) != 0">
-              <xsl:attribute name="trans">
+              <xsl:attribute name="dis">
                 <xsl:choose>
-                  <xsl:when test="clef-octave-change = '2'">15va</xsl:when>
-                  <xsl:when test="clef-octave-change = '1'">8va</xsl:when>
-                  <xsl:when test="clef-octave-change = '-1'">8vb</xsl:when>
-                  <xsl:when test="clef-octave-change = '-2'">15vb</xsl:when>
+                  <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                  <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                </xsl:choose>
+              </xsl:attribute>
+              <xsl:attribute name="dis.place">
+                <xsl:choose>
+                  <xsl:when test="number(clef-octave-change) &lt; 0">
+                    <xsl:text>below</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>above</xsl:text>
+                  </xsl:otherwise>
                 </xsl:choose>
               </xsl:attribute>
             </xsl:if>
@@ -1650,6 +1658,10 @@
                     <xsl:when test="sign='TAB'">
                       <xsl:attribute name="clef.shape">TAB</xsl:attribute>
                     </xsl:when>
+                    <!-- No clef provided -->
+                    <xsl:when test="sign='none'">
+                      <xsl:attribute name="clef.visible">false</xsl:attribute>
+                    </xsl:when>
                     <!-- "normal" clef -->
                     <xsl:otherwise>
                       <xsl:attribute name="clef.line">
@@ -1660,13 +1672,20 @@
                       </xsl:attribute>
                       <xsl:if test="clef-octave-change">
                         <xsl:if test="abs(number(clef-octave-change)) != 0">
-                          <xsl:attribute name="clef.trans">
+                          <xsl:attribute name="clef.dis">
                             <xsl:choose>
-                              <xsl:when test="number(clef-octave-change) &gt;= 2">15va</xsl:when>
-                              <xsl:when test="number(clef-octave-change) = 1">8va</xsl:when>
-                              <xsl:when test="number(clef-octave-change) = -1">8vb</xsl:when>
-                              <xsl:when test="number(clef-octave-change) &lt;= -2">15vb</xsl:when>
-                              <xsl:otherwise>8va</xsl:otherwise>
+                              <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                              <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                            </xsl:choose>
+                          </xsl:attribute>
+                          <xsl:attribute name="clef.dis.place">
+                            <xsl:choose>
+                              <xsl:when test="number(clef-octave-change) &lt; 0">
+                                <xsl:text>below</xsl:text>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:text>above</xsl:text>
+                              </xsl:otherwise>
                             </xsl:choose>
                           </xsl:attribute>
                         </xsl:if>
@@ -1868,6 +1887,10 @@
                     <xsl:when test="sign='TAB'">
                       <xsl:attribute name="clef.shape">TAB</xsl:attribute>
                     </xsl:when>
+                    <!-- No clef provided -->
+                    <xsl:when test="sign='none'">
+                      <xsl:attribute name="clef.visible">false</xsl:attribute>
+                    </xsl:when>
                     <!-- "normal" clef -->
                     <xsl:otherwise>
                       <xsl:attribute name="clef.line">
@@ -1878,13 +1901,20 @@
                       </xsl:attribute>
                       <xsl:if test="clef-octave-change">
                         <xsl:if test="abs(number(clef-octave-change)) != 0">
-                          <xsl:attribute name="clef.trans">
+                          <xsl:attribute name="clef.dis">
                             <xsl:choose>
-                              <xsl:when test="number(clef-octave-change) &gt;= 2">15va</xsl:when>
-                              <xsl:when test="number(clef-octave-change) = 1">8va</xsl:when>
-                              <xsl:when test="number(clef-octave-change) = -1">8vb</xsl:when>
-                              <xsl:when test="number(clef-octave-change) &lt;= -2">15vb</xsl:when>
-                              <xsl:otherwise>8va</xsl:otherwise>
+                              <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                              <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                            </xsl:choose>
+                          </xsl:attribute>
+                          <xsl:attribute name="clef.dis.place">
+                            <xsl:choose>
+                              <xsl:when test="number(clef-octave-change) &lt; 0">
+                                <xsl:text>below</xsl:text>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:text>above</xsl:text>
+                              </xsl:otherwise>
                             </xsl:choose>
                           </xsl:attribute>
                         </xsl:if>
@@ -7204,6 +7234,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:when test="sign='TAB'">
                 <xsl:attribute name="clef.shape">TAB</xsl:attribute>
               </xsl:when>
+              <!-- No clef provided -->
+              <xsl:when test="sign='none'">
+                <xsl:attribute name="clef.visible">false</xsl:attribute>
+              </xsl:when>
               <!-- "normal" clef -->
               <xsl:otherwise>
                 <xsl:attribute name="clef.line">
@@ -7214,13 +7248,20 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                 </xsl:attribute>
                 <xsl:if test="clef-octave-change">
                   <xsl:if test="abs(number(clef-octave-change)) != 0">
-                    <xsl:attribute name="clef.trans">
+                    <xsl:attribute name="clef.dis">
                       <xsl:choose>
-                        <xsl:when test="number(clef-octave-change) &gt;= 2">15va</xsl:when>
-                        <xsl:when test="number(clef-octave-change) = 1">8va</xsl:when>
-                        <xsl:when test="number(clef-octave-change) = -1">8vb</xsl:when>
-                        <xsl:when test="number(clef-octave-change) &lt;= -2">15vb</xsl:when>
-                        <xsl:otherwise>8va</xsl:otherwise>
+                        <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                        <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                      </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:attribute name="clef.dis.place">
+                      <xsl:choose>
+                        <xsl:when test="number(clef-octave-change) &lt; 0">
+                          <xsl:text>below</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:text>above</xsl:text>
+                        </xsl:otherwise>
                       </xsl:choose>
                     </xsl:attribute>
                   </xsl:if>
@@ -7348,6 +7389,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:when test="sign='TAB'">
                 <xsl:attribute name="clef.shape">TAB</xsl:attribute>
               </xsl:when>
+              <!-- No clef provided -->
+              <xsl:when test="sign='none'">
+                <xsl:attribute name="clef.visible">false</xsl:attribute>
+              </xsl:when>
               <!-- "normal" clef -->
               <xsl:otherwise>
                 <xsl:attribute name="clef.line">
@@ -7358,13 +7403,20 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                 </xsl:attribute>
                 <xsl:if test="clef-octave-change">
                   <xsl:if test="abs(number(clef-octave-change)) != 0">
-                    <xsl:attribute name="clef.trans">
+                    <xsl:attribute name="clef.dis">
                       <xsl:choose>
-                        <xsl:when test="number(clef-octave-change) &gt;= 2">15va</xsl:when>
-                        <xsl:when test="number(clef-octave-change) = 1">8va</xsl:when>
-                        <xsl:when test="number(clef-octave-change) = -1">8vb</xsl:when>
-                        <xsl:when test="number(clef-octave-change) &lt;= -2">15vb</xsl:when>
-                        <xsl:otherwise>8va</xsl:otherwise>
+                        <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                        <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                      </xsl:choose>
+                    </xsl:attribute>
+                    <xsl:attribute name="clef.dis.place">
+                      <xsl:choose>
+                        <xsl:when test="number(clef-octave-change) &lt; 0">
+                          <xsl:text>below</xsl:text>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:text>above</xsl:text>
+                        </xsl:otherwise>
                       </xsl:choose>
                     </xsl:attribute>
                   </xsl:if>
