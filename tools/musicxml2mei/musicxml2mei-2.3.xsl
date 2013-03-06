@@ -2306,8 +2306,8 @@
             <!-- note/notations/slur[@type='continue'] -->
             <xsl:apply-templates select="note/notations/tied[@type='start']" mode="stage1"/>
             <xsl:apply-templates select="note/notations/tuplet[@type='start']" mode="stage1"/>
-            <xsl:apply-templates select="note[not(chord) and notations/arpeggiate]"
-              mode="stage1.arpeg"/>
+            <xsl:apply-templates select="note[not(chord) and (notations/arpeggiate or
+              notations/non-arpeggiate)]" mode="stage1.arpeg"/>
             <!--<xsl:apply-templates select="note/notations/technical/pull-off[@type='start']"
               mode="stage1"/>-->
           </xsl:variable>
@@ -2938,6 +2938,40 @@
     </xsl:if>
   </xsl:template>
 
+  <xsl:template match="note" mode="nonarpegContinue">
+    <xsl:value-of select="generate-id()"/>
+    <xsl:if test="following-sibling::note[1][chord]">
+      <xsl:text>&#32;</xsl:text>
+      <xsl:apply-templates select="following-sibling::note[1]" mode="nonarpegContinue"/>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="note" mode="nonarpegStaff">
+    <xsl:variable name="partID">
+      <xsl:value-of select="ancestor::part[1]/@id"/>
+    </xsl:variable>
+    <xsl:variable name="partStaff">
+      <xsl:choose>
+        <xsl:when test="staff">
+          <xsl:value-of select="staff"/>
+        </xsl:when>
+        <xsl:otherwise>1</xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:call-template name="getStaffNum">
+      <xsl:with-param name="partID">
+        <xsl:value-of select="$partID"/>
+      </xsl:with-param>
+      <xsl:with-param name="partStaff">
+        <xsl:value-of select="$partStaff"/>
+      </xsl:with-param>
+    </xsl:call-template>
+    <xsl:if test="following-sibling::note[1][chord]">
+      <xsl:text>&#32;</xsl:text>
+      <xsl:apply-templates select="following-sibling::note[1]" mode="arpegStaff"/>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="note" mode="oneNote">
     <!-- Create a note/rest element -->
     <xsl:choose>
@@ -3540,8 +3574,15 @@
       </xsl:variable>
       <xsl:attribute name="plist">
         <xsl:value-of select="$plist"/>
-        <!--<xsl:value-of select="normalize-space(replace($plist, $startid, ''))"/>-->
       </xsl:attribute>
+      <!-- Record explicit arpeggio direction; arpeg indications
+      without explicit direction "default" to convention, such as
+      "same direction as preceding arpeggio". -->
+      <xsl:if test="notations/arpeggiate/@direction">
+        <xsl:attribute name="order">
+          <xsl:value-of select="notations/arpeggiate/@direction"/>
+        </xsl:attribute>
+      </xsl:if>
       <xsl:for-each select="notations/arpeggiate">
         <xsl:call-template name="positionRelative"/>
       </xsl:for-each>
@@ -3550,6 +3591,50 @@
       <xsl:attribute name="staff">
         <xsl:variable name="arpegStaves">
           <xsl:apply-templates select="." mode="arpegStaff"/>
+        </xsl:variable>
+        <xsl:value-of select="distinct-values(tokenize($arpegStaves, ' '))"/>
+      </xsl:attribute>
+
+      <!-- Arpeggiate across which layers? -->
+      <!-- Layer must be determined later in "clean-up" step -->
+      <!--<xsl:attribute name="layer">
+        <xsl:variable name="arpegLayers">
+          <xsl:apply-templates select="." mode="arpegLayer"/>
+        </xsl:variable>
+        <xsl:value-of select="distinct-values(tokenize($arpegLayers, ' '))"/>
+      </xsl:attribute>-->
+    </arpeg>
+  </xsl:template>
+
+  <xsl:template match="note[not(chord) and notations/non-arpeggiate]" mode="stage1.arpeg">
+    <!-- Chords marked as "non-arpeggiated" -->
+    <arpeg xmlns="http://www.music-encoding.org/ns/mei">
+      <!-- Tstamp attributes -->
+      <xsl:call-template name="tstampAttrs"/>
+      <!-- Attributes based on starting note -->
+      <xsl:variable name="startid">
+        <xsl:value-of select="generate-id()"/>
+      </xsl:variable>
+      <xsl:attribute name="startid">
+        <xsl:value-of select="$startid"/>
+      </xsl:attribute>
+      <xsl:variable name="plist">
+        <xsl:apply-templates select="." mode="nonarpegContinue"/>
+      </xsl:variable>
+      <xsl:attribute name="plist">
+        <xsl:value-of select="$plist"/>
+      </xsl:attribute>
+      <xsl:attribute name="order">
+        <xsl:text>nonarp</xsl:text>
+      </xsl:attribute>
+      <xsl:for-each select="notations/non-arpeggiate">
+        <xsl:call-template name="positionRelative"/>
+      </xsl:for-each>
+
+      <!-- Arpeggiate across which staves? -->
+      <xsl:attribute name="staff">
+        <xsl:variable name="arpegStaves">
+          <xsl:apply-templates select="." mode="nonarpegStaff"/>
         </xsl:variable>
         <xsl:value-of select="distinct-values(tokenize($arpegStaves, ' '))"/>
       </xsl:attribute>
