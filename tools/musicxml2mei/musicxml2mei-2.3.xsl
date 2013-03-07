@@ -1131,6 +1131,70 @@
     </xsl:choose>
   </xsl:template>
 
+  <xsl:template match="figured-bass" mode="stage1">
+    <!-- Handle figured-bass indications -->
+    <harm xmlns="http://www.music-encoding.org/ns/mei">
+      <!-- Tstamp attributes -->
+      <xsl:call-template name="tstampAttrs"/>
+      <!-- MusicXML doesn't allow @placement on figured-bass -->
+      <xsl:attribute name="place">
+        <xsl:text>below</xsl:text>
+      </xsl:attribute>
+      <xsl:variable name="partID">
+        <xsl:value-of select="ancestor::part[1]/@id"/>
+      </xsl:variable>
+      <xsl:variable name="partStaff">1</xsl:variable>
+      <xsl:attribute name="staff">
+        <xsl:call-template name="getStaffNum">
+          <xsl:with-param name="partID">
+            <xsl:value-of select="$partID"/>
+          </xsl:with-param>
+          <xsl:with-param name="partStaff">
+            <xsl:value-of select="$partStaff"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:attribute>
+      <xsl:call-template name="positionRelative"/>
+      <fb>
+        <xsl:for-each select="figure">
+          <f>
+            <xsl:if test="extend">
+              <xsl:attribute name="extender">
+                <xsl:text>true</xsl:text>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:variable name="content">
+              <xsl:if test="../@parentheses='yes'">
+                <xsl:text>(</xsl:text>
+              </xsl:if>
+              <xsl:call-template name="figure"/>
+              <xsl:if test="../@parentheses='yes'">
+                <xsl:text>)</xsl:text>
+              </xsl:if>
+            </xsl:variable>
+            <xsl:choose>
+              <xsl:when test="ancestor::figured-bass[@font-family or @font-style or @font-size or
+                @font-weight or @letter-spacing or @line-height or @justify or @halign
+                or @valign or @color or @rotation or @xml:space or @underline or
+                @overline or @line-through or @dir or @enclosure!='none']">
+                <xsl:for-each select="ancestor::figured-bass">
+                  <xsl:call-template name="wrapRend">
+                    <xsl:with-param name="in">
+                      <xsl:copy-of select="$content"/>
+                    </xsl:with-param>
+                  </xsl:call-template>
+                </xsl:for-each>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:copy-of select="$content"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </f>
+        </xsl:for-each>
+      </fb>
+    </harm>
+  </xsl:template>
+
   <xsl:template match="forward" mode="stage1">
     <!-- Forward skips in time have to be filled with space in MEI when 
          they are followed by events; i.e., notes -->
@@ -1269,9 +1333,6 @@
     <harm xmlns="http://www.music-encoding.org/ns/mei">
       <!-- Tstamp attributes -->
       <xsl:call-template name="tstampAttrs"/>
-      <xsl:attribute name="startid">
-        <xsl:value-of select="generate-id()"/>
-      </xsl:attribute>
       <xsl:attribute name="place">
         <xsl:choose>
           <xsl:when test="@placement">
@@ -2295,8 +2356,10 @@
           <!-- Control events -->
           <xsl:variable name="controlevents">
             <xsl:apply-templates select="direction" mode="stage1"/>
-            <xsl:apply-templates select="harmony" mode="stage1"/>
-            <xsl:apply-templates select="note/beam[.='begin']" mode="stage1.beamSpan"/>
+            <xsl:apply-templates select="figured-bass | harmony" mode="stage1"/>
+            <xsl:apply-templates select="note[not(chord) and (notations/arpeggiate or
+              notations/non-arpeggiate)]" mode="stage1.arpeg"/>
+            <xsl:apply-templates select="note/beam[.='begin']" mode="stage1"/>
             <xsl:apply-templates select="note/notations/articulations/breath-mark" mode="stage1"/>
             <xsl:apply-templates select="note/notations/articulations/caesura" mode="stage1"/>
             <xsl:apply-templates select="note/notations/dynamics" mode="stage1"/>
@@ -2306,8 +2369,6 @@
             <!-- note/notations/slur[@type='continue'] -->
             <xsl:apply-templates select="note/notations/tied[@type='start']" mode="stage1"/>
             <xsl:apply-templates select="note/notations/tuplet[@type='start']" mode="stage1"/>
-            <xsl:apply-templates select="note[not(chord) and (notations/arpeggiate or
-              notations/non-arpeggiate)]" mode="stage1.arpeg"/>
             <!--<xsl:apply-templates select="note/notations/technical/pull-off[@type='start']"
               mode="stage1"/>-->
           </xsl:variable>
@@ -3650,7 +3711,7 @@
     </arpeg>
   </xsl:template>
 
-  <xsl:template match="note/beam[.='begin']" mode="stage1.beamSpan">
+  <xsl:template match="note/beam[.='begin']" mode="stage1">
     <!-- Only primary beams are significant in MEI -->
     <!-- @number defaults to 1 -->
     <xsl:if test="@number = '1'">
@@ -6314,6 +6375,20 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         </xsl:when>
       </xsl:choose>
     </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template name="figure">
+    <xsl:if test="prefix">
+      <xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(prefix,
+        'sharp-sharp', '&#x266F;&#x266F;'), 'flat-flat', '&#x1D12B;'), 'double-sharp', '&#x1D12A;'),
+        'sharp', '&#x266F;'), 'flat','&#x266D;'), 'natural', '&#x266E;'), 'slash', '/')"/>
+    </xsl:if>
+    <xsl:value-of select="figure-number"/>
+    <xsl:if test="suffix">
+      <xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(suffix,
+        'sharp-sharp', '&#x266F;&#x266F;'), 'flat-flat', '&#x1D12B;'), 'double-sharp', '&#x1D12A;'),
+        'sharp', '&#x266F;'), 'flat','&#x266D;'), 'natural', '&#x266E;'), 'slash', '/')"/>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template name="fontProperties">
