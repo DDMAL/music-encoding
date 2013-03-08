@@ -3191,7 +3191,7 @@
               </xsl:attribute>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:attribute name="dur">
+              <xsl:variable name="dur">
                 <xsl:call-template name="quantizedDuration">
                   <xsl:with-param name="duration">
                     <xsl:value-of select="duration"/>
@@ -3200,6 +3200,9 @@
                     <xsl:value-of select="$ppq"/>
                   </xsl:with-param>
                 </xsl:call-template>
+              </xsl:variable>
+              <xsl:attribute name="dur">
+                <xsl:value-of select="substring-before($dur, '.')"/>
               </xsl:attribute>
             </xsl:otherwise>
           </xsl:choose>
@@ -5748,19 +5751,21 @@
                 <xsl:if test="descendant::measure[1]/part/attributes[time/beats]">
                   <xsl:attribute name="meter.count">
                     <xsl:value-of
-                      select="descendant::part[attributes/time/beats][1]/attributes/time/beats"/>
+                      select="descendant::measure[1]/part[attributes/time/beats][1]/attributes/time/beats"
+                    />
                   </xsl:attribute>
                 </xsl:if>
                 <xsl:if test="descendant::measure[1]/part/attributes[time/beat-type]">
                   <xsl:attribute name="meter.unit">
                     <xsl:value-of
-                      select="descendant::part[attributes/time/beat-type][1]/attributes/time/beat-type"
+                      select="descendant::measure[1]/part[attributes/time/beat-type][1]/attributes/time/beat-type"
                     />
                   </xsl:attribute>
                 </xsl:if>
                 <xsl:variable name="symbol">
                   <xsl:value-of
-                    select="descendant::part[attributes/time/@symbol][1]/attributes/time/@symbol"/>
+                    select="descendant::measure[1]/part[attributes/time/@symbol][1]/attributes/time/@symbol"
+                  />
                 </xsl:variable>
                 <xsl:choose>
                   <xsl:when test="$symbol='common'">
@@ -5773,15 +5778,15 @@
                     <xsl:attribute name="meter.rend">denomsym</xsl:attribute>
                   </xsl:when>
                   <xsl:when
-                    test="descendant::part[attributes/time/senza-misura][1]/attributes/time/senza-misura">
+                    test="descendant::measure[1]/part[attributes/time/senza-misura][1]/attributes/time/senza-misura">
                     <xsl:attribute name="meter.rend">invis</xsl:attribute>
                   </xsl:when>
                 </xsl:choose>
               </xsl:if>
               <!-- Look in first measure for score-level key signature and mode -->
-              <xsl:if test="descendant::part/attributes[not(transpose)]/key">
+              <xsl:if test="descendant::measure[1]/part/attributes[not(transpose)]/key">
                 <xsl:variable name="keySig">
-                  <xsl:value-of select="descendant::part[attributes[not(transpose) and
+                  <xsl:value-of select="descendant::measure[1]/part[attributes[not(transpose) and
                     key]][1]/attributes/key/fifths"/>
                 </xsl:variable>
                 <xsl:choose>
@@ -5803,10 +5808,11 @@
                       <xsl:value-of select="abs($keySig)"/>f</xsl:attribute>
                   </xsl:when>
                 </xsl:choose>
-                <xsl:if test="descendant::part/attributes/key/mode">
+                <xsl:if test="descendant::measure[1]/part/attributes/key/mode">
                   <xsl:attribute name="key.mode">
                     <xsl:value-of
-                      select="descendant::part[attributes/key/mode][1]/attributes/key/mode"/>
+                      select="descendant::measure[1]/part[attributes/key/mode][1]/attributes/key/mode"
+                    />
                   </xsl:attribute>
                 </xsl:if>
               </xsl:if>
