@@ -646,8 +646,9 @@
     <!-- Some MusicXML direction types are not handled yet. -->
     <xsl:for-each select="direction-type/accordion-registration |
       direction-type/bracket[@type='start'] | direction-type/dashes[@type='start'] |
-      direction-type/eyeglasses | direction-type/image | direction-type/other-direction |
-      direction-type/percussion | direction-type/scordatura | direction-type/string-mute">
+      direction-type/eyeglasses | direction-type/harp-pedals | direction-type/image |
+      direction-type/other-direction | direction-type/percussion | direction-type/scordatura |
+      direction-type/string-mute">
       <xsl:variable name="dirType">
         <xsl:value-of select="local-name(.)"/>
       </xsl:variable>
