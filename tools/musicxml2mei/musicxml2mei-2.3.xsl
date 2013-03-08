@@ -2814,9 +2814,10 @@
         </xsl:attribute>
 
         <!-- Copy note attributes that always rightfully belong to the whole chord -->
-        <xsl:copy-of select="mei:note[1]/@dots | mei:note[1]/@dur | mei:note[1]/@dur.ges |
-          mei:note[1]/@stem.dir | mei:note[1]/@stem.len | mei:note[1]/@tstamp.ges |
-          mei:note[1]/@tuplet"/>
+        <xsl:copy-of select="mei:note[@dots][1]/@dots | mei:note[@dur][1]/@dur |
+          mei:note[@dur.ges][1]/@dur.ges | mei:note[@stem.dir][1]/@stem.dir |
+          mei:note[@stem.len][1]/@stem.len | mei:note[@tstamp.ges][1]/@tstamp.ges |
+          mei:note[@tuplet][1]/@tuplet"/>
 
         <!-- Copy these attrs if even *only one* of the notes has the attr -->
         <xsl:if test="mei:note[@fermata]">
@@ -2878,7 +2879,7 @@
         </xsl:if>
         <xsl:if test="count(mei:note[@headshape])=count(mei:note)">
           <xsl:if test="count(distinct-values(mei:note/@headshape))=1">
-            <xsl:copy-of select="mei:note[@altsym][1]/@headshape"/>
+            <xsl:copy-of select="mei:note[@headshape][1]/@headshape"/>
           </xsl:if>
         </xsl:if>
         <xsl:if test="count(mei:note[@x])=count(mei:note)">
@@ -3453,81 +3454,151 @@
           </xsl:if>
 
           <!-- Notehead shape -->
-          <!-- It's not usually necessary to be explicit about whether
-          the notehead is filled or not since the shape ought to be
-          filled if the duration is <= quarter and open otherwise.
-          However, this part of the stylesheet can be tweaked later. -->
+          <!-- It's not usually necessary in CMN to be explicit about 
+          whether a notehead is filled or not since the shape ought to
+          be filled if the duration is <= quarter and open otherwise. -->
           <xsl:choose>
             <xsl:when test="notehead='slash'">
-              <xsl:attribute name="headshape">slash</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>slash</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='triangle'">
-              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>isotriangle</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='diamond'">
-              <xsl:attribute name="headshape">diamond</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>diamond</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='square'">
-              <xsl:attribute name="headshape">rectangle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>rectangle</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='cross'">
-              <xsl:attribute name="headshape">cross</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>cross</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='x'">
-              <xsl:attribute name="headshape">x</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>x</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='circle-x'">
-              <xsl:attribute name="headshape">circlex</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>circlex</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='inverted triangle'">
-              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>isotriangle</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='arrow down'">
-              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>isotriangle</xsl:text>
+              </xsl:attribute>
               <!-- Mup doesn't support centered stems -->
-              <xsl:attribute name="stem.pos">center</xsl:attribute>
+              <xsl:attribute name="stem.pos">
+                <xsl:text>center</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='arrow up'">
-              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>isotriangle</xsl:text>
+              </xsl:attribute>
               <!-- Mup doesn't support centered stems -->
-              <xsl:attribute name="stem.pos">center</xsl:attribute>
+              <xsl:attribute name="stem.pos">
+                <xsl:text>center</xsl:text>
+              </xsl:attribute>
             </xsl:when>
+            <!-- slashed and back slashed noteheads not supported -->
             <xsl:when test="notehead='slashed'">
-              <!-- addslash must be added to the list of allowed values
-              for the headshape attribute -->
-              <xsl:attribute name="headshape">addslash</xsl:attribute>
+              <xsl:variable name="measureNum">
+                <xsl:value-of select="ancestor::measure/@number"/>
+              </xsl:variable>
+              <xsl:variable name="warning">
+                <xsl:text>Notehead 'slashed' not supported</xsl:text>
+              </xsl:variable>
+              <xsl:message>
+                <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                  ').'))"/>
+              </xsl:message>
+              <!--<xsl:attribute name="headshape">
+                <xsl:text>addslash</xsl:text>
+              </xsl:attribute>-->
             </xsl:when>
             <xsl:when test="notehead='back slashed'">
-              <!-- addbackslash must be added to the list of allowed
-              values for the headshape attribute -->
-              <xsl:attribute name="headshape">addbackslash</xsl:attribute>
+              <xsl:variable name="measureNum">
+                <xsl:value-of select="ancestor::measure/@number"/>
+              </xsl:variable>
+              <xsl:variable name="warning">
+                <xsl:text>Notehead 'back slashed' not supported</xsl:text>
+              </xsl:variable>
+              <xsl:message>
+                <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                  ').'))"/>
+              </xsl:message>
+              <!--<xsl:attribute name="headshape">
+                <xsl:text>addbackslash</xsl:text>
+              </xsl:attribute>-->
             </xsl:when>
             <xsl:when test="notehead='normal'">
-              <!-- Regular notehead, this is a no-op! -->
+              <!-- Regular notehead, nothing to do! -->
+            </xsl:when>
+            <xsl:when test="notehead='cluster'">
+              <xsl:attribute name="headshape">
+                <xsl:choose>
+                  <xsl:when test="notehead/@filled='yes'">
+                    <xsl:text>blbox</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>whbox</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='none'">
-              <xsl:attribute name="headshape">blank</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>blank</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='do'">
-              <xsl:attribute name="headshape">isotriangle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>isotriangle</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='re'">
-              <xsl:attribute name="headshape">semicircle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>semicircle</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='mi'">
-              <xsl:attribute name="headshape">diamond</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>diamond</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='fa'">
-              <xsl:attribute name="headshape">righttriangle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>righttriangle</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='so'">
-              <!-- Regular notehead, this is a no-op! -->
+              <!-- Regular notehead, nothing to do! -->
             </xsl:when>
             <xsl:when test="notehead='la'">
-              <xsl:attribute name="headshape">rectangle</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>rectangle</xsl:text>
+              </xsl:attribute>
             </xsl:when>
             <xsl:when test="notehead='ti'">
-              <xsl:attribute name="headshape">piewedge</xsl:attribute>
+              <xsl:attribute name="headshape">
+                <xsl:text>piewedge</xsl:text>
+              </xsl:attribute>
             </xsl:when>
           </xsl:choose>
 
@@ -3539,20 +3610,6 @@
             <xsl:value-of select="pitch/octave"/>
           </xsl:variable>
 
-          <!--<xsl:choose>
-            <xsl:when test="pitch/alter = 2">
-              <xsl:attribute name="accid.ges">ss</xsl:attribute>
-            </xsl:when>
-            <xsl:when test="pitch/alter = 1">
-              <xsl:attribute name="accid.ges">s</xsl:attribute>
-            </xsl:when>
-            <xsl:when test="pitch/alter = -1">
-              <xsl:attribute name="accid.ges">f</xsl:attribute>
-            </xsl:when>
-            <xsl:when test="pitch/alter = -2">
-              <xsl:attribute name="accid.ges">ff</xsl:attribute>
-            </xsl:when>
-            <xsl:otherwise>-->
           <xsl:choose>
             <xsl:when test="accidental">
               <!-- Accidental already in effect on this note -->
@@ -3596,8 +3653,6 @@
               </xsl:attribute>
             </xsl:when>
           </xsl:choose>
-          <!-- </xsl:otherwise>
-          </xsl:choose>-->
 
           <!-- Instrument assignment -->
           <xsl:if test="instrument">
@@ -5914,7 +5969,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             <xsl:text>acc</xsl:text>
           </xsl:when>
           <xsl:when test="local-name()='breath-mark' or local-name()='caesura'">
-            <!-- This is a no-op. In MEI, a breath mark or caesura is a directive, 
+            <!-- This is a no-op! In MEI, a breath mark or caesura is a directive, 
                  not a note articulation and is processed along with other control
                  elements in the measure template. -->
           </xsl:when>
