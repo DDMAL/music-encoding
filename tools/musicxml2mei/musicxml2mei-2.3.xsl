@@ -709,15 +709,11 @@
               <xsl:when test="@placement">
                 <xsl:value-of select="@placement"/>
               </xsl:when>
+              <xsl:when test="$dirType = 'dynam' or $dirType = 'pedal' or $dirType = 'hairpin'">
+                <xsl:text>below</xsl:text>
+              </xsl:when>
               <xsl:otherwise>
-                <xsl:choose>
-                  <xsl:when test="$dirType = 'dynam' or $dirType = 'pedal' or $dirType = 'hairpin'">
-                    <xsl:text>below</xsl:text>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:text>above</xsl:text>
-                  </xsl:otherwise>
-                </xsl:choose>
+                <xsl:text>above</xsl:text>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:attribute>
@@ -777,6 +773,7 @@
           </xsl:when>
           <xsl:when test="$dirType = 'octave'">
             <xsl:attribute name="dis">
+              <!-- @size defaults to '8' so always available -->
               <xsl:value-of select="direction-type/octave-shift/@size"/>
             </xsl:attribute>
             <xsl:attribute name="dis.place">
@@ -791,7 +788,7 @@
               <xsl:choose>
                 <xsl:when test="direction-type/pedal/@type='start'">down</xsl:when>
                 <xsl:when test="direction-type/pedal/@type='stop'">up</xsl:when>
-                <xsl:when test="direction-type/pedal/@type='change'">half</xsl:when>
+                <xsl:when test="direction-type/pedal/@type='change'">bounce</xsl:when>
               </xsl:choose>
             </xsl:attribute>
             <xsl:attribute name="style">
@@ -872,6 +869,23 @@
                 </xsl:attribute>
               </xsl:for-each>
             </xsl:attribute>
+            <xsl:if test="not(@number)">
+              <xsl:variable name="measureNum">
+                <xsl:value-of select="ancestor::measure/@number"/>
+              </xsl:variable>
+              <xsl:variable name="warning">
+                <xsl:text>Number attribute not specified on </xsl:text>
+                <xsl:value-of select="local-name()"/>
+                <xsl:text>, end point may not be accurate</xsl:text>
+              </xsl:variable>
+              <xsl:message>
+                <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                  ').'))"/>
+              </xsl:message>
+              <xsl:comment>
+                <xsl:value-of select="$warning"/>
+              </xsl:comment>
+            </xsl:if>
           </xsl:when>
           <xsl:when test="$dirType = 'hairpin'">
             <xsl:variable name="hairpinForm">
@@ -1118,7 +1132,8 @@
     <xsl:choose>
       <xsl:when test="@font-family or @font-style or @font-size or @font-weight or @letter-spacing
         or @line-height or @justify or @halign or @valign or @color or @rotation or
-        @xml:space or @underline or @overline or @line-through or @dir or @enclosure!='none'">
+        @xml:space or @underline or @overline or @line-through or @dir or @enclosure!='none' or
+        (local-name()='rehearsal' and not(@enclosure))">
         <xsl:call-template name="wrapRend">
           <xsl:with-param name="in">
             <xsl:copy-of select="$content"/>
@@ -2386,7 +2401,7 @@
           <xsl:value-of select="@n"/>
         </xsl:variable>
         <xsl:for-each-group
-          select="mei:chord|mei:clef|mei:note|mei:rest|mei:space|mei:mRest|mei:mSpace"
+          select="mei:chord|mei:clef|mei:note|mei:rest|mei:space|mei:mRest|mei:multiRest|mei:mSpace"
           group-by="@part">
           <xsl:variable name="byPart">
             <part>
@@ -3106,15 +3121,36 @@
               count(preceding-sibling::note)+count(following-sibling::note)=0">
               <xsl:text>mRest</xsl:text>
             </xsl:when>
-            <!-- has visual duration -->
+            <!-- has type (visual duration) -->
             <xsl:when test="type">
               <xsl:text>rest</xsl:text>
             </xsl:when>
-            <!-- rest duration equals measure duration -->
+            <!-- no type, multi-measure rest -->
+            <xsl:when
+              test="preceding-sibling::attributes[measure-style/multiple-rest][1]/measure-style/multiple-rest">
+              <xsl:choose>
+                <xsl:when test="count(ancestor::measure/part) &gt; 1">
+                  <xsl:variable name="measureNum">
+                    <xsl:value-of select="ancestor::measure/@number"/>
+                  </xsl:variable>
+                  <xsl:variable name="errorMessage">
+                    <xsl:text>Cannot convert multi-measure rests when there is more than one part</xsl:text>
+                  </xsl:variable>
+                  <xsl:message terminate="yes">
+                    <xsl:value-of select="normalize-space(concat($errorMessage, ' (m. ',
+                      $measureNum, ').'))"/>
+                  </xsl:message>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>multiRest</xsl:text>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <!-- no type, but rest duration equals measure duration -->
             <xsl:when test="duration = $measureDuration">
               <xsl:text>mRest</xsl:text>
             </xsl:when>
-            <!-- rest claims measure duration -->
+            <!-- no type, but rest claims measure duration -->
             <xsl:when test="rest/@measure='yes'">
               <xsl:choose>
                 <xsl:when test="duration = $measureDuration">
@@ -3139,6 +3175,13 @@
             <xsl:call-template name="getTimestamp.ges"/>
           </xsl:attribute>
           <xsl:choose>
+            <xsl:when test="$restType='multiRest'">
+              <xsl:attribute name="n">
+                <xsl:value-of
+                  select="preceding-sibling::attributes[measure-style/multiple-rest][1]/measure-style/multiple-rest"
+                />
+              </xsl:attribute>
+            </xsl:when>
             <xsl:when test="type">
               <xsl:attribute name="dur">
                 <xsl:for-each select="type">
@@ -3162,6 +3205,8 @@
           <xsl:call-template name="notatedDot"/>
           <xsl:call-template name="fermata"/>
           <xsl:if test="duration">
+            <!-- No attempt made to fix incorrect duration given for 
+              multi-measure in LilyPond MusicXML-TestSuite-0.1/02c and 02d. -->
             <xsl:call-template name="gesturalDuration"/>
           </xsl:if>
           <xsl:call-template name="assignPart-Layer-Staff-Beam-Tuplet"/>
@@ -6255,41 +6300,68 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </xsl:choose>
 
     <!-- Tuplet attribute -->
-    <xsl:if test="notations/tuplet or time-modification">
-      <xsl:attribute name="tuplet">
-        <xsl:choose>
-          <xsl:when test="notations/tuplet[@type='start']">
-            <xsl:text>i</xsl:text>
-            <xsl:choose>
-              <xsl:when test="notations/tuplet/@number">
-                <xsl:value-of select="notations/tuplet/@number"/>
-              </xsl:when>
-              <xsl:otherwise>1</xsl:otherwise>
-            </xsl:choose>
-          </xsl:when>
-          <xsl:when test="notations/tuplet[@type='stop']">
-            <xsl:text>t</xsl:text>
-            <xsl:choose>
-              <xsl:when test="notations/tuplet/@number">
-                <xsl:value-of select="notations/tuplet/@number"/>
-              </xsl:when>
-              <xsl:otherwise>1</xsl:otherwise>
-            </xsl:choose>
-          </xsl:when>
-          <xsl:otherwise>
-            <!-- MusicXML doesn't have a tuplet of type 'continue' -->
-            <xsl:text>m</xsl:text>
-            <xsl:choose>
-              <xsl:when test="preceding::note[notations/tuplet][1]/notations/tuplet/@number">
-                <xsl:value-of select="preceding::note[notations/tuplet][1]/notations/tuplet/@number"
-                />
-              </xsl:when>
-              <xsl:otherwise>1</xsl:otherwise>
-            </xsl:choose>
-          </xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-    </xsl:if>
+    <xsl:choose>
+      <xsl:when test="notations/tuplet">
+        <xsl:attribute name="tuplet">
+          <xsl:choose>
+            <!-- this note is marked as start of tuplet -->
+            <xsl:when test="notations/tuplet[@type='start']">
+              <xsl:text>i</xsl:text>
+            </xsl:when>
+            <!-- this note is marked as end of tuplet -->
+            <xsl:when test="notations/tuplet[@type='stop']">
+              <xsl:text>t</xsl:text>
+            </xsl:when>
+          </xsl:choose>
+          <xsl:choose>
+            <xsl:when test="preceding::note[notations/tuplet][1]/notations/tuplet/@number">
+              <xsl:value-of select="preceding::note[notations/tuplet][1]/notations/tuplet/@number"/>
+            </xsl:when>
+            <xsl:otherwise>1</xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:when>
+      <xsl:when test="time-modification">
+        <xsl:variable name="thisVoice">
+          <xsl:value-of select="voice"/>
+        </xsl:variable>
+        <xsl:attribute name="tuplet">
+          <xsl:choose>
+            <!-- when explicit start and stop siblings it's a middle note -->
+            <xsl:when
+              test="preceding-sibling::note[voice=$thisVoice]/notations/tuplet[@type='start'] and
+              following-sibling::note[voice=$thisVoice]/notations/tuplet[@type='stop']">
+              <xsl:text>m</xsl:text>
+              <xsl:choose>
+                <xsl:when test="preceding::note[voice=$thisVoice and
+                  notations/tuplet][1]/notations/tuplet/@number">
+                  <xsl:value-of select="preceding::note[voice=$thisVoice and
+                    notations/tuplet][1]/notations/tuplet/@number"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <!-- when implied start and stop siblings and next note is also modified, it's a middle note -->
+            <xsl:when test="preceding-sibling::note[1][voice=$thisVoice]/time-modification and
+              following-sibling::note[1][voice=$thisVoice]/time-modification">
+              <xsl:text>m1</xsl:text>
+            </xsl:when>
+            <!-- no explicit or implied start sibling, it's an initial note -->
+            <xsl:when
+              test="not(preceding-sibling::note[1][voice=$thisVoice]/notations/tuplet[@type='start'])
+              and not(preceding-sibling::note[1][voice=$thisVoice]/time-modification)">
+              <xsl:text>i1</xsl:text>
+            </xsl:when>
+            <!-- no explicit or implied stop sibling, it's a terminal note -->
+            <xsl:when
+              test="not(following-sibling::note[1][voice=$thisVoice]/notations/tuplet[@type='stop'])
+              and not(following-sibling::note[1][voice=$thisVoice]/time-modification)">
+              <xsl:text>t1</xsl:text>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:when>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template name="color">
@@ -7933,7 +8005,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="@xml:space"/>
       <!-- Other properties go in @rend -->
       <xsl:if test="@underline or @overline or @line-through or @dir or @enclosure!='none' or
-        @print-object='no'">
+        @print-object='no' or (local-name()='rehearsal' and not(@enclosure))">
         <xsl:variable name="rendValue">
           <xsl:if test="@underline">
             <xsl:text>underline</xsl:text>
@@ -7981,6 +8053,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </xsl:when>
             <xsl:when test="@enclosure = 'diamond'">
               <xsl:text>dbox&#32;</xsl:text>
+            </xsl:when>
+            <!-- Even without @enclosure, rehearsal marks are boxed by default. -->
+            <xsl:when test="not(@enclosure) and local-name()='rehearsal'">
+              <xsl:text>box&#32;</xsl:text>
             </xsl:when>
           </xsl:choose>
           <xsl:if test="@print-object='no'">
