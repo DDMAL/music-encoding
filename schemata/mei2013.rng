@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-03-10T02:47:32Z. 
+Schema generated from ODD source 2013-03-10T15:48:22Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -9593,9 +9593,9 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="att.whitespace.attributes"/>
       <optional>
         <attribute name="form">
-          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">describes
-            the notational form of the coded text. Suggested values include: 1] plaineAndEasie; 2]
-            humdrumKern</a:documentation>
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">form of the
+            encoded incipit. Suggested values include: 1] plaineAndEasie; 2] humdrumKern; 3]
+            parsons</a:documentation>
           <choice>
             <value>plaineAndEasie</value>
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Plaine
@@ -9603,6 +9603,9 @@ Edition Location: http://www.tei-c.org/Vault/P5//
             <value>humdrumKern</value>
             <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Humdrum
               Kern format.</a:documentation>
+            <value>parsons</value>
+            <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Parsons
+              code.</a:documentation>
             <data type="Name"/>
           </choice>
         </attribute>
@@ -10448,29 +10451,18 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">– Contains a
         description of an event, including the dates and locations of its occurrence and prominent
         participants.</a:documentation>
-      <choice>
-        <group>
-          <optional>
-            <ref name="model.headLike"/>
-          </optional>
-          <oneOrMore>
-            <ref name="model.eventPart"/>
-          </oneOrMore>
-          <optional>
-            <ref name="model.pLike"/>
-          </optional>
-        </group>
-        <group>
-          <oneOrMore>
-            <choice>
-              <ref name="model.pLike"/>
-              <ref name="model.tableLike"/>
-              <ref name="list"/>
-              <ref name="castList"/>
-            </choice>
-          </oneOrMore>
-        </group>
-      </choice>
+      <optional>
+        <ref name="model.headLike"/>
+      </optional>
+      <zeroOrMore>
+        <choice>
+          <ref name="model.eventPart"/>
+          <ref name="model.pLike"/>
+          <ref name="model.tableLike"/>
+          <ref name="list"/>
+          <ref name="castList"/>
+        </choice>
+      </zeroOrMore>
       <zeroOrMore>
         <ref name="biblList"/>
       </zeroOrMore>
