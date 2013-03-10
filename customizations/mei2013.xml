@@ -2169,7 +2169,7 @@
           <desc>&#8211; Contains a description of an event, including the dates and locations of its
             occurrence and prominent participants.</desc>
           <!-- This model allows for both semi-structured (using only model.eventPart members) and
-            unstructured descriptions (using p, table, list, and castList) as well as a mixture of
+            "free" descriptions (using p, table, list, and castList) as well as a mixture of
             the two approaches. -->
           <classes>
             <memberOf key="att.bibl"/>
@@ -2195,8 +2195,10 @@
             <rng:zeroOrMore>
               <rng:ref name="biblList"/>
             </rng:zeroOrMore>
-            <!-- <content>
-              <rng:choice>
+          </content>
+
+          <!-- <content>
+            <rng:choice>
               <!-\- A semi-structured description using name, date, and place elements -\->
               <rng:group>
                 <rng:optional>
@@ -2235,8 +2237,8 @@
                 <rng:ref name="biblList"/>
               </rng:choice>
             </rng:zeroOrMore>
-            </content> -->
-          </content>
+          </content> -->
+
         </elementSpec>
         <elementSpec ident="eventList" module="MEI.header" mode="replace">
           <desc>&#8211; Contains historical information given as a sequence of significant past
