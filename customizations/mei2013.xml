@@ -345,6 +345,21 @@
         </macroSpec>
 
         <!-- New attribute classes -->
+        <classSpec ident="att.meterSigGrp.anl" module="MEI.cmn" type="atts">
+          <desc>Analytical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.common.anl"/>
+          </classes>
+        </classSpec>
+        <classSpec ident="att.meterSigGrp.ges" module="MEI.cmn" type="atts">
+          <desc>Gestural domain attributes.</desc>
+        </classSpec>
+        <classSpec ident="att.meterSigGrp.log" module="MEI.cmn" type="atts">
+          <desc>Logical domain attributes.</desc>
+        </classSpec>
+        <classSpec ident="att.meterSigGrp.vis" module="MEI.cmn" type="atts">
+          <desc>Visual domain attributes.</desc>
+        </classSpec>
         <classSpec ident="att.rel" type="atts" module="MEI.frbr" mode="add">
           <desc>Attributes specific to bibliographic entity relationships.</desc>
           <attList>
@@ -625,6 +640,28 @@
             </attDef>
           </attList>
         </classSpec>
+        <classSpec ident="att.meterSig.vis" module="MEI.shared" type="atts" mode="replace">
+          <desc>Visual domain attributes.</desc>
+          <attList>
+            <attDef ident="rend" usage="opt">
+              <desc>contains an indication of how the meter signature should be rendered.</desc>
+              <valList type="closed">
+                <valItem ident="num">
+                  <desc>show only the number of beats.</desc>
+                </valItem>
+                <valItem ident="denomsym">
+                  <desc>the lower number in the meter signature is replaced by a note symbol.</desc>
+                </valItem>
+                <valItem ident="norm">
+                  <desc>meter signature rendered using traditional numeric values.</desc>
+                </valItem>
+                <valItem ident="invis">
+                  <desc>meter signature not rendered.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </classSpec>
         <classSpec ident="att.meterSigDefault.log" module="MEI.shared" type="atts" mode="replace">
           <desc>Used by staffDef and scoreDef to provide default values for attributes in the
             logical domain related to meter signature.</desc>
@@ -644,6 +681,43 @@
                 meter signature.</desc>
               <datatype>
                 <rng:data type="decimal"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.meterSigDefault.vis" module="MEI.shared" type="atts" mode="replace">
+          <desc>Used by staffDef and scoreDef to provide default values for attributes in the visual
+            domain related to meter signature.</desc>
+          <attList>
+            <attDef ident="meter.rend" usage="opt">
+              <desc>contains an indication of how the meter signature should be rendered.</desc>
+              <valList type="closed">
+                <valItem ident="num">
+                  <desc>show only the number of beats.</desc>
+                </valItem>
+                <valItem ident="denomsym">
+                  <desc>the lower number in the meter signature is replaced by a note symbol.</desc>
+                </valItem>
+                <valItem ident="norm">
+                  <desc>meter signature rendered using traditional numeric values.</desc>
+                </valItem>
+                <valItem ident="invis">
+                  <desc>meter signature not rendered.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="meter.showchange" usage="opt">
+              <desc>determines whether a new meter signature should be displayed when the meter
+                signature changes.</desc>
+              <datatype>
+                <rng:ref name="data.BOOLEAN"/>
+              </datatype>
+            </attDef>
+            <attDef ident="meter.sym" usage="opt">
+              <desc>indicates the use of a meter symbol instead of a numeric meter signature, that
+                is, 'C' for common time or 'C' with a slash for cut time.</desc>
+              <datatype>
+                <rng:ref name="data.METERSIGN"/>
               </datatype>
             </attDef>
           </attList>
@@ -1753,6 +1827,42 @@
               </rng:choice>
             </rng:zeroOrMore>
           </content>
+        </elementSpec>
+        <elementSpec ident="meterSigGrp" module="MEI.cmn" mode="add">
+          <desc>(meter signature group) &#8211; Used to capture alternating, interchanging, and
+            mixed meter signatures.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.meterSigGrp.anl"/>
+            <memberOf key="att.meterSigGrp.ges"/>
+            <memberOf key="att.meterSigGrp.log"/>
+            <memberOf key="att.meterSigGrp.vis"/>
+            <memberOf key="model.meterSigLike"/>
+          </classes>
+          <content>
+            <rng:ref name="meterSig"/>
+            <rng:oneOrMore>
+              <rng:ref name="meterSig"/>
+            </rng:oneOrMore>
+          </content>
+          <attList>
+            <attDef ident="func" usage="req">
+              <desc>Function of the meter signature group.</desc>
+              <valList type="closed">
+                <valItem ident="interchanging">
+                  <desc>Meter signatures are interchangable, e.g. 3/4 and 6/8.</desc>
+                </valItem>
+                <valItem ident="alternating">
+                  <desc>Meter signatures appear in alternating measures.</desc>
+                </valItem>
+                <valItem ident="mixed">
+                  <desc>Meter signatures with different unit values are used to express a complex
+                    metrical pattern that is not expressable using traditional means.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
         </elementSpec>
         <elementSpec ident="otherChar" module="MEI.header" mode="add">
           <desc>(other distinguishing characteristic) &#8211; Any characteristic that serves to

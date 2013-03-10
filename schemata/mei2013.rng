@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-03-10T15:48:22Z. 
+Schema generated from ODD source 2013-03-11T00:26:51Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -3999,6 +3999,9 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains an
           indication of how the meter signature should be rendered.</a:documentation>
         <choice>
+          <value>num</value>
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">show only
+            the number of beats.</a:documentation>
           <value>denomsym</value>
           <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">the lower
             number in the meter signature is replaced by a note symbol.</a:documentation>
@@ -5297,6 +5300,9 @@ Edition Location: http://www.tei-c.org/Vault/P5//
         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">contains an
           indication of how the meter signature should be rendered.</a:documentation>
         <choice>
+          <value>num</value>
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">show only
+            the number of beats.</a:documentation>
           <value>denomsym</value>
           <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">the lower
             number in the meter signature is replaced by a note symbol.</a:documentation>
@@ -6635,29 +6641,41 @@ Edition Location: http://www.tei-c.org/Vault/P5//
   <define name="model.meterSigLike">
     <choice>
       <ref name="meterSig"/>
+      <ref name="meterSigGrp"/>
     </choice>
   </define>
   <define name="model.meterSigLike_alternation">
     <choice>
       <ref name="meterSig"/>
+      <ref name="meterSigGrp"/>
     </choice>
   </define>
   <define name="model.meterSigLike_sequence">
     <ref name="meterSig"/>
+    <ref name="meterSigGrp"/>
   </define>
   <define name="model.meterSigLike_sequenceOptional">
     <optional>
       <ref name="meterSig"/>
+    </optional>
+    <optional>
+      <ref name="meterSigGrp"/>
     </optional>
   </define>
   <define name="model.meterSigLike_sequenceOptionalRepeatable">
     <zeroOrMore>
       <ref name="meterSig"/>
     </zeroOrMore>
+    <zeroOrMore>
+      <ref name="meterSigGrp"/>
+    </zeroOrMore>
   </define>
   <define name="model.meterSigLike_sequenceRepeatable">
     <oneOrMore>
       <ref name="meterSig"/>
+    </oneOrMore>
+    <oneOrMore>
+      <ref name="meterSigGrp"/>
     </oneOrMore>
   </define>
   <define name="model.milestoneLike.music">
@@ -16868,6 +16886,18 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <empty/>
     </element>
   </define>
+  <define name="att.meterSigGrp.anl.attributes">
+    <ref name="att.common.anl.attributes"/>
+  </define>
+  <define name="att.meterSigGrp.ges.attributes">
+    <empty/>
+  </define>
+  <define name="att.meterSigGrp.log.attributes">
+    <empty/>
+  </define>
+  <define name="att.meterSigGrp.vis.attributes">
+    <empty/>
+  </define>
   <define name="att.rel.attributes">
     <ref name="att.rel.attribute.rel"/>
   </define>
@@ -17517,6 +17547,40 @@ Edition Location: http://www.tei-c.org/Vault/P5//
       <ref name="att.common.attributes"/>
       <ref name="att.bibl.attributes"/>
       <ref name="att.facsimile.attributes"/>
+      <empty/>
+    </element>
+  </define>
+  <define name="meterSigGrp">
+    <element name="meterSigGrp">
+      <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">(meter
+        signature group) – Used to capture alternating, interchanging, and mixed meter
+        signatures.</a:documentation>
+      <ref name="meterSig"/>
+      <oneOrMore>
+        <ref name="meterSig"/>
+      </oneOrMore>
+      <ref name="att.common.attributes"/>
+      <ref name="att.facsimile.attributes"/>
+      <ref name="att.meterSigGrp.anl.attributes"/>
+      <ref name="att.meterSigGrp.ges.attributes"/>
+      <ref name="att.meterSigGrp.log.attributes"/>
+      <ref name="att.meterSigGrp.vis.attributes"/>
+      <attribute name="func">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Function of
+          the meter signature group.</a:documentation>
+        <choice>
+          <value>interchanging</value>
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Meter
+            signatures are interchangable, e.g. 3/4 and 6/8.</a:documentation>
+          <value>alternating</value>
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Meter
+            signatures appear in alternating measures.</a:documentation>
+          <value>mixed</value>
+          <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Meter
+            signatures with different unit values are used to express a complex metrical pattern
+            that is not expressable using traditional means.</a:documentation>
+        </choice>
+      </attribute>
       <empty/>
     </element>
   </define>
