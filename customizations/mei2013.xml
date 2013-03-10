@@ -551,6 +551,58 @@
             </attDef>
           </attList>
         </classSpec>
+        <classSpec ident="att.meterSig.log" module="MEI.shared" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <attList>
+            <attDef ident="count" usage="opt">
+              <desc>captures the number of beats in a measure, that is, the top number of the meter
+                signature. It must contain a decimal number or an additive expression that evaluates
+                to a decimal number, such as 2+3.</desc>
+              <datatype>
+                <rng:data type="string">
+                  <rng:param name="pattern">\d+(\.\d+)?(\s*\+\s*\d+(\.\d+)?)*</rng:param>
+                </rng:data>
+              </datatype>
+            </attDef>
+            <attDef ident="sym" usage="opt">
+              <desc>indicates the use of a meter symbol instead of a numeric meter signature, that
+                is, 'C' for common time or 'C' with a slash for cut time.</desc>
+              <datatype>
+                <rng:ref name="data.METERSIGN"/>
+              </datatype>
+            </attDef>
+            <attDef ident="unit" usage="opt">
+              <desc>contains the number indicating the beat unit, that is, the bottom number of the
+                meter signature.</desc>
+              <datatype>
+                <rng:data type="decimal"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.meterSigDefault.log" module="MEI.shared" type="atts" mode="replace">
+          <desc>Used by staffDef and scoreDef to provide default values for attributes in the
+            logical domain related to meter signature.</desc>
+          <attList>
+            <attDef ident="meter.count" usage="opt">
+              <desc>captures the number of beats in a measure, that is, the top number of the meter
+                signature. It must contain a decimal number or an additive expression that evaluates
+                to a decimal number, such as 2+3.</desc>
+              <datatype>
+                <rng:data type="string">
+                  <rng:param name="pattern">\d+(\.\d+)?(\s*\+\s*\d+(\.\d+)?)*</rng:param>
+                </rng:data>
+              </datatype>
+            </attDef>
+            <attDef ident="meter.unit" usage="opt">
+              <desc>contains the number indicating the beat unit, that is, the bottom number of the
+                meter signature.</desc>
+              <datatype>
+                <rng:data type="decimal"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
         <classSpec ident="att.mmtempo" module="MEI.shared" type="atts" mode="replace">
           <desc>Attributes that record tempo in terms of beats per minute.</desc>
           <attList>
@@ -2049,7 +2101,7 @@
                   <rng:ref name="model.headLike"/>
                 </rng:optional>
                 <rng:oneOrMore>
-                    <rng:ref name="model.eventPart"/>                  
+                  <rng:ref name="model.eventPart"/>
                 </rng:oneOrMore>
                 <!-- A single paragraph is allowed here in order to "grandfather in" MerMEId.  This paragraph
                 will be deprecated following MEI2013!  The <head> element should be used instead. Once this
