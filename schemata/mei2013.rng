@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-02-15T03:59:23Z. 
+Schema generated from ODD source 2013-03-10T02:47:32Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -2773,8 +2773,18 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     </optional>
   </define>
   <define name="att.beaming.vis.attributes">
+    <ref name="att.beaming.vis.attribute.beam.color"/>
     <ref name="att.beaming.vis.attribute.beam.rend"/>
     <ref name="att.beaming.vis.attribute.beam.slope"/>
+  </define>
+  <define name="att.beaming.vis.attribute.beam.color">
+    <optional>
+      <attribute name="beam.color">
+        <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">Color of
+          beams, including those associated with tuplets.</a:documentation>
+        <ref name="data.COLOR"/>
+      </attribute>
+    </optional>
   </define>
   <define name="att.beaming.vis.attribute.beam.rend">
     <optional>
@@ -3959,9 +3969,12 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     <optional>
       <attribute name="meter.count">
         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">captures the
-          number of beats in a measure, that is, the top number of the meter
-          signature.</a:documentation>
-        <data type="decimal"/>
+          number of beats in a measure, that is, the top number of the meter signature. It must
+          contain a decimal number or an additive expression that evaluates to a decimal number,
+          such as 2+3.</a:documentation>
+        <data type="string">
+          <param name="pattern">\d+(\.\d+)?(\s*\+\s*\d+(\.\d+)?)*</param>
+        </data>
       </attribute>
     </optional>
   </define>
@@ -5246,9 +5259,12 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     <optional>
       <attribute name="count">
         <a:documentation xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">captures the
-          number of beats in a measure, that is, the top number of the meter
-          signature.</a:documentation>
-        <data type="decimal"/>
+          number of beats in a measure, that is, the top number of the meter signature. It must
+          contain a decimal number or an additive expression that evaluates to a decimal number,
+          such as 2+3.</a:documentation>
+        <data type="string">
+          <param name="pattern">\d+(\.\d+)?(\s*\+\s*\d+(\.\d+)?)*</param>
+        </data>
       </attribute>
     </optional>
   </define>
@@ -10787,6 +10803,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     <ref name="att.beamedwith.attributes"/>
   </define>
   <define name="att.beam.vis.attributes">
+    <ref name="att.color.attributes"/>
     <ref name="att.beamrend.attributes"/>
   </define>
   <define name="att.beamSpan.anl.attributes">
@@ -10802,7 +10819,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     <ref name="att.duration.musical.attributes"/>
   </define>
   <define name="att.beamSpan.vis.attributes">
-    <ref name="att.beamrend.attributes"/>
+    <ref name="att.beam.vis.attributes"/>
   </define>
   <define name="att.beatRpt.anl.attributes">
     <ref name="att.common.anl.attributes"/>
@@ -11652,6 +11669,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
     </optional>
   </define>
   <define name="att.tuplet.vis.attributes">
+    <ref name="att.color.attributes"/>
     <ref name="att.numberplacement.attributes"/>
     <ref name="att.tuplet.vis.attribute.bracket.place"/>
     <ref name="att.tuplet.vis.attribute.bracket.visible"/>

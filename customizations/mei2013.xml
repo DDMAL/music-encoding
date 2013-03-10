@@ -418,6 +418,51 @@
         </classSpec>
 
         <!-- Revised attribute classes -->
+        <classSpec ident="att.beam.vis" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Visual domain attributes.</desc>
+          <classes>
+            <memberOf key="att.color"/>
+            <memberOf key="att.beamrend"/>
+          </classes>
+        </classSpec>
+        <classSpec ident="att.beaming.vis" module="MEI.shared" type="atts" mode="replace">
+          <desc>Used by layerDef, staffDef, and scoreDef to provide default values for attributes in
+            the visual domain related to beaming.</desc>
+          <attList>
+            <attDef ident="beam.color">
+              <desc>Color of beams, including those associated with tuplets.</desc>
+              <datatype>
+                <rng:ref name="data.COLOR"/>
+              </datatype>
+            </attDef>
+            <attDef ident="beam.rend" usage="opt">
+              <desc>encodes whether a beam is "feathered" and in which direction.</desc>
+              <valList type="closed">
+                <valItem ident="acc">
+                  <desc>beams lines grow farther apart from left to right.</desc>
+                </valItem>
+                <valItem ident="rit">
+                  <desc>beam lines grow closer together from left to right.</desc>
+                </valItem>
+                <valItem ident="norm">
+                  <desc>beam lines are equally-spaced over the entire length of the beam.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="beam.slope" usage="opt">
+              <desc>captures beam slope.</desc>
+              <datatype>
+                <rng:data type="decimal"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.beamSpan.vis" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Visual domain attributes.</desc>
+          <classes>
+            <memberOf key="att.beam.vis"/>
+          </classes>
+        </classSpec>
         <classSpec ident="att.distances" module="MEI.shared" type="atts" mode="replace">
           <desc>Attributes that describe distance from the staff.</desc>
           <attList>
@@ -961,6 +1006,45 @@
               <datatype>
                 <rng:ref name="data.FONTWEIGHT"/>
               </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+        <classSpec ident="att.tuplet.vis" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Visual domain attributes.</desc>
+          <classes>
+            <memberOf key="att.color"/>
+            <memberOf key="att.numberplacement"/>
+          </classes>
+          <attList>
+            <attDef ident="bracket.place" usage="opt">
+              <desc>used to state where a tuplet bracket will be placed in relation to the note
+                heads.</desc>
+              <datatype>
+                <rng:ref name="data.PLACE"/>
+              </datatype>
+            </attDef>
+            <attDef ident="bracket.visible" usage="opt">
+              <desc>states whether a bracket should be rendered with a tuplet.</desc>
+              <datatype>
+                <rng:ref name="data.BOOLEAN"/>
+              </datatype>
+            </attDef>
+            <attDef ident="dur.visible" usage="opt">
+              <desc>determines if the tuplet duration is visible.</desc>
+              <datatype>
+                <rng:ref name="data.BOOLEAN"/>
+              </datatype>
+            </attDef>
+            <attDef ident="num.format" usage="opt">
+              <desc>controls how the num:numbase ratio is to be displayed.</desc>
+              <valList type="closed">
+                <valItem ident="count">
+                  <desc>only the num attribute is displayed, e.g., '7'.</desc>
+                </valItem>
+                <valItem ident="ratio">
+                  <desc>both the num and numbase attributes are displayed, e.g., '7:4'.</desc>
+                </valItem>
+              </valList>
             </attDef>
           </attList>
         </classSpec>
