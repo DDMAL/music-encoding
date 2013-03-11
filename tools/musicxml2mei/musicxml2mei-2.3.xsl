@@ -10,7 +10,8 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
   xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="http://music-encoding.org/tools/musicxml2mei"
-  exclude-result-prefixes="mei xs f">
+  exclude-result-prefixes="mei xs f" xmlns:saxon="http://saxon.sf.net/"
+  extension-element-prefixes="saxon">
 
   <xsl:character-map name="delimiters">
     <xsl:output-character character="&beamstart;" string="&lt;beam&gt;"/>
@@ -224,7 +225,7 @@
           </xsl:for-each>
         </xsl:when>
         <!-- Supply ppq based on duration of first note? -->
-        <!--<xsl:when test="//measure[1]//note[duration]">          
+        <!--<xsl:when test="//measure[1]//note[duration]">
         </xsl:when>-->
         <xsl:otherwise>
           <xsl:variable name="errorMessage">
@@ -353,6 +354,30 @@
     <!-- check for MusicXML attributes that don't begin a measure -->
     <xsl:if test="count(following-sibling::*[not(local-name()='barline')])=0 or
       preceding-sibling::note or preceding-sibling::forward or preceding-sibling::chord">
+      <xsl:if test="divisions">
+        <xsl:variable name="measureNum">
+          <xsl:value-of select="ancestor::measure/@number"/>
+        </xsl:variable>
+        <xsl:variable name="errorMessage">
+          <xsl:text>Cannot process mid-measure change of divisions</xsl:text>
+        </xsl:variable>
+        <xsl:message terminate="yes">
+          <xsl:value-of select="normalize-space(concat($errorMessage, ' (m. ',
+            $measureNum, ').'))"/>
+        </xsl:message>
+      </xsl:if>
+      <xsl:if test="key">
+        <xsl:variable name="measureNum">
+          <xsl:value-of select="ancestor::measure/@number"/>
+        </xsl:variable>
+        <xsl:variable name="warning">
+          <xsl:text>Mid-measure changes of key and/or mode ignored</xsl:text>
+        </xsl:variable>
+        <xsl:message>
+          <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+            ').'))"/>
+        </xsl:message>
+      </xsl:if>
       <xsl:for-each select="clef">
         <clef xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="xml:id">
@@ -808,7 +833,7 @@
                 <xsl:attribute name="form">dim</xsl:attribute>
                 <xsl:if test="direction-type/wedge/@spread">
                   <xsl:attribute name="opening">
-                    <xsl:value-of select="format-number(direction-type/wedge/@spread  div 5,
+                    <xsl:value-of select="format-number(direction-type/wedge/@spread div 5,
                       '###0.####')"/>
                   </xsl:attribute>
                 </xsl:if>
@@ -935,7 +960,7 @@
                   </xsl:attribute>
                   <xsl:if test="direction-type/wedge/@spread and $hairpinForm = 'crescendo'">
                     <xsl:attribute name="opening">
-                      <xsl:value-of select="format-number(direction-type/wedge/@spread  div 5,
+                      <xsl:value-of select="format-number(direction-type/wedge/@spread div 5,
                         '###0.####')"/>
                     </xsl:attribute>
                   </xsl:if>
@@ -990,7 +1015,7 @@
                   </xsl:attribute>
                   <xsl:if test="direction-type/wedge/@spread and $hairpinForm = 'crescendo'">
                     <xsl:attribute name="opening">
-                      <xsl:value-of select="format-number(direction-type/wedge/@spread  div 5,
+                      <xsl:value-of select="format-number(direction-type/wedge/@spread div 5,
                         '###0.####')"/>
                     </xsl:attribute>
                   </xsl:if>
@@ -1239,11 +1264,12 @@
       <xsl:variable name="meterCount">
         <xsl:choose>
           <xsl:when test="ancestor::part[attributes/time/beats]/attributes/time/beats">
-            <xsl:value-of select="ancestor::part[attributes/time/beats]/attributes/time/beats"/>
+            <xsl:value-of
+              select="saxon:evaluate(ancestor::part[attributes/time/beats]/attributes/time/beats)"/>
           </xsl:when>
           <xsl:when test="preceding::part[@id=$thisPart and attributes/time]">
-            <xsl:value-of select="preceding::part[@id=$thisPart and
-              attributes/time][1]/attributes/time/beats"/>
+            <xsl:value-of select="saxon:evaluate(preceding::part[@id=$thisPart and
+              attributes/time][1]/attributes/time/beats)"/>
           </xsl:when>
           <xsl:otherwise>
             <xsl:value-of select="sum(ancestor::part/note/duration) div $ppq"/>
@@ -1295,23 +1321,8 @@
           <xsl:call-template name="getTimestamp.ges"/>
         </xsl:attribute>
 
-        <!--<xsl:variable name="thisPart">
-          <xsl:value-of select="ancestor::part/@id"/>
-        </xsl:variable>
-        <xsl:variable name="ppq">
-          <xsl:choose>
-            <xsl:when test="ancestor::part[attributes/divisions]">
-              <xsl:value-of select="ancestor::part[attributes/divisions]/attributes/divisions"/>
-            </xsl:when>
-            <xsl:when test="preceding::part[@id=$thisPart and attributes/divisions]">
-              <xsl:value-of select="preceding::part[@id=$thisPart and
-                attributes/divisions][1]/attributes/divisions"/>
-            </xsl:when>
-          </xsl:choose>
-        </xsl:variable>-->
-
         <!-- The duration of the space in musical terms isn't required for the conversion of 
-          MusicXML to MEI, but it may be necessary if processing of the MEI file. -->
+          MusicXML to MEI, but it may be necessary for processing the MEI file. -->
         <xsl:variable name="dur">
           <xsl:call-template name="quantizedDuration">
             <xsl:with-param name="duration">
@@ -1505,12 +1516,38 @@
             <xsl:choose>
               <xsl:when test="part/attributes[1]/time/@symbol='common'">
                 <xsl:attribute name="meter.sym">common</xsl:attribute>
+                <xsl:if test="not(part[attributes[1]/time/@symbol]/attributes/time/beats=4) or
+                  not(part[attributes[1]/time/@symbol]/attributes/time/beat-type=4)">
+                  <xsl:variable name="measureNum">
+                    <xsl:value-of select="@number"/>
+                  </xsl:variable>
+                  <xsl:variable name="warning">
+                    <xsl:text>Common time symbol does not match time signature</xsl:text>
+                  </xsl:variable>
+                  <xsl:message>
+                    <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                      ').'))"/>
+                  </xsl:message>
+                </xsl:if>
               </xsl:when>
               <xsl:when test="part/attributes[1]/time/@symbol='cut'">
                 <xsl:attribute name="meter.sym">cut</xsl:attribute>
+                <xsl:if test="not(part[attributes[1]/time/@symbol]/attributes/time/beats=2) or
+                  not(part[attributes[1]/time/@symbol]/attributes/time/beat-type=2)">
+                  <xsl:variable name="measureNum">
+                    <xsl:value-of select="@number"/>
+                  </xsl:variable>
+                  <xsl:variable name="warning">
+                    <xsl:text>Cut time symbol does not match time signature</xsl:text>
+                  </xsl:variable>
+                  <xsl:message>
+                    <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                      ').'))"/>
+                  </xsl:message>
+                </xsl:if>
               </xsl:when>
               <xsl:when test="part/attributes[1]/time/@symbol='single-number'">
-                <xsl:attribute name="meter.rend">denomsym</xsl:attribute>
+                <xsl:attribute name="meter.rend">num</xsl:attribute>
               </xsl:when>
               <xsl:when test="part/attributes[1]/time/senza-misura">
                 <xsl:attribute name="meter.rend">invis</xsl:attribute>
@@ -1564,10 +1601,12 @@
               </xsl:when>
             </xsl:choose>
             <xsl:if test="part/attributes[not(preceding-sibling::note) and
-              not(preceding-sibling::forward) and not(transpose)][key/mode]">
+              not(preceding-sibling::forward) and not(transpose)]/key/mode">
               <xsl:attribute name="key.mode">
-                <xsl:value-of select="part/attributes[not(preceding-sibling::note) and
-                  not(preceding-sibling::forward) and not(transpose)][key]/key[1]/mode"/>
+                <xsl:value-of select="part[attributes[not(preceding-sibling::note)
+                  and not(preceding-sibling::forward) and
+                  not(transpose)]/key/mode][1]/attributes[not(preceding-sibling::note) and
+                  not(preceding-sibling::forward) and not(transpose)]/key/mode"/>
               </xsl:attribute>
             </xsl:if>
           </xsl:if>
@@ -1778,7 +1817,6 @@
                   <xsl:variable name="keySig">
                     <xsl:value-of select="key/fifths"/>
                   </xsl:variable>
-                  <!-- <xsl:if test="$keySig != $scoreFifths">-->
                   <xsl:choose>
                     <xsl:when test="number($keySig)=0">
                       <xsl:attribute name="key.sig">
@@ -1804,7 +1842,7 @@
                     <xsl:attribute name="key.sig.show">false</xsl:attribute>
                   </xsl:if>
                 </xsl:if>
-                <!--</xsl:if>-->
+                
                 <!-- tuning for TAB staff -->
                 <xsl:if test="staff-details/staff-tuning">
                   <xsl:attribute name="tab.strings">
@@ -2007,7 +2045,6 @@
                   <xsl:variable name="keySig">
                     <xsl:value-of select="key/fifths"/>
                   </xsl:variable>
-                  <!-- <xsl:if test="$keySig != $scoreFifths">-->
                   <xsl:choose>
                     <xsl:when test="number($keySig)=0">
                       <xsl:attribute name="key.sig">
@@ -3078,11 +3115,13 @@
         <xsl:variable name="meterCount">
           <xsl:choose>
             <xsl:when test="ancestor::part[attributes/time/beats]/attributes/time/beats">
-              <xsl:value-of select="ancestor::part[attributes/time/beats]/attributes/time/beats"/>
+              <xsl:value-of
+                select="saxon:evaluate(ancestor::part[attributes/time/beats]/attributes/time/beats)"
+              />
             </xsl:when>
             <xsl:when test="preceding::part[@id=$thisPart and attributes/time]">
-              <xsl:value-of select="preceding::part[@id=$thisPart and
-                attributes/time][1]/attributes/time/beats"/>
+              <xsl:value-of select="saxon:evaluate(preceding::part[@id=$thisPart and
+                attributes/time][1]/attributes/time/beats)"/>
             </xsl:when>
             <xsl:otherwise>
               <xsl:value-of select="sum(ancestor::part/note/duration) div $ppq"/>
@@ -3136,7 +3175,7 @@
                     <xsl:value-of select="ancestor::measure/@number"/>
                   </xsl:variable>
                   <xsl:variable name="errorMessage">
-                    <xsl:text>Cannot convert multi-measure rests when there is more than one part</xsl:text>
+                    <xsl:text>Cannot convert multi-measure rests when there is more than one &lt;part&gt;</xsl:text>
                   </xsl:variable>
                   <xsl:message terminate="yes">
                     <xsl:value-of select="normalize-space(concat($errorMessage, ' (m. ',
@@ -3203,16 +3242,25 @@
                 </xsl:call-template>
               </xsl:variable>
               <xsl:attribute name="dur">
-                <xsl:value-of select="substring-before($dur, '.')"/>
+                <xsl:value-of select="replace($dur, '\..*$', '')"/>
               </xsl:attribute>
             </xsl:otherwise>
           </xsl:choose>
           <xsl:call-template name="notatedDot"/>
           <xsl:call-template name="fermata"/>
           <xsl:if test="duration">
-            <!-- No attempt made to fix incorrect duration given for 
-              multi-measure in LilyPond MusicXML-TestSuite-0.1/02c and 02d. -->
-            <xsl:call-template name="gesturalDuration"/>
+            <xsl:choose>
+              <xsl:when test="$restType='multiRest'">
+                <xsl:attribute name="dur.ges">
+                  <xsl:value-of select="$measureDuration *
+                    preceding-sibling::attributes[measure-style/multiple-rest][1]/measure-style/multiple-rest"/>
+                  <xsl:text>p</xsl:text>
+                </xsl:attribute>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:call-template name="gesturalDuration"/>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:if>
           <xsl:call-template name="assignPart-Layer-Staff-Beam-Tuplet"/>
           <!--<xsl:call-template name="positionRelative"/>-->
@@ -3428,10 +3476,10 @@
                stem/@relative-y or @default-y to record non-zero stem length. -\->
           <xsl:choose>
             <xsl:when test="stem='up'">
-              <xsl:attribute name="stem.dir">up</xsl:attribute>              
+              <xsl:attribute name="stem.dir">up</xsl:attribute>
             </xsl:when>
             <xsl:when test="stem='down'">
-              <xsl:attribute name="stem.dir">down</xsl:attribute>              
+              <xsl:attribute name="stem.dir">down</xsl:attribute>
             </xsl:when>
             <xsl:when test="stem='none'">
               <xsl:attribute name="stem.len">0</xsl:attribute>
@@ -3444,7 +3492,7 @@
           <xsl:if test="stem/@default-y != 0">
             <xsl:attribute name="stem.len">
               <xsl:value-of select="format-number(stem/@default-y
-                div 5, '###0.####')"/>              
+                div 5, '###0.####')"/>
               <!-\- <xsl:text>vu</xsl:text> -\->
             </xsl:attribute>
           </xsl:if>-->
@@ -5750,13 +5798,27 @@
               <!-- Look in first measure for score-level meter signature -->
               <xsl:if test="descendant::measure[1]/part/attributes">
                 <xsl:if test="descendant::measure[1]/part/attributes[time/beats]">
-                  <xsl:attribute name="meter.count">
-                    <xsl:value-of
-                      select="descendant::measure[1]/part[attributes/time/beats][1]/attributes/time/beats"
-                    />
-                  </xsl:attribute>
+                  <xsl:choose>
+                    <xsl:when
+                      test="count(descendant::measure[1]/part[1]/attributes[time/beats]/time/beats)
+                      = 1">
+                      <xsl:attribute name="meter.count">
+                        <xsl:value-of
+                          select="descendant::measure[1]/part[attributes/time/beats][1]/attributes/time/beats"
+                        />
+                      </xsl:attribute>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:variable name="errorMessage">
+                        <xsl:text>Cannot convert file with alternating or interchanging time signatures.</xsl:text>
+                      </xsl:variable>
+                      <xsl:message terminate="yes">
+                        <xsl:value-of select="normalize-space($errorMessage)"/>
+                      </xsl:message>
+                    </xsl:otherwise>
+                  </xsl:choose>
                 </xsl:if>
-                <xsl:if test="descendant::measure[1]/part/attributes[time/beat-type]">
+                <xsl:if test="descendant::measure[1]/part[1]/attributes[time/beat-type]">
                   <xsl:attribute name="meter.unit">
                     <xsl:value-of
                       select="descendant::measure[1]/part[attributes/time/beat-type][1]/attributes/time/beat-type"
@@ -5771,12 +5833,42 @@
                 <xsl:choose>
                   <xsl:when test="$symbol='common'">
                     <xsl:attribute name="meter.sym">common</xsl:attribute>
+                    <xsl:if
+                      test="not(descendant::measure[1]/part[attributes/time/@symbol][1]/attributes/time/beats=4)
+                      or
+                      not(descendant::measure[1]/part[attributes/time/@symbol][1]/attributes/time/beat-type=4)">
+                      <xsl:variable name="measureNum">
+                        <xsl:value-of select="1"/>
+                      </xsl:variable>
+                      <xsl:variable name="warning">
+                        <xsl:text>Common time symbol does not match time signature</xsl:text>
+                      </xsl:variable>
+                      <xsl:message>
+                        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                          ').'))"/>
+                      </xsl:message>
+                    </xsl:if>
                   </xsl:when>
                   <xsl:when test="$symbol='cut'">
                     <xsl:attribute name="meter.sym">cut</xsl:attribute>
+                    <xsl:if
+                      test="not(descendant::measure[1]/part[attributes/time/@symbol][1]/attributes/time/beats=2)
+                      or
+                      not(descendant::measure[1]/part[attributes/time/@symbol][1]/attributes/time/beat-type=2)">
+                      <xsl:variable name="measureNum">
+                        <xsl:value-of select="1"/>
+                      </xsl:variable>
+                      <xsl:variable name="warning">
+                        <xsl:text>Cut time symbol does not match time signature</xsl:text>
+                      </xsl:variable>
+                      <xsl:message>
+                        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                          ').'))"/>
+                      </xsl:message>
+                    </xsl:if>
                   </xsl:when>
                   <xsl:when test="$symbol='single-number'">
-                    <xsl:attribute name="meter.rend">denomsym</xsl:attribute>
+                    <xsl:attribute name="meter.rend">num</xsl:attribute>
                   </xsl:when>
                   <xsl:when
                     test="descendant::measure[1]/part[attributes/time/senza-misura][1]/attributes/time/senza-misura">
@@ -5809,11 +5901,14 @@
                       <xsl:value-of select="abs($keySig)"/>f</xsl:attribute>
                   </xsl:when>
                 </xsl:choose>
-                <xsl:if test="descendant::measure[1]/part/attributes/key/mode">
+                <xsl:if test="descendant::measure[1]/part/attributes[not(preceding-sibling::note)
+                  and not(preceding-sibling::forward) and not(transpose)]/key/mode">
                   <xsl:attribute name="key.mode">
                     <xsl:value-of
-                      select="descendant::measure[1]/part[attributes/key/mode][1]/attributes/key/mode"
-                    />
+                      select="descendant::measure[1]/part[attributes[not(preceding-sibling::note)
+                      and not(preceding-sibling::forward) and
+                      not(transpose)]/key/mode][1]/attributes[not(preceding-sibling::note) and
+                      not(preceding-sibling::forward) and not(transpose)]/key/mode"/>
                   </xsl:attribute>
                 </xsl:if>
               </xsl:if>
@@ -6459,7 +6554,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:for-each select="credit[number(@page)=1]/credit-words[@default-y &gt; ($pageHeight
             div 2)]">
             <xsl:apply-templates select="."/>
-            <!--<xsl:call-template name="creditWords"/>-->
           </xsl:for-each>
         </pgHead>
       </xsl:if>
@@ -6468,7 +6562,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:for-each select="credit[number(@page)=1]/credit-words[@default-y &lt; ($pageHeight
             div 2)]">
             <xsl:apply-templates select="."/>
-            <!--<xsl:call-template name="creditWords"/>-->
           </xsl:for-each>
         </pgFoot>
       </xsl:if>
@@ -6477,7 +6570,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:for-each select="credit[number(@page)=2]/credit-words[@default-y &gt; ($pageHeight
             div 2)]">
             <xsl:apply-templates select="."/>
-            <!--<xsl:call-template name="creditWords"/>-->
           </xsl:for-each>
         </pgHead2>
       </xsl:if>
@@ -6486,7 +6578,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:for-each select="credit[number(@page)=2]/credit-words[@default-y &lt; ($pageHeight
             div 2)]">
             <xsl:apply-templates select="."/>
-            <!--<xsl:call-template name="creditWords"/>-->
           </xsl:for-each>
         </pgFoot2>
       </xsl:if>
@@ -7322,7 +7413,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <!-- Create positional attributes -->
     <xsl:if test="@relative-x">
       <xsl:attribute name="ho">
-        <xsl:value-of select="format-number(@relative-x  div 5, '###0.####')"/>
+        <xsl:value-of select="format-number(@relative-x div 5, '###0.####')"/>
         <!-- <xsl:text>vu</xsl:text> -->
       </xsl:attribute>
     </xsl:if>
@@ -7498,12 +7589,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:param name="partID"/>
     <xsl:param name="staffNum"/>
     <xsl:variable name="scoreFifths">
-      <xsl:value-of select="following::part[attributes[not(transpose) and
-        key]][1]/attributes/key/fifths"/>
+      <xsl:value-of select="following::part[attributes[not(preceding-sibling::note) and
+        not(preceding-sibling::forward) and
+        not(transpose)]/key/mode][1]/attributes[not(preceding-sibling::note) and
+        not(preceding-sibling::forward) and not(transpose)]/key/fifths"/>
     </xsl:variable>
     <xsl:variable name="scoreMode">
       <xsl:value-of select="following::part[attributes[not(transpose) and
-        key]][1]/attributes/key/mode"/>
+        key]][1]/attributes[not(transpose) and key]/key/mode"/>
     </xsl:variable>
     <xsl:for-each select="following::measure[1]/part[@id=$partID]/attributes">
       <xsl:choose>
@@ -7851,7 +7944,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:for-each
           select="following::measure[1]/part[@id=$partID]/print/staff-layout[string(@number)=$staffNum]/staff-distance">
           <xsl:attribute name="spacing">
-            <!--<xsl:value-of select="$staffNum"/>-->
             <xsl:value-of select="format-number(. div 5, '###0.####')"/>
             <!-- <xsl:text>vu</xsl:text> -->
           </xsl:attribute>
