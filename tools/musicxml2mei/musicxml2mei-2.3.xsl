@@ -1842,7 +1842,7 @@
                     <xsl:attribute name="key.sig.show">false</xsl:attribute>
                   </xsl:if>
                 </xsl:if>
-                
+
                 <!-- tuning for TAB staff -->
                 <xsl:if test="staff-details/staff-tuning">
                   <xsl:attribute name="tab.strings">
@@ -3471,9 +3471,9 @@
             </xsl:when>
           </xsl:choose>
 
-          <!--<!-\- Stem attributes: direction and length
+          <!-- Stem attributes: direction and length
                MusicXML uses a text value of 'none' to record a zero-length stem, but
-               stem/@relative-y or @default-y to record non-zero stem length. -\->
+               stem/@relative-y or @default-y to record non-zero stem length. -->
           <xsl:choose>
             <xsl:when test="stem='up'">
               <xsl:attribute name="stem.dir">up</xsl:attribute>
@@ -3485,17 +3485,17 @@
               <xsl:attribute name="stem.len">0</xsl:attribute>
             </xsl:when>
             <xsl:when test="stem='double'">
-              <!-\- MEI doesn't allow 'double' stems because this is an indication
-                of multiple layers. -\->
+              <!-- MEI doesn't allow 'double' stems because this is an indication
+                of multiple layers. -->
             </xsl:when>
           </xsl:choose>
           <xsl:if test="stem/@default-y != 0">
             <xsl:attribute name="stem.len">
-              <xsl:value-of select="format-number(stem/@default-y
-                div 5, '###0.####')"/>
-              <!-\- <xsl:text>vu</xsl:text> -\->
+              <xsl:value-of select="format-number(stem/@default-y                 div 5,
+                '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
             </xsl:attribute>
-          </xsl:if>-->
+          </xsl:if>
 
           <!-- Bowed tremolo -->
           <xsl:if test="notations/ornaments/tremolo">
