@@ -1776,54 +1776,63 @@
                   </xsl:attribute>
                 </xsl:for-each>
                 <!-- clef -->
-                <xsl:for-each select="clef">
-                  <xsl:choose>
-                    <!-- percussion clef -->
-                    <xsl:when test="sign='percussion'">
-                      <xsl:attribute name="clef.shape">perc</xsl:attribute>
-                    </xsl:when>
-                    <!-- TAB "clef" -->
-                    <xsl:when test="sign='TAB'">
-                      <xsl:attribute name="clef.shape">TAB</xsl:attribute>
-                    </xsl:when>
-                    <!-- No clef provided -->
-                    <xsl:when test="sign='none'">
-                      <xsl:attribute name="clef.visible">false</xsl:attribute>
-                    </xsl:when>
-                    <!-- "normal" clef -->
-                    <xsl:otherwise>
-                      <xsl:attribute name="clef.line">
-                        <xsl:value-of select="line"/>
-                      </xsl:attribute>
-                      <xsl:attribute name="clef.shape">
-                        <xsl:value-of select="sign"/>
-                      </xsl:attribute>
-                      <xsl:if test="clef-octave-change">
-                        <xsl:if test="abs(number(clef-octave-change)) != 0">
-                          <xsl:attribute name="clef.dis">
-                            <xsl:choose>
-                              <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
-                              <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
-                            </xsl:choose>
+                <xsl:choose>
+                  <xsl:when test="normalize-space(clef/sign) != ''">
+                    <xsl:for-each select="clef">
+                      <xsl:choose>
+                        <!-- percussion clef -->
+                        <xsl:when test="sign='percussion'">
+                          <xsl:attribute name="clef.shape">perc</xsl:attribute>
+                        </xsl:when>
+                        <!-- TAB "clef" -->
+                        <xsl:when test="sign='TAB'">
+                          <xsl:attribute name="clef.shape">TAB</xsl:attribute>
+                        </xsl:when>
+                        <!-- No clef provided -->
+                        <xsl:when test="sign='none'">
+                          <xsl:attribute name="clef.visible">false</xsl:attribute>
+                        </xsl:when>
+                        <!-- "normal" clef -->
+                        <xsl:otherwise>
+                          <xsl:attribute name="clef.line">
+                            <xsl:value-of select="line"/>
                           </xsl:attribute>
-                          <xsl:attribute name="clef.dis.place">
-                            <xsl:choose>
-                              <xsl:when test="number(clef-octave-change) &lt; 0">
-                                <xsl:text>below</xsl:text>
-                              </xsl:when>
-                              <xsl:otherwise>
-                                <xsl:text>above</xsl:text>
-                              </xsl:otherwise>
-                            </xsl:choose>
+                          <xsl:attribute name="clef.shape">
+                            <xsl:value-of select="sign"/>
                           </xsl:attribute>
-                        </xsl:if>
+                          <xsl:if test="clef-octave-change">
+                            <xsl:if test="abs(number(clef-octave-change)) != 0">
+                              <xsl:attribute name="clef.dis">
+                                <xsl:choose>
+                                  <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                                  <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                                </xsl:choose>
+                              </xsl:attribute>
+                              <xsl:attribute name="clef.dis.place">
+                                <xsl:choose>
+                                  <xsl:when test="number(clef-octave-change) &lt; 0">
+                                    <xsl:text>below</xsl:text>
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                    <xsl:text>above</xsl:text>
+                                  </xsl:otherwise>
+                                </xsl:choose>
+                              </xsl:attribute>
+                            </xsl:if>
+                          </xsl:if>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                      <xsl:if test="@print-object='no'">
+                        <xsl:attribute name="clef.visible">false</xsl:attribute>
                       </xsl:if>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                  <xsl:if test="@print-object='no'">
-                    <xsl:attribute name="clef.visible">false</xsl:attribute>
-                  </xsl:if>
-                </xsl:for-each>
+                    </xsl:for-each>
+                  </xsl:when>
+                  <!-- If no clef, then default to G on line 2 -->
+                  <xsl:otherwise>
+                    <xsl:attribute name="clef.line">2</xsl:attribute>
+                    <xsl:attribute name="clef.shape">G</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
                 <!-- staff key signature -->
                 <xsl:if test="key">
                   <xsl:variable name="keySig">
@@ -2004,54 +2013,63 @@
                   </xsl:attribute>
                 </xsl:for-each>
                 <!-- clef -->
-                <xsl:for-each select="clef">
-                  <xsl:choose>
-                    <!-- percussion clef -->
-                    <xsl:when test="sign='percussion'">
-                      <xsl:attribute name="clef.shape">perc</xsl:attribute>
-                    </xsl:when>
-                    <!-- TAB "clef" -->
-                    <xsl:when test="sign='TAB'">
-                      <xsl:attribute name="clef.shape">TAB</xsl:attribute>
-                    </xsl:when>
-                    <!-- No clef provided -->
-                    <xsl:when test="sign='none'">
-                      <xsl:attribute name="clef.visible">false</xsl:attribute>
-                    </xsl:when>
-                    <!-- "normal" clef -->
-                    <xsl:otherwise>
-                      <xsl:attribute name="clef.line">
-                        <xsl:value-of select="line"/>
-                      </xsl:attribute>
-                      <xsl:attribute name="clef.shape">
-                        <xsl:value-of select="sign"/>
-                      </xsl:attribute>
-                      <xsl:if test="clef-octave-change">
-                        <xsl:if test="abs(number(clef-octave-change)) != 0">
-                          <xsl:attribute name="clef.dis">
-                            <xsl:choose>
-                              <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
-                              <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
-                            </xsl:choose>
+                <xsl:choose>
+                  <xsl:when test="normalize-space(clef/sign) != ''">
+                    <xsl:for-each select="clef">
+                      <xsl:choose>
+                        <!-- percussion clef -->
+                        <xsl:when test="sign='percussion'">
+                          <xsl:attribute name="clef.shape">perc</xsl:attribute>
+                        </xsl:when>
+                        <!-- TAB "clef" -->
+                        <xsl:when test="sign='TAB'">
+                          <xsl:attribute name="clef.shape">TAB</xsl:attribute>
+                        </xsl:when>
+                        <!-- No clef provided -->
+                        <xsl:when test="sign='none'">
+                          <xsl:attribute name="clef.visible">false</xsl:attribute>
+                        </xsl:when>
+                        <!-- "normal" clef -->
+                        <xsl:otherwise>
+                          <xsl:attribute name="clef.line">
+                            <xsl:value-of select="line"/>
                           </xsl:attribute>
-                          <xsl:attribute name="clef.dis.place">
-                            <xsl:choose>
-                              <xsl:when test="number(clef-octave-change) &lt; 0">
-                                <xsl:text>below</xsl:text>
-                              </xsl:when>
-                              <xsl:otherwise>
-                                <xsl:text>above</xsl:text>
-                              </xsl:otherwise>
-                            </xsl:choose>
+                          <xsl:attribute name="clef.shape">
+                            <xsl:value-of select="sign"/>
                           </xsl:attribute>
-                        </xsl:if>
+                          <xsl:if test="clef-octave-change">
+                            <xsl:if test="abs(number(clef-octave-change)) != 0">
+                              <xsl:attribute name="clef.dis">
+                                <xsl:choose>
+                                  <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                                  <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                                </xsl:choose>
+                              </xsl:attribute>
+                              <xsl:attribute name="clef.dis.place">
+                                <xsl:choose>
+                                  <xsl:when test="number(clef-octave-change) &lt; 0">
+                                    <xsl:text>below</xsl:text>
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                    <xsl:text>above</xsl:text>
+                                  </xsl:otherwise>
+                                </xsl:choose>
+                              </xsl:attribute>
+                            </xsl:if>
+                          </xsl:if>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                      <xsl:if test="@print-object='no'">
+                        <xsl:attribute name="clef.visible">false</xsl:attribute>
                       </xsl:if>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                  <xsl:if test="@print-object='no'">
-                    <xsl:attribute name="clef.visible">false</xsl:attribute>
-                  </xsl:if>
-                </xsl:for-each>
+                    </xsl:for-each>
+                  </xsl:when>
+                  <!-- If no clef, then default to G on line 2 -->
+                  <xsl:otherwise>
+                    <xsl:attribute name="clef.line">2</xsl:attribute>
+                    <xsl:attribute name="clef.shape">G</xsl:attribute>
+                  </xsl:otherwise>
+                </xsl:choose>
                 <!-- staff key signature -->
                 <xsl:if test="key">
                   <xsl:variable name="keySig">
@@ -3380,7 +3398,7 @@
               </xsl:otherwise>
             </xsl:choose>
           </xsl:if>
-          
+
           <!-- Notated/performed octave -->
           <xsl:choose>
             <xsl:when test="pitch">
@@ -3524,13 +3542,14 @@
                 of multiple layers. -->
             </xsl:when>
           </xsl:choose>
-          <xsl:if test="stem/@default-y != 0">
+          <!-- Stem length calcultion is BROKEN! -->
+          <!-- <xsl:if test="stem/@default-y != 0">
             <xsl:attribute name="stem.len">
               <xsl:value-of select="format-number(stem/@default-y div 5,
                 '###0.####')"/>
-              <!-- <xsl:text>vu</xsl:text> -->
+              <!-\- <xsl:text>vu</xsl:text> -\->
             </xsl:attribute>
-          </xsl:if>
+          </xsl:if> -->
 
           <!-- Bowed tremolo -->
           <xsl:if test="notations/ornaments/tremolo">
@@ -7713,54 +7732,63 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </xsl:choose>
           </xsl:attribute>
           <!-- clef -->
-          <xsl:for-each select="clef[1]">
-            <xsl:choose>
-              <!-- percussion clef -->
-              <xsl:when test="sign='percussion'">
-                <xsl:attribute name="clef.shape">perc</xsl:attribute>
-              </xsl:when>
-              <!-- TAB "clef" -->
-              <xsl:when test="sign='TAB'">
-                <xsl:attribute name="clef.shape">TAB</xsl:attribute>
-              </xsl:when>
-              <!-- No clef provided -->
-              <xsl:when test="sign='none'">
-                <xsl:attribute name="clef.visible">false</xsl:attribute>
-              </xsl:when>
-              <!-- "normal" clef -->
-              <xsl:otherwise>
-                <xsl:attribute name="clef.line">
-                  <xsl:value-of select="line"/>
-                </xsl:attribute>
-                <xsl:attribute name="clef.shape">
-                  <xsl:value-of select="sign"/>
-                </xsl:attribute>
-                <xsl:if test="clef-octave-change">
-                  <xsl:if test="abs(number(clef-octave-change)) != 0">
-                    <xsl:attribute name="clef.dis">
-                      <xsl:choose>
-                        <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
-                        <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
-                      </xsl:choose>
+          <xsl:choose>
+            <xsl:when test="normalize-space(clef/sign) != ''">
+              <xsl:for-each select="clef[1]">
+                <xsl:choose>
+                  <!-- percussion clef -->
+                  <xsl:when test="sign='percussion'">
+                    <xsl:attribute name="clef.shape">perc</xsl:attribute>
+                  </xsl:when>
+                  <!-- TAB "clef" -->
+                  <xsl:when test="sign='TAB'">
+                    <xsl:attribute name="clef.shape">TAB</xsl:attribute>
+                  </xsl:when>
+                  <!-- No clef provided -->
+                  <xsl:when test="sign='none'">
+                    <xsl:attribute name="clef.visible">false</xsl:attribute>
+                  </xsl:when>
+                  <!-- "normal" clef -->
+                  <xsl:otherwise>
+                    <xsl:attribute name="clef.line">
+                      <xsl:value-of select="line"/>
                     </xsl:attribute>
-                    <xsl:attribute name="clef.dis.place">
-                      <xsl:choose>
-                        <xsl:when test="number(clef-octave-change) &lt; 0">
-                          <xsl:text>below</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:text>above</xsl:text>
-                        </xsl:otherwise>
-                      </xsl:choose>
+                    <xsl:attribute name="clef.shape">
+                      <xsl:value-of select="sign"/>
                     </xsl:attribute>
-                  </xsl:if>
+                    <xsl:if test="clef-octave-change">
+                      <xsl:if test="abs(number(clef-octave-change)) != 0">
+                        <xsl:attribute name="clef.dis">
+                          <xsl:choose>
+                            <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                            <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                          </xsl:choose>
+                        </xsl:attribute>
+                        <xsl:attribute name="clef.dis.place">
+                          <xsl:choose>
+                            <xsl:when test="number(clef-octave-change) &lt; 0">
+                              <xsl:text>below</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:text>above</xsl:text>
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </xsl:attribute>
+                      </xsl:if>
+                    </xsl:if>
+                  </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="@print-object='no'">
+                  <xsl:attribute name="clef.visible">false</xsl:attribute>
                 </xsl:if>
-              </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="@print-object='no'">
-              <xsl:attribute name="clef.visible">false</xsl:attribute>
-            </xsl:if>
-          </xsl:for-each>
+              </xsl:for-each>
+            </xsl:when>
+            <!-- If no clef, then default to G on line 2 -->
+            <xsl:otherwise>
+              <xsl:attribute name="clef.line">2</xsl:attribute>
+              <xsl:attribute name="clef.shape">G</xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
           <!-- staff key signature-->
           <xsl:if test="key">
             <xsl:variable name="keySig">
@@ -7868,54 +7896,63 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </xsl:choose>
           </xsl:attribute>
           <!-- clef -->
-          <xsl:for-each select="clef[@number=string($staffNum)]">
-            <xsl:choose>
-              <!-- percussion clef -->
-              <xsl:when test="sign='percussion'">
-                <xsl:attribute name="clef.shape">perc</xsl:attribute>
-              </xsl:when>
-              <!-- TAB "clef" -->
-              <xsl:when test="sign='TAB'">
-                <xsl:attribute name="clef.shape">TAB</xsl:attribute>
-              </xsl:when>
-              <!-- No clef provided -->
-              <xsl:when test="sign='none'">
-                <xsl:attribute name="clef.visible">false</xsl:attribute>
-              </xsl:when>
-              <!-- "normal" clef -->
-              <xsl:otherwise>
-                <xsl:attribute name="clef.line">
-                  <xsl:value-of select="line"/>
-                </xsl:attribute>
-                <xsl:attribute name="clef.shape">
-                  <xsl:value-of select="sign"/>
-                </xsl:attribute>
-                <xsl:if test="clef-octave-change">
-                  <xsl:if test="abs(number(clef-octave-change)) != 0">
-                    <xsl:attribute name="clef.dis">
-                      <xsl:choose>
-                        <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
-                        <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
-                      </xsl:choose>
+          <xsl:choose>
+            <xsl:when test="normalize-space(clef[@number=string($staffNum)]/sign) != ''">
+              <xsl:for-each select="clef[@number=string($staffNum)]">
+                <xsl:choose>
+                  <!-- percussion clef -->
+                  <xsl:when test="sign='percussion'">
+                    <xsl:attribute name="clef.shape">perc</xsl:attribute>
+                  </xsl:when>
+                  <!-- TAB "clef" -->
+                  <xsl:when test="sign='TAB'">
+                    <xsl:attribute name="clef.shape">TAB</xsl:attribute>
+                  </xsl:when>
+                  <!-- No clef provided -->
+                  <xsl:when test="sign='none'">
+                    <xsl:attribute name="clef.visible">false</xsl:attribute>
+                  </xsl:when>
+                  <!-- "normal" clef -->
+                  <xsl:otherwise>
+                    <xsl:attribute name="clef.line">
+                      <xsl:value-of select="line"/>
                     </xsl:attribute>
-                    <xsl:attribute name="clef.dis.place">
-                      <xsl:choose>
-                        <xsl:when test="number(clef-octave-change) &lt; 0">
-                          <xsl:text>below</xsl:text>
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:text>above</xsl:text>
-                        </xsl:otherwise>
-                      </xsl:choose>
+                    <xsl:attribute name="clef.shape">
+                      <xsl:value-of select="sign"/>
                     </xsl:attribute>
-                  </xsl:if>
+                    <xsl:if test="clef-octave-change">
+                      <xsl:if test="abs(number(clef-octave-change)) != 0">
+                        <xsl:attribute name="clef.dis">
+                          <xsl:choose>
+                            <xsl:when test="abs(number(clef-octave-change)) = 2">15</xsl:when>
+                            <xsl:when test="abs(number(clef-octave-change)) = 1">8</xsl:when>
+                          </xsl:choose>
+                        </xsl:attribute>
+                        <xsl:attribute name="clef.dis.place">
+                          <xsl:choose>
+                            <xsl:when test="number(clef-octave-change) &lt; 0">
+                              <xsl:text>below</xsl:text>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:text>above</xsl:text>
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </xsl:attribute>
+                      </xsl:if>
+                    </xsl:if>
+                  </xsl:otherwise>
+                </xsl:choose>
+                <xsl:if test="@print-object='no'">
+                  <xsl:attribute name="clef.visible">false</xsl:attribute>
                 </xsl:if>
-              </xsl:otherwise>
-            </xsl:choose>
-            <xsl:if test="@print-object='no'">
-              <xsl:attribute name="clef.visible">false</xsl:attribute>
-            </xsl:if>
-          </xsl:for-each>
+              </xsl:for-each>
+            </xsl:when>
+            <!-- If no clef, then default to G on line 2 -->
+            <xsl:otherwise>
+              <xsl:attribute name="clef.line">2</xsl:attribute>
+              <xsl:attribute name="clef.shape">G</xsl:attribute>
+            </xsl:otherwise>
+          </xsl:choose>
           <!-- staff key signature-->
           <xsl:if test="key">
             <xsl:variable name="keySig">
