@@ -3,7 +3,7 @@
   datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
   ns="http://www.music-encoding.org/ns/mei">
   <!--
-Schema generated from ODD source 2013-03-11T00:26:51Z. 
+Schema generated from ODD source 2013-03-12T21:11:15Z. 
 Edition: 2012
 Edition Location: http://www.tei-c.org/Vault/P5//
 
@@ -1152,25 +1152,54 @@ Edition Location: http://www.tei-c.org/Vault/P5//
   <define name="data.ACCIDENTAL.IMPLICIT">
     <choice>
       <value>s</value>
-      <a:documentation xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">sharp</a:documentation>
       <value>f</value>
-      <a:documentation xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">flat</a:documentation>
       <value>ss</value>
-      <a:documentation xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">double sharp</a:documentation>
       <value>ff</value>
-      <a:documentation xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">double flat</a:documentation>
       <value>n</value>
-      <a:documentation xmlns:rng="http://relaxng.org/ns/structure/1.0"
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
         xmlns:sch="http://purl.oclc.org/dsdl/schematron"
         xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">natural</a:documentation>
+      <value>su</value>
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
+        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+        xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">three quarter-tones
+        sharp</a:documentation>
+      <value>sd</value>
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
+        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+        xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">one quarter-tone
+        sharp</a:documentation>
+      <value>fu</value>
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
+        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+        xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">one quarter-tone
+        flat</a:documentation>
+      <value>fd</value>
+      <a:documentation xmlns="http://www.tei-c.org/ns/1.0"
+        xmlns:rng="http://relaxng.org/ns/structure/1.0"
+        xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+        xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0">three quarter-tones
+        flat</a:documentation>
     </choice>
   </define>
   <define name="data.ARTICULATION">
@@ -5513,6 +5542,7 @@ Edition Location: http://www.tei-c.org/Vault/P5//
   <define name="att.rest.vis.attributes">
     <ref name="att.altsym.attributes"/>
     <ref name="att.color.attributes"/>
+    <ref name="att.enclosingchars.attributes"/>
     <ref name="att.relativesize.attributes"/>
     <ref name="att.rest.vis.cmn.attributes"/>
     <ref name="att.rest.vis.mensural.attributes"/>

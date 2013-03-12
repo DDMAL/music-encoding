@@ -50,6 +50,31 @@
         <moduleRef key="MEI.usersymbols"/>
 
         <!-- New datatype definitions -->
+        <macroSpec ident="data.ACCIDENTAL.IMPLICIT" module="MEI" type="dt" mode="replace">
+          <desc>Accidental attribute values.</desc>
+          <content>
+            <rng:choice>
+              <rng:value>s</rng:value>
+              <a:documentation>sharp</a:documentation>
+              <rng:value>f</rng:value>
+              <a:documentation>flat</a:documentation>
+              <rng:value>ss</rng:value>
+              <a:documentation>double sharp</a:documentation>
+              <rng:value>ff</rng:value>
+              <a:documentation>double flat</a:documentation>
+              <rng:value>n</rng:value>
+              <a:documentation>natural</a:documentation>
+              <rng:value>su</rng:value>
+              <a:documentation>three quarter-tones sharp</a:documentation>
+              <rng:value>sd</rng:value>
+              <a:documentation>one quarter-tone sharp</a:documentation>
+              <rng:value>fu</rng:value>
+              <a:documentation>one quarter-tone flat</a:documentation>
+              <rng:value>fd</rng:value>
+              <a:documentation>three quarter-tones flat</a:documentation>
+            </rng:choice>
+          </content>
+        </macroSpec>
         <!--<macroSpec ident="data.CSS" module="MEI" type="dt" mode="add">
           <desc>One or more expressions in CSS syntax.</desc>
           <content>
@@ -961,6 +986,7 @@
           <classes>
             <memberOf key="att.altsym"/>
             <memberOf key="att.color"/>
+            <memberOf key="att.enclosingchars"/>
             <memberOf key="att.relativesize"/>
             <memberOf key="att.rest.vis.cmn"/>
             <memberOf key="att.rest.vis.mensural"/>
