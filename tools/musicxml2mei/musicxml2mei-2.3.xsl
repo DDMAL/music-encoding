@@ -378,6 +378,18 @@
             ').'))"/>
         </xsl:message>
       </xsl:if>
+      <xsl:if test="staff-details/staff-lines">
+        <xsl:variable name="measureNum">
+          <xsl:value-of select="ancestor::measure/@number"/>
+        </xsl:variable>
+        <xsl:variable name="warning">
+          <xsl:text>Mid-measure changes of stafflines ignored</xsl:text>
+        </xsl:variable>
+        <xsl:message>
+          <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+            ').'))"/>
+        </xsl:message>
+      </xsl:if>
       <xsl:for-each select="clef">
         <clef xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="xml:id">
@@ -3266,6 +3278,7 @@
           <!--<xsl:call-template name="positionRelative"/>-->
           <xsl:call-template name="restvo"/>
           <xsl:call-template name="size"/>
+          <xsl:call-template name="enclosingChars"/>
         </xsl:element>
       </xsl:when>
       <xsl:otherwise>
@@ -3330,23 +3343,44 @@
 
           <!-- Notated accidental in attribute. -->
           <xsl:if test="accidental">
-            <xsl:attribute name="accid">
-              <xsl:choose>
-                <xsl:when test="accidental = 'sharp'">s</xsl:when>
-                <xsl:when test="accidental = 'natural'">n</xsl:when>
-                <xsl:when test="accidental = 'flat'">f</xsl:when>
-                <xsl:when test="accidental = 'double-sharp'">x</xsl:when>
-                <xsl:when test="accidental = 'double-flat'">ff</xsl:when>
-                <xsl:when test="accidental = 'sharp-sharp'">ss</xsl:when>
-                <xsl:when test="accidental = 'flat-flat'">ff</xsl:when>
-                <xsl:when test="accidental = 'natural-sharp'">ns</xsl:when>
-                <xsl:when test="accidental = 'natural-flat'">nf</xsl:when>
-                <xsl:when test="accidental = 'quarter-flat'">fd</xsl:when>
-                <xsl:when test="accidental = 'quarter-sharp'">su</xsl:when>
-              </xsl:choose>
-            </xsl:attribute>
+            <xsl:choose>
+              <xsl:when test="contains(accidental, 'slash)') or contains(accidental, 'sori') or
+                contains(accidental, 'koron') or matches(accidental, '(sharp|flat)-[0-9]')">
+                <xsl:variable name="measureNum">
+                  <xsl:value-of select="ancestor::measure/@number"/>
+                </xsl:variable>
+                <xsl:variable name="warning">
+                  <xsl:text>Middle-Eastern accidentals ignored</xsl:text>
+                </xsl:variable>
+                <xsl:message>
+                  <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                    ').'))"/>
+                </xsl:message>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:attribute name="accid">
+                  <xsl:choose>
+                    <xsl:when test="accidental = 'sharp'">s</xsl:when>
+                    <xsl:when test="accidental = 'natural'">n</xsl:when>
+                    <xsl:when test="accidental = 'flat'">f</xsl:when>
+                    <xsl:when test="accidental = 'double-sharp'">x</xsl:when>
+                    <xsl:when test="accidental = 'double-flat'">ff</xsl:when>
+                    <xsl:when test="accidental = 'sharp-sharp'">ss</xsl:when>
+                    <xsl:when test="accidental = 'flat-flat'">ff</xsl:when>
+                    <xsl:when test="accidental = 'natural-sharp'">ns</xsl:when>
+                    <xsl:when test="accidental = 'natural-flat'">nf</xsl:when>
+                    <xsl:when test="accidental = 'quarter-flat'">fu</xsl:when>
+                    <xsl:when test="accidental = 'quarter-sharp'">sd</xsl:when>
+                    <xsl:when test="accidental = 'three-quarters-sharp'">su</xsl:when>
+                    <xsl:when test="accidental = 'three-quarters-flat'">fd</xsl:when>
+                    <xsl:when test="accidental = 'triple-sharp'">ts</xsl:when>
+                    <xsl:when test="accidental = 'triple-flat'">tf</xsl:when>
+                  </xsl:choose>
+                </xsl:attribute>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:if>
-
+          
           <!-- Notated/performed octave -->
           <xsl:choose>
             <xsl:when test="pitch">
@@ -3454,6 +3488,7 @@
           <!--<xsl:call-template name="positionRelative"/>-->
           <xsl:call-template name="size"/>
           <xsl:call-template name="color"/>
+          <xsl:call-template name="enclosingChars"/>
 
           <!-- Notated tie in attribute:
                I'm using notations/tied here instead of note/tie because note/tie
@@ -3491,7 +3526,7 @@
           </xsl:choose>
           <xsl:if test="stem/@default-y != 0">
             <xsl:attribute name="stem.len">
-              <xsl:value-of select="format-number(stem/@default-y                 div 5,
+              <xsl:value-of select="format-number(stem/@default-y div 5,
                 '###0.####')"/>
               <!-- <xsl:text>vu</xsl:text> -->
             </xsl:attribute>
@@ -3671,11 +3706,23 @@
                 <xsl:when test="pitch/alter = 2">
                   <xsl:attribute name="accid.ges">ss</xsl:attribute>
                 </xsl:when>
+                <xsl:when test="pitch/alter = 1.5">
+                  <xsl:attribute name="accid.ges">su</xsl:attribute>
+                </xsl:when>
                 <xsl:when test="pitch/alter = 1">
                   <xsl:attribute name="accid.ges">s</xsl:attribute>
                 </xsl:when>
+                <xsl:when test="pitch/alter = .5">
+                  <xsl:attribute name="accid.ges">sd</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="pitch/alter = -.5">
+                  <xsl:attribute name="accid.ges">fu</xsl:attribute>
+                </xsl:when>
                 <xsl:when test="pitch/alter = -1">
                   <xsl:attribute name="accid.ges">f</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="pitch/alter = -1.5">
+                  <xsl:attribute name="accid.ges">fd</xsl:attribute>
                 </xsl:when>
                 <xsl:when test="pitch/alter = -2">
                   <xsl:attribute name="accid.ges">ff</xsl:attribute>
@@ -3688,21 +3735,45 @@
                 <xsl:value-of select="preceding-sibling::note[pitch/step=$thisPitch and
                   pitch/octave=$thisOctave and accidental][1]/accidental"/>
               </xsl:variable>
-              <xsl:attribute name="accid.ges">
-                <xsl:choose>
-                  <xsl:when test="$precedingAccidental = 'sharp'">s</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'natural'">n</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'flat'">f</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'double-sharp'">x</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'double-flat'">ff</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'sharp-sharp'">ss</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'flat-flat'">ff</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'natural-sharp'">ns</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'natural-flat'">nf</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'quarter-flat'">fd</xsl:when>
-                  <xsl:when test="$precedingAccidental = 'quarter-sharp'">su</xsl:when>
-                </xsl:choose>
-              </xsl:attribute>
+
+              <xsl:choose>
+                <xsl:when test="contains($precedingAccidental, 'slash)') or
+                  contains($precedingAccidental, 'sori') or
+                  contains($precedingAccidental, 'koron') or matches($precedingAccidental,
+                  '(sharp|flat)-[0-9]')">
+                  <xsl:variable name="measureNum">
+                    <xsl:value-of select="ancestor::measure/@number"/>
+                  </xsl:variable>
+                  <xsl:variable name="warning">
+                    <xsl:text>Middle-Eastern accidentals ignored</xsl:text>
+                  </xsl:variable>
+                  <xsl:message>
+                    <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                      ').'))"/>
+                  </xsl:message>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:attribute name="accid.ges">
+                    <xsl:choose>
+                      <xsl:when test="accidental = 'sharp'">s</xsl:when>
+                      <xsl:when test="accidental = 'natural'">n</xsl:when>
+                      <xsl:when test="accidental = 'flat'">f</xsl:when>
+                      <xsl:when test="accidental = 'double-sharp'">x</xsl:when>
+                      <xsl:when test="accidental = 'double-flat'">ff</xsl:when>
+                      <xsl:when test="accidental = 'sharp-sharp'">ss</xsl:when>
+                      <xsl:when test="accidental = 'flat-flat'">ff</xsl:when>
+                      <xsl:when test="accidental = 'natural-sharp'">ns</xsl:when>
+                      <xsl:when test="accidental = 'natural-flat'">nf</xsl:when>
+                      <xsl:when test="accidental = 'quarter-flat'">fu</xsl:when>
+                      <xsl:when test="accidental = 'quarter-sharp'">sd</xsl:when>
+                      <xsl:when test="accidental = 'three-quarters-sharp'">su</xsl:when>
+                      <xsl:when test="accidental = 'three-quarters-flat'">fd</xsl:when>
+                      <xsl:when test="accidental = 'triple-sharp'">ts</xsl:when>
+                      <xsl:when test="accidental = 'triple-flat'">tf</xsl:when>
+                    </xsl:choose>
+                  </xsl:attribute>
+                </xsl:otherwise>
+              </xsl:choose>
             </xsl:when>
           </xsl:choose>
 
@@ -3751,6 +3822,13 @@
         </xsl:if>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="enclosingChars">
+    <!-- Chararacters that enclose a note or rest -->
+    <xsl:if test="notehead/@parentheses='yes'">
+      <xsl:attribute name="enclose">paren</xsl:attribute>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="note[not(chord)]" mode="stage1">
@@ -6038,21 +6116,45 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             <xsl:attribute name="enclose">brack</xsl:attribute>
           </xsl:when>
         </xsl:choose>
-        <xsl:attribute name="accid">
-          <xsl:choose>
-            <xsl:when test="$thisAccid = 'sharp'">s</xsl:when>
-            <xsl:when test="$thisAccid = 'natural'">n</xsl:when>
-            <xsl:when test="$thisAccid = 'flat'">f</xsl:when>
-            <xsl:when test="$thisAccid = 'double-sharp'">x</xsl:when>
-            <xsl:when test="$thisAccid = 'double-flat'">ff</xsl:when>
-            <xsl:when test="$thisAccid = 'sharp-sharp'">ss</xsl:when>
-            <xsl:when test="$thisAccid = 'flat-flat'">ff</xsl:when>
-            <xsl:when test="$thisAccid = 'natural-sharp'">ns</xsl:when>
-            <xsl:when test="$thisAccid = 'natural-flat'">nf</xsl:when>
-            <xsl:when test="$thisAccid = 'quarter-flat'">fd</xsl:when>
-            <xsl:when test="$thisAccid = 'quarter-sharp'">su</xsl:when>
-          </xsl:choose>
-        </xsl:attribute>
+        <xsl:choose>
+          <xsl:when test="contains($thisAccid, 'slash)') or contains($thisAccid, 'sori') or
+            contains($thisAccid, 'koron') or matches($thisAccid, '(sharp|flat)-[0-9]')">
+            <xsl:variable name="measureNum">
+              <xsl:value-of select="ancestor::measure/@number"/>
+            </xsl:variable>
+            <xsl:variable name="warning">
+              <xsl:text>Middle-Eastern accidentals ignored</xsl:text>
+            </xsl:variable>
+            <xsl:message>
+              <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                ').'))"/>
+            </xsl:message>
+            <xsl:comment>
+              <xsl:value-of select="$warning"/>
+            </xsl:comment>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:attribute name="accid">
+              <xsl:choose>
+                <xsl:when test="$thisAccid = 'sharp'">s</xsl:when>
+                <xsl:when test="$thisAccid = 'natural'">n</xsl:when>
+                <xsl:when test="$thisAccid = 'flat'">f</xsl:when>
+                <xsl:when test="$thisAccid = 'double-sharp'">x</xsl:when>
+                <xsl:when test="$thisAccid = 'double-flat'">ff</xsl:when>
+                <xsl:when test="$thisAccid = 'sharp-sharp'">ss</xsl:when>
+                <xsl:when test="$thisAccid = 'flat-flat'">ff</xsl:when>
+                <xsl:when test="$thisAccid = 'natural-sharp'">ns</xsl:when>
+                <xsl:when test="$thisAccid = 'natural-flat'">nf</xsl:when>
+                <xsl:when test="$thisAccid = 'quarter-flat'">fu</xsl:when>
+                <xsl:when test="$thisAccid = 'quarter-sharp'">sd</xsl:when>
+                <xsl:when test="$thisAccid = 'three-quarters-sharp'">su</xsl:when>
+                <xsl:when test="$thisAccid = 'three-quarters-flat'">fd</xsl:when>
+                <xsl:when test="$thisAccid = 'triple-sharp'">ts</xsl:when>
+                <xsl:when test="$thisAccid = 'triple-flat'">tf</xsl:when>
+              </xsl:choose>
+            </xsl:attribute>
+          </xsl:otherwise>
+        </xsl:choose>
         <xsl:call-template name="positionRelative"/>
         <xsl:call-template name="fontProperties"/>
         <xsl:call-template name="color"/>
