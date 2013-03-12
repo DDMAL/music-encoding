@@ -1569,6 +1569,18 @@
 
           <!-- Key signature -->
           <xsl:if test="part/attributes[not(preceding-sibling::note) and
+            not(preceding-sibling::forward) and not(transpose)][key/key-step]">
+            <xsl:variable name="measureNum">
+              <xsl:value-of select="@number"/>
+            </xsl:variable>
+            <xsl:variable name="warning">
+              <xsl:text>Non-traditional key signature not transcoded</xsl:text>
+            </xsl:variable>
+            <xsl:message>
+              <xsl:value-of select="normalize-space(concat($warning, ' (m.', $measureNum, ').'))"/>
+            </xsl:message>
+          </xsl:if>
+          <xsl:if test="part/attributes[not(preceding-sibling::note) and
             not(preceding-sibling::forward) and not(transpose)][key]">
             <xsl:variable name="keySig">
               <xsl:choose>
@@ -3318,7 +3330,7 @@
               <xsl:when test="grace/@steal-time-following">
                 <xsl:attribute name="grace">acc</xsl:attribute>
                 <xsl:attribute name="grace.time">
-                  <xsl:value-of select="grace/@steal-time-following"/>
+                  <xsl:value-of select="replace(grace/@steal-time-following, '%', '')"/>
                   <xsl:text>%</xsl:text>
                 </xsl:attribute>
                 <xsl:if test="grace/@slash='yes'">
@@ -3328,7 +3340,7 @@
               <xsl:when test="grace/@steal-time-previous">
                 <xsl:attribute name="grace">unacc</xsl:attribute>
                 <xsl:attribute name="grace.time">
-                  <xsl:value-of select="grace/@steal-time-previous"/>
+                  <xsl:value-of select="replace(grace/@steal-time-previous, '%', '')"/>
                   <xsl:text>%</xsl:text>
                 </xsl:attribute>
                 <xsl:if test="grace/@slash='yes'">
@@ -3336,7 +3348,7 @@
                 </xsl:if>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:attribute name="grace">unacc</xsl:attribute>
+                <xsl:attribute name="grace">unknown</xsl:attribute>
                 <xsl:if test="grace/@slash='yes'">
                   <xsl:attribute name="stem.mod">1slash</xsl:attribute>
                 </xsl:if>
@@ -5974,6 +5986,14 @@
                 </xsl:choose>
               </xsl:if>
               <!-- Look in first measure for score-level key signature and mode -->
+              <xsl:if test="descendant::measure[1]/part/attributes[not(transpose)]/key/key-step">
+                <xsl:variable name="warning">
+                  <xsl:text>Non-traditional key signature not transcoded (score)</xsl:text>
+                </xsl:variable>
+                <xsl:message>
+                  <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+                </xsl:message>
+              </xsl:if>
               <xsl:if test="descendant::measure[1]/part/attributes[not(transpose)]/key">
                 <xsl:variable name="keySig">
                   <xsl:value-of select="descendant::measure[1]/part[attributes[not(transpose) and
