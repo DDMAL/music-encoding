@@ -2480,6 +2480,7 @@
         <xsl:variable name="measureNum">
           <xsl:value-of select="@n"/>
         </xsl:variable>
+        <!-- Group events by MusicXML partID -->
         <xsl:for-each-group
           select="mei:chord|mei:clef|mei:note|mei:rest|mei:space|mei:mRest|mei:multiRest|mei:mSpace"
           group-by="@part">
@@ -2502,6 +2503,7 @@
 
           <xsl:variable name="byStaff">
             <xsl:for-each select="$byPart/mei:part">
+              <!-- Wrap staff element around each layer -->
               <xsl:for-each select="mei:layer">
                 <xsl:variable name="thisStaff">
                   <xsl:choose>
@@ -2532,6 +2534,7 @@
           <!--<xsl:copy-of select="$byStaff"/>-->
 
           <xsl:variable name="byStaff2">
+            <!-- Group staves, then group contained layers -->
             <xsl:for-each-group select="$byStaff/mei:staff" group-by="@n">
               <!--<xsl:variable name="thisStaff">
                 <xsl:value-of select="@n"/>
@@ -2565,6 +2568,7 @@
           <!--<xsl:copy-of select="$byStaff2"/>-->
 
           <xsl:variable name="byStaff3">
+            <!-- Renumber layers -->
             <xsl:for-each select="$byStaff2/mei:staff">
               <staff xmlns="http://www.music-encoding.org/ns/mei">
                 <xsl:copy-of select="@*"/>
@@ -2582,7 +2586,45 @@
               </staff>
             </xsl:for-each>
           </xsl:variable>
-          <xsl:copy-of select="$byStaff3"/>
+          <!--<xsl:copy-of select="$byStaff3"/>-->
+
+          <xsl:variable name="byStaff4">
+            <!-- Insert space when @tstamp.ges on first event of the layer != 0 -->
+            <xsl:for-each select="$byStaff3/mei:staff">
+              <staff xmlns="http://www.music-encoding.org/ns/mei">
+                <xsl:copy-of select="@*"/>
+                <xsl:for-each select="mei:layer">
+                  <layer>
+                    <xsl:copy-of select="@*"/>
+                    <xsl:for-each select="*">
+                      <xsl:choose>
+                        <xsl:when test="position()=1 and @tstamp.ges &gt; 0">
+                          <xsl:comment>
+                            <xsl:text>Inserted space</xsl:text>
+                          </xsl:comment>
+                          <xsl:value-of select="$nl"/>
+                          <space>
+                            <xsl:attribute name="xml:id">
+                              <xsl:value-of select="generate-id()"/>
+                            </xsl:attribute>
+                            <xsl:attribute name="tstamp.ges">0</xsl:attribute>
+                            <xsl:attribute name="dur.ges">
+                              <xsl:value-of select="@tstamp.ges"/>
+                            </xsl:attribute>
+                          </space>
+                          <xsl:copy-of select="."/>
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:copy-of select="."/>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:for-each>
+                  </layer>
+                </xsl:for-each>
+              </staff>
+            </xsl:for-each>
+          </xsl:variable>
+          <xsl:copy-of select="$byStaff4"/>
 
           <!-- KEEP THIS TO GENERATE strict byStaff organization! -->
           <!-- Further process $byPart: create staff and layer elements. -->
