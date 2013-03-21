@@ -3828,21 +3828,21 @@
                 <xsl:otherwise>
                   <xsl:attribute name="accid.ges">
                     <xsl:choose>
-                      <xsl:when test="accidental = 'sharp'">s</xsl:when>
-                      <xsl:when test="accidental = 'natural'">n</xsl:when>
-                      <xsl:when test="accidental = 'flat'">f</xsl:when>
-                      <xsl:when test="accidental = 'double-sharp'">x</xsl:when>
-                      <xsl:when test="accidental = 'double-flat'">ff</xsl:when>
-                      <xsl:when test="accidental = 'sharp-sharp'">ss</xsl:when>
-                      <xsl:when test="accidental = 'flat-flat'">ff</xsl:when>
-                      <xsl:when test="accidental = 'natural-sharp'">ns</xsl:when>
-                      <xsl:when test="accidental = 'natural-flat'">nf</xsl:when>
-                      <xsl:when test="accidental = 'quarter-flat'">fu</xsl:when>
-                      <xsl:when test="accidental = 'quarter-sharp'">sd</xsl:when>
-                      <xsl:when test="accidental = 'three-quarters-sharp'">su</xsl:when>
-                      <xsl:when test="accidental = 'three-quarters-flat'">fd</xsl:when>
-                      <xsl:when test="accidental = 'triple-sharp'">ts</xsl:when>
-                      <xsl:when test="accidental = 'triple-flat'">tf</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'sharp'">s</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'natural'">n</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'flat'">f</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'double-sharp'">x</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'double-flat'">ff</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'sharp-sharp'">ss</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'flat-flat'">ff</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'natural-sharp'">ns</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'natural-flat'">nf</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'quarter-flat'">fu</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'quarter-sharp'">sd</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'three-quarters-sharp'">su</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'three-quarters-flat'">fd</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'triple-sharp'">ts</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'triple-flat'">tf</xsl:when>
                     </xsl:choose>
                   </xsl:attribute>
                 </xsl:otherwise>
