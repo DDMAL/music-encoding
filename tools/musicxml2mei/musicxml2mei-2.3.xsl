@@ -5657,22 +5657,6 @@
                 </instrDef>
               </xsl:for-each>
             </xsl:when>
-            <xsl:when test="score-instrument">
-              <xsl:for-each select="score-instrument">
-                <instrDef xmlns="http://www.music-encoding.org/ns/mei">
-                  <xsl:variable name="thisID">
-                    <xsl:value-of select="@id"/>
-                  </xsl:variable>
-                  <xsl:attribute name="xml:id">
-                    <xsl:value-of select="@id"/>
-                  </xsl:attribute>
-                  <xsl:attribute name="midi.channel">
-                    <xsl:value-of select="count(preceding::score-instrument)+1"/>
-                  </xsl:attribute>
-                  <xsl:attribute name="midi.instrnum">0</xsl:attribute>
-                </instrDef>
-              </xsl:for-each>
-            </xsl:when>
           </xsl:choose>
 
           <!-- CREATE LAYERDEFS HERE? -->
