@@ -3927,12 +3927,13 @@
       <!-- Tstamp attributes -->
       <xsl:call-template name="tstampAttrs"/>
       <!-- Attributes based on starting note -->
-      <xsl:variable name="startid">
+      <!-- Unfortunately, @startid isn't allowed on arpeg yet! -->
+      <!--<xsl:variable name="startid">
         <xsl:value-of select="generate-id()"/>
-      </xsl:variable>
+      </xsl:variable>      
       <xsl:attribute name="startid">
         <xsl:value-of select="$startid"/>
-      </xsl:attribute>
+      </xsl:attribute>-->
       <xsl:variable name="plist">
         <xsl:apply-templates select="." mode="arpegContinue"/>
       </xsl:variable>
@@ -3976,12 +3977,13 @@
       <!-- Tstamp attributes -->
       <xsl:call-template name="tstampAttrs"/>
       <!-- Attributes based on starting note -->
-      <xsl:variable name="startid">
+      <!-- Unfortunately, @startid isn't allowed on arpeg yet! -->
+      <!--<xsl:variable name="startid">
         <xsl:value-of select="generate-id()"/>
-      </xsl:variable>
+      </xsl:variable>      
       <xsl:attribute name="startid">
         <xsl:value-of select="$startid"/>
-      </xsl:attribute>
+      </xsl:attribute>-->
       <xsl:variable name="plist">
         <xsl:apply-templates select="." mode="nonarpegContinue"/>
       </xsl:variable>
