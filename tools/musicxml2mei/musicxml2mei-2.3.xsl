@@ -2610,6 +2610,7 @@
                             <xsl:attribute name="tstamp.ges">0</xsl:attribute>
                             <xsl:attribute name="dur.ges">
                               <xsl:value-of select="@tstamp.ges"/>
+                              <xsl:text>p</xsl:text>
                             </xsl:attribute>
                           </space>
                           <xsl:copy-of select="."/>
