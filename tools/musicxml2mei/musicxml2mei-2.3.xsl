@@ -6815,15 +6815,89 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
 
   <xsl:template name="figure">
     <xsl:if test="prefix">
-      <xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(prefix,
+      <!--<xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(prefix,
         'sharp-sharp', '&#x266F;&#x266F;'), 'flat-flat', '&#x1D12B;'), 'double-sharp', '&#x1D12A;'),
-        'sharp', '&#x266F;'), 'flat','&#x266D;'), 'natural', '&#x266E;'), 'slash', '/')"/>
+        'sharp', '&#x266F;'), 'flat','&#x266D;'), 'natural', '&#x266E;'), 'slash', '/')"/>-->
+      <xsl:analyze-string select="prefix"
+        regex="(flat|flat-flat|sharp|sharp-sharp|double-sharp|natural|slash)">
+        <xsl:matching-substring>
+          <xsl:choose>
+            <xsl:when test="matches(., 'sharp-sharp')">
+              <xsl:text>&#x266F;&#x266F;</xsl:text>
+              <xsl:comment>sharp-sharp</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'flat-flat')">
+              <xsl:text>&#x1D12B;</xsl:text>
+              <xsl:comment>flat-flat</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'double-sharp')">
+              <xsl:text>&#x1D12A;</xsl:text>
+              <xsl:comment>double sharp</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'sharp')">
+              <xsl:text>&#x266F;</xsl:text>
+              <xsl:comment>sharp</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'flat')">
+              <xsl:text>&#x266D;</xsl:text>
+              <xsl:comment>flat</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'natural')">
+              <xsl:text>&#x266E;</xsl:text>
+              <xsl:comment>natural</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'slash')">
+              <xsl:text>/</xsl:text>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:matching-substring>
+        <xsl:non-matching-substring>
+          <xsl:value-of select="."/>
+        </xsl:non-matching-substring>
+      </xsl:analyze-string>
     </xsl:if>
     <xsl:value-of select="figure-number"/>
     <xsl:if test="suffix">
-      <xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(suffix,
+      <!--<xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(suffix,
         'sharp-sharp', '&#x266F;&#x266F;'), 'flat-flat', '&#x1D12B;'), 'double-sharp', '&#x1D12A;'),
-        'sharp', '&#x266F;'), 'flat','&#x266D;'), 'natural', '&#x266E;'), 'slash', '/')"/>
+        'sharp', '&#x266F;'), 'flat','&#x266D;'), 'natural', '&#x266E;'), 'slash', '/')"/>-->
+      <xsl:analyze-string select="suffix"
+        regex="(flat|flat-flat|sharp|sharp-sharp|double-sharp|natural|slash)">
+        <xsl:matching-substring>
+          <xsl:choose>
+            <xsl:when test="matches(., 'sharp-sharp')">
+              <xsl:text>&#x266F;&#x266F;</xsl:text>
+              <xsl:comment>sharp-sharp</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'flat-flat')">
+              <xsl:text>&#x1D12B;</xsl:text>
+              <xsl:comment>flat-flat</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'double-sharp')">
+              <xsl:text>&#x1D12A;</xsl:text>
+              <xsl:comment>double sharp</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'sharp')">
+              <xsl:text>&#x266F;</xsl:text>
+              <xsl:comment>sharp</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'flat')">
+              <xsl:text>&#x266D;</xsl:text>
+              <xsl:comment>flat</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'natural')">
+              <xsl:text>&#x266E;</xsl:text>
+              <xsl:comment>natural</xsl:comment>
+            </xsl:when>
+            <xsl:when test="matches(., 'slash')">
+              <xsl:text>/</xsl:text>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:matching-substring>
+        <xsl:non-matching-substring>
+          <xsl:value-of select="."/>
+        </xsl:non-matching-substring>
+      </xsl:analyze-string>
     </xsl:if>
   </xsl:template>
 
