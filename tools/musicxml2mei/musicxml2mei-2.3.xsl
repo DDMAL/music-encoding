@@ -1741,6 +1741,8 @@
             <!-- Gather staff qualities -->
             <xsl:variable name="staffAttrib">
               <xsl:copy-of select="print/staff-layout"/>
+              <xsl:copy-of select="print/part-name-display"/>
+              <xsl:copy-of select="print/part-abbreviation-display"/>
               <xsl:copy-of select="attributes/clef"/>
               <xsl:copy-of select="attributes/divisions"/>
               <xsl:copy-of select="attributes/key"/>
@@ -1768,6 +1770,8 @@
                   <xsl:copy-of select="$staffAttrib/staff-details[not(@number)][1]"/>
                   <xsl:copy-of select="$staffAttrib/staff-layout[not(@number)][1]"/>
                   <xsl:copy-of select="$staffAttrib/transpose[not(@number)][1]"/>
+                  <xsl:copy-of select="$staffAttrib/part-name-display"/>
+                  <xsl:copy-of select="$staffAttrib/part-abbreviation-display"/>
                 </staffDef>
               </xsl:for-each>
             </xsl:variable>
@@ -1781,6 +1785,22 @@
             <xsl:for-each select="$staffDefTemp/staffDef[*]">
               <staffDef xmlns="http://www.music-encoding.org/ns/mei">
                 <xsl:copy-of select="@n"/>
+                <!-- part name -->
+                <!-- staff label as attribute -->
+                <xsl:if test="part-name-display">
+                  <xsl:attribute name="label">
+                    <xsl:value-of select="replace(replace(normalize-space(part-name-display),
+                      'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
+                  </xsl:attribute>
+                </xsl:if>
+                <!-- abbreviated staff label as attribute -->
+                <xsl:if test="part-abbreviation-display">
+                  <xsl:attribute name="label.abbr">
+                    <xsl:value-of
+                      select="replace(replace(normalize-space(part-abbreviation-display),
+                      'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
+                  </xsl:attribute>
+                </xsl:if>
                 <!-- number of staff lines -->
                 <xsl:for-each select="staff-details/staff-lines">
                   <xsl:attribute name="lines">
@@ -1959,6 +1979,22 @@
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:attribute>
+                </xsl:if>
+                <!-- staff labels as elements -->
+                <xsl:if test="part-name-display">
+                  <label>
+                    <xsl:value-of select="replace(replace(normalize-space(part-name-display),
+                      'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
+                  </label>
+                </xsl:if>
+                <xsl:if test="part-abbreviation-display">
+                  <label>
+                    <abbr>
+                      <xsl:value-of
+                        select="replace(replace(normalize-space(part-abbreviation-display),
+                        'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
+                    </abbr>
+                  </label>
                 </xsl:if>
               </staffDef>
             </xsl:for-each>
@@ -5570,7 +5606,7 @@
             <xsl:with-param name="staffNum"/>
           </xsl:call-template>
 
-          <!-- staff label as element -->
+          <!-- staff labels as elements -->
           <xsl:if test="part-name or part-name-display">
             <label xmlns="http://www.music-encoding.org/ns/mei">
               <xsl:choose>
