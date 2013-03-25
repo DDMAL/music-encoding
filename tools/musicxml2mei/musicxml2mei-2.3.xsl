@@ -2911,7 +2911,31 @@
           <xsl:sort select="@tstamp"/>
           <xsl:sort select="@staff"/>
           <xsl:sort select="local-name()"/>
-          <xsl:copy-of select="."/>
+          <xsl:choose>
+            <xsl:when test="local-name()='beamSpan'">
+              <xsl:choose>
+                <xsl:when test="@dur or @dur.ges or @endid!=''">
+                  <xsl:copy-of select="."/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:variable name="warning">
+                    <xsl:text>Unterminated beamSpan</xsl:text>
+                  </xsl:variable>
+                  <xsl:call-template name="warningPhase2">
+                    <xsl:with-param name="warning">
+                      <xsl:value-of select="$warning"/>
+                    </xsl:with-param>
+                    <xsl:with-param name="measureNum">
+                      <xsl:value-of select="$measureNum"/>
+                    </xsl:with-param>
+                  </xsl:call-template>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="."/>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:for-each>
 
         <!-- Copy graphic primitives -->
@@ -8333,6 +8357,32 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           '###0.####')"/>
       </xsl:when>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template name="warningPhase2">
+    <xsl:param name="warning"/>
+    <xsl:param name="measureNum"/>
+    <xsl:message>
+      <xsl:value-of select="normalize-space(concat($warning, ' (m.', $measureNum, ').'))"/>
+    </xsl:message>
+    <xsl:comment>
+      <xsl:value-of select="normalize-space($warning)"/>
+    </xsl:comment>
+    <xsl:comment>
+      <xsl:text>&lt;</xsl:text>
+      <xsl:value-of select="local-name()"/>
+      <xsl:text> </xsl:text>
+      <xsl:for-each select="@*">
+        <xsl:value-of select="name()"/>
+        <xsl:text>="</xsl:text>
+        <xsl:value-of select="."/>
+        <xsl:text>"</xsl:text>
+        <xsl:if test="position()!=last()">
+          <xsl:text>&#32;</xsl:text>
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:text>/&gt;</xsl:text>
+    </xsl:comment>
   </xsl:template>
 
   <xsl:template name="wrapRend">
