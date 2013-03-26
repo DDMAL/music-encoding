@@ -5510,28 +5510,125 @@
   </xsl:template>
 
   <xsl:template match="part-list" mode="layout">
-    <!-- outerStaffGrp holds basic layout info -->
+    <xsl:variable name="scoreGroupsNotBroken" as="xs:boolean">
+      <xsl:value-of select="every $groupStart in //part-list/part-group[@stype='start']
+        satisfies($groupStart/following-sibling::part-group[@type='stop' and
+        @number=$groupStart/@number])"/>
+    </xsl:variable>
+    <!--<xsl:message>scoreGroupsNotBroken: <xsl:value-of select="$scoreGroupsNotBroken"/></xsl:message>-->
+    <xsl:variable name="scoreGroupsRanges" as="node()*">
+      <xsl:for-each select="part-group[@type = 'start']">
+        <range>
+          <xsl:variable name="num" select="@number"/>
+          <xsl:attribute name="start" select="count(preceding-sibling::score-part) + 0.5"/>
+          <xsl:variable name="stop" select="following-sibling::part-group[@type='stop' and
+            @number = $num][1]"/>
+          <xsl:attribute name="stop" select="count($stop/preceding-sibling::score-part) + 0.5"/>
+          <xsl:attribute name="num" select="$num"/>
+        </range>
+      </xsl:for-each>
+    </xsl:variable>
+    <!--<xsl:message>scoreGroupsRangesCount: <xsl:value-of select="count($scoreGroupsRanges)"/></xsl:message>-->
+    <xsl:variable name="scoreRangesOverlaps" as="xs:boolean*">
+      <xsl:for-each select="$scoreGroupsRanges">
+        <xsl:variable name="start" select="number(@start)"/>
+        <xsl:variable name="stop" select="number(@stop)"/>
+        <xsl:value-of select="not(exists($scoreGroupsRanges[(number(@start) lt $start and
+          number(@stop) gt $start and number(@stop) lt $stop) or (number(@start) gt $start
+          and number(@start) lt $stop and number(@stop) gt $stop)]))"/>
+      </xsl:for-each>
+    </xsl:variable>
+    <xsl:variable name="scoreRangesAreFine" select="every $x in $scoreRangesOverlaps satisfies ($x
+      eq true())" as="xs:boolean"/>
+    <!--<xsl:message>scoreRangesAreFine: <xsl:value-of select="$scoreRangesAreFine"/></xsl:message>-->
+    <xsl:choose>
+      <xsl:when test="$scoreRangesAreFine">
+        <!-- No overlapping staff groups -->
+        <xsl:variable name="outerStaffGrp">
+          <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
+            <xsl:variable name="tempTree">
+              <!-- Create staffDef elements, copy part-group elements  -->
+              <xsl:apply-templates select="score-part|part-group" mode="layout"/>
+            </xsl:variable>
+            <xsl:variable name="tempTree2">
+              <!-- Number staves -->
+              <xsl:apply-templates select="$tempTree" mode="numberStaves"/>
+            </xsl:variable>
+            <!-- Emit staffGrp and staffDef elements already created -->
+            <xsl:copy-of select="$tempTree2/mei:staffGrp|$tempTree2/mei:staffDef"/>
+            <!-- Create stand-off staff grouping symbols -->
+            <xsl:apply-templates select="$tempTree2/part-group[@type='start' and group-symbol]"
+              mode="grpSym"/>
+          </staffGrp>
+        </xsl:variable>
+        <xsl:choose>
+          <xsl:when test="$outerStaffGrp//grpSym">
+            <!-- If there are stand-off grouping symbols, resolve them -->
+            <xsl:call-template name="resolveGrpSym">
+              <xsl:with-param name="in">
+                <xsl:copy-of select="$outerStaffGrp"/>
+              </xsl:with-param>
+              <xsl:with-param name="maxLevel">
+                <xsl:value-of select="number(max($outerStaffGrp//grpSym/@level))"/>
+              </xsl:with-param>
+              <xsl:with-param name="pass" select="number(1)"/>
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>
+            <!-- If there are no stand-off grouping symbols, processing of layout info is complete -->
+            <xsl:copy-of select="$outerStaffGrp"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- Overlapping staff groups -->
+        <xsl:variable name="warning">Overlapping staff groups ignored</xsl:variable>
+        <xsl:message>
+          <xsl:value-of select="normalize-space($warning)"/>
+        </xsl:message>
+        <xsl:comment>
+          <xsl:value-of select="normalize-space($warning)"/>
+        </xsl:comment>
+        <xsl:variable name="outerStaffGrp">
+          <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
+            <xsl:variable name="tempTree">
+              <!-- Create staffDef elements, copy part-group elements  -->
+              <xsl:apply-templates select="score-part" mode="layout"/>
+            </xsl:variable>
+            <xsl:variable name="tempTree2">
+              <!-- Number staves -->
+              <xsl:apply-templates select="$tempTree" mode="numberStaves"/>
+            </xsl:variable>
+            <!-- Emit staffGrp and staffDef elements already created -->
+            <xsl:copy-of select="$tempTree2/mei:staffDef"/>
+          </staffGrp>
+        </xsl:variable>
+        <xsl:copy-of select="$outerStaffGrp"/>
+      </xsl:otherwise>
+    </xsl:choose>
+
+    <!--<!-\- outerStaffGrp holds basic layout info -\->
     <xsl:variable name="outerStaffGrp">
       <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:variable name="tempTree">
-          <!-- Create staffDef elements, copy part-group elements  -->
+          <!-\- Create staffDef elements, copy part-group elements  -\->
           <xsl:apply-templates select="score-part|part-group" mode="layout"/>
         </xsl:variable>
         <xsl:variable name="tempTree2">
-          <!-- Number staves -->
+          <!-\- Number staves -\->
           <xsl:apply-templates select="$tempTree" mode="numberStaves"/>
         </xsl:variable>
-        <!-- Emit staffGrp and staffDef elements already created -->
+        <!-\- Emit staffGrp and staffDef elements already created -\->
         <xsl:copy-of select="$tempTree2/mei:staffGrp|$tempTree2/mei:staffDef"/>
-        <!-- Create stand-off staff grouping symbols -->
+        <!-\- Create stand-off staff grouping symbols -\->
         <xsl:apply-templates select="$tempTree2/part-group[@type='start' and group-symbol]"
           mode="grpSym"/>
       </staffGrp>
     </xsl:variable>
-
+    
     <xsl:choose>
       <xsl:when test="$outerStaffGrp//grpSym">
-        <!-- If there are stand-off grouping symbols, resolve them -->
+        <!-\- If there are stand-off grouping symbols, resolve them -\->
         <xsl:call-template name="resolveGrpSym">
           <xsl:with-param name="in">
             <xsl:copy-of select="$outerStaffGrp"/>
@@ -5543,11 +5640,53 @@
         </xsl:call-template>
       </xsl:when>
       <xsl:otherwise>
-        <!-- If there are no stand-off grouping symbols, processing of layout info is complete -->
+        <!-\- If there are no stand-off grouping symbols, processing of layout info is complete -\->
+        <xsl:copy-of select="$outerStaffGrp"/>
+      </xsl:otherwise>
+    </xsl:choose>-->
+
+  </xsl:template>
+
+  <!--<xsl:template match="part-list" mode="layout">
+    <!-\- outerStaffGrp holds basic layout info -\->
+    <xsl:variable name="outerStaffGrp">
+      <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:variable name="tempTree">
+          <!-\- Create staffDef elements, copy part-group elements  -\->
+          <xsl:apply-templates select="score-part|part-group" mode="layout"/>
+        </xsl:variable>
+        <xsl:variable name="tempTree2">
+          <!-\- Number staves -\->
+          <xsl:apply-templates select="$tempTree" mode="numberStaves"/>
+        </xsl:variable>
+        <!-\- Emit staffGrp and staffDef elements already created -\->
+        <xsl:copy-of select="$tempTree2/mei:staffGrp|$tempTree2/mei:staffDef"/>
+        <!-\- Create stand-off staff grouping symbols -\->
+        <xsl:apply-templates select="$tempTree2/part-group[@type='start' and group-symbol]"
+          mode="grpSym"/>
+      </staffGrp>
+    </xsl:variable>
+
+    <xsl:choose>
+      <xsl:when test="$outerStaffGrp//grpSym">
+        <!-\- If there are stand-off grouping symbols, resolve them -\->
+        <xsl:call-template name="resolveGrpSym">
+          <xsl:with-param name="in">
+            <xsl:copy-of select="$outerStaffGrp"/>
+          </xsl:with-param>
+          <xsl:with-param name="maxLevel">
+            <xsl:value-of select="number(max($outerStaffGrp//grpSym/@level))"/>
+          </xsl:with-param>
+          <xsl:with-param name="pass" select="number(1)"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-\- If there are no stand-off grouping symbols, processing of layout info is complete -\->
         <xsl:copy-of select="$outerStaffGrp"/>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
+  </xsl:template> -->
+
 
   <xsl:template match="score-part" mode="layout">
     <!-- Create staffDef elements -->
@@ -5750,9 +5889,9 @@
           <xsl:attribute name="xml:id">
             <xsl:value-of select="$partID"/>
           </xsl:attribute>
-          <!-- Single part with multiple staves always uses a bracket -->
+          <!-- Single part with multiple staves always uses a curly brace -->
           <xsl:attribute name="symbol">brace</xsl:attribute>
-          <!-- group label -->
+          <!-- group label as attribute -->
           <xsl:if test="part-name or part-name-display">
             <xsl:attribute name="label">
               <xsl:choose>
@@ -5766,7 +5905,7 @@
               </xsl:choose>
             </xsl:attribute>
           </xsl:if>
-          <!-- abbreviated group label -->
+          <!-- abbreviated group label as attribute -->
           <xsl:if test="part-abbreviation or part-abbreviation-display">
             <xsl:attribute name="label.abbr">
               <xsl:choose>
@@ -5780,6 +5919,76 @@
               </xsl:choose>
             </xsl:attribute>
           </xsl:if>
+          <!-- group label as element -->
+          <xsl:if test="part-name or part-name-display">
+            <label xmlns="http://www.music-encoding.org/ns/mei">
+              <xsl:choose>
+                <xsl:when test="part-name-display">
+                  <xsl:value-of select="replace(replace(normalize-space(part-name-display), 'flat',
+                    '&#x266d;'), 'sharp', '&#x266f;')"/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:choose>
+                    <xsl:when test="part-name[@font-family or @font-style or @font-size or
+                      @font-weight or @letter-spacing or @line-height or @justify or @halign or
+                      @valign or @color or @rotation or @xml:space or@underline or @overline
+                      or @line-through or @dir or @enclosure!='none']">
+                      <xsl:for-each select="part-name[@font-family or @font-style or @font-size or
+                        @font-weight or @letter-spacing or @line-height or @justify or @halign or
+                        @valign or @color or @rotation or @xml:space or @underline
+                        or @overline or @line-through or @dir or @enclosure!='none']">
+                        <xsl:call-template name="wrapRend">
+                          <xsl:with-param name="in">
+                            <xsl:value-of select="part-name"/>
+                          </xsl:with-param>
+                        </xsl:call-template>
+                      </xsl:for-each>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="part-name"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:otherwise>
+              </xsl:choose>
+            </label>
+          </xsl:if>
+          <xsl:if test="part-abbreviation or part-abbreviation-display">
+            <label xmlns="http://www.music-encoding.org/ns/mei">
+              <abbr>
+                <xsl:choose>
+                  <xsl:when test="part-abbreviation-display">
+                    <xsl:value-of
+                      select="replace(replace(normalize-space(part-abbreviation-display),
+                      'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:choose>
+                      <xsl:when test="part-abbreviation[@font-family or @font-style or @font-size or
+                        @font-weight or @letter-spacing or @line-height or @justify or @halign or
+                        @valign or @color or @rotation or @xml:space or @underline or @overline or
+                        @line-through or @dir or @enclosure!='none']">
+                        <xsl:for-each select="part-abbreviation[@font-family or @font-style or
+                          @font-size or @font-weight or @letter-spacing or
+                          @line-height or @justify or @halign or @valign or
+                          @color or @rotation or @xml:space or @underline or
+                          @overline or @line-through or @dir or @enclosure!='none']">
+                          <xsl:call-template name="wrapRend">
+                            <xsl:with-param name="in">
+                              <xsl:value-of select="part-abbreviation"/>
+                            </xsl:with-param>
+                          </xsl:call-template>
+                        </xsl:for-each>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="part-abbreviation"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </abbr>
+            </label>
+          </xsl:if>
+
           <!-- instrument definition -->
           <xsl:for-each select="midi-instrument">
             <instrDef xmlns="http://www.music-encoding.org/ns/mei">
@@ -7762,6 +7971,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:param name="in"/>
     <xsl:param name="maxLevel"/>
     <xsl:param name="pass"/>
+    <xsl:message>pass = <xsl:value-of select="$pass"/></xsl:message>
+    <xsl:message>in = <xsl:value-of select="$in"/></xsl:message>
+    <xsl:message>maxLevel = <xsl:value-of select="$maxLevel"/></xsl:message>
+
     <xsl:variable name="newOuterStaffGrp">
       <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:for-each select="$in/mei:staffGrp">
