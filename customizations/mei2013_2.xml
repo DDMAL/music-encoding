@@ -1,0 +1,1036 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../../trunk/source/tei_odds.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../trunk/source/tei_odds.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<TEI xmlns:rng="http://relaxng.org/ns/structure/1.0"
+  xmlns:sch="http://purl.oclc.org/dsdl/schematron"
+  xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0" xmlns="http://www.tei-c.org/ns/1.0">
+  <teiHeader>
+    <fileDesc>
+      <titleStmt>
+        <title>Music Encoding Initiative Guidelines – 2013 changes</title>
+      </titleStmt>
+      <publicationStmt>
+        <p/>
+      </publicationStmt>
+      <sourceDesc>
+        <p/>
+      </sourceDesc>
+    </fileDesc>
+  </teiHeader>
+  <text>
+    <front>
+      <divGen type="toc"/>
+    </front>
+    <body>
+      <schemaSpec ident="mei" start="mei meiHead meiCorpus music"
+        ns="http://www.music-encoding.org/ns/mei">
+        <moduleRef key="MEI"/>
+        <moduleRef key="MEI.shared"/>
+        <moduleRef key="MEI.header"/>
+        <moduleRef key="MEI.cmn"/>
+        <moduleRef key="MEI.mensural"/>
+        <moduleRef key="MEI.neumes"/>
+        <moduleRef key="MEI.analysis"/>
+        <moduleRef key="MEI.cmnOrnaments"/>
+        <moduleRef key="MEI.corpus"/>
+        <moduleRef key="MEI.critapp"/>
+        <moduleRef key="MEI.edittrans"/>
+        <moduleRef key="MEI.facsimile"/>
+        <moduleRef key="MEI.figtable"/>
+        <moduleRef key="MEI.frbr"/>
+        <moduleRef key="MEI.harmony"/>
+        <moduleRef key="MEI.linkalign"/>
+        <moduleRef key="MEI.lyrics"/>
+        <moduleRef key="MEI.midi"/>
+        <moduleRef key="MEI.namesdates"/>
+        <moduleRef key="MEI.performance"/>
+        <moduleRef key="MEI.ptrref"/>
+        <moduleRef key="MEI.tablature"/>
+        <moduleRef key="MEI.text"/>
+        <moduleRef key="MEI.usersymbols"/>
+
+        <!-- New datatype definitions -->
+        <macroSpec ident="data.DURATION.additive" module="MEI" type="dt" mode="add">
+          <desc>records duration using optionally dotted, relative durational values provided by the
+            data.DURATION datatype. When the duration is "irrational", as is sometimes the case with
+            tuplets, multiple space-separated values that add up to the total duration may be
+            used.</desc>
+          <content>
+            <rng:list>
+              <rng:oneOrMore>
+                <rng:data type="token">
+                  <rng:param name="pattern"
+                    >(long|breve|1|2|4|8|16|32|64|128|256|1024|2048)(\.)*</rng:param>
+                </rng:data>
+              </rng:oneOrMore>
+            </rng:list>
+          </content>
+        </macroSpec>
+
+        <macroSpec ident="data.HEADSHAPE" module="MEI" type="dt" mode="replace">
+          <desc>Note head shapes. Some values map to Unicode characters, others to Mup
+            characters.</desc>
+          <content>
+            <rng:choice>
+              <rng:value>quarter</rng:value>
+              <a:documentation>filled oval (Unicode 1D158)</a:documentation>
+              <rng:value>half</rng:value>
+              <a:documentation>open oval (Unicode 1D157)</a:documentation>
+              <rng:value>whole</rng:value>
+              <a:documentation>open oval (Unicode 1D15D)</a:documentation>
+              <rng:value>dblwhole</rng:value>
+              <a:documentation>modern breve (Unicode 1D15C)</a:documentation>
+              <rng:value>filldiamond</rng:value>
+              <a:documentation>filled diamond (Unicode 1D1BA)</a:documentation>
+              <rng:value>diamond</rng:value>
+              <a:documentation>open diamond (Unicode 1D1B9)</a:documentation>
+              <rng:value>dwdiamond</rng:value>
+              <a:documentation>double whole diamond (Mup)</a:documentation>
+              <rng:value>fillisotriangle</rng:value>
+              <a:documentation>filled isosceles triangle (Unicode 1D149)</a:documentation>
+              <rng:value>isotriangle</rng:value>
+              <a:documentation>open isosceles triangle (Unicode 1D148)</a:documentation>
+              <rng:value>dwhisotriangle</rng:value>
+              <a:documentation>double whole open isosceles triangle (Unicode
+                1D14E)</a:documentation>
+              <rng:value>fillpiewedge</rng:value>
+              <a:documentation>filled downward-pointing wedge (Unicode 1D155)</a:documentation>
+              <rng:value>piewedge</rng:value>
+              <a:documentation>downward-pointing wedge (Unicode 1D154)</a:documentation>
+              <rng:value>dwhpiewedge</rng:value>
+              <a:documentation>double whole downward-pointing wedge (Mup)</a:documentation>
+              <rng:value>fillrectangle</rng:value>
+              <a:documentation>filled rectangle (Unicode 1D147)</a:documentation>
+              <rng:value>rectangle</rng:value>
+              <a:documentation>open rectangle (Unicode 1D146)</a:documentation>
+              <rng:value>dwhrectangle</rng:value>
+              <a:documentation>double whole open rectangle (Mup)</a:documentation>
+              <rng:value>fillrtriangle</rng:value>
+              <a:documentation>filled right triangle (Unicode 1D14B)</a:documentation>
+              <rng:value>rtriangle</rng:value>
+              <a:documentation>open right triangle (Unicode 1D14A)</a:documentation>
+              <rng:value>dwrtriangle</rng:value>
+              <a:documentation>double whole right triangle (Mup)</a:documentation>
+              <rng:value>fillurtriangle</rng:value>
+              <a:documentation>filled upper right triangle (Unicode 1D151)</a:documentation>
+              <rng:value>urtriangle</rng:value>
+              <a:documentation>open upper right triangle (Unicode 1D150)</a:documentation>
+              <rng:value>dwurtriangle</rng:value>
+              <a:documentation>double whole upper right triangle</a:documentation>
+              <rng:value>fillsemicircle</rng:value>
+              <a:documentation>filled semi-circle (Unicode 1D153)</a:documentation>
+              <rng:value>semicircle</rng:value>
+              <a:documentation>open semi-circle (Unicode 1D152)</a:documentation>
+              <rng:value>dwsemicircle</rng:value>
+              <a:documentation>double whole open semi-circle (Mup)</a:documentation>
+              <rng:value>fillslash</rng:value>
+              <a:documentation>filled slash (Mup)</a:documentation>
+              <rng:value>slash</rng:value>
+              <a:documentation>open slash (Mup)</a:documentation>
+              <rng:value>dwslash</rng:value>
+              <a:documentation>double whole open slash (Mup)</a:documentation>
+              <rng:value>x</rng:value>
+              <a:documentation>X (Unicode 1D143)</a:documentation>
+              <rng:value>blank</rng:value>
+              <a:documentation>note head not rendered (Unicode 1D159)</a:documentation>
+              <rng:value>circlex</rng:value>
+              <a:documentation>X within circle (Unicode 1D145)</a:documentation>
+              <rng:value>cross</rng:value>
+              <a:documentation>plus sign (Unicode 1D144)</a:documentation>
+              <!-- addslash and addbackslash should actually be values of a new attribute,
+              something like notehead.mod, that would permit addition of slashes to any
+              notehead shape -->
+              <rng:value>addslash</rng:value>
+              <a:documentation>added diagonal slash (/) through default note head</a:documentation>
+              <rng:value>addbackslash</rng:value>
+              <a:documentation>added diagonal backslash (\) through default note
+                head</a:documentation>
+            </rng:choice>
+          </content>
+        </macroSpec>
+
+        <macroSpec ident="data.URIS" module="MEI" type="dt" mode="replace">
+          <desc>One or more URIs.</desc>
+          <content>
+            <rng:list>
+              <rng:zeroOrMore>
+                <rng:ref name="data.URI"/>
+              </rng:zeroOrMore>
+            </rng:list>
+          </content>
+        </macroSpec>
+
+        <!-- Revised datatype definitions-->
+        <macroSpec ident="data.DURATION.gestural" module="MEI" type="dt" mode="replace">
+          <desc>Performed duration attribute values.</desc>
+          <content>
+            <rng:choice>
+              <rng:list>
+                <rng:oneOrMore>
+                  <!-- Humdrum **recip -->
+                  <rng:data type="token">
+                    <rng:param name="pattern">[0-9]+(\.)*r</rng:param>
+                  </rng:data>
+                </rng:oneOrMore>
+              </rng:list>
+              <rng:data type="token">
+                <!-- ppq, beats, seconds -->
+                <rng:param name="pattern">[0-9]+((\.)*p|(\.[0-9]+)?(b|s))</rng:param>
+              </rng:data>
+              <!-- mensural durations -->
+              <rng:ref name="data.DURATION.mensural"/>
+            </rng:choice>
+          </content>
+        </macroSpec>
+
+        <classSpec ident="att.duration.performed" module="MEI.shared" type="atts" mode="replace">
+          <desc>Attributes that record performed duration that differs from a feature's written
+            duration.</desc>
+          <attList>
+            <attDef ident="dur.ges" usage="opt">
+              <desc>records performed duration information that differs from the written duration.
+                Its value may be expressed in several forms; that is, ppq (MIDI clicks and MusicXML
+                'divisions'), Humdrum **recip values, beats, seconds, or mensural duration
+                values.</desc>
+              <datatype>
+                <rng:ref name="data.DURATION.gestural"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <!-- New attribute classes -->
+        <classSpec ident="att.duration.additive" module="MEI.shared" type="atts" mode="add">
+          <desc>Attributes that permit total duration to be represented by multiple values.</desc>
+          <attList>
+            <attDef ident="dur" usage="opt">
+              <desc>records duration using ident dotted, relative durational values provided by the
+                data.DURATION datatype. When the duration is "irrational", as is sometimes the case
+                with tuplets, multiple space-separated values that add up to the total duration may
+                be used. When dotted values are present, the dots attribute must be ignored.</desc>
+              <datatype>
+                <rng:ref name="data.DURATION.additive"/>
+              </datatype>
+              <constraintSpec ident="ignore_dots_attribute" scheme="isoschematron">
+                <constraint>
+                  <sch:rule context="mei:*[contains(@dur, '.')]">
+                    <sch:assert test="not(@dots)">An element with a dur attribute that contains
+                      dotted values must not have a dots attribute.</sch:assert>
+                  </sch:rule>
+                </constraint>
+              </constraintSpec>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.timestamp2.musical" module="MEI.shared" type="atts" mode="add">
+          <desc>Attributes that record a time stamp for the end of an event in terms of musical
+            time.</desc>
+          <attList>
+            <attDef ident="tstamp2" usage="opt">
+              <desc>encodes the ending point of an event in terms of musical time, i.e., a count of
+                measures plus a beat location.</desc>
+              <datatype>
+                <rng:ref name="data.MEASUREBEAT"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <!-- Revised attribute classes -->
+        <classSpec ident="att.annot.log" module="MEI.shared" type="atts" mode="replace">
+          <desc>Logical domain attributes for annot. Values for the type attribute can be taken from
+            any convenient typology of annotation suitable to the work in hand; e.g. annotation,
+            gloss, citation, digression, preliminary, temporary, etc.</desc>
+          <classes>
+            <!-- Some attributes defined in att.controlevent (att.timestamp.musical, att.timestamp.performed,
+              att.staffident, and att.layerident) are provided
+              here directly instead of making annot a member of att.controlevent. -->
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.layerident"/>
+            <memberOf key="att.staffident"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp.musical"/>
+            <memberOf key="att.timestamp2.musical"/>
+            <memberOf key="att.timestamp.performed"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.augmentdots" module="MEI.shared" type="atts" mode="replace">
+          <desc>Attributes that record the number of dots of augmentation.</desc>
+          <attList>
+            <attDef ident="dots" usage="opt">
+              <desc>records the number of augmentation dots required by a dotted duration.</desc>
+              <datatype>
+                <rng:ref name="data.AUGMENTDOT"/>
+              </datatype>
+              <constraintSpec ident="dots_attribute_requires_dur" scheme="isoschematron">
+                <constraint>
+                  <sch:rule context="mei:*[@dots]">
+                    <sch:assert test="@dur">An element with a dots attribute must also have a dur
+                      attribute.</sch:assert>
+                  </sch:rule>
+                </constraint>
+              </constraintSpec>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.beamSpan.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.beamedwith"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.bend.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.breath.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.dir.log" module="MEI.shared" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.duration.timestamp" module="MEI.shared" type="atts" mode="delete"/>
+        <classSpec ident="att.dynam.log" module="MEI.shared" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.gliss.ges" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Gestural domain attributes.</desc>
+          <classes>
+            <memberOf key="att.duration.performed"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.gliss.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.hairpin.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+          <attList>
+            <attDef ident="form" usage="req">
+              <desc>captures the visual rendition and function of the hairpin; that is, whether it
+                indicates an increase or a decrease in volume.</desc>
+              <valList type="closed">
+                <valItem ident="cres">
+                  <desc>crescendo; i.e., louder.</desc>
+                </valItem>
+                <valItem ident="dim">
+                  <desc>diminuendo; i.e., softer.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.harm.log" module="MEI.harmony" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+          <attList>
+            <attDef ident="chordref" usage="opt">
+              <desc>contains a reference to a &lt;chordDef&gt; element elsewhere in the
+                document.</desc>
+              <datatype>
+                <rng:ref name="data.URI"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.harpPedal.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes. The pedal setting, i.e., flat, natural, or sharp, for
+            each diatonic pitch name is indicated by the seven letter-named attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.startid"/>
+          </classes>
+          <attList>
+            <attDef ident="c" usage="opt">
+              <desc>indicates the pedal setting for the harp's C strings.</desc>
+              <defaultVal>n</defaultVal>
+              <valList type="closed">
+                <valItem ident="f">
+                  <desc>flat.</desc>
+                </valItem>
+                <valItem ident="n">
+                  <desc>natural.</desc>
+                </valItem>
+                <valItem ident="s">
+                  <desc>sharp.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="d" usage="opt">
+              <desc>indicates the pedal setting for the harp's D strings.</desc>
+              <defaultVal>n</defaultVal>
+              <valList type="closed">
+                <valItem ident="f">
+                  <desc>flat.</desc>
+                </valItem>
+                <valItem ident="n">
+                  <desc>natural.</desc>
+                </valItem>
+                <valItem ident="s">
+                  <desc>sharp.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="e" usage="opt">
+              <desc>indicates the pedal setting for the harp's E strings.</desc>
+              <defaultVal>n</defaultVal>
+              <valList type="closed">
+                <valItem ident="f">
+                  <desc>flat.</desc>
+                </valItem>
+                <valItem ident="n">
+                  <desc>natural.</desc>
+                </valItem>
+                <valItem ident="s">
+                  <desc>sharp.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="f" usage="opt">
+              <desc>indicates the pedal setting for the harp's F strings.</desc>
+              <defaultVal>n</defaultVal>
+              <valList type="closed">
+                <valItem ident="f">
+                  <desc>flat.</desc>
+                </valItem>
+                <valItem ident="n">
+                  <desc>natural.</desc>
+                </valItem>
+                <valItem ident="s">
+                  <desc>sharp.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="g" usage="opt">
+              <desc>indicates the pedal setting for the harp's G strings.</desc>
+              <defaultVal>n</defaultVal>
+              <valList type="closed">
+                <valItem ident="f">
+                  <desc>flat.</desc>
+                </valItem>
+                <valItem ident="n">
+                  <desc>natural.</desc>
+                </valItem>
+                <valItem ident="s">
+                  <desc>sharp.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="a" usage="opt">
+              <desc>indicates the pedal setting for the harp's A strings.</desc>
+              <defaultVal>n</defaultVal>
+              <valList type="closed">
+                <valItem ident="f">
+                  <desc>flat.</desc>
+                </valItem>
+                <valItem ident="n">
+                  <desc>natural.</desc>
+                </valItem>
+                <valItem ident="s">
+                  <desc>sharp.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+            <attDef ident="b" usage="opt">
+              <desc>indicates the pedal setting for the harp's B strings.</desc>
+              <defaultVal>n</defaultVal>
+              <valList type="closed">
+                <valItem ident="f">
+                  <desc>flat.</desc>
+                </valItem>
+                <valItem ident="n">
+                  <desc>natural.</desc>
+                </valItem>
+                <valItem ident="s">
+                  <desc>sharp.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.octave.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.octavedisplacement"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+          <attList>
+            <attDef ident="coll" usage="opt">
+              <desc>indicates whether the octave displacement should be performed simultaneously
+                with the written notes, i.e., "coll' ottava". Unlike other octave signs which are
+                indicated by broken lines, coll' ottava typically uses an unbroken line or a series
+                of longer broken lines, ending with a short vertical stroke. See Read, p.
+                47-48.</desc>
+              <valList type="closed">
+                <valItem ident="coll">
+                  <desc>coll' ottava (with the octave).</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.pedal.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.startid"/>
+          </classes>
+          <attList>
+            <attDef ident="dir" usage="req">
+              <desc>records the position of the piano damper pedal.</desc>
+              <valList type="closed">
+                <valItem ident="down">
+                  <desc>depress the pedal.</desc>
+                </valItem>
+                <valItem ident="up">
+                  <desc>release the pedal.</desc>
+                </valItem>
+                <valItem ident="half">
+                  <desc>half pedal.</desc>
+                </valItem>
+                <valItem ident="bounce">
+                  <desc>release then immediately depress the pedal.</desc>
+                </valItem>
+              </valList>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.phrase.log" module="MEI.shared" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.slur.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.tie.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.timestamp.musical" module="MEI.shared" type="atts" mode="replace">
+          <desc>Attributes that record a time stamp in terms of musical time, i.e.,
+            beats[.fractional beat part].</desc>
+          <attList>
+            <attDef ident="tstamp" usage="opt">
+              <desc>encodes the onset time in terms of musical time, i.e.,
+                beats[.fractional_beat_part].</desc>
+              <datatype>
+                <rng:ref name="data.BEAT"/>
+              </datatype>
+            </attDef>
+          </attList>
+        </classSpec>
+
+        <classSpec ident="att.trill.log" module="MEI.cmnOrnaments" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.ornamentaccid"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <classSpec ident="att.tupletSpan.log" module="MEI.cmn" type="atts" mode="replace">
+          <desc>Logical domain attributes.</desc>
+          <classes>
+            <memberOf key="att.controlevent"/>
+            <memberOf key="att.beamedwith"/>
+            <memberOf key="att.augmentdots"/>
+            <memberOf key="att.duration.additive"/>
+            <memberOf key="att.duration.ratio"/>
+            <memberOf key="att.startendid"/>
+            <memberOf key="att.timestamp2.musical"/>
+          </classes>
+        </classSpec>
+
+        <!-- New model classes -->
+
+        <!-- Revised model classes -->
+
+        <!-- New elements -->
+
+        <!-- Revised elements -->
+        <elementSpec ident="beamSpan" module="MEI.cmn" mode="replace">
+          <desc>(beam span) – Alternative element for explicitly encoding beams, particularly those
+            which extend across bar lines.
+            <!-- The starting point of the beam may be indicated by either a tstamp, tstamp.ges,
+        tstamp.real or startid attribute, while the ending point may be recorded by either a dur,
+        dur.ges or endid attribute. It is a semantic error not to specify one starting and one
+        ending type of attribute.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.beamSpan.log"/>
+            <memberOf key="att.beamSpan.vis"/>
+            <memberOf key="att.beamSpan.ges"/>
+            <memberOf key="att.beamSpan.anl"/>
+            <memberOf key="model.controleventLike.cmn"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-_and_end-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:beamSpan">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+                <sch:assert test="@dur or @dur.ges or @endid or @tstamp2">Must have one of the
+                  attributes: dur, dur.ges, endid, or tstamp2</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="bend" module="MEI.cmn" mode="replace">
+          <desc>– A variation in pitch (often micro-tonal) upwards or downwards during the course of
+            a note.</desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.bend.log"/>
+            <memberOf key="att.bend.vis"/>
+            <memberOf key="att.bend.ges"/>
+            <memberOf key="att.bend.anl"/>
+            <memberOf key="model.controleventLike"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:bend">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="breath" module="MEI.cmn" mode="replace">
+          <desc>(breath mark) – A indication of a point at which the performer on an instrument
+            requiring breath (including the voice) may breathe.
+            <!-- It also may indicate a short pause or break for
+        instruments *not* requiring breath. Therefore, it often functions as a guide to phrasing.
+        The usual sign for the breath mark is a comma; however, other visual forms of the breath
+        mark may be indicated using the altsym attribute. The starting point of the breath mark may
+        be indicated by either a tstamp, tstamp.ges, tstamp.real or startid attribute. It is a
+        semantic error not to specify a starting point attribute.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.breath.log"/>
+            <memberOf key="att.breath.vis"/>
+            <memberOf key="att.breath.ges"/>
+            <memberOf key="att.breath.anl"/>
+            <memberOf key="model.controleventLike.cmn"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:breath">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="gliss" module="MEI.cmn" mode="replace">
+          <desc>(glissando) – A continuous or sliding movement from one pitch to another, usually
+            indicated by a straight or wavy line.
+            <!-- Commonly also called a 'slide'. The term 'glissando'
+        is frequently used to indicate both the case where distinct intermediate pitches are
+        produced (as on the piano) and the case where they are not (as on the trombone), though the
+        latter is sometimes referred to as 'portamento'. The visual appearance of the indicating
+        line may be recorded in the rend attribute. Precise performance data, that is, exact
+        pitches, may be recorded within the &lt;gliss&gt; element. The starting point of the
+        glissando may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid attribute.
+        It is a semantic error not to specify a starting point attribute.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.gliss.log"/>
+            <memberOf key="att.gliss.vis"/>
+            <memberOf key="att.gliss.ges"/>
+            <memberOf key="att.gliss.anl"/>
+            <memberOf key="model.controleventLike"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:gliss">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="hairpin" module="MEI.cmn" mode="replace">
+          <desc>– Indicates continuous dynamics expressed on the score as wedge-shaped graphics,
+            e.g. &lt; and &gt;.
+            <!-- The starting point of the hairpin may be indicated by either a tstamp,
+        tstamp.ges, tstamp.real or startid attribute, while the ending point may be recorded by
+        either a dur, dur.ges or endid attribute. It is a semantic error not to specify one starting
+        and one ending type of attribute. Please note that the value of the dur attribute is not a
+        true duration, but rather a time stamp for the end point of the hairpin.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.hairpin.log"/>
+            <memberOf key="att.hairpin.vis"/>
+            <memberOf key="att.hairpin.ges"/>
+            <memberOf key="att.hairpin.anl"/>
+            <memberOf key="model.controleventLike.cmn"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-_and_end-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:hairpin">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+                <sch:assert test="@dur or @dur.ges or @endid or @tstamp2">Must have one of the
+                  attributes: dur, dur.ges, endid, or tstamp2</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="octave" module="MEI.cmn" mode="replace">
+          <desc>– An indication that a passage should be performed one or more octaves above or
+            below its written pitch.
+            <!-- The dis and dis.place attributes record the amount and direction of
+        displacement, respectively. The rend attribute captures the appearance of the continuation
+        line associated with the octave displacement. The starting point of the octave displacement
+        may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid attribute, while the
+        ending point may be recorded by either a dur, dur.ges or endid attribute. It is a semantic
+        error not to specify one starting and one ending type of attribute. Please note that the dur
+        attribute here is not a true duration, but rather a time stamp for the end point of the
+        octave displacement. Also, note that the dur attribute is not required because the octave
+        displacement can be visually instantaneous.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.octave.log"/>
+            <memberOf key="att.octave.vis"/>
+            <memberOf key="att.octave.ges"/>
+            <memberOf key="att.octave.anl"/>
+            <memberOf key="model.controleventLike.cmn"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-_and_end-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:octave">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+                <sch:assert test="@dur or @dur.ges or @endid or @tstamp2">Must have one of the
+                  attributes: dur, dur.ges, endid, or tstamp2</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="phrase" module="MEI.shared" mode="replace">
+          <desc>– Indication of 1) a "unified melodic idea" or 2) performance technique.
+            <!--Historically, a phrase mark indicated a "unified melodic idea", while the term "slur" was
+        used for two-note legato patterns. (Read, p. 265). Nowadays, however, "phrase" and "slur"
+        are often used interchangeably (Read, p. 265-266), since the visual rendition of the two
+        concepts is the same. MEI provides two distinct elements so that those users wishing to
+        maintain a distinction for historical reasons may do so. If the user does not want to
+        maintain the distinction, then the more generic &lt;slur&gt; element should be employed. The
+        starting point of the phrase may be indicated by either a tstamp, tstamp.ges, tstamp.real or
+        startid attribute, while the ending point may be recorded by either a dur, dur.ges or endid
+        attribute. It is a semantic error not to specify one starting and one ending type of
+        attribute. Either place, bulge, or bezier attributes may be used to record the curvature of
+        the phrase. Please note that the dur attribute here is not a true duration, but rather a
+        time stamp for the end point of the phrase mark.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.phrase.log"/>
+            <memberOf key="att.phrase.vis"/>
+            <memberOf key="att.phrase.ges"/>
+            <memberOf key="att.phrase.anl"/>
+            <memberOf key="model.controleventLike"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-_and_end-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:phrase">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+                <sch:assert test="@dur or @dur.ges or @endid or @tstamp2">Must have one of the
+                  attributes: dur, dur.ges, endid, or tstamp2</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="slur" module="MEI.cmn" mode="replace">
+          <desc>– Indication of 1) a "unified melodic idea" or 2) performance technique.
+            <!-- Historically, the term "slur" indicated two notes performed legato, while the
+        term "phrase" was used for a "unified melodic idea". Nowadays, however, "slur" often has the
+        same meaning as "phrase" (See Read, p. 265-266), since the visual rendition of the two
+        concepts is the same. MEI provides two distinct elements so that those users wishing to
+        maintain a distinction for historical reasons may do so. If the user does not want to
+        maintain the distinction, then the more generic &lt;slur&gt; element should be employed. The
+        starting point of the slur may be indicated by either a tstamp, tstamp.ges, tstamp.real or
+        startid attribute, while the ending point may be recorded by either a dur, dur.ges or endid
+        attribute. It is a semantic error not to specify one starting and one ending type of
+        attribute. Either place, bulge, or bezier attributes may be used to record the curvature of
+        the slur. The slur and tie elements may be used instead of the slur.* and tie.* attributes
+        provided on chord and note elements when 1) they are required by software, or 2) multiple,
+        alternative slurs are needed. Please note that the dur attribute is not a true duration, but
+        rather a time stamp for the end point of the slur.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.typed"/>
+            <memberOf key="att.slur.log"/>
+            <memberOf key="att.slur.vis"/>
+            <memberOf key="att.slur.ges"/>
+            <memberOf key="att.slur.anl"/>
+            <memberOf key="model.controleventLike.cmn"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-_and_end-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:slur">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+                <sch:assert test="@dur or @dur.ges or @endid or @tstamp2">Must have one of the
+                  attributes: dur, dur.ges, endid, or tstamp2</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="tie" module="MEI.cmn" mode="replace">
+          <desc>– An indication that two notes of the same pitch form a single note with their
+            combined rhythmic values.
+            <!-- Most often it is rendered as a curved line connecting the two
+        notes. See Read, p. 110-111, 122.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.typed"/>
+            <memberOf key="att.tie.log"/>
+            <memberOf key="att.tie.vis"/>
+            <memberOf key="att.tie.ges"/>
+            <memberOf key="att.tie.anl"/>
+            <memberOf key="model.controleventLike.cmn"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-_and_end-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:tie">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real"> Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+                <sch:assert test="@dur or @dur.ges or @endid or @tstamp2">Must have one of the
+                  attributes: dur, dur.ges, endid, or tstamp2</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="tupletSpan" module="MEI.cmn" mode="replace">
+          <desc>(tuplet span) – Alternative element for encoding tuplets, especially useful for
+            tuplets that extend across bar lines.
+            <!-- The starting point of the tuplet may be indicated by either a
+        tstamp, tstamp.ges, tstamp.real or startid attribute, while the ending point may be recorded
+        using a dur, dur.ges or endid attribute. It is a semantic error not to specify one starting
+        and one ending type of attribute.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.tupletSpan.log"/>
+            <memberOf key="att.tupletSpan.vis"/>
+            <memberOf key="att.tupletSpan.ges"/>
+            <memberOf key="att.tupletSpan.anl"/>
+            <memberOf key="model.controleventLike.cmn"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-_and_end-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:tupletSpan">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real">Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+                <sch:assert test="@dur or @dur.ges or @endid or @tstamp2">Must have one of the
+                  attributes: dur, dur.ges, endid, or tstamp2</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="turn" module="MEI.cmnOrnaments" mode="replace">
+          <desc>– An ornament consisting of four notes — the upper neighbor of the written note, the
+            written note, the lower neighbor, and the written note.
+            <!-- See Read, p. 246-247. Events may
+        be contained within &lt;turn&gt; in order to record precise performance data. Whether the
+        turn is accented or unaccented may be inferred from the timestamp — accented turns occur
+        directly on the affected beat, unaccented ones do not.--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.facsimile"/>
+            <memberOf key="att.turn.log"/>
+            <memberOf key="att.turn.vis"/>
+            <memberOf key="att.turn.ges"/>
+            <memberOf key="att.turn.anl"/>
+            <memberOf key="model.ornamentLike.cmn"/>
+          </classes>
+          <content>
+            <rng:empty/>
+          </content>
+          <constraintSpec ident="Start-type_attributes_required_on_some_control_events"
+            scheme="isoschematron">
+            <constraint>
+              <sch:rule context="mei:turn">
+                <sch:assert test="@startid or @tstamp or @tstamp.ges or @tstamp.real">Must have one
+                  of the attributes: startid, tstamp, tstamp.ges or tstamp.real</sch:assert>
+              </sch:rule>
+            </constraint>
+          </constraintSpec>
+        </elementSpec>
+
+        <elementSpec ident="zone" module="MEI.facsimile" mode="replace">
+          <desc>– Defines an area of interest within a surface or graphic file.
+            <!-- This element is modelled on an element in the Text Encoding Initiative (TEI).--></desc>
+          <classes>
+            <memberOf key="att.common"/>
+            <memberOf key="att.coordinated"/>
+            <memberOf key="att.datapointing"/>
+            <memberOf key="att.typed"/>
+          </classes>
+          <content>
+            <rng:zeroOrMore>
+              <rng:ref name="model.figDescLike"/>
+            </rng:zeroOrMore>
+            <rng:zeroOrMore>
+              <rng:ref name="model.graphicLike"/>
+            </rng:zeroOrMore>
+          </content>
+        </elementSpec>
+
+      </schemaSpec>
+    </body>
+  </text>
+</TEI>
