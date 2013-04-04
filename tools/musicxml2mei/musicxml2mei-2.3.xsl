@@ -5900,7 +5900,7 @@
                   <xsl:if test="volume">
                     <xsl:attribute name="midi.volume">
                       <!-- Map MusicXML volume values to MIDI -->
-                      <xsl:value-of select="round(127 * .01 * volume)"/>
+                      <xsl:value-of select="min((127, round(127 * .01 * volume)))"/>
                     </xsl:attribute>
                   </xsl:if>
                   <xsl:if test="pan">
@@ -6081,7 +6081,7 @@
               <xsl:if test="volume">
                 <xsl:attribute name="midi.volume">
                   <!-- Map MusicXML volume values to MIDI -->
-                  <xsl:value-of select="round(127 * .01 * volume)"/>
+                  <xsl:value-of select="min((127, round(127 * .01 * volume)))"/>
                 </xsl:attribute>
               </xsl:if>
               <xsl:if test="pan">
