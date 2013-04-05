@@ -1507,71 +1507,69 @@
       <sb xmlns="http://www.music-encoding.org/ns/mei"/>
     </xsl:if>
 
-    <xsl:if test="count(preceding::measure) &gt; 0">
-      <!-- Ignore music and layout parameters in the first measure since these have already
-        been placed in score/scoreDef -->
+    <!-- Score-level info precedes the measure. -->
+    <xsl:if test="part/attributes[not(preceding-sibling::note) and
+      not(preceding-sibling::forward)][time or key] | part[print[page-layout or
+      system-layout]]">
+      <scoreDef xmlns="http://www.music-encoding.org/ns/mei">
+        <!-- Time signature -->
+        <xsl:if test="part/attributes[1]/time">
+          <xsl:choose>
+            <xsl:when test="count(part/attributes[time/beats]/time/beats) = 1">
+              <xsl:attribute name="meter.count">
+                <xsl:value-of select="part[attributes[1]/time/beats][1]/attributes/time/beats"/>
+              </xsl:attribute>
+              <xsl:attribute name="meter.unit">
+                <xsl:value-of
+                  select="part[attributes[1]/time/beat-type][1]/attributes/time/beat-type"/>
+              </xsl:attribute>
+              <xsl:choose>
+                <xsl:when test="part/attributes[1]/time/@symbol='common'">
+                  <xsl:attribute name="meter.sym">common</xsl:attribute>
+                  <xsl:if test="not(part[attributes[1]/time/@symbol]/attributes/time/beats=4) or
+                    not(part[attributes[1]/time/@symbol]/attributes/time/beat-type=4)">
+                    <xsl:variable name="measureNum">
+                      <xsl:value-of select="@number"/>
+                    </xsl:variable>
+                    <xsl:variable name="warning">
+                      <xsl:text>Common time symbol does not match time signature</xsl:text>
+                    </xsl:variable>
+                    <xsl:message>
+                      <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                        ').'))"/>
+                    </xsl:message>
+                  </xsl:if>
+                </xsl:when>
+                <xsl:when test="part/attributes[1]/time/@symbol='cut'">
+                  <xsl:attribute name="meter.sym">cut</xsl:attribute>
+                  <xsl:if test="not(part[attributes[1]/time/@symbol]/attributes/time/beats=2) or
+                    not(part[attributes[1]/time/@symbol]/attributes/time/beat-type=2)">
+                    <xsl:variable name="measureNum">
+                      <xsl:value-of select="@number"/>
+                    </xsl:variable>
+                    <xsl:variable name="warning">
+                      <xsl:text>Cut time symbol does not match time signature</xsl:text>
+                    </xsl:variable>
+                    <xsl:message>
+                      <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                        ').'))"/>
+                    </xsl:message>
+                  </xsl:if>
+                </xsl:when>
+                <xsl:when test="part/attributes[1]/time/@symbol='single-number'">
+                  <xsl:attribute name="meter.rend">num</xsl:attribute>
+                </xsl:when>
+                <xsl:when test="part/attributes[1]/time/senza-misura">
+                  <xsl:attribute name="meter.rend">invis</xsl:attribute>
+                </xsl:when>
+              </xsl:choose>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
 
-      <!-- Score-level info precedes the measure. -->
-      <xsl:if test="part/attributes[not(preceding-sibling::note) and
-        not(preceding-sibling::forward)][time or key] | part[print/page-layout or
-        print/system-layout]">
-        <scoreDef xmlns="http://www.music-encoding.org/ns/mei">
-          <!-- Time signature -->
-          <xsl:if test="part/attributes[1]/time">
-            <xsl:choose>
-              <xsl:when test="count(part/attributes[time/beats]/time/beats) = 1">
-                <xsl:attribute name="meter.count">
-                  <xsl:value-of select="part[attributes[1]/time/beats][1]/attributes/time/beats"/>
-                </xsl:attribute>
-                <xsl:attribute name="meter.unit">
-                  <xsl:value-of
-                    select="part[attributes[1]/time/beat-type][1]/attributes/time/beat-type"/>
-                </xsl:attribute>
-                <xsl:choose>
-                  <xsl:when test="part/attributes[1]/time/@symbol='common'">
-                    <xsl:attribute name="meter.sym">common</xsl:attribute>
-                    <xsl:if test="not(part[attributes[1]/time/@symbol]/attributes/time/beats=4) or
-                      not(part[attributes[1]/time/@symbol]/attributes/time/beat-type=4)">
-                      <xsl:variable name="measureNum">
-                        <xsl:value-of select="@number"/>
-                      </xsl:variable>
-                      <xsl:variable name="warning">
-                        <xsl:text>Common time symbol does not match time signature</xsl:text>
-                      </xsl:variable>
-                      <xsl:message>
-                        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
-                          ').'))"/>
-                      </xsl:message>
-                    </xsl:if>
-                  </xsl:when>
-                  <xsl:when test="part/attributes[1]/time/@symbol='cut'">
-                    <xsl:attribute name="meter.sym">cut</xsl:attribute>
-                    <xsl:if test="not(part[attributes[1]/time/@symbol]/attributes/time/beats=2) or
-                      not(part[attributes[1]/time/@symbol]/attributes/time/beat-type=2)">
-                      <xsl:variable name="measureNum">
-                        <xsl:value-of select="@number"/>
-                      </xsl:variable>
-                      <xsl:variable name="warning">
-                        <xsl:text>Cut time symbol does not match time signature</xsl:text>
-                      </xsl:variable>
-                      <xsl:message>
-                        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
-                          ').'))"/>
-                      </xsl:message>
-                    </xsl:if>
-                  </xsl:when>
-                  <xsl:when test="part/attributes[1]/time/@symbol='single-number'">
-                    <xsl:attribute name="meter.rend">num</xsl:attribute>
-                  </xsl:when>
-                  <xsl:when test="part/attributes[1]/time/senza-misura">
-                    <xsl:attribute name="meter.rend">invis</xsl:attribute>
-                  </xsl:when>
-                </xsl:choose>
-              </xsl:when>
-            </xsl:choose>
-          </xsl:if>
-
-          <!-- Key signature -->
+        <!-- Key signature -->
+        <xsl:if test="count(preceding::measure) &gt; 0">
+          <!-- Ignore key signature in the first measure since it's already been recorded in /score/scoreDef. -->
           <xsl:if test="part/attributes[not(preceding-sibling::note) and
             not(preceding-sibling::forward) and not(transpose)][key/key-step]">
             <xsl:variable name="measureNum">
@@ -1638,100 +1636,104 @@
               </xsl:attribute>
             </xsl:if>
           </xsl:if>
+        </xsl:if>
 
-          <!-- Page layout info -->
-          <xsl:for-each select="part[print/page-layout][1]/print/page-layout">
-            <xsl:for-each select="page-height">
-              <xsl:attribute name="page.height">
-                <xsl:value-of select="format-number(. div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-            </xsl:for-each>
-            <xsl:for-each select="page-width">
-              <xsl:attribute name="page.width">
-                <xsl:value-of select="format-number(. div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-            </xsl:for-each>
-            <xsl:for-each select="page-margins">
-              <xsl:attribute name="page.leftmar">
-                <xsl:value-of select="format-number(left-margin div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-              <xsl:attribute name="page.rightmar">
-                <xsl:value-of select="format-number(right-margin div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-              <xsl:attribute name="page.topmar">
-                <xsl:value-of select="format-number(top-margin div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-              <xsl:attribute name="page.botmar">
-                <xsl:value-of select="format-number(bottom-margin div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-            </xsl:for-each>
+        <!-- Page layout info -->
+        <xsl:for-each select="part[print/page-layout][1]/print/page-layout">
+          <xsl:for-each select="page-height">
+            <xsl:attribute name="page.height">
+              <xsl:value-of select="format-number(. div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
           </xsl:for-each>
-          <!-- System layout info -->
-          <xsl:for-each select="part[print/system-layout][1]/print/system-layout">
-            <xsl:for-each select="system-margins">
-              <xsl:attribute name="system.leftmar">
-                <xsl:value-of select="format-number(left-margin div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-              <xsl:attribute name="system.rightmar">
-                <xsl:value-of select="format-number(right-margin div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-            </xsl:for-each>
-            <xsl:for-each select="system-distance">
-              <xsl:attribute name="spacing.system">
-                <xsl:value-of select="format-number(. div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-            </xsl:for-each>
-            <xsl:for-each select="top-system-distance">
-              <xsl:attribute name="system.topmar">
-                <xsl:value-of select="format-number(. div 5, '###0.####')"/>
-                <!-- <xsl:text>vu</xsl:text> -->
-              </xsl:attribute>
-            </xsl:for-each>
+          <xsl:for-each select="page-width">
+            <xsl:attribute name="page.width">
+              <xsl:value-of select="format-number(. div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
           </xsl:for-each>
+          <xsl:for-each select="page-margins">
+            <xsl:attribute name="page.leftmar">
+              <xsl:value-of select="format-number(left-margin div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
+            <xsl:attribute name="page.rightmar">
+              <xsl:value-of select="format-number(right-margin div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
+            <xsl:attribute name="page.topmar">
+              <xsl:value-of select="format-number(top-margin div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
+            <xsl:attribute name="page.botmar">
+              <xsl:value-of select="format-number(bottom-margin div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
+          </xsl:for-each>
+        </xsl:for-each>
 
-          <!-- Provide multiple time signatures as elements -->
-          <xsl:if test="part/attributes[time/beats]">
-            <xsl:choose>
-              <xsl:when test="count(part[1]/attributes[time/beats]/time/beats)                 &gt;
-                1">
-                <meterSigGrp>
-                  <xsl:attribute name="func">
-                    <xsl:choose>
-                      <xsl:when test="part[1]/attributes[time/beats]/time/interchangeable">
-                        <xsl:text>interchanging</xsl:text>
-                      </xsl:when>
-                      <xsl:otherwise>
-                        <xsl:text>mixed</xsl:text>
-                      </xsl:otherwise>
-                    </xsl:choose>
-                  </xsl:attribute>
-                  <xsl:for-each select="part[1]/attributes[time/beats]/time/beats">
-                    <meterSig>
-                      <xsl:attribute name="count">
-                        <xsl:value-of select="."/>
-                      </xsl:attribute>
-                      <xsl:attribute name="unit">
-                        <xsl:value-of select="following-sibling::beat-type[1]"/>
-                      </xsl:attribute>
-                    </meterSig>
-                  </xsl:for-each>
-                </meterSigGrp>
-              </xsl:when>
-            </xsl:choose>
-          </xsl:if>
-        </scoreDef>
-      </xsl:if>
+        <!-- System layout info -->
+        <xsl:for-each select="part[print/system-layout][1]/print/system-layout">
+          <xsl:for-each select="system-margins">
+            <xsl:attribute name="system.leftmar">
+              <xsl:value-of select="format-number(left-margin div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
+            <xsl:attribute name="system.rightmar">
+              <xsl:value-of select="format-number(right-margin div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
+          </xsl:for-each>
+          <xsl:for-each select="system-distance">
+            <xsl:attribute name="spacing.system">
+              <xsl:value-of select="format-number(. div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
+          </xsl:for-each>
+          <xsl:for-each select="top-system-distance">
+            <xsl:attribute name="system.topmar">
+              <xsl:value-of select="format-number(. div 5, '###0.####')"/>
+              <!-- <xsl:text>vu</xsl:text> -->
+            </xsl:attribute>
+          </xsl:for-each>
+        </xsl:for-each>
 
-      <!-- Staff-level info -->
+        <!-- Provide multiple time signatures as elements -->
+        <xsl:if test="part/attributes[time/beats]">
+          <xsl:choose>
+            <xsl:when test="count(part[1]/attributes[time/beats]/time/beats)                 &gt;
+              1">
+              <meterSigGrp>
+                <xsl:attribute name="func">
+                  <xsl:choose>
+                    <xsl:when test="part[1]/attributes[time/beats]/time/interchangeable">
+                      <xsl:text>interchanging</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:text>mixed</xsl:text>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:attribute>
+                <xsl:for-each select="part[1]/attributes[time/beats]/time/beats">
+                  <meterSig>
+                    <xsl:attribute name="count">
+                      <xsl:value-of select="."/>
+                    </xsl:attribute>
+                    <xsl:attribute name="unit">
+                      <xsl:value-of select="following-sibling::beat-type[1]"/>
+                    </xsl:attribute>
+                  </meterSig>
+                </xsl:for-each>
+              </meterSigGrp>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:if>
+      </scoreDef>
+    </xsl:if>
+
+    <!-- Staff-level info -->
+    <xsl:if test="count(preceding::measure) &gt; 0">
+      <!-- Ignore staff-level info in the first measure since it's already been recorded in /score/scoreDef. -->
       <xsl:for-each select="part[attributes[not(preceding-sibling::note) and
         not(preceding-sibling::forward)][clef or divisions or key or staff-details[*] or
         transpose] or print[*]]">
@@ -6521,8 +6523,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:value-of select="('rgba(', for $startByte in (4,6,8) (: Red, green and blue start at
       byte 4, 6 and 8 :) return concat( (: In each iteration, :)
       f:hex2integer(substring($aarrggbb,$startByte,2)), (: ... return the decimal value :) ','
-      (: ... and a trailing comma :)  ), f:hex2integer(substring($aarrggbb,2,2)) div 255, (:
-      alpha value is between 0 and 1 => divide by 255 :) ')' )" separator=""/>
+      (: ... and a trailing comma :)  ), format-number(f:hex2integer(substring($aarrggbb,2,2)) div
+      255, '0.00'), (:       alpha value is between 0 and 1 => divide by 255 :) ')' )" separator=""
+    />
   </xsl:template>
 
   <xsl:template name="accidentals">
@@ -8820,7 +8823,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="@xml:space"/>
       <!-- Other properties go in @rend -->
       <xsl:if test="@underline or @overline or @line-through or @dir or @enclosure!='none' or
-        @print-object='no' or (local-name()='rehearsal' and not(@enclosure))">
+        @letter-spacing or @line-height or @print-object='no' or (local-name()='rehearsal' and
+        not(@enclosure))">
         <xsl:variable name="rendValue">
           <xsl:if test="@underline">
             <xsl:text>underline</xsl:text>
