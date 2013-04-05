@@ -42,11 +42,8 @@
       <xsl:apply-templates select="mei:music/mei:body/mei:mdiv/mei:score/mei:scoreDef"
         mode="credits"/>
       <xsl:value-of select="$nl"/>
-      <part-list>
-        <score-part id="P1">
-          <part-name/>
-        </score-part>
-      </part-list>
+      <xsl:apply-templates select="mei:music/mei:body/mei:mdiv/mei:score/mei:scoreDef/mei:staffGrp"
+        mode="partList"/>
       <xsl:for-each select="//mei:measure">
         <measure>
           <xsl:if test="@n">
@@ -54,10 +51,103 @@
               <xsl:value-of select="@n"/>
             </xsl:attribute>
           </xsl:if>
-          <part id="P1"/>
+          <xsl:if test="@width">
+            <xsl:attribute name="width">
+              <xsl:value-of select="@width * 5"/>
+            </xsl:attribute>
+          </xsl:if>
+          <xsl:variable name="measureContent">
+            <xsl:for-each select="mei:staff/mei:layer/*">
+              <xsl:variable name="name">
+                <xsl:value-of select="local-name()"/>
+              </xsl:variable>
+              <xsl:variable name="thisStaff">
+                <xsl:value-of select="ancestor::mei:staff/@n"/>
+              </xsl:variable>
+              <xsl:copy>
+                <xsl:copy-of select="@*"/>
+                <xsl:attribute name="partID">
+                  <xsl:choose>
+                    <xsl:when
+                      test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]">
+                      <xsl:value-of
+                        select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id"
+                      />
+                    </xsl:when>
+                    <xsl:when
+                      test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]">
+                      <xsl:value-of
+                        select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id"
+                      />
+                    </xsl:when>
+                  </xsl:choose>
+                </xsl:attribute>
+                <xsl:attribute name="staff">
+                  <xsl:value-of select="ancestor::mei:staff/@n"/>
+                </xsl:attribute>
+                <xsl:attribute name="voice">
+                  <xsl:value-of select="ancestor::mei:layer/@n"/>
+                </xsl:attribute>
+                <xsl:copy-of select="mei:*"/>
+              </xsl:copy>
+            </xsl:for-each>
+          </xsl:variable>
+          <xsl:copy-of select="$measureContent"/>
         </measure>
       </xsl:for-each>
     </score-timewise>
+  </xsl:template>
+
+  <xsl:template match="mei:staffGrp" mode="partList">
+    <part-list>
+      <xsl:for-each select="mei:staffDef | mei:staffGrp">
+        <score-part>
+          <xsl:attribute name="id">
+            <xsl:value-of select="@xml:id"/>
+          </xsl:attribute>
+          <part-name>
+            <xsl:value-of select="@label"/>
+          </part-name>
+          <xsl:if test="mei:instrDef">
+            <score-instrument>
+              <xsl:attribute name="id">
+                <xsl:value-of select="mei:instrDef/@xml:id"/>
+              </xsl:attribute>
+              <instrument-name>
+                <xsl:value-of select="replace(mei:instrDef/@midi.instrname, '_', '&#32;')"/>
+              </instrument-name>
+            </score-instrument>
+            <midi-instrument>
+              <xsl:attribute name="id">
+                <xsl:value-of select="mei:instrDef/@xml:id"/>
+              </xsl:attribute>
+              <midi-channel>
+                <xsl:value-of select="mei:instrDef/@midi.channel"/>
+              </midi-channel>
+              <midi-program>
+                <!-- MusicXML uses 1-based program numbers -->
+                <xsl:value-of select="mei:instrDef/@midi.instrnum + 1"/>
+              </midi-program>
+              <volume>
+                <!-- MusicXML uses scaling factor instead of actual MIDI value -->
+                <xsl:value-of select="round((mei:instrDef/@midi.volume * 100) div 127)"/>
+              </volume>
+              <pan>
+                <!-- Placement within stereo sound field (left=0, right=127) -->
+                <xsl:choose>
+                  <xsl:when test="mei:instrDef/@midi.pan = 63 or mei:instrDef/@midi.pan = 64">
+                    <xsl:value-of select="0"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="round(-90 + ((180 div 127) * mei:instrDef/@midi.pan))"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </pan>
+            </midi-instrument>
+          </xsl:if>
+        </score-part>
+      </xsl:for-each>
+    </part-list>
   </xsl:template>
 
   <xsl:template match="mei:scoreDef" mode="credits">
@@ -83,34 +173,7 @@
           </xsl:attribute>
           <xsl:for-each select="mei:rend">
             <credit-words>
-              <xsl:copy-of select="@color | @halign | @rotation | @valign | @xml:lang | @xml:space"/>
-              <xsl:if test="@fontfam">
-                <xsl:attribute name="font-family">
-                  <xsl:value-of select="@fontfam"/>
-                </xsl:attribute>
-              </xsl:if>
-              <xsl:if test="@fontsize">
-                <xsl:attribute name="font-size">
-                  <xsl:value-of select="@fontsize"/>
-                </xsl:attribute>
-              </xsl:if>
-              <xsl:if test="@fontstyle">
-                <xsl:attribute name="font-style">
-                  <xsl:value-of select="@fontstyle"/>
-                </xsl:attribute>
-              </xsl:if>
-              <xsl:if test="@fontweight">
-                <xsl:attribute name="font-weight">
-                  <xsl:value-of select="@fontweight"/>
-                </xsl:attribute>
-              </xsl:if>
-              <!--
-      must be a string matching the regular expression "(underline|overline|line-through|strike|letter-spacing|line-height)\(\d+\)",
-      must be a string matching the regular expression "(letter-spacing|line-height)\((\+|-)?\d+(\.\d+)?\)" or 
-      must be equal to "bold", "bolder", "box", "bslash", "circle", "dbox", "fslash", "italic", "large", "larger", 
-      "lighter", "line-through", "lro", "ltr", "medium", "none", "oblique", "overline", "rlo", "rtl", "small", "smaller", 
-      "smcaps", "strike", "sub", "sup", "tbox", "underline", "x-large", "x-small", "xx-large" or "xx-small"
-            -->
+              <xsl:call-template name="rendition"/>
               <xsl:value-of select="normalize-space(.)"/>
             </credit-words>
           </xsl:for-each>
@@ -131,6 +194,11 @@
           </xsl:when>
         </xsl:choose>
       </xsl:attribute>
+      <xsl:if test="@n">
+        <credit-type>
+          <xsl:value-of select="@n"/>
+        </credit-type>
+      </xsl:if>
       <xsl:variable name="default-x">
         <xsl:value-of select="@x"/>
       </xsl:variable>
@@ -151,34 +219,7 @@
               </xsl:attribute>
             </xsl:if>
           </xsl:if>
-          <xsl:copy-of select="@color | @halign | @rotation | @valign | @xml:lang | @xml:space"/>
-          <xsl:if test="@fontfam">
-            <xsl:attribute name="font-family">
-              <xsl:value-of select="@fontfam"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="@fontsize">
-            <xsl:attribute name="font-size">
-              <xsl:value-of select="@fontsize"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="@fontstyle">
-            <xsl:attribute name="font-style">
-              <xsl:value-of select="@fontstyle"/>
-            </xsl:attribute>
-          </xsl:if>
-          <xsl:if test="@fontweight">
-            <xsl:attribute name="font-weight">
-              <xsl:value-of select="@fontweight"/>
-            </xsl:attribute>
-          </xsl:if>
-          <!--
-      must be a string matching the regular expression "(underline|overline|line-through|strike|letter-spacing|line-height)\(\d+\)",
-      must be a string matching the regular expression "(letter-spacing|line-height)\((\+|-)?\d+(\.\d+)?\)" or 
-      must be equal to "bold", "bolder", "box", "bslash", "circle", "dbox", "fslash", "italic", "large", "larger", 
-      "lighter", "line-through", "lro", "ltr", "medium", "none", "oblique", "overline", "rlo", "rtl", "small", "smaller", 
-      "smcaps", "strike", "sub", "sup", "tbox", "underline", "x-large", "x-small", "xx-large" or "xx-small"
-            -->
+          <xsl:call-template name="rendition"/>
           <xsl:variable name="creditText">
             <xsl:for-each select="current-group()">
               <xsl:value-of select="."/>
@@ -193,72 +234,184 @@
     </credit>
   </xsl:template>
 
+  <xsl:template name="rendition">
+    <xsl:copy-of select="@halign | @rotation | @valign | @xml:lang | @xml:space"/>
+    <!-- color has to be converted to AARRGGBB -->
+    <xsl:if test="@fontfam">
+      <xsl:attribute name="font-family">
+        <xsl:value-of select="@fontfam"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@fontsize">
+      <xsl:attribute name="font-size">
+        <xsl:value-of select="@fontsize"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@fontstyle">
+      <xsl:attribute name="font-style">
+        <xsl:value-of select="@fontstyle"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@fontweight">
+      <xsl:attribute name="font-weight">
+        <xsl:value-of select="@fontweight"/>
+      </xsl:attribute>
+    </xsl:if>
+    <xsl:if test="@rend">
+      <xsl:analyze-string select="@rend" regex="\s+">
+        <xsl:non-matching-substring>
+          <xsl:message>
+            <xsl:value-of select="."/>
+          </xsl:message>
+          <xsl:choose>
+            <xsl:when test="matches(., '^underline$')">
+              <xsl:attribute name="underline">
+                <xsl:value-of select="1"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., 'underline\(\d+\)')">
+              <xsl:attribute name="underline">
+                <xsl:value-of select="replace(., '.*\((\d+)\)', '$1')"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., '^overline$')">
+              <xsl:attribute name="overline">
+                <xsl:value-of select="1"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., 'overline\(\d+\)')">
+              <xsl:attribute name="overline">
+                <xsl:value-of select="replace(., '.*\((\d+)\)', '$1')"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., '^(line-through|strike)$')">
+              <xsl:attribute name="line-through">
+                <xsl:value-of select="1"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., '(line-through|strike)\(\d+\)')">
+              <xsl:attribute name="line-through">
+                <xsl:value-of select="replace(., '.*\((\d+)\)', '$1')"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., 'letter-spacing\((\+|-)?\d+(\.\d+)?\)')">
+              <xsl:attribute name="letter-spacing">
+                <xsl:value-of select="replace(., '.*\(((\+|-)?\d+(\.\d+)?)\)', '$1')"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., 'line-height\((\+|-)?\d+(\.\d+)?\)')">
+              <xsl:attribute name="line-height">
+                <xsl:value-of select="replace(., '.*\(((\+|-)?\d+(\.\d+)?)\)', '$1')"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., '(bold|bolder)')">
+              <xsl:attribute name="font-weight">
+                <xsl:text>bold</xsl:text>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., '(box|circle|dbox|tbox)')">
+              <xsl:attribute name="enclosure">
+                <xsl:value-of select="replace(replace(replace(replace(., 'box', 'rectangle'),
+                  'circle', 'circle'), 'dbox', 'diamond'), 'tbox', 'triangle')"/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., '(lro|ltr|rlo|rtl)')">
+              <xsl:attribute name="dir">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(.,
+              '(large|medium|small|x-large|x-small|xx-large|xx-small)')">
+              <xsl:attribute name="font-size">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., 'italic')">
+              <xsl:attribute name="font-style">
+                <xsl:value-of select="."/>
+              </xsl:attribute>
+            </xsl:when>
+            <xsl:when test="matches(., 'none')">
+              <xsl:attribute name="print-object">
+                <xsl:text>no</xsl:text>
+              </xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:non-matching-substring>
+      </xsl:analyze-string>
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="mei:scoreDef" mode="defaults">
-    <defaults>
-      <xsl:if test="@vu.height">
-        <scaling>
-          <millimeters>
-            <xsl:value-of select="number(replace(@vu.height, '[a-z]+$', '')) * 8"/>
-          </millimeters>
-          <tenths>40</tenths>
-        </scaling>
-      </xsl:if>
-      <xsl:if test="@page.height | @page.width | @page.leftmar | @page.rightmar | @page.topmar |
-        @page.botmar ">
-        <page-layout>
-          <page-height>
-            <xsl:value-of select="number(replace(@page.height, '[a-z]+$', '')) * 5"/>
-          </page-height>
-          <page-width>
-            <xsl:value-of select="number(replace(@page.width, '[a-z]+$', '')) * 5"/>
-          </page-width>
-          <page-margins type="both">
-            <left-margin>
-              <xsl:value-of select="number(replace(@page.leftmar, '[a-z]+$', '')) * 5"/>
-            </left-margin>
-            <right-margin>
-              <xsl:value-of select="number(replace(@page.rightmar, '[a-z]+$', '')) * 5"/>
-            </right-margin>
-            <top-margin>
-              <xsl:value-of select="number(replace(@page.topmar, '[a-z]+$', '')) * 5"/>
-            </top-margin>
-            <bottom-margin>
-              <xsl:value-of select="number(replace(@page.botmar, '[a-z]+$', '')) * 5"/>
-            </bottom-margin>
-          </page-margins>
-        </page-layout>
-      </xsl:if>
-      <xsl:if test="@system.leftmar | @system.rightmar | @system.topmar | @spacing.system">
-        <system-layout>
-          <system-margins>
-            <left-margin>
-              <xsl:value-of select="number(replace(@system.leftmar, '[a-z]+$', '')) * 5"/>
-            </left-margin>
-            <right-margin>
-              <xsl:value-of select="number(replace(@system.rightmar, '[a-z]+$', '')) * 5"/>
-            </right-margin>
-          </system-margins>
-          <system-distance>
-            <xsl:value-of select="number(replace(@spacing.system, '[a-z]+$', '')) * 5"/>
-          </system-distance>
-          <top-system-distance>
-            <xsl:value-of select="number(replace(@system.topmar, '[a-z]+$', '')) * 5"/>
-          </top-system-distance>
-        </system-layout>
-      </xsl:if>
-      <xsl:if test="@spacing.staff">
-        <staff-layout>
-          <staff-distance>
-            <xsl:value-of select="number(replace(@spacing.staff, '[a-z]+$', '')) * 5"/>
-          </staff-distance>
-        </staff-layout>
-      </xsl:if>
-      <xsl:if test="@music.name | @text.name | @lyric.name">
-        <music-font font-family="{@music.name}" font-size="{@music.size}"/>
-        <word-font font-family="{@text.name}" font-size="{@text.size}"/>
-        <lyric-font font-family="{@lyric.name}" font-size="{@lyric.size}"/>
-      </xsl:if>
-    </defaults>
+    <xsl:if test="@vu.height | @page.height | @page.width | @page.leftmar | @page.rightmar |
+      @page.topmar | @page.botmar  | @system.leftmar | @system.rightmar | @system.topmar |
+      @spacing.system | @spacing.staff | @music.name | @text.name | @lyric.name">
+      <defaults>
+        <xsl:if test="@vu.height">
+          <scaling>
+            <millimeters>
+              <xsl:value-of select="number(replace(@vu.height, '[a-z]+$', '')) * 8"/>
+            </millimeters>
+            <tenths>40</tenths>
+          </scaling>
+        </xsl:if>
+        <xsl:if test="@page.height | @page.width | @page.leftmar | @page.rightmar | @page.topmar |
+          @page.botmar ">
+          <page-layout>
+            <page-height>
+              <xsl:value-of select="number(replace(@page.height, '[a-z]+$', '')) * 5"/>
+            </page-height>
+            <page-width>
+              <xsl:value-of select="number(replace(@page.width, '[a-z]+$', '')) * 5"/>
+            </page-width>
+            <page-margins type="both">
+              <left-margin>
+                <xsl:value-of select="number(replace(@page.leftmar, '[a-z]+$', '')) * 5"/>
+              </left-margin>
+              <right-margin>
+                <xsl:value-of select="number(replace(@page.rightmar, '[a-z]+$', '')) * 5"/>
+              </right-margin>
+              <top-margin>
+                <xsl:value-of select="number(replace(@page.topmar, '[a-z]+$', '')) * 5"/>
+              </top-margin>
+              <bottom-margin>
+                <xsl:value-of select="number(replace(@page.botmar, '[a-z]+$', '')) * 5"/>
+              </bottom-margin>
+            </page-margins>
+          </page-layout>
+        </xsl:if>
+        <xsl:if test="@system.leftmar | @system.rightmar | @system.topmar | @spacing.system">
+          <system-layout>
+            <system-margins>
+              <left-margin>
+                <xsl:value-of select="number(replace(@system.leftmar, '[a-z]+$', '')) * 5"/>
+              </left-margin>
+              <right-margin>
+                <xsl:value-of select="number(replace(@system.rightmar, '[a-z]+$', '')) * 5"/>
+              </right-margin>
+            </system-margins>
+            <system-distance>
+              <xsl:value-of select="number(replace(@spacing.system, '[a-z]+$', '')) * 5"/>
+            </system-distance>
+            <top-system-distance>
+              <xsl:value-of select="number(replace(@system.topmar, '[a-z]+$', '')) * 5"/>
+            </top-system-distance>
+          </system-layout>
+        </xsl:if>
+        <xsl:if test="@spacing.staff">
+          <staff-layout>
+            <staff-distance>
+              <xsl:value-of select="number(replace(@spacing.staff, '[a-z]+$', '')) * 5"/>
+            </staff-distance>
+          </staff-layout>
+        </xsl:if>
+        <xsl:if test="@music.name | @text.name | @lyric.name">
+          <music-font font-family="{@music.name}" font-size="{@music.size}"/>
+          <word-font font-family="{@text.name}" font-size="{@text.size}"/>
+          <lyric-font font-family="{@lyric.name}" font-size="{@lyric.size}"/>
+        </xsl:if>
+      </defaults>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="mei:meiHead">
@@ -332,13 +485,76 @@
           <xsl:value-of select="format-date(current-date(), '[Y]-[M02]-[D02]')"/>
         </encoding-date>
       </encoding>
+      <source>
+        <xsl:apply-templates select="ancestor::mei:meiHead/mei:fileDesc" mode="source"/>
+      </source>
     </identification>
+  </xsl:template>
+
+  <xsl:template match="mei:fileDesc" mode="source">
+    <xsl:for-each select="mei:titleStmt">
+      <xsl:variable name="creators">
+        <xsl:for-each select="mei:respStmt/*[@role='creator']">
+          <xsl:value-of select="."/>
+          <xsl:if test="position() != last()">
+            <xsl:text>,&#32;</xsl:text>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:variable name="encoders">
+        <xsl:for-each select="mei:respStmt/*[@role='encoder']">
+          <xsl:value-of select="."/>
+          <xsl:if test="position() != last()">
+            <xsl:text>,&#32;</xsl:text>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:variable name="title">
+        <xsl:for-each select="mei:title">
+          <xsl:value-of select="."/>
+          <xsl:if test="position() != last()">
+            <xsl:text>,&#32;</xsl:text>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:value-of select="normalize-space($creators)"/>
+      <xsl:text>.&#32;</xsl:text>
+      <xsl:value-of select="normalize-space($title)"/>
+      <xsl:text>.&#32;Encoded by&#32;</xsl:text>
+      <xsl:value-of select="normalize-space($encoders)"/>
+      <xsl:text>.&#32;</xsl:text>
+    </xsl:for-each>
+    <xsl:for-each select="mei:pubStmt">
+      <xsl:variable name="publisher">
+        <xsl:for-each select="mei:respStmt[1]/mei:*">
+          <xsl:value-of select="."/>
+          <xsl:if test="position() != last()">
+            <xsl:text>,&#32;</xsl:text>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:variable name="pubPlace">
+        <xsl:for-each select="mei:address[1]/mei:addrLine">
+          <xsl:value-of select="."/>
+          <xsl:if test="position() != last()">
+            <xsl:text>,&#32;</xsl:text>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:value-of select="normalize-space($publisher)"/>
+      <xsl:text>:&#32;</xsl:text>
+      <xsl:value-of select="normalize-space($pubPlace)"/>
+      <xsl:text>,&#32;</xsl:text>
+      <xsl:value-of select="mei:date[1]"/>
+      <xsl:text>.</xsl:text>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="mei:availability">
     <xsl:if test="mei:useRestrict">
       <rights>
-        <xsl:value-of select="mei:useRestrict"/>
+        <xsl:text>This encoding is in the public domain.</xsl:text>
+        <!--<xsl:value-of select="mei:useRestrict"/>-->
       </rights>
     </xsl:if>
   </xsl:template>
