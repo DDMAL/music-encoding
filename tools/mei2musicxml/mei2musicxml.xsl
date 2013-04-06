@@ -44,7 +44,7 @@
       <xsl:value-of select="$nl"/>
       <xsl:apply-templates select="mei:music/mei:body/mei:mdiv/mei:score/mei:scoreDef/mei:staffGrp"
         mode="partList"/>
-      <xsl:for-each select="//mei:measure">
+      <xsl:for-each select="mei:music/mei:body/mei:mdiv/mei:score//mei:measure">
         <measure>
           <xsl:if test="@n">
             <xsl:attribute name="number">
@@ -70,21 +70,48 @@
                   <xsl:choose>
                     <xsl:when
                       test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]">
-                      <xsl:value-of
-                        select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id"
-                      />
+                      <xsl:choose>
+                        <xsl:when
+                          test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id">
+                          <xsl:value-of
+                            select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id"
+                          />
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:text>P_</xsl:text>
+                          <xsl:value-of
+                            select="generate-id(preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff])"
+                          />
+                        </xsl:otherwise>
+                      </xsl:choose>
                     </xsl:when>
                     <xsl:when
                       test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]">
-                      <xsl:value-of
-                        select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id"
-                      />
+                      <xsl:choose>
+                        <xsl:when
+                          test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id">
+                          <xsl:value-of
+                            select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id"
+                          />
+                        </xsl:when>
+                        <xsl:otherwise>
+                          <xsl:text>P_</xsl:text>
+                          <xsl:value-of
+                            select="generate-id(preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]])"
+                          />
+                        </xsl:otherwise>
+                      </xsl:choose>
                     </xsl:when>
                   </xsl:choose>
                 </xsl:attribute>
-                <xsl:attribute name="staff">
+                <xsl:attribute name="meiStaff">
                   <xsl:value-of select="ancestor::mei:staff/@n"/>
                 </xsl:attribute>
+                <xsl:if test="not(@staff)">
+                  <xsl:attribute name="staff">
+                    <xsl:value-of select="ancestor::mei:staff/@n"/>
+                  </xsl:attribute>
+                </xsl:if>
                 <xsl:attribute name="voice">
                   <xsl:value-of select="ancestor::mei:layer/@n"/>
                 </xsl:attribute>
@@ -92,10 +119,71 @@
               </xsl:copy>
             </xsl:for-each>
           </xsl:variable>
-          <xsl:copy-of select="$measureContent"/>
+          <!--<xsl:copy-of select="$measureContent"/>-->
+          <xsl:for-each-group select="$measureContent/*" group-by="@partID">
+            <part id="{@partID}">
+              <xsl:for-each-group select="current-group()" group-by="@voice">
+                <voice>
+                  <xsl:attribute name="n">
+                    <xsl:value-of select="current-grouping-key()"/>
+                  </xsl:attribute>
+                  <xsl:for-each-group select="current-group()" group-by="@meiStaff">
+                    <staff>
+                      <xsl:attribute name="n">
+                        <xsl:value-of select="current-grouping-key()"/>
+                      </xsl:attribute>
+                      <xsl:copy-of select="current-group()"/>
+                    </staff>
+                  </xsl:for-each-group>
+
+                  <!--<xsl:apply-templates select="current-group()"/>-->
+                  <!--<xsl:copy-of select="current-group()"/>-->
+                </voice>
+              </xsl:for-each-group>
+            </part>
+          </xsl:for-each-group>
         </measure>
       </xsl:for-each>
     </score-timewise>
+  </xsl:template>
+
+  <xsl:template match="mei:note">
+    <xsl:if test="@tstamp.ges &lt; preceding-sibling::mei:*[@tstamp.ges][1]/@tstamp.ges">
+      <backup/>
+    </xsl:if>
+    <note>
+      <xsl:if test="ancestor::mei:chord">
+        <chord/>
+      </xsl:if>
+    </note>
+  </xsl:template>
+
+  <xsl:template match="mei:chord">
+    <xsl:if test="@tstamp.ges &lt; preceding-sibling::mei:*[@tstamp.ges][1]/@tstamp.ges">
+      <backup/>
+    </xsl:if>
+    <xsl:for-each select="mei:note">
+      <note>
+        <xsl:if test="position() &gt; 1">
+          <chord/>
+        </xsl:if>
+      </note>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="mei:rest | mei:mRest | mei:space | mei:mSpace">
+    <xsl:if test="@tstamp.ges &lt; preceding-sibling::mei:*[@tstamp.ges][1]/@tstamp.ges">
+      <backup/>
+    </xsl:if>
+    <note>
+      <rest>
+        <xsl:if test="local-name()='mRest' or local-name()='mSpace'">
+          <xsl:attribute name="measure">
+            <xsl:text>yes</xsl:text>
+          </xsl:attribute>
+        </xsl:if>
+      </rest>
+    </note>
   </xsl:template>
 
   <xsl:template match="mei:staffGrp" mode="partList">
@@ -103,7 +191,15 @@
       <xsl:for-each select="mei:staffDef | mei:staffGrp">
         <score-part>
           <xsl:attribute name="id">
-            <xsl:value-of select="@xml:id"/>
+            <xsl:choose>
+              <xsl:when test="@xml:id">
+                <xsl:value-of select="@xml:id"/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>P_</xsl:text>
+                <xsl:value-of select="generate-id()"/>
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:attribute>
           <part-name>
             <xsl:value-of select="@label"/>
@@ -111,7 +207,15 @@
           <xsl:if test="mei:instrDef">
             <score-instrument>
               <xsl:attribute name="id">
-                <xsl:value-of select="mei:instrDef/@xml:id"/>
+                <xsl:choose>
+                  <xsl:when test="mei:instrDef/@xml:id">
+                    <xsl:value-of select="mei:instrDef/@xml:id"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>I</xsl:text>
+                    <xsl:value-of select="generate-id(mei:instrDef)"/>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:attribute>
               <instrument-name>
                 <xsl:value-of select="replace(mei:instrDef/@midi.instrname, '_', '&#32;')"/>
@@ -119,7 +223,16 @@
             </score-instrument>
             <midi-instrument>
               <xsl:attribute name="id">
-                <xsl:value-of select="mei:instrDef/@xml:id"/>
+                <xsl:choose>
+                  <xsl:when test="mei:instrDef/@xml:id">
+                    <xsl:value-of select="mei:instrDef/@xml:id"/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>I</xsl:text>
+                    <xsl:value-of select="generate-id(mei:instrDef)"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+
               </xsl:attribute>
               <midi-channel>
                 <xsl:value-of select="mei:instrDef/@midi.channel"/>
