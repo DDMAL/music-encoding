@@ -607,7 +607,8 @@
   <xsl:template match="mei:fileDesc" mode="source">
     <xsl:for-each select="mei:titleStmt">
       <xsl:variable name="creators">
-        <xsl:for-each select="mei:respStmt/*[@role='creator']">
+        <xsl:for-each select="mei:respStmt/*[@role='creator' or @role='composer' or
+          @role='lyricist' or @role='arranger']">
           <xsl:value-of select="."/>
           <xsl:if test="position() != last()">
             <xsl:text>,&#32;</xsl:text>
@@ -630,12 +631,19 @@
           </xsl:if>
         </xsl:for-each>
       </xsl:variable>
-      <xsl:value-of select="normalize-space($creators)"/>
-      <xsl:text>.&#32;</xsl:text>
-      <xsl:value-of select="normalize-space($title)"/>
-      <xsl:text>.&#32;Encoded by&#32;</xsl:text>
-      <xsl:value-of select="normalize-space($encoders)"/>
-      <xsl:text>.&#32;</xsl:text>
+      <xsl:if test="normalize-space($creators) != ''">
+        <xsl:value-of select="normalize-space($creators)"/>
+        <xsl:text>.&#32;</xsl:text>
+      </xsl:if>
+      <xsl:if test="normalize-space($title) != ''">
+        <xsl:value-of select="normalize-space($title)"/>
+        <xsl:text>.&#32;</xsl:text>
+      </xsl:if>
+      <xsl:if test="normalize-space($encoders) != ''">
+        <xsl:text>Encoded by&#32;</xsl:text>
+        <xsl:value-of select="normalize-space($encoders)"/>
+        <xsl:text>.&#32;</xsl:text>
+      </xsl:if>
     </xsl:for-each>
     <xsl:for-each select="mei:pubStmt">
       <xsl:variable name="publisher">
@@ -654,12 +662,21 @@
           </xsl:if>
         </xsl:for-each>
       </xsl:variable>
-      <xsl:value-of select="normalize-space($publisher)"/>
-      <xsl:text>:&#32;</xsl:text>
-      <xsl:value-of select="normalize-space($pubPlace)"/>
-      <xsl:text>,&#32;</xsl:text>
-      <xsl:value-of select="mei:date[1]"/>
-      <xsl:text>.</xsl:text>
+      <xsl:variable name="pubDate">
+        <xsl:value-of select="mei:date[1]"/>
+      </xsl:variable>
+      <xsl:if test="normalize-space($publisher) != ''">
+        <xsl:value-of select="normalize-space($publisher)"/>
+      </xsl:if>
+      <xsl:if test="normalize-space($pubPlace) != ''">
+        <xsl:text>:&#32;</xsl:text>
+        <xsl:value-of select="normalize-space($pubPlace)"/>
+      </xsl:if>
+      <xsl:if test="normalize-space($pubDate) != ''">
+        <xsl:text>,&#32;</xsl:text>
+        <xsl:value-of select="$pubDate"/>
+        <xsl:text>.</xsl:text>
+      </xsl:if>
     </xsl:for-each>
   </xsl:template>
 
