@@ -284,12 +284,37 @@
               </xsl:when>
             </xsl:choose>
           </xsl:attribute>
-          <xsl:for-each select="mei:rend">
-            <credit-words>
-              <xsl:call-template name="rendition"/>
-              <xsl:value-of select="normalize-space(.)"/>
-            </credit-words>
-          </xsl:for-each>
+          <xsl:choose>
+            <xsl:when test="(mei:rend or mei:lb) and count(mei:rend) + count(mei:lb) = count(mei:*)">
+              <xsl:for-each select="mei:rend">
+                <credit-words>
+                  <xsl:call-template name="rendition"/>
+                  <xsl:value-of select="normalize-space(.)"/>
+                </credit-words>
+              </xsl:for-each>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:for-each select="mei:*">
+                <xsl:choose>
+                  <xsl:when test="(mei:rend or mei:lb) and count(mei:rend) + count(mei:lb) =
+                    count(mei:*)">
+                    <xsl:for-each select="mei:rend">
+                      <credit-words>
+                        <xsl:call-template name="rendition"/>
+                        <xsl:value-of select="normalize-space(.)"/>
+                      </credit-words>
+                    </xsl:for-each>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <credit-words>
+                      <!--<xsl:call-template name="rendition"/>-->
+                      <xsl:value-of select="normalize-space(.)"/>
+                    </credit-words>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:for-each>
+            </xsl:otherwise>
+          </xsl:choose>
         </credit>
       </xsl:otherwise>
     </xsl:choose>
@@ -373,9 +398,6 @@
     <xsl:if test="@rend">
       <xsl:analyze-string select="@rend" regex="\s+">
         <xsl:non-matching-substring>
-          <xsl:message>
-            <xsl:value-of select="."/>
-          </xsl:message>
           <xsl:choose>
             <xsl:when test="matches(., '^underline$')">
               <xsl:attribute name="underline">
