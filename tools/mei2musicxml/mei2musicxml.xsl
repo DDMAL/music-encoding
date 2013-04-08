@@ -120,28 +120,35 @@
             </xsl:for-each>
           </xsl:variable>
           <!--<xsl:copy-of select="$measureContent"/>-->
-          <xsl:for-each-group select="$measureContent/*" group-by="@partID">
-            <part id="{@partID}">
-              <xsl:for-each-group select="current-group()" group-by="@voice">
-                <voice>
-                  <xsl:attribute name="n">
-                    <xsl:value-of select="current-grouping-key()"/>
-                  </xsl:attribute>
+          <xsl:variable name="measureContent2">
+            <xsl:for-each-group select="$measureContent/*" group-by="@partID">
+              <part id="{@partID}">
+                <xsl:for-each-group select="current-group()" group-by="@voice">
                   <xsl:for-each-group select="current-group()" group-by="@meiStaff">
-                    <staff>
-                      <xsl:attribute name="n">
-                        <xsl:value-of select="current-grouping-key()"/>
-                      </xsl:attribute>
+                    <voice>
                       <xsl:copy-of select="current-group()"/>
-                    </staff>
+                    </voice>
                   </xsl:for-each-group>
-
-                  <!--<xsl:apply-templates select="current-group()"/>-->
-                  <!--<xsl:copy-of select="current-group()"/>-->
-                </voice>
-              </xsl:for-each-group>
-            </part>
-          </xsl:for-each-group>
+                </xsl:for-each-group>
+              </part>
+            </xsl:for-each-group>
+          </xsl:variable>
+          <!--<xsl:copy-of select="$measureContent2"/>-->
+          <xsl:variable name="measureContent3">
+            <xsl:for-each select="$measureContent2/part">
+              <part>
+                <xsl:copy-of select="@*"/>
+                <xsl:for-each select="voice">
+                  <xsl:sort select="*[@meiStaff][1]/@meiStaff"/>
+                  <xsl:sort select="*[@meiStaff][1]/@voice"/>
+                  <voice>
+                    <xsl:copy-of select="*"/>
+                  </voice>
+                </xsl:for-each>
+              </part>
+            </xsl:for-each>
+          </xsl:variable>
+          <xsl:copy-of select="$measureContent3"/>
         </measure>
       </xsl:for-each>
     </score-timewise>
@@ -550,12 +557,19 @@
   </xsl:template>
 
   <xsl:template match="mei:meiHead">
-    <xsl:apply-templates select="mei:workDesc/mei:work"/>
+    <xsl:choose>
+      <xsl:when test="mei:workDesc/mei:work">
+        <xsl:apply-templates select="mei:workDesc/mei:work"/>
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:apply-templates select="mei:fileDesc/mei:sourceDesc/mei:source[1]"/>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="mei:work">
+  <xsl:template match="mei:work | mei:source">
     <work>
-      <xsl:for-each select="mei:titleStmt/mei:title/mei:identifier">
+      <xsl:for-each select="mei:titleStmt/mei:title/mei:identifier[1]">
         <work-number>
           <xsl:value-of select="."/>
         </work-number>
@@ -563,7 +577,7 @@
       <xsl:variable name="workTitle">
         <xsl:choose>
           <xsl:when test="mei:titleStmt/mei:title[@type='uniform']">
-            <xsl:for-each select="mei:titleStmt/mei:title[@type='uniform']/text()">
+            <xsl:for-each select="mei:titleStmt/mei:title[@type='uniform']">
               <xsl:value-of select="."/>
               <xsl:if test="position() != last()">
                 <xsl:text>,&#32;</xsl:text>
@@ -571,7 +585,7 @@
             </xsl:for-each>
           </xsl:when>
           <xsl:when test="mei:titleStmt/mei:title">
-            <xsl:for-each select="mei:titleStmt/mei:title[not(@type='uniform')]/text()">
+            <xsl:for-each select="mei:titleStmt/mei:title[not(@type='uniform')]">
               <xsl:value-of select="."/>
               <xsl:if test="position() != last()">
                 <xsl:text>,&#32;</xsl:text>
@@ -580,8 +594,19 @@
           </xsl:when>
         </xsl:choose>
       </xsl:variable>
+      <xsl:variable name="ident">
+        <xsl:choose>
+          <xsl:when test="mei:titleStmt/mei:title/mei:identifier">
+            <xsl:text>,&#32;</xsl:text>
+            <xsl:value-of select="mei:titleStmt/mei:title/mei:identifier"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>STRING UNLIKELY TO EVER BE FOUND IN DATA</xsl:text>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
       <work-title>
-        <xsl:value-of select="replace($workTitle, ', $', '')"/>
+        <xsl:value-of select="normalize-space(replace($workTitle, $ident, ''))"/>
       </work-title>
     </work>
     <identification>
@@ -630,7 +655,7 @@
     <xsl:for-each select="mei:titleStmt">
       <xsl:variable name="creators">
         <xsl:for-each select="mei:respStmt/*[@role='creator' or @role='composer' or
-          @role='lyricist' or @role='arranger']">
+          @role='librettist' or @role='lyricist' or @role='arranger']">
           <xsl:value-of select="."/>
           <xsl:if test="position() != last()">
             <xsl:text>,&#32;</xsl:text>
@@ -653,23 +678,8 @@
           </xsl:if>
         </xsl:for-each>
       </xsl:variable>
-      <xsl:if test="normalize-space($creators) != ''">
-        <xsl:value-of select="normalize-space($creators)"/>
-        <xsl:text>.&#32;</xsl:text>
-      </xsl:if>
-      <xsl:if test="normalize-space($title) != ''">
-        <xsl:value-of select="normalize-space($title)"/>
-        <xsl:text>.&#32;</xsl:text>
-      </xsl:if>
-      <xsl:if test="normalize-space($encoders) != ''">
-        <xsl:text>Encoded by&#32;</xsl:text>
-        <xsl:value-of select="normalize-space($encoders)"/>
-        <xsl:text>.&#32;</xsl:text>
-      </xsl:if>
-    </xsl:for-each>
-    <xsl:for-each select="mei:pubStmt">
       <xsl:variable name="publisher">
-        <xsl:for-each select="mei:respStmt[1]/mei:*">
+        <xsl:for-each select="../mei:pubStmt/mei:respStmt[1]/mei:*">
           <xsl:value-of select="."/>
           <xsl:if test="position() != last()">
             <xsl:text>,&#32;</xsl:text>
@@ -677,7 +687,7 @@
         </xsl:for-each>
       </xsl:variable>
       <xsl:variable name="pubPlace">
-        <xsl:for-each select="mei:address[1]/mei:addrLine">
+        <xsl:for-each select="../mei:pubStmt/mei:address[1]/mei:addrLine">
           <xsl:value-of select="."/>
           <xsl:if test="position() != last()">
             <xsl:text>,&#32;</xsl:text>
@@ -685,17 +695,43 @@
         </xsl:for-each>
       </xsl:variable>
       <xsl:variable name="pubDate">
-        <xsl:value-of select="mei:date[1]"/>
+        <xsl:value-of select="../mei:pubStmt/mei:date[1]"/>
       </xsl:variable>
+      <xsl:if test="normalize-space($creators) != ''">
+        <xsl:value-of select="normalize-space($creators)"/>
+        <xsl:text>.</xsl:text>
+        <xsl:if test="normalize-space($title) != ''">
+          <xsl:text>&#32;</xsl:text>
+        </xsl:if>
+      </xsl:if>
+      <xsl:if test="normalize-space($title) != ''">
+        <xsl:value-of select="normalize-space($title)"/>
+        <xsl:text>.</xsl:text>
+        <xsl:if test="normalize-space($encoders) != ''">
+          <xsl:text>&#32;</xsl:text>
+        </xsl:if>
+      </xsl:if>
+      <xsl:if test="normalize-space($encoders) != ''">
+        <xsl:text>Encoded by&#32;</xsl:text>
+        <xsl:value-of select="normalize-space($encoders)"/>
+        <xsl:text>.</xsl:text>
+        <xsl:if test="normalize-space($publisher) != ''">
+          <xsl:text>&#32;</xsl:text>
+        </xsl:if>
+      </xsl:if>
       <xsl:if test="normalize-space($publisher) != ''">
         <xsl:value-of select="normalize-space($publisher)"/>
+        <xsl:if test="normalize-space($pubPlace) != ''">
+          <xsl:text>:&#32;</xsl:text>
+        </xsl:if>
       </xsl:if>
       <xsl:if test="normalize-space($pubPlace) != ''">
-        <xsl:text>:&#32;</xsl:text>
         <xsl:value-of select="normalize-space($pubPlace)"/>
+        <xsl:if test="normalize-space($pubDate) != ''">
+          <xsl:text>,&#32;</xsl:text>
+        </xsl:if>
       </xsl:if>
       <xsl:if test="normalize-space($pubDate) != ''">
-        <xsl:text>,&#32;</xsl:text>
         <xsl:value-of select="$pubDate"/>
         <xsl:text>.</xsl:text>
       </xsl:if>
