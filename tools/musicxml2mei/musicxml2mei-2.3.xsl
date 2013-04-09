@@ -2987,7 +2987,7 @@
           <xsl:choose>
             <xsl:when test="local-name()='beamSpan'">
               <xsl:choose>
-                <xsl:when test="@dur or @dur.ges or @endid!=''">
+                <xsl:when test="@tstamp2 or @dur or @dur.ges or @endid!=''">
                   <xsl:copy-of select="."/>
                 </xsl:when>
                 <xsl:otherwise>
@@ -5377,15 +5377,15 @@
                 </xsl:if>
               </xsl:for-each>
             </xsl:variable>
-            <!--<xsl:attribute name="tstamp2">
-          <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
-          <xsl:text>m+</xsl:text>
-          <xsl:call-template name="tstamp.ges2beat">
-            <xsl:with-param name="tstamp.ges">
-              <xsl:call-template name="getTimestamp.ges"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </xsl:attribute>-->
+            <xsl:attribute name="tstamp2">
+              <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
+              <xsl:text>m+</xsl:text>
+              <xsl:call-template name="tstamp.ges2beat">
+                <xsl:with-param name="tstamp.ges">
+                  <xsl:call-template name="getTimestamp.ges"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
             <xsl:attribute name="endid">
               <xsl:value-of select="generate-id()"/>
             </xsl:attribute>
@@ -8052,9 +8052,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:param name="in"/>
     <xsl:param name="maxLevel"/>
     <xsl:param name="pass"/>
-    <xsl:message>pass = <xsl:value-of select="$pass"/></xsl:message>
+    <!--<xsl:message>pass = <xsl:value-of select="$pass"/></xsl:message>
     <xsl:message>in = <xsl:value-of select="$in"/></xsl:message>
-    <xsl:message>maxLevel = <xsl:value-of select="$maxLevel"/></xsl:message>
+    <xsl:message>maxLevel = <xsl:value-of select="$maxLevel"/></xsl:message>-->
 
     <xsl:variable name="newOuterStaffGrp">
       <staffGrp xmlns="http://www.music-encoding.org/ns/mei">
