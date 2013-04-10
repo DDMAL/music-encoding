@@ -227,7 +227,7 @@
                 <xsl:value-of select="ancestor::mei:staff/@n"/>
               </xsl:variable>
               <xsl:copy>
-                <xsl:copy-of select="@*"/>
+                <xsl:copy-of select="@*[not(local-name() = 'staff')]"/>
                 <!--<xsl:copy-of select="@*[not(name()='dur.ges')]"/>-->
                 <xsl:attribute name="partID">
                   <xsl:choose>
@@ -270,11 +270,22 @@
                 <xsl:attribute name="meiStaff">
                   <xsl:value-of select="ancestor::mei:staff/@n"/>
                 </xsl:attribute>
-                <xsl:if test="not(@staff)">
-                  <xsl:attribute name="staff">
-                    <xsl:value-of select="ancestor::mei:staff/@n"/>
-                  </xsl:attribute>
-                </xsl:if>
+                <xsl:attribute name="partStaff">
+                  <xsl:variable name="thisStaff">
+                    <xsl:choose>
+                      <xsl:when test="not(@staff)">
+                        <xsl:value-of select="ancestor::mei:staff/@n"/>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:value-of select="@staff"/>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:variable>
+                  <xsl:for-each
+                    select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[@n=$thisStaff]">
+                    <xsl:value-of select="count(preceding-sibling::mei:staffDef) + 1"/>
+                  </xsl:for-each>
+                </xsl:attribute>
                 <xsl:attribute name="voice">
                   <xsl:value-of select="ancestor::mei:layer/@n"/>
                 </xsl:attribute>
@@ -305,13 +316,39 @@
                   <xsl:sort select="*[@meiStaff][1]/@meiStaff"/>
                   <xsl:sort select="*[@meiStaff][1]/@voice"/>
                   <voice>
-                    <xsl:copy-of select="*"/>
+                    <!--<xsl:copy-of select="*"/>-->
+                    <xsl:for-each select="*">
+                      <xsl:copy>
+                        <xsl:copy-of select="@*[not(local-name()='voice')]"/>
+                        <xsl:attribute name="voice">
+                          <xsl:for-each select="ancestor::voice">
+                            <xsl:value-of select="count(preceding-sibling::voice) + 1"/>
+                          </xsl:for-each>
+                        </xsl:attribute>
+                      </xsl:copy>
+                    </xsl:for-each>
                   </voice>
                 </xsl:for-each>
               </part>
             </xsl:for-each>
           </xsl:variable>
-          <xsl:copy-of select="$measureContent3"/>
+          <!--<xsl:copy-of select="$measureContent3"/>-->
+          <xsl:variable name="measureContent4">
+            <xsl:for-each select="$measureContent3/part">
+              <part>
+                <xsl:copy-of select="@*"/>
+                <xsl:for-each select="voice">
+                  <xsl:copy-of select="mei:*"/>
+                  <xsl:if test="position() != last()">
+                    <backup>
+                      <duration/>
+                    </backup>
+                  </xsl:if>
+                </xsl:for-each>
+              </part>
+            </xsl:for-each>
+          </xsl:variable>
+          <xsl:copy-of select="$measureContent4"/>
         </measure>
       </xsl:for-each>
     </score-timewise>
