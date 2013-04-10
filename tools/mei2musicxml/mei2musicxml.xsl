@@ -227,7 +227,7 @@
                 <xsl:value-of select="ancestor::mei:staff/@n"/>
               </xsl:variable>
               <xsl:copy>
-                <xsl:copy-of select="@*[not(local-name() = 'staff')]"/>
+                <xsl:copy-of select="@*[not(local-name() = 'staff') and not(name()='dur.ges')]"/>
                 <!--<xsl:copy-of select="@*[not(name()='dur.ges')]"/>-->
                 <xsl:attribute name="partID">
                   <xsl:choose>
@@ -289,6 +289,11 @@
                 <xsl:attribute name="voice">
                   <xsl:value-of select="ancestor::mei:layer/@n"/>
                 </xsl:attribute>
+                <xsl:if test="@dur.ges">
+                  <xsl:attribute name="dur.ges">
+                    <xsl:value-of select="replace(@dur.ges, 'p$', '')"/>
+                  </xsl:attribute>
+                </xsl:if>
                 <xsl:copy-of select="mei:*"/>
               </xsl:copy>
             </xsl:for-each>
@@ -342,7 +347,19 @@
                   <xsl:copy-of select="mei:*"/>
                   <xsl:if test="position() != last()">
                     <backup>
-                      <duration/>
+                      <duration>
+                        <xsl:variable name="backupDuration">
+                          <xsl:value-of select="sum(mei:*/@dur.ges)"/>
+                        </xsl:variable>
+                        <xsl:choose>
+                          <xsl:when test="$backupDuration &gt; 0">
+                            <xsl:value-of select="$backupDuration"/>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:comment>MEI file lacks gestural durations!</xsl:comment>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </duration>
                     </backup>
                   </xsl:if>
                 </xsl:for-each>
