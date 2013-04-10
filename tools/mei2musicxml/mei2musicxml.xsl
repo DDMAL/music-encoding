@@ -325,6 +325,7 @@
                             <xsl:value-of select="count(preceding-sibling::voice) + 1"/>
                           </xsl:for-each>
                         </xsl:attribute>
+                        <xsl:copy-of select="*"/>
                       </xsl:copy>
                     </xsl:for-each>
                   </voice>
