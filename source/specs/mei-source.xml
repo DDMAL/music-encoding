@@ -14349,9 +14349,12 @@
       <memberOf key="model.quoteLike"/>
     </classes>
     <content>
-      <rng:oneOrMore>
-        <rng:ref name="model.textcomponentLike"/>
-      </rng:oneOrMore>
+      <rng:zeroOrMore>
+        <rng:choice>
+          <rng:text/>
+          <rng:ref name="model.paracontentPart"/>
+        </rng:choice>
+      </rng:zeroOrMore>
       <rng:optional>
         <rng:ref name="model.biblLike"/>
       </rng:optional>
