@@ -4867,11 +4867,20 @@
     <desc>Attributes that record the version of MEI in use.</desc>
     <attList>
       <attDef ident="meiversion" usage="opt">
-        <desc>specifies the version number of the MEI Guidelines in use.</desc>
-        <defaultVal>2012</defaultVal>
+        <desc>specifies a label for the version of the MEI in use.</desc>
+        <defaultVal>2013</defaultVal>
         <valList type="closed">
-          <valItem ident="2012">
-            <desc>this version of the schema.</desc>
+          <valItem ident="2013">
+            <desc>this version of MEI.</desc>
+          </valItem>
+        </valList>
+      </attDef>
+      <attDef ident="meiversion.num" usage="opt">
+        <desc>specifies a version number for the version of MEI in use.</desc>
+        <defaultVal>2.1.0</defaultVal>
+        <valList type="closed">
+          <valItem ident="2.1.0">
+            <desc>this version of MEI.</desc>
           </valItem>
         </valList>
       </attDef>
@@ -9032,7 +9041,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="actor" module="MEI.shared">
-    <desc>– Name of an actor appearing within a cast list.</desc>
+    <desc>Name of an actor appearing within a cast list.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.facsimile"/>
@@ -9090,8 +9099,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="address" module="MEI.shared">
-    <desc>– Contains a postal address, for example of a publisher, an organization, or an
-      individual.
+    <desc>Contains a postal address, for example of a publisher, an organization, or an individual.
       <!-- This element is modelled on an element in the Text Encoding Initiative
         (TEI).--></desc>
     <classes>
@@ -9149,7 +9157,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="anchoredText" module="MEI.usersymbols">
-    <desc>– Container for text that is fixed to a particular location, regardless of changes made to
+    <desc>Container for text that is fixed to a particular location, regardless of changes made to
       the layout of the measures around it.
       <!-- This element may be used where
         semantic markup of the text is neither possible nor desirable, such as in optical music
@@ -9261,7 +9269,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="application" module="MEI.header">
-    <desc>– Provides information about an application which has acted upon the current document.
+    <desc>Provides information about an application which has acted upon the current document.
       <!-- This element is modelled on an element in the Text Encoding Initiative
         (TEI).--></desc>
     <classes>
@@ -9316,7 +9324,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="arranger" module="MEI.shared">
-    <desc>– A person or organization who transcribes a musical composition, usually for a different
+    <desc>A person or organization who transcribes a musical composition, usually for a different
       medium from that of the original; in an arrangement the musical substance remains essentially
       unchanged.</desc>
     <classes>
@@ -9358,7 +9366,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="audience" module="MEI.header">
-    <desc>– Defines the class of user for which the work is intended, as defined by age group (e.g.,
+    <desc>Defines the class of user for which the work is intended, as defined by age group (e.g.,
       children, young adults, adults, etc.), educational level (e.g., primary, secondary, etc.), or
       other categorization.</desc>
     <classes>
@@ -9376,7 +9384,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="author" module="MEI.shared">
-    <desc>– The name of the creator of the intellectual content of a non-musical, literary
+    <desc>The name of the creator of the intellectual content of a non-musical, literary
       work.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -9395,7 +9403,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="availability" module="MEI.header">
-    <desc>– Groups elements that describe the availability of and access to a bibliographic item,
+    <desc>Groups elements that describe the availability of and access to a bibliographic item,
       including an MEI-encoded document.
       <!-- When used within the fileDesc element, availability indicates access to
         the MEI-encoded document itself. This element is modelled on an element in Encoded Archival
@@ -9463,8 +9471,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="barLine" module="MEI.shared">
-    <desc>– Vertical line drawn through one or more staves that divides musical notation into
-      metrical units.
+    <desc>Vertical line drawn through one or more staves that divides musical notation into metrical
+      units.
       <!-- This element is provided for repertoires, such as mensural notation,
         that lack measures. Because the barLine element's attributes, from which the logical and
         visual characteristics of the bar line can be discerned, largely duplicate those of measure,
@@ -9495,7 +9503,7 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="barre" module="MEI.harmony">
-    <desc>– An indication of fingering in a chord tablature grid.
+    <desc>An indication of fingering in a chord tablature grid.
       <!-- The startid and endid
         attributes are used to indicate the &lt;chordMember&gt; elements on which the barre starts
         and finishes respectively. The fret at which the barre should be created is recorded by the
@@ -9510,8 +9518,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="beam" module="MEI.cmn">
-    <desc>– A container for a series of explicitly beamed events that begins and ends entirely
-      within a measure.
+    <desc>A container for a series of explicitly beamed events that begins and ends entirely within
+      a measure.
       <!-- For beams that cross the bar line, use the beamSpan element.
         Secondary beams may be broken explicitly using the breaksec attribute on the notes or chords
         under the beam. Automated beaming, as opposed to explicitly marked beams, may be indicated
@@ -9597,7 +9605,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="bend" module="MEI.cmn">
-    <desc>– A variation in pitch (often micro-tonal) upwards or downwards during the course of a
+    <desc>A variation in pitch (often micro-tonal) upwards or downwards during the course of a
       note.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -9665,7 +9673,7 @@
            </content> -->
   </elementSpec>
   <elementSpec ident="biblList" module="MEI.shared">
-    <desc>– List of bibliographic references.</desc>
+    <desc>List of bibliographic references.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.facsimile"/>
@@ -9702,7 +9710,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="body" module="MEI.shared">
-    <desc>– Contains the whole of a single musical text, excluding any front or back matter.
+    <desc>Contains the whole of a single musical text, excluding any front or back matter.
       <!-- This element is modelled on an element in the Text Encoding Initiative
         (TEI). When the music can be broken into high-level, discrete, linear segments, such as 
         movements of a symphony, there may be multiple &lt;mdiv&gt; elements within this element.
@@ -9768,7 +9776,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="caption" module="MEI.shared">
-    <desc>– A label which accompanies an illustration or a table.</desc>
+    <desc>A label which accompanies an illustration or a table.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.facsimile"/>
@@ -9843,7 +9851,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="castItem" module="MEI.shared">
-    <desc>– Contains a single entry within a cast list, describing either a single role or a list of
+    <desc>Contains a single entry within a cast list, describing either a single role or a list of
       non-speaking roles.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -9863,7 +9871,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="castList" module="MEI.shared">
-    <desc>– Contains a single cast list or dramatis personae.</desc>
+    <desc>Contains a single cast list or dramatis personae.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.facsimile"/>
@@ -9917,7 +9925,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="change" module="MEI.header">
-    <desc>– Individual change within the revision description.
+    <desc>Individual change within the revision description.
       <!-- Additions, deletions, and
         significant recoding should be noted, but not correction of minor typographical errors. It
         is recommended that revisions should be entered in reverse chronological order, with the
@@ -9980,7 +9988,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="choice" module="MEI.edittrans">
-    <desc>– Groups a number of alternative encodings for the same point in a text.
+    <desc>Groups a number of alternative encodings for the same point in a text.
       <!-- Because
         the children of a choice element all represent alternative ways of encoding the same
         sequence, it is natural to think of them as mutually exclusive. However, there may be cases
@@ -10000,7 +10008,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="chord" module="MEI.shared">
-    <desc>– A simultaneous sounding of two or more notes in the same layer *with the same
+    <desc>A simultaneous sounding of two or more notes in the same layer *with the same
       duration*.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -10051,7 +10059,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="chordMember" module="MEI.harmony">
-    <desc>– An individual pitch in a chord defined by a &lt;chordDef&gt; element.
+    <desc>An individual pitch in a chord defined by a &lt;chordDef&gt; element.
       <!-- The
         fing and fret attributes are provided in order to create displayable chord tablature grids.
         The inth (harmonic interval) attribute may be used to facilitate automated performance of a
@@ -10081,7 +10089,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="chordTable" module="MEI.harmony">
-    <desc>– Chord/tablature look-up table.
+    <desc>Chord/tablature look-up table.
       <!-- A table may be shared between MEI instances
         through the use of an external parsed entity containing the look-up table to be
         shared.--></desc>
@@ -10118,7 +10126,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="classification" module="MEI.header">
-    <desc>– Groups information which describes the nature or topic of an entity.
+    <desc>Groups information which describes the nature or topic of an entity.
       <!--Although use of names and terms from locally controlled vocabularies is possible, terms used
         here should come from standard national or international vocabularies whenever they are
         available in order to enable searches in systems that include multiple MEI documents, or MEI
@@ -10138,7 +10146,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="clef" module="MEI.shared">
-    <desc>– Indication of the exact location of a particular note on the staff and, therefore, the
+    <desc>Indication of the exact location of a particular note on the staff and, therefore, the
       other notes as well.
       <!-- This element can be used as an alternative to the staff
         element's clef.* attributes. It should be used when specific display info, such as size or
@@ -10200,7 +10208,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="clip" module="MEI.performance">
-    <desc>– Defines a time segment of interest within a recording or within a digital audio or video
+    <desc>Defines a time segment of interest within a recording or within a digital audio or video
       file.
       <!--This element is analogous to the &lt;zone&gt; element in the facsimile module.--></desc>
     <classes>
@@ -10251,7 +10259,7 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="composer" module="MEI.shared">
-    <desc>– The name of the creator of the intellectual content of a musical work.</desc>
+    <desc>The name of the creator of the intellectual content of a musical work.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -10269,9 +10277,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="condition" module="MEI.header">
-    <desc>– The physical condition of an item, particularly any variances between the physical
-      makeup of the item and that of other copies of the same item (e.g., missing pages, plates,
-      etc.).
+    <desc>The physical condition of an item, particularly any variances between the physical makeup
+      of the item and that of other copies of the same item (e.g., missing pages, plates, etc.).
       <!-- Condition may reflect other aspects of the physical condition of the item as
         well (e.g., brittleness, faded images, etc.). This element is modelled on an element in
         Encoded Archival Description (EAD).--></desc>
@@ -10291,7 +10298,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="contentItem" module="MEI.header">
-    <desc>– Contains a single entry within a content description element.</desc>
+    <desc>Contains a single entry within a content description element.</desc>
     <classes>
       <memberOf key="att.bibl"/>
       <memberOf key="att.common"/>
@@ -10309,7 +10316,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="contents" module="MEI.header">
-    <desc>– Description of the material contained within a resource.</desc>
+    <desc>Description of the material contained within a resource.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -10355,8 +10362,8 @@
       </exemplum>-->
   </elementSpec>
   <elementSpec ident="context" module="MEI.header">
-    <desc>– The historical, social, intellectual, artistic, or other context within which the work
-      was originally conceived (e.g., the 17th century restoration of the monarchy in England, the
+    <desc>The historical, social, intellectual, artistic, or other context within which the work was
+      originally conceived (e.g., the 17th century restoration of the monarchy in England, the
       aesthetic movement of the late 19th century, etc.) or the historical, social, intellectual,
       artistic, or other context within which the expression was realized.</desc>
     <classes>
@@ -10446,7 +10453,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="correction" module="MEI.header">
-    <desc>– States how and under what circumstances corrections have been made in the text.
+    <desc>States how and under what circumstances corrections have been made in the text.
       <!--This element is modelled on an element in the Text Encoding Initiative (TEI).--></desc>
     <classes>
       <memberOf key="att.common"/>
@@ -10482,7 +10489,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="creation" module="MEI.shared">
-    <desc>– Non-bibliographic details of the creation of an intellectual entity, in narrative form,
+    <desc>Non-bibliographic details of the creation of an intellectual entity, in narrative form,
       such as the date, place, and circumstances of its composition.
       <!-- This element is
         modelled on an element in the Text Encoding Initiative (TEI).--></desc>
@@ -10504,7 +10511,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="cue" module="MEI.midi">
-    <desc>– MIDI cue point.</desc>
+    <desc>MIDI cue point.</desc>
     <classes>
       <memberOf key="att.common.anl"/>
       <memberOf key="att.common"/>
@@ -10515,7 +10522,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="curve" module="MEI.usersymbols">
-    <desc>– A curved line that cannot be represented by a more specific element, such as a
+    <desc>A curved line that cannot be represented by a more specific element, such as a
       &lt;slur&gt;.
       <!-- The starting point of the curve may be identified in absolute output
         coordinate terms using the x and y attributes or relative to the location of another
@@ -10551,7 +10558,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="custos" module="MEI.shared">
-    <desc>– Symbol placed at the end of a line of music to indicate the first note of the next line.
+    <desc>Symbol placed at the end of a line of music to indicate the first note of the next line.
       Sometimes called a "direct".
       <!-- The most common visual form is a sign resembling a
         mordent. Other graphical forms may be indicated by the altsym attribute. Together the pname
@@ -10571,7 +10578,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="damage" module="MEI.edittrans">
-    <desc>– Contains an area of damage to the physical medium.</desc>
+    <desc>Contains an area of damage to the physical medium.</desc>
     <classes>
       <memberOf key="att.agentident"/>
       <memberOf key="att.common"/>
@@ -10612,7 +10619,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="date" module="MEI.shared">
-    <desc>– A string identifying a point in time or the time period between two such points.</desc>
+    <desc>A string identifying a point in time or the time period between two such points.</desc>
     <classes>
       <memberOf key="att.bibl"/>
       <memberOf key="att.calendared"/>
@@ -10680,8 +10687,8 @@
     </attList>
   </elementSpec>
   <elementSpec ident="dimensions" module="MEI.header">
-    <desc>– Information about the physical size of a bibliographic source; usually includes
-      numerical data.
+    <desc>Information about the physical size of a bibliographic source; usually includes numerical
+      data.
       <!-- There are no height and width sub-elements; however, num
         sub-elements may be used with appropriate attribute values. Do not confuse this element
         with the &lt;extent&gt; element, which is used to indicate the quantity of described 
@@ -10745,7 +10752,7 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="distributor" module="MEI.shared">
-    <desc>– Name of a person or other agency responsible for the distribution of a bibliographic
+    <desc>Name of a person or other agency responsible for the distribution of a bibliographic
       item.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -10794,7 +10801,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="dot" module="MEI.shared">
-    <desc>– Dot of augmentation or division.
+    <desc>Dot of augmentation or division.
       <!-- This element provides an alternative to the dots
         attribute on chord, note, rest, space, tuplet, and tupletSpan elements. It should be used
         when specific display info, such as size or color, needs to be recorded for the dot. This
@@ -10895,7 +10902,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="editor" module="MEI.shared">
-    <desc>– The name of the individual(s), institution(s) or organization(s) acting in an editorial
+    <desc>The name of the individual(s), institution(s) or organization(s) acting in an editorial
       capacity.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -10957,8 +10964,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="ending" module="MEI.shared">
-    <desc>– Alternative ending for a repeated passage of music; i.e., prima volta, seconda volta,
-      etc.
+    <desc>Alternative ending for a repeated passage of music; i.e., prima volta, seconda volta, etc.
       <!--The scoreDef element is allowed as a sub-element so that an ending may have its
         own meta-data without the overhead of child &lt;section&gt;s. Div sub-elements are not
         allowed within ending in order to avoid collisions with the brackets that are usually
@@ -10993,7 +10999,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="ensemble" module="MEI.header">
-    <desc>– The name of a standard instrumental or vocal grouping, such as 'orchestra' or 'marching
+    <desc>The name of a standard instrumental or vocal grouping, such as 'orchestra' or 'marching
       band'.
       <!-- It is recommended that name values (recorded in the code attribute
     or in the element's content) be taken from a standardized list, such as the International
@@ -11010,7 +11016,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="event" module="MEI.header">
-    <desc>– Contains a description of an event, including the dates and locations of its occurrence
+    <desc>Contains a description of an event, including the dates and locations of its occurrence
       and prominent participants.</desc>
     <!-- This model allows for both semi-structured (using only model.eventPart members) and
             "free" descriptions (using p, table, list, and castList) as well as a mixture of
@@ -11083,7 +11089,7 @@
           </content> -->
   </elementSpec>
   <elementSpec ident="eventList" module="MEI.header">
-    <desc>– Contains historical information given as a sequence of significant past events.
+    <desc>Contains historical information given as a sequence of significant past events.
       <!-- &lt;eventList&gt; contains &lt;event&gt; elements that contain a brief description
         of the associated event, including dates and locations where the event took place. An
         &lt;eventList&gt; describes events associated with a work when it appears in the
@@ -11169,8 +11175,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="expansion" module="MEI.shared">
-    <desc>– Indicates how a section may be programmatically expanded into its 'through-composed'
-      form.
+    <desc>Indicates how a section may be programmatically expanded into its 'through-composed' form.
       <!-- The plist attribute contains an ordered list of identifiers of
         descendant &lt;section&gt;, &lt;ending&gt;, &lt;lem&gt;, or &lt;rdg&gt; elements. For
         example, the sequence "#A #End1 #A #End2" indicates that the section labelled 'A' comes
@@ -11187,7 +11192,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="expression" module="MEI.frbr">
-    <desc>– Intellectual or artistic realization of a work.</desc>
+    <desc>Intellectual or artistic realization of a work.</desc>
     <classes>
       <memberOf key="att.datapointing"/>
       <memberOf key="att.common"/>
@@ -11246,7 +11251,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="expressionList" module="MEI.frbr">
-    <desc>– Gathers bibliographic expression entities.</desc>
+    <desc>Gathers bibliographic expression entities.</desc>
     <classes>
       <memberOf key="att.common"/>
     </classes>
@@ -11257,7 +11262,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="extent" module="MEI.shared">
-    <desc>– Used to express size in terms other than physical dimensions, such as number of pages,
+    <desc>Used to express size in terms other than physical dimensions, such as number of pages,
       number of records in file, number of bytes, performance duration for music, audio recordings
       and visual projections, etc.
       <!-- Use the &lt;dimensions&gt; element when it is
@@ -11311,7 +11316,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="facsimile" module="MEI.facsimile">
-    <desc>– Contains a representation of some written source in the form of a set of images rather
+    <desc>Contains a representation of some written source in the form of a set of images rather
       than as transcribed or encoded text.
       <!-- The decls attribute may be used to link
         the collection of images with a particular source described in the header. This element is
@@ -11347,7 +11352,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="fermata" module="MEI.cmn">
-    <desc>– An indication placed over a note or rest to indicate that it should be held longer than
+    <desc>An indication placed over a note or rest to indicate that it should be held longer than
       its written value. May also occur over a bar line to indicate the end of a phrase or section.
       Sometimes called a 'hold' or 'pause'.
       <!-- The &lt;fermata&gt; element is a
@@ -11466,8 +11471,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="fingerprint" module="MEI.header">
-    <desc>– Contains a string that uniquely identifies an item, such as those constructed by
-      combining groups of characters transcribed from specified pages of a printed item or a file's
+    <desc>Contains a string that uniquely identifies an item, such as those constructed by combining
+      groups of characters transcribed from specified pages of a printed item or a file's
       checksum.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -11542,7 +11547,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="funder" module="MEI.shared">
-    <desc>– Names of individuals, institutions, or organizations responsible for funding. Funders
+    <desc>Names of individuals, institutions, or organizations responsible for funding. Funders
       provide financial support for a project; they are distinct from sponsors, who provide
       intellectual support and authority.</desc>
     <classes>
@@ -11587,7 +11592,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="gap" module="MEI.edittrans">
-    <desc>– Indicates a point where material has been omitted in a transcription, whether as part of
+    <desc>Indicates a point where material has been omitted in a transcription, whether as part of
       sampling practice or for editorial reasons described in the MEI header.
       <!-- When
         material is omitted because it is illegible or inaudible, &lt;unclear&gt; should be used
@@ -11619,7 +11624,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="genre" module="MEI.shared">
-    <desc>– Term or terms that designate a category characterizing a particular style, form, or
+    <desc>Term or terms that designate a category characterizing a particular style, form, or
       content.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -11702,7 +11707,7 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="graphic" module="MEI.figtable">
-    <desc>– Indicates the location of an inline graphic, illustration, or figure.
+    <desc>Indicates the location of an inline graphic, illustration, or figure.
       <!--This element is modelled on an element in the Text Encoding Initiative (TEI).--></desc>
     <classes>
       <memberOf key="att.common"/>
@@ -11738,9 +11743,9 @@
     </attList>
   </elementSpec>
   <elementSpec ident="group" module="MEI.shared">
-    <desc>– Contains a composite musical text, grouping together a sequence of distinct musical
-      texts (or groups of such musical texts) which are regarded as a unit for some purpose, for
-      example, the collected works of a composer.
+    <desc>Contains a composite musical text, grouping together a sequence of distinct musical texts
+      (or groups of such musical texts) which are regarded as a unit for some purpose, for example,
+      the collected works of a composer.
       <!-- This element is modelled on an
         element in the Text Encoding Initiative (TEI). Because its model contains the music element,
         each of the documents can have its own front and back matter. --></desc>
@@ -11782,7 +11787,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="hairpin" module="MEI.cmn">
-    <desc>– Indicates continuous dynamics expressed on the score as wedge-shaped graphics, e.g. &lt;
+    <desc>Indicates continuous dynamics expressed on the score as wedge-shaped graphics, e.g. &lt;
       and &gt;.
       <!-- The starting point of the hairpin may be indicated by either a tstamp,
         tstamp.ges, tstamp.real or startid attribute, while the ending point may be recorded by
@@ -11829,7 +11834,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="hand" module="MEI.header">
-    <desc>– Defines a distinct scribe or handwriting style.
+    <desc>Defines a distinct scribe or handwriting style.
       <!-- The initial attribute indicates
         whether this is the first or main scribe of the document. The medium attribute describes the
         writing medium, e.g., 'pencil', or the tint or type of ink, e.g. 'brown'. The resp attribute
@@ -11863,7 +11868,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="handList" module="MEI.header">
-    <desc>– Container for one or more hand elements.
+    <desc>Container for one or more hand elements.
       <!-- This element is modelled on an
         element in the Text Encoding Initiative (TEI).--></desc>
     <classes>
@@ -11878,7 +11883,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="handShift" module="MEI.edittrans">
-    <desc>– Marks the beginning of a passage written in a new hand, or of a change in the scribe,
+    <desc>Marks the beginning of a passage written in a new hand, or of a change in the scribe,
       writing style, ink or character of the document hand.
       <!-- The character attribute
         describes characteristics of the hand, particularly those related to the quality of the
@@ -12005,7 +12010,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="hex" module="MEI.midi">
-    <desc>– Arbitrary MIDI data in hexadecimal form.
+    <desc>Arbitrary MIDI data in hexadecimal form.
       <!-- The element's content must be wrapped in
         a CDATA section to avoid parsing errors.--></desc>
     <classes>
@@ -12018,8 +12023,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="history" module="MEI.header">
-    <desc>– Provides a container for information about the creation and history of a
-      resource.</desc>
+    <desc>Provides a container for information about the creation and history of a resource.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -12040,7 +12044,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="identifier" module="MEI.shared">
-    <desc>– An alpha-numeric string that establishes the identity of the described material.
+    <desc>An alpha-numeric string that establishes the identity of the described material.
       <!--, such as an International Standard Book/Music Number, Library of Congress Control
         Number, publisher's number, a personal identification number, an entry in a bibliography or
         catalog, etc. The type attribute may be used to indicate the system from which the
@@ -12065,7 +12069,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="imprint" module="MEI.shared">
-    <desc>– Information relating to the publication or distribution of a bibliographic item.</desc>
+    <desc>Information relating to the publication or distribution of a bibliographic item.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -12116,7 +12120,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="incipCode" module="MEI.header">
-    <desc>– Incipit coded in a non-XML, plain text format, such as Plaine &amp; Easie Code.</desc>
+    <desc>Incipit coded in a non-XML, plain text format, such as Plaine &amp; Easie Code.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -12153,7 +12157,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="incipText" module="MEI.header">
-    <desc>– Opening words of a musical composition.</desc>
+    <desc>Opening words of a musical composition.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -12200,7 +12204,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="inscription" module="MEI.header">
-    <desc>– An inscription added to an item, such as a bookplate, a note designating the item as a
+    <desc>An inscription added to an item, such as a bookplate, a note designating the item as a
       gift, and/or the author's signature.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -12246,7 +12250,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="instrumentation" module="MEI.header">
-    <desc>– Instrumental and non-dramatic vocal resources.</desc>
+    <desc>Instrumental and non-dramatic vocal resources.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -12299,7 +12303,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="instrVoiceGrp" module="MEI.header">
-    <desc>– Several instrumental or vocal resources treated as a group.</desc>
+    <desc>Several instrumental or vocal resources treated as a group.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.authorized"/>
@@ -12318,8 +12322,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="interpretation" module="MEI.header">
-    <desc>– Describes the scope of any analytic or interpretive information added to the
-      transcription of the music.
+    <desc>Describes the scope of any analytic or interpretive information added to the transcription
+      of the music.
       <!-- This element is modelled on an element in the Text
         Encoding Initiative (TEI).--></desc>
     <classes>
@@ -12338,7 +12342,7 @@
   <elementSpec ident="item" module="MEI.frbr">
     <!-- Should item be in the MEI.header module?  That would allow use of source and item in "out-of-the-box" MEI. -->
     <altIdent>item</altIdent>
-    <desc>– Single instance or exemplar of a source/manifestation.</desc>
+    <desc>Single instance or exemplar of a source/manifestation.</desc>
     <classes>
       <memberOf key="att.datapointing"/>
       <memberOf key="att.common"/>
@@ -12374,7 +12378,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="itemList" module="MEI.frbr">
-    <desc>– Gathers bibliographic item entities.</desc>
+    <desc>Gathers bibliographic item entities.</desc>
     <classes>
       <memberOf key="att.common"/>
     </classes>
@@ -12385,7 +12389,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="key" module="MEI.header">
-    <desc>– Key captures information about tonal center and mode.
+    <desc>Key captures information about tonal center and mode.
       <!-- It is used exclusively
         within bibliographic descriptions. Do not confuse this element with &lt;keySig&gt;, which is
         used within the body of an MEI file to record this data.--></desc>
@@ -12474,7 +12478,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="label" module="MEI.shared">
-    <desc>– A text string that identifies a staff, staff group, or contentItem.</desc>
+    <desc>A text string that identifies a staff, staff group, or contentItem.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.facsimile"/>
@@ -12494,7 +12498,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="language" module="MEI.header">
-    <desc>– Description of a language used in the document.
+    <desc>Description of a language used in the document.
       <!-- A text element may be related
         to this element via its xml:lang attribute, which normally takes the form of a code, drawn
         from a coded list, such as ISO639-2b. The name and web location of the authorizing list may
@@ -12531,7 +12535,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="layer" module="MEI.shared">
-    <desc>– An independent stream of events on a staff.
+    <desc>An independent stream of events on a staff.
       <!-- The term 'layer' is used instead of
         'voice' in order to avoid confusion between 'voice' and 'voice leading'. The def attribute
         may be used to create a connection with a layerDef element where logical and visual
@@ -12718,7 +12722,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="librettist" module="MEI.shared">
-    <desc>– Person or organization who is a writer of the text of an opera, oratorio, etc.</desc>
+    <desc>Person or organization who is a writer of the text of an opera, oratorio, etc.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -12736,7 +12740,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="ligature" module="MEI.mensural">
-    <desc>– A mensural notation symbol that combines two or more notes into a single sign.
+    <desc>A mensural notation symbol that combines two or more notes into a single sign.
       <!-- The rhythmic meaning of the components of a ligature is typically contextual, not
         absolute; therefore, an interpretative duration may be encoded on each of the components
         using either the dur.ges attribute or the num and numbase attribute pair. The
@@ -12758,7 +12762,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="line" module="MEI.usersymbols">
-    <desc>– A line that cannot be represented by a more specific element.
+    <desc>A line that cannot be represented by a more specific element.
       <!-- The starting point
         of the line may be identified in absolute output coordinate terms using the x and y
         attributes or relative to the location of another element using the startid attribute. The
@@ -12793,7 +12797,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="list" module="MEI.text">
-    <desc>– A formatting element that contains a series of items separated from one another and
+    <desc>A formatting element that contains a series of items separated from one another and
       arranged in a linear, often vertical, sequence.
       <!--This element is modelled on
             elements in Encoded Archival Description (EAD), Text Encoding Initiative (TEI), and
@@ -12802,6 +12806,7 @@
       <memberOf key="att.common"/>
       <memberOf key="att.facsimile"/>
       <memberOf key="att.lang"/>
+      <memberOf key="att.typed"/>
       <memberOf key="att.xy"/>
       <memberOf key="model.listLike"/>
     </classes>
@@ -12836,7 +12841,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="lyricist" module="MEI.shared">
-    <desc>– Person or organization who is a writer of the text of a song.</desc>
+    <desc>Person or organization who is a writer of the text of a song.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -12854,7 +12859,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="lyrics" module="MEI.lyrics">
-    <desc>– Vocally performed 'text' of a musical composition, such as a song or opera.
+    <desc>Vocally performed 'text' of a musical composition, such as a song or opera.
       <!-- The
         staff attribute gives the staff to which the lyrics are attached. If there is more than one
         layer on that staff, the layer attribute may be used to indicate the layer from which the
@@ -12878,7 +12883,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="marker" module="MEI.midi">
-    <desc>– MIDI marker meta-event.</desc>
+    <desc>MIDI marker meta-event.</desc>
     <classes>
       <memberOf key="att.common.anl"/>
       <memberOf key="att.common"/>
@@ -12927,7 +12932,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="measure" module="MEI.cmn">
-    <desc>– Unit of musical time consisting of a fixed number of note-values of a given type, as
+    <desc>Unit of musical time consisting of a fixed number of note-values of a given type, as
       determined by the prevailing meter, and delimited in musical notation by two bar lines.
       <!--" (New Harvard Dictionary of Music) In MEI, the measure element is a grouping
         mechanism for events and control events. Pointing attributes make it possible to connect
@@ -12962,8 +12967,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="mei" module="MEI.shared">
-    <desc>– Contains a single MEI-conformant document, consisting of an MEI header and a musical
-      text, either in isolation or as part of an meiCorpus element.
+    <desc>Contains a single MEI-conformant document, consisting of an MEI header and a musical text,
+      either in isolation or as part of an meiCorpus element.
       <!-- The document element for a
           single document, containing a header and data. The &lt;mei&gt; element defines a particular
           instance of a document encoded with the MEI schema. The name of this element should not be
@@ -13079,7 +13084,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="mensuration" module="MEI.header">
-    <desc>– Captures information about mensuration within bibliographic descriptions.</desc>
+    <desc>Captures information about mensuration within bibliographic descriptions.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -13091,7 +13096,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="metaText" module="MEI.midi">
-    <desc>– MIDI text meta-event.</desc>
+    <desc>MIDI text meta-event.</desc>
     <classes>
       <memberOf key="att.common.anl"/>
       <memberOf key="att.common"/>
@@ -13102,7 +13107,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="meter" module="MEI.header">
-    <desc>– Captures information about the time signature within bibliographic descriptions.
+    <desc>Captures information about the time signature within bibliographic descriptions.
       <!-- It is used exclusively within
         bibliographic descriptions. Do not confuse this element with the attributes used by staffDef
         and scoreDef to record this data within the body of an MEI file.--></desc>
@@ -13168,7 +13173,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="midi" module="MEI.midi">
-    <desc>– Container for elements that contain information useful when generating MIDI output.
+    <desc>Container for elements that contain information useful when generating MIDI output.
       <!-- The n attribute can be used to differentiate between multiple MIDI data streams,
         e.g. quantized/unquantized, straight/swing, ornamented/as notated, etc.--></desc>
     <classes>
@@ -13201,8 +13206,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="mordent" module="MEI.cmnOrnaments">
-    <desc>– An ornament indicating rapid alternation of the main note with a secondary note, usually
-      a step below, but sometimes a step above.
+    <desc>An ornament indicating rapid alternation of the main note with a secondary note, usually a
+      step below, but sometimes a step above.
       <!-- See Read, p. 245-246. Events may be
         contained within &lt;mordent&gt; in order to record precise performance data. The starting
         point of the mordent may be indicated by either a tstamp, tstamp.ges, tstamp.real or startid
@@ -13337,8 +13342,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="music" module="MEI.shared">
-    <desc>– Contains a single musical text of any kind, whether unitary or composite, for example,
-      an etude, opera, song cycle, symphony, or anthology of piano solos.</desc>
+    <desc>Contains a single musical text of any kind, whether unitary or composite, for example, an
+      etude, opera, song cycle, symphony, or anthology of piano solos.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.declaring"/>
@@ -13355,7 +13360,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="name" module="MEI.shared">
-    <desc>– Proper noun or noun phrase.
+    <desc>Proper noun or noun phrase.
       <!-- Contains the name of an entity that is difficult to
         tag more specifically as a &lt;corpName&gt;, &lt;geogName&gt;, &lt;persName&gt;, or
         &lt;title&gt;. The &lt;name&gt; element may be used in place of the more specific elements
@@ -13393,8 +13398,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="normalization" module="MEI.header">
-    <desc>– Indicates the extent of normalization or regularization of the original source carried
-      out in converting it to electronic form.
+    <desc>Indicates the extent of normalization or regularization of the original source carried out
+      in converting it to electronic form.
       <!-- This element is modelled on an
         element in the Text Encoding Initiative (TEI).--></desc>
     <classes>
@@ -13412,7 +13417,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="note" module="MEI.shared">
-    <desc>– A single pitched event.
+    <desc>A single pitched event.
       <!-- (Read, p. 63) The note element is allowed to contain
         other events for situations where a single (usually ornamented) written note is
         representative of a group of performed notes. The accid and artic sub-elements may be used
@@ -13447,7 +13452,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="noteOff" module="MEI.midi">
-    <desc>– MIDI note-off event.</desc>
+    <desc>MIDI note-off event.</desc>
     <classes>
       <memberOf key="att.common.anl"/>
       <memberOf key="att.common"/>
@@ -13459,7 +13464,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="noteOn" module="MEI.midi">
-    <desc>– MIDI note-on event.</desc>
+    <desc>MIDI note-on event.</desc>
     <classes>
       <memberOf key="att.common.anl"/>
       <memberOf key="att.common"/>
@@ -13508,7 +13513,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="octave" module="MEI.cmn">
-    <desc>– An indication that a passage should be performed one or more octaves above or below its
+    <desc>An indication that a passage should be performed one or more octaves above or below its
       written pitch.
       <!-- The dis and dis.place attributes record the amount and direction of
         displacement, respectively. The rend attribute captures the appearance of the continuation
@@ -13586,7 +13591,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="ossia" module="MEI.cmn">
-    <desc>– An alternate notational version *present in the source being transcribed*.
+    <desc>An alternate notational version *present in the source being transcribed*.
       <!-- The
         alternative material often provides a simpler, easier to perform option, while at other
         times the alternate material provides indications of performance practice, such as
@@ -13688,7 +13693,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="part" module="MEI.shared">
-    <desc>– An alternative visual rendition of the score from a particular performer's (or group of
+    <desc>An alternative visual rendition of the score from a particular performer's (or group of
       performers') point of view.
       <!--Part elements are not used in the score to indicate voice leading. Next attributes
         on event elements should be used for this purpose. Part elements are useful for encoding
@@ -13724,7 +13729,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="parts" module="MEI.shared">
-    <desc>– Provides a container for performers' parts.</desc>
+    <desc>Provides a container for performers' parts.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.declaring"/>
@@ -13765,7 +13770,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="pedal" module="MEI.cmn">
-    <desc>– Piano pedal mark.
+    <desc>Piano pedal mark.
       <!-- (Read, p. 317-318). The starting point of the pedal mark may be
         indicated by either a tstamp, tstamp.ges, tstamp.real or startid attribute. It is a semantic
         error not to specify a starting point attribute.--></desc>
@@ -13815,7 +13820,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="performance" module="MEI.performance">
-    <desc>– A presentation of one or more musical works.
+    <desc>A presentation of one or more musical works.
       <!-- The decls attribute may be used
         to link the collection with a particular source described in the header. This element is
         analogous to the &lt;facsimile&gt; element in the facsimile module.--></desc>
@@ -14017,7 +14022,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="phrase" module="MEI.shared">
-    <desc>– Indication of 1) a "unified melodic idea" or 2) performance technique.
+    <desc>Indication of 1) a "unified melodic idea" or 2) performance technique.
       <!--Historically, a phrase mark indicated a "unified melodic idea", while the term "slur" was
         used for two-note legato patterns. (Read, p. 265). Nowadays, however, "phrase" and "slur"
         are often used interchangeably (Read, p. 265-266), since the visual rendition of the two
@@ -14154,7 +14159,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="port" module="MEI.midi">
-    <desc>– MIDI port. <!-- The num attribute must be in the range 0-127.--></desc>
+    <desc>MIDI port. <!-- The num attribute must be in the range 0-127.--></desc>
     <classes>
       <memberOf key="att.common.anl"/>
       <memberOf key="att.common"/>
@@ -14166,7 +14171,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="price" module="MEI.header">
-    <desc>– The cost of access to a bibliographic item.</desc>
+    <desc>The cost of access to a bibliographic item.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -14235,7 +14240,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="provenance" module="MEI.header">
-    <desc>– The record of ownership or custodianship of an item.
+    <desc>The record of ownership or custodianship of an item.
       <!-- This element is
         modelled on an element in the Encoded Archival Description (EAD) and Text Encoding
         Initiative (TEI).--></desc>
@@ -14276,7 +14281,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="publisher" module="MEI.shared">
-    <desc>– Name of the organization responsible for the publication of a bibliographic item.</desc>
+    <desc>Name of the organization responsible for the publication of a bibliographic item.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -14396,7 +14401,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="recipient" module="MEI.shared">
-    <desc>– The name of the individual(s), institution(s) or organization(s) receiving
+    <desc>The name of the individual(s), institution(s) or organization(s) receiving
       correspondence.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -14414,7 +14419,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="recording" module="MEI.performance">
-    <desc>– A recorded performance.
+    <desc>A recorded performance.
       <!-- The startid attribute may be used to hold a reference to the first feature occurring
           in this performance. This element is analogous to the &lt;surface&gt; element in the 
           facsimile module.--></desc>
@@ -14522,12 +14527,12 @@
       </rng:zeroOrMore>
     </content>
   </elementSpec>
-  <elementSpec ident="relatedItem" module="MEI.shared">
+  <!--<elementSpec ident="relatedItem" module="MEI.shared">
     <desc>(related item) – Contains or references another bibliographic item which is related to the
       present one in some specified manner, for example as a constituent or alternative version.
-      <!-- Any Uniform Resource Identifiers for the related item should be placed in &lt;identifier&gt; sub-elements. This
+      <!-\- Any Uniform Resource Identifiers for the related item should be placed in &lt;identifier&gt; sub-elements. This
         element is modelled on the relatedItem element in the Text Encoding Initiative (TEI) and
-        MODS schemas.--></desc>
+        MODS schemas.-\-></desc>
     <classes>
       <memberOf key="att.datapointing"/>
       <memberOf key="att.common"/>
@@ -14540,8 +14545,8 @@
       <rng:zeroOrMore>
         <rng:choice>
           <rng:ref name="model.biblLike"/>
-          <!-- ptr/ref aren't necessary as relatedItem is a member of att.pointing. -->
-          <!--<rng:ref name="model.locrefLike"/>-->
+          <!-\- ptr/ref aren't necessary as relatedItem is a member of att.pointing. -\->
+          <!-\-<rng:ref name="model.locrefLike"/>-\->
         </rng:choice>
       </rng:zeroOrMore>
     </content>
@@ -14583,10 +14588,10 @@
         </valList>
       </attDef>
     </attList>
-  </elementSpec>
+  </elementSpec>-->
   <elementSpec ident="relation" module="MEI.frbr">
-    <desc>– A relation element describes the relationship between its parent and the object
-      referenced by the relation element's target attribute.
+    <desc>A relation element describes the relationship between its parent and the object referenced
+      by the relation element's target attribute.
       <!--The rel attribute describes the the nature
             of the relationship. In this triple, the parent element serves as subject, the
             referenced object as object. This element is used to implement FRBR-like structures in
@@ -14603,7 +14608,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="relationList" module="MEI.frbr">
-    <desc>– Gathers bibliographic relation elements.</desc>
+    <desc>Gathers bibliographic relation elements.</desc>
     <classes>
       <memberOf key="att.common"/>
     </classes>
@@ -14680,7 +14685,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="repository" module="MEI.shared">
-    <desc>– Institution, agency, or individual which holds a bibliographic item.
+    <desc>Institution, agency, or individual which holds a bibliographic item.
       <!-- Sub-units of the
         institution may be marked with &lt;repository&gt; sub-elements. The name of the list from
         which a controlled value is taken may be recorded using the authority attribute. This
@@ -14743,7 +14748,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="rest" module="MEI.shared">
-    <desc>– A non-sounding event found in the source being transcribed.
+    <desc>A non-sounding event found in the source being transcribed.
       <!-- (Read, p. 96-102). Do
         not confuse this element with the space element, which is used as an aid for visual
         alignment.--></desc>
@@ -14771,7 +14776,7 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="restore" module="MEI.edittrans">
-    <desc>– Indicates restoration of material to an earlier state by cancellation of an editorial or
+    <desc>Indicates restoration of material to an earlier state by cancellation of an editorial or
       authorial marking or instruction.
       <!-- The desc (description) attribute gives
         a prose description of the means of restoration, 'stet' or 'strike-down', for example. The
@@ -14836,7 +14841,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="role" module="MEI.shared">
-    <desc>– Name of a dramatic role, as given in a cast list.</desc>
+    <desc>Name of a dramatic role, as given in a cast list.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.facsimile"/>
@@ -14907,7 +14912,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="score" module="MEI.shared">
-    <desc>– Full score view of the musical content.
+    <desc>Full score view of the musical content.
       <!--Since the measure element is optional, a score may
         consist entirely of pagebreaks, each of which points to a page image. Div elements are
         allowed preceding and following sections of music data in order to accommodate blocks of
@@ -14986,7 +14991,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="scoreFormat" module="MEI.header">
-    <desc>– Describes the type of score used to represent a musical composition (e.g., short score,
+    <desc>Describes the type of score used to represent a musical composition (e.g., short score,
       full score, condensed score, close score, etc.).</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -14998,7 +15003,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="section" module="MEI.shared">
-    <desc>– Segment of music data.
+    <desc>Segment of music data.
       <!--Container for actual music data. Pointing attributes make it possible to
         connect this element to other internal or external entities, such as media objects or
         annotations.--></desc>
@@ -15041,7 +15046,7 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="segmentation" module="MEI.header">
-    <desc>– Describes the principles according to which the musical text has been segmented, for
+    <desc>Describes the principles according to which the musical text has been segmented, for
       example into movements, sections, etc.
       <!-- This element is modelled on an element
         in the Text Encoding Initiative (TEI).--></desc>
@@ -15080,7 +15085,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="series" module="MEI.shared">
-    <desc>– Contains information about the serial publication in which a bibliographic item has
+    <desc>Contains information about the serial publication in which a bibliographic item has
       appeared.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -15137,7 +15142,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="sic" module="MEI.edittrans">
-    <desc>– Contains apparently incorrect or inaccurate material.
+    <desc>Contains apparently incorrect or inaccurate material.
       <!-- A correction for the
         apparent error may be given in an accompanying child or sibling corr element. This element
         is modelled on an element in the Text Encoding Initiative (TEI).--></desc>
@@ -15173,7 +15178,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="slur" module="MEI.cmn">
-    <desc>– Indication of 1) a "unified melodic idea" or 2) performance technique.
+    <desc>Indication of 1) a "unified melodic idea" or 2) performance technique.
       <!-- Historically, the term "slur" indicated two notes performed legato, while the
         term "phrase" was used for a "unified melodic idea". Nowadays, however, "slur" often has the
         same meaning as "phrase" (See Read, p. 265-266), since the visual rendition of the two
@@ -15232,7 +15237,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="source" module="MEI.header">
-    <desc>– A bibliographic description of a source used in the creation of the electronic
+    <desc>A bibliographic description of a source used in the creation of the electronic
       file.</desc>
     <!-- Multiple physDesc sub-elements may be used to describe the physically separate parts
         of a single source. The data attribute may be used to reference one or more features that
@@ -15293,7 +15298,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="space" module="MEI.shared">
-    <desc>– A placeholder used to fill an incomplete measure, layer, etc. most often so that the
+    <desc>A placeholder used to fill an incomplete measure, layer, etc. most often so that the
       combined duration of the events equals the number of beats in the measure.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -15327,7 +15332,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="sponsor" module="MEI.shared">
-    <desc>– Names of sponsoring individuals, organizations or institutions. Sponsors give their
+    <desc>Names of sponsoring individuals, organizations or institutions. Sponsors give their
       intellectual authority to a project; they are to be distinguished from funders, who provide
       the funding but do not necessarily take intellectual responsibility.</desc>
     <classes>
@@ -15386,7 +15391,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="staff" module="MEI.shared">
-    <desc>– A group of equidistant horizontal lines on which notes are placed in order to represent
+    <desc>A group of equidistant horizontal lines on which notes are placed in order to represent
       pitch or a grouping element for individual 'strands' of notes, rests, etc. that may or may not
       actually be rendered on staff lines; that is, both diastematic and non-diastematic signs.
       <!-- The def attribute may be used to create a connection
@@ -15671,7 +15676,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="supplied" module="MEI.edittrans">
-    <desc>– Contains material supplied by the transcriber or editor in place of text which cannot be
+    <desc>Contains material supplied by the transcriber or editor in place of text which cannot be
       read, either because of physical damage or loss in the original or because it is illegible for
       any reason.
       <!-- When the presumed loss of text arises from an
@@ -15718,9 +15723,9 @@
     </content>
   </elementSpec>
   <elementSpec ident="surface" module="MEI.facsimile">
-    <desc>– Defines a writing surface in terms of a rectangular coordinate space, optionally
-      grouping one or more graphic representations of that space, and rectangular zones of interest
-      within it.
+    <desc>Defines a writing surface in terms of a rectangular coordinate space, optionally grouping
+      one or more graphic representations of that space, and rectangular zones of interest within
+      it.
       <!-- The startid attribute may be used to hold a reference to the first feature occurring 
           on this surface. This element is modelled on an element in the Text Encoding 
           Initiative (TEI).--></desc>
@@ -15769,7 +15774,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="syllable" module="MEI.neumes">
-    <desc>– Neume notation can be thought of as "neumed text". Therefore, the syllable element
+    <desc>Neume notation can be thought of as "neumed text". Therefore, the syllable element
       provides high-level organization in this repertoire.</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -15794,7 +15799,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="symbol" module="MEI.usersymbols">
-    <desc>– A reference to a previously defined symbol.
+    <desc>A reference to a previously defined symbol.
       <!-- The starting point, e.g. "hotspot",
         of the symbol may be identified in absolute output coordinate terms using the x and y
         attributes or relative to another element using the startid attribute. Attributes in the
@@ -15839,7 +15844,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="symbolTable" module="MEI.usersymbols">
-    <desc>– Contains individual, user-defined symbols.
+    <desc>Contains individual, user-defined symbols.
       <!-- Like a chord table, a
         symbolTable may be shared between mei instances through the use of an external parsed entity
         containing the symbolTable to be shared.--></desc>
@@ -15871,7 +15876,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="table" module="MEI.figtable">
-    <desc>– Contains text displayed in tabular form.
+    <desc>Contains text displayed in tabular form.
       <!--This element is modelled on elements in Encoded
         Archival Description (EAD), Text Encoding Initiative (TEI), and HTML.--></desc>
     <classes>
@@ -15936,7 +15941,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="tempo" module="MEI.shared">
-    <desc>– Text and symbols descriptive of tempo, mood, or style, e.g., "allarg.", "a tempo",
+    <desc>Text and symbols descriptive of tempo, mood, or style, e.g., "allarg.", "a tempo",
       "cantabile", "Moderato", "♩=60", "Moderato ♩ =60").</desc>
     <classes>
       <memberOf key="att.common"/>
@@ -15981,7 +15986,7 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="term" module="MEI.header">
-    <desc>– Keyword or phrase which describes a resource.
+    <desc>Keyword or phrase which describes a resource.
       <!-- The classcode attribute may be
         used to link the term to a terminological source given in a classCode element. The term
         element may include other term elements in order to allow the creation of coordinated terms;
@@ -16012,7 +16017,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="termList" module="MEI.header">
-    <desc>– Collection of text phrases which describe a resource.</desc>
+    <desc>Collection of text phrases which describe a resource.</desc>
     <classes>
       <memberOf key="att.common"/>
       <memberOf key="att.bibl"/>
@@ -16096,7 +16101,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="tie" module="MEI.cmn">
-    <desc>– An indication that two notes of the same pitch form a single note with their combined
+    <desc>An indication that two notes of the same pitch form a single note with their combined
       rhythmic values.
       <!-- Most often it is rendered as a curved line connecting the two
         notes. See Read, p. 110-111, 122.--></desc>
@@ -16126,8 +16131,8 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="timeline" module="MEI.linkalign">
-    <desc>– Provides a set of ordered points in time to which musical elements can be linked in
-      order to create a temporal alignment of those elements.
+    <desc>Provides a set of ordered points in time to which musical elements can be linked in order
+      to create a temporal alignment of those elements.
       <!-- The origin attribute
         designates the origin of the timeline, i.e., the time at which it begins. It must point to
         one of the when elements in its content. The avref attribute is provided in order to link
@@ -16176,7 +16181,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="title" module="MEI.shared">
-    <desc>– Title of a bibliographic entity.
+    <desc>Title of a bibliographic entity.
       <!-- The type attribute may be used to classify the
         title according to some convenient typology. Sample values include: main (main title),
         subordinate (subtitle, title of part), abbreviated (abbreviated form of title), alternative
@@ -16233,7 +16238,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="titlePage" module="MEI.shared">
-    <desc>– Contains a transcription of the title page of a text.
+    <desc>Contains a transcription of the title page of a text.
       <!--It may be used within
         the physDesc element when no other transcription is provided. This element is modelled on an
         element in Encoded Archival Description (EAD).--></desc>
@@ -16330,7 +16335,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="trill" module="MEI.cmnOrnaments">
-    <desc>– Rapid alternation of a note with one (usually at the interval of a second) above.
+    <desc>Rapid alternation of a note with one (usually at the interval of a second) above.
       <!-- Usually, the interval is understood to be diatonic unless altered by an accidental.
         The starting note of the trill; i.e., the written one or the ornamenting one, and the speed
         of alternation depends on performance practice. Events may be contained within &lt;trill&gt;
@@ -16373,7 +16378,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="tuplet" module="MEI.cmn">
-    <desc>– A group of notes with "irregular" (sometimes called "irrational") rhythmic values, for
+    <desc>A group of notes with "irregular" (sometimes called "irrational") rhythmic values, for
       example, three notes in the time normally occupied by two or nine in the time of five.
       <!-- The beam sub-element is allowed so that custom beaming may be indicated, e.g., a
         septuplet may be divided into a group of three plus a group of four notes. See Read, p.
@@ -16447,8 +16452,8 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="turn" module="MEI.cmnOrnaments">
-    <desc>– An ornament consisting of four notes — the upper neighbor of the written note, the
-      written note, the lower neighbor, and the written note.
+    <desc>An ornament consisting of four notes — the upper neighbor of the written note, the written
+      note, the lower neighbor, and the written note.
       <!-- See Read, p. 246-247. Events may
         be contained within &lt;turn&gt; in order to record precise performance data. Whether the
         turn is accented or unaccented may be inferred from the timestamp — accented turns occur
@@ -16476,7 +16481,7 @@
     </constraintSpec>
   </elementSpec>
   <elementSpec ident="unclear" module="MEI.edittrans">
-    <desc>– Contains material that cannot be transcribed with certainty because it is illegible or
+    <desc>Contains material that cannot be transcribed with certainty because it is illegible or
       inaudible in the source.
       <!-- Where the difficulty in transcription arises from
         an identifiable cause, the agent attribute signifies the causative agent. The cert attribute
@@ -16611,7 +16616,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="verse" module="MEI.lyrics">
-    <desc>– Lyric verse.
+    <desc>Lyric verse.
       <!-- The lb element is allowed here in order to facilitate karaoke
         applications. The func attribute on lb may be used to distinguish true line ends from line
         group ends for these applications.--></desc>
@@ -16643,7 +16648,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="watermark" module="MEI.header">
-    <desc>– Contains a description of a watermark or similar device.
+    <desc>Contains a description of a watermark or similar device.
       <!-- The facs attribute
         may be used to record the location of the watermark in a facsimile image. This element is
         modelled on an element in the Text Encoding Initiative (TEI).--></desc>
@@ -16663,8 +16668,8 @@
     </content>
   </elementSpec>
   <elementSpec ident="when" module="MEI.linkalign">
-    <desc>– Indicates a point in time either absolutely (using the absolute attribute), or relative
-      to other elements in the same timeline element (using the interval and since attributes).
+    <desc>Indicates a point in time either absolutely (using the absolute attribute), or relative to
+      other elements in the same timeline element (using the interval and since attributes).
       <!-- The data attribute may be used to reference one or more features that occur at
         this point in time. This element is modelled on an element in the Text Encoding Initiative
         (TEI).--></desc>
@@ -16745,7 +16750,7 @@
     </attList>
   </elementSpec>
   <elementSpec ident="work" module="MEI.header">
-    <desc>– Provides a detailed description of a work, specifically its history, language use, and
+    <desc>Provides a detailed description of a work, specifically its history, language use, and
       high-level musical attributes: key, tempo, meter, and medium of performance.</desc>
     <classes>
       <memberOf key="att.datapointing"/>
@@ -16818,7 +16823,7 @@
     </content>
   </elementSpec>
   <elementSpec ident="zone" module="MEI.facsimile">
-    <desc>– Defines an area of interest within a surface or graphic file.
+    <desc>Defines an area of interest within a surface or graphic file.
       <!-- This element is modelled on an element in the Text Encoding Initiative (TEI).--></desc>
     <classes>
       <memberOf key="att.common"/>
