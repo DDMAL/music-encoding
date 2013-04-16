@@ -10,7 +10,7 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
   xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="http://music-encoding.org/tools/musicxml2mei" xmlns:functx="http://www.functx.com"
-  exclude-result-prefixes="mei xs f" xmlns:saxon="http://saxon.sf.net/"
+  exclude-result-prefixes="mei xs f functx" xmlns:saxon="http://saxon.sf.net/"
   extension-element-prefixes="saxon">
 
   <!-- parameters -->
@@ -36,7 +36,7 @@
   <!-- PARAM:keepAttributes 
       This parameter indicates whether redundant attributes for beams, tuplets and syls should be preserved. BOOLEAN
   -->
-  <xsl:param name="keepAttributes" select="false()"/> 
+  <xsl:param name="keepAttributes" select="true()"/> 
   
   <!-- PARAM:generateMIDI 
       This parameter indicates whether MIDI-relevant data should be generated. BOOLEAN
@@ -9067,10 +9067,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                 </xsl:otherwise>
               </xsl:choose>
             </xsl:when>
-            <xsl:when test="(starts-with(@beam,'m') or @grace)">
+            <xsl:when test="starts-with(@beam,'m')">
               <xsl:variable name="num" select="substring(@beam,2)"/>
               <xsl:choose>
-                <xsl:when test="preceding-sibling::mei:*[@beam = concat('i',$num)] and following-sibling::mei:*[@beam = concat('t',$num)]">
+                <xsl:when test="preceding-sibling::mei:*//@beam[. = concat('i',$num)] and following-sibling::mei:*//@beam[. = concat('t',$num)]">
+                  
                   <xsl:variable name="start" select="preceding-sibling::mei:*[@beam = concat('i',$num)][1]"/>
                   <xsl:variable name="end" select="following-sibling::mei:*[@beam = concat('t',$num)][1]"/>
                   <xsl:variable name="elems" select="f:getElems($start,$end)" as="node()*"/>
@@ -9083,10 +9084,45 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                   </xsl:choose>
                 </xsl:when>
                 <xsl:otherwise>
+                  <xsl:if test="@grace">
+                    <xsl:message select="concat('no begin and end of beam found for: ',@xml:id,' (looking for beam ',$num,')')"/>
+                    <xsl:message select="preceding-sibling::mei:*"></xsl:message>
+                  </xsl:if>
                   <xsl:apply-templates select="." mode="#current"/>
                 </xsl:otherwise>
               </xsl:choose>
             </xsl:when>
+            <xsl:when test="@grace">
+              <xsl:choose>
+                <xsl:when test="preceding-sibling::mei:*//@beam">
+                  
+                  <xsl:variable name="prec" select="preceding-sibling::mei:*//@beam"/>
+                  <xsl:variable name="num" select="substring($prec[1],2)"/>
+                  
+                  <xsl:choose>
+                    <xsl:when test="following-sibling::mei:*//@beam[. = concat('t',$num)]">
+                      <xsl:variable name="start" select="preceding-sibling::mei:*[.//@beam = concat('i',$num)][1]"/>
+                      <xsl:variable name="end" select="following-sibling::mei:*[.//@beam = concat('t',$num)][1]"/>
+                      <xsl:variable name="elems" select="f:getElems($start,$end)" as="node()*"/>
+                      <xsl:variable name="allBeamed" select="every $elem in $elems satisfies ($elem[ends-with(@beam,$num)] or $elem/@grace)" as="xs:boolean"/>
+                      <xsl:choose>
+                        <xsl:when test="$allBeamed"/>
+                        <xsl:otherwise>
+                          <xsl:apply-templates select="." mode="#current"/>
+                        </xsl:otherwise>
+                      </xsl:choose>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:apply-templates select="." mode="#current"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:apply-templates select="." mode="#current"/>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            
             <xsl:when test="starts-with(@beam,'t')">
               <xsl:variable name="num" select="substring(@beam,2)"/>
               <xsl:choose>
