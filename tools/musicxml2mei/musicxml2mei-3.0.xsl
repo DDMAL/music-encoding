@@ -36,7 +36,7 @@
   <!-- PARAM:keepAttributes 
       This parameter indicates whether redundant attributes for beams, tuplets and syls should be preserved. BOOLEAN
   -->
-  <xsl:param name="keepAttributes" select="true()"/> 
+  <xsl:param name="keepAttributes" select="false()"/> 
   
   <!-- PARAM:generateMIDI 
       This parameter indicates whether MIDI-relevant data should be generated. BOOLEAN
@@ -58,6 +58,14 @@
       'both': Accidentals are stored both as element and attribute
   -->
   <xsl:param name="accidStyle" select="'attr'"/>
+  
+  <!-- PARAM:tieStyle
+      This parameter defines how to handle ties. Possible values are:
+      'elem': Ties are stored using <accid>
+      'attr': Ties are stored using @accid
+      'both': Ties are stored both as element and attribute
+  -->
+  <xsl:param name="tieStyle" select="'attr'"/>
 
   <xsl:character-map name="delimiters">
     <xsl:output-character character="&beamstart;" string="&lt;beam&gt;"/>
@@ -9537,6 +9545,19 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
   </xsl:template>
   <xsl:template match="@accid[not(local-name(parent::mei:*) = 'accid')]" mode="cleanUp">
     <xsl:if test="$accidStyle = ('attr','both')">
+      <xsl:copy-of select="."/>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="mei:tie" mode="cleanUp">
+    <xsl:if test="$tieStyle = ('elem','both')">
+      <xsl:copy>
+        <xsl:apply-templates select="@* | node()" mode="#current"/>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
+  <xsl:template match="@tie" mode="cleanUp">
+    <xsl:if test="$tieStyle = ('attr','both')">
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
