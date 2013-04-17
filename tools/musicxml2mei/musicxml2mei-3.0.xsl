@@ -9,13 +9,13 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
   xmlns:mei="http://www.music-encoding.org/ns/mei" xmlns:xlink="http://www.w3.org/1999/xlink"
-  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="http://music-encoding.org/tools/musicxml2mei" xmlns:functx="http://www.functx.com"
-  exclude-result-prefixes="mei xs f functx" xmlns:saxon="http://saxon.sf.net/"
-  extension-element-prefixes="saxon">
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:f="http://music-encoding.org/tools/musicxml2mei"
+  xmlns:functx="http://www.functx.com" exclude-result-prefixes="mei xs f functx"
+  xmlns:saxon="http://saxon.sf.net/" extension-element-prefixes="saxon">
 
   <!-- parameters -->
-  
-  
+
+
   <!-- PARAM:layout
       This parameter defines the degree of layout information transformed into MEI. Possible values are:
       'preserve': All layout information available in the MusicXML file will be converted to MEI
@@ -24,7 +24,7 @@
     
   -->
   <xsl:param name="layout" select="'strip'"/>
-  
+
   <!-- PARAM:formeWork
       This parameter decides if credit-words, page heads etc. will be preserved or not. Values are:
       'preserve': All pageHeads etc. will ge generated
@@ -32,17 +32,17 @@
       
   -->
   <xsl:param name="formeWork" select="'strip'"/>
-  
+
   <!-- PARAM:keepAttributes 
       This parameter indicates whether redundant attributes for beams, tuplets and syls should be preserved. BOOLEAN
   -->
-  <xsl:param name="keepAttributes" select="false()"/> 
-  
+  <xsl:param name="keepAttributes" select="false()"/>
+
   <!-- PARAM:generateMIDI 
       This parameter indicates whether MIDI-relevant data should be generated. BOOLEAN
   -->
   <xsl:param name="generateMIDI" select="false()"/>
-  
+
   <!-- PARAM:articStyle
       This parameter defines how to handle articulation. Possible values are:
       'elem': Articulation is stored using <artic>
@@ -58,7 +58,7 @@
       'both': Accidentals are stored both as element and attribute
   -->
   <xsl:param name="accidStyle" select="'attr'"/>
-  
+
   <!-- PARAM:tieStyle
       This parameter defines how to handle ties. Possible values are:
       'elem': Ties are stored using <accid>
@@ -79,7 +79,7 @@
   <xsl:strip-space elements="*"/>
 
   <!-- global variables -->
-  
+
   <xsl:variable name="nl">
     <xsl:text>&#xa;</xsl:text>
   </xsl:variable>
@@ -323,20 +323,20 @@
 
   <!-- 'Match' templates -->
   <xsl:template match="/">
-    
+
     <xsl:variable name="firstRun">
       <mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="2012">
         <xsl:apply-templates select="score-timewise" mode="header"/>
         <xsl:apply-templates select="score-timewise" mode="music"/>
       </mei>
-    </xsl:variable>  
-    
-    <xsl:variable name="secondRun">
-      <xsl:apply-templates select="$firstRun" mode="postProcess"/>  
     </xsl:variable>
-    
+
+    <xsl:variable name="secondRun">
+      <xsl:apply-templates select="$firstRun" mode="postProcess"/>
+    </xsl:variable>
+
     <xsl:apply-templates select="$secondRun" mode="cleanUp"/>
-    
+
   </xsl:template>
 
   <xsl:template match="*" mode="insertSpace">
@@ -1641,7 +1641,7 @@
               <xsl:value-of select="@number"/>
             </xsl:variable>
             <xsl:variable name="warning">
-              <xsl:text>Non-traditional key signature not transcoded</xsl:text>
+              <xsl:text>Non-traditional key signature not transcoded (score)</xsl:text>
             </xsl:variable>
             <xsl:message>
               <xsl:value-of select="normalize-space(concat($warning, ' (m.', $measureNum, ').'))"/>
@@ -1650,34 +1650,22 @@
           <xsl:if test="part/attributes[not(preceding-sibling::note) and
             not(preceding-sibling::forward) and not(transpose)][key]">
             <xsl:variable name="keySig">
-              <xsl:choose>
-                <xsl:when test="count(distinct-values(part/attributes[not(preceding-sibling::note)
-                  and not(preceding-sibling::forward) and
-                  not(transpose)][key]/key/fifths)) &gt; 1">
-                  <xsl:choose>
-                    <xsl:when test="part/attributes[not(preceding-sibling::note)
-                      and not(preceding-sibling::forward) and
-                      not(transpose)][key[not(@number)]]">
-                      <xsl:value-of select="number((part/attributes[not(preceding-sibling::note)
-                        and not(preceding-sibling::forward) and
-                        not(transpose)][key[not(@number)]]/key[not(@number)][1]/fifths)[1])"/>
-                    </xsl:when>
-                    <xsl:otherwise>
-                      <xsl:text/>
-                    </xsl:otherwise>
-                  </xsl:choose>
-                </xsl:when>
-                <xsl:otherwise>
-                  <xsl:value-of select="part/attributes[not(preceding-sibling::note) and
-                    not(preceding-sibling::forward) and not(transpose)][key]/key[1]/fifths"/>
-                </xsl:otherwise>
-              </xsl:choose>
+              <xsl:value-of select="part[attributes[not(preceding-sibling::note) and
+                    not(preceding-sibling::forward) and not
+                    (transpose)]/key[not(@number)]][1]/attributes[not(preceding-sibling::note) and
+                    not(preceding-sibling::forward) and not (transpose)]/key[not(@number)][1]/fifths"
+                  />          
             </xsl:variable>
             <!-- Key  mode -->
             <xsl:variable name="scoreMode">
               <xsl:value-of select="attributes[not(transpose) and key][1]/key[1]/mode"/>
             </xsl:variable>
             <xsl:choose>
+              <xsl:when test="$keySig=''">
+                <xsl:attribute name="key.sig">
+                  <xsl:text>0</xsl:text>
+                </xsl:attribute>
+              </xsl:when>
               <xsl:when test="number($keySig)=0">
                 <xsl:attribute name="key.sig">
                   <xsl:value-of select="$keySig"/>
@@ -8960,13 +8948,13 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
   </xsl:template>
 
   <!-- PostProcessing templates -->
-    
+
   <xsl:function name="f:getNext">
     <xsl:param name="current" as="node()"/>
     <xsl:param name="endID" as="xs:string"/>
-    
+
     <xsl:copy-of select="$current"/>
-    
+
     <xsl:choose>
       <xsl:when test="$current/following-sibling::mei:*[1]/@xml:id eq $endID">
         <xsl:copy-of select="$current/following-sibling::mei:*[1]"/>
@@ -8975,30 +8963,30 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:copy-of select="f:getNext($current/following-sibling::mei:*[1],$endID)"/>
       </xsl:otherwise>
     </xsl:choose>
-    
-  </xsl:function>  
-    
+
+  </xsl:function>
+
   <xsl:function name="f:getElems">
     <xsl:param name="start" as="node()"/>
     <xsl:param name="end" as="node()"/>
-    
-    <xsl:copy-of select="f:getNext($start,$end/@xml:id)"/>    
-    
+
+    <xsl:copy-of select="f:getNext($start,$end/@xml:id)"/>
+
   </xsl:function>
-  
+
   <xsl:template match="mei:beamSpan" mode="postProcess">
-    
+
     <xsl:variable name="start" select="if(id(@startid)/parent::mei:chord) then(id(@startid)/parent::mei:chord) else(id(@startid))"/>
     <xsl:variable name="end" select="if(id(@endid)/parent::mei:chord) then(id(@endid)/parent::mei:chord) else(id(@endid))"/>
     <xsl:variable name="sameStaff" select="$start/ancestor::mei:measure/@xml:id = $end/ancestor::mei:measure/@xml:id and $start/ancestor::mei:staff/@n = $end/ancestor::mei:staff/@n and $start/ancestor::mei:layer/@n = $end/ancestor::mei:layer/@n" as="xs:boolean"/>
-    
+
     <xsl:choose>
       <xsl:when test="$sameStaff">
         <xsl:variable name="elems" select="f:getElems($start,$end)" as="node()*"/>
-        
+
         <!-- TODO: what about rests, different beams, etc.? -->
         <xsl:variable name="allBeamed" select="every $elem in $elems satisfies ($elem/@beam or @grace)" as="xs:boolean"/>
-        
+
         <xsl:choose>
           <xsl:when test="not($allBeamed)">
             <xsl:copy>
@@ -9010,7 +8998,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             <!-- This <beamSpan> will be expressed as <beam> instead. -->
           </xsl:otherwise>
         </xsl:choose>
-        
+
       </xsl:when>
       <xsl:otherwise>
         <!-- not everything attached to the beam is in|on the same measure / staff / layer -->
@@ -9020,35 +9008,35 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:comment>@plist couldn't be added automatically</xsl:comment>
       </xsl:otherwise>
     </xsl:choose>
-    
+
   </xsl:template>
-  
+
   <xsl:function name="functx:sort-as-numeric" as="item()*">
-    <xsl:param name="seq" as="item()*"/> 
-    
+    <xsl:param name="seq" as="item()*"/>
+
     <xsl:for-each select="$seq">
       <xsl:sort select="number(.)"/>
       <xsl:copy-of select="."/>
     </xsl:for-each>
-    
+
   </xsl:function>
-  
+
   <xsl:function name="functx:value-except" as="xs:anyAtomicType*">
-    <xsl:param name="arg1" as="xs:anyAtomicType*"/> 
-    <xsl:param name="arg2" as="xs:anyAtomicType*"/> 
-    
+    <xsl:param name="arg1" as="xs:anyAtomicType*"/>
+    <xsl:param name="arg2" as="xs:anyAtomicType*"/>
+
     <xsl:sequence select=" 
       distinct-values($arg1[not(.=$arg2)])
       "/>
-    
+
   </xsl:function>
-  
+
   <xsl:template match="mei:layer" mode="postProcess">
     <xsl:variable name="measure" select="ancestor::mei:measure"/>
-    
+
     <xsl:copy>
       <xsl:apply-templates select="@*" mode="#current"/>
-     
+
       <xsl:variable name="beamsResolved">
         <xsl:for-each select="node()">
           <xsl:choose>
@@ -9080,7 +9068,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:variable name="num" select="substring(@beam,2)"/>
               <xsl:choose>
                 <xsl:when test="preceding-sibling::mei:*//@beam[. = concat('i',$num)] and following-sibling::mei:*//@beam[. = concat('t',$num)]">
-                  
+
                   <xsl:variable name="start" select="preceding-sibling::mei:*[@beam = concat('i',$num)][1]"/>
                   <xsl:variable name="end" select="following-sibling::mei:*[@beam = concat('t',$num)][1]"/>
                   <xsl:variable name="elems" select="f:getElems($start,$end)" as="node()*"/>
@@ -9100,10 +9088,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             <xsl:when test="@grace">
               <xsl:choose>
                 <xsl:when test="preceding-sibling::mei:*//@beam">
-                  
+
                   <xsl:variable name="prec" select="preceding-sibling::mei:*//@beam"/>
                   <xsl:variable name="num" select="substring($prec[1],2)"/>
-                  
+
                   <xsl:choose>
                     <xsl:when test="following-sibling::mei:*//@beam[. = concat('t',$num)]">
                       <xsl:variable name="start" select="preceding-sibling::mei:*[.//@beam = concat('i',$num)][1]"/>
@@ -9127,7 +9115,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                 </xsl:otherwise>
               </xsl:choose>
             </xsl:when>
-            
+
             <xsl:when test="starts-with(@beam,'t') and not(@grace)">
               <xsl:variable name="num" select="substring(@beam,2)"/>
               <xsl:choose>
@@ -9153,7 +9141,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:choose>
         </xsl:for-each>
       </xsl:variable>
-      
+
       <xsl:choose>
         <xsl:when test="not($beamsResolved//@tuplet)">
           <xsl:copy-of select="$beamsResolved"/>
@@ -9162,7 +9150,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:for-each select="$beamsResolved/*">
             <xsl:choose>
               <xsl:when test=".//@tuplet[starts-with(.,'i')]">
-                
+
                 <xsl:choose>
                   <xsl:when test="count(.//@tuplet[starts-with(.,'i')]) = 1">
                     <xsl:variable name="num" select="substring(.//@tuplet[starts-with(.,'i')],2)"/>
@@ -9170,16 +9158,16 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                       <xsl:when test=".//mei:*[@tuplet = concat('i',$num)]/preceding-sibling::mei:*[starts-with(@tuplet,'t')]">
                         <!-- If the first @tuplet in a beam is an end (@tuplet="t1"), it should have been handled by the element opening it. -->
                       </xsl:when>
-                      
+
                       <xsl:when test=".//@tuplet[. = concat('t',$num)] and local-name(.) eq 'beam'">
                         <xsl:choose>
                           <xsl:when test="./child::mei:*[1][@tuplet = concat('i',$num)] and ./child::mei:*[last()][@tuplet = concat('t',$num)]">
-                            
+
                             <xsl:variable name="startChild" select="./child::mei:*[@tuplet = concat('i',$num)]"/>
                             <xsl:variable name="endChild" select="./child::mei:*[@tuplet = concat('t',$num) and preceding-sibling::mei:*[@tuplet = concat('i',$num)]][1]"/>
                             <xsl:variable name="tupChilds" select="f:getElems($startChild,$endChild)"/>
                             <xsl:variable name="tuppable" select="every $elem in $tupChilds satisfies(@tuplet[ends-with(.,$num)] or @grace)"/>
-                            
+
                             <xsl:choose>
                               <xsl:when test="$tuppable">
                                 <tuplet xmlns="http://www.music-encoding.org/ns/mei">
@@ -9194,15 +9182,15 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                                 <xsl:copy-of select="."/>
                               </xsl:otherwise>
                             </xsl:choose>
-                            
+
                           </xsl:when>
                           <xsl:otherwise><!-- A tuplet sits inside a beam, but does not fill it completely -->
-                            
+
                             <xsl:variable name="startChild" select="./child::mei:*[@tuplet = concat('i',$num)]"/>
                             <xsl:variable name="endChild" select="./child::mei:*[@tuplet = concat('t',$num) and preceding-sibling::mei:*[@tuplet = concat('i',$num)]][1]"/>
                             <xsl:variable name="tupChilds" select="f:getElems($startChild,$endChild)"/>
                             <xsl:variable name="tuppable" select="every $elem in $tupChilds satisfies(@tuplet[ends-with(.,$num)] or @grace)"/>
-                            
+
                             <xsl:choose>
                               <xsl:when test="$tuppable">
                                 <beam xmlns="http://www.music-encoding.org/ns/mei">
@@ -9221,30 +9209,30 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                                 <xsl:copy-of select="."/>
                               </xsl:otherwise>
                             </xsl:choose>
-                            
-                            
+
+
                           </xsl:otherwise>
-                          
+
                         </xsl:choose>
                       </xsl:when>
-                      
+
                       <xsl:when test="./following-sibling::mei:*//@tuplet[. = concat('t',$num)]">
-                        
+
                         <xsl:variable name="end" select="./following-sibling::mei:*[.//@tuplet[. = concat('t',$num)]][1]"/>
                         <xsl:variable name="elems" select="f:getElems(.,$end)" as="node()*"/>
-                        <xsl:variable name="tuppable" select="every $elem in $elems satisfies 
-                                                                (@tuplet[ends-with(.,$num)] or 
-                                                                (local-name($elem) = 'beam' and 
-                                                                    (every $child in ($elem/child::mei:* except $elem/child::mei:*[last()])
-                                                                    satisfies @grace or (@tuplet = concat('m',$num))) and 
-                                                                    ($elem/child::mei:*[last()]/@tuplet = concat('t',$num) or
-                                                                    $elem/child::mei:*[last()]/@tuplet = concat('m',$num))))"/>
+                        <xsl:variable name="tuppable" select="every $elem in $elems satisfies
+                          (@tuplet[ends-with(.,$num)] or
+                          (local-name($elem) = 'beam' and
+                          (every $child in ($elem/child::mei:* except $elem/child::mei:*[last()])
+                          satisfies @grace or (@tuplet = concat('m',$num))) and
+                          ($elem/child::mei:*[last()]/@tuplet = concat('t',$num) or
+                          $elem/child::mei:*[last()]/@tuplet = concat('m',$num))))"/>
                         <xsl:choose>
                           <xsl:when test="$tuppable">
                             <tuplet xmlns="http://www.music-encoding.org/ns/mei">
                               <xsl:variable name="id" select="@xml:id"/>
                               <xsl:variable name="tupletSpan" select="$measure//mei:tupletSpan[@startid = $id]"/>
-                              
+
                               <xsl:copy-of select="$tupletSpan/@num | $tupletSpan/@numbase | $tupletSpan/@num.visible | $tupletSpan/@bracket.visible"/>
                               <xsl:attribute name="tupletRef" select="$tupletSpan/@xml:id"/>
                               <xsl:copy-of select="$elems"/>
@@ -9255,21 +9243,21 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                             <xsl:message>The tuplet starting with <xsl:value-of select=".//@xml:id[1]"/> coulnd't be resolved.</xsl:message>
                           </xsl:otherwise>
                         </xsl:choose>
-                        
+
                       </xsl:when>
-                      
+
                       <xsl:otherwise>
                         <xsl:copy-of select="."/>
                       </xsl:otherwise>
                     </xsl:choose>
-                    
+
                   </xsl:when>
                   <xsl:otherwise>
                     <!-- more than one tuplet start contained -->
-                    
+
                     <xsl:variable name="starts" select=".//mei:*[starts-with(@tuplet,'i')]"/>
                     <xsl:variable name="stops" select=".//mei:*[starts-with(@tuplet,'t')]"/>
-                    
+
                     <xsl:choose>
                       <xsl:when test="count($starts) = count($stops) and .//@tuplet[1][starts-with(.,'i')]">
                         <beam xmlns="http://www.music-encoding.org/ns/mei">
@@ -9279,13 +9267,13 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                             <xsl:variable name="elems" select="f:getElems(.,$end)"/>
                             <xsl:variable name="num" select="substring(@tuplet,2)"/>
                             <xsl:variable name="tuppable" select="every $elem in $elems satisfies ends-with(@tuplet,$num)"/>
-                            
+
                             <xsl:choose>
                               <xsl:when test="$tuppable">
                                 <tuplet xmlns="http://www.music-encoding.org/ns/mei">
                                   <xsl:variable name="id" select="@xml:id"/>
                                   <xsl:variable name="tupletSpan" select="$measure//mei:tupletSpan[@startid = $id]"/>
-                                  
+
                                   <xsl:copy-of select="$tupletSpan/@num | $tupletSpan/@numbase | $tupletSpan/@num.visible | $tupletSpan/@bracket.visible"/>
                                   <xsl:attribute name="tupletRef" select="$tupletSpan/@xml:id"/>
                                   <xsl:copy-of select="$elems"/>
@@ -9295,7 +9283,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                                 <xsl:copy-of select="$elems"/>
                               </xsl:otherwise>
                             </xsl:choose>
-                            
+
                             <xsl:if test="$end/following-sibling::mei:*[1][not(@tuplet)]">
                               <xsl:variable name="nextStart" select="$end/following-sibling::mei:*[starts-with(@tuplet,'i')]"/>
                               <xsl:choose>
@@ -9307,25 +9295,25 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                                 </xsl:otherwise>
                               </xsl:choose>
                             </xsl:if>
-                            
+
                           </xsl:for-each>
                         </beam>
                       </xsl:when>
-                      
+
                     </xsl:choose>
-                    
-                    
+
+
                     <!--<xsl:copy-of select="."/>
                     <xsl:message select="' more than one tuplet start contained '"></xsl:message>-->
                   </xsl:otherwise>
-                  
+
                 </xsl:choose>
               </xsl:when>
-              
+
               <xsl:when test="starts-with(@tuplet,'m') or (local-name(.) = 'beam' and (every $child in . satisfies(starts-with(@beam,'m'))))">
                 <!-- This situation must be dealt by the tuplet-start case. Also, there must be no situation with @tuplet="mX", but not "iX" or "tX". -->
               </xsl:when>
-              
+
               <xsl:when test=".//@tuplet[starts-with(.,'t')]">
                 <!--<xsl:message>deal with end of tuplet (<xsl:value-of select="concat(string(@xml:id),' ',string(local-name(.)))"/>)</xsl:message>-->
                 <!-- This sitation should be handled by the tuplet opening scenario. -->
@@ -9333,18 +9321,18 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               <xsl:otherwise>
                 <xsl:copy-of select="."/>
               </xsl:otherwise>
-              
+
             </xsl:choose>
-            
-            
+
+
           </xsl:for-each>
         </xsl:otherwise>
       </xsl:choose>
-      
-      
+
+
     </xsl:copy>
   </xsl:template>
-  
+
   <xsl:template match="@startid" mode="postProcess">
     <xsl:variable name="target" select="id(.)"/>
     <xsl:choose>
@@ -9356,7 +9344,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="@endid" mode="postProcess">
     <xsl:variable name="target" select="id(.)"/>
     <xsl:choose>
@@ -9368,14 +9356,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="@plist" mode="postProcess">
     <xsl:attribute name="plist" select="concat('#',string-join(tokenize(.,' '),' #'))"/>
   </xsl:template>
-  
-  
+
+
   <!-- First cleanup step (in postProcess phase), according to selected parameters -->
-  
+
   <xsl:template match="@ppq" mode="postProcess">
     <xsl:if test="$generateMIDI">
       <xsl:copy-of select="."/>
@@ -9391,7 +9379,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="@*[starts-with(local-name(),'page')]" mode="postProcess">
     <xsl:if test="$layout = ('preserve', 'pageLayout')">
       <xsl:copy-of select="."/>
@@ -9422,7 +9410,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="@ho" mode="postProcess">
     <xsl:if test="$layout eq 'preserve'">
       <xsl:copy-of select="."/>
@@ -9433,7 +9421,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="@val" mode="postProcess">
     <xsl:if test="$layout eq 'preserve'">
       <xsl:copy-of select="."/>
@@ -9449,7 +9437,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="@tstamp.ges" mode="postProcess">
     <xsl:if test="$generateMIDI">
       <xsl:copy-of select="."/>
@@ -9507,7 +9495,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="mei:pgHead" mode="postProcess">
     <xsl:if test="$formeWork = 'preserve'">
       <xsl:copy>
@@ -9522,7 +9510,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:copy>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="mei:artic" mode="cleanUp">
     <xsl:if test="$articStyle = ('elem','both')">
       <xsl:copy>
@@ -9535,7 +9523,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="mei:accid" mode="cleanUp">
     <xsl:if test="$accidStyle = ('elem','both')">
       <xsl:copy>
@@ -9548,7 +9536,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="mei:tie" mode="cleanUp">
     <xsl:if test="$tieStyle = ('elem','both')">
       <xsl:copy>
@@ -9561,7 +9549,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="@beam" mode="cleanUp">
     <xsl:if test="$keepAttributes">
       <xsl:copy-of select="."/>
@@ -9577,16 +9565,16 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="node() | @*" mode="postProcess">
     <xsl:copy>
       <xsl:apply-templates select="node() | @*" mode="#current"/>
     </xsl:copy>
   </xsl:template>
-  
-  
+
+
   <!-- Final cleanup step, removing all remaining conversion artifacts and resolving nested beamed grace notes -->
-  
+
   <xsl:template match="mei:beam/mei:note[@grace and starts-with(@beam,'i')]" mode="cleanUp">
     <xsl:variable name="end" select="following-sibling::mei:note[@grace and starts-with(@beam,'t')]"/>
     <xsl:variable name="elems" select="f:getElems(.,$end)"/>
@@ -9604,7 +9592,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="mei:beam/mei:note[@grace and starts-with(@beam,'m')]" mode="cleanUp">
     <xsl:variable name="start" select="preceding-sibling::mei:note[@grace and starts-with(@beam,'i')]"/>
     <xsl:variable name="end" select="following-sibling::mei:note[@grace and starts-with(@beam,'t')]"/>
@@ -9619,7 +9607,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="mei:beam/mei:note[@grace and starts-with(@beam,'t')]" mode="cleanUp">
     <xsl:variable name="start" select="preceding-sibling::mei:note[@grace and starts-with(@beam,'i')]"/>
     <xsl:variable name="elems" select="f:getElems($start,.)"/>
@@ -9633,14 +9621,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-  
+
   <xsl:template match="mei:beamSpan" mode="cleanUp">
     <xsl:variable name="startID" select="substring(@startid,2)"/>
     <xsl:variable name="start" select="parent::mei:measure//mei:note[@grace and parent::mei:beam and @xml:id = $startID]"/>
-    
+
     <xsl:variable name="endID" select="substring(@endid,2)"/>
     <xsl:variable name="end" select="parent::mei:measure//mei:note[@grace and parent::mei:beam and @xml:id = $endID]"/>
-    
+
     <xsl:variable name="sameBeam" select="$start/following-sibling::mei:note[@xml:id = $endID]"/>
     <xsl:choose>
       <xsl:when test="$start and $end and $sameBeam and (every $note in f:getElems($start,$end) satisfies $note/@beam)"/>
@@ -9648,25 +9636,25 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:copy>
           <xsl:apply-templates select="node() | @*" mode="#current"/>
         </xsl:copy>
-      </xsl:otherwise>  
-      
-    </xsl:choose>    
-    
+      </xsl:otherwise>
+
+    </xsl:choose>
+
   </xsl:template>
-  
+
   <xsl:template match="mei:beam/@xml:id" mode="cleanUp"/>
   <xsl:template match="mei:tuplet/@tupletRef" mode="cleanUp"/>
-  
+
   <xsl:template match="mei:tupletSpan[@xml:id = //mei:tuplet/@tupletRef]" mode="cleanUp"/>
   <xsl:template match="mei:tupletSpan/@xml:id" mode="cleanUp"/>
   <xsl:template match="mei:beamSpan/@xml:id" mode="cleanUp"/>
-  
+
   <xsl:template match="mei:scoreDef[count(@*) = 0 and count(child::mei:*) = 0]" mode="cleanUp"/>
-  
+
   <xsl:template match="@role[. = 'poet']" mode="cleanUp">
     <xsl:attribute name="role" select="'lyricist'"/>
   </xsl:template>
-  
+
   <xsl:template match="node() | @*" mode="cleanUp">
     <xsl:copy>
       <xsl:apply-templates select="node() | @*" mode="#current"/>
