@@ -1658,9 +1658,9 @@
                     <xsl:when test="part/attributes[not(preceding-sibling::note)
                       and not(preceding-sibling::forward) and
                       not(transpose)][key[not(@number)]]">
-                      <xsl:value-of select="number(part/attributes[not(preceding-sibling::note)
+                      <xsl:value-of select="number((part/attributes[not(preceding-sibling::note)
                         and not(preceding-sibling::forward) and
-                        not(transpose)][key[not(@number)]]/key[not(@number)][1]/fifths)"/>
+                        not(transpose)][key[not(@number)]]/key[not(@number)][1]/fifths)[1])"/>
                     </xsl:when>
                     <xsl:otherwise>
                       <xsl:text/>
