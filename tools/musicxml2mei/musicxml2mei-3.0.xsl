@@ -61,8 +61,8 @@
 
   <!-- PARAM:tieStyle
       This parameter defines how to handle ties. Possible values are:
-      'elem': Ties are stored using <accid>
-      'attr': Ties are stored using @accid
+      'elem': Ties are stored using <tie>
+      'attr': Ties are stored using @tie
       'both': Ties are stored both as element and attribute
   -->
   <xsl:param name="tieStyle" select="'attr'"/>
@@ -929,7 +929,7 @@
             </xsl:if>
           </xsl:for-each>
         </xsl:variable>
-        <xsl:variable name="partID">
+-        <xsl:variable name="partID">
           <xsl:value-of select="ancestor::part/@id"/>
         </xsl:variable>
         <xsl:choose>
@@ -997,7 +997,7 @@
             <xsl:choose>
               <xsl:when test="direction-type/wedge/@number">
                 <xsl:variable name="hairpinNum">
-                  <xsl:value-of select="@number"/>
+                  <xsl:value-of select="direction-type/wedge/@number"/>
                 </xsl:variable>
                 <xsl:for-each select="following::direction[direction-type/wedge[@number=$hairpinNum
                   and @type='stop'] and ancestor::part/@id=$partID][1]">
