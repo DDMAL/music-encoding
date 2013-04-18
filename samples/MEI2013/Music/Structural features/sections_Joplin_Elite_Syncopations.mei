@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../../../schemata/mei2013.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../schemata/mei2013.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
    <meiHead>
@@ -62,7 +63,7 @@
                </titleStmt>
                <pubStmt>
                   <identifier type="URI">http://www.recordare.com/sites/default/files/elite.xml</identifier>
-                  <date reg="2011-01-03"/>
+                  <date isodate="2011-01-03"/>
                   <respStmt>
                      <corpName>Recordare LLC</corpName>
                   </respStmt>
@@ -82,16 +83,9 @@
          </sourceDesc>
       </fileDesc>
       <encodingDesc>
-         <appInfo>
-            <application xml:id="xsl_mxl2mei_2.2.3" version="2.2.3">
-               <name>MusicXML2MEI</name>
-               <ptr target="http://music-encoding.org/stylesheets/blubb"/>
-            </application>
-            <application xml:id="xsl_ppq" version="1.0">
-               <name>PPQ</name>
-               <ptr target="http://music-encoding.org/stylesheets/blubb"/>
-            </application>
-         </appInfo>
+         <samplingDecl>
+            <p>This encoding shoul demonstrate the encoding of layout information with MEI.</p>
+         </samplingDecl>
       </encodingDesc>
       <workDesc>
          <work>
@@ -101,10 +95,20 @@
                   <persName role="composer" dbkey="119174030" authURI="http://d-nb.info/gnd" authority="GND">Scott Joplin</persName>
                </respStmt>
             </titleStmt>
-            <history><creation><date notafter="1902"></date></creation></history>
             <key pname="f" mode="major"/>
             <tempo>Not fast</tempo>
             <meter count="2" unit="4"/>
+            <key pname="f" mode="major"/>
+            <tempo>Not fast</tempo>
+            <meter count="2" unit="4"/>
+            <incip>
+               <incipCode form="parsons">*dddruddudddrduududduu</incipCode>
+            </incip>
+            <history>
+               <creation>
+                  <date notafter="1902">
+                  </date></creation>
+            </history>
             <perfMedium>
                <instrumentation>
                   <instrVoice code="ka">Piano</instrVoice>
@@ -132,50 +136,6 @@
          		<classCode xml:id="OCLC_DDC" authority="OCLC" authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
          	   <classCode xml:id="OSWD" authURI="BSZ" authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
          	</classification>
-            <incip>
-               <incipCode>*dddsuddudddsduududduu</incipCode>
-               <score>
-                  <section>
-                     <measure n="1">
-                        <staff n="1">
-                           <layer n="1">
-                              <beam>
-                                 <note pname="c" oct="6" dur="16" stem.dir="up"/>
-                                 <note pname="a" oct="5" dur="16" stem.dir="up"/>
-                                 <note pname="g" oct="5" dur="16" stem.dir="up"/>
-                                 <note pname="f" oct="5" dur="16" tie="i" stem.dir="up"/>
-                              </beam>
-                              <beam>
-                                 <note pname="f" oct="5" dur="16" tie="t" stem.dir="up"/>
-                                 <note pname="a" oct="5" dur="16" stem.dir="up"/>
-                                 <note pname="g" oct="5" dur="16" stem.dir="up"/>
-                                 <note pname="f" oct="5" dur="16" stem.dir="up"/>
-                              </beam>
-                           </layer>
-                           <layer n="2">
-                              <beam>
-                                 <note pname="c" oct="5" dur="16" stem.dir="down"/>
-                                 <note pname="a" oct="4" dur="16" stem.dir="down"/>
-                                 <note pname="g" oct="4" dur="16" stem.dir="down"/>
-                                 <note pname="f" oct="4" dur="16" tie="i" stem.dir="down"/>
-                              </beam>
-                              <beam>
-                                 <note pname="f" oct="4" dur="16" tie="t" stem.dir="down"/>
-                                 <note pname="a" oct="4" dur="16" stem.dir="down"/>
-                                 <note pname="g" oct="4" dur="16" stem.dir="down"/>
-                                 <note pname="f" oct="4" dur="16" stem.dir="down"/>
-                              </beam>
-                           </layer>
-                        </staff>
-                        <staff n="2">
-                           <layer>
-                              <space dur="2"/>
-                           </layer>
-                        </staff>
-                     </measure>
-                  </section>
-               </score>
-            </incip>
          </work>
       </workDesc>
       <revisionDesc>
@@ -185,7 +145,7 @@
                <p>The original MusicXML file was generated using Finale 2005 for Windows and Dolet 4
                   for Finale .</p>
             </changeDesc>
-            <date reg="2008-04-11"/>
+            <date isodate="2008-04-11"/>
          </change>
          <change n="2">
             <respStmt>
@@ -195,7 +155,7 @@
                <p>Transcoded from a MusicXML version 2.0 file on 2011-01-03 using the <ref
                      target="#xsl_mxl2mei_2.2.3">musicxml2mei</ref> stylesheet. </p>
             </changeDesc>
-            <date reg="2011-01-03"/>
+            <date isodate="2011-01-03"/>
          </change>
          <change n="3">
             <respStmt>
@@ -205,7 +165,7 @@
                <p> Cleaned up MEI file automatically using <ref target="#xsl_ppq">ppq.xsl</ref>.
                </p>
             </changeDesc>
-            <date reg="2011-10-21"/>
+            <date isodate="2011-10-21"/>
          </change>
          <change n="4">
             <respStmt>
@@ -215,7 +175,7 @@
                <p> Cleaned up MEI file automatically using <ref target="#xsl_header"
                      >Header.xsl</ref>. </p>
             </changeDesc>
-            <date reg="2011-12-01"/>
+            <date isodate="2011-12-01"/>
          </change>
       	<change n="5">
       		<respStmt>
@@ -249,7 +209,7 @@
                         key.mode="major"/>
                   </staffGrp>
                </scoreDef>
-               <section>
+               <section n="1">
                   <measure n="1" xml:id="d1e104">
                      <staff n="1">
                         <layer n="1">
@@ -405,7 +365,7 @@
                      </staff>
                   </measure>
                </section>
-               <section>
+               <section n="2">
                   <sb/>
                   <measure n="5" xml:id="d1e1308" left="rptstart">
                      <staff n="1">
@@ -1274,10 +1234,9 @@
                      </staff>
                   </measure>
                </ending>
-               <section>
+               <section n="3">
                   <pb n="2"/>
                   <scoreDef system.topmar="80"/>
-
                   <measure n="22" xml:id="d1e6925" left="rptstart">
                      <staff n="1">
                         <layer n="1">
@@ -1927,7 +1886,7 @@
                         </layer>
                      </staff>
                      <dir tstamp="1.5" place="below" staff="1">
-                        <rend fontstyle="ital">repeat 8va</rend>
+                        <rend fontstyle="italic">repeat 8va</rend>
                      </dir>
                   </measure>
                </ending>
@@ -1971,7 +1930,7 @@
                      </staff>
                   </measure>
                </ending>
-               <section>
+               <section n="4">
                   <measure n="39" xml:id="d1e11585">
                      <staff n="1">
                         <layer n="1">
@@ -2809,7 +2768,7 @@
                      </staff>
                   </measure>
                </section>
-               <section>
+               <section n="5">
                   <sb/>
                   <scoreDef key.sig="2f" key.mode="major"/>
 
@@ -3541,7 +3500,7 @@
                      />
                   </measure>
                </ending>
-               <section>
+               <section n="6">
                   <sb/>
 
 
