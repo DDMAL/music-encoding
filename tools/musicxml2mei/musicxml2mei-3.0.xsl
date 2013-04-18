@@ -3758,7 +3758,7 @@
           <!-- Bowed tremolo -->
           <xsl:if test="notations/ornaments/tremolo">
             <xsl:attribute name="stem.mod">
-              <xsl:value-of select="notations/ornaments/tremolo"/>
+              <xsl:value-of select="notations/ornaments/tremolo[1]"/>
               <xsl:text>slash</xsl:text>
             </xsl:attribute>
           </xsl:if>
