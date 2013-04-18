@@ -330,7 +330,7 @@
         <xsl:apply-templates select="score-timewise" mode="music"/>
       </mei>
     </xsl:variable>
-
+    
     <xsl:variable name="secondRun">
       <xsl:apply-templates select="$firstRun" mode="postProcess"/>
     </xsl:variable>
@@ -4035,7 +4035,7 @@
           <!-- Create note sub-elements -->
           <xsl:call-template name="accidentals"/>
           <xsl:call-template name="articulations"/>
-          <xsl:apply-templates select="lyric" mode="stage1"/>
+          <xsl:apply-templates select="lyric[text]" mode="stage1"/>
 
         </note>
         <!-- Test to see if following note is also part of the chord. -->
