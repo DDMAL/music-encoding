@@ -330,7 +330,12 @@
         <xsl:apply-templates select="score-timewise" mode="music"/>
       </mei>
     </xsl:variable>
-    
+
+    <!-- DEBUG: Uncommenting the following lines will force the output to
+      contain only the results of "firstRun" processing -->
+    <!--<xsl:copy-of select="$firstRun"/>
+    <xsl:message terminate="yes">Stopped after firstRun results</xsl:message>-->
+
     <xsl:variable name="secondRun">
       <xsl:apply-templates select="$firstRun" mode="postProcess"/>
     </xsl:variable>
@@ -1000,7 +1005,7 @@
                   <xsl:value-of select="direction-type/wedge/@number"/>
                 </xsl:variable>
                 <xsl:for-each select="following::direction[direction-type/wedge[@number=$hairpinNum
-                  and @type='stop'] and ancestor::part/@id=$partID][1]">                  
+                  and @type='stop'] and ancestor::part/@id=$partID][1]">
                   <xsl:variable name="endMeasureID">
                     <xsl:value-of select="generate-id(ancestor::measure[1])"/>
                   </xsl:variable>
@@ -5215,74 +5220,150 @@
       <!--<xsl:for-each select="following::note[ancestor::part[1]/@id=$partID and pitch/step=$pitch and
         pitch/octave=$octave and voice=$voice][1]">-->
       <xsl:for-each select="following::note[ancestor::part[1]/@id=$partID][(pitch/step=$pitch and
-        pitch/octave=$octave and voice=$voice) or (unpitched/display-step=$pitch and
+          pitch/octave=$octave and voice=$voice) or (unpitched/display-step=$pitch and
         unpitched/display-octave=$octave and voice=$voice)][1]">
-        <xsl:variable name="endMeasureID">
-          <xsl:value-of select="generate-id(ancestor::measure[1])"/>
-        </xsl:variable>
-        <xsl:variable name="endMeasurePos">
-          <xsl:for-each select="//measure">
-            <xsl:if test="generate-id()=$endMeasureID">
-              <xsl:value-of select="position()"/>
+            <xsl:variable name="endMeasureID">
+              <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+            </xsl:variable>
+            <xsl:variable name="endMeasurePos">
+              <xsl:for-each select="//measure">
+                <xsl:if test="generate-id()=$endMeasureID">
+                  <xsl:value-of select="position()"/>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:variable>
+            <xsl:attribute name="tstamp2">
+              <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
+              <xsl:text>m+</xsl:text>
+              <xsl:call-template name="tstamp.ges2beat">
+                <xsl:with-param name="tstamp.ges">
+                  <xsl:call-template name="getTimestamp.ges"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="endid">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:attribute>
+            <xsl:if test="notations/tied[@type='stop']/@default-y">
+              <xsl:attribute name="endvo">
+                <xsl:value-of select="format-number(notations/tied[@type='stop']/@default-y div 5,
+                  '###0.####')"/>
+              </xsl:attribute>
             </xsl:if>
+            <xsl:variable name="bezierEnd">
+              <xsl:value-of select="notations/tied[@type='stop']/@bezier-x"/>
+              <xsl:text>&#32;</xsl:text>
+              <xsl:value-of select="notations/tied[@type='stop']/@bezier-y"/>
+            </xsl:variable>
+            <xsl:if test="concat($bezierStart,$bezierEnd) != '&#32;&#32;'">
+              <xsl:attribute name="bezier">
+                <xsl:value-of select="$bezierStart"/>
+                <xsl:text>&#32;</xsl:text>
+                <xsl:value-of select="$bezierEnd"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:variable name="partStaff2">
+              <xsl:choose>
+                <xsl:when test="staff">
+                  <xsl:value-of select="staff"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="staff2">
+              <xsl:call-template name="getStaffNum">
+                <xsl:with-param name="partID">
+                  <xsl:value-of select="$partID"/>
+                </xsl:with-param>
+                <xsl:with-param name="partStaff">
+                  <xsl:value-of select="$partStaff2"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:attribute name="staff">
+              <xsl:value-of select="$staff1"/>
+              <xsl:if test="$staff2 != $staff1">
+                <xsl:text>&#32;</xsl:text>
+                <xsl:value-of select="$staff2"/>
+              </xsl:if>
+            </xsl:attribute>
           </xsl:for-each>
-        </xsl:variable>
-        <xsl:attribute name="tstamp2">
-          <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
-          <xsl:text>m+</xsl:text>
-          <xsl:call-template name="tstamp.ges2beat">
-            <xsl:with-param name="tstamp.ges">
-              <xsl:call-template name="getTimestamp.ges"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </xsl:attribute>
-        <xsl:attribute name="endid">
-          <xsl:value-of select="generate-id()"/>
-        </xsl:attribute>
-        <xsl:if test="notations/tied[@type='stop']/@default-y">
-          <xsl:attribute name="endvo">
-            <xsl:value-of select="format-number(notations/tied[@type='stop']/@default-y div 5,
-              '###0.####')"/>
-          </xsl:attribute>
-        </xsl:if>
-        <xsl:variable name="bezierEnd">
-          <xsl:value-of select="notations/tied[@type='stop']/@bezier-x"/>
-          <xsl:text>&#32;</xsl:text>
-          <xsl:value-of select="notations/tied[@type='stop']/@bezier-y"/>
-        </xsl:variable>
-        <xsl:if test="concat($bezierStart,$bezierEnd) != '&#32;&#32;'">
-          <xsl:attribute name="bezier">
-            <xsl:value-of select="$bezierStart"/>
-            <xsl:text>&#32;</xsl:text>
-            <xsl:value-of select="$bezierEnd"/>
-          </xsl:attribute>
-        </xsl:if>
-        <xsl:variable name="partStaff2">
-          <xsl:choose>
-            <xsl:when test="staff">
-              <xsl:value-of select="staff"/>
-            </xsl:when>
-            <xsl:otherwise>1</xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-        <xsl:variable name="staff2">
-          <xsl:call-template name="getStaffNum">
-            <xsl:with-param name="partID">
-              <xsl:value-of select="$partID"/>
-            </xsl:with-param>
-            <xsl:with-param name="partStaff">
-              <xsl:value-of select="$partStaff2"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </xsl:variable>
-        <xsl:attribute name="staff">
-          <xsl:value-of select="$staff1"/>
-          <xsl:if test="$staff2 != $staff1">
-            <xsl:text>&#32;</xsl:text>
-            <xsl:value-of select="$staff2"/>
-          </xsl:if>
-        </xsl:attribute>
-      </xsl:for-each>
+        </xsl:when>
+        <!-- Look for same note in any voice -->
+        <xsl:when test="following::note[ancestor::part[1]/@id=$partID][(pitch/step=$pitch and
+          pitch/octave=$octave) or (unpitched/display-step=$pitch and
+          unpitched/display-octave=$octave)]">
+          <xsl:for-each select="following::note[ancestor::part[1]/@id=$partID][(pitch/step=$pitch
+            and pitch/octave=$octave) or (unpitched/display-step=$pitch and
+            unpitched/display-octave=$octave)][1]">
+            <xsl:variable name="endMeasureID">
+              <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+            </xsl:variable>
+            <xsl:variable name="endMeasurePos">
+              <xsl:for-each select="//measure">
+                <xsl:if test="generate-id()=$endMeasureID">
+                  <xsl:value-of select="position()"/>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:variable>
+            <xsl:attribute name="tstamp2">
+              <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
+              <xsl:text>m+</xsl:text>
+              <xsl:call-template name="tstamp.ges2beat">
+                <xsl:with-param name="tstamp.ges">
+                  <xsl:call-template name="getTimestamp.ges"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="endid">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:attribute>
+            <xsl:if test="notations/tied[@type='stop']/@default-y">
+              <xsl:attribute name="endvo">
+                <xsl:value-of select="format-number(notations/tied[@type='stop']/@default-y div 5,
+                  '###0.####')"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:variable name="bezierEnd">
+              <xsl:value-of select="notations/tied[@type='stop']/@bezier-x"/>
+              <xsl:text>&#32;</xsl:text>
+              <xsl:value-of select="notations/tied[@type='stop']/@bezier-y"/>
+            </xsl:variable>
+            <xsl:if test="concat($bezierStart,$bezierEnd) != '&#32;&#32;'">
+              <xsl:attribute name="bezier">
+                <xsl:value-of select="$bezierStart"/>
+                <xsl:text>&#32;</xsl:text>
+                <xsl:value-of select="$bezierEnd"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:variable name="partStaff2">
+              <xsl:choose>
+                <xsl:when test="staff">
+                  <xsl:value-of select="staff"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="staff2">
+              <xsl:call-template name="getStaffNum">
+                <xsl:with-param name="partID">
+                  <xsl:value-of select="$partID"/>
+                </xsl:with-param>
+                <xsl:with-param name="partStaff">
+                  <xsl:value-of select="$partStaff2"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:attribute name="staff">
+              <xsl:value-of select="$staff1"/>
+              <xsl:if test="$staff2 != $staff1">
+                <xsl:text>&#32;</xsl:text>
+                <xsl:value-of select="$staff2"/>
+              </xsl:if>
+            </xsl:attribute>
+          </xsl:for-each>
+        </xsl:when>
+      </xsl:choose>
     </tie>
   </xsl:template>
 
