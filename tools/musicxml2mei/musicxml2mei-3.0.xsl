@@ -1585,13 +1585,15 @@
         <!-- Time signature -->
         <xsl:if test="part/attributes[1]/time">
           <xsl:choose>
-            <xsl:when test="count(part/attributes[time/beats]/time/beats) = 1">
+            <xsl:when test="count(part/attributes[time/beats][1]/time/beats) = 1">
               <xsl:attribute name="meter.count">
-                <xsl:value-of select="part[attributes[1]/time/beats][1]/attributes/time/beats"/>
+                <!--<xsl:value-of select="part[attributes[1]/time/beats][1]/attributes/time/beats"/>-->
+                <xsl:value-of select="part/attributes[time/beats][1]/time/beats"/>
               </xsl:attribute>
               <xsl:attribute name="meter.unit">
-                <xsl:value-of
-                  select="part[attributes[1]/time/beat-type][1]/attributes/time/beat-type"/>
+                <!--<xsl:value-of
+                  select="part[attributes[1]/time/beat-type][1]/attributes/time/beat-type"/>-->
+                <xsl:value-of select="part/attributes[time/beat-type][1]/time/beat-type"/>
               </xsl:attribute>
               <xsl:choose>
                 <xsl:when test="part/attributes[1]/time/@symbol='common'">
@@ -5217,11 +5219,14 @@
         <xsl:value-of select="ancestor::note/voice"/>
       </xsl:variable>
       <!-- Ignore <tied type="stop">, just look for next pitch -->
-      <!--<xsl:for-each select="following::note[ancestor::part[1]/@id=$partID and pitch/step=$pitch and
-        pitch/octave=$octave and voice=$voice][1]">-->
-      <xsl:for-each select="following::note[ancestor::part[1]/@id=$partID][(pitch/step=$pitch and
+      <xsl:choose>
+        <!-- Look for same note in same voice -->
+        <xsl:when test="following::note[ancestor::part[1]/@id=$partID][(pitch/step=$pitch and
           pitch/octave=$octave and voice=$voice) or (unpitched/display-step=$pitch and
-        unpitched/display-octave=$octave and voice=$voice)][1]">
+          unpitched/display-octave=$octave and voice=$voice)]">
+          <xsl:for-each select="following::note[ancestor::part[1]/@id=$partID][(pitch/step=$pitch
+            and pitch/octave=$octave and voice=$voice) or (unpitched/display-step=$pitch
+            and unpitched/display-octave=$octave and voice=$voice)][1]">
             <xsl:variable name="endMeasureID">
               <xsl:value-of select="generate-id(ancestor::measure[1])"/>
             </xsl:variable>
@@ -5294,7 +5299,7 @@
           pitch/octave=$octave) or (unpitched/display-step=$pitch and
           unpitched/display-octave=$octave)]">
           <xsl:for-each select="following::note[ancestor::part[1]/@id=$partID][(pitch/step=$pitch
-            and pitch/octave=$octave) or (unpitched/display-step=$pitch and
+            and             pitch/octave=$octave) or (unpitched/display-step=$pitch and
             unpitched/display-octave=$octave)][1]">
             <xsl:variable name="endMeasureID">
               <xsl:value-of select="generate-id(ancestor::measure[1])"/>
