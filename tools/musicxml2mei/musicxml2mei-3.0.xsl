@@ -1583,17 +1583,17 @@
       system-layout]]">
       <scoreDef xmlns="http://www.music-encoding.org/ns/mei">
         <!-- Time signature -->
-        <xsl:if test="part/attributes[1]/time">
-          <xsl:choose>
-            <xsl:when test="count(part/attributes[time/beats][1]/time/beats) = 1">
+        <xsl:if test="count(preceding::measure) &gt; 0">
+          <!-- Ignore time signature in the first measure since it's already been recorded in /score/scoreDef. -->
+          <xsl:if test="part/attributes[1]/time">
+            <xsl:if test="not(part[attributes[time[count(beats) &gt; 1]]])">
               <xsl:attribute name="meter.count">
-                <!--<xsl:value-of select="part[attributes[1]/time/beats][1]/attributes/time/beats"/>-->
-                <xsl:value-of select="part/attributes[time/beats][1]/time/beats"/>
+                <xsl:value-of
+                  select="part[attributes/time/beats][1]/attributes[time/beats][1]/time/beats"/>
               </xsl:attribute>
               <xsl:attribute name="meter.unit">
-                <!--<xsl:value-of
-                  select="part[attributes[1]/time/beat-type][1]/attributes/time/beat-type"/>-->
-                <xsl:value-of select="part/attributes[time/beat-type][1]/time/beat-type"/>
+                <xsl:value-of
+                  select="part[attributes/time/beats][1]/attributes[time/beats][1]/time/beat-type"/>
               </xsl:attribute>
               <xsl:choose>
                 <xsl:when test="part/attributes[1]/time/@symbol='common'">
@@ -1635,8 +1635,8 @@
                   <xsl:attribute name="meter.rend">invis</xsl:attribute>
                 </xsl:when>
               </xsl:choose>
-            </xsl:when>
-          </xsl:choose>
+            </xsl:if>
+          </xsl:if>
         </xsl:if>
 
         <!-- Key signature -->
@@ -1760,8 +1760,7 @@
         <!-- Provide multiple time signatures as elements -->
         <xsl:if test="part/attributes[time/beats]">
           <xsl:choose>
-            <xsl:when test="count(part[1]/attributes[time/beats]/time/beats)                 &gt;
-              1">
+            <xsl:when test="count(part[1]/attributes[time/beats]/time/beats) &gt; 1">
               <meterSigGrp>
                 <xsl:attribute name="func">
                   <xsl:choose>
@@ -6662,7 +6661,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:param name="aarrggbb" as="xs:string"/>
     <xsl:value-of select="('rgba(', for $startByte in (4,6,8) (: Red, green and blue start at
       byte 4, 6 and 8 :) return concat( (: In each iteration, :)
-      f:hex2integer(substring($aarrggbb,$startByte,2)), (: ... return the decimal value :) ','
+      f:hex2integer(substring($aarrggbb,$startByte,2)), (: ... return the decimal value :)  ','
       (: ... and a trailing comma :)  ), format-number(f:hex2integer(substring($aarrggbb,2,2)) div
       255, '0.00'), (:       alpha value is between 0 and 1 => divide by 255 :) ')' )" separator=""
     />
@@ -9117,7 +9116,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:param name="arg1" as="xs:anyAtomicType*"/>
     <xsl:param name="arg2" as="xs:anyAtomicType*"/>
 
-    <xsl:sequence select="        distinct-values($arg1[not(.=$arg2)])       "/>
+    <xsl:sequence select="distinct-values($arg1[not(.=$arg2)])"/>
 
   </xsl:function>
 
@@ -9345,7 +9344,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                         <xsl:variable name="elems" select="f:getElems(.,$end)" as="node()*"/>
                         <xsl:variable name="tuppable" select="every $elem in $elems satisfies
                           (@tuplet[ends-with(.,$num)] or
-                          (local-name($elem) = 'beam' and                           (every $child in
+                          (local-name($elem) = 'beam' and (every $child in
                           ($elem/child::mei:* except $elem/child::mei:*[last()])
                           satisfies @grace or (@tuplet = concat('m',$num))) and
                           ($elem/child::mei:*[last()]/@tuplet = concat('t',$num) or
