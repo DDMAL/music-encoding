@@ -1757,8 +1757,8 @@
           </xsl:for-each>
         </xsl:for-each>
 
-        <!-- Provide multiple time signatures as elements -->
-        <xsl:if test="part/attributes[time/beats]">
+        <!-- Provide multiple time signatures as elements, but ignore first measure -->
+        <xsl:if test="part/attributes[time/beats] and count(preceding::measure) &gt; 0">
           <xsl:choose>
             <xsl:when test="count(part[1]/attributes[time/beats]/time/beats) &gt; 1">
               <meterSigGrp>
@@ -3043,14 +3043,16 @@
           <xsl:sort select="@staff"/>
           <xsl:sort select="local-name()"/>
           <xsl:choose>
-            <xsl:when test="local-name()='beamSpan'">
+            <xsl:when test="local-name()='beamSpan' or local-name()='hairpin' or local-name()='slur'
+              or local-name()='tie' or local-name()='tupletSpan'">
               <xsl:choose>
                 <xsl:when test="@tstamp2 or @dur or @dur.ges or @endid!=''">
                   <xsl:copy-of select="."/>
                 </xsl:when>
                 <xsl:otherwise>
                   <xsl:variable name="warning">
-                    <xsl:text>Unterminated beamSpan</xsl:text>
+                    <xsl:text>Unterminated </xsl:text>
+                    <xsl:value-of select="local-name()"/>
                   </xsl:variable>
                   <xsl:call-template name="warningPhase2">
                     <xsl:with-param name="warning">
