@@ -325,7 +325,7 @@
   <xsl:template match="/">
 
     <xsl:variable name="firstRun">
-      <mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="2012">
+      <mei xmlns="http://www.music-encoding.org/ns/mei" meiversion="2013">
         <xsl:apply-templates select="score-timewise" mode="header"/>
         <xsl:apply-templates select="score-timewise" mode="music"/>
       </mei>
