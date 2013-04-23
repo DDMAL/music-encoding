@@ -9648,6 +9648,20 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:copy>
     </xsl:if>
   </xsl:template>
+  <xsl:template match="mei:pgHead2" mode="postProcess">
+    <xsl:if test="$formeWork = 'preserve'">
+      <xsl:copy>
+        <xsl:apply-templates select="node() | @*" mode="#current"/>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
+  <xsl:template match="mei:pgFoot2" mode="postProcess">
+    <xsl:if test="$formeWork = 'preserve'">
+      <xsl:copy>
+        <xsl:apply-templates select="node() | @*" mode="#current"/>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
 
   <xsl:template match="mei:artic" mode="cleanUp">
     <xsl:if test="$articStyle = ('elem','both')">
