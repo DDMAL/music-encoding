@@ -66,7 +66,6 @@
          </seriesStmt>
          <sourceDesc>
             <source>
-				<!-- this source needs to be adapted... -->
                <titleStmt>
                   <title>Lieder eines fahrenden Gesellen</title>
                   <respStmt>
@@ -74,23 +73,6 @@
                      <persName role="lyricist">Gustav Mahler</persName>
                   </respStmt>
                </titleStmt>
-               <!--<pubStmt>
-                  <identifier type="URI"
-                     authURI="http://www.recordare.com/musicxml/music/example-set"
-                     >http://www.recordare.com/musicxml/music/example-set</identifier>
-                  <date isodate="2011-08-08"/>
-                  <respStmt>
-                     <corpName>Recordare LLC</corpName>
-                  </respStmt>
-                  <address>
-                     <addrLine>P.O. Box 3459</addrLine>
-                     <addrLine>Los Altos, California 94024</addrLine>
-                     <addrLine>USA</addrLine>
-                  </address>
-                  <availability>
-                     <useRestrict>Copyright © 2002 Recordare LLC</useRestrict>
-                  </availability>
-               </pubStmt>-->
             	<contents>
             		<contentItem n="1">Wenn mein Schatz Hochzeit macht</contentItem>
             		<contentItem n="2">Ging heut morgen übers Feld</contentItem>
@@ -214,7 +196,15 @@
          			</section>
          		</score>
          	</incip>
-            <perfMedium>
+         	<history>
+         		<creation>
+         			<date notbefore="1883" notafter="1885">1883-1885</date>
+         		</creation>
+         	</history>
+         	<langUsage>
+         		<language>German</language>
+         	</langUsage>
+         	<perfMedium>
                <instrumentation>
                   <instrVoice n="1" code="vu">Voice</instrVoice>
                   <instrVoice n="2" code="ka">Piano</instrVoice>
@@ -252,52 +242,18 @@
          <mdiv>
             <score>
                <scoreDef meter.count="4" meter.unit="4" key.sig="1s" key.mode="major">
-                  <!--<pgHead>
-                     <table>
-                        <tr y="1680">
-                           <td x="80">
-                              <rend fontsize="12" valign="top">2</rend>
-                           </td>
-                           <td x="680">
-                              <rend fontsize="14" halign="center" valign="top">LIEDER EINES
-                                 FAHRENDEN GESELLEN</rend>
-                           </td>
-                        </tr>
-                        <tr y="1640">
-                           <td x="680">
-                              <rend fontsize="24" halign="center" valign="top">4. Die zwei blauen
-                                 Augen</rend>
-                           </td>
-                        </tr>
-                        <tr y="1500">
-                           <td x="80">
-                              <rend fontsize="10" valign="bottom">Gustav Mahler</rend>
-                           </td>
-                           <td x="1280">
-                              <rend fontsize="10" halign="right" valign="bottom">Gustav
-                                 Mahler</rend>
-                           </td>
-                        </tr>
-                     </table>
-                  </pgHead>-->
-                  <pgFoot>
-                     <table>
-                        <tr y="80">
-                           <td x="680">
-                              <rend fontsize="9" halign="center" valign="bottom">Copyright © 2002
-                                 Recordare LLC</rend>
-                           </td>
-                        </tr>
-                     </table>
-                  </pgFoot>
+                 <pgHead>
+                 	<p>LIEDER EINES FAHRENDEN GESELLEN</p>
+                 	<p>4. Die zwei blauen Augen</p>
+                 </pgHead>
                   <staffGrp>
                      <staffDef n="1" xml:id="P1" label="Voice" lines="5" clef.line="2"
-                        clef.shape="G" key.sig="1s" key.mode="major"> </staffDef>
+                        clef.shape="G" key.sig="1s" key.mode="major"/> 
                      <staffGrp xml:id="P2" symbol="brace" label="Piano">
                         <staffDef n="2" lines="5" clef.line="2" clef.shape="G" key.sig="1s"
-                           key.mode="major" spacing="90" xml:id="P2-I2"/>
+                           key.mode="major" xml:id="P2-I2"/>
                         <staffDef n="3" lines="5" clef.line="4" clef.shape="F" key.sig="1s"
-                           key.mode="major" spacing="70"/>
+                           key.mode="major"/>
                      </staffGrp>
                   </staffGrp>
                </scoreDef>
@@ -547,6 +503,7 @@
                      <slur tstamp="1" tstamp2="0m+3" curvedir="above" startid="d1e1000" endid="d1e1152"
                         bezier="27 20 -27 21" staff="2"/>
                   </measure>
+               	<sb/>
                   <measure n="3" xml:id="d1e1423" width="309">
                      <staff n="1">
                         <layer n="1">
@@ -677,10 +634,6 @@
                      <slur tstamp="2" tstamp2="0m+3" curvedir="above" startid="d1e2003" endid="d1e2123"
                         staff="3"/>
                   </measure>
-                  <sb/>
-                  <scoreDef spacing.system="160"/>
-                  <staffDef n="2" spacing="110"/>
-                  <staffDef n="3" spacing="100"/>
                   <measure n="4" xml:id="d1e2189" width="322">
                      <staff n="1">
                         <layer n="1">
@@ -872,6 +825,7 @@
                      <slur tstamp="4" tstamp2="0m+4.5" curvedir="below" startid="d1e3057"
                         endid="d1e3101" staff="2"/>
                   </measure>
+               	<sb/>
                   <measure n="6" xml:id="d1e3297" width="276">
                      <staff n="1">
                         <layer n="1">
@@ -1114,8 +1068,7 @@
                   </measure>
                </section>
                <section>
-                  <sb/>
-                  <scoreDef meter.count="5" meter.unit="4" spacing.system="160"/>
+                  <scoreDef meter.count="5" meter.unit="4"/>
                   <measure n="8" xml:id="d1e4758" width="382">
                      <staff n="1">
                         <layer n="1">
@@ -1302,138 +1255,6 @@
                         bezier="24 15 -24 15" staff="2"/>
                      <slur tstamp="4" tstamp2="0m+4.5" curvedir="above" startid="d1e5594"
                         endid="d1e5633" bezier="13 14 -15 11" staff="2"/>
-                  </measure>
-               </section>
-               <section>
-                  <scoreDef meter.count="5" meter.unit="4"/>
-                  <measure n="10" xml:id="d1e5771" width="454">
-                     <staff n="1">
-                        <layer n="1">
-                           <beam>
-                              <note xml:id="d1e5779" pname="g" oct="4" dur="8" dots="1"
-                                 stem.dir="up">
-                                 <verse>
-                                    <syl>ihr</syl>
-                                 </verse>
-                              </note>
-                              <note xml:id="d1e5801" pname="g" oct="4" dur="16" stem.dir="up">
-                                 <verse>
-                                    <syl>mich</syl>
-                                 </verse>
-                              </note>
-                           </beam>
-                           <beam>
-                              <note xml:id="d1e5824" pname="g" oct="4" dur="8" dots="1"
-                                 stem.dir="up">
-                                 <verse>
-                                    <syl>an-</syl>
-                                 </verse>
-                              </note>
-                              <note xml:id="d1e5846" pname="g" oct="4" dur="16" stem.dir="up">
-                                 <verse>
-                                    <syl>ge-</syl>
-                                 </verse>
-                              </note>
-                           </beam>
-                           <note xml:id="d1e5869" pname="g" oct="4" dur="4" stem.dir="up">
-                              <verse>
-                                 <syl>blickt!?</syl>
-                              </verse>
-                           </note>
-                           <rest xml:id="d1e5888" dur="4"/>
-                           <beam>
-                              <note xml:id="d1e5896" pname="f" oct="4" dur="8" stem.dir="up"
-                                 accid.ges="s">
-                                 <verse>
-                                    <syl>Nun_</syl>
-                                 </verse>
-                              </note>
-                              <note xml:id="d1e5922" pname="g" oct="4" dur="8" stem.dir="up"/>
-                           </beam>
-                           <!-- meter.change -->
-                        </layer>
-                     </staff>
-                     <staff n="2">
-                        <layer n="1">
-                           <chord xml:id="d474e1" dur="4" stem.dir="up">
-                              <artic artic="stacc" place="below"/>
-                              <note xml:id="d1e5947" pname="b" oct="3"/>
-                              <note xml:id="d1e5967" pname="e" oct="4"/>
-                              <note xml:id="d1e5984" pname="g" oct="4"/>
-                           </chord>
-                           <beam>
-                              <chord xml:id="d478e1" dur="8" dots="1" stem.dir="up">
-                                 <artic artic="stacc" place="below"/>
-                                 <note xml:id="d1e6001" pname="b" oct="3"/>
-                                 <note xml:id="d1e6023" pname="e" oct="4"/>
-                                 <note xml:id="d1e6041" pname="g" oct="4"/>
-                              </chord>
-                              <chord xml:id="d482e1" dur="16" stem.dir="up">
-                                 <artic artic="stacc" place="below"/>
-                                 <note xml:id="d1e6059" pname="b" oct="3"/>
-                                 <note xml:id="d1e6082" pname="e" oct="4"/>
-                                 <note xml:id="d1e6099" pname="g" oct="4"/>
-                              </chord>
-                           </beam>
-                           <chord xml:id="d486e1" dur="4" stem.dir="up">
-                              <artic artic="stacc" place="below"/>
-                              <note xml:id="d1e6116" pname="b" oct="3"/>
-                              <note xml:id="d1e6137" pname="e" oct="4"/>
-                              <note xml:id="d1e6154" pname="g" oct="4"/>
-                           </chord>
-                           <rest xml:id="d1e6171" dur="4"/>
-                           <beam>
-                              <note xml:id="d1e6185" pname="f" oct="4" dur="8" stem.dir="up"
-                                 accid.ges="s"/>
-                              <chord xml:id="d490e1" dur="8" stem.dir="up">
-                                 <note xml:id="d1e6229" pname="e" oct="4"/>
-                                 <note xml:id="d1e6249" pname="g" oct="4"/>
-                              </chord>
-                           </beam>
-                        </layer>
-                        <layer n="2">
-                           <space xml:id="d521e29a1544"/>
-                           <note xml:id="d1e6210" pname="d" oct="4" dur="4" stem.dir="down"/>
-                        </layer>
-                     </staff>
-                     <staff n="3">
-                        <layer n="1">
-                           <chord xml:id="d494e1" dur="4" stem.dir="up">
-                              <note xml:id="d1e6269" pname="e" oct="1"/>
-                              <note xml:id="d1e6286" pname="e" oct="2"/>
-                           </chord>
-                           <beam>
-                              <chord xml:id="d498e1" dur="8" dots="1" stem.dir="down">
-                                 <artic artic="stacc" place="above"/>
-                                 <note xml:id="d1e6303" pname="b" oct="2"/>
-                                 <note xml:id="d1e6326" pname="e" oct="3"/>
-                                 <note xml:id="d1e6344" pname="g" oct="3"/>
-                              </chord>
-                              <chord xml:id="d502e1" dur="16" stem.dir="down">
-                                 <artic artic="stacc" place="above"/>
-                                 <note xml:id="d1e6362" pname="b" oct="2"/>
-                                 <note xml:id="d1e6385" pname="e" oct="3"/>
-                                 <note xml:id="d1e6402" pname="g" oct="3"/>
-                              </chord>
-                           </beam>
-                           <chord xml:id="d506e1" dur="4" stem.dir="down">
-                              <artic artic="stacc" place="above"/>
-                              <note xml:id="d1e6419" pname="b" oct="2"/>
-                              <note xml:id="d1e6439" pname="e" oct="3"/>
-                              <note xml:id="d1e6456" pname="g" oct="3"/>
-                           </chord>
-                           <rest xml:id="d1e6473" dur="4"/>
-                           <rest xml:id="d1e6484" dur="4"/>
-                        </layer>
-                     </staff>
-                     <slur tstamp="5" tstamp2="0m+5.5" curvedir="below" startid="d1e5896"
-                        endid="d1e5922" staff="1"/>
-                     <slur tstamp="1" tstamp2="0m+3" curvedir="below" startid="d1e5947" endid="d1e6116"
-                        staff="2"/>
-                     <slur tstamp="2" tstamp2="0m+3" curvedir="above" startid="d1e6303" endid="d1e6419"
-                        staff="3"/>
-                     <slur tstamp="5" tstamp2="0m+5.5" curvedir="above" startid="d1e6185"
-                        endid="d1e6229" staff="2"/>
                   </measure>
                </section>
             </score>
