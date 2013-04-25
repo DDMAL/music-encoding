@@ -20,7 +20,7 @@
 <div type="div1" xml:id="shared" n="1" xmlns="http://www.tei-c.org/ns/1.0">
   <head>Shared Elements, Models, and Attributes</head>
   <p>This chapter describes the elements, models, and attributes that are part of the MEI.shared
-    module. The shared module contains declarations that are shared among two or more other
+    module. The shared module contains declarations that are common to two or more other
     modules.</p>
   <div type="div2" xml:id="structuralElements">
     <!-- Structural Elements -->
@@ -47,8 +47,8 @@
           corpus</item>
         <item>document that contain only metadata, known as an independent or stand-alone
           header</item>
-        <item>music markup without metadata, typically intended to be embedded within another kind
-          of markup, such as TEI</item>
+        <item>music notation markup without metadata, typically intended to be embedded within
+          another kind of markup, such as TEI</item>
       </list>
       <p>Further information regarding the organization and encoding of music corpora is given in
         chapter <ptr target="#corpus"/>. Stand-alone headers are more fully described in chapter
@@ -62,7 +62,6 @@
     </div>
     <div type="div3" xml:id="musicElement">
       <head>Music Element</head>
-      <!--<p>This section describes the <gi>music</gi> element and its high-level constituents.</p>-->
       <p>MEI texts may be regarded either as unitary; that is, forming an organic whole, or as
         composite; that is, consisting of several components which are in some important sense
         independent of each other. The distinction is not always entirely obvious. For example, a
@@ -202,8 +201,8 @@
             <att>type</att> attribute used to categorize them independently of their hierarchic
           level.</p>
         <p>The following element is used to identify musical subdivisions. As a member of the class
-          att.typed, the <gi>mdiv</gi> element has attributes which can be used to classify or
-          sub-classify it.</p>
+          att.typed, the <gi>mdiv</gi> element has attributes which can be used to classify it
+          according to a two-tier hierarchy.</p>
         <p>
           <specList>
             <specDesc key="mdiv" atts="type subtype"/>
@@ -211,7 +210,7 @@
         </p>
         <p>To accommodate "divisions within divisions", an <gi>mdiv</gi> element may contain
           additional <gi>mdiv</gi> sub-elements nested to any level required. For example, the
-          encoding of a multi-movement work, such as a symphony, will have the following
+          encoding of a multi-movement work, such as a symphony, frequently have the following
           structure:</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <body xmlns="http://www.music-encoding.org/ns/mei">
@@ -231,7 +230,7 @@
             </mdiv>
           </body>
         </egXML>
-        <p>while dramatic works, such as Verdi's opera, <title>Il Trovatore</title> often have a
+        <p>while dramatic works, such as Verdi's opera, <title>Il Trovatore</title>, often exhibit a
           more deeply-nested structure:</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <body>
@@ -265,8 +264,9 @@
           elements are separated by pauses; however, <foreign>attacca</foreign>, <foreign>attacca
             subito</foreign>, <foreign>seque</foreign>, or similar terms are sometimes used at the
           end of an <gi>mdiv</gi> to indicate that the next <gi>mdiv</gi> should begin immediately
-          after the conclusion of the current one. They are encoded using the <gi>dir</gi> element.
-          <!-- TODO: Do we need a processable way to encode this fact (not necessarily the wording)? -->
+          after the conclusion of the current one. These terms have no effect, however, on the
+          logical segmentation of musical content using <gi>mdiv</gi> elements.
+          <!-- TODO: Do we need a processable way to encode attaca? -->
         </p>
       </div>
       <div type="div4" xml:id="mdivContent">
@@ -314,10 +314,11 @@
             <gi>part</gi> element is useful for encoding performing parts when there is no score,
           such as in early music part books; when the parts have non-aligning bar lines; when
           different layout features, such as page turns, are needed for the score and parts; or for
-          accommodating software that requires part-by-part encoding. Please note that part elements
-          in MEI are not an indication of voice leading. Voice leading can be encoded using the
-            <att>next</att> attribute available on all the members of the <ident type="class"
-            >model.eventLike</ident> class.</p>
+          accommodating software that requires part-by-part encoding.</p>
+        <p>Please note that <gi>part</gi> elements in MEI are not an indication of voice leading or
+          staff grouping. Voice leading can be encoded using the <att>next</att> attribute,
+          available on all the members of the <ident type="class">model.eventLike</ident> class. The
+            <gi>staffGrp</gi> element handles grouping of staves in the score context.</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <parts>
             <part label="Violin 1">
@@ -332,9 +333,9 @@
         <p>In both score and part views, the <gi>scoreDef</gi> element is used to describe logical
           characteristics of the encoded music, such as key signature, the sounding key (as opposed
           to the notated key signature), meter, etc., and visual features, such as page size, staff
-          groupings and display labels, etc. The order of <gi>staffGrp</gi> elements within
-            <gi>scoreDef</gi> and the order of <gi>staffDef</gi> elements inside <gi>staffGrp</gi>
-          determine the score order of the MEI file.</p>
+          groupings and display labels, etc. The <gi>staffGrp</gi> elements within <gi>scoreDef</gi>
+          and the order of <gi>staffDef</gi> elements inside <gi>staffGrp</gi> should follow the
+          score order of the source for the encoding.</p>
         <p>A <gi>part</gi> or <gi>score</gi> may be further divided into linear segments called
           "sections".</p>
         <p>
@@ -343,11 +344,11 @@
           </specList>
         </p>
         <p><gi>Section</gi> elements are often used as a scoping mechanism for clef signs, key and
-          meter signatures, plus metronome, tempo, and expression markings. This use can help to
-          minimize the need for backward scanning to establish context when the starting point for
-          access is not at the beginning of the score. <gi>Section</gi> elements may also be used
-          for other user-defined, i.e., analytical or editorial, purposes, and therefore may be
-          arbitrarily nested to any desired level.</p>
+          meter signatures, as well as metronome, tempo, and expression markings. Using
+            <gi>section</gi> elements can help to minimize the need for backward scanning to
+          establish context when the starting point for access is not at the beginning of the score.
+            <gi>Section</gi> elements may also be used for other user-defined, i.e., analytical or
+          editorial, purposes and may therefore be arbitrarily nested to any desired level.</p>
         <p>The <gi>ending</gi> element shares the same model as the <gi>section</gi> element. Unlike
             <gi>section</gi>, however, it may not be recursively nested.</p>
         <p>
@@ -411,10 +412,10 @@
           should be ordered in a "through-composed" rendition, for example for machine performance
           or analysis. The plist attribute contains an ordered list of identifiers of descendant
             <gi>section</gi>, <gi>ending</gi>, <gi>lem</gi>, or <gi>rdg</gi> elements. The sequence
-          "#A #B #A" indicates that the section labelled 'A' comes first, then the section labelled
-          'B', followed by the 'A' section again. This mechanism must be specified independently of
-          any textual directives, such as "Da capo" or "D.S. al Fine", that may be present in the
-          document.</p>
+          of values in the plist attribute indicates that the section labelled 'A' comes first, then
+          the section labelled 'B', followed by the 'A' section again. This mechanism must be
+          specified independently of any textual directives, such as "Da capo" or "D.S. al Fine",
+          that may be present in the document.</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <music>
             <body>
@@ -462,14 +463,14 @@
           <specDesc key="keyAccid"/>
         </specList>
       </p>
-      <p> The character of elements specifying one or more score parameters, such as meter and key
-        signature, clefs, etc., is that of a milestone; that is, they affect all subsequent material
-        until a following redefinition. A <gi>scoreDef</gi> element, which may affect more than just
-        one staff, is allowed only within <gi>score</gi>, <gi>part</gi> and <gi>section</gi>
-        elements, whereas <gi>staffDef</gi> is allowed only within <gi>staffGrp</gi>, <gi>staff</gi>
-        and <gi>layer</gi>. A <gi>staffDef</gi> nested inside a <gi>staff</gi> must bear the same
-        value for its <att>n</att> attribute as its parent staff and may thus not affect other
-        staves.</p>
+      <p> The character of elements specifying one or more score or staff parameters, such as meter
+        and key signature, clefs, etc., is that of a milestone; that is, they affect all subsequent
+        material until a following redefinition. A <gi>scoreDef</gi> element, which may affect more
+        than just one staff, is allowed only within <gi>score</gi>, <gi>part</gi> and
+          <gi>section</gi> elements, whereas <gi>staffDef</gi> is allowed only within
+          <gi>staffGrp</gi>, <gi>staff</gi> and <gi>layer</gi>. A <gi>staffDef</gi> nested inside a
+          <gi>staff</gi> must bear the same value for its <att>n</att> attribute as its parent staff
+        and may thus not affect other staves.</p>
       <p>The actual use of these elements depends on the repertoire and historical context of the
         source material. For details on their use in Common Western Notation, please refer to
         chapter <ptr target="#cmnDefs"/>.</p>
@@ -489,9 +490,6 @@
         chapter <ptr target="#mensuralData"/>, and for neumatic notation, chapter <ptr
           target="#neumes1.2"/>.</p>
     </div>
-
-    <!-- TODO: add chapter about the distinction between events and controlevents here? Have I written stuff like this
-    in cmn? -->
     <div type="div3" xml:id="basicEvents">
       <head>Basic Music Events</head>
       <p>The basic features of music notation are represented by the following elements:</p>
@@ -511,7 +509,7 @@
         to indicate a clef change.</p>
       <div type="div4" xml:id="keySignaturesAndClefs">
         <head>Key Signatures and Clefs</head>
-        <p>Key signatures and clefs as well as inter-staff changes to these musical parameters are
+        <p>Key signatures and clefs as well as intra-staff changes to these musical parameters are
           treated as events.</p>
         <p>
           <specList>
@@ -604,33 +602,31 @@
         <p>All of the following elements can be considered text directives; however, MEI uses the
             <gi>dir</gi> element specifically for words, abbreviations, numbers, or symbols
           specifying or suggesting the manner of performance that are not encoded elsewhere using
-          the more specific elements of <gi>tempo</gi>, <gi>dynam</gi>, and <gi>phrase</gi>.</p>
+          the more specific elements of <gi>tempo</gi> and <gi>dynam</gi>.</p>
         <p>
           <specList>
             <specDesc key="dir"/>
           </specList>
         </p>
-        <p>Examples include text strings such as 'affettuoso', fingering numbers, or music symbols
-          such as segno and coda symbols or fermatas over a bar line. Directives can be control
-          elements. That is, they can linked via their attributes to other events. The starting
-          point of the directive may be indicated by either a tstamp, tstamp.ges, tstamp.real or
-          startid attribute, while the ending point may be recorded by either a dur, dur.ges or
-          endid attribute. It is a semantic error not to specify a starting point attribute.</p>
+        <p>Examples of directives include text strings such as 'affettuoso', fingering numbers, or
+          music symbols such as segno and coda symbols or fermatas over a bar line. Directives can
+          be control elements. That is, they can linked via their attributes to other events. The
+          starting point of the directive may be indicated by either a tstamp, tstamp.ges,
+          tstamp.real or startid attribute, while the ending point may be recorded by either a
+          tstamp2, dur, dur.ges or endid attribute. It is a semantic error not to specify a starting
+          point attribute.</p>
+        <!-- TODO: Logical vs. visual end point of control events should be covered somewhere. -->
       </div>
       <div type="div4" xml:id="tempoMarks">
         <head>Tempo</head>
         <p>Tempo marks are indications through words, abbreviations, or specific metronome settings
-          of the speed at which a piece of music is to be performed.</p>
+          of the speed at which a piece of music is to be performed. Both instantaneous and
+          continuous tempo markings may be encoded using this element.</p>
         <p>
           <specList>
             <specDesc key="tempo"/>
           </specList>
         </p>
-        <p>Both instantaneous and continuous tempo markings may be encoded using this element.
-          Please note that the <att>dur</att> attribute here is expressed in musical time, i.e.,
-          beats or other time stamp. Therefore, it is not a true duration, but rather a time stamp
-          for the end point of the directive. More information regarding time stamps is available in
-          chapter <ptr target="#cmnTstamp"/>.</p>
       </div>
       <div type="div4" xml:id="dynamics">
         <head>Dynamics</head>
@@ -647,16 +643,23 @@
       <div type="div4" xml:id="phraseMarks">
         <head>Phrase Marks</head>
         <p>Phrase marks are curved lines placed over or under notes to delineate short sections of a
-          work that have a musical syntax, analogous to a phrase in literature. MEI maintains a
-          distinction between phrase marks and slurs, the latter being curved lines (or brackets)
-          over or under a sequence of notes indicating their grouping for a specific reason, such as
-          breathing or articulation.</p>
+          work that represent a unified melodic idea, analogous to a phrase in literature.</p>
         <p>
           <specList>
             <specDesc key="phrase"/>
             <specDesc key="slur"/>
           </specList>
         </p>
+        <p>MEI maintains a distinction between phrase marks and slurs, the latter being curved lines
+          over or under a sequence of notes indicating they are to be performed using a particular
+          playing/singing technique, notes that should be taken in a single breath by wind
+          instruments or played by string instruments using a single stroke of the bow. Often, a
+          slur also indicates that the affected notes should be played in a
+            <foreign>legato</foreign> manner.</p>
+        <p>Even so, it is common for both of these concepts to be referred to generically as
+          "slurs". Therefore, unless one is encoding music from a repertoire in which this
+          distinction is important, the <gi>slur</gi> element should be preferred over
+            <gi>phrase</gi>.</p>
       </div>
     </div>
   </div>
@@ -667,27 +670,32 @@
       prose.</p>
     <div type="div3" xml:id="paragraphs">
       <head>Paragraphs</head>
-      <p>A paragraph is a structural unit of a larger text. Usually it is typographically distinct:
-        It usually begins on a new line and the first letter of the content is often indented,
-        enlarged, or both. This element has a similar meaning as the corresponding elements in
-        Encoded Archival Description (EAD), Text Encoding Initiative (TEI), and HTML.</p>
+      <p>A paragraph is a structural unit of a larger text. Usually, it is typographically distinct;
+        that is, it usually begins on a new line and the first letter of the content is often
+        indented, enlarged, or both. This element has a similar meaning as the corresponding
+        elements in Encoded Archival Description (EAD), Text Encoding Initiative (TEI), and
+        HTML.</p>
       <p>
         <specList>
           <specDesc key="p"/>
         </specList>
       </p>
-      <p>In MEI, a <gi>p</gi> is used in many different situations, including transcriptional use as
-        on a <gi>titlePage</gi> or descriptive purposes as in a <gi>changeDesc</gi>.</p>
+      <p>In MEI, a <gi>p</gi> is used in many different situations, including transcriptional use
+        within a <gi>titlePage</gi> or descriptive purposes as in a <gi>changeDesc</gi>.</p>
     </div>
     <div type="div3" xml:id="textRendition">
       <head>Text Rendition</head>
-      <p>Sometimes, the encoder wants to emphasize or highlight a chunk of text without assigning it
-        a special meaning beyond its typographical speciality. For this purpose, MEI offers the
-          <gi>rend</gi> element, which compares to TEI's <foreign>hi</foreign> element. Its
-          <att>rend</att> attribute is used to specify typographic features like underlining or
-        quotes, whereas <att>fontweight</att> and <att>fontstyle</att> are used to capture a bold or
-        italic rendering respectively. The <att>altrend</att> attribute may be used to capture
-        arbitrary individual rendition styles.</p>
+      <p>Sometimes, it is desirable to capture the typographical qualities of a word or phrase
+        without assigning it a special meaning. For this purpose, MEI offers the <gi>rend</gi>
+        element, similar to TEI's <foreign>hi</foreign> element. Using CSS-like values, its
+          <att>rend</att> attribute can be used to specify many typographic features, such as font
+        style, font variants, and relative font size and weight. In addition, text decoration,
+        direction, and enclosing <soCalled>boxes</soCalled> may be captured. While <att>rend</att>
+        is used to record relative font size and weight, absolute values for these qualities
+        (measured in printers points) should be specified using the <att>fontsize</att> and
+          <att>fontweight</att> attibutes. In addition to commonly found typographical qualities,
+        MEI provides the <att>altrend</att> attribute for the capture of additional, user-defined
+        rendition information.</p>
       <p><specList>
           <specDesc key="rend" atts="rend fontweight fontstyle altrend"/>
         </specList></p>
@@ -748,11 +756,11 @@
             <specDesc key="addrLine"/>
           </specList>
         </p>
-        <p>It is important to notice that the address element does not hold a reference to the
-          person or organization whose address is specified. This has to provided in a separate
+        <p>It is important to note that the <gi>address</gi> element does not hold a reference to
+          the person or organization whose address is specified. This must be provided in a separate
           element, as in the following example:</p>
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
-          <corpName> Universität Paderborn </corpName>
+          <corpName>Universität Paderborn</corpName>
           <address>
             <addrLine>Warburger Straße 100</addrLine>
             <addrLine>33098 Paderborn</addrLine>
@@ -770,14 +778,16 @@
           <specDesc key="annot"/>
         </specList>
       </p>
-      <p>This element may be contained by a wide range of other elements, and itself may contain a
-        large number of other elements. It is up to the encoder to ensure that no unwanted nesting
-        is constructed using <gi>annot</gi>. In all cases, <gi>annot</gi> always provides a comment
-        for something, but no transcription.</p>
-      <p>Depending on its context, an annotation will deal with either its parent element, or, more
-        usually, with the element(s) specified in its <att>plist</att> attribute. This attribute
-        uses URI references to specify one or more other elements' <att>xml:id</att> attribute, like
-        in the following example:</p>
+      <p>This element may be contained by a wide range of other elements and may contain a large
+        number of other elements. While this offers great flexibility in addressing the wide variety
+        of textual features that might occur within an annotation, it may lead to markup that cannot
+        be effectively processed mechanistically.</p>
+      <p>In all cases, <gi>annot</gi> provides a comment upon a feature of the encoding, but never
+        contains textual transcription. Depending on its context, an annotation will deal with
+        either its parent element, or, more usually, with the element(s) specified in its
+          <att>plist</att> attribute. This attribute uses URI references to link to one or more
+        other elements using their <att>xml:id</att> attribute values, as in the following
+        example:</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
         <note xml:id="shared.someInterestingNote"/>
         <!-- elsewhere in the document: -->
@@ -792,33 +802,65 @@
     </div>-->
     <div type="div3" xml:id="bibliographicCitations">
       <head>Bibliographic Citations and References</head>
-      <p>The following elements are commonly used in the encoding of bibliographic citations and
+      <p>The following element is used in the encoding of bibliographic citations and
         references:</p>
       <p>
         <specList>
           <specDesc key="bibl"/>
-          <specDesc key="address"/>
-          <specDesc key="annot"/>
-          <specDesc key="date"/>
-          <specDesc key="edition"/>
-          <specDesc key="identifier"/>
-          <specDesc key="name"/>
-          <specDesc key="repository"/>
-          <specDesc key="title"/>
         </specList>
       </p>
-      <p>The element <gi>bibl</gi>, or bibliographic reference, may contain a mix of text and more
-        specific elements such as <gi>title</gi>, <gi>edition</gi>, <gi>persname</gi>, and
-          <gi>corpname</gi>. This element may also function as a hypertext reference to an external
-        electronic resource.</p>
+      <p>The <gi>bibl</gi> element may contain a mix of text and more specific elements, including
+        the following:</p>
+      <p>
+        <specList>
+          <specDesc key="arranger"/>
+          <specDesc key="author"/>
+          <specDesc key="composer"/>
+          <specDesc key="librettist"/>
+          <specDesc key="lyricist"/>
+          <specDesc key="funder"/>
+          <specDesc key="sponsor"/>
+          <specDesc key="respStmt"/>
+          <specDesc key="title"/>
+          <specDesc key="edition"/>
+          <specDesc key="editor"/>
+          <specDesc key="series"/>
+          <specDesc key="imprint"/>
+          <specDesc key="pubPlace"/>
+          <specDesc key="publisher"/>
+          <specDesc key="distributor"/>
+          <specDesc key="biblScope"/>
+          <specDesc key="extent"/>
+          <specDesc key="date"/>
+          <specDesc key="identifier"/>
+          <specDesc key="annot"/>
+          <specDesc key="creation"/>
+          <specDesc key="genre"/>
+          <specDesc key="recipient"/>
+          <specDesc key="textLang"/>
+          <specDesc key="repository"/>
+          <specDesc key="physLoc"/>
+          <specDesc key="relatedItem"/>
+        </specList>
+      </p>
+      <p>These elements fall into the following categories: <list>
+          <item>identification of the bibliographic entity and those responsible for its
+            intellectual content</item>
+          <item>publication and distribution data for the bibliographic entity</item>
+          <item>description of the physical characteristics of the item</item>
+          <item>annotation of the bibliographic citation and additional details regarding the item's
+            intellectual content</item>
+        </list>
+      </p>
+      <p>The elements <gi>title</gi>, <gi>edition</gi>, <gi>series</gi>, and <gi>identifier</gi>
+        fall into the first category as do the elements <gi>arranger</gi>, <gi>author</gi>,
+          <gi>composer</gi>, <gi>librettist</gi>, <gi>lyricist</gi>, <gi>funder</gi>,
+          <gi>sponsor</gi>, and <gi>respStmt</gi>. The respStmt element is provided for marking
+        responsibility roles that cannot be recorded using more specific elements. The
+          <gi>biblScope</gi> element also carries information of an identifying nature.</p>
       <p>The <gi>identifier</gi> for a given item may be an International Standard Book/Music
         Number, Library of Congress Control Number, a publisher's or plate number, a personal
         identification number, an entry in a bibliography or catalog, etc.</p>
-      <p>The <gi>repository</gi> element identies an institution that holds a bibliographic item. To
-        identify sub-units of the institution, <gi>repository</gi> sub-elements may be used. The
-        name of the list from which a controlled value for the agency name is taken may be recorded
-        using the <att>authority</att> attribute. This element is modelled on an element in Encoded
-        Archival Description (EAD).</p>
       <p>To classify the <gi>title</gi> according to some convenient typology, the <att>type</att>
         attribute may be used. Sample values include: main (main title), subordinate (subtitle,
         title of part), abbreviated (abbreviated form of title), alternative (alternate title by
@@ -829,8 +871,53 @@
         parallel titles, may be enclosed within a single <gi>title</gi> element. Title parts may be
         encoded in <gi>title</gi> sub-elements. The name of the list from which a controlled value
         is taken may be recorded using the <att>authority</att> attribute.</p>
+      <p>Publication and distribution data may be captured using <gi>pubPlace</gi>,
+          <gi>publisher</gi>, <gi>distributor</gi>, and <gi>date</gi> elements directly inside
+          <gi>bibl</gi> when the citation is unstructured. However, these elements should be grouped
+        within <gi>imprint</gi> whenever practical.</p>
+      <p>The physical characteristics of the cited item may be described using the <gi>extent</gi>
+        element.</p>
+      <p>Annotation of the bibliographic citation and the provision of other pertinent details are
+        addressed by several elements. Commentary on the bibliographic item or citation is
+        accommodated by the <gi>annot</gi> and <gi>creation</gi> elements. The <gi>annot</gi>
+        element is provided for generic comments, while <gi>creation</gi> is intended to hold
+        information about the context of the creation of the cited item. Terms by which the
+        bibliographic item can be classified may be placed in <gi>genre</gi>. For letters and other
+        correspondence, <gi>recipient</gi> captures the name of the person or organization to whom
+        the item was addressed. The natural language(s) of the item may be recorded in one or more
+          <gi>textLang</gi> elements. Finally, a holding institution may be documented using the
+          <gi>repository</gi> element directly within <gi>bibl</gi>, but <gi>physLoc</gi> should be
+        used whenever possible as a grouping mechanism for location and shelfmark information. To
+        identify sub-units of the holding institution, <gi>repository</gi> sub-elements may be used.
+        The name of the list from which a controlled value for the agency name is taken may be
+        recorded using the <att>authority</att> attribute.</p>
+      <p>When supplied with a <att>target</att> attribute, <gi>bibl</gi> may function as a hypertext
+        reference to an external electronic resource. In addition, other related bibliographic items
+        may be described or referenced using the <gi>relatedItem</gi> element.</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <bibl>
+          <genre>letter</genre>
+          <author>Carl Nielsen</author>
+          <recipient>Gustav Hetsch</recipient>
+          <creation>
+            <date isodate="1915-04-08">1915-04-08</date>
+          </creation>
+          <physLoc>
+            <repository>
+              <identifier authority="RISM" authURI="http://www.rism.info/">DK-Kk</identifier>
+            </repository>
+            <identifier>CNA IAc</identifier>
+          </physLoc>
+          <relatedItem rel="host">
+            <bibl xml:id="shared.bibl_d1e380372">
+              <title>CNB</title>
+              <biblScope>V/210</biblScope>
+            </bibl>
+          </relatedItem>
+        </bibl>
+      </egXML>
       <p>Please consult <ptr target="#namesNumbersDates"/> and <ptr target="#namesDates"/> for more
-        specific information about recording the names and dates frequently found in bibliographic
+        information about recording the names and dates frequently found in bibliographic
         citations.</p>
     </div>
   </div>
