@@ -67,7 +67,7 @@
     <head>File Description</head>
     <p>The structure of the bibliographic description of a machine-readable or digital musical text
       resembles that of a book, an article, or other kinds of textual objects. The file description
-      element of the MEI header has therefore been closely modeled on existing standards in library
+      element of the MEI header has therefore been closely modelled on existing standards in library
       cataloging; it should thus provide enough information to allow users to give standard
       bibliographic references to the electronic text, and to allow catalogers to catalog it.
       Bibliographic citations occurring elsewhere in the header, and in the text itself, are derived
@@ -126,12 +126,20 @@
           <specDesc key="titleStmt"/>
         </specList>
       </p>
-      <p>It contains the title given to the electronic work, together with one or more optional
-        statements of responsibility which identify the encoder, editor, author, compiler, or other
-        parties responsible for it:</p>
+      <p>The title statement contains the title given to the electronic work, together with one or
+        more optional statements of responsibility which identify the encoder, editor, author,
+        compiler, or other parties responsible for it:</p>
       <p>
         <specList>
           <specDesc key="title"/>
+          <specDesc key="arranger"/>
+          <specDesc key="author"/>
+          <specDesc key="composer"/>
+          <specDesc key="editor"/>
+          <specDesc key="funder"/>
+          <specDesc key="librettist"/>
+          <specDesc key="lyricist"/>
+          <specDesc key="sponsor"/>
           <specDesc key="respStmt"/>
         </specList>
       </p>
@@ -143,17 +151,28 @@
         by the addition of a phrase such as ‘: an electronic transcription’ or ‘a digital edition’.
         This will distinguish the electronic work from the source text in citations and in catalogs,
         which contain descriptions of both types of material.</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <titleStmt xmlns="http://www.music-encoding.org/ns/mei">
+          <title>Lieder-Album für die Jugend </title>
+          <title type="subtitle">für Singstimme(n) und Klavier, <identifier>op.
+            79</identifier></title>
+          <title type="subtitle">an electronic transcription</title>
+        </titleStmt>
+      </egXML>
       <p>Other alternative titles or subtitles may be encoded in additional title elements with
         values in the <att>type</att> attribute that distinguish them from the chief title. Sample
         values for the <att>type</att> attribute include: main (main title), subordinate (subtitle,
         title of part), abbreviated (abbreviated form of title), alternative (alternate title by
         which the work is also known), translated (translated form of title), uniform (collective
-        title). The name of a list from which other values of the <att>type</att> attribute are
-        taken may be recorded using the <att>authority</att> attribute.</p>
+        title).</p>
       <p>The <att>type</att> attribute is provided for convenience in analyzing titles and
         processing them according to their type; where such specialized processing is not necessary,
         there is no need for such analysis, and the entire title, including subtitles and any
-        parallel titles, may be enclosed within a single <gi>title</gi> element.</p>
+        parallel titles, may be enclosed within a single <gi>title</gi> element, as in the following
+        example:</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <title>Symphony No. 5 in C Minor : an electronic transcription</title>
+      </egXML>
       <p>The electronic work will also have an external name (its ‘filename’ or ‘data set name’) or
         reference number on the computer system where it resides at any time. This name is likely to
         change frequently, as new copies of the file are made on the computer system. Its form is
@@ -164,22 +183,48 @@
       <p>Helpful guidance on the formulation of useful descriptive titles in difficult cases may be
         found in the Anglo-American Cataloguing Rules (Gorman and Winkler, 1978, chapter 25) or in
         equivalent national-level bibliographical documentation.</p>
-      <p>Any number of responsibility statements may occur within the title statement. The
+      <p>At a minimum, the creator of the musical text and the creator of the file should be
+        identified. If the bibliographic description is for a corpus, identify the creator of the
+        corpus. Optionally also include the names of others involved in the transcription or
+        elaboration of the text, sponsors, and funding agencies. The name of the person responsible
+        for physical data input need not normally be recorded, unless that person is also
+        intellectually responsible for some aspect of the creation of the file.</p>
+      <p>In traditional bibliographic practice, those with primary creative responsibility are given
+        special prominence. MEI accommodates this approach by providing responsibility-role
+        elements. For example:</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <titleStmt>
+          <title>Auf dem Hügel sitz ich spähend : an electronic transcription</title>
+          <composer>Ludwig van Beethoven</composer>
+          <lyricist>Aloys Jeitteles</lyricist>
+        </titleStmt>
+      </egXML>
+      <p>Secondary intellectual responsibility in this case is encoded using <gi>respStmt</gi>. The
           <gi>respStmt</gi> element has two subcomponents: a <gi>name</gi> element identifying a
         responsible individual or organization, and a <gi>resp</gi> element indicating the nature of
         the responsibility. All names should be stated in the form in which the persons or bodies
         wish to be publicly cited. This will usually be the fullest form of the name, including
         first names. No specific recommendations are made at this time as to appropriate content for
-          <gi>resp</gi>. However, it should make clear the nature of the responsibility concerned,
-        as in the examples below.</p>
-      <p>At a minimum, the author of the text and (where appropriate) the creator of the file should
-        be identified. If the bibliographic description is for a corpus, identify the creator of the
-        corpus. Optionally also include the names of others involved in the transcription or
-        elaboration of the text, sponsors, and funding agencies. The name of the person responsible
-        for physical data input need not normally be recorded, unless that person is also
-        intellectually responsible for some aspect of the creation of the file.</p>
-      <p>When the MEI.namesdates module is enabled, two additional elements are permitted within
-          <gi>respStmt</gi>:</p>
+          <gi>resp</gi>. However, it should make clear the nature of the responsibility.</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <titleStmt>
+          <title>Auf dem Hügel sitz ich spähend : an electronic transcription</title>
+          <composer>Ludwig van Beethoven</composer>
+          <lyricist>Aloys Jeitteles</lyricist>
+          <respStmt>
+            <resp>Encoded by</resp>
+            <name>Maja Hartwig</name>
+            <name>Kristina Richts</name>
+          </respStmt>
+        </titleStmt>
+      </egXML>
+      <p>This method of encoding facilitates exchange of bibliographic data with library catalogs
+        and bibliographic databases as well as applications whose handling of bibliographic data is
+        restricted to traditional responsibility roles. Additional information regarding these
+        responsibility-role elements can be found in chapter <ptr target="#bibliographicCitations"
+        />.</p>
+      <p>When the MEI.namesdates module is enabled, two additional elements are also permitted
+        within <gi>respStmt</gi>:</p>
       <p>
         <specList>
           <specDesc key="corpName"/>
@@ -187,27 +232,55 @@
         </specList>
       </p>
       <p>These elements allow for more precise identification of the entity associated with the name
-        than is permitted by the simpler <gi>name</gi> element.</p>
+        than is permitted by the simpler <gi>name</gi> element. The following example shows how a
+        precise date range can be associated with a personal or corporate name.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <titleStmt>
-          <title>Symphony No. 5 in C Minor : an electronic transcription</title>
-          <respStmt>
-            <resp>Composed by: </resp>
-            <persName>Ludwig van Beethoven</persName>
-            <resp>Machine-readable transcription by: </resp>
-            <persName>Maja Hartwig</persName>
-            <persName>Kristina Richts</persName>
-          </respStmt>
-        </titleStmt>
+        <respStmt>
+          <resp>Machine-readable transcription by: </resp>
+          <persName startdate="1860-01-01" enddate="1940-11-06">John Doe</persName>
+        </respStmt>
       </egXML>
+      <p>For additional information about corporate and personal names, see chapter <ptr
+          target="#namesDates"/>.</p>
       <p>In addition to, or instead of the <gi>resp</gi> element, the <att>role</att> attribute on
           <gi>name</gi>, <gi>persName</gi>, and <gi>corpName</gi> may be used to capture the nature
         of responsibility. While <gi>resp</gi> accommodates capturing the wide variety of text that
         may occur in responsibility statements, use of the <att>role</att> attribute provides the
         possibility of recording a controlled value independently of the textual content of
-          <gi>resp</gi>. The use of <att>role</att> is required for improved data processability and
-        interchange. The following example demonstrates how a responsibility statement may be
-        literally transcribed using interleaved <gi>resp</gi> and <gi>persName</gi> elements:</p>
+          <gi>resp</gi>.</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <respStmt>
+          <resp>Encoded by </resp>
+          <corpName role="encoder">Members of the Local Symphony Orchestra</corpName>
+        </respStmt>
+      </egXML>
+      <p>Values from the MARC relator code list (<ref
+          target="http://www.loc.gov/marc/relators/relacode.html"
+          >http://www.loc.gov/marc/relators/relacode.html</ref>) or term list (<ref
+          target="http://www.loc.gov/marc/relators/relaterm.html"
+          >http://www.loc.gov/marc/relators/relaterm.html</ref>) are recommended for
+        <att>role</att>, where applicable.</p>
+      <p>Where it is necessary to group responsibilities and names, multiple responsibility
+        statements may be used. For example:</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+        <titleStmt>
+          <title>Symphony No. 5 in C Minor : an electronic transcription</title>
+          <respStmt>
+            <resp>Encoded by</resp>
+            <persName role="encoder">Joe Encoder</persName>
+            <persName role="encoder">Jane Decoder</persName>
+          </respStmt>
+          <respStmt>
+            <resp>Images scanned by</resp>
+            <persName>Ludwig van Ludwig</persName>
+          </respStmt>
+        </titleStmt>
+      </egXML>
+      <p>It is often desirable to mix primary and secondary intellectual responsibility information.
+        Treating all intellectual roles the same way can allow literal transcription of existing
+        responsibility statements and simplify programmatic processing. The following example
+        demonstrates how a responsibility statement may be transcribed using interleaved
+          <gi>resp</gi> and <gi>persName</gi> elements:</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
         <titleStmt>
           <title>Symphony No. 5 in C Minor : an electronic transcription</title>
@@ -219,44 +292,18 @@
           </respStmt>
         </titleStmt>
       </egXML>
-      <p>The literal transcription of responsibility statements is most useful when encoding source
-        material titles. For responsibility statements within the description of MEI files, the more
-        data-centric approach exemplified below is recommended:</p>
+      <p>However, eliminating explanatory text and relying on standardized values for
+          <att>role</att>, as in the following example, allows data creation and processing tools of
+        the greatest simplicity.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
         <titleStmt>
           <title>Symphony No. 5 in C Minor : an electronic transcription</title>
           <respStmt>
             <persName role="composer">Ludwig van Beethoven</persName>
-            <persName role="encoder">Maja Hartwig</persName>
-            <persName role="encoder">Kristina Richts</persName>
+            <persName role="editor">Johannes Jones</persName>
           </respStmt>
         </titleStmt>
       </egXML>
-      <p>Values from the MARC relator code list (<ref
-          target="http://www.loc.gov/marc/relators/relacode.html"
-          >http://www.loc.gov/marc/relators/relacode.html</ref>) or term list (<ref
-          target="http://www.loc.gov/marc/relators/relaterm.html"
-          >http://www.loc.gov/marc/relators/relaterm.html</ref>) are recommended for
-        <att>role</att>, where applicable.</p>
-      <p>Responsibilities, transcribed using the <gi>resp</gi> element, and names may be associated
-        through the use of multiple responsiblity statements. For example:</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <titleStmt>
-          <title>Symphony No. 5 in C Minor : an electronic transcription</title>
-          <respStmt>
-            <resp>Composed by</resp>
-            <persName>Ludwig van Beethoven</persName>
-          </respStmt>
-          <respStmt>
-            <persName role="encoder">Maja Hartwig</persName>
-            <persName role="encoder">Kristina Richts</persName>
-            <resp>Encoders</resp>
-          </respStmt>
-        </titleStmt>
-      </egXML>
-
-      <p>For diplomatic transcription of a titlepage, use the <gi>titlePage</gi> element described
-        in chapter <ptr target="#titlePages"/>.</p>
     </div>
     <div xml:id="editionstmt" type="div3">
       <head>Edition Statement</head>
@@ -274,11 +321,11 @@
           <specDesc key="respStmt"/>
         </specList>
       </p>
-      <p>For printed texts, the word <term>edition</term> applies to the set of all the identical
-        copies of an item produced from one master copy and issued by a particular publishing agency
-        or a group of such agencies. A change in the identity of the distributing body or bodies
-        does not normally constitute a change of edition, while a change in the master copy
-        does.</p>
+      <p>For printed texts, the term <soCalled>edition</soCalled> applies to the set of all the
+        identical copies of an item produced from one master copy and issued by a particular
+        publishing agency or a group of such agencies. A change in the identity of the distributing
+        body or bodies does not normally constitute a change of edition, while a change in the
+        master copy does.</p>
       <p>For electronic texts, the notion of a <mentioned>master copy</mentioned> is not entirely
         appropriate, since they are far more easily copied and modified than printed ones;
         nonetheless, the term edition may be used for a particular state of a machine-readable text
@@ -295,14 +342,14 @@
         representation to another would not. Changes relating to the character code or physical
         storage details, corrections of misspellings, simple changes in the arrangement of the
         contents and changes in the output format do not normally constitute a new edition, whereas
-        the addition of new information (e.g., a linguistic analysis expressed in part-of-speech
-        tagging, sound or graphics, referential links to external data sets) almost always does.</p>
+        the addition of new information (e.g., annotations, sound or images, links to external data)
+        almost always does.</p>
       <p>Clearly, there will always be borderline cases and the matter is somewhat arbitrary. The
         simplest rule is: if you think that your file is a new edition, then call it such. An
         edition statement is optional for the first release of a computer file; it is mandatory for
         each later release, though this requirement cannot be enforced.</p>
       <p>Note that all changes in a file, whether or not they are regarded as constituting a new
-        edition or simply a new revision, should be independently noted in the revision description
+        edition or simply a revision, should be independently noted in the revision description
         section of the file header (see section <ptr target="#revisionDescription"/>).</p>
       <p>The edition element should contain phrases describing the edition or version, including the
         word 'edition', 'version', or an equivalent term, together with a number or date, or terms
@@ -318,7 +365,7 @@
       <p>Some examples follow:</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
         <editionStmt>
-          <edition n="D2">Second draft, substantially extended, revised, and corrected.</edition>
+          <edition n="Draft2">Second draft, substantially extended, revised, and corrected.</edition>
         </editionStmt>
       </egXML>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
@@ -377,7 +424,7 @@
       <p>The use of standard abbreviations for units of quantity is recommended where applicable,
         here as elsewhere (see <ref target="http://physics.nist.gov/cuu/Units/binary.html"
           >http://physics.nist.gov/cuu/Units/binary.html</ref>).</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+      <egXML xmlns="http://www.tei-c.org/ns/Examples" valid="false">
         <extent>between 1 MB and 2 MB</extent>
         <extent>4.2 MiB</extent>
         <extent>4532 Mbytes</extent>
@@ -401,32 +448,26 @@
       </p>
       <p>It may contain either a single <gi>unpub</gi> element, indicating that the file has yet to
         be published, or in the case of published material, one or more elements from the <ident
-          type="class">model.nameLike.geogName</ident>, <ident type="class"
-          >model.addressLike</ident>, <ident type="class">model.dateLike</ident>, and <ident
-          type="class">model.identifierLike</ident> classes, as well as the elements
-          <gi>availability</gi> and <gi>respStmt</gi>.</p>
+          type="class">model.pubStmtPart</ident> class. The following elements may be used to
+        provide details regarding the file's publication and distribution:</p>
       <p>
         <specList>
+          <specDesc key="address"/>
+          <specDesc key="availability"/>
+          <specDesc key="date"/>
+          <specDesc key="distributor"/>
+          <specDesc key="identifier"/>
+          <specDesc key="publisher"/>
+          <specDesc key="pubPlace"/>
           <specDesc key="respStmt"/>
         </specList>
       </p>
-      <p>The <gi>respStmt</gi> element may be used to identify the publisher and distributor of the
-        file. The publisher is the person or institution by whose authority a given edition of the
-        file is made public. The distributor is the person or institution from whom copies of the
-        text may be obtained.</p>
-      <p>The following elements may be used to provide additional details regarding the publication
-        and distribution of a bibliographic entity:</p>
-      <p>
-        <specList>
-          <specDesc key="geogName"/>
-          <specDesc key="address"/>
-          <specDesc key="identifier"/>
-          <specDesc key="availability"/>
-          <specDesc key="date"/>
-        </specList>
-      </p>
+      <p>The publisher is the person or institution by whose authority a given edition of the file
+        is made public. The distributor is the person or institution from whom copies of the text
+        may be obtained. Use <gi>respStmt</gi> to identify other responsible persons or corporate
+        bodies.</p>
       <p>The sub-elements of <gi>availability</gi> should be used to provide detailed information
-        regarding the availability of an item.</p>
+        regarding access to the MEI file.</p>
       <p>
         <specList>
           <specDesc key="acqSource"/>
@@ -436,50 +477,56 @@
           <specDesc key="sysReq"/>
         </specList>
       </p>
-      <p>Note that the dates, places, etc., given in the publication statement relate to the
-        publisher, distributor, or release authority most recently mentioned. If the text was
-        created at some date other than its date of publication, its date of creation should be
-        given within the <gi>workDesc</gi> element, not in the publication statement. Give any other
-        useful dates (e.g., dates of collection of data) in an annotation within the notes
-        statement.</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <pubStmt>
-          <respStmt>
-            <corpName>Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
-          </respStmt>
-          <address>
-               <addrLine>Gartenstrasse 20</addrLine>
-               <addrLine>32756 <geogName>Detmold</geogName></addrLine>
-               <addrLine><geogName>Germany</geogName></addrLine>
-            </address>
-          <date>2011</date>
-          <availability>
-            <useRestrict>© 2004, MEI Consortium</useRestrict>
-          </availability>
-        </pubStmt>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">        
+<pubStmt xmlns="http://www.music-encoding.org/ns/mei">
+  <publisher>
+    <corpName>Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
+  </publisher>
+  <address>
+    <addrLine>Gartenstrasse 20</addrLine>
+    <addrLine>32756 <geogName>Detmold</geogName></addrLine>
+    <addrLine><geogName>Germany</geogName></addrLine>
+  </address>
+  <date>2011</date>
+  <availability>
+    <useRestrict>© 2004, MEI Consortium</useRestrict>
+  </availability>
+</pubStmt>
       </egXML>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <pubStmt>
-          <respStmt>
-            <resp>Publisher</resp>
-            <corpName>Segno Press Inc.</corpName>
-          </respStmt>
-          <respStmt>
-            <resp>Distributor</resp>
-            <corpName>University of Virginia</corpName>
-          </respStmt>
-          <address>
-            <addrLine>21 B LowWater Street,</addrLine>
-            <addrLine>Charlottesville, Virginia</addrLine>
-            <addrLine>22901</addrLine>
-          </address>
-          <date>2010</date>
-          <identifier>1234</identifier>
-          <availability>
-            <useRestrict>Available for purposes of academic research and teaching
-              only.</useRestrict>
-          </availability>
-        </pubStmt>
+<pubStmt xmlns="http://www.music-encoding.org/ns/mei">
+  <publisher>
+    <corpName>Segno Press Inc.</corpName>
+  </publisher>
+  <distributor>
+    <corpName>University of Virginia</corpName>
+    <address>
+      <addrLine>221 B LowWater Street,</addrLine>
+      <addrLine>Charlottesville, Virginia</addrLine>
+      <addrLine>22901</addrLine>
+    </address>
+  </distributor>  
+  <date>2010</date>
+  <identifier>1234</identifier>
+  <availability>
+    <useRestrict>Available for purposes of academic research and teaching only.</useRestrict>
+  </availability>
+</pubStmt>
+      </egXML>
+      <p>Give any other useful information (e.g., dates of collection of data) in an annotation
+        within the notes statement, which is described below.</p>
+      <p>Here, as in the description of intellectual responsibility described above, the
+          <gi>respStmt</gi> element may be used to contain all statements of responsibility
+        regarding publication and distribution when uniformity is desired regardless of the role of
+        participants in the publication process:</p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples">
+<respStmt xmlns="http://www.music-encoding.org/ns/mei">
+  <corpName role="publisher">MEI Project</corpName>
+  <corpName role="funder" dbkey="2007744-0" authURI="http://d-nb.info/gnd" authority="GND">German
+    Research Foundation</corpName>
+  <corpName role="funder" dbkey="18183-3" authURI="http://d-nb.info/gnd/18183-3" authority="Deutsche Nationalbibliothek">
+    National Endowment for the Humanities</corpName>
+</respStmt>
       </egXML>
     </div>
     <div xml:id="seriesStatement" type="div3">
@@ -505,63 +552,60 @@
       <p>
         <specList>
           <specDesc key="title"/>
+          <specDesc key="editor"/>
           <specDesc key="respStmt"/>
           <specDesc key="identifier"/>
           <specDesc key="contents"/>
           <specDesc key="seriesStmt"/>
         </specList>
       </p>
-      <p>The <gi>title</gi> and <gi>respStmt</gi> elements have the same function described above:
-        identification of the item, in this case the series, and the individuals or groups
-        responsible for its creation and production. The <gi>title</gi> element is required within
+      <p>The <gi>title</gi>, <gi>editor</gi> and <gi>identifier</gi> elements have the same function
+        described above: identification of the item, in this case the series, and the individuals or
+        groups responsible for its creation. The <gi>title</gi> element is required within
           <gi>seriesStmt</gi>.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <seriesStmt>
-          <title>MEI Sample Collection</title>
-        </seriesStmt>
+<seriesStmt>
+  <title>MEI Sample Collection</title>
+</seriesStmt>
       </egXML>
       <p>The <gi>identifier</gi> element may be used to supply any identifying number associated
         with the series, including both standard numbers such as an ISSN and particular issue
         numbers. Its <att>type</att> attribute is used to categorize the number further, taking the
         value 'ISSN' for an ISSN, for example.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <seriesStmt>
-          <title level="s">Studies in Ornamentation</title>
-          <respStmt>
-            <resp>ed. by</resp>
-            <name>Jacques Composeur</name>
-          </respStmt>
-          <identifier type="vol">1.2</identifier>
-          <identifier type="ISSN">0 345 6789</identifier>
-        </seriesStmt>
+<seriesStmt>
+  <title level="s">Studies in Ornamentation</title>
+  <editor>Jacques Composeur</editor>
+  <identifier type="ISSN">0-345-6789</identifier>
+</seriesStmt>
       </egXML>
       <p>The contents of the series may be enumerated using the <gi>contents</gi> element. Use of
         this element should be determined by the complexity of the resource and whether or not the
         information is readily available. The <gi>contents</gi> element may consist of a single
         paragraph when unstructured information is sufficient.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <contents>
-          <p>On Wenlock Edge -- From Far, From Eve and Morning -- Is My Team Ploughing? -- Oh, When
-            I Was In Love With You -- Bredon Hill -- Clun</p>
-        </contents>
+<contents>
+  <p>On Wenlock Edge -- From Far, From Eve and Morning -- Is My Team Ploughing? -- Oh, When I Was In
+    Love With You -- Bredon Hill -- Clun</p>
+</contents>
       </egXML>
       <p>Alternatively, <gi>contentItem</gi> elements may be used to provide structure for the
         content description.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <contents>
-          <head>Contents</head>
-          <contentItem>On Wenlock Edge</contentItem>
-          <contentItem>From Far, From Eve and Morning</contentItem>
-          <contentItem>Is My Team Ploughing?</contentItem>
-          <contentItem>Oh, When I Was In Love With You</contentItem>
-          <contentItem>Bredon Hill</contentItem>
-          <contentItem>Clun</contentItem>
-        </contents>
+<contents>
+  <head>Contents</head>
+  <contentItem>On Wenlock Edge</contentItem>
+  <contentItem>From Far, From Eve and Morning</contentItem>
+  <contentItem>Is My Team Ploughing?</contentItem>
+  <contentItem>Oh, When I Was In Love With You</contentItem>
+  <contentItem>Bredon Hill</contentItem>
+  <contentItem>Clun</contentItem>
+</contents>
       </egXML>
       <p>Finally, using the <att>target</att> attribute, a link to an external table of contents may
         be supplied in lieu of or in addition to the child elements of <gi>contents</gi>.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <contents target="http://www.series.content/12345"/>
+<contents target="http://www.series.content/12345"/>
       </egXML>
       <p>The <gi>seriesStmt</gi> element is allowed to nest within itself in order to accommodate a
         series within a series.</p>
@@ -585,7 +629,7 @@
         specific elements in these Guidelines; in particular the following items should be tagged as
         indicated, rather than as general notes:</p>
       <list type="bulleted">
-        <item>the nature, scope, artistic form, or purpose of the file; also the genre or other
+        <item>the nature, scope, artistic form, or purpose of the work; also the genre or other
           intellectual category to which it may belong. These should be formally described within
           the <gi>workDesc</gi> element (section <ptr target="#workDescription"/>).</item>
         <item>bibliographic details relating to the source or sources of an electronic text: e.g.,
@@ -615,8 +659,8 @@
         <item>availability of the file in an additional medium or information not already recorded
           about the availability of documentation: e.g. ‘User manual is loose-leaf in eleven
           paginated sections’</item>
-        <item>language of work and abstract, if not encoded in the langUsage element, e.g. ‘Text in
-          English with stage directions in French and German’</item>
+        <item>language of work and abstract, if not encoded in the <gi>langUsage</gi> element, e.g.
+          ‘Text in English with stage directions in French and German’</item>
       </list>
       <p>Each such item of information may be tagged using the general-purpose <gi>annot</gi>
         element. Groups of annotations are contained within the <gi>notesStmt</gi> element, as in
@@ -660,7 +704,7 @@
       </p>
       <p>The content model of the <gi>source</gi> element is similar to that of the
           <gi>fileDesc</gi> and <gi>work</gi> elements. The list below reflects the order in which
-        the components of <gi>source</gi> must occur.</p>
+        the optional components of <gi>source</gi> must occur.</p>
       <p>
         <specList>
           <specDesc key="identifier"/>
@@ -668,98 +712,92 @@
           <specDesc key="editionStmt"/>
           <specDesc key="pubStmt"/>
           <specDesc key="physDesc"/>
+          <specDesc key="physLoc"/>
           <specDesc key="seriesStmt"/>
-          <specDesc key="notesStmt"/>
-          <specDesc key="history"/>
-          <specDesc key="langUsage"/>
-          <specDesc key="key"/>
-          <specDesc key="tempo"/>
-          <specDesc key="meter"/>
-          <specDesc key="mensuration"/>
-          <specDesc key="perfMedium"/>
-          <specDesc key="classification"/>
-          <specDesc key="incip"/>
           <specDesc key="contents"/>
-          <specDesc key="relatedItem"/>
+          <specDesc key="langUsage"/>
+          <specDesc key="notesStmt"/>
+          <specDesc key="classification"/>
+        </specList>
+      </p>
+      <p>When the MEI.frbr module is available, the following elements may also appear after the
+        classification element. Additional information regarding FRBR (Functional Requirements for
+        Bibliographic Records) can be found at <ptr target="#"/>.</p>
+      <p>
+        <specList>
+          <specDesc key="itemList"/>
+          <specDesc key="componentGrp"/>
+          <specDesc key="relationList"/>
         </specList>
       </p>
       <p>In the simplest case, the <gi>source</gi> element may contain nothing more than a notes
         statement giving a simple prose description or a brief note stating that the document has no
         physical source:</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <sourceDesc>
-          <source>
-            <notesStmt>
-              <annot>Based on the Porter Wagner edition.</annot>
-            </notesStmt>
-          </source>
-        </sourceDesc>
+<sourceDesc>
+  <source>
+    <notesStmt>
+      <annot>Based on the Porter Wagner edition.</annot>
+    </notesStmt>
+  </source>
+</sourceDesc>
       </egXML>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <sourceDesc>
-          <source>
-            <notesStmt>
-              <annot>Born digital.</annot>
-            </notesStmt>
-          </source>
-        </sourceDesc>
+<sourceDesc>
+  <source>
+    <notesStmt>
+      <annot>Born digital.</annot>
+    </notesStmt>
+  </source>
+</sourceDesc>
       </egXML>
       <p>Alternatively, it may contain a basic bibliographic citation, also in an annotation:</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <sourceDesc>
-          <source>
-            <notesStmt>
-              <annot>Bach, Carl Philipp Emanuel. Sonata in B-flat major, Wq.62/1 (H.2)</annot>
-            </notesStmt>
-          </source>
-        </sourceDesc>
+<sourceDesc>
+  <source>
+    <notesStmt>
+      <annot>Bach, Carl Philipp Emanuel. Sonata in B-flat major, Wq.62/1 (H.2)</annot>
+    </notesStmt>
+  </source>
+</sourceDesc>
       </egXML>
       <p>However, more structured bibliographic data, such as that in the example below, facilitates
         better machine-processing:</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <sourceDesc>
-          <source xml:id="header.s1">
-            <identifier>1</identifier>
-            <titleStmt>
-              <title>Sonata in B-flat major, <identifier>Wq. 62/1 (H.2)</identifier></title>
-              <respStmt>
-                <name>Bach, Carl Philipp Emanuel</name>
-              </respStmt>
-            </titleStmt>
-            <pubStmt>
-              <pubPlace>Paris</pubPlace>
-              <respStmt>
-                <name>A. Farrenc</name>
-              </respStmt>
-              <date>1861-72</date>
-            </pubStmt>
-            <seriesStmt>
-              <title>Tresor des Pianistes, Vol. 13</title>
-            </seriesStmt>
-            <notesStmt>
-              <annot>reprinted New York: Dover Publications, n.d.</annot>
-            </notesStmt>
-          </source>
-        </sourceDesc>
+<sourceDesc>
+  <source xml:id="header.s1">
+    <identifier>1</identifier>
+    <titleStmt>
+      <title>Sonata in B-flat major, <identifier>Wq. 62/1 (H.2)</identifier></title>
+      <respStmt>
+        <name>Bach, Carl Philipp Emanuel</name>
+      </respStmt>
+    </titleStmt>
+    <pubStmt>
+      <pubPlace>Paris</pubPlace>
+      <respStmt>
+        <name>A. Farrenc</name>
+      </respStmt>
+      <date>1861-72</date>
+    </pubStmt>
+    <seriesStmt>
+      <title>Tresor des Pianistes, Vol. 13</title>
+    </seriesStmt>
+    <notesStmt>
+      <annot>reprinted New York: Dover Publications, n.d.</annot>
+    </notesStmt>
+  </source>
+</sourceDesc>
       </egXML>
       <p>A description of more precise capture of dates and date ranges is provided in chapter <ptr
           target="#namesDates"/>.</p>
-      <p>The<gi> identifier</gi> element is provided within <gi>source</gi> in order to accommodate
+      <p>The <gi>identifier</gi> element is provided within <gi>source</gi> in order to accommodate
         identifying strings which cannot be captured by the <att>xml:id</att> attribute, such as
         numbers or strings requiring XML markup.</p>
       <p>The <gi>titleStmt</gi>, <gi>editionStmt</gi>, <gi>pubStmt</gi>, <gi>seriesStmt</gi>, and
           <gi>notesStmt</gi> elements function in exactly the same way as described in section <ptr
           target="#fileDescription"/> above and <ptr target="#workDescription"/> below and will not
         be covered again here.</p>
-      <p>The <gi>history</gi> element is a container for non-bibliographic details relating to the
-        creation of a source. The languages and sub-languages used by the source can be recorded in
-        the <gi>langUsage</gi> element as described in section <ptr target="#workLanguage"/> below.
-        The usage of <gi>key</gi>, <gi>tempo</gi>, and <gi>meter</gi> below in section <ptr
-          target="#workKeyTempoMeter"/>. The elements <gi>perfMedium</gi>; <gi>classification</gi>,
-          <gi>castList</gi>, <gi>incip</gi>, <gi>contents</gi>, and <gi>relatedItem</gi> are also
-        discussed in sections , <ptr target="#workMedium"/>, <ptr target="#workClass"/>, <ptr
-          target="#workCast"/>, <ptr target="#workIncipit"/>, <ptr target="#workContents"/>, and
-          <ptr target="#workRelatedItems"/>, respectively.</p>
       <p>If a source of the file is an unpublished manuscript, it is recommended that the
           <gi>unpub</gi> element be used as the only content of the source's <gi>pubStmt</gi>
         element. Other identifying information for the manuscript may be collected in the
@@ -794,8 +832,8 @@
         <egXML xmlns="http://www.tei-c.org/ns/Examples">
           <!-\- NEED EXAMPLE HERE! -\->
         </egXML>-->
-        <p>Most often the association is between the bibliographic description of a source and the
-          material which is derived from it.</p>
+        <p>The most useful associations of this type are between the bibliographic description of a
+          source and the material taken from it.</p>
       </div>
     </div>
   </div>
@@ -847,13 +885,12 @@
         uniquely identify the application and its major version number (for example, 'Edirom Tool
         1.5'). It is not intended that a software application should add a new <gi>application</gi>
         element each time it touches the file.</p>
-      <p>The following example shows how these elements might be used to document the fact that
+      <p>The following example shows how these elements might be used to record the fact that
         version 1.5 of an application called ‘Music Markup Tool’ has an interest in two parts of a
-        document which was last processed on June 6, 2011. The parts concerned are accessible at the
-        URLs given as targets of the two <gi>ptr</gi> elements. When used on <gi>application</gi>,
-        the <att>date</att> attribute specifies when the application was employed. Version
-        information for the application should be placed in <att>version</att>, even if the version
-        specification is a date.</p>
+        document. The parts concerned are accessible at the URLs given as targets of the two
+          <gi>ptr</gi> elements. When used on <gi>application</gi>, the <att>date</att> attribute
+        specifies when the application was employed, in this case June 6, 2011. Version information
+        for the application should be placed in <att>version</att>.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
         <appInfo>
           <application xml:id="header.MusicMarkupTool" version="1.5" isodate="2011-06-06">
@@ -970,8 +1007,8 @@
     </div>
     <div xml:id="samplingDeclaration" type="div3">
       <head>Sampling Declaration</head>
-      <p>The samplingDecl element may be used to describe, in prose, the rationale and methods used
-        in selecting texts, or parts of text, for inclusion in the resource.</p>
+      <p>The samplingDecl element holds a prose description of the rationale and methods used in
+        selecting texts, or parts of text, for inclusion in the resource.</p>
       <p>
         <specList>
           <specDesc key="samplingDecl"/>
@@ -1034,18 +1071,24 @@
     <list type="ordered">
       <item>identifier</item>
       <item>titleStmt</item>
+      <item>incip</item>
+      <item>key</item>
+      <item>mensuration</item>
+      <item>meter</item>
+      <item>tempo</item>
+      <item>otherChar</item>
       <item>history</item>
       <item>langUsage</item>
-      <item>key</item>
-      <item>tempo</item>
-      <item>meter</item>
-      <item>mensuration</item>
       <item>perfMedium</item>
+      <item>audience</item>
+      <item>contents</item>
+      <item>context</item>
+      <item>biblList</item>
       <item>notesStmt</item>
       <item>classification</item>
-      <item>incip</item>
-      <item>contents</item>
-      <item>relatedItem</item>
+      <item>expressionList</item>
+      <item>componentGrp</item>
+      <item>relationList</item>
     </list>
     <div xml:id="workIdentification" type="div3">
       <head>Work Identification</head>
@@ -1420,12 +1463,10 @@
           Congress, Cataloging Distribution Service, 1993- .</classCode>
       </egXML>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <classCode xml:id="header.LoC_lccoB"
-          authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf"/>
+        <classCode xml:id="header.LoC_lccoB" authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf"/>
       </egXML>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
-        <classCode xml:id="header.LoC_lccoC"
-          authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf">Library of
+        <classCode xml:id="header.LoC_lccoC" authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf">Library of
           Congress subject headings. Prepared by the Cataloging Policy and Support Office,
           Collections Services. Washington, D.C.: Library of Congress, Cataloging Distribution
           Service, 1993- .</classCode>
@@ -1434,10 +1475,8 @@
         means of an identifier, to the classification scheme from which it is drawn.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
         <classification>
-          <classCode xml:id="header.LCSH1" authority="Library of Congress"
-            authURI="http://www.loc.gov"/>
-          <classCode xml:id="header.LoC_lcco1" authority="Library of Congress"
-            authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf"/>
+          <classCode xml:id="header.LCSH1" authority="Library of Congress" authURI="http://www.loc.gov"/>
+          <classCode xml:id="header.LoC_lcco1" authority="Library of Congress" authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf"/>
           <termList>
             <term classcode="#header.LCSH1">Guitar music (Rock)</term>
             <term classcode="#header.LCSH1">Rock music 1971-1980.</term>
@@ -1449,10 +1488,8 @@
         terms come from the same source.</p>
       <egXML xmlns="http://www.tei-c.org/ns/Examples">
         <classification>
-          <classCode xml:id="header.LCSH2" authority="Library of Congress"
-            authURI="http://www.loc.gov"/>
-          <classCode xml:id="header.LoC_lcco2" authority="Library of Congress"
-            authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf"/>
+          <classCode xml:id="header.LCSH2" authority="Library of Congress" authURI="http://www.loc.gov"/>
+          <classCode xml:id="header.LoC_lcco2" authority="Library of Congress" authURI="http://www.loc.gov/aba/cataloging/classification/lcco/lcco_m.pdf"/>
           <termList classcode="#header.LCSH2">
             <term>Guitar music (Rock) </term>
             <term>Rock music 1971-1980.</term>
@@ -1654,8 +1691,7 @@
           </titleStmt>
           <pubStmt>
             <respStmt>
-              <corpName dbkey="5115204-6" authURI="http://d-nb.info/gnd" authority="GND"
-                >Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
+              <corpName dbkey="5115204-6" authURI="http://d-nb.info/gnd" authority="GND">Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
             </respStmt>
           </pubStmt>
         </fileDesc>
@@ -1714,8 +1750,7 @@
                 </respStmt>
               </titleStmt>
               <pubStmt>
-                <identifier type="URI"
-                  >http://icking-music-archive.org/scores/j.chr.bach/JCBIN-xml.zip</identifier>
+                <identifier type="URI">http://icking-music-archive.org/scores/j.chr.bach/JCBIN-xml.zip</identifier>
                 <date isodate="2011-10-13"/>
                 <respStmt>
                   <name>Werner Icking Music Archive</name>
@@ -1725,8 +1760,7 @@
                 </availability>
               </pubStmt>
               <classification>
-                <classCode xml:id="header.OCLC_DDC" authority="OCLC"
-                  authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
+                <classCode xml:id="header.OCLC_DDC" authority="OCLC" authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
                 <termList>
                   <term classcode="#header.OCLC_DDC">785.15</term>
                 </termList>
