@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
     meiversion="2012">
     <meiHead>
         <fileDesc>
             <titleStmt>
-                <title>Shaw ´Nuff</title>
+                <title>Shaw' Nuff</title>
                 <title type="subtitle">an electronic transcription</title>
                 <respStmt>
                     <persName role="creator" authURI="http://d-nb.info/gnd" dbkey="118739328"
@@ -64,8 +65,10 @@
                 </respStmt>
             </seriesStmt>
             <sourceDesc>
-                <source>
-                    <identifier/>
+                <source n="1">
+                    <identifier>
+                        The URI opf the pdf source isn't available anymore.
+                    </identifier>
                     <titleStmt>
                         <title>Shaw ´Nuff</title>
                         <respStmt>
@@ -109,7 +112,7 @@
                     </creation>
                 </history>
                 <key pname="b" mode="major"/>
-                <tempo mm="278">Fast Bebop</tempo>
+                <tempo>Fast Bebop</tempo>
                 <meter count="4" unit="4" sym="common"/>
                 <perfMedium>
                     <instrumentation>
@@ -133,42 +136,11 @@
                     </termList>
                     <classCode xml:id="OCLC_DDC" authority="OCLC"
                         authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
-                    <classCode xml:id="OSWD" authURI="BSZ" authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
+                    <classCode xml:id="OSWD" authURI="BSZ"
+                        authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
                 </classification>
                 <incip>
-                    <incipCode>No incipit available</incipCode>
-                    <score>
-                        <scoreDef>
-                            <staffGrp>
-                                <staffDef n="1" clef.shape="G" clef.line="2" lines="5"/>
-                                <staffDef n="2" clef.shape="F" clef.line="4" key.sig="2f"
-                                    meter.count="4" meter.unit="4" lines="5"/>
-                            </staffGrp>
-                        </scoreDef>
-                        <section>
-                            <measure n="1" left="rptstart">
-                                <tempo mm="278"/>
-                                <staff n="1" visible="false"/>
-                                <staff n="2" visible="true">
-                                    <layer n="1">
-                                        <note stem.dir="up" headshape="cross" dur="4" oct="3"
-                                            pname.ges="b"/>
-                                        <note stem.dir="up" headshape="cross" dur="4" oct="3"
-                                            pname.ges="b"/>
-                                        <rest dur="2" line="6"/>
-                                    </layer>
-                                    <layer n="2">
-                                        <note pname="f" oct="3" dur="4" stem.dir="down"/>
-                                        <note pname="f" oct="2" dur="4" stem.dir="up" artic="stacc"/>
-                                        <rest dur="2"/>
-                                    </layer>
-                                </staff>
-                                <dir staff="1" place="above" tstamp="0">Fast Bebop<lb/>Intro</dir>
-                                <dir staff="1" place="above" tstamp="1">N.C.<lb/>drums</dir>
-                                <dir staff="2" place="below" tstamp="1">(pn.)</dir>
-                            </measure>
-                        </section>
-                    </score>
+                    <incipCode form="NotAvailable"> No incipit available </incipCode>
                 </incip>
             </work>
         </workDesc>
@@ -205,7 +177,7 @@
                                         pname.ges="b" xml:id="x1"/>
                                     <note stem.dir="up" headshape="cross" dur="4" oct="3"
                                         pname.ges="b" xml:id="x2"/>
-                                    <rest dur="2" line="6"/>
+                                    <rest dur="2"/>
                                 </layer>
                                 <layer n="2">
                                     <note pname="f" oct="3" dur="4" stem.dir="down" xml:id="m1s2e1"/>
@@ -228,7 +200,7 @@
                                         <note pname.ges="b" oct="3" headshape="cross" xml:id="x4"
                                             dur="8" stem.dir="up"/>
                                     </beam>
-                                    <rest dur="8" line="6"/>
+                                    <rest dur="8"/>
                                     <note pname.ges="b" oct="3" headshape="cross" dur="8"
                                         stem.dir="up" xml:id="x5"/>
                                     <note pname.ges="b" oct="3" headshape="diamond" dur="2"
@@ -256,7 +228,7 @@
                                         headshape="cross" xml:id="x7"/>
                                     <note pname.ges="b" oct="3" dur="4" stem.dir="up"
                                         headshape="cross" xml:id="x8"/>
-                                    <rest line="6" dur="2"/>
+                                    <rest dur="2"/>
                                 </layer>
                                 <layer n="2">
                                     <note pname="f" oct="3" dur="4" stem.dir="down" xml:id="m3s2e1"/>
@@ -276,7 +248,7 @@
                                         <note pname.ges="b" oct="3" dur="8" stem.dir="up"
                                             headshape="cross" xml:id="x10"/>
                                     </beam>
-                                    <rest dur="8" line="6"/>
+                                    <rest dur="8"/>
                                     <note pname.ges="b" oct="3" dur="8" stem.dir="up" xml:base="x11"/>
                                     <note pname.ges="b" oct="3" dur="2" headshape="diamond"
                                         xml:id="x12" stem.dir="up" stem.pos="center"/>
@@ -565,10 +537,11 @@
                         <sb/>
                         <measure n="13">
                             <staff n="1">
-                                <staffDef clef.shape="G" clef.line="2" clef.visible="true"/>
+                                <staffDef n="1" lines="5" clef.shape="G" clef.line="2"
+                                    clef.visible="true"/>
                                 <layer n="1">
                                     <rest dur="4"/>
-                                    <rest dur="2" line="6"/>
+                                    <rest dur="2"/>
                                 </layer>
                                 <layer n="2">
                                     <rest dur="8"/>
@@ -596,7 +569,7 @@
                             <dir staff="1" place="above" tstamp="0">MI</dir>
                             <dir staff="1" place="above" tstamp="1">(hi-hat continues)</dir>
                             <dir staff="1" place="below" tstamp="0">(trp/ alto 8va h)</dir>
-                            <harm place="above" staff="1">Bb</harm>
+                            <harm place="above" staff="1" tstamp="2">Bb</harm>
                         </measure>
                         <measure n="14">
                             <staff n="1">
@@ -654,14 +627,14 @@
                         <measure n="17">
                             <staff n="1">
                                 <layer n="1">
-                                    <rest dur="4" line="6"/>
-                                    <rest dur="8" line="6"/>
+                                    <rest dur="4"/>
+                                    <rest dur="8"/>
                                     <note headshape="cross" stem.dir="up" pname.ges="g" oct="5"
                                         dur="8" xml:id="m17x1"/>
-                                    <rest dur="8" line="6"/>
+                                    <rest dur="8"/>
                                     <note headshape="cross" stem.dir="up" pname.ges="g" oct="5"
                                         dur="8" xml:id="m17x2"/>
-                                    <rest dur="4" line="6"/>
+                                    <rest dur="4"/>
                                 </layer>
                                 <layer n="2">
                                     <rest dur="4"/>
@@ -678,7 +651,7 @@
                         <measure n="18">
                             <staff n="1">
                                 <layer n="1">
-                                    <rest dur="8" line="6"/>
+                                    <rest dur="8"/>
                                     <note pname.ges="g" oct="5" dur="8" stem.dir="up"
                                         headshape="cross" xml:id="m18x1"/>
                                     <note pname.ges="g" oct="5" dur="2" stem.dir="up"
@@ -754,7 +727,7 @@
                         <measure n="20">
                             <staff n="1">
                                 <layer n="1">
-                                    <rest dur="1" line="7"/>
+                                    <rest dur="1"/>
                                     <note pname="d" oct="5" dur="8" stem.dir="up"/>
                                 </layer>
                                 <layer n="2">

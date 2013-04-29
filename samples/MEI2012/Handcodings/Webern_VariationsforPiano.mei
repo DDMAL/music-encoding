@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
     meiversion="2012">
     <meiHead>
@@ -113,7 +114,7 @@
                     <creation>Year of composition:<date isodate="1936">1936</date></creation>
                 </history>
                 <key/>
-                <tempo mm="160">Sehr Schnell</tempo>
+                <tempo>Sehr Schnell</tempo>
                 <meter count="2" unit="4"/>
                 <perfMedium>
                     <instrumentation>
@@ -139,11 +140,13 @@
                             <title>Klaviermusik</title>
                         </term>
                     </termList>
-                    <classCode xml:id="OCLC_DDC" authority="OCLC" authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
-                    <classCode xml:id="OSWD" authURI="BSZ" authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
+                    <classCode xml:id="OCLC_DDC" authority="OCLC"
+                        authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
+                    <classCode xml:id="OSWD" authURI="BSZ"
+                        authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
                 </classification>
                 <incip>
-                    <incipCode>No incipit available</incipCode>
+                    <incipCode form="NotAvailable">No incipit available</incipCode>
                     <score>
                         <scoreDef>
                             <staffGrp symbol="brace">
@@ -168,7 +171,8 @@
                                         <space dur="8"/>
                                     </layer>
                                 </staff>
-                                <dir staff="1" place="above" type="bold">Sehr schnell</dir>
+                                <dir staff="1" tstamp="1" place="above" type="bold">Sehr
+                                    schnell</dir>
                                 <slur staff="1" startid="m0_s2_e1a" endid="m0_s2_e1a"/>
                                 <beamSpan staff="1" startid="#m0_s2_e1a" endid="#m0_s1_e1a"
                                     beam.with="below"/>
@@ -192,7 +196,7 @@
                                         <clef shape="F" line="4"/>
                                     </layer>
                                 </staff>
-                                <dynam staff="1" place="below">p</dynam>
+                                <dynam tstamp="1" staff="1" place="below">p</dynam>
                                 <beamSpan staff="1" beam.with="below" startid="#m1_s2_e2a"
                                     endid="#m1_s1_e1a"/>
                             </measure>
@@ -249,7 +253,7 @@
                                     <space dur="8"/>
                                 </layer>
                             </staff>
-                            <dir staff="1" place="above" type="bold">Sehr schnell</dir>
+                            <dir staff="1" tstamp="1" place="above" type="bold">Sehr schnell</dir>
                             <slur staff="1" startid="m0_s2_e1" endid="m0_s2_e1"/>
                             <beamSpan staff="1" startid="#m0_s2_e1" endid="#m0_s1_e1"
                                 beam.with="below"/>
@@ -273,7 +277,7 @@
                                     <clef shape="F" line="4"/>
                                 </layer>
                             </staff>
-                            <dynam staff="1" place="below">p</dynam>
+                            <dynam staff="1" place="below" tstamp="1">p</dynam>
                             <beamSpan staff="1" beam.with="below" startid="#m1_s2_e2"
                                 endid="#m1_s1_e1"/>
                         </measure>
@@ -518,7 +522,8 @@
                             <dynam staff="1" tstamp="1.5" place="below">f</dynam>
                             <dynam staff="1" tstamp="2" place="below">p</dynam>
                             <beamSpan staff="1" beam.with="below"
-                                plist="#m10_s1_e1 #m10_s1_e3 #m10_s2_e1 #m11_s2_e1"/>
+                                plist="#m10_s1_e1 #m10_s1_e3 #m10_s2_e1 #m11_s2_e1"
+                                startid="#m10_s1_e1" endid="#m11_s2_e1"/>
                             <slur staff="1" startid="#m10_s1_e1" endid="#m10_s1_e3" curvedir="above"
                             />
                         </measure>
