@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?xml-model href="../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="../../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../../tags/MEI2012_v2.0.0/schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
    meiversion="2012">
    <meiHead meiversion="2012">
@@ -47,8 +48,7 @@
          </seriesStmt>
          <sourceDesc>
             <source n="1">
-            	<!--<identifier type="URI" authority="Make Music" authURI="http://www.makemusic.com/">http://www.makemusic.com/musicxml/music/example-set</identifier>-->
-            	<identifier type="opus">op. 105</identifier>
+               <identifier type="opus" authority="Make Music" authURI="http://www.makemusic.com/musicxml/music/example-set">op. 105</identifier>
                <titleStmt>
                   <title>Wie Melodien zieht es mir</title>
                   <title type="uniform">Lieder, op. 105 &lt;Wie Melodien zieht es mir&gt;</title>
@@ -58,23 +58,6 @@
                      <persName role="arranger">Klaus Groth</persName>
                   </respStmt>
                </titleStmt>
-               <pubStmt>
-                  <identifier type="URI"
-                     authURI="http://www.recordare.com/musicxml/music/example-set"
-                     >http://www.recordare.com/musicxml/music/example-set</identifier>
-                  <date isodate="2011-08-08"/>
-                  <respStmt>
-                     <corpName>Recordare LLC</corpName>
-                  </respStmt>
-                  <address>
-                     <addrLine>P.O. Box 3459</addrLine>
-                     <addrLine>Los Altos, California 94024</addrLine>
-                     <addrLine>USA</addrLine>
-                  </address>
-                  <availability>
-                     <useRestrict>Copyright © 2002 Recordare LLC</useRestrict>
-                  </availability>
-               </pubStmt>
             </source>
          </sourceDesc>
       </fileDesc>
@@ -142,7 +125,7 @@
                   authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
             </classification>
             <incip>
-               <incipCode>*uuudddddududud</incipCode>
+               <incipCode form="parsons">*uuudddddududud</incipCode>
                <incipText>
                   <p>Wie Melodien zieht es mir leise durch den Sinn,</p>
                </incipText>
