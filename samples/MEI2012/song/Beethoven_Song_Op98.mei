@@ -66,8 +66,9 @@
             </identifier>
          </seriesStmt>
          <sourceDesc>
-            <source>
-            	<identifier type="opus">Op. 98</identifier>
+            <source n="1" xml:id="IMSLP_Beethoven_op98_1" label="print">
+            	<identifier type="opusNumber">Op. 98</identifier>
+               <identifier type="URI">http://conquest.imslp.info/files/imglnks/usimg/d/d4/IMSLP47561-PMLP11572-Beethoven_Lieder_Peters_9535_Op_98_An_die_ferne_Geliebte.pdf</identifier>
                <titleStmt>
                   <title>An die ferne Geliebte</title>
                   <respStmt>
@@ -76,7 +77,23 @@
                      <persName role="lyricist" dbkey="113667213" authURI="http://d-nb.info/gnd"
                         authority="GND">Aloys Isidor Jeitteles</persName>
                      <persName role="dedicatee">Fürst Joseph von Lobkowitz</persName>
+                     <persName role="editor">Max Unger</persName>
                   </respStmt>
+               </titleStmt>
+               <pubStmt>
+                  <respStmt>
+                     <corpName role="publisher">C.F. Peters</corpName>
+                  </respStmt>
+                  <geogName>Leipzig</geogName>
+               </pubStmt>
+               <physDesc>
+                  <plateNum>9535</plateNum>
+               </physDesc>
+            </source>
+            <source n="2" xml:id="MusicXML_Beethoven_op98_1" label="electronic">
+               <identifier type="URI">http://www.musicxml.com/de/music-in-musicxml/example-set/</identifier>
+               <titleStmt>
+                  <title>An die ferne Geliebte</title>
                </titleStmt>
             </source>
          </sourceDesc>
@@ -93,7 +110,7 @@
             </application>
          </appInfo>
          <samplingDecl>
-            <p>This encoding contains only one page.</p>
+            <p>This encoding contains only the first 23 measures of the song.</p>
          </samplingDecl>
       </encodingDesc>
       <workDesc>
@@ -105,6 +122,14 @@
                   <persName role="composer" dbkey="118508288" authURI="http://d-nb.info/gnd" authority="GND">Ludwig van Beethoven</persName>
                </respStmt>
             </titleStmt>
+            <history>
+               <creation>
+                  <date isodate="1816-04">1816</date>
+               </creation>
+            </history>
+            <langUsage>
+               <language>German</language>
+            </langUsage>
             <key pname="e" accid="f" mode="major">Es major</key>
             <tempo>Ziemlich langsam und mit Ausdruck</tempo>
             <meter count="3" unit="4"/>
@@ -141,7 +166,6 @@
          		<classCode xml:id="OSWD" authURI="BSZ" authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
          	</classification>
             <incip>
-            	<incipCode form="plaineAndEasie" analog="RISM">%25G-2%403%2F4%24bBEA%25B34-%27BB%2F4.B%27%278CDE%2F4E%278G</incipCode>
             	<incipCode form="parsons">*rruuurdudduurduuddduddudrddddd</incipCode>
                <incipText><p>Auf dem Hügel sitz' ich spähend</p></incipText>
                <score>
@@ -269,15 +293,29 @@
             <score>
                <scoreDef meter.count="3" meter.unit="4" key.sig="3f" key.mode="major">
                   <pgHead>
-                     <rend fontsize="24" halign="center" valign="top">An die ferne Geliebte</rend>
-                     <lb/>
-                     <rend fontsize="14">Op. 98</rend>
-                     <rend fontsize="12" valign="top">Aloys Jeitteles</rend>
-                     <rend fontsize="12" halign="right" valign="top">Ludwig van Beethoven</rend>
+                     <table>
+                        <tr>
+                           <td>
+                              <rend fontsize="14" halign="center" valign="top">An die ferne Geliebte<lb/>Ein Liederkreis von A. Jeitteles<lb/>Dem 
+                                 Fürsten Joseph von Lobkovitz gewidmet</rend>
+                           </td>
+                           <td>
+                              <rend fontsize="12" halign="right" valign="top">Op. 98</rend>
+                           </td>
+                        </tr>
+                     </table>
                   </pgHead>
                   <pgFoot>
-                     <rend fontsize="9" halign="center" valign="bottom">Copyright © 2002 Recordare
-                        LLC</rend>
+                     <table>
+                        <tr>
+                           <td>
+                              <rend fontsize="10" valign="bottom" halign="left">Edition Peters</rend>
+                           </td>
+                           <td>
+                              <rend fontsize="10" valign="bottom" halign="center">9535</rend>
+                           </td>
+                        </tr>
+                     </table>
                   </pgFoot>
                   <staffGrp>
                      <staffDef n="1" xml:id="P1" label="Voice" lines="5" clef.line="2"

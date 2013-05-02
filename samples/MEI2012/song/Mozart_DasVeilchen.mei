@@ -48,9 +48,9 @@
             </identifier>
          </seriesStmt>
          <sourceDesc>
-            <source>
-<!-- source needs to be adapted (IMSLP) -->
-            	<identifier type="work">K.476</identifier>
+            <source n="1" xml:id="IMSLP_Mozart_K476" label="print">
+            	<identifier type="workNumber">K.476</identifier>
+               <identifier type="URI">http://conquest.imslp.info/files/imglnks/usimg/f/fe/IMSLP48334-PMLP102278-Mozart_-_Veilchen_K_476.pdf</identifier>
                <titleStmt>
                   <title>Das Veilchen</title>
                   <respStmt>
@@ -58,21 +58,12 @@
                      <persName role="lyricist" dbkey="118540238" authURI="http://d-nb.info/gnd" authority="GND">Johann Wolfgang von Goethe</persName>
                   </respStmt>
                </titleStmt>
-               <pubStmt>
-               	<identifier type="URI" authURI="http://www.recordare.com/musicxml/music/example-set">http://www.recordare.com/musicxml/music/example-set</identifier>
-                  <date isodate="2010-12-31"/>
-                  <respStmt>
-                     <corpName>Recordare LLC</corpName>
-                  </respStmt>
-                  <address>
-                     <addrLine>P.O. Box 3459</addrLine>
-                     <addrLine>Los Altos, California 94024</addrLine>
-                     <addrLine>USA</addrLine>
-                  </address>
-                  <availability>
-                     <useRestrict>Copyright © 2002 Recordare LLC</useRestrict>
-                  </availability>
-               </pubStmt>
+            </source>
+            <source n="2" xml:id="MusicXML_Mozart_K476" label="electronic">
+               <identifier type="URI">http://www.musicxml.com/de/music-in-musicxml/example-set/</identifier>
+               <titleStmt>
+                  <title>Das Veilchen</title>
+               </titleStmt>
             </source>
          </sourceDesc>
       </fileDesc>
@@ -88,7 +79,7 @@
             </application>
          </appInfo>
          <samplingDecl>
-            <p>Encoding of the first page.</p>
+            <p>Encoding of the first 32 measures.</p>
          </samplingDecl>
       </encodingDesc>
       <workDesc>
@@ -100,7 +91,11 @@
                	<persName role="lyricist" dbkey="118540238" authURI="http://d-nb.info/gnd" authority="GND">Johann Wolfgang von Goethe</persName>
                </respStmt>
             </titleStmt>
-            <history><creation><date>1785</date>></creation></history>
+            <history>
+               <creation>
+                  <date>1785</date>
+               </creation>
+            </history>
             <key pname="g" mode="major">G major</key>
             <tempo>Allegretto</tempo>
             <meter count="2" unit="4"/>
@@ -137,9 +132,8 @@
                <classCode xml:id="OSWD" authURI="BSZ" authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
             </classification>
             <incip>
-            	<incipCode form="plaineAndEasie">%G-2$xF@2/4$8-@=6$4-8-'8G/{''8D'B''CE}/{''8.D6C}'8B</incipCode>
                <incipCode form="parsons">*uduurdddudrdrddd</incipCode>
-            	<incipText><p>Ein Veilchen auf der Wiese stand,</p></incipText>
+            	<incipText><p>Ein Veilchen auf der Wiese stand</p></incipText>
             	<score>
             		<section>
             			<scoreDef meter.count="2" meter.unit="4" key.sig="1s" key.mode="major">
@@ -290,47 +284,27 @@
                <scoreDef meter.count="2" meter.unit="4" key.sig="1s" key.mode="major">
                   <pgHead>
                      <table>
-                        <tr y="1680">
-                           <td x="80">
-                              <rend fontsize="12" valign="top">2</rend>
+                        <tr>
+                           <td>
+                              <rend fontsize="12" valign="top" halign="right">1</rend>
                            </td>
                         </tr>
-                        <tr y="1640">
-                           <td x="680">
-                              <rend fontsize="24" halign="center" valign="top">Das Veilchen</rend>
+                        <tr>
+                           <td>
+                              <rend fontsize="24" halign="center" valign="top">Mozart: Das Veilchen, K. 476</rend>
                            </td>
                         </tr>
-                        <tr y="1580">
-                           <td x="680">
-                              <rend fontsize="14" halign="center" valign="top">K. 476</rend>
-                           </td>
-                        </tr>
-                        <tr y="1500">
-                           <td x="80">
-                              <rend fontsize="10" halign="left" valign="bottom">Johann Wolfgang von
-                                 Goethe</rend>
-                           </td>
-                           <td x="1280">
-                              <rend fontsize="10" halign="right" valign="bottom">Wolfgang Amadeus
-                                 Mozart</rend>
+                        <tr>
+                           <td>
+                              <rend fontsize="14" halign="center" valign="top">Mozart<lb/>Das Veilchen<lb/>K. 476<lb/>(Goethe)</rend>
                            </td>
                         </tr>
                      </table>
                   </pgHead>
-                  <pgFoot>
-                     <table>
-                        <tr y="80">
-                           <td x="680">
-                              <rend fontsize="9" halign="center" valign="bottom">Copyright © 2002
-                                 Recordare LLC</rend>
-                           </td>
-                        </tr>
-                     </table>
-                  </pgFoot>
                   <staffGrp>
                      <staffDef n="1" xml:id="P1" lines="5" clef.line="2" clef.shape="G" key.sig="1s"
-                        key.mode="major"> </staffDef>
-                     <staffGrp xml:id="P2" symbol="brace" label="Piano">
+                        key.mode="major"/> 
+                     <staffGrp xml:id="P2" symbol="brace" label="Pianoforte">
                         <staffDef n="2" lines="5" clef.line="2" clef.shape="G" key.sig="1s"
                            key.mode="major" xml:id="P2-I3"/>
                         <staffDef n="3" lines="5" clef.line="4" clef.shape="F" key.sig="1s"
