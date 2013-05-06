@@ -29,35 +29,33 @@
 						However, we will remove any material from the project archive when requested to do so by the copyright owner.</useRestrict>
 				</availability>
 			</pubStmt>
-			<seriesStmt>
-				<title>MEI Sample Collection</title>
-				<respStmt>
-					<corpName role="publisher">MEI Project</corpName>
-					<corpName role="funder">German Research Foundation<address><addrLine>Kennedyallee 40</addrLine>
-						<addrLine><geogName>Bonn</geogName></addrLine>
-						<addrLine><geogName>Germany</geogName></addrLine></address></corpName>
-					<corpName role="funder">National Endowment for the Humanities<address><addrLine>1100 Pennsylvania Avenue N.W.</addrLine>
-						<addrLine><geogName>Washington, DC</geogName> 20004</addrLine>
-						<addrLine><geogName>United States</geogName></addrLine>
-					</address>
-					</corpName>
-				</respStmt>
-			</seriesStmt>
+		   <seriesStmt>
+		      <title>MEI Sample Collection</title>
+		      <respStmt>
+		         <corpName role="publisher">MEI Project</corpName>
+		         <corpName role="funder">German Research Foundation</corpName>
+		         <corpName role="funder">National Endowment for the Humanities</corpName>
+		      </respStmt>
+		      <identifier>
+		         <ref>http://music-encoding.org/Documentation/Samples/2013</ref>
+		      </identifier>
+		   </seriesStmt>
 			<sourceDesc>
-				<source n="1">
-					<identifier authURI="http://imslp.org/wiki/Mandoline_%28Debussy,_Claude%29" type="pdf"/>
+				<source n="1" label="print" xml:id="IMSLP_Debussy_Mandoline">
+				   <identifier type="URI">http://petrucci.mus.auth.gr/imglnks/usimg/8/85/IMSLP14823-Debussy_-_Mandoline__voice_and_piano_.pdf</identifier>
 				</source>
+			   <source n="2" label="electronic" xml:id="MusicXML_Debussy_Mandoline">
+			      <identifier type="URI">http://www.musicxml.com/de/music-in-musicxml/example-set/</identifier>
+			      <titleStmt>
+			         <title>Mandoline</title>
+			      </titleStmt>
+			   </source> 
 			</sourceDesc>
 		</fileDesc>
 		<encodingDesc>
 			<appInfo>
 				<application xml:id="xsl_mxl2mei_2.2.3" version="2.2.3">
-					<name>MusicXML2MEI</name>
-					<ptr target="http://music-encoding.org/stylesheets/blubb"/>
-				</application>
-				<application xml:id="xsl_ppq" version="1.0">
-					<name>PPQ</name>
-					<ptr target="http://music-encoding.org/stylesheets/blubb"/>
+					<name type="xslt_stylesheet">MusicXML2MEI</name>
 				</application>
 			</appInfo>
 			<samplingDecl>
