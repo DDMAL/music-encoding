@@ -341,9 +341,13 @@
       by the expressionList element’s child relationship to its parent work element, the
       hasRealization/isRealizationOf relation does not need to be explicitly declared. Likewise, it
       is not necessary to specify by means of relation elements that an item is an exemplar of the
-      source described by its parent source element. The relations between expression and source
-      elements, on the other hand, may not be clear if they are not explicitly declared. In FRBR
-      terms, a manifestation (in MEI: a source) is an embodiment of an expression.</p>
+      source described by its parent source element. This resembles the FRBR model, which knows 1:n 
+      relationships both between works and expressions, and manifestations and items.</p> 
+    <p>However, as FRBR allows n:n relations between expressions and manifestations (in MEI: sources),
+      a hierarchical model based on the strucutre of XML is clearly insufficient to express all 
+      possible expression / manifestation combinations. It is therefore required to declare these
+      relations explicitly. In FRBR
+      terms, a manifestation / source is an embodiment of an expression.</p>
     <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
 <source>
   <titleStmt>

@@ -1945,4 +1945,61 @@
       <!-- TODO: Add reference to #namesDates here? Kristina has covered this, I guess… -->
     </div>
   </div>
+  <div xml:id="bibliographicReferences" type="div2">
+    <head>Bibliographic References</head>
+    <p>
+      
+    </p>
+    <div xml:id="relatedItemDesc" type="div3">
+      <head>Related Items</head>
+      <p>In some situations it is necessary to provide references from one bibliographic item to another. 
+        For these situations, MEI offers the <gi scheme="MEI">relatedItem</gi> element. A 
+        <gi scheme="MEI">relatedItem</gi> may be used inside of <gi scheme="MEI">bibl</gi>, and may either
+        point to a different entity using its <att>target</att> attribute, or may hold the related item as
+        child. 
+      </p>
+      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve" >
+        <bibl>
+          <genre>letter</genre>
+          <author>Carl Nielsen</author>
+          <recipient>Gustav Hetsch</recipient>
+          <creation>
+            <date isodate="1915-04-08">1915-04-08</date>
+          </creation>
+          <physLoc>
+            <repository>
+              <identifier authority="RISM" authURI="http://www.rism.info/">DK-Kk</identifier>
+            </repository>
+            <identifier>CNA IAc</identifier>
+          </physLoc>
+          <relatedItem rel="host">
+            <bibl xml:id="shared.bibl_d1e380372">
+              <title>CNB</title>
+              <biblScope>V/210</biblScope>
+             </bibl>
+          </relatedItem>
+         </bibl>
+      </egXML>
+      <p>
+        In this example, the nested <gi scheme="MEI">relatedItem</gi> / <gi scheme="MEI">bibl</gi> 
+        provides information about the <soCalled>container</soCalled> where the outer <gi scheme="MEI">bibl</gi>
+        may be found. The kind of relation is expressed using the <att>rel</att> attribute. It describes the relationship
+        of the child <gi scheme="MEI">bibl</gi> to the <gi scheme="MEI">relatedItem</gi>'s parent <gi scheme="MEI">bibl</gi>.
+      </p>
+      <p>
+        <specList>
+          <specDesc key="relatedItem" atts="rel"/>
+        </specList>
+      </p>
+    </div>
+    <div xml:id="relatedItemVsFRBR" type="div3">
+      <head>RelatedItem vs. FRBR</head>
+      <p>
+        When using <gi scheme="MEI">relatedItem</gi>, it is important not to confuse this element with the possibilities 
+        provided by the optional <ref target="#FRBR">FRBR module</ref>. It is strongly recommended to use the FRBR module
+        for expressing relationships between works, sources, individual copies of a print etc. 
+        <gi scheme="MEI">relatedItem</gi>, on the other hand, should be solely used to capture bibliographic relations that
+        are out of scope for FRBR. 
+      </p>
+    </div>
 </div>
