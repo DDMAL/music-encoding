@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
-  meiversion="2012">
+  meiversion="2013">
   <meiHead>
     <fileDesc>
       <titleStmt>
-        <title/>
+        <title>Nested Tuplet</title>
       </titleStmt>
       <pubStmt>
         <respStmt>
@@ -46,20 +48,8 @@
             </address>
           </corpName>
         </respStmt>
-        <identifier>
-          <ref target="http://music-encoding.org/irgendEineUnterSeite"
-            >http://music-encoding.org/irgendEineUnterSeite</ref>
-        </identifier>
       </seriesStmt>
     </fileDesc>
-    <encodingDesc>
-      <appInfo>
-        <application xml:id="xsl_2mei_2.2.1" version="2.2.1">
-          <name>2mei</name>
-          <ptr target="http://music-encoding.org/stylesheets/blubb"/>
-        </application>
-      </appInfo>
-    </encodingDesc>
     <revisionDesc>
       <change n="1">
         <respStmt/>
@@ -76,7 +66,7 @@
           <p>Transcoded from a MusicXML version 1.0 file on 2009-11-09 using the <ref
               target="#xsl_2mei_2.2.1">2mei</ref> stylesheet. </p>
         </changeDesc>
-        <date reg="2009-11-09"/>
+        <date isodate="2009-11-09"/>
       </change>
       <change n="3">
         <respStmt>
@@ -85,7 +75,7 @@
         <changeDesc>
           <p>Addition of header information</p>
         </changeDesc>
-        <date reg="2011-12-15"/>
+        <date isodate="2011-12-15"/>
       </change>
     </revisionDesc>
   </meiHead>
@@ -109,29 +99,29 @@
                     <rdg>
                       <!-- notes followed by tupletspan -->
                       <beam>
-                        <note xml:id="d1e34" pname="g" oct="3" dur="8" dur.ges="10" stem.dir="down"/>
-                        <note xml:id="d1e51" pname="f" oct="3" dur="32" dur.ges="1" tuplet="i1"
+                        <note xml:id="d1e34" pname="g" oct="3" dur="8"  stem.dir="down"/>
+                        <note xml:id="d1e51" pname="f" oct="3" dur="32"  tuplet="i1"
                           stem.dir="down" accid.ges="s"/>
-                        <note xml:id="d1e80" pname="e" oct="3" dur="32" dur.ges="1" tuplet="m1"
+                        <note xml:id="d1e80" pname="e" oct="3" dur="32"  tuplet="m1"
                           stem.dir="down"/>
-                        <note xml:id="d1e106" pname="f" oct="3" dur="32" dur.ges="1" tuplet="m1"
+                        <note xml:id="d1e106" pname="f" oct="3" dur="32"  tuplet="m1"
                           stem.dir="down" accid.ges="s"/>
-                        <note xml:id="d1e134" pname="e" oct="3" dur="32" dur.ges="1" tuplet="m1"
+                        <note xml:id="d1e134" pname="e" oct="3" dur="32"  tuplet="m1"
                           stem.dir="down"/>
-                        <note xml:id="d1e160" pname="f" oct="3" dur="32" dur.ges="1" tuplet="t1"
+                        <note xml:id="d1e160" pname="f" oct="3" dur="32"  tuplet="t1"
                           stem.dir="down" accid.ges="s"/>
-                        <note xml:id="d1e189" pname="e" oct="3" dur="8" dur.ges="10" stem.dir="down"
+                        <note xml:id="d1e189" pname="e" oct="3" dur="8"  stem.dir="down"
                         />
                       </beam>
                       <beam>
-                        <note xml:id="d1e206" grace="unacc" pname="c" oct="3" dur="16" dur.ges="0"
+                        <note xml:id="d1e206" grace="unacc" pname="c" oct="3" dur="16" 
                           stem.dir="up"/>
-                        <note xml:id="d1e224" grace="unacc" pname="d" oct="3" dur="16" dur.ges="0"
+                        <note xml:id="d1e224" grace="unacc" pname="d" oct="3" dur="16" 
                           stem.dir="up"/>
-                        <note xml:id="d1e242" grace="unacc" pname="e" oct="3" dur="16" dur.ges="0"
+                        <note xml:id="d1e242" grace="unacc" pname="e" oct="3" dur="16" 
                           stem.dir="up"/>
                       </beam>
-                      <note xml:id="d1e261" pname="d" oct="3" dur="4" dur.ges="20" stem.dir="down"/>
+                      <note xml:id="d1e261" pname="d" oct="3" dur="4"  stem.dir="down"/>
                       <tupletSpan staff="1" startid="d1e51" endid="d1e160" num="5" numbase="2"
                         num.visible="true" num.place="above" num.format="count"/>
                       <tupletSpan staff="1" startid="d1e34" endid="d1e189" num="3" numbase="2"
@@ -142,24 +132,24 @@
                       <tuplet num="3" numbase="2" num.visible="true" num.place="below"
                         num.format="count">
                         <beam>
-                          <note xml:id="d1e34.1" pname="g" oct="3" dur="8" dur.ges="10"
+                          <note xml:id="d1e34.1" pname="g" oct="3" dur="8" 
                             stem.dir="down"/>
                           <tuplet num="5" numbase="2" num.visible="true" num.place="above"
                             num.format="count">
                             <beam>
-                              <note xml:id="d1e51.1" pname="f" oct="3" dur="32" dur.ges="1"
+                              <note xml:id="d1e51.1" pname="f" oct="3" dur="32" 
                                 tuplet="i1" stem.dir="down" accid.ges="s"/>
-                              <note xml:id="d1e80.1" pname="e" oct="3" dur="32" dur.ges="1"
+                              <note xml:id="d1e80.1" pname="e" oct="3" dur="32" 
                                 tuplet="m1" stem.dir="down"/>
-                              <note xml:id="d1e106.1" pname="f" oct="3" dur="32" dur.ges="1"
+                              <note xml:id="d1e106.1" pname="f" oct="3" dur="32" 
                                 tuplet="m1" stem.dir="down" accid.ges="s"/>
-                              <note xml:id="d1e134.1" pname="e" oct="3" dur="32" dur.ges="1"
+                              <note xml:id="d1e134.1" pname="e" oct="3" dur="32" 
                                 tuplet="m1" stem.dir="down"/>
-                              <note xml:id="d1e160.1" pname="f" oct="3" dur="32" dur.ges="1"
+                              <note xml:id="d1e160.1" pname="f" oct="3" dur="32" 
                                 tuplet="t1" stem.dir="down" accid.ges="s"/>
                             </beam>
                           </tuplet>
-                          <note xml:id="d1e189.1" pname="e" oct="3" dur="8" dur.ges="10"
+                          <note xml:id="d1e189.1" pname="e" oct="3" dur="8" 
                             stem.dir="down"/>
                         </beam>
                       </tuplet>

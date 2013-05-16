@@ -1,10 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><?xml-model href="../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?><?xml-model href="../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<?xml-model href="../../../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
-  meiversion="2012">
+  meiversion="2013">
   <meiHead>
     <fileDesc>
       <titleStmt>
-        <title/>
+        <title>Tuplets</title>
       </titleStmt>
       <pubStmt>
         <respStmt>
@@ -46,10 +48,6 @@
             </address>
           </corpName>
         </respStmt>
-        <identifier>
-          <ref target="http://music-encoding.org/irgendEineUnterSeite"
-            >http://music-encoding.org/irgendEineUnterSeite</ref>
-        </identifier>
       </seriesStmt>
     </fileDesc>
     <revisionDesc>
@@ -60,7 +58,7 @@
         <changeDesc>
           <p>Addition of header information</p>
         </changeDesc>
-        <date reg="2011-12-15"/>
+        <date isodate="2011-12-15"/>
       </change>
     </revisionDesc>
   </meiHead>
@@ -68,7 +66,12 @@
     <body>
       <mdiv>
         <score>
-          <scoreDef meter.count="5" meter.unit="8" key.sig="0"/>
+          <scoreDef meter.count="5" meter.unit="8" key.sig="0">
+            <staffGrp>
+              <staffDef n="1" lines="5"/>
+              <staffDef n="2" lines="5"/>
+            </staffGrp>
+          </scoreDef>
           <section>
             <measure right="dbl">
               <staff n="1">
@@ -92,9 +95,9 @@
                   amount of time. The written durations of the notes, captured in
                   @dur attributes on the individual notes are nearly meaningless. -->
               <tupletSpan staff="1" startid="n1" endid="n2" num="2" num.visible="true"
-                bracket.visible="true" dur="2 8" dur.ges="2.5"/>
+                bracket.visible="true"/>
               <tupletSpan staff="1" startid="n3" endid="n4" num="2" num.visible="true"
-                bracket.visible="true" dur="2 8" dur.ges="2.5"/>
+                bracket.visible="true"/>
             </measure>
           </section>
         </score>

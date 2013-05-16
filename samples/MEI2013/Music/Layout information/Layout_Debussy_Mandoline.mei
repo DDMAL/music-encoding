@@ -2,118 +2,128 @@
 <?xml-model href="../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
 <?xml-model href="../../../../schemata/mei-all.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <mei xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.music-encoding.org/ns/mei"
-	meiversion="2013">
-	<meiHead>
-		<fileDesc>
-			<titleStmt>
-				<title>Mandoline</title>
-				<title type="subtitle">an electronic transcription</title>
-				<respStmt>
-					<persName role="creator">Claude Debussy</persName>
-					<persName role="encoder">Maja Hartwig</persName>
-					<persName role="encoder">Kristina Richts</persName>
-				</respStmt>
-			</titleStmt>
-			<pubStmt>
-				<respStmt>
-					<corpName>Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
-				</respStmt>
-				<address><addrLine>Gartenstrasse 20</addrLine>
+   meiversion="2013">
+   <meiHead>
+      <fileDesc>
+         <titleStmt>
+            <title>Example of demonstrating layout information</title>
+            <respStmt>
+               <persName role="creator">Claude Debussy</persName>
+               <persName role="encoder">Maja Hartwig</persName>
+               <persName role="encoder">Kristina Richts</persName>
+            </respStmt>
+         </titleStmt>
+         <pubStmt>
+            <respStmt>
+               <corpName>Musikwissenschaftliches Seminar &lt;Detmold&gt;</corpName>
+            </respStmt>
+            <address><addrLine>Gartenstrasse 20</addrLine>
 					<addrLine>32756 <geogName>Detmold</geogName>
 					</addrLine><addrLine><geogName>Germany</geogName></addrLine>
 				</address>
-				<date>2011</date>
-				<availability>
-					<useRestrict>This encoding is in the public domain. However, the sources used to create it may be under copyright. 
-						We believe their use by the MEI project for educational and research purposes is covered by the Fair Use doctrine. 
-						However, we will remove any material from the project archive when requested to do so by the copyright owner.</useRestrict>
-				</availability>
-			</pubStmt>
-		   <seriesStmt>
-		      <title>MEI Sample Collection</title>
-		      <respStmt>
-		         <corpName role="publisher">MEI Project</corpName>
-		         <corpName role="funder">German Research Foundation</corpName>
-		         <corpName role="funder">National Endowment for the Humanities</corpName>
-		      </respStmt>
-		   	<identifier>
-		   		<ref target="http://music-encoding.org/Support/MEI_Sample_Collection"/>
-		   	</identifier>
-		   </seriesStmt>
-			<sourceDesc>
-				<source n="1" label="print" xml:id="IMSLP_Debussy_Mandoline">
-				   <identifier type="URI">http://petrucci.mus.auth.gr/imglnks/usimg/8/85/IMSLP14823-Debussy_-_Mandoline__voice_and_piano_.pdf</identifier>
-				</source>
-			   <source n="2" label="electronic" xml:id="MusicXML_Debussy_Mandoline">
-			      <identifier type="URI">http://www.musicxml.com/de/music-in-musicxml/example-set/</identifier>
-			      <titleStmt>
-			         <title>Mandoline</title>
-			      </titleStmt>
-			   </source> 
-			</sourceDesc>
-		</fileDesc>
-		<encodingDesc>
-			<appInfo>
-				<application xml:id="xsl_mxl2mei_2.2.3" version="2.2.3">
-					<name type="xslt_stylesheet">MusicXML2MEI</name>
-				</application>
-			</appInfo>
-			<samplingDecl>
-				<p>The source material contains only page 1 and is not cleaned up after conversion from MusicXML to MEI.</p>
-			</samplingDecl>
-		</encodingDesc>
-		<workDesc>
-			<work>
-				<titleStmt>
-					<title type="uniform">Mandoline</title>
-					<respStmt>
-						<persName role="composer">Claude Debussy</persName>
-						<persName role="librettist">Paul Verlaine</persName>
-					</respStmt>
-				</titleStmt>	
-				<tempo>Allegretto vivace</tempo>
-				<meter count="6" unit="8"/>
-				<incip>
-					<incipCode form="parsons">*rurududd</incipCode>
-					<incipText>
-						<p>Les donneurs de sérénades</p>
-					</incipText>
-				</incip>
-				<langUsage>
-					<language>French</language>
-				</langUsage>
-				<perfMedium>
-					<instrumentation>
-						<instrVoice code="vu">Voice</instrVoice>
-						<instrVoice code="ka">Piano</instrVoice>
-					</instrumentation>
-				</perfMedium>
-				<classification>
-					<termList>
-						<term classcode="#OCLC">
-							<identifier>782</identifier>
-							<title>Vocal music</title>
-						</term>
-						<term classcode="#OCLC">
-							<identifier>782.42</identifier>
-							<title>Song</title>
-						</term>
-						<term classcode="#OSWD">
-							<identifier>4063783-9</identifier>
-							<title>Vokalmusik</title>
-						</term>
-						<term classcode="#OSWD">
-							<identifier>4035669-3</identifier>
-							<title>Lied</title>
-						</term>
-					</termList>
-					<classCode authority="OCLC" authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
-					<classCode xml:id="OSWD" authURI="BSZ" authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
-				</classification>
-			</work>
-		</workDesc>
-	</meiHead>
-	<music>
+            <date>2011</date>
+            <availability>
+               <useRestrict>This encoding is in the public domain. However, the sources used to
+                  create it may be under copyright. We believe their use by the MEI project for
+                  educational and research purposes is covered by the Fair Use doctrine. However, we
+                  will remove any material from the project archive when requested to do so by the
+                  copyright owner.</useRestrict>
+            </availability>
+         </pubStmt>
+         <seriesStmt>
+            <title>MEI Sample Collection</title>
+            <respStmt>
+               <corpName role="publisher">MEI Project</corpName>
+               <corpName role="funder">German Research Foundation</corpName>
+               <corpName role="funder">National Endowment for the Humanities</corpName>
+            </respStmt>
+            <identifier>
+               <ref target="http://music-encoding.org/Support/MEI_Sample_Collection"/>
+            </identifier>
+         </seriesStmt>
+         <sourceDesc>
+            <source n="1" label="print" xml:id="IMSLP_Debussy_Mandoline">
+               <identifier type="URI"
+                  >http://petrucci.mus.auth.gr/imglnks/usimg/8/85/IMSLP14823-Debussy_-_Mandoline__voice_and_piano_.pdf</identifier>
+            </source>
+            <source n="2" label="electronic" xml:id="MusicXML_Debussy_Mandoline">
+               <identifier type="URI"
+                  >http://www.musicxml.com/de/music-in-musicxml/example-set/</identifier>
+               <titleStmt>
+                  <title>Mandoline</title>
+               </titleStmt>
+            </source>
+         </sourceDesc>
+      </fileDesc>
+      <encodingDesc>
+         <appInfo>
+            <application xml:id="xsl_mxl2mei_2.2.3" version="2.2.3">
+               <name type="xslt_stylesheet">MusicXML2MEI</name>
+            </application>
+         </appInfo>
+         <editorialDecl>
+            <p>The example is not cleaned up after the conversion from MusicXML to MEI and
+               demonstrates much layout information encoded with MEI.</p>
+         </editorialDecl>
+         <samplingDecl>
+            <p>The source material contains only page 1. and is not cleaned up after conversion from
+               MusicXML to MEI.</p>
+         </samplingDecl>
+      </encodingDesc>
+      <workDesc>
+         <work>
+            <titleStmt>
+               <title type="uniform">Mandoline</title>
+               <respStmt>
+                  <persName role="composer">Claude Debussy</persName>
+                  <persName role="librettist">Paul Verlaine</persName>
+               </respStmt>
+            </titleStmt>
+            <tempo>Allegretto vivace</tempo>
+            <meter count="6" unit="8"/>
+            <incip>
+               <incipCode form="parsons">*rurududd</incipCode>
+               <incipText>
+                  <p>Les donneurs de sérénades</p>
+               </incipText>
+            </incip>
+            <langUsage>
+               <language>French</language>
+            </langUsage>
+            <perfMedium>
+               <instrumentation>
+                  <instrVoice code="vu">Voice</instrVoice>
+                  <instrVoice code="ka">Piano</instrVoice>
+               </instrumentation>
+            </perfMedium>
+            <classification>
+               <termList>
+                  <term classcode="#OCLC">
+                     <identifier>782</identifier>
+                     <title>Vocal music</title>
+                  </term>
+                  <term classcode="#OCLC">
+                     <identifier>782.42</identifier>
+                     <title>Song</title>
+                  </term>
+                  <term classcode="#OSWD">
+                     <identifier>4063783-9</identifier>
+                     <title>Vokalmusik</title>
+                  </term>
+                  <term classcode="#OSWD">
+                     <identifier>4035669-3</identifier>
+                     <title>Lied</title>
+                  </term>
+               </termList>
+               <classCode authority="OCLC"
+                  authURI="http://www.oclc.org/dewey/resources/summaries/default.htm#700"/>
+               <classCode xml:id="OSWD" authURI="BSZ"
+                  authority="http://www.bsz-bw.de/cgi-bin/oswd-suche.pl"/>
+            </classification>
+         </work>
+      </workDesc>
+   </meiHead>
+   <music>
       <body>
          <mdiv>
             <score>
@@ -972,8 +982,7 @@
                      <hairpin tstamp="1.25" tstamp.ges="0" place="above" staff="3" form="cres"
                         tstamp2="0m+6.75" opening="2.2"/>
                      <octave tstamp="1.75" tstamp.ges="4" staff="2" dis="8" dis.place="above"
-                        tstamp2="1m+6.5"
-                        />
+                        tstamp2="1m+6.5"/>
                   </measure>
                   <measure n="11" xml:id="d1e4607">
                      <staff n="1">
