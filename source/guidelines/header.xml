@@ -1945,61 +1945,27 @@
       <!-- TODO: Add reference to #namesDates here? Kristina has covered this, I guess… -->
     </div>
   </div>
-  <div xml:id="bibliographicReferences" type="div2">
-    <head>Bibliographic References</head>
+  <div xml:id="relatedItemVsFRBR" type="div2">
+    
+    <head>RelatedItem vs. FRBR</head>
     <p>
-      
+      MEI offers two related concepts for capturing relations between bibliographic items. The model of 
+      <gi scheme="MEI">relatedItem</gi>, as described in chapter <ptr target="#relatedItemDesc"/> of these Guidelines, 
+      is derived from MODS v3.4 (see documentation
+      <ref target="http://www.loc.gov/standards/mods/v3/mods-userguide-elements.html#relateditem">here</ref>). 
+      Its purpose in MEI is to encode bibliographic references between mostly "secondary" material, like reviews, articles, 
+      and so on. It may be used to provide cross-references between information encoded in different places of the header.
     </p>
-    <div xml:id="relatedItemDesc" type="div3">
-      <head>Related Items</head>
-      <p>In some situations it is necessary to provide references from one bibliographic item to another. 
-        For these situations, MEI offers the <gi scheme="MEI">relatedItem</gi> element. A 
-        <gi scheme="MEI">relatedItem</gi> may be used inside of <gi scheme="MEI">bibl</gi>, and may either
-        point to a different entity using its <att>target</att> attribute, or may hold the related item as
-        child. 
-      </p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve" >
-        <bibl>
-          <genre>letter</genre>
-          <author>Carl Nielsen</author>
-          <recipient>Gustav Hetsch</recipient>
-          <creation>
-            <date isodate="1915-04-08">1915-04-08</date>
-          </creation>
-          <physLoc>
-            <repository>
-              <identifier authority="RISM" authURI="http://www.rism.info/">DK-Kk</identifier>
-            </repository>
-            <identifier>CNA IAc</identifier>
-          </physLoc>
-          <relatedItem rel="host">
-            <bibl xml:id="shared.bibl_d1e380372">
-              <title>CNB</title>
-              <biblScope>V/210</biblScope>
-             </bibl>
-          </relatedItem>
-         </bibl>
-      </egXML>
-      <p>
-        In this example, the nested <gi scheme="MEI">relatedItem</gi> / <gi scheme="MEI">bibl</gi> 
-        provides information about the <soCalled>container</soCalled> where the outer <gi scheme="MEI">bibl</gi>
-        may be found. The kind of relation is expressed using the <att>rel</att> attribute. It describes the relationship
-        of the child <gi scheme="MEI">bibl</gi> to the <gi scheme="MEI">relatedItem</gi>'s parent <gi scheme="MEI">bibl</gi>.
-      </p>
-      <p>
-        <specList>
-          <specDesc key="relatedItem" atts="rel"/>
-        </specList>
-      </p>
-    </div>
-    <div xml:id="relatedItemVsFRBR" type="div3">
-      <head>RelatedItem vs. FRBR</head>
-      <p>
-        When using <gi scheme="MEI">relatedItem</gi>, it is important not to confuse this element with the possibilities 
-        provided by the optional <ref target="#FRBR">FRBR module</ref>. It is strongly recommended to use the FRBR module
-        for expressing relationships between works, sources, individual copies of a print etc. 
-        <gi scheme="MEI">relatedItem</gi>, on the other hand, should be solely used to capture bibliographic relations that
-        are out of scope for FRBR. 
-      </p>
-    </div>
+    <!-- TODO: Provide example here… -->
+    <p>
+      However, <gi scheme="MEI">relatedItem</gi> is less ideal for describing the relations between works, differing versions
+      of these works, the sources in which those versions are transmitted, and where applicable the individual copies of a 
+      print. For these situations, it is strongly recommended to use the <ref target="#FRBR">FRBR module</ref> instead. This
+      module is based on the Functional Requirements for Bibliographic Records, as 
+      <ref target="http://www.ifla.org/publications/functional-requirements-for-bibliographic-records">specified</ref> by the 
+      <ref target="http://www.ifla.org">IFLA</ref>. It allows a much finer description of relationships between such "primary"
+      entities. For compatibility reasons, both models should not be confused or mixed under any circumstances. 
+    </p>
+  </div>
 </div>
+  
