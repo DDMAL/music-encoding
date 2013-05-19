@@ -273,10 +273,16 @@
   <xsl:variable name="scorePPQ">
     <xsl:variable name="staffPPQvalues">
       <xsl:choose>
-        <xsl:when test="//measure[1]//attributes/divisions[not(.=following::divisions)]">
-          <xsl:for-each select="//measure[1]//attributes/divisions[not(.=following::divisions)]">
-            <xsl:sort data-type="number"/>
-            <xsl:copy-of select="."/>
+        <xsl:when test="//measure[1]//attributes/divisions">
+          <xsl:for-each select="//measure[1]">
+            <xsl:copy-of select="part[1]/attributes/divisions"/>
+            <xsl:for-each select="part[position() &gt; 1]">
+              <xsl:for-each
+                select="attributes[divisions[not(.=preceding::part/attributes/divisions)]]/divisions">
+                <xsl:sort data-type="number"/>
+                <xsl:copy-of select="."/>
+              </xsl:for-each>
+            </xsl:for-each>
           </xsl:for-each>
         </xsl:when>
         <!-- Supply ppq based on duration of first note? -->
@@ -441,7 +447,19 @@
           <xsl:value-of select="ancestor::measure/@number"/>
         </xsl:variable>
         <xsl:variable name="warning">
-          <xsl:text>Mid-measure changes of key and/or mode ignored</xsl:text>
+          <xsl:text>Mid-measure change of key and/or mode ignored</xsl:text>
+        </xsl:variable>
+        <xsl:message>
+          <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+            ').'))"/>
+        </xsl:message>
+      </xsl:if>
+      <xsl:if test="time">
+        <xsl:variable name="measureNum">
+          <xsl:value-of select="ancestor::measure/@number"/>
+        </xsl:variable>
+        <xsl:variable name="warning">
+          <xsl:text>Mid-measure change of time signature ignored</xsl:text>
         </xsl:variable>
         <xsl:message>
           <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -453,7 +471,7 @@
           <xsl:value-of select="ancestor::measure/@number"/>
         </xsl:variable>
         <xsl:variable name="warning">
-          <xsl:text>Mid-measure changes of stafflines ignored</xsl:text>
+          <xsl:text>Mid-measure change of stafflines ignored</xsl:text>
         </xsl:variable>
         <xsl:message>
           <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -569,7 +587,7 @@
       </xsl:attribute>
       <xsl:variable name="content">
         <xsl:choose>
-          <xsl:when test="matches(../credit-type, '^page number$') or matches(../credit-type,
+          <xsl:when test="matches(../credit-type, '^page number$') or matches(.,
             '^[0-9]+$')">
             <xsl:processing-instruction name="pageNum"/>
           </xsl:when>
@@ -608,7 +626,7 @@
     <lb xmlns="http://www.music-encoding.org/ns/mei"/>
     <xsl:variable name="content">
       <xsl:choose>
-        <xsl:when test="matches(../credit-type, '^page number$') or matches(../credit-type,
+        <xsl:when test="matches(../credit-type, '^page number$') or matches(.,
           '^[0-9]+$')">
           <xsl:processing-instruction name="pageNum"/>
         </xsl:when>
@@ -8731,18 +8749,21 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <titleStmt xmlns="http://www.music-encoding.org/ns/mei">
       <title>
         <xsl:if test="normalize-space(work/work-title) != ''">
-          <xsl:value-of select="normalize-space(work/work-title)"/>
+          <xsl:value-of select="normalize-space(replace(work/work-title, '^\[[^\]]*\](.+)$', '$1'))"
+          />
         </xsl:if>
         <xsl:if test="normalize-space(movement-title) != ''">
           <xsl:choose>
             <xsl:when test="normalize-space(work/work-title) != ''">
               <xsl:text>, </xsl:text>
               <title>
-                <xsl:value-of select="normalize-space(movement-title)"/>
+                <xsl:value-of select="normalize-space(replace(movement-title, '^\[[^\]]*\](.+)$',
+                  '$1'))"/>
               </title>
             </xsl:when>
             <xsl:otherwise>
-              <xsl:value-of select="normalize-space(movement-title)"/>
+              <xsl:value-of select="normalize-space(replace(movement-title, '^\[[^\]]*\](.+)$',
+                '$1'))"/>
             </xsl:otherwise>
           </xsl:choose>
         </xsl:if>
