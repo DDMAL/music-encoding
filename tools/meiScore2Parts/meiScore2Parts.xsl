@@ -117,7 +117,7 @@
 
   <xsl:template match="mei:measure">
     <measure xmlns="http://www.music-encoding.org/ns/mei">
-      <xsl:copy-of select="@n|@width"/>
+      <xsl:copy-of select="@*[not(name()='xml:id')]"/>
     </measure>
   </xsl:template>
 
