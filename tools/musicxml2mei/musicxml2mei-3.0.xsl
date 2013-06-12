@@ -1972,11 +1972,6 @@
                       </xsl:if>
                     </xsl:for-each>
                   </xsl:when>
-                  <!-- If no clef, then default to G on line 2 -->
-                  <xsl:otherwise>
-                    <xsl:attribute name="clef.line">2</xsl:attribute>
-                    <xsl:attribute name="clef.shape">G</xsl:attribute>
-                  </xsl:otherwise>
                 </xsl:choose>
                 <!-- staff key signature -->
                 <xsl:if test="key">
@@ -2225,11 +2220,6 @@
                       </xsl:if>
                     </xsl:for-each>
                   </xsl:when>
-                  <!-- If no clef, then default to G on line 2 -->
-                  <xsl:otherwise>
-                    <xsl:attribute name="clef.line">2</xsl:attribute>
-                    <xsl:attribute name="clef.shape">G</xsl:attribute>
-                  </xsl:otherwise>
                 </xsl:choose>
                 <!-- staff key signature -->
                 <xsl:if test="key">
