@@ -7469,7 +7469,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:choose>
     </xsl:variable>
     <xsl:choose>
-      <xsl:when test="./chord">
+      <xsl:when test="./chord or (local-name(.)='direction' and
+        following-sibling::*[1][local-name()='note' and chord])">
         <xsl:value-of select="format-number($durSum -
           preceding-sibling::note[not(chord)][1]/duration, '###0.####')"/>
       </xsl:when>
