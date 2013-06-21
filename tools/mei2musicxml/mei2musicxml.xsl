@@ -440,7 +440,35 @@
                       </xsl:variable>
                       <xsl:element name="{$thisElement}"
                         xmlns="http://www.music-encoding.org/ns/mei">
-                        <xsl:copy-of select="@*"/>
+                        <xsl:copy-of select="@*[not(local-name() = 'staff')]"/>
+                        <!-- staff assignment in MEI; that is, staff counted from top to bottom of score -->
+                        <xsl:attribute name="meiStaff">
+                          <xsl:choose>
+                            <xsl:when test="@staff">
+                              <xsl:value-of select="@staff"/>
+                            </xsl:when>
+                            <xsl:otherwise>
+                              <xsl:value-of select="ancestor::mei:staff/@n"/>
+                            </xsl:otherwise>
+                          </xsl:choose>
+                        </xsl:attribute>
+                        <!-- staff assignment in MusicXML; that is, where the numbering of staves starts over with each part -->
+                        <xsl:attribute name="partStaff">
+                          <xsl:variable name="thisStaff">
+                            <xsl:choose>
+                              <xsl:when test="not(@staff)">
+                                <xsl:value-of select="$thisStaff"/>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:value-of select="@staff"/>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </xsl:variable>
+                          <xsl:for-each
+                            select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[@n=$thisStaff]">
+                            <xsl:value-of select="count(preceding-sibling::mei:staffDef) + 1"/>
+                          </xsl:for-each>
+                        </xsl:attribute>
                         <xsl:attribute name="dur.ges">
                           <xsl:choose>
                             <xsl:when test="@grace">
@@ -457,16 +485,14 @@
                                       <xsl:value-of select="@dur"/>
                                     </xsl:when>
                                     <xsl:when test="preceding-sibling::mei:*[(local-name()='note'
-                                      or                                       local-name()='chord'
-                                      or local-name()='rest') and @dur]">
+                                      or local-name()='chord' or local-name()='rest') and @dur]">
                                       <xsl:value-of
                                         select="preceding-sibling::mei:*[(local-name()='note' or
                                         local-name()='chord' or local-name()='rest') and
                                         @dur][1]/@dur"/>
                                     </xsl:when>
                                     <xsl:when test="following-sibling::mei:*[(local-name()='note'
-                                      or                                       local-name()='chord'
-                                      or local-name()='rest') and @dur]">
+                                      or local-name()='chord' or local-name()='rest') and @dur]">
                                       <xsl:value-of
                                         select="following-sibling::mei:*[(local-name()='note' or
                                         local-name()='chord' or local-name()='rest') and
@@ -583,7 +609,13 @@
               </part>
             </xsl:for-each>
           </xsl:variable>
-          <xsl:copy-of select="$measureContent4"/>
+          <!--<xsl:copy-of select="$measureContent4"/>-->
+          <xsl:for-each select="$measureContent4/part">
+            <part>
+              <xsl:copy-of select="@*"/>
+              <xsl:apply-templates select="*" mode="partContent"/>
+            </part>
+          </xsl:for-each>
         </measure>
       </xsl:for-each>
     </score-timewise>
@@ -600,11 +632,316 @@
     </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="mei:note">
+  <xsl:template match="backup" mode="partContent">
+    <xsl:copy-of select="."/>
+  </xsl:template>
+
+  <xsl:template match="mei:mRest|mei:mSpace|mei:rest|mei:space" mode="partContent">
     <note>
-      <xsl:if test="ancestor::mei:chord">
+      <rest>
+        <xsl:if test="@ploc">
+          <display-step>
+            <xsl:value-of select="upper-case(@ploc)"/>
+          </display-step>
+        </xsl:if>
+        <xsl:if test="@oloc">
+          <display-octave>
+            <xsl:value-of select="@oloc"/>
+          </display-octave>
+        </xsl:if>
+      </rest>
+      <xsl:choose>
+        <xsl:when test="@dur.ges = 0">
+          <!-- This is a grace note that has no explicit performed duration -->
+        </xsl:when>
+        <xsl:when test="@dur.ges">
+          <duration>
+            <xsl:value-of select="@dur.ges"/>
+          </duration>
+        </xsl:when>
+        <xsl:when test="ancestor::mei:*[@dur.ges]">
+          <duration>
+            <xsl:value-of select="ancestor::mei:*[@dur.ges][1]/@dur.ges"/>
+          </duration>
+        </xsl:when>
+      </xsl:choose>
+      <voice>
+        <xsl:choose>
+          <xsl:when test="@voice">
+            <xsl:value-of select="@voice"/>
+          </xsl:when>
+          <xsl:when test="ancestor::mei:*[@voice]">
+            <xsl:value-of select="ancestor::mei:*[@voice][1]/@voice"/>
+          </xsl:when>
+        </xsl:choose>
+      </voice>
+      <type>
+        <xsl:choose>
+          <xsl:when test="@dur">
+            <xsl:choose>
+              <xsl:when test="@dur='breve' or @dur='long' or @dur='maxima'">
+                <xsl:value-of select="@dur"/>
+              </xsl:when>
+              <xsl:when test="@dur='1'">
+                <xsl:text>whole</xsl:text>
+              </xsl:when>
+              <xsl:when test="@dur='2'">
+                <xsl:text>half</xsl:text>
+              </xsl:when>
+              <xsl:when test="@dur='4'">
+                <xsl:text>quarter</xsl:text>
+              </xsl:when>
+              <xsl:when test="@dur='8'">
+                <xsl:text>eighth</xsl:text>
+              </xsl:when>
+              <xsl:when test="@dur='16' or @dur='32' or @dur='64' or @dur='128' or @dur='256' or
+                @dur='512' or @dur='1024'">
+                <xsl:value-of select="@dur"/>
+                <xsl:text>th</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:when test="ancestor::mei:*[@dur]">
+            <xsl:choose>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='breve' or
+                ancestor::mei:*[@dur][1]/@dur='long' or ancestor::mei:*[@dur][1]/@dur='maxima'">
+                <xsl:value-of select="ancestor::mei:*[@dur][1]/@dur"/>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='1'">
+                <xsl:text>whole</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='2'">
+                <xsl:text>half</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='4'">
+                <xsl:text>quarter</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='8'">
+                <xsl:text>eighth</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='16' or
+                ancestor::mei:*[@dur][1]/@dur='32' or ancestor::mei:*[@dur][1]/@dur='64' or
+                ancestor::mei:*[@dur][1]/@dur='128' or ancestor::mei:*[@dur][1]/@dur='256' or
+                ancestor::mei:*[@dur][1]/@dur='512' or ancestor::mei:*[@dur][1]/@dur='1024'">
+                <xsl:value-of select="ancestor::mei:*[@dur][1]/@dur"/>
+                <xsl:text>th</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+        </xsl:choose>
+      </type>
+      <xsl:choose>
+        <xsl:when test="@dots">
+          <dot/>
+        </xsl:when>
+        <xsl:when test="ancestor::mei:*[@dots]">
+          <dot/>
+        </xsl:when>
+      </xsl:choose>
+      <staff>
+        <xsl:choose>
+          <xsl:when test="@partStaff">
+            <xsl:value-of select="@partStaff"/>
+          </xsl:when>
+          <xsl:when test="ancestor::mei:*[@partStaff]">
+            <xsl:value-of select="ancestor::mei:*[@partStaff][1]/@partStaff"/>
+          </xsl:when>
+        </xsl:choose>
+      </staff>
+    </note>
+  </xsl:template>
+
+  <xsl:template match="mei:beam|mei:chord|mei:tuplet" mode="partContent">
+    <xsl:apply-templates mode="partContent"/>
+  </xsl:template>
+
+  <xsl:template match="mei:note" mode="partContent">
+    <note>
+      <xsl:if test="ancestor::mei:chord and preceding-sibling::mei:note">
         <chord/>
       </xsl:if>
+      <xsl:if test="@grace">
+        <grace>
+          <xsl:if test="matches(@stem.mod, 'slash')">
+            <xsl:attribute name="slash">
+              <xsl:text>yes</xsl:text>
+            </xsl:attribute>
+          </xsl:if>
+        </grace>
+      </xsl:if>
+      <pitch>
+        <step>
+          <xsl:value-of select="upper-case(@pname)"/>
+        </step>
+        <xsl:if test="@accid.ges">
+          <alter>
+            <xsl:choose>
+              <xsl:when test="@accid.ges = 'f'">
+                <xsl:text>-1</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid.ges = 's'">
+                <xsl:text>1</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </alter>
+        </xsl:if>
+        <octave>
+          <xsl:value-of select="@oct"/>
+        </octave>
+      </pitch>
+      <xsl:choose>
+        <xsl:when test="@dur.ges = 0">
+          <!-- This is a grace note that has no explicit performed duration -->
+        </xsl:when>
+        <xsl:when test="@dur.ges">
+          <duration>
+            <xsl:value-of select="@dur.ges"/>
+          </duration>
+        </xsl:when>
+        <xsl:when test="ancestor::mei:*[@dur.ges]">
+          <duration>
+            <xsl:value-of select="ancestor::mei:*[@dur.ges][1]/@dur.ges"/>
+          </duration>
+        </xsl:when>
+      </xsl:choose>
+      <voice>
+        <xsl:choose>
+          <xsl:when test="@voice">
+            <xsl:value-of select="@voice"/>
+          </xsl:when>
+          <xsl:when test="ancestor::mei:*[@voice]">
+            <xsl:value-of select="ancestor::mei:*[@voice][1]/@voice"/>
+          </xsl:when>
+        </xsl:choose>
+      </voice>
+      <type>
+        <xsl:choose>
+          <xsl:when test="@dur">
+            <xsl:choose>
+              <xsl:when test="@dur='breve' or @dur='long' or @dur='maxima'">
+                <xsl:value-of select="@dur"/>
+              </xsl:when>
+              <xsl:when test="@dur='1'">
+                <xsl:text>whole</xsl:text>
+              </xsl:when>
+              <xsl:when test="@dur='2'">
+                <xsl:text>half</xsl:text>
+              </xsl:when>
+              <xsl:when test="@dur='4'">
+                <xsl:text>quarter</xsl:text>
+              </xsl:when>
+              <xsl:when test="@dur='8'">
+                <xsl:text>eighth</xsl:text>
+              </xsl:when>
+              <xsl:when test="@dur='16' or @dur='32' or @dur='64' or @dur='128' or @dur='256' or
+                @dur='512' or @dur='1024'">
+                <xsl:value-of select="@dur"/>
+                <xsl:text>th</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+          <xsl:when test="ancestor::mei:*[@dur]">
+            <xsl:choose>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='breve' or
+                ancestor::mei:*[@dur][1]/@dur='long' or ancestor::mei:*[@dur][1]/@dur='maxima'">
+                <xsl:value-of select="ancestor::mei:*[@dur][1]/@dur"/>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='1'">
+                <xsl:text>whole</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='2'">
+                <xsl:text>half</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='4'">
+                <xsl:text>quarter</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='8'">
+                <xsl:text>eighth</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::mei:*[@dur][1]/@dur='16' or
+                ancestor::mei:*[@dur][1]/@dur='32' or ancestor::mei:*[@dur][1]/@dur='64' or
+                ancestor::mei:*[@dur][1]/@dur='128' or ancestor::mei:*[@dur][1]/@dur='256' or
+                ancestor::mei:*[@dur][1]/@dur='512' or ancestor::mei:*[@dur][1]/@dur='1024'">
+                <xsl:value-of select="ancestor::mei:*[@dur][1]/@dur"/>
+                <xsl:text>th</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:when>
+        </xsl:choose>
+      </type>
+      <xsl:choose>
+        <xsl:when test="@dots">
+          <dot/>
+        </xsl:when>
+        <xsl:when test="ancestor::mei:*[@dots]">
+          <dot/>
+        </xsl:when>
+      </xsl:choose>
+      <xsl:if test="@accid">
+        <accidental>
+          <xsl:choose>
+            <xsl:when test="@accid='f'">
+              <xsl:text>flat</xsl:text>
+            </xsl:when>
+            <xsl:when test="@accid='s'">
+              <xsl:text>sharp</xsl:text>
+            </xsl:when>
+            <xsl:when test="@accid='n'">
+              <xsl:text>natural</xsl:text>
+            </xsl:when>
+          </xsl:choose>
+        </accidental>
+      </xsl:if>
+      <xsl:choose>
+        <xsl:when test="@stem.dir">
+          <stem>
+            <xsl:value-of select="@stem.dir"/>
+          </stem>
+        </xsl:when>
+        <xsl:when test="ancestor::mei:*[@stem.dir]">
+          <stem>
+            <xsl:value-of select="ancestor::mei:*[@stem.dir][1]/@stem.dir"/>
+          </stem>
+        </xsl:when>
+      </xsl:choose>
+      <xsl:for-each select="mei:verse">
+        <lyric>
+          <xsl:attribute name="number">
+            <xsl:value-of select="@n"/>
+          </xsl:attribute>
+          <syllabic>
+            <xsl:choose>
+              <xsl:when test="mei:syl/@wordpos='i'">
+                <xsl:text>begin</xsl:text>
+              </xsl:when>
+              <xsl:when test="mei:syl/@wordpos='m'">
+                <xsl:text>middle</xsl:text>
+              </xsl:when>
+              <xsl:when test="mei:syl/@wordpos='t'">
+                <xsl:text>end</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>single</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </syllabic>
+          <xsl:for-each select="mei:syl">
+            <text>
+              <xsl:value-of select="."/>
+            </text>
+          </xsl:for-each>
+        </lyric>
+      </xsl:for-each>
+      <staff>
+        <xsl:choose>
+          <xsl:when test="@partStaff">
+            <xsl:value-of select="@partStaff"/>
+          </xsl:when>
+          <xsl:when test="ancestor::mei:*[@partStaff]">
+            <xsl:value-of select="ancestor::mei:*[@partStaff][1]/@partStaff"/>
+          </xsl:when>
+        </xsl:choose>
+      </staff>
     </note>
   </xsl:template>
 
