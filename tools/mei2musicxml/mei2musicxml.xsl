@@ -245,304 +245,312 @@
             </xsl:attribute>
           </xsl:if>
           <xsl:variable name="measureContent">
-            <xsl:for-each select="mei:staff/mei:layer/*">
-              <xsl:variable name="thisStaff">
-                <xsl:value-of select="ancestor::mei:staff/@n"/>
-              </xsl:variable>
-              <xsl:variable name="ppq">
-                <xsl:choose>
-                  <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @ppq]">
-                    <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff and
-                      @ppq][1]/@ppq"/>
-                  </xsl:when>
-                  <xsl:when test="preceding::mei:scoreDef[@ppq]">
-                    <xsl:value-of select="preceding::mei:scoreDef[@ppq][1]/@ppq"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="$ppqDefault"/>
-                  </xsl:otherwise>
-                </xsl:choose>
-              </xsl:variable>
-              <xsl:variable name="meterCount">
-                <xsl:choose>
-                  <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @meter.count]">
-                    <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff and
-                      @meter.count][1]/@meter.count"/>
-                  </xsl:when>
-                  <xsl:when test="preceding::mei:scoreDef[@meter.count]">
-                    <xsl:value-of select="preceding::mei:scoreDef[@meter.count][1]/@meter.count"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="4"/>
-                  </xsl:otherwise>
-                </xsl:choose>
-              </xsl:variable>
-              <xsl:variable name="meterUnit">
-                <xsl:choose>
-                  <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @meter.unit]">
-                    <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff and
-                      @meter.unit][1]/@meter.unit"/>
-                  </xsl:when>
-                  <xsl:when test="preceding::mei:scoreDef[@meter.unit]">
-                    <xsl:value-of select="preceding::mei:scoreDef[@meter.unit][1]/@meter.unit"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="4"/>
-                  </xsl:otherwise>
-                </xsl:choose>
-              </xsl:variable>
-              <xsl:variable name="measureDuration">
-                <xsl:call-template name="measureDuration">
-                  <xsl:with-param name="ppq" select="$ppq"/>
-                  <xsl:with-param name="meterCount" select="$meterCount"/>
-                  <xsl:with-param name="meterUnit" select="$meterUnit"/>
-                </xsl:call-template>
-              </xsl:variable>
-
-              <xsl:copy>
-                <!-- copy all attributes but @staff and @dur.ges. -->
-                <xsl:copy-of select="@*[not(local-name() = 'staff') and not(name()='dur.ges')]"/>
-                <xsl:attribute name="measureDuration">
-                  <xsl:value-of select="$measureDuration"/>
-                </xsl:attribute>
-                <xsl:attribute name="partID">
-                  <!-- use existing or construct a part ID -->
-                  <xsl:choose>
-                    <xsl:when
-                      test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]">
-                      <xsl:choose>
-                        <xsl:when
-                          test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id">
-                          <xsl:value-of
-                            select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id"
-                          />
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:text>P_</xsl:text>
-                          <xsl:value-of
-                            select="generate-id(preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff])"
-                          />
-                        </xsl:otherwise>
-                      </xsl:choose>
-                    </xsl:when>
-                    <xsl:when
-                      test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]">
-                      <xsl:choose>
-                        <xsl:when
-                          test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id">
-                          <xsl:value-of
-                            select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id"
-                          />
-                        </xsl:when>
-                        <xsl:otherwise>
-                          <xsl:text>P_</xsl:text>
-                          <xsl:value-of
-                            select="generate-id(preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]])"
-                          />
-                        </xsl:otherwise>
-                      </xsl:choose>
-                    </xsl:when>
-                  </xsl:choose>
-                </xsl:attribute>
-                <!-- staff assignment in MEI; that is, staff counted from top to bottom of score -->
-                <xsl:attribute name="meiStaff">
+            <events>
+              <xsl:for-each select="mei:staff/mei:layer/*">
+                <xsl:variable name="thisStaff">
                   <xsl:value-of select="ancestor::mei:staff/@n"/>
-                </xsl:attribute>
-                <!-- staff assignment in MusicXML; that is, where the numbering of staves starts over with each part -->
-                <xsl:attribute name="partStaff">
-                  <xsl:variable name="thisStaff">
+                </xsl:variable>
+                <xsl:variable name="ppq">
+                  <xsl:choose>
+                    <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @ppq]">
+                      <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff and
+                        @ppq][1]/@ppq"/>
+                    </xsl:when>
+                    <xsl:when test="preceding::mei:scoreDef[@ppq]">
+                      <xsl:value-of select="preceding::mei:scoreDef[@ppq][1]/@ppq"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="$ppqDefault"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="meterCount">
+                  <xsl:choose>
+                    <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @meter.count]">
+                      <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff and
+                        @meter.count][1]/@meter.count"/>
+                    </xsl:when>
+                    <xsl:when test="preceding::mei:scoreDef[@meter.count]">
+                      <xsl:value-of select="preceding::mei:scoreDef[@meter.count][1]/@meter.count"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="4"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="meterUnit">
+                  <xsl:choose>
+                    <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @meter.unit]">
+                      <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff and
+                        @meter.unit][1]/@meter.unit"/>
+                    </xsl:when>
+                    <xsl:when test="preceding::mei:scoreDef[@meter.unit]">
+                      <xsl:value-of select="preceding::mei:scoreDef[@meter.unit][1]/@meter.unit"/>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:value-of select="4"/>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:variable>
+                <xsl:variable name="measureDuration">
+                  <xsl:call-template name="measureDuration">
+                    <xsl:with-param name="ppq" select="$ppq"/>
+                    <xsl:with-param name="meterCount" select="$meterCount"/>
+                    <xsl:with-param name="meterUnit" select="$meterUnit"/>
+                  </xsl:call-template>
+                </xsl:variable>
+
+                <xsl:copy>
+                  <!-- copy all attributes but @staff and @dur.ges. -->
+                  <xsl:copy-of select="@*[not(local-name() = 'staff') and not(name()='dur.ges')]"/>
+                  <xsl:attribute name="measureDuration">
+                    <xsl:value-of select="$measureDuration"/>
+                  </xsl:attribute>
+                  <xsl:attribute name="partID">
+                    <!-- use existing or construct a part ID -->
                     <xsl:choose>
-                      <xsl:when test="not(@staff)">
-                        <xsl:value-of select="$thisStaff"/>
+                      <xsl:when
+                        test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]">
+                        <xsl:choose>
+                          <xsl:when
+                            test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id">
+                            <xsl:value-of
+                              select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id"
+                            />
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:text>P_</xsl:text>
+                            <xsl:value-of
+                              select="generate-id(preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff])"
+                            />
+                          </xsl:otherwise>
+                        </xsl:choose>
                       </xsl:when>
-                      <xsl:otherwise>
-                        <xsl:value-of select="@staff"/>
-                      </xsl:otherwise>
+                      <xsl:when
+                        test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]">
+                        <xsl:choose>
+                          <xsl:when
+                            test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id">
+                            <xsl:value-of
+                              select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id"
+                            />
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:text>P_</xsl:text>
+                            <xsl:value-of
+                              select="generate-id(preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]])"
+                            />
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:when>
                     </xsl:choose>
-                  </xsl:variable>
-                  <xsl:for-each
-                    select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[@n=$thisStaff]">
-                    <xsl:value-of select="count(preceding-sibling::mei:staffDef) + 1"/>
-                  </xsl:for-each>
-                </xsl:attribute>
-                <!-- At this point, voice = layer assigned in MEI -->
-                <xsl:attribute name="voice">
-                  <xsl:value-of select="ancestor::mei:layer/@n"/>
-                </xsl:attribute>
-                <!-- Use existing or construct @dur.ges -->
-                <xsl:choose>
-                  <!-- use existing attribute -->
-                  <xsl:when test="@dur.ges">
-                    <xsl:attribute name="dur.ges">
-                      <xsl:value-of select="replace(@dur.ges, 'p$', '')"/>
-                    </xsl:attribute>
-                    <xsl:copy-of select="mei:*"/>
-                  </xsl:when>
-                  <!-- for events directly in layer, calculate @dur.ges -->
-                  <xsl:when test="local-name() = 'note' or local-name() = 'chord' or local-name()
-                    = 'rest' or local-name() = 'space' or local-name() = 'mRest'
-                    or local-name() = 'mSpace'">
-                    <xsl:attribute name="dur.ges">
+                  </xsl:attribute>
+                  <!-- staff assignment in MEI; that is, staff counted from top to bottom of score -->
+                  <xsl:attribute name="meiStaff">
+                    <xsl:value-of select="ancestor::mei:staff/@n"/>
+                  </xsl:attribute>
+                  <!-- staff assignment in MusicXML; that is, where the numbering of staves starts over with each part -->
+                  <xsl:attribute name="partStaff">
+                    <xsl:variable name="thisStaff">
                       <xsl:choose>
-                        <xsl:when test="@grace">
-                          <xsl:value-of select="0"/>
+                        <xsl:when test="not(@staff)">
+                          <xsl:value-of select="$thisStaff"/>
                         </xsl:when>
                         <xsl:otherwise>
-                          <xsl:call-template name="gesturalDurationFromWrittenDuration">
-                            <xsl:with-param name="writtenDur">
-                              <xsl:choose>
-                                <xsl:when test="@dur">
-                                  <xsl:value-of select="@dur"/>
-                                </xsl:when>
-                                <xsl:when test="preceding-sibling::mei:*[(local-name()='note' or
-                                  local-name()='chord' or local-name()='rest') and @dur]">
-                                  <xsl:value-of
-                                    select="preceding-sibling::mei:*[(local-name()='note' or
-                                    local-name()='chord' or local-name()='rest') and
-                                    @dur][1]/@dur"/>
-                                </xsl:when>
-                                <xsl:when test="following-sibling::mei:*[(local-name()='note' or
-                                  local-name()='chord' or local-name()='rest') and @dur]">
-                                  <xsl:value-of
-                                    select="following-sibling::mei:*[(local-name()='note' or
-                                    local-name()='chord' or local-name()='rest') and
-                                    @dur][1]/@dur"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                  <xsl:value-of select="4"/>
-                                </xsl:otherwise>
-                              </xsl:choose>
-                            </xsl:with-param>
-                            <xsl:with-param name="dots">
-                              <xsl:choose>
-                                <xsl:when test="@dots">
-                                  <xsl:value-of select="@dots"/>
-                                </xsl:when>
-                                <xsl:otherwise>
-                                  <xsl:value-of select="0"/>
-                                </xsl:otherwise>
-                              </xsl:choose>
-                            </xsl:with-param>
-                            <xsl:with-param name="ppq">
-                              <xsl:value-of select="$ppq"/>
-                            </xsl:with-param>
-                          </xsl:call-template>
+                          <xsl:value-of select="@staff"/>
                         </xsl:otherwise>
                       </xsl:choose>
-                    </xsl:attribute>
-                    <xsl:copy-of select="mei:*"/>
-                  </xsl:when>
-                  <!-- for beam (and tuplet?) calculate @dur.ges for each child -->
-                  <xsl:when test="local-name() = 'beam' or local-name() = 'tuplet'">
-                    <xsl:for-each select="mei:note|mei:chord|mei:rest|mei:space">
-                      <xsl:variable name="thisElement">
-                        <xsl:value-of select="name()"/>
-                      </xsl:variable>
-                      <xsl:element name="{$thisElement}"
-                        xmlns="http://www.music-encoding.org/ns/mei">
-                        <xsl:copy-of select="@*[not(local-name() = 'staff')]"/>
-                        <!-- staff assignment in MEI; that is, staff counted from top to bottom of score -->
-                        <xsl:attribute name="meiStaff">
-                          <xsl:choose>
-                            <xsl:when test="@staff">
-                              <xsl:value-of select="@staff"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                              <xsl:value-of select="ancestor::mei:staff/@n"/>
-                            </xsl:otherwise>
-                          </xsl:choose>
-                        </xsl:attribute>
-                        <!-- staff assignment in MusicXML; that is, where the numbering of staves starts over with each part -->
-                        <xsl:attribute name="partStaff">
-                          <xsl:variable name="thisStaff">
+                    </xsl:variable>
+                    <xsl:for-each
+                      select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[@n=$thisStaff]">
+                      <xsl:value-of select="count(preceding-sibling::mei:staffDef) + 1"/>
+                    </xsl:for-each>
+                  </xsl:attribute>
+                  <!-- At this point, voice = layer assigned in MEI -->
+                  <xsl:attribute name="voice">
+                    <xsl:value-of select="ancestor::mei:layer/@n"/>
+                  </xsl:attribute>
+                  <!-- Use existing or construct @dur.ges -->
+                  <xsl:choose>
+                    <!-- use existing attribute -->
+                    <xsl:when test="@dur.ges">
+                      <xsl:attribute name="dur.ges">
+                        <xsl:value-of select="replace(@dur.ges, 'p$', '')"/>
+                      </xsl:attribute>
+                      <xsl:copy-of select="mei:*"/>
+                    </xsl:when>
+                    <!-- for events directly in layer, calculate @dur.ges -->
+                    <xsl:when test="local-name() = 'note' or local-name() = 'chord' or local-name()
+                      = 'rest' or local-name() = 'space' or local-name() = 'mRest'
+                      or local-name() = 'mSpace'">
+                      <xsl:attribute name="dur.ges">
+                        <xsl:choose>
+                          <xsl:when test="@grace">
+                            <xsl:value-of select="0"/>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <xsl:call-template name="gesturalDurationFromWrittenDuration">
+                              <xsl:with-param name="writtenDur">
+                                <xsl:choose>
+                                  <xsl:when test="@dur">
+                                    <xsl:value-of select="@dur"/>
+                                  </xsl:when>
+                                  <xsl:when test="preceding-sibling::mei:*[(local-name()='note' or
+                                    local-name()='chord' or local-name()='rest') and @dur]">
+                                    <xsl:value-of
+                                      select="preceding-sibling::mei:*[(local-name()='note' or
+                                      local-name()='chord' or local-name()='rest') and
+                                      @dur][1]/@dur"/>
+                                  </xsl:when>
+                                  <xsl:when test="following-sibling::mei:*[(local-name()='note' or
+                                    local-name()='chord' or local-name()='rest') and @dur]">
+                                    <xsl:value-of
+                                      select="following-sibling::mei:*[(local-name()='note' or
+                                      local-name()='chord' or local-name()='rest') and
+                                      @dur][1]/@dur"/>
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                    <xsl:value-of select="4"/>
+                                  </xsl:otherwise>
+                                </xsl:choose>
+                              </xsl:with-param>
+                              <xsl:with-param name="dots">
+                                <xsl:choose>
+                                  <xsl:when test="@dots">
+                                    <xsl:value-of select="@dots"/>
+                                  </xsl:when>
+                                  <xsl:otherwise>
+                                    <xsl:value-of select="0"/>
+                                  </xsl:otherwise>
+                                </xsl:choose>
+                              </xsl:with-param>
+                              <xsl:with-param name="ppq">
+                                <xsl:value-of select="$ppq"/>
+                              </xsl:with-param>
+                            </xsl:call-template>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:attribute>
+                      <xsl:copy-of select="mei:*"/>
+                    </xsl:when>
+                    <!-- for beam (and tuplet?) calculate @dur.ges for each child -->
+                    <xsl:when test="local-name() = 'beam' or local-name() = 'tuplet'">
+                      <xsl:for-each select="mei:note|mei:chord|mei:rest|mei:space">
+                        <xsl:variable name="thisElement">
+                          <xsl:value-of select="name()"/>
+                        </xsl:variable>
+                        <xsl:element name="{$thisElement}"
+                          xmlns="http://www.music-encoding.org/ns/mei">
+                          <xsl:copy-of select="@*[not(local-name() = 'staff')]"/>
+                          <!-- staff assignment in MEI; that is, staff counted from top to bottom of score -->
+                          <xsl:attribute name="meiStaff">
                             <xsl:choose>
-                              <xsl:when test="not(@staff)">
-                                <xsl:value-of select="$thisStaff"/>
+                              <xsl:when test="@staff">
+                                <xsl:value-of select="@staff"/>
                               </xsl:when>
                               <xsl:otherwise>
-                                <xsl:value-of select="@staff"/>
+                                <xsl:value-of select="ancestor::mei:staff/@n"/>
                               </xsl:otherwise>
                             </xsl:choose>
-                          </xsl:variable>
-                          <xsl:for-each
-                            select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[@n=$thisStaff]">
-                            <xsl:value-of select="count(preceding-sibling::mei:staffDef) + 1"/>
-                          </xsl:for-each>
-                        </xsl:attribute>
-                        <xsl:attribute name="dur.ges">
-                          <xsl:choose>
-                            <xsl:when test="@grace">
-                              <xsl:value-of select="0"/>
-                            </xsl:when>
-                            <xsl:when test="@dur.ges">
-                              <xsl:value-of select="replace(@dur.ges, 'p$', '')"/>
-                            </xsl:when>
-                            <xsl:otherwise>
-                              <xsl:call-template name="gesturalDurationFromWrittenDuration">
-                                <xsl:with-param name="writtenDur">
-                                  <xsl:choose>
-                                    <xsl:when test="@dur">
-                                      <xsl:value-of select="@dur"/>
-                                    </xsl:when>
-                                    <xsl:when test="preceding-sibling::mei:*[(local-name()='note'
-                                      or local-name()='chord' or local-name()='rest') and @dur]">
-                                      <xsl:value-of
-                                        select="preceding-sibling::mei:*[(local-name()='note' or
-                                        local-name()='chord' or local-name()='rest') and
-                                        @dur][1]/@dur"/>
-                                    </xsl:when>
-                                    <xsl:when test="following-sibling::mei:*[(local-name()='note'
-                                      or local-name()='chord' or local-name()='rest') and @dur]">
-                                      <xsl:value-of
-                                        select="following-sibling::mei:*[(local-name()='note' or
-                                        local-name()='chord' or local-name()='rest') and
-                                        @dur][1]/@dur"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                      <xsl:value-of select="4"/>
-                                    </xsl:otherwise>
-                                  </xsl:choose>
-                                </xsl:with-param>
-                                <xsl:with-param name="dots">
-                                  <xsl:choose>
-                                    <xsl:when test="@dots">
-                                      <xsl:value-of select="@dots"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                      <xsl:value-of select="0"/>
-                                    </xsl:otherwise>
-                                  </xsl:choose>
-                                </xsl:with-param>
-                                <xsl:with-param name="ppq">
-                                  <xsl:choose>
-                                    <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and
-                                      @ppq]">
-                                      <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff
-                                        and @ppq][1]/@ppq"/>
-                                    </xsl:when>
-                                    <xsl:when test="preceding::mei:scoreDef[@ppq]">
-                                      <xsl:value-of select="preceding::mei:scoreDef[@ppq][1]/@ppq"/>
-                                    </xsl:when>
-                                    <xsl:otherwise>
-                                      <xsl:value-of select="$ppqDefault"/>
-                                    </xsl:otherwise>
-                                  </xsl:choose>
-                                </xsl:with-param>
-                              </xsl:call-template>
-                            </xsl:otherwise>
-                          </xsl:choose>
-                        </xsl:attribute>
-                        <xsl:copy-of select="mei:*"/>
-                      </xsl:element>
-                    </xsl:for-each>
-                  </xsl:when>
-                </xsl:choose>
-              </xsl:copy>
-            </xsl:for-each>
+                          </xsl:attribute>
+                          <!-- staff assignment in MusicXML; that is, where the numbering of staves starts over with each part -->
+                          <xsl:attribute name="partStaff">
+                            <xsl:variable name="thisStaff">
+                              <xsl:choose>
+                                <xsl:when test="not(@staff)">
+                                  <xsl:value-of select="$thisStaff"/>
+                                </xsl:when>
+                                <xsl:otherwise>
+                                  <xsl:value-of select="@staff"/>
+                                </xsl:otherwise>
+                              </xsl:choose>
+                            </xsl:variable>
+                            <xsl:for-each
+                              select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[@n=$thisStaff]">
+                              <xsl:value-of select="count(preceding-sibling::mei:staffDef) + 1"/>
+                            </xsl:for-each>
+                          </xsl:attribute>
+                          <xsl:attribute name="dur.ges">
+                            <xsl:choose>
+                              <xsl:when test="@grace">
+                                <xsl:value-of select="0"/>
+                              </xsl:when>
+                              <xsl:when test="@dur.ges">
+                                <xsl:value-of select="replace(@dur.ges, 'p$', '')"/>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:call-template name="gesturalDurationFromWrittenDuration">
+                                  <xsl:with-param name="writtenDur">
+                                    <xsl:choose>
+                                      <xsl:when test="@dur">
+                                        <xsl:value-of select="@dur"/>
+                                      </xsl:when>
+                                      <xsl:when test="preceding-sibling::mei:*[(local-name()='note'
+                                        or local-name()='chord' or local-name()='rest') and @dur]">
+                                        <xsl:value-of
+                                          select="preceding-sibling::mei:*[(local-name()='note' or
+                                          local-name()='chord' or local-name()='rest') and
+                                          @dur][1]/@dur"/>
+                                      </xsl:when>
+                                      <xsl:when test="following-sibling::mei:*[(local-name()='note'
+                                        or local-name()='chord' or local-name()='rest') and @dur]">
+                                        <xsl:value-of
+                                          select="following-sibling::mei:*[(local-name()='note' or
+                                          local-name()='chord' or local-name()='rest') and
+                                          @dur][1]/@dur"/>
+                                      </xsl:when>
+                                      <xsl:otherwise>
+                                        <xsl:value-of select="4"/>
+                                      </xsl:otherwise>
+                                    </xsl:choose>
+                                  </xsl:with-param>
+                                  <xsl:with-param name="dots">
+                                    <xsl:choose>
+                                      <xsl:when test="@dots">
+                                        <xsl:value-of select="@dots"/>
+                                      </xsl:when>
+                                      <xsl:otherwise>
+                                        <xsl:value-of select="0"/>
+                                      </xsl:otherwise>
+                                    </xsl:choose>
+                                  </xsl:with-param>
+                                  <xsl:with-param name="ppq">
+                                    <xsl:choose>
+                                      <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and
+                                        @ppq]">
+                                        <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff
+                                          and @ppq][1]/@ppq"/>
+                                      </xsl:when>
+                                      <xsl:when test="preceding::mei:scoreDef[@ppq]">
+                                        <xsl:value-of select="preceding::mei:scoreDef[@ppq][1]/@ppq"
+                                        />
+                                      </xsl:when>
+                                      <xsl:otherwise>
+                                        <xsl:value-of select="$ppqDefault"/>
+                                      </xsl:otherwise>
+                                    </xsl:choose>
+                                  </xsl:with-param>
+                                </xsl:call-template>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </xsl:attribute>
+                          <xsl:copy-of select="mei:*"/>
+                        </xsl:element>
+                      </xsl:for-each>
+                    </xsl:when>
+                  </xsl:choose>
+                </xsl:copy>
+              </xsl:for-each>
+            </events>
+            <controlevents>
+              <xsl:for-each select="mei:*[not(local-name()='staff')]">
+                <xsl:copy-of select="."/>
+              </xsl:for-each>
+            </controlevents>
           </xsl:variable>
           <!--<xsl:copy-of select="$measureContent"/>-->
           <xsl:variable name="measureContent2">
-            <xsl:for-each-group select="$measureContent/*" group-by="@partID">
+            <xsl:for-each-group select="$measureContent/events/*" group-by="@partID">
               <part id="{@partID}">
                 <xsl:for-each-group select="current-group()" group-by="@voice">
                   <xsl:for-each-group select="current-group()" group-by="@meiStaff">
@@ -553,6 +561,7 @@
                 </xsl:for-each-group>
               </part>
             </xsl:for-each-group>
+            <xsl:copy-of select="$measureContent/controlevents"/>
           </xsl:variable>
           <!--<xsl:copy-of select="$measureContent2"/>-->
           <xsl:variable name="measureContent3">
@@ -579,6 +588,7 @@
                 </xsl:for-each>
               </part>
             </xsl:for-each>
+            <xsl:copy-of select="$measureContent2/controlevents"/>
           </xsl:variable>
           <!--<xsl:copy-of select="$measureContent3"/>-->
           <xsl:variable name="measureContent4">
@@ -608,6 +618,7 @@
                 </xsl:for-each>
               </part>
             </xsl:for-each>
+            <xsl:copy-of select="$measureContent3/controlevents"/>
           </xsl:variable>
           <!--<xsl:copy-of select="$measureContent4"/>-->
           <xsl:for-each select="$measureContent4/part">
@@ -616,6 +627,9 @@
               <xsl:apply-templates select="*" mode="partContent"/>
             </part>
           </xsl:for-each>
+          <xsl:text disable-output-escaping="yes">&#xa;&lt;!-- </xsl:text>
+          <xsl:copy-of select="$measureContent4/controlevents"/>
+          <xsl:text disable-output-escaping="yes"> -->&#xa;</xsl:text>
         </measure>
       </xsl:for-each>
     </score-timewise>
