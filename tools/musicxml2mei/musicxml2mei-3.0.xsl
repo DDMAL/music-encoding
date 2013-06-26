@@ -20,14 +20,14 @@
       This parameter defines the degree of layout information transformed into MEI. Possible values are:
       'preserve': All layout information available in the MusicXML file will be converted to MEI
       'strip': All layout information, including page formatting etc., will be stripped
-      'pageLayout': Only information about the general formatting setup will be stored
+      'pageLayout': Only information about the general formatting setup will be kept
     
   -->
   <xsl:param name="layout" select="'strip'"/>
 
   <!-- PARAM:formeWork
       This parameter decides if credit-words, page heads etc. will be preserved or not. Values are:
-      'preserve': All pageHeads etc. will ge generated
+      'preserve': All pageHeads etc. will be included
       'strip': All credits in the music branch will be stripped
       
   -->
@@ -39,31 +39,31 @@
   <xsl:param name="keepAttributes" select="false()"/>
 
   <!-- PARAM:generateMIDI 
-      This parameter indicates whether MIDI-relevant data should be generated. BOOLEAN
+      This parameter indicates whether MIDI-relevant data should be preserved. BOOLEAN
   -->
   <xsl:param name="generateMIDI" select="false()"/>
 
   <!-- PARAM:articStyle
       This parameter defines how to handle articulation. Possible values are:
-      'elem': Articulation is stored using <artic>
-      'attr': Articulation is stored using @artic
-      'both': Articulation is stored both as element and attribute
+      'elem': Articulation is preserved using <artic>
+      'attr': Articulation is preserved using @artic
+      'both': Articulation is included both as an element and an attribute
   -->
   <xsl:param name="articStyle" select="'elem'"/>
 
   <!-- PARAM:accidStyle
       This parameter defines how to handle accidentals. Possible values are:
-      'elem': Accidentals are stored using <accid>
-      'attr': Accidentals are stored using @accid
-      'both': Accidentals are stored both as element and attribute
+      'elem': Accidentals are preserved using <accid>
+      'attr': Accidentals are preserved using @accid
+      'both': Accidentals are included both as an element and an attribute
   -->
   <xsl:param name="accidStyle" select="'attr'"/>
 
   <!-- PARAM:tieStyle
       This parameter defines how to handle ties. Possible values are:
-      'elem': Ties are stored using <tie>
-      'attr': Ties are stored using @tie
-      'both': Ties are stored both as element and attribute
+      'elem': Ties are preserved using <tie>
+      'attr': Ties are preserved using @tie
+      'both': Ties are included both as an element and an attribute
   -->
   <xsl:param name="tieStyle" select="'attr'"/>
 
@@ -373,45 +373,117 @@
   <xsl:template match="accidental-mark" mode="stage1.amlist">
     <!-- Accidentals attached to ornaments -->
     <xsl:if test="@placement='above'">
-      <xsl:attribute name="accidupper">
-        <xsl:choose>
-          <xsl:when test=". = 'sharp'">s</xsl:when>
-          <xsl:when test=". = 'natural'">n</xsl:when>
-          <xsl:when test=". = 'flat'">f</xsl:when>
-          <xsl:when test=". = 'double-sharp'">x</xsl:when>
-          <xsl:when test=". = 'double-flat'">ff</xsl:when>
-          <xsl:when test=". = 'sharp-sharp'">ss</xsl:when>
-          <xsl:when test=". = 'flat-flat'">ff</xsl:when>
-          <xsl:when test=". = 'natural-sharp'">ns</xsl:when>
-          <xsl:when test=". = 'natural-flat'">nf</xsl:when>
-          <xsl:when test=". = 'quarter-flat'">fd</xsl:when>
-          <xsl:when test=". = 'quarter-sharp'">su</xsl:when>
-        </xsl:choose>
-      </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test=". = 'sharp'">
+          <xsl:attribute name="accidupper">s</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'natural'">
+          <xsl:attribute name="accidupper">n</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'flat'">
+          <xsl:attribute name="accidupper">f</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'double-sharp'">
+          <xsl:attribute name="accidupper">x</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'double-flat'">
+          <xsl:attribute name="accidupper">ff</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'sharp-sharp'">
+          <xsl:attribute name="accidupper">ss</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'flat-flat'">
+          <xsl:attribute name="accidupper">ff</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'natural-sharp'">
+          <xsl:attribute name="accidupper">ns</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'natural-flat'">
+          <xsl:attribute name="accidupper">nf</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'quarter-flat'">
+          <xsl:attribute name="accidupper">fd</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'quarter-sharp'">
+          <xsl:attribute name="accidupper">su</xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="measureNum">
+            <xsl:value-of select="ancestor::measure/@number"/>
+          </xsl:variable>
+          <xsl:variable name="warning">
+            <xsl:value-of select="concat('Turn upper accidental value (', ., ') not supported')"/>
+            <!--<xsl:text>Turn upper accidental value not supported</xsl:text>-->
+          </xsl:variable>
+          <xsl:message>
+            <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+              ').'))"/>
+          </xsl:message>
+          <xsl:comment>
+            <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+          </xsl:comment>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:if>
     <xsl:if test="@placement='below'">
-      <xsl:attribute name="accidlower">
-        <xsl:choose>
-          <xsl:when test=". = 'sharp'">s</xsl:when>
-          <xsl:when test=". = 'natural'">n</xsl:when>
-          <xsl:when test=". = 'flat'">f</xsl:when>
-          <xsl:when test=". = 'double-sharp'">x</xsl:when>
-          <xsl:when test=". = 'double-flat'">ff</xsl:when>
-          <xsl:when test=". = 'sharp-sharp'">ss</xsl:when>
-          <xsl:when test=". = 'flat-flat'">ff</xsl:when>
-          <xsl:when test=". = 'natural-sharp'">ns</xsl:when>
-          <xsl:when test=". = 'natural-flat'">nf</xsl:when>
-          <xsl:when test=". = 'quarter-flat'">fd</xsl:when>
-          <xsl:when test=". = 'quarter-sharp'">su</xsl:when>
-        </xsl:choose>
-      </xsl:attribute>
+      <xsl:choose>
+        <xsl:when test=". = 'sharp'">
+          <xsl:attribute name="accidlower">s</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'natural'">
+          <xsl:attribute name="accidlower">n</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'flat'">
+          <xsl:attribute name="accidlower">f</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'double-sharp'">
+          <xsl:attribute name="accidlower">x</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'double-flat'">
+          <xsl:attribute name="accidlower">ff</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'sharp-sharp'">
+          <xsl:attribute name="accidlower">ss</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'flat-flat'">
+          <xsl:attribute name="accidlower">ff</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'natural-sharp'">
+          <xsl:attribute name="accidlower">ns</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'natural-flat'">
+          <xsl:attribute name="accidlower">nf</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'quarter-flat'">
+          <xsl:attribute name="accidlower">fd</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'quarter-sharp'">
+          <xsl:attribute name="accidlower">su</xsl:attribute>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:variable name="measureNum">
+            <xsl:value-of select="ancestor::measure/@number"/>
+          </xsl:variable>
+          <xsl:variable name="warning">
+            <xsl:value-of select="concat('Turn lower accidental value (', ., ') not supported')"/>
+            <!--<xsl:text>Turn lower accidental value not supported</xsl:text>-->
+          </xsl:variable>
+          <xsl:message>
+            <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+              ').'))"/>
+          </xsl:message>
+          <xsl:comment>
+            <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+          </xsl:comment>
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:if>
     <xsl:if test="not(@placement)">
       <xsl:variable name="measureNum">
         <xsl:value-of select="ancestor::measure/@number"/>
       </xsl:variable>
       <xsl:variable name="warning">
-        <xsl:text>Turn accidental place undetermined, not transcoded</xsl:text>
+        <xsl:text>Turn accidental place lacking</xsl:text>
       </xsl:variable>
       <xsl:message>
         <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -421,7 +493,8 @@
     <!-- If next sibling is an accidental, it belongs to this ornament. -->
     <xsl:for-each select="following-sibling::*[1]">
       <xsl:if test="local-name()='accidental-mark'">
-        <xsl:apply-templates select="." mode="amlist"/>
+        <!--<xsl:apply-templates select="." mode="amlist"/>-->
+        <xsl:apply-templates select="." mode="stage1.amlist"/>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
@@ -1900,14 +1973,14 @@
                 <xsl:copy-of select="@n"/>
                 <!-- part name -->
                 <!-- staff label as attribute -->
-                <xsl:if test="part-name-display">
+                <xsl:if test="part-name-display[normalize-space(text()) != '']">
                   <xsl:attribute name="label">
                     <xsl:value-of select="replace(replace(normalize-space(part-name-display),
                       'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
                   </xsl:attribute>
                 </xsl:if>
                 <!-- abbreviated staff label as attribute -->
-                <xsl:if test="part-abbreviation-display">
+                <xsl:if test="part-abbreviation-display[normalize-space(text()) != '']">
                   <xsl:attribute name="label.abbr">
                     <xsl:value-of
                       select="replace(replace(normalize-space(part-abbreviation-display),
@@ -2089,13 +2162,13 @@
                   </xsl:attribute>
                 </xsl:if>
                 <!-- staff labels as elements -->
-                <xsl:if test="part-name-display">
+                <xsl:if test="part-name-display[normalize-space(text()) != '']">
                   <label>
                     <xsl:value-of select="replace(replace(normalize-space(part-name-display),
                       'flat', '&#x266d;'), 'sharp', '&#x266f;')"/>
                   </label>
                 </xsl:if>
-                <xsl:if test="part-abbreviation-display">
+                <xsl:if test="part-abbreviation-display[normalize-space(text()) != '']">
                   <label>
                     <abbr>
                       <xsl:value-of
@@ -3689,12 +3762,12 @@
           </xsl:choose>
 
           <!-- String tablature -->
-          <xsl:if test="notations/technical/string">
+          <xsl:if test="notations/technical/string[normalize-space(text()) != '']">
             <xsl:attribute name="tab.string">
               <xsl:value-of select="notations/technical/string"/>
             </xsl:attribute>
           </xsl:if>
-          <xsl:if test="notations/technical/fret">
+          <xsl:if test="notations/technical/fret[normalize-space(text()) != '']">
             <xsl:attribute name="tab.fret">
               <xsl:choose>
                 <xsl:when test="matches(notations/technical/fret, '0')">
@@ -4612,7 +4685,8 @@
         <xsl:call-template name="positionRelative"/>
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
-            <xsl:apply-templates select="." mode="amlist"/>
+            <!--<xsl:apply-templates select="." mode="amlist"/>-->
+            <xsl:apply-templates select="." mode="stage1.amlist"/>
           </xsl:if>
         </xsl:for-each>
       </trill>
@@ -4719,7 +4793,8 @@
         <xsl:call-template name="positionRelative"/>
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
-            <xsl:apply-templates select="." mode="amlist"/>
+            <!--<xsl:apply-templates select="." mode="amlist"/>-->
+            <xsl:apply-templates select="." mode="stage1.amlist"/>
           </xsl:if>
         </xsl:for-each>
       </mordent>
@@ -5587,7 +5662,8 @@
         </xsl:for-each>
       </xsl:attribute>
       <!-- group label as attribute -->
-      <xsl:if test="group-name or group-name-display">
+      <xsl:if test="group-name[normalize-space(text()) != ''] or
+        group-name-display[normalize-space(text()) != '']">
         <xsl:attribute name="label">
           <xsl:choose>
             <xsl:when test="group-name-display">
@@ -5601,7 +5677,8 @@
         </xsl:attribute>
       </xsl:if>
       <!-- abbreviated group label as attribute -->
-      <xsl:if test="group-abbreviation or group-abbreviation-display">
+      <xsl:if test="group-abbreviation[normalize-space(text()) != ''] or
+        group-abbreviation-display[normalize-space(text()) != '']">
         <xsl:attribute name="label.abbr">
           <xsl:choose>
             <xsl:when test="group-abbreviation-display">
@@ -5620,7 +5697,8 @@
         </xsl:attribute>
       </xsl:if>
       <!-- group label as element -->
-      <xsl:if test="group-name or group-name-display">
+      <xsl:if test="group-name[normalize-space(text()) != ''] or
+        group-name-display[normalize-space(text()) != '']">
         <label xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:choose>
             <xsl:when test="group-name-display">
@@ -5652,7 +5730,8 @@
           </xsl:choose>
         </label>
       </xsl:if>
-      <xsl:if test="group-abbreviation or group-abbreviation-display">
+      <xsl:if test="group-abbreviation[normalize-space(text()) != ''] or
+        group-abbreviation-display[normalize-space(text()) != '']">
         <label xmlns="http://www.music-encoding.org/ns/mei">
           <abbr>
             <xsl:choose>
@@ -5896,7 +5975,8 @@
             <xsl:value-of select="$partID"/>
           </xsl:attribute>
           <!-- staff label as attribute -->
-          <xsl:if test="part-name or part-name-display">
+          <xsl:if test="part-name[normalize-space(text()) != ''] or
+            part-name-display[normalize-space(text()) != '']">
             <xsl:attribute name="label">
               <xsl:choose>
                 <xsl:when test="part-name-display">
@@ -5910,7 +5990,8 @@
             </xsl:attribute>
           </xsl:if>
           <!-- abbreviated staff label as attribute -->
-          <xsl:if test="part-abbreviation or part-abbreviation-display">
+          <xsl:if test="part-abbreviation[normalize-space(text()) != ''] or
+            part-abbreviation-display[normalize-space(text()) != '']">
             <xsl:attribute name="label.abbr">
               <xsl:choose>
                 <xsl:when test="part-abbreviation-display">
@@ -5931,7 +6012,8 @@
           </xsl:call-template>
 
           <!-- staff labels as elements -->
-          <xsl:if test="part-name or part-name-display">
+          <xsl:if test="part-name[normalize-space(text()) != ''] or
+            part-name-display[normalize-space(text()) != '']">
             <label xmlns="http://www.music-encoding.org/ns/mei">
               <xsl:choose>
                 <xsl:when test="part-name-display">
@@ -5963,7 +6045,8 @@
               </xsl:choose>
             </label>
           </xsl:if>
-          <xsl:if test="part-abbreviation or part-abbreviation-display">
+          <xsl:if test="part-abbreviation[normalize-space(text()) != ''] or
+            part-abbreviation-display[normalize-space(text()) != '']">
             <label xmlns="http://www.music-encoding.org/ns/mei">
               <abbr>
                 <xsl:choose>
@@ -6087,7 +6170,8 @@
           <!-- Single part with multiple staves always uses a curly brace -->
           <xsl:attribute name="symbol">brace</xsl:attribute>
           <!-- group label as attribute -->
-          <xsl:if test="part-name or part-name-display">
+          <xsl:if test="part-name[normalize-space(text()) != ''] or
+            part-name-display[normalize-space(text()) != '']">
             <xsl:attribute name="label">
               <xsl:choose>
                 <xsl:when test="part-name-display">
@@ -6101,7 +6185,8 @@
             </xsl:attribute>
           </xsl:if>
           <!-- abbreviated group label as attribute -->
-          <xsl:if test="part-abbreviation or part-abbreviation-display">
+          <xsl:if test="part-abbreviation[normalize-space(text()) != ''] or
+            part-abbreviation-display[normalize-space(text()) != '']">
             <xsl:attribute name="label.abbr">
               <xsl:choose>
                 <xsl:when test="part-abbreviation-display">
@@ -6115,7 +6200,8 @@
             </xsl:attribute>
           </xsl:if>
           <!-- group label as element -->
-          <xsl:if test="part-name or part-name-display">
+          <xsl:if test="part-name[normalize-space(text()) != ''] or
+            part-name-display[normalize-space(text()) != '']">
             <label xmlns="http://www.music-encoding.org/ns/mei">
               <xsl:choose>
                 <xsl:when test="part-name-display">
@@ -6147,7 +6233,8 @@
               </xsl:choose>
             </label>
           </xsl:if>
-          <xsl:if test="part-abbreviation or part-abbreviation-display">
+          <xsl:if test="part-abbreviation[normalize-space(text()) != ''] or
+            part-abbreviation-display[normalize-space(text()) != '']">
             <label xmlns="http://www.music-encoding.org/ns/mei">
               <abbr>
                 <xsl:choose>
@@ -6902,6 +6989,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:when>
           <xsl:when test="local-name()='staccatissimo'">
             <xsl:attribute name="artic">stacciss</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='spiccato'">
+            <xsl:attribute name="artic">spicc</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
