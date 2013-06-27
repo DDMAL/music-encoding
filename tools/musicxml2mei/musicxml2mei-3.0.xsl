@@ -1082,7 +1082,7 @@
                   ').'))"/>
               </xsl:message>
               <xsl:comment>
-                <xsl:value-of select="$warning"/>
+                <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
               </xsl:comment>
             </xsl:if>
           </xsl:when>
@@ -5180,7 +5180,7 @@
             </xsl:attribute>
           </xsl:if>
           <xsl:comment>
-            <xsl:value-of select="$warning"/>
+            <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
           </xsl:comment>
           <xsl:message>
             <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -5470,7 +5470,7 @@
             ').'))"/>
         </xsl:message>
         <xsl:comment>
-          <xsl:value-of select="$warning"/>
+          <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
         </xsl:comment>
       </xsl:when>
       <xsl:otherwise>
@@ -6801,7 +6801,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                 ').'))"/>
             </xsl:message>
             <xsl:comment>
-              <xsl:value-of select="$warning"/>
+              <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
             </xsl:comment>
           </xsl:when>
           <xsl:otherwise>
@@ -6837,28 +6837,27 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <!-- Populates the artic attribute on note.  Use the articulations
     template for artic sub-elements. -->
     <xsl:variable name="articlist">
-      <xsl:for-each select="notations/articulations/*">
+      <xsl:for-each select="notations/articulations/*[not(local-name()='breath-mark' or
+        local-name()='caesura' or local-name()='stress' or local-name()='unstress' or
+        local-name()='other-articulation')]">
+        <!-- In MEI breath marks and caesura are treated elsewhere as directives.
+        Other-articulation, stress, unstressed elements are not currently transcoded. -->
         <xsl:choose>
           <!-- General use articulations -->
           <xsl:when test="local-name()='accent'">
             <xsl:text>acc</xsl:text>
           </xsl:when>
-          <xsl:when test="local-name()='breath-mark' or local-name()='caesura'">
-            <!-- This is a no-op! In MEI, a breath mark or caesura is a directive, 
-                 not a note articulation and is processed along with other control
-                 elements in the measure template. -->
-          </xsl:when>
           <xsl:when test="local-name()='detached-legato'">
             <xsl:text>ten-stacc</xsl:text>
-          </xsl:when>
-          <xsl:when test="local-name()='strong-accent'">
-            <xsl:text>marc</xsl:text>
           </xsl:when>
           <xsl:when test="local-name()='staccatissimo'">
             <xsl:text>stacciss</xsl:text>
           </xsl:when>
           <xsl:when test="local-name()='staccato'">
             <xsl:text>stacc</xsl:text>
+          </xsl:when>
+          <xsl:when test="local-name()='strong-accent'">
+            <xsl:text>marc</xsl:text>
           </xsl:when>
           <xsl:when test="local-name()='tenuto'">
             <xsl:text>ten</xsl:text>
@@ -6883,7 +6882,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         </xsl:choose>
         <xsl:text>&#32;</xsl:text>
       </xsl:for-each>
-      <xsl:for-each select="notations/technical/*">
+      <xsl:for-each select="notations/technical/*[not(local-name()='arrow' or
+        local-name()='fingering' or local-name()='fret' or local-name()='hammer-on' or
+        local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
+        local-name()='pull-off' or local-name()='string' or local-name()='thumb-position')]">
+        <!-- The excluded elements above, except for string and fret, are not currently transcoded. -->
         <xsl:choose>
           <!-- String articulations -->
           <xsl:when test="local-name()='down-bow'">
@@ -6939,40 +6942,38 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:value-of select="normalize-space($articlist)"/>
       </xsl:attribute>
     </xsl:if>
+    <!--<xsl:for-each select="notations/articulations/*[local-name()='stress' or
+      local-name()='unstress' or local-name()='other-articulation'] | 
+      notations/technical/*[local-name()='arrow' or local-name()='fingering'
+      or local-name()='fret' or local-name()='hammer-on' or local-name()='handbell'
+      or local-name()='hole' or local-name()='other-technical' or local-name()='pull-off'
+      or local-name()='thumb-position']">
+      <xsl:variable name="measureNum">
+        <xsl:value-of select="ancestor::measure/@number"/>
+      </xsl:variable>
+      <xsl:variable name="warning">
+        <xsl:value-of select="concat(local-name(.), ' not transcoded')"/>
+      </xsl:variable>
+      <xsl:message>
+        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+          ').'))"/>
+      </xsl:message>
+    </xsl:for-each>-->
   </xsl:template>
 
   <xsl:template name="articulations">
     <!-- Creates artic sub-elements so that placement of the articulations
     can be recorded. -->
-    <xsl:for-each select="notations/articulations/*">
+    <xsl:for-each select="notations/articulations/*[not(local-name()='breath-mark' or
+      local-name()='caesura' or local-name()='stress' or local-name()='unstress' or
+      local-name()='other-articulation')]">
+      <!-- In MEI breath marks and caesura are treated elsewhere as directives.
+        Other-articulation, stress, unstressed elements are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
+          <!-- General use articulations -->
           <xsl:when test="local-name()='accent'">
             <xsl:attribute name="artic">acc</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='strong-accent'">
-            <xsl:attribute name="artic">marc</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='staccato'">
-            <xsl:attribute name="artic">stacc</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='tenuto'">
-            <xsl:attribute name="artic">ten</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
@@ -6995,8 +6996,66 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
+          <xsl:when test="local-name()='staccato'">
+            <xsl:attribute name="artic">stacc</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='strong-accent'">
+            <xsl:attribute name="artic">marc</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='tenuto'">
+            <xsl:attribute name="artic">ten</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <!-- String articulations -->
           <xsl:when test="local-name()='spiccato'">
             <xsl:attribute name="artic">spicc</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <!-- Jazz articulations -->
+          <xsl:when test="local-name()='doit'">
+            <xsl:attribute name="artic">doit</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='falloff'">
+            <xsl:attribute name="artic">fall</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='plop'">
+            <xsl:attribute name="artic">plop</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='scoop'">
+            <xsl:attribute name="artic">rip</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
@@ -7009,24 +7068,24 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:call-template name="color"/>
       </artic>
     </xsl:for-each>
-
-    <xsl:for-each select="notations/technical/*[not(local-name()='string' or local-name()='fret' or
-      local-name()='pull-off')]">
-      <!-- Tests for string and jazz articulations and for notation/technical elements
-      other than tab string and fret indications and pull-offs which are handled elsewhere.
-      What about hammer-ons? -->
+    <xsl:for-each select="notations/technical/*[not(local-name()='arrow' or
+      local-name()='fingering' or local-name()='fret' or local-name()='hammer-on' or
+      local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
+      local-name()='pull-off' or local-name()='string' or local-name()='thumb-position')]">
+      <!-- The excluded elements above, except for string and fret, are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
-          <xsl:when test="local-name()='up-bow'">
-            <xsl:attribute name="artic">upbow</xsl:attribute>
+          <!-- String articulations -->
+          <xsl:when test="local-name()='down-bow'">
+            <xsl:attribute name="artic">dnbow</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <xsl:when test="local-name()='down-bow'">
-            <xsl:attribute name="artic">dnbow</xsl:attribute>
+          <xsl:when test="local-name()='fingernails'">
+            <xsl:attribute name="artic">fingernail</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
@@ -7049,6 +7108,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
+          <xsl:when test="local-name()='pluck'">
+            <xsl:attribute name="artic">lhpizz</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
           <xsl:when test="local-name()='snap-pizzicato'">
             <xsl:attribute name="artic">snap</xsl:attribute>
             <xsl:if test="@placement != ''">
@@ -7065,8 +7132,17 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <xsl:when test="local-name()='pluck'">
-            <xsl:attribute name="artic">lhpizz</xsl:attribute>
+          <xsl:when test="local-name()='up-bow'">
+            <xsl:attribute name="artic">upbow</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <!-- Wind articulations -->
+          <xsl:when test="local-name()='bend'">
+            <xsl:attribute name="artic">bend</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
@@ -7097,14 +7173,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <xsl:when test="local-name()='bend'">
-            <xsl:attribute name="artic">bend</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
+          <!-- Keyboard/organ articulations -->
           <xsl:when test="local-name()='heel'">
             <xsl:attribute name="artic">heel</xsl:attribute>
             <xsl:if test="@placement != ''">
@@ -7121,19 +7190,32 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <xsl:when test="local-name()='fingernails'">
-            <xsl:attribute name="artic">fingernail</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
         </xsl:choose>
         <xsl:call-template name="positionRelative"/>
         <xsl:call-template name="fontProperties"/>
         <xsl:call-template name="color"/>
       </artic>
+    </xsl:for-each>
+    <xsl:for-each select="notations/articulations/*[local-name()='stress' or
+      local-name()='unstress' or local-name()='other-articulation'] |
+      notations/technical/*[local-name()='arrow' or local-name()='fingering'       or
+      local-name()='fret' or local-name()='hammer-on' or local-name()='handbell'       or
+      local-name()='hole' or local-name()='other-technical' or local-name()='pull-off'       or
+      local-name()='thumb-position']">
+      <xsl:variable name="measureNum">
+        <xsl:value-of select="ancestor::measure/@number"/>
+      </xsl:variable>
+      <xsl:variable name="warning">
+        <xsl:value-of select="concat(upper-case(substring(local-name(.),1,1)),
+          substring(local-name(.),2), ' not transcoded')"/>
+      </xsl:variable>
+      <xsl:message>
+        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+          ').'))"/>
+      </xsl:message>
+      <xsl:comment>
+        <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+      </xsl:comment>
     </xsl:for-each>
   </xsl:template>
 
@@ -9023,7 +9105,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:value-of select="normalize-space(concat($warning, ' (m.', $measureNum, ').'))"/>
     </xsl:message>
     <xsl:comment>
-      <xsl:value-of select="normalize-space($warning)"/>
+      <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
     </xsl:comment>
     <xsl:comment>
       <xsl:text>&lt;</xsl:text>
