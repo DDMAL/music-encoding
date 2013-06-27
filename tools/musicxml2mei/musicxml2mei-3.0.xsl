@@ -4638,6 +4638,33 @@
           </xsl:otherwise>
         </xsl:choose>
       </xsl:attribute>
+      <xsl:if test="not(normalize-space(.)='')">
+        <xsl:choose>
+          <xsl:when test="normalize-space(.)='normal'">
+            <xsl:attribute name="shape">curved</xsl:attribute>
+          </xsl:when>
+          <xsl:when test="normalize-space(.)='square'">
+            <xsl:attribute name="shape">square</xsl:attribute>
+          </xsl:when>
+          <!-- Value 'angular' not yet supported in MEI -->
+          <xsl:when test="normalize-space(.)='angled'">
+            <!--<xsl:attribute name="shape">angular</xsl:attribute>-->
+            <xsl:variable name="measureNum">
+              <xsl:value-of select="ancestor::measure/@number"/>
+            </xsl:variable>
+            <xsl:variable name="warning">
+              <xsl:text>Angled fermata not supported</xsl:text>
+            </xsl:variable>
+            <xsl:message>
+              <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                ').'))"/>
+            </xsl:message>
+            <xsl:comment>
+              <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+            </xsl:comment>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:if>
     </fermata>
   </xsl:template>
 
@@ -6843,12 +6870,26 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <!-- In MEI breath marks and caesura are treated elsewhere as directives.
         Other-articulation, stress, unstressed elements are not currently transcoded. -->
         <xsl:choose>
-          <!-- General use articulations -->
           <xsl:when test="local-name()='accent'">
             <xsl:text>acc</xsl:text>
           </xsl:when>
           <xsl:when test="local-name()='detached-legato'">
             <xsl:text>ten-stacc</xsl:text>
+          </xsl:when>
+          <xsl:when test="local-name()='doit'">
+            <xsl:text>doit</xsl:text>
+          </xsl:when>
+          <xsl:when test="local-name()='falloff'">
+            <xsl:text>fall</xsl:text>
+          </xsl:when>
+          <xsl:when test="local-name()='plop'">
+            <xsl:text>plop</xsl:text>
+          </xsl:when>
+          <xsl:when test="local-name()='scoop'">
+            <xsl:text>rip</xsl:text>
+          </xsl:when>
+          <xsl:when test="local-name()='spiccato'">
+            <xsl:text>spicc</xsl:text>
           </xsl:when>
           <xsl:when test="local-name()='staccatissimo'">
             <xsl:text>stacciss</xsl:text>
@@ -6862,23 +6903,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="local-name()='tenuto'">
             <xsl:text>ten</xsl:text>
           </xsl:when>
-          <!-- String articulations -->
-          <xsl:when test="local-name()='spiccato'">
-            <xsl:text>spicc</xsl:text>
-          </xsl:when>
-          <!-- Jazz articulations -->
-          <xsl:when test="local-name()='doit'">
-            <xsl:text>doit</xsl:text>
-          </xsl:when>
-          <xsl:when test="local-name()='falloff'">
-            <xsl:text>fall</xsl:text>
-          </xsl:when>
-          <xsl:when test="local-name()='plop'">
-            <xsl:text>plop</xsl:text>
-          </xsl:when>
-          <xsl:when test="local-name()='scoop'">
-            <xsl:text>rip</xsl:text>
-          </xsl:when>
         </xsl:choose>
         <xsl:text>&#32;</xsl:text>
       </xsl:for-each>
@@ -6888,7 +6912,12 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         local-name()='pull-off' or local-name()='string' or local-name()='thumb-position')]">
         <!-- The excluded elements above, except for string and fret, are not currently transcoded. -->
         <xsl:choose>
-          <!-- String articulations -->
+          <xsl:when test="local-name()='bend'">
+            <xsl:text>bend</xsl:text>
+          </xsl:when>
+          <xsl:when test="local-name()='double-tongue'">
+            <xsl:text>dbltongue</xsl:text>
+          </xsl:when>
           <xsl:when test="local-name()='down-bow'">
             <xsl:text>dnbow</xsl:text>
           </xsl:when>
@@ -6897,6 +6926,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:when>
           <xsl:when test="local-name()='harmonic'">
             <xsl:text>harm</xsl:text>
+          </xsl:when>
+          <xsl:when test="local-name()='heel'">
+            <xsl:text>heel</xsl:text>
           </xsl:when>
           <xsl:when test="local-name()='open-string'">
             <xsl:text>open</xsl:text>
@@ -6907,31 +6939,20 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="local-name()='snap-pizzicato'">
             <xsl:text>snap</xsl:text>
           </xsl:when>
+          <xsl:when test="local-name()='stopped'">
+            <xsl:text>stop</xsl:text>
+          </xsl:when>
           <xsl:when test="local-name()='tap'">
             <xsl:text>tap</xsl:text>
           </xsl:when>
-          <xsl:when test="local-name()='up-bow'">
-            <xsl:text>upbow</xsl:text>
-          </xsl:when>
-          <!-- Wind articulations -->
-          <xsl:when test="local-name()='bend'">
-            <xsl:text>bend</xsl:text>
-          </xsl:when>
-          <xsl:when test="local-name()='double-tongue'">
-            <xsl:text>dbltongue</xsl:text>
+          <xsl:when test="local-name()='toe'">
+            <xsl:text>toe</xsl:text>
           </xsl:when>
           <xsl:when test="local-name()='triple-tongue'">
             <xsl:text>trpltongue</xsl:text>
           </xsl:when>
-          <xsl:when test="local-name()='stopped'">
-            <xsl:text>stop</xsl:text>
-          </xsl:when>
-          <!-- Keyboard/organ articulations -->
-          <xsl:when test="local-name()='heel'">
-            <xsl:text>heel</xsl:text>
-          </xsl:when>
-          <xsl:when test="local-name()='toe'">
-            <xsl:text>toe</xsl:text>
+          <xsl:when test="local-name()='up-bow'">
+            <xsl:text>upbow</xsl:text>
           </xsl:when>
         </xsl:choose>
         <xsl:text>&#32;</xsl:text>
@@ -6942,23 +6963,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:value-of select="normalize-space($articlist)"/>
       </xsl:attribute>
     </xsl:if>
-    <!--<xsl:for-each select="notations/articulations/*[local-name()='stress' or
-      local-name()='unstress' or local-name()='other-articulation'] | 
-      notations/technical/*[local-name()='arrow' or local-name()='fingering'
-      or local-name()='fret' or local-name()='hammer-on' or local-name()='handbell'
-      or local-name()='hole' or local-name()='other-technical' or local-name()='pull-off'
-      or local-name()='thumb-position']">
-      <xsl:variable name="measureNum">
-        <xsl:value-of select="ancestor::measure/@number"/>
-      </xsl:variable>
-      <xsl:variable name="warning">
-        <xsl:value-of select="concat(local-name(.), ' not transcoded')"/>
-      </xsl:variable>
-      <xsl:message>
-        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
-          ').'))"/>
-      </xsl:message>
-    </xsl:for-each>-->
   </xsl:template>
 
   <xsl:template name="articulations">
@@ -6967,11 +6971,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:for-each select="notations/articulations/*[not(local-name()='breath-mark' or
       local-name()='caesura' or local-name()='stress' or local-name()='unstress' or
       local-name()='other-articulation')]">
-      <!-- In MEI breath marks and caesura are treated elsewhere as directives.
+      <!-- Breath marks and caesura are treated elsewhere as directives.
         Other-articulation, stress, unstressed elements are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
-          <!-- General use articulations -->
           <xsl:when test="local-name()='accent'">
             <xsl:attribute name="artic">acc</xsl:attribute>
             <xsl:if test="@placement != ''">
@@ -6982,6 +6985,46 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:when>
           <xsl:when test="local-name()='detached-legato'">
             <xsl:attribute name="artic">ten-stacc</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='doit'">
+            <xsl:attribute name="artic">doit</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='falloff'">
+            <xsl:attribute name="artic">fall</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='plop'">
+            <xsl:attribute name="artic">plop</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='scoop'">
+            <xsl:attribute name="artic">rip</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='spiccato'">
+            <xsl:attribute name="artic">spicc</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
@@ -7020,48 +7063,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <!-- String articulations -->
-          <xsl:when test="local-name()='spiccato'">
-            <xsl:attribute name="artic">spicc</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <!-- Jazz articulations -->
-          <xsl:when test="local-name()='doit'">
-            <xsl:attribute name="artic">doit</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='falloff'">
-            <xsl:attribute name="artic">fall</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='plop'">
-            <xsl:attribute name="artic">plop</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='scoop'">
-            <xsl:attribute name="artic">rip</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
         </xsl:choose>
         <xsl:call-template name="positionRelative"/>
         <xsl:call-template name="fontProperties"/>
@@ -7072,10 +7073,26 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       local-name()='fingering' or local-name()='fret' or local-name()='hammer-on' or
       local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
       local-name()='pull-off' or local-name()='string' or local-name()='thumb-position')]">
-      <!-- The excluded elements above, except for string and fret, are not currently transcoded. -->
+      <!-- The excluded elements above, except for string and fret (which are 
+        dealt with elsewhere), are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
-          <!-- String articulations -->
+          <xsl:when test="local-name()='bend'">
+            <xsl:attribute name="artic">bend</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='double-tongue'">
+            <xsl:attribute name="artic">dbltongue</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
           <xsl:when test="local-name()='down-bow'">
             <xsl:attribute name="artic">dnbow</xsl:attribute>
             <xsl:if test="@placement != ''">
@@ -7094,6 +7111,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:when>
           <xsl:when test="local-name()='harmonic'">
             <xsl:attribute name="artic">harm</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='heel'">
+            <xsl:attribute name="artic">heel</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
@@ -7124,47 +7149,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <xsl:when test="local-name()='tap'">
-            <xsl:attribute name="artic">tap</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='up-bow'">
-            <xsl:attribute name="artic">upbow</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <!-- Wind articulations -->
-          <xsl:when test="local-name()='bend'">
-            <xsl:attribute name="artic">bend</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='double-tongue'">
-            <xsl:attribute name="artic">dbltongue</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='triple-tongue'">
-            <xsl:attribute name="artic">trpltongue</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
           <xsl:when test="local-name()='stopped'">
             <xsl:attribute name="artic">stop</xsl:attribute>
             <xsl:if test="@placement != ''">
@@ -7173,9 +7157,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <!-- Keyboard/organ articulations -->
-          <xsl:when test="local-name()='heel'">
-            <xsl:attribute name="artic">heel</xsl:attribute>
+          <xsl:when test="local-name()='tap'">
+            <xsl:attribute name="artic">tap</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
@@ -7190,6 +7173,22 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
+          <xsl:when test="local-name()='triple-tongue'">
+            <xsl:attribute name="artic">trpltongue</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
+          <xsl:when test="local-name()='up-bow'">
+            <xsl:attribute name="artic">upbow</xsl:attribute>
+            <xsl:if test="@placement != ''">
+              <xsl:attribute name="place">
+                <xsl:value-of select="@placement"/>
+              </xsl:attribute>
+            </xsl:if>
+          </xsl:when>
         </xsl:choose>
         <xsl:call-template name="positionRelative"/>
         <xsl:call-template name="fontProperties"/>
@@ -7198,9 +7197,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </xsl:for-each>
     <xsl:for-each select="notations/articulations/*[local-name()='stress' or
       local-name()='unstress' or local-name()='other-articulation'] |
-      notations/technical/*[local-name()='arrow' or local-name()='fingering'       or
-      local-name()='fret' or local-name()='hammer-on' or local-name()='handbell'       or
-      local-name()='hole' or local-name()='other-technical' or local-name()='pull-off'       or
+      notations/technical/*[local-name()='arrow' or local-name()='fingering' or
+      local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
+      local-name()='other-technical' or local-name()='pull-off' or
       local-name()='thumb-position']">
       <xsl:variable name="measureNum">
         <xsl:value-of select="ancestor::measure/@number"/>
@@ -7213,6 +7212,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
           ').'))"/>
       </xsl:message>
+      <!-- Why won't this comment show up in output? -->
       <xsl:comment>
         <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
       </xsl:comment>
@@ -7454,14 +7454,13 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
   <xsl:template name="fermata">
     <!-- Create fermata attribute -->
     <xsl:for-each select="notations/fermata[1]">
-      <xsl:choose>
-        <xsl:when test="@type='upright'">
-          <xsl:attribute name="fermata">above</xsl:attribute>
-        </xsl:when>
-        <xsl:when test="@type='inverted'">
-          <xsl:attribute name="fermata">below</xsl:attribute>
-        </xsl:when>
-      </xsl:choose>
+      <xsl:attribute name="fermata">
+        <xsl:choose>
+          <xsl:when test="@type='upright'">above</xsl:when>
+          <xsl:when test="@type='inverted'">below</xsl:when>
+          <xsl:otherwise>above</xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
     </xsl:for-each>
   </xsl:template>
 
