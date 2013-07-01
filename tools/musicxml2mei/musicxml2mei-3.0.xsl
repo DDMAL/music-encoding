@@ -10131,7 +10131,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
 
   <xsl:template match="mei:staffDef[not(exists(ancestor::mei:staffGrp)) and preceding-sibling::mei:scoreDef]" mode="cleanUp">
     <xsl:variable name="scoreDef" select="preceding-sibling::mei:scoreDef[1]"/>
-    <xsl:variable name="nextMeasureID" select="following-sibling::mei:measure[1]/@xml:id"/>
+    <xsl:variable name="nextMeasureID" select="$scoreDef/following-sibling::mei:measure[1]/@xml:id"/>
     
     <!-- If this staffDef sits between the preceding scoreDef and its following measure, it is handled inside the scoreDef -->
     <xsl:if test="$nextMeasureID != following-sibling::mei:measure[1]/@xml:id">
@@ -10140,6 +10140,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:copy>  
     </xsl:if>
   </xsl:template>
+  
+  <xsl:template match="mei:scoreDef[not(exists(@* | child::node()))]" mode="cleanUp"/>
 
   <xsl:template match="node() | @*" mode="cleanUp">
     <xsl:copy>
