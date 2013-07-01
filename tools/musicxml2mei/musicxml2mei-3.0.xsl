@@ -66,6 +66,14 @@
       'both': Ties are included both as an element and an attribute
   -->
   <xsl:param name="tieStyle" select="'attr'"/>
+  
+  <!-- PARAM:labelStyle
+      This parameter defines how to handle labels on staffDefs and groups. Possible values are:
+      'elem': Labels are encoded using <label>…</label> and <label><abbr>…</abbr></label>
+      'attr': Labels are preserved using @label and @label.abbr
+      'both': Labels are included both as an element and an attribute
+  -->
+  <xsl:param name="labelStyle" select="'attr'"/>
 
   <xsl:character-map name="delimiters">
     <xsl:output-character character="&beamstart;" string="&lt;beam&gt;"/>
@@ -9850,8 +9858,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:copy>
     </xsl:if>
   </xsl:template>
-
-  <xsl:template match="mei:artic" mode="cleanUp">
+  
+  <xsl:template match="mei:artic" mode="postProcess">
     <xsl:if test="$articStyle = ('elem','both')">
       <xsl:copy>
         <xsl:apply-templates select="@* | node()" mode="#current"/>
@@ -9864,7 +9872,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="mei:accid" mode="cleanUp">
+  <xsl:template match="mei:accid" mode="postProcess">
     <xsl:if test="$accidStyle = ('elem','both')">
       <xsl:copy>
         <xsl:apply-templates select="@* | node()" mode="#current"/>
@@ -9900,8 +9908,29 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  <xsl:template match="@syl" mode="cleanUp">
+  <xsl:template match="@syl" mode="postProcess">
     <xsl:if test="$keepAttributes">
+      <xsl:copy-of select="."/>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="mei:scoreDef[count(@*) = 0 and count(child::mei:*) = 0]" mode="postProcess"/>
+  <xsl:template match="mei:staffDef[count(@* except @n) = 0 and count(child::mei:*) = 0]" mode="postProcess"/>
+  
+  <xsl:template match="mei:scoreDef//mei:label" mode="postProcess">
+    <xsl:if test="$labelStyle = ('elem','both')">
+      <xsl:copy>
+        <xsl:apply-templates select="@* | node()" mode="#current"/>
+      </xsl:copy>
+    </xsl:if>
+  </xsl:template>
+  <xsl:template match="mei:scoreDef//@label" mode="postProcess">
+    <xsl:if test="$labelStyle = ('attr','both')">
+      <xsl:copy-of select="."/>
+    </xsl:if>
+  </xsl:template>
+  <xsl:template match="mei:scoreDef//@label.abbr" mode="postProcess">
+    <xsl:if test="$labelStyle = ('attr','both')">
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
@@ -9994,10 +10023,49 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
   <xsl:template match="mei:tupletSpan/@xml:id" mode="cleanUp"/>
   <xsl:template match="mei:beamSpan/@xml:id" mode="cleanUp"/>
 
-  <xsl:template match="mei:scoreDef[count(@*) = 0 and count(child::mei:*) = 0]" mode="cleanUp"/>
-
   <xsl:template match="@role[. = 'poet']" mode="cleanUp">
     <xsl:attribute name="role" select="'lyricist'"/>
+  </xsl:template>
+
+  <!-- JK: Are the following templates generally useful? -->
+  <xsl:template match="mei:scoreDef[not(exists(mei:staffGrp)) and local-name(following-sibling::mei:*[1]) = 'staffDef']" mode="cleanUp">
+    <xsl:variable name="nextMeasureID" select="following-sibling::mei:measure[1]/@xml:id"/>
+    <xsl:variable name="staffDefs" select="following-sibling::mei:staffDef[following-sibling::mei:measure[@xml:id = $nextMeasureID]]"/>
+    
+    <xsl:variable name="initialScoreDef" select="ancestor::mei:score/mei:scoreDef[1]/mei:staffGrp"/>
+    
+    <xsl:copy>
+      <xsl:apply-templates select="node() | @*" mode="#current"/>
+      <xsl:apply-templates select="$initialScoreDef" mode="resolveScoreDef">
+        <xsl:with-param name="staffDefs" select="$staffDefs" tunnel="yes"/>
+      </xsl:apply-templates>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="mei:staffGrp" mode="resolveScoreDef">
+    <xsl:copy>
+      <xsl:apply-templates select="@* except (@xml:id,@label,@label.abbr)" mode="cleanUp"/>
+      <xsl:apply-templates select="child::mei:*" mode="#current"/>
+    </xsl:copy>
+  </xsl:template>
+  
+  <xsl:template match="mei:staffDef" mode="resolveScoreDef">
+    <xsl:param name="staffDefs" tunnel="yes"/>
+    <xsl:variable name="n" select="@n"/>
+    <xsl:variable name="changedDef" select="$staffDefs[@n = $n]"/>
+    <xsl:copy-of select="$changedDef"/>
+  </xsl:template>
+
+  <xsl:template match="mei:staffDef[not(exists(ancestor::mei:staffGrp)) and preceding-sibling::mei:scoreDef]" mode="cleanUp">
+    <xsl:variable name="scoreDef" select="preceding-sibling::mei:scoreDef[1]"/>
+    <xsl:variable name="nextMeasureID" select="following-sibling::mei:measure[1]/@xml:id"/>
+    
+    <!-- If this staffDef sits between the preceding scoreDef and its following measure, it is handled inside the scoreDef -->
+    <xsl:if test="$nextMeasureID != following-sibling::mei:measure[1]/@xml:id">
+      <xsl:copy>
+        <xsl:apply-templates select="node() | @*" mode="#current"/>
+      </xsl:copy>  
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="node() | @*" mode="cleanUp">
