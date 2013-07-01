@@ -6493,6 +6493,18 @@
           <normalization>
             <p>Calculation of @tstamp and @tstamp2 values on control events, such as dir, dynam,
               hairpin, etc., includes MusicXML offset values.</p>
+            <p>
+              The parameters for musicxml2mei.xsl have been set as follows:
+              layout: "<xsl:value-of select="$layout"/>",
+              formeWork: "<xsl:value-of select="$formeWork"/>",
+              keepAttributes: "<xsl:value-of select="$keepAttributes"/>",
+              generateMIDI: "<xsl:value-of select="$generateMIDI"/>",
+              articStyle: "<xsl:value-of select="$articStyle"/>",
+              accidStyle: "<xsl:value-of select="$accidStyle"/>",
+              tieStyle: "<xsl:value-of select="$tieStyle"/>",
+              labelStyle: "<xsl:value-of select="$labelStyle"/>",
+            </p>
+            
           </normalization>
         </editorialDecl>
         <!--<projectDesc>
@@ -6587,6 +6599,7 @@
               <xsl:text>&#32;</xsl:text>
               <xsl:value-of select="$progVersion"/>
               <xsl:text>).</xsl:text>
+              
             </p>
           </changeDesc>
           <date>
