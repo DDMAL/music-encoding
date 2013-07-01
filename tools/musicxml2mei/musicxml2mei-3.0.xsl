@@ -6421,7 +6421,7 @@
               <notesStmt>
                 <xsl:if test="identification/encoding/software">
                   <!-- MusicXML file encoding description -->
-                  <annot>
+                  <!--<annot>
                     <xsl:text>MusicXML file created </xsl:text>
                     <xsl:if test="identification/encoding/encoder">
                       <xsl:text>by </xsl:text>
@@ -6467,7 +6467,7 @@
                       </date>
                     </xsl:if>
                     <xsl:text>.</xsl:text>
-                  </annot>
+                  </annot>-->
                   <xsl:if test="identification/encoding/encoding-description">
                     <annot>
                       <xsl:value-of select="identification/encoding/encoding-description"/>
@@ -6495,7 +6495,7 @@
               hairpin, etc., includes MusicXML offset values.</p>
           </normalization>
         </editorialDecl>
-        <projectDesc>
+        <!--<projectDesc>
           <p>
             <xsl:text>Transcoded from a MusicXML </xsl:text>
             <xsl:if test="@version">
@@ -6513,7 +6513,7 @@
             <xsl:value-of select="$progVersion"/>
             <xsl:text>).</xsl:text>
           </p>
-        </projectDesc>
+        </projectDesc>-->
         <xsl:if test="matches(work/work-title, '[\(\[].*[\)\]]') or matches(movement-title,
           '[\(\[].*[\)\]]') or matches(work/work-title, 'excerpt', 'i') or
           matches(movement-title, 'excerpt', 'i') or matches(work/work-title,
@@ -6534,6 +6534,66 @@
           </work>
         </workDesc>
       </xsl:if>
+      <revisionDesc xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:if test="identification/encoding/software">    
+          <change n="1">
+            <respStmt>
+              <xsl:for-each select="identification/encoding/encoder">
+                <name xmlns="http://www.music-encoding.org/ns/mei"><xsl:value-of select="."/></name>
+              </xsl:for-each>
+            </respStmt>
+            <changeDesc>
+              <p>
+                <xsl:text>MusicXML file created</xsl:text>
+                <xsl:if test="identification/encoding/software">
+                  <xsl:text> using </xsl:text>
+                </xsl:if>
+                <xsl:for-each select="identification/encoding/software">
+                  <xsl:value-of select="."/>
+                  <xsl:if test="count(following-sibling::software) &gt; 1">
+                    <xsl:text>, </xsl:text>
+                  </xsl:if>
+                  <xsl:if test="count(following-sibling::software) = 1">
+                    <xsl:choose>
+                      <xsl:when test="count(preceding-sibling::software) = 0">
+                        <xsl:text> and </xsl:text>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <xsl:text>, and </xsl:text>
+                      </xsl:otherwise>
+                    </xsl:choose>
+                  </xsl:if>
+                </xsl:for-each>
+              </p>
+            </changeDesc>
+            <date>
+              <xsl:value-of select="identification/encoding/encoding-date"/>
+            </date>
+          </change>
+        </xsl:if>
+        <change n="{if(identification/encoding/software) then('2') else ('1')}">
+          <respStmt/>
+          <changeDesc>
+            <p>
+              <xsl:text>Transcoded from a MusicXML </xsl:text>
+              <xsl:if test="@version">
+                <xsl:text>version </xsl:text>
+                <xsl:value-of select="@version"/>
+                <xsl:text>&#32;</xsl:text>
+              </xsl:if>
+              <xsl:text>file </xsl:text>
+              <xsl:text>using an XSLT stylesheet (</xsl:text>
+              <xsl:value-of select="$progName"/>
+              <xsl:text>&#32;</xsl:text>
+              <xsl:value-of select="$progVersion"/>
+              <xsl:text>).</xsl:text>
+            </p>
+          </changeDesc>
+          <date>
+            <xsl:value-of select="format-date(current-date(), '[Y]-[M02]-[D02]')"/>
+          </date>
+        </change>
+      </revisionDesc>
     </meiHead>
   </xsl:template>
 
