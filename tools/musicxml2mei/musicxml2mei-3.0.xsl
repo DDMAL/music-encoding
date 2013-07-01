@@ -66,7 +66,7 @@
       'both': Ties are included both as an element and an attribute
   -->
   <xsl:param name="tieStyle" select="'attr'"/>
-  
+
   <!-- PARAM:labelStyle
       This parameter defines how to handle labels on staffDefs and groups. Possible values are:
       'elem': Labels are encoded using <label>…</label> and <label><abbr>…</abbr></label>
@@ -421,7 +421,6 @@
           </xsl:variable>
           <xsl:variable name="warning">
             <xsl:value-of select="concat('Turn upper accidental value (', ., ') not supported')"/>
-            <!--<xsl:text>Turn upper accidental value not supported</xsl:text>-->
           </xsl:variable>
           <xsl:message>
             <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -474,7 +473,6 @@
           </xsl:variable>
           <xsl:variable name="warning">
             <xsl:value-of select="concat('Turn lower accidental value (', ., ') not supported')"/>
-            <!--<xsl:text>Turn lower accidental value not supported</xsl:text>-->
           </xsl:variable>
           <xsl:message>
             <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -491,7 +489,7 @@
         <xsl:value-of select="ancestor::measure/@number"/>
       </xsl:variable>
       <xsl:variable name="warning">
-        <xsl:text>Turn accidental place lacking</xsl:text>
+        <xsl:text>Turn accidental place lacking, not transcoded</xsl:text>
       </xsl:variable>
       <xsl:message>
         <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -2675,8 +2673,8 @@
             <xsl:apply-templates select="note[not(chord) and (notations/arpeggiate or
               notations/non-arpeggiate)]" mode="stage1.arpeg"/>
             <xsl:apply-templates select="note/beam[.='begin']" mode="stage1"/>
-            <xsl:apply-templates select="note/notations/articulations/breath-mark" mode="stage1"/>
-            <xsl:apply-templates select="note/notations/articulations/caesura" mode="stage1"/>
+            <xsl:apply-templates select="note/notations/articulations/*" mode="stage1.dir"/>
+            <xsl:apply-templates select="note/notations/technical/*" mode="stage1.dir"/>
             <xsl:apply-templates select="note/notations/dynamics" mode="stage1"/>
             <xsl:apply-templates select="note/notations/fermata" mode="stage1"/>
             <xsl:apply-templates select="note/notations/ornaments" mode="stage1"/>
@@ -2684,8 +2682,6 @@
             <!-- note/notations/slur[@type='continue'] -->
             <xsl:apply-templates select="note/notations/tied[@type='start']" mode="stage1"/>
             <xsl:apply-templates select="note/notations/tuplet[@type='start']" mode="stage1"/>
-            <!--<xsl:apply-templates select="note/notations/technical/pull-off[@type='start']"
-              mode="stage1"/>-->
           </xsl:variable>
           <xsl:copy-of select="$controlevents"/>
         </xsl:for-each>
@@ -4376,150 +4372,233 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="note/notations/articulations/breath-mark" mode="stage1">
-    <!-- In MEI a breath mark is a directive -->
-    <xsl:if test="text()">
-      <dir xmlns="http://www.music-encoding.org/ns/mei">
-        <xsl:attribute name="tstamp">
-          <xsl:call-template name="tstamp.ges2beat">
-            <xsl:with-param name="tstamp.ges">
-              <xsl:call-template name="getTimestamp.ges"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </xsl:attribute>
-        <xsl:attribute name="tstamp.ges">
-          <xsl:for-each select="ancestor::note[1]">
-            <xsl:call-template name="getTimestamp.ges"/>
-          </xsl:for-each>
-        </xsl:attribute>
-        <xsl:variable name="partID">
-          <xsl:value-of select="ancestor::part[1]/@id"/>
-        </xsl:variable>
-        <xsl:variable name="partstaff">
-          <xsl:choose>
-            <xsl:when test="ancestor::note[1]/staff">
-              <xsl:value-of select="ancestor::note[1]/staff"/>
-            </xsl:when>
-            <xsl:otherwise>1</xsl:otherwise>
-          </xsl:choose>
-        </xsl:variable>
-        <xsl:attribute name="staff">
-          <xsl:call-template name="getStaffNum">
-            <xsl:with-param name="partID">
-              <xsl:value-of select="$partID"/>
-            </xsl:with-param>
-            <xsl:with-param name="partStaff">
-              <xsl:value-of select="$partstaff"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </xsl:attribute>
-        <xsl:attribute name="place">
-          <xsl:choose>
-            <xsl:when test="@placement != ''">
-              <xsl:value-of select="@placement"/>
-            </xsl:when>
-            <xsl:otherwise>above</xsl:otherwise>
-          </xsl:choose>
-        </xsl:attribute>
-        <xsl:attribute name="startid">
-          <xsl:for-each select="ancestor::note[1]">
-            <xsl:value-of select="generate-id()"/>
-          </xsl:for-each>
-        </xsl:attribute>
-        <xsl:call-template name="positionRelative"/>
-        <xsl:variable name="content">
-          <xsl:value-of select="."/>
-        </xsl:variable>
-        <xsl:comment>breath mark</xsl:comment>
-        <xsl:choose>
-          <xsl:when test="@font-family or @font-style or @font-size or @font-weight or
-            @letter-spacing or @line-height or @justify or @halign or @valign or @color
-            or @rotation or @xml:space or @underline or @overline or @line-through or
-            @dir or @enclosure!='none'">
-            <xsl:call-template name="wrapRend">
-              <xsl:with-param name="in">
-                <xsl:copy-of select="$content"/>
+  <xsl:template match="note/notations/articulations/*" mode="stage1.dir">
+    <xsl:choose>
+      <xsl:when test="local-name()='breath-mark' or local-name()='caesura' or
+        local-name()='stress' or local-name()='unstress'">
+        <!-- Create control events -->
+        <dir xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="tstamp">
+            <xsl:call-template name="tstamp.ges2beat">
+              <xsl:with-param name="tstamp.ges">
+                <xsl:call-template name="getTimestamp.ges"/>
               </xsl:with-param>
             </xsl:call-template>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:copy-of select="$content"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </dir>
-    </xsl:if>
+          </xsl:attribute>
+          <xsl:attribute name="tstamp.ges">
+            <xsl:for-each select="ancestor::note[1]">
+              <xsl:call-template name="getTimestamp.ges"/>
+            </xsl:for-each>
+          </xsl:attribute>
+          <xsl:variable name="partID">
+            <xsl:value-of select="ancestor::part[1]/@id"/>
+          </xsl:variable>
+          <xsl:variable name="partstaff">
+            <xsl:choose>
+              <xsl:when test="ancestor::note[1]/staff">
+                <xsl:value-of select="ancestor::note[1]/staff"/>
+              </xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:attribute name="staff">
+            <xsl:call-template name="getStaffNum">
+              <xsl:with-param name="partID">
+                <xsl:value-of select="$partID"/>
+              </xsl:with-param>
+              <xsl:with-param name="partStaff">
+                <xsl:value-of select="$partstaff"/>
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:attribute>
+          <xsl:attribute name="place">
+            <xsl:choose>
+              <xsl:when test="@placement != ''">
+                <xsl:value-of select="@placement"/>
+              </xsl:when>
+              <xsl:otherwise>above</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:attribute name="startid">
+            <xsl:for-each select="ancestor::note[1]">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:for-each>
+          </xsl:attribute>
+          <xsl:call-template name="positionRelative"/>
+          <xsl:comment>
+            <xsl:value-of select="local-name(.)"/>
+          </xsl:comment>
+          <xsl:variable name="content">
+            <xsl:choose>
+              <xsl:when test="local-name()='breath-mark'">
+                <xsl:choose>
+                  <xsl:when test="matches(., 'tick')">
+                    <xsl:text>'</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>,</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="local-name()='caesura'">
+                <xsl:text>//</xsl:text>
+              </xsl:when>
+              <xsl:when test="local-name()='stress'">
+                <xsl:text>&#x0301;</xsl:text>
+              </xsl:when>
+              <xsl:when test="local-name()='unstress'">
+                <xsl:text>&#x23D1;</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="@font-family or @font-style or @font-size or @font-weight or
+              @letter-spacing or @line-height or @justify or @halign or @valign or @color or
+              @rotation or @xml:space or @underline or @overline or @line-through or @dir or
+              @enclosure!='none'">
+              <xsl:call-template name="wrapRend">
+                <xsl:with-param name="in">
+                  <xsl:copy-of select="$content"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="$content"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </dir>
+      </xsl:when>
+      <xsl:when test="local-name()='accent' or local-name()='detached-legato' or
+        local-name()='doit' or local-name()='falloff' or local-name()='plop' or local-name()='scoop'
+        or local-name()='spiccato' or local-name()='staccatissimo' or
+        local-name()='staccato' or local-name()='strong-accent' or local-name()='tenuto'">
+        <!-- Do nothing; these are handled as note-level articulations -->
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:variable name="measureNum">
+          <xsl:value-of select="ancestor::measure/@number"/>
+        </xsl:variable>
+        <xsl:variable name="warning">
+          <xsl:value-of select="concat(upper-case(substring(local-name(.),1,1)),
+            substring(local-name(.),2), ' not transcoded')"/>
+        </xsl:variable>
+        <xsl:message>
+          <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+            ').'))"/>
+        </xsl:message>
+        <xsl:comment>
+          <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+        </xsl:comment>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="note/notations/articulations/caesura" mode="stage1">
-    <!-- In MEI a caesura is a directive -->
-    <dir xmlns="http://www.music-encoding.org/ns/mei">
-      <xsl:attribute name="tstamp">
-        <xsl:call-template name="tstamp.ges2beat">
-          <xsl:with-param name="tstamp.ges">
-            <xsl:call-template name="getTimestamp.ges"/>
-          </xsl:with-param>
-        </xsl:call-template>
-      </xsl:attribute>
-      <xsl:attribute name="tstamp.ges">
-        <xsl:for-each select="ancestor::note[1]">
-          <xsl:call-template name="getTimestamp.ges"/>
-        </xsl:for-each>
-      </xsl:attribute>
-      <xsl:variable name="partID">
-        <xsl:value-of select="ancestor::part[1]/@id"/>
-      </xsl:variable>
-      <xsl:variable name="partstaff">
-        <xsl:choose>
-          <xsl:when test="ancestor::note[1]/staff">
-            <xsl:value-of select="ancestor::note[1]/staff"/>
-          </xsl:when>
-          <xsl:otherwise>1</xsl:otherwise>
-        </xsl:choose>
-      </xsl:variable>
-      <xsl:attribute name="staff">
-        <xsl:call-template name="getStaffNum">
-          <xsl:with-param name="partID">
-            <xsl:value-of select="$partID"/>
-          </xsl:with-param>
-          <xsl:with-param name="partStaff">
-            <xsl:value-of select="$partstaff"/>
-          </xsl:with-param>
-        </xsl:call-template>
-      </xsl:attribute>
-      <xsl:attribute name="place">
-        <xsl:choose>
-          <xsl:when test="@placement != ''">
-            <xsl:value-of select="@placement"/>
-          </xsl:when>
-          <xsl:otherwise>above</xsl:otherwise>
-        </xsl:choose>
-      </xsl:attribute>
-      <xsl:attribute name="startid">
-        <xsl:for-each select="ancestor::note[1]">
-          <xsl:value-of select="generate-id()"/>
-        </xsl:for-each>
-      </xsl:attribute>
-      <xsl:call-template name="positionRelative"/>
-      <xsl:variable name="content">
-        <xsl:text>//</xsl:text>
-      </xsl:variable>
-      <xsl:comment>caesura</xsl:comment>
-      <xsl:choose>
-        <xsl:when test="@font-family or @font-style or @font-size or @font-weight or @letter-spacing
-          or @line-height or @justify or @halign or @valign or @color or @rotation or
-          @xml:space or @underline or @overline or @line-through or @dir or
-          @enclosure!='none'">
-          <xsl:call-template name="wrapRend">
-            <xsl:with-param name="in">
+  <xsl:template match="note/notations/technical/*" mode="stage1.dir">
+    <!-- In MEI pluck, etc. are directives -->
+    <xsl:choose>
+      <xsl:when test="local-name()='pluck'">
+        <dir xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="tstamp">
+            <xsl:call-template name="tstamp.ges2beat">
+              <xsl:with-param name="tstamp.ges">
+                <xsl:call-template name="getTimestamp.ges"/>
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:attribute>
+          <xsl:attribute name="tstamp.ges">
+            <xsl:for-each select="ancestor::note[1]">
+              <xsl:call-template name="getTimestamp.ges"/>
+            </xsl:for-each>
+          </xsl:attribute>
+          <xsl:variable name="partID">
+            <xsl:value-of select="ancestor::part[1]/@id"/>
+          </xsl:variable>
+          <xsl:variable name="partstaff">
+            <xsl:choose>
+              <xsl:when test="ancestor::note[1]/staff">
+                <xsl:value-of select="ancestor::note[1]/staff"/>
+              </xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:attribute name="staff">
+            <xsl:call-template name="getStaffNum">
+              <xsl:with-param name="partID">
+                <xsl:value-of select="$partID"/>
+              </xsl:with-param>
+              <xsl:with-param name="partStaff">
+                <xsl:value-of select="$partstaff"/>
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:attribute>
+          <xsl:attribute name="place">
+            <xsl:choose>
+              <xsl:when test="@placement != ''">
+                <xsl:value-of select="@placement"/>
+              </xsl:when>
+              <xsl:otherwise>above</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:attribute name="startid">
+            <xsl:for-each select="ancestor::note[1]">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:for-each>
+          </xsl:attribute>
+          <xsl:call-template name="positionRelative"/>
+          <xsl:comment>
+            <xsl:value-of select="local-name(.)"/>
+          </xsl:comment>
+          <xsl:variable name="content">
+            <xsl:choose>
+              <xsl:when test="local-name()='pluck'">
+                <xsl:value-of select="normalize-space(.)"/>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="@font-family or @font-style or @font-size or @font-weight or
+              @letter-spacing or @line-height or @justify or @halign or @valign or @color or
+              @rotation or @xml:space or @underline or @overline or @line-through or @dir or
+              @enclosure!='none'">
+              <xsl:call-template name="wrapRend">
+                <xsl:with-param name="in">
+                  <xsl:copy-of select="$content"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
               <xsl:copy-of select="$content"/>
-            </xsl:with-param>
-          </xsl:call-template>
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:copy-of select="$content"/>
-        </xsl:otherwise>
-      </xsl:choose>
-    </dir>
+            </xsl:otherwise>
+          </xsl:choose>
+        </dir>
+      </xsl:when>
+      <xsl:when test="local-name()='double-tongue' or local-name()='down-bow' or
+        local-name()='fingernails' or local-name()='harmonic' or local-name()='heel' or
+        local-name()='open-string' or local-name()='snap-pizzicato' or local-name()='stopped'
+        or local-name()='tap' or local-name()='toe' or local-name()='triple-tongue' or
+        local-name()='up-bow'">
+        <!-- Do nothing; these are handled as note-level articulations -->
+      </xsl:when>
+      <xsl:when test="local-name()='fret' or local-name()='string'">
+        <!-- Do nothing; these are handled as string tablature -->
+      </xsl:when>
+      <xsl:otherwise>
+        <xsl:variable name="measureNum">
+          <xsl:value-of select="ancestor::measure/@number"/>
+        </xsl:variable>
+        <xsl:variable name="warning">
+          <xsl:value-of select="concat(upper-case(substring(local-name(.),1,1)),
+            substring(local-name(.),2), ' not transcoded')"/>
+        </xsl:variable>
+        <xsl:message>
+          <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+            ').'))"/>
+        </xsl:message>
+        <xsl:comment>
+          <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+        </xsl:comment>
+      </xsl:otherwise>
+    </xsl:choose>
   </xsl:template>
 
   <xsl:template match="note/notations/dynamics" mode="stage1">
@@ -4727,7 +4806,7 @@
       </trill>
     </xsl:for-each>
     <!-- Turns -->
-    <xsl:for-each select="turn|delayed-turn">
+    <xsl:for-each select="turn|delayed-turn|inverted-turn">
       <turn xmlns="http://www.music-encoding.org/ns/mei">
         <!-- Tstamp attributes -->
         <xsl:for-each select="ancestor::note">
@@ -4760,6 +4839,9 @@
         <!-- Attributes based on starting note -->
         <xsl:if test="local-name()='delayed-turn'">
           <xsl:attribute name="delayed">true</xsl:attribute>
+        </xsl:if>
+        <xsl:if test="local-name()='inverted-turn'">
+          <xsl:attribute name="form">inv</xsl:attribute>
         </xsl:if>
         <xsl:attribute name="place">
           <xsl:choose>
@@ -4826,13 +4908,63 @@
           <xsl:attribute name="form">inv</xsl:attribute>
         </xsl:if>
         <xsl:call-template name="positionRelative"/>
+        <xsl:if test="local-name()='shake'">
+          <xsl:comment>shake</xsl:comment>
+        </xsl:if>
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
-            <!--<xsl:apply-templates select="." mode="amlist"/>-->
             <xsl:apply-templates select="." mode="stage1.amlist"/>
           </xsl:if>
         </xsl:for-each>
       </mordent>
+    </xsl:for-each>
+    <!-- Schleifer -->
+    <xsl:for-each select="schleifer">
+      <dir xmlns="http://www.music-encoding.org/ns/mei">
+        <!-- Attributes based on starting note -->
+        <xsl:for-each select="ancestor::note">
+          <xsl:call-template name="tstampAttrs"/>
+          <xsl:variable name="partID">
+            <xsl:value-of select="ancestor::part/@id"/>
+          </xsl:variable>
+          <xsl:variable name="partStaff">
+            <xsl:choose>
+              <xsl:when test="staff">
+                <xsl:value-of select="staff"/>
+              </xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:attribute name="staff">
+            <xsl:call-template name="getStaffNum">
+              <xsl:with-param name="partID">
+                <xsl:value-of select="$partID"/>
+              </xsl:with-param>
+              <xsl:with-param name="partStaff">
+                <xsl:value-of select="$partStaff"/>
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:attribute>
+          <xsl:attribute name="startid">
+            <xsl:value-of select="generate-id()"/>
+          </xsl:attribute>
+          <xsl:attribute name="place">
+            <xsl:choose>
+              <xsl:when test="@placement != ''">
+                <xsl:value-of select="@placement"/>
+              </xsl:when>
+              <xsl:otherwise>above</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:for-each>
+        <xsl:call-template name="positionRelative"/>
+        <xsl:for-each select="following-sibling::*[1]">
+          <xsl:if test="local-name()='accidental-mark'">
+            <xsl:apply-templates select="." mode="stage1.amlist"/>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:comment>schleifer</xsl:comment>
+      </dir>
     </xsl:for-each>
   </xsl:template>
 
@@ -5418,7 +5550,7 @@
           pitch/octave=$octave) or (unpitched/display-step=$pitch and
           unpitched/display-octave=$octave)]">
           <xsl:for-each select="following::note[ancestor::part[1]/@id=$partID][(pitch/step=$pitch
-            and             pitch/octave=$octave) or (unpitched/display-step=$pitch and
+            and pitch/octave=$octave) or (unpitched/display-step=$pitch and
             unpitched/display-octave=$octave)][1]">
             <xsl:variable name="endMeasureID">
               <xsl:value-of select="generate-id(ancestor::measure[1])"/>
@@ -6416,12 +6548,11 @@
               </langUsage>
             </xsl:if>
 
-            <xsl:if test="identification/encoding/software or
-              identification/miscellaneous/miscellaneous-field">
+            <xsl:if test="identification/miscellaneous/miscellaneous-field">
               <notesStmt>
-                <xsl:if test="identification/encoding/software">
-                  <!-- MusicXML file encoding description -->
-                  <!--<annot>
+                <!--<xsl:if test="identification/encoding/software">
+                  <!-\- MusicXML file encoding description -\->
+                  <!-\-<annot>
                     <xsl:text>MusicXML file created </xsl:text>
                     <xsl:if test="identification/encoding/encoder">
                       <xsl:text>by </xsl:text>
@@ -6467,13 +6598,14 @@
                       </date>
                     </xsl:if>
                     <xsl:text>.</xsl:text>
-                  </annot>-->
+                  </annot>-\->
                   <xsl:if test="identification/encoding/encoding-description">
                     <annot>
                       <xsl:value-of select="identification/encoding/encoding-description"/>
                     </annot>
                   </xsl:if>
                 </xsl:if>
+                -->
                 <xsl:for-each select="identification/miscellaneous/miscellaneous-field">
                   <annot>
                     <xsl:attribute name="label">
@@ -6493,18 +6625,15 @@
           <normalization>
             <p>Calculation of @tstamp and @tstamp2 values on control events, such as dir, dynam,
               hairpin, etc., includes MusicXML offset values.</p>
-            <p>
-              The parameters for musicxml2mei.xsl have been set as follows:
-              layout: "<xsl:value-of select="$layout"/>",
-              formeWork: "<xsl:value-of select="$formeWork"/>",
-              keepAttributes: "<xsl:value-of select="$keepAttributes"/>",
-              generateMIDI: "<xsl:value-of select="$generateMIDI"/>",
-              articStyle: "<xsl:value-of select="$articStyle"/>",
-              accidStyle: "<xsl:value-of select="$accidStyle"/>",
-              tieStyle: "<xsl:value-of select="$tieStyle"/>",
-              labelStyle: "<xsl:value-of select="$labelStyle"/>"
-            </p>
-            
+            <p>The parameters for musicxml2mei.xsl were set as follows: <list>
+                <li>layout: "<xsl:value-of select="$layout"/>", </li>
+                <li>formeWork: "<xsl:value-of select="$formeWork"/>", </li>
+                <li>keepAttributes: "<xsl:value-of select="$keepAttributes"/>", </li>
+                <li>generateMIDI: "<xsl:value-of select="$generateMIDI"/>", </li>
+                <li>articStyle: "<xsl:value-of select="$articStyle"/>", </li>
+                <li>accidStyle: "<xsl:value-of select="$accidStyle"/>", </li>
+                <li>tieStyle: "<xsl:value-of select="$tieStyle"/>", </li>
+                <li>labelStyle: "<xsl:value-of select="$labelStyle"/>"</li></list></p>
           </normalization>
         </editorialDecl>
         <!--<projectDesc>
@@ -6547,11 +6676,13 @@
         </workDesc>
       </xsl:if>
       <revisionDesc xmlns="http://www.music-encoding.org/ns/mei">
-        <xsl:if test="identification/encoding/software">    
+        <xsl:if test="identification/encoding/software">
           <change n="1">
             <respStmt>
               <xsl:for-each select="identification/encoding/encoder">
-                <name xmlns="http://www.music-encoding.org/ns/mei"><xsl:value-of select="."/></name>
+                <name xmlns="http://www.music-encoding.org/ns/mei">
+                  <xsl:value-of select="."/>
+                </name>
               </xsl:for-each>
             </respStmt>
             <changeDesc>
@@ -6599,7 +6730,7 @@
               <xsl:text>&#32;</xsl:text>
               <xsl:value-of select="$progVersion"/>
               <xsl:text>).</xsl:text>
-              
+
             </p>
           </changeDesc>
           <date>
@@ -6874,7 +7005,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
 
   <xsl:template name="accidentals">
     <!-- Accidentals in elements so that exact placement can be recorded -->
-    <xsl:for-each select="accidental">
+    <xsl:for-each select="accidental | notations/accidental-mark">
       <xsl:variable name="thisAccid">
         <xsl:value-of select="normalize-space(.)"/>
       </xsl:variable>
@@ -6934,6 +7065,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
             </xsl:attribute>
           </xsl:otherwise>
         </xsl:choose>
+        <xsl:if test="not(normalize-space(@placement) = '')">
+          <xsl:attribute name="place">
+            <xsl:value-of select="normalize-space(@placement)"/>
+          </xsl:attribute>
+        </xsl:if>
         <xsl:call-template name="positionRelative"/>
         <xsl:call-template name="fontProperties"/>
         <xsl:call-template name="color"/>
@@ -6948,8 +7084,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:for-each select="notations/articulations/*[not(local-name()='breath-mark' or
         local-name()='caesura' or local-name()='stress' or local-name()='unstress' or
         local-name()='other-articulation')]">
-        <!-- In MEI breath marks and caesura are treated elsewhere as directives.
-        Other-articulation, stress, unstressed elements are not currently transcoded. -->
+        <!-- In MEI breath marks, caesura, and metrical indications (stress and unstress)
+          are treated elsewhere as directives. Other-articulation is not currently transcoded. -->
         <xsl:choose>
           <xsl:when test="local-name()='accent'">
             <xsl:text>acc</xsl:text>
@@ -6988,14 +7124,13 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:text>&#32;</xsl:text>
       </xsl:for-each>
       <xsl:for-each select="notations/technical/*[not(local-name()='arrow' or
-        local-name()='fingering' or local-name()='fret' or local-name()='hammer-on' or
-        local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
-        local-name()='pull-off' or local-name()='string' or local-name()='thumb-position')]">
-        <!-- The excluded elements above, except for string and fret, are not currently transcoded. -->
+        local-name()='bend' or local-name()='fingering' or local-name()='fret' or
+        local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
+        local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
+        local-name()='string' or local-name()='thumb-position')]">
+        <!-- String and fret indications and plucking finger are treated elsewhere as
+          directives. The remaining elements above are not currently transcoded. -->
         <xsl:choose>
-          <xsl:when test="local-name()='bend'">
-            <xsl:text>bend</xsl:text>
-          </xsl:when>
           <xsl:when test="local-name()='double-tongue'">
             <xsl:text>dbltongue</xsl:text>
           </xsl:when>
@@ -7014,9 +7149,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="local-name()='open-string'">
             <xsl:text>open</xsl:text>
           </xsl:when>
-          <xsl:when test="local-name()='pluck'">
-            <xsl:text>lhpizz</xsl:text>
-          </xsl:when>
+          <!-- In MusicXML 'pluck' is an indication of fingering, not articulation -->
           <xsl:when test="local-name()='snap-pizzicato'">
             <xsl:text>snap</xsl:text>
           </xsl:when>
@@ -7052,8 +7185,8 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:for-each select="notations/articulations/*[not(local-name()='breath-mark' or
       local-name()='caesura' or local-name()='stress' or local-name()='unstress' or
       local-name()='other-articulation')]">
-      <!-- Breath marks and caesura are treated elsewhere as directives.
-        Other-articulation, stress, unstressed elements are not currently transcoded. -->
+      <!-- Breath marks, caesura, stress, and unstress are treated elsewhere as directives.
+        Other-articulation is not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
           <xsl:when test="local-name()='accent'">
@@ -7151,21 +7284,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </artic>
     </xsl:for-each>
     <xsl:for-each select="notations/technical/*[not(local-name()='arrow' or
-      local-name()='fingering' or local-name()='fret' or local-name()='hammer-on' or
-      local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
-      local-name()='pull-off' or local-name()='string' or local-name()='thumb-position')]">
-      <!-- The excluded elements above, except for string and fret (which are 
-        dealt with elsewhere), are not currently transcoded. -->
+      local-name()='bend' or local-name()='fingering' or local-name()='fret' or
+      local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
+      local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
+      local-name()='string' or local-name()='thumb-position')]">
+      <!-- String, fret, and pluck are treated as control events elsewhere. The remainder 
+        of the excluded elements above are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
-          <xsl:when test="local-name()='bend'">
-            <xsl:attribute name="artic">bend</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
           <xsl:when test="local-name()='double-tongue'">
             <xsl:attribute name="artic">dbltongue</xsl:attribute>
             <xsl:if test="@placement != ''">
@@ -7208,14 +7334,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           </xsl:when>
           <xsl:when test="local-name()='open-string'">
             <xsl:attribute name="artic">open</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
-          <xsl:when test="local-name()='pluck'">
-            <xsl:attribute name="artic">lhpizz</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
@@ -7275,28 +7393,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:call-template name="fontProperties"/>
         <xsl:call-template name="color"/>
       </artic>
-    </xsl:for-each>
-    <xsl:for-each select="notations/articulations/*[local-name()='stress' or
-      local-name()='unstress' or local-name()='other-articulation'] |
-      notations/technical/*[local-name()='arrow' or local-name()='fingering' or
-      local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
-      local-name()='other-technical' or local-name()='pull-off' or
-      local-name()='thumb-position']">
-      <xsl:variable name="measureNum">
-        <xsl:value-of select="ancestor::measure/@number"/>
-      </xsl:variable>
-      <xsl:variable name="warning">
-        <xsl:value-of select="concat(upper-case(substring(local-name(.),1,1)),
-          substring(local-name(.),2), ' not transcoded')"/>
-      </xsl:variable>
-      <xsl:message>
-        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
-          ').'))"/>
-      </xsl:message>
-      <!-- Why won't this comment show up in output? -->
-      <xsl:comment>
-        <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
-      </xsl:comment>
     </xsl:for-each>
   </xsl:template>
 
@@ -7547,9 +7643,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
 
   <xsl:template name="figure">
     <xsl:if test="prefix">
-      <!--<xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(prefix,
-        'sharp-sharp', '&#x266F;&#x266F;'), 'flat-flat', '&#x1D12B;'), 'double-sharp', '&#x1D12A;'),
-        'sharp', '&#x266F;'), 'flat','&#x266D;'), 'natural', '&#x266E;'), 'slash', '/')"/>-->
       <xsl:analyze-string select="prefix"
         regex="(flat|flat-flat|sharp|sharp-sharp|double-sharp|natural|slash)">
         <xsl:matching-substring>
@@ -7590,9 +7683,6 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     </xsl:if>
     <xsl:value-of select="figure-number"/>
     <xsl:if test="suffix">
-      <!--<xsl:value-of select="replace(replace(replace(replace(replace(replace(replace(suffix,
-        'sharp-sharp', '&#x266F;&#x266F;'), 'flat-flat', '&#x1D12B;'), 'double-sharp', '&#x1D12A;'),
-        'sharp', '&#x266F;'), 'flat','&#x266D;'), 'natural', '&#x266E;'), 'slash', '/')"/>-->
       <xsl:analyze-string select="suffix"
         regex="(flat|flat-flat|sharp|sharp-sharp|double-sharp|natural|slash)">
         <xsl:matching-substring>
@@ -9931,7 +10021,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:copy>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="mei:artic" mode="postProcess">
     <xsl:if test="$articStyle = ('elem','both')">
       <xsl:copy>
@@ -9986,10 +10076,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       <xsl:copy-of select="."/>
     </xsl:if>
   </xsl:template>
-  
+
   <xsl:template match="mei:scoreDef[count(@*) = 0 and count(child::mei:*) = 0]" mode="postProcess"/>
-  <xsl:template match="mei:staffDef[count(@* except @n) = 0 and count(child::mei:*) = 0]" mode="postProcess"/>
-  
+  <xsl:template match="mei:staffDef[count(@* except @n) = 0 and count(child::mei:*) = 0]"
+    mode="postProcess"/>
+
   <xsl:template match="mei:scoreDef//mei:label" mode="postProcess">
     <xsl:if test="$labelStyle = ('elem','both')">
       <xsl:copy>
@@ -10101,12 +10192,15 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
   </xsl:template>
 
   <!-- JK: Are the following templates generally useful? -->
-  <xsl:template match="mei:scoreDef[not(exists(mei:staffGrp)) and local-name(following-sibling::mei:*[1]) = 'staffDef']" mode="cleanUp">
+  <xsl:template match="mei:scoreDef[not(exists(mei:staffGrp)) and
+    local-name(following-sibling::mei:*[1]) = 'staffDef']" mode="cleanUp">
     <xsl:variable name="nextMeasureID" select="following-sibling::mei:measure[1]/@xml:id"/>
-    <xsl:variable name="staffDefs" select="following-sibling::mei:staffDef[following-sibling::mei:measure[@xml:id = $nextMeasureID]]"/>
-    
+    <xsl:variable name="staffDefs"
+      select="following-sibling::mei:staffDef[following-sibling::mei:measure[@xml:id =
+      $nextMeasureID]]"/>
+
     <xsl:variable name="initialScoreDef" select="ancestor::mei:score/mei:scoreDef[1]/mei:staffGrp"/>
-    
+
     <xsl:copy>
       <xsl:apply-templates select="node() | @*" mode="#current"/>
       <xsl:apply-templates select="$initialScoreDef" mode="resolveScoreDef">
@@ -10114,14 +10208,14 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </xsl:apply-templates>
     </xsl:copy>
   </xsl:template>
-  
+
   <xsl:template match="mei:staffGrp" mode="resolveScoreDef">
     <xsl:copy>
       <xsl:apply-templates select="@* except (@xml:id,@label,@label.abbr)" mode="cleanUp"/>
       <xsl:apply-templates select="child::mei:*" mode="#current"/>
     </xsl:copy>
   </xsl:template>
-  
+
   <xsl:template match="mei:staffDef" mode="resolveScoreDef">
     <xsl:param name="staffDefs" tunnel="yes"/>
     <xsl:variable name="n" select="@n"/>
@@ -10129,15 +10223,16 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     <xsl:copy-of select="$changedDef"/>
   </xsl:template>
 
-  <xsl:template match="mei:staffDef[not(exists(ancestor::mei:staffGrp)) and preceding-sibling::mei:scoreDef]" mode="cleanUp">
+  <xsl:template match="mei:staffDef[not(exists(ancestor::mei:staffGrp)) and
+    preceding-sibling::mei:scoreDef]" mode="cleanUp">
     <xsl:variable name="scoreDef" select="preceding-sibling::mei:scoreDef[1]"/>
     <xsl:variable name="nextMeasureID" select="$scoreDef/following-sibling::mei:measure[1]/@xml:id"/>
-    
+
     <!-- If this staffDef sits between the preceding scoreDef and its following measure, it is handled inside the scoreDef -->
     <xsl:if test="$nextMeasureID != following-sibling::mei:measure[1]/@xml:id">
       <xsl:copy>
         <xsl:apply-templates select="node() | @*" mode="#current"/>
-      </xsl:copy>  
+      </xsl:copy>
     </xsl:if>
   </xsl:template>
   
