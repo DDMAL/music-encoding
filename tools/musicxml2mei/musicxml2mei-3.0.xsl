@@ -6502,7 +6502,7 @@
               articStyle: "<xsl:value-of select="$articStyle"/>",
               accidStyle: "<xsl:value-of select="$accidStyle"/>",
               tieStyle: "<xsl:value-of select="$tieStyle"/>",
-              labelStyle: "<xsl:value-of select="$labelStyle"/>",
+              labelStyle: "<xsl:value-of select="$labelStyle"/>"
             </p>
             
           </normalization>
