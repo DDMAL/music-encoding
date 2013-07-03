@@ -979,20 +979,44 @@
           <xsl:when test="$dirType = 'octave'">
             <xsl:attribute name="dis">
               <xsl:choose>
+                <xsl:when test="not(direction-type/octave-shift/@size)">
+                  <xsl:value-of select="8"/>
+                  <xsl:variable name="measureNum">
+                    <xsl:value-of select="ancestor::measure/@number"/>
+                  </xsl:variable>
+                  <xsl:variable name="warning">
+                    <xsl:text>Missing octave displacement value; defaulted to '8'</xsl:text>
+                  </xsl:variable>
+                  <xsl:message>
+                    <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                      ').'))"/>
+                  </xsl:message>
+                </xsl:when>
                 <xsl:when test="direction-type/octave-shift/@size='8' or
-                  direction-type/octave-shift/@size='15'">
+                  direction-type/octave-shift/@size='15' or direction-type/octave-shift/@size='22'">
                   <xsl:value-of select="direction-type/octave-shift/@size"/>
                 </xsl:when>
                 <xsl:otherwise>
                   <!-- Bad value for @size; choose closest logical value  -->
                   <xsl:variable name="newDispValue">
                     <xsl:choose>
-                      <xsl:when test="abs(direction-type/octave-shift/@size - 8) &lt;
-                        abs(direction-type/octave-shift/@size - 15)">
+                      <xsl:when test="(abs(direction-type/octave-shift/@size - 8) &lt;
+                        abs(direction-type/octave-shift/@size - 15)) and
+                        (abs(direction-type/octave-shift/@size - 8) &lt;
+                        abs(direction-type/octave-shift/@size - 22))">
+                        <!-- 8 is closest to the value of @size -->
                         <xsl:value-of select="8"/>
                       </xsl:when>
-                      <xsl:otherwise>
+                      <xsl:when test="(abs(direction-type/octave-shift/@size - 15) &lt;
+                        abs(direction-type/octave-shift/@size - 8)) and
+                        (abs(direction-type/octave-shift/@size - 15) &lt;
+                        abs(direction-type/octave-shift/@size - 22))">
+                        <!-- 15 is closest to the value of @size -->
                         <xsl:value-of select="15"/>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <!-- 22 is closest to the value of @size -->
+                        <xsl:value-of select="22"/>
                       </xsl:otherwise>
                     </xsl:choose>
                   </xsl:variable>
@@ -3793,28 +3817,47 @@
                 </xsl:choose>
               </xsl:variable>
               <xsl:variable name="octaveShift">
-                <xsl:value-of select="count(preceding::octaveShift[not(@type='stop') and
-                  ancestor::part/@id=$thisPart and ancestor::direction/staff=$partStaff]) -
-                  count(preceding::octaveShift[@type='stop' and ancestor::part/@id=$thisPart and
-                  ancestor::direction/staff=$partStaff])"/>
+                <xsl:value-of select="count(preceding::octave-shift[not(@type='stop') and
+                  ancestor::part/@id=$thisPart]) -
+                  count(preceding::octave-shift[@type='stop' and ancestor::part/@id=$thisPart])"/>
               </xsl:variable>
               <xsl:choose>
                 <xsl:when test="$octaveShift &gt; 0">
                   <xsl:variable name="shift">
                     <xsl:variable name="size">
-                      <xsl:value-of select="preceding::octaveShift[1][not(@type='stop') and
-                        ancestor::part/@id=$thisPart and
-                        ancestor::direction/staff=$partStaff]/@size"/>
+                      <xsl:value-of select="number(preceding::octave-shift[not(@type='stop') and
+                        ancestor::part/@id=$thisPart][1]/@size)"/>
                     </xsl:variable>
                     <xsl:choose>
-                      <xsl:when test="$size=8">1</xsl:when>
-                      <xsl:when test="$size=15">2</xsl:when>
+                      <xsl:when test="$size='8'">1</xsl:when>
+                      <xsl:when test="$size='15'">2</xsl:when>
+                      <xsl:when test="$size='22'">3</xsl:when>
+                      <xsl:otherwise>
+                        <!-- Bad value for @size; choose closest logical value  -->
+                        <xsl:choose>
+                          <xsl:when test="(abs($size - 8) &lt; abs($size
+                            - 15)) and (abs($size - 8) &lt; abs($size -
+                            22))">
+                            <!-- 8 is closest to the value of @size -->
+                            <xsl:value-of select="1"/>
+                          </xsl:when>
+                          <xsl:when test="(abs($size - 15) &lt;
+                            abs($size - 8)) and (abs($size - 15) &lt;
+                            abs($size - 22))">
+                            <!-- 15 is closest to the value of @size -->
+                            <xsl:value-of select="2"/>
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <!-- 22 is closest to the value of @size -->
+                            <xsl:value-of select="3"/>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:otherwise>
                     </xsl:choose>
                   </xsl:variable>
                   <xsl:variable name="direction">
-                    <xsl:value-of select="preceding::octaveShift[1][not(@type='stop') and
-                      ancestor::part/@id=$thisPart and ancestor::direction/staff=$partStaff]/@type"
-                    />
+                    <xsl:value-of select="preceding::octave-shift[not(@type='stop') and
+                      ancestor::part/@id=$thisPart][1]/@type"/>
                   </xsl:variable>
                   <xsl:choose>
                     <xsl:when test="$direction='down'">
