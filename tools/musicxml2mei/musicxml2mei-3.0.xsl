@@ -6673,11 +6673,12 @@
               </langUsage>
             </xsl:if>
 
-            <xsl:if test="identification/miscellaneous/miscellaneous-field">
+            <xsl:if test="identification/encoding/software |
+              identification/miscellaneous/miscellaneous-field">
               <notesStmt>
-                <!--<xsl:if test="identification/encoding/software">
-                  <!-\- MusicXML file encoding description -\->
-                  <!-\-<annot>
+                <xsl:if test="identification/encoding/software">
+                  <!-- MusicXML file encoding description -->
+                  <annot>
                     <xsl:text>MusicXML file created </xsl:text>
                     <xsl:if test="identification/encoding/encoder">
                       <xsl:text>by </xsl:text>
@@ -6723,14 +6724,13 @@
                       </date>
                     </xsl:if>
                     <xsl:text>.</xsl:text>
-                  </annot>-\->
+                  </annot>
                   <xsl:if test="identification/encoding/encoding-description">
                     <annot>
                       <xsl:value-of select="identification/encoding/encoding-description"/>
                     </annot>
                   </xsl:if>
                 </xsl:if>
-                -->
                 <xsl:for-each select="identification/miscellaneous/miscellaneous-field">
                   <annot>
                     <xsl:attribute name="label">
@@ -6801,7 +6801,7 @@
         </workDesc>
       </xsl:if>
       <revisionDesc xmlns="http://www.music-encoding.org/ns/mei">
-        <xsl:if test="identification/encoding/software">
+        <!--<xsl:if test="identification/encoding/software">
           <change n="1">
             <respStmt>
               <xsl:for-each select="identification/encoding/encoder">
@@ -6838,8 +6838,8 @@
               <xsl:value-of select="identification/encoding/encoding-date"/>
             </date>
           </change>
-        </xsl:if>
-        <change n="{if(identification/encoding/software) then('2') else ('1')}">
+        </xsl:if> -->
+        <change n="1">
           <respStmt/>
           <changeDesc>
             <p>
@@ -6855,7 +6855,6 @@
               <xsl:text>&#32;</xsl:text>
               <xsl:value-of select="$progVersion"/>
               <xsl:text>).</xsl:text>
-
             </p>
           </changeDesc>
           <date>
