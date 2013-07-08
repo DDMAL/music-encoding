@@ -799,7 +799,14 @@
           </alter>
         </xsl:if>
         <octave>
-          <xsl:value-of select="@oct"/>
+          <xsl:choose>
+            <xsl:when test="@oct.ges">
+              <xsl:value-of select="@oct.ges"/>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@oct"/>
+            </xsl:otherwise>
+          </xsl:choose>
         </octave>
       </pitch>
       <xsl:choose>
