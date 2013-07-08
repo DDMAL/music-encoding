@@ -306,44 +306,39 @@
                   <xsl:attribute name="measureDuration">
                     <xsl:value-of select="$measureDuration"/>
                   </xsl:attribute>
-                  <xsl:attribute name="partID">
-                    <!-- use existing or construct a part ID -->
+                  <xsl:variable name="partID">
                     <xsl:choose>
-                      <xsl:when
-                        test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]">
+                      <xsl:when test="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff] and
+                        @xml:id]">
+                        <!-- use staffGrp/xml:id -->
+                        <xsl:value-of select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]
+                          and @xml:id][1]/@xml:id"/>
+                      </xsl:when>
+                      <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @xml:id]">
+                        <!-- use staffDef/xml:id -->
+                        <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff][1]/@xml:id"/>
+                      </xsl:when>
+                      <xsl:otherwise>
+                        <!-- construct part ID -->
+                        <xsl:text>P_</xsl:text>
                         <xsl:choose>
                           <xsl:when
-                            test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id">
+                            test="count(preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef)=1">
                             <xsl:value-of
-                              select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff]/@xml:id"
+                              select="generate-id(preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[1])"
                             />
                           </xsl:when>
                           <xsl:otherwise>
-                            <xsl:text>P_</xsl:text>
                             <xsl:value-of
-                              select="generate-id(preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffDef[@n=$thisStaff])"
+                              select="generate-id(preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1])"
                             />
                           </xsl:otherwise>
                         </xsl:choose>
-                      </xsl:when>
-                      <xsl:when
-                        test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]">
-                        <xsl:choose>
-                          <xsl:when
-                            test="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id">
-                            <xsl:value-of
-                              select="preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]]/@xml:id"
-                            />
-                          </xsl:when>
-                          <xsl:otherwise>
-                            <xsl:text>P_</xsl:text>
-                            <xsl:value-of
-                              select="generate-id(preceding::mei:scoreDef[mei:staffGrp][1]/mei:staffGrp/mei:staffGrp[mei:staffDef[@n=$thisStaff]])"
-                            />
-                          </xsl:otherwise>
-                        </xsl:choose>
-                      </xsl:when>
+                      </xsl:otherwise>
                     </xsl:choose>
+                  </xsl:variable>
+                  <xsl:attribute name="partID">
+                    <xsl:value-of select="$partID"/>
                   </xsl:attribute>
                   <!-- staff assignment in MEI; that is, staff counted from top to bottom of score -->
                   <xsl:attribute name="meiStaff">
@@ -746,10 +741,14 @@
       </type>
       <xsl:choose>
         <xsl:when test="@dots">
-          <dot/>
+          <xsl:for-each select="1 to @dots">
+            <dot/>
+          </xsl:for-each>
         </xsl:when>
         <xsl:when test="ancestor::mei:*[@dots]">
-          <dot/>
+          <xsl:for-each select="1 to ancestor::mei:*[@dots][1]/@dots">
+            <dot/>
+          </xsl:for-each>
         </xsl:when>
       </xsl:choose>
       <staff>
@@ -885,10 +884,14 @@
       </type>
       <xsl:choose>
         <xsl:when test="@dots">
-          <dot/>
+          <xsl:for-each select="1 to @dots">
+            <dot/>
+          </xsl:for-each>
         </xsl:when>
         <xsl:when test="ancestor::mei:*[@dots]">
-          <dot/>
+          <xsl:for-each select="1 to ancestor::mei:*[@dots][1]/@dots">
+            <dot/>
+          </xsl:for-each>
         </xsl:when>
       </xsl:choose>
       <xsl:if test="@accid">
