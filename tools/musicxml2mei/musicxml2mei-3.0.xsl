@@ -4551,7 +4551,9 @@
           </xsl:attribute>
           <xsl:call-template name="positionRelative"/>
           <xsl:comment>
+            <xsl:text>[</xsl:text>
             <xsl:value-of select="local-name(.)"/>
+            <xsl:text>]</xsl:text>
           </xsl:comment>
           <xsl:variable name="content">
             <xsl:choose>
@@ -4671,7 +4673,9 @@
           </xsl:attribute>
           <xsl:call-template name="positionRelative"/>
           <xsl:comment>
+            <xsl:text>[</xsl:text>
             <xsl:value-of select="local-name(.)"/>
+            <xsl:text>]</xsl:text>
           </xsl:comment>
           <xsl:variable name="content">
             <xsl:choose>
@@ -5034,7 +5038,7 @@
         </xsl:if>
         <xsl:call-template name="positionRelative"/>
         <xsl:if test="local-name()='shake'">
-          <xsl:comment>shake</xsl:comment>
+          <xsl:comment>[shake]</xsl:comment>
         </xsl:if>
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
@@ -5088,7 +5092,7 @@
             <xsl:apply-templates select="." mode="stage1.amlist"/>
           </xsl:if>
         </xsl:for-each>
-        <xsl:comment>schleifer</xsl:comment>
+        <xsl:comment>[schleifer]</xsl:comment>
       </dir>
     </xsl:for-each>
   </xsl:template>
@@ -7773,27 +7777,27 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:choose>
             <xsl:when test="matches(., 'sharp-sharp')">
               <xsl:text>&#x266F;&#x266F;</xsl:text>
-              <xsl:comment>sharp-sharp</xsl:comment>
+              <xsl:comment>[sharp-sharp]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'flat-flat')">
               <xsl:text>&#x1D12B;</xsl:text>
-              <xsl:comment>flat-flat</xsl:comment>
+              <xsl:comment>[flat-flat]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'double-sharp')">
               <xsl:text>&#x1D12A;</xsl:text>
-              <xsl:comment>double sharp</xsl:comment>
+              <xsl:comment>[double sharp]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'sharp')">
               <xsl:text>&#x266F;</xsl:text>
-              <xsl:comment>sharp</xsl:comment>
+              <xsl:comment>[sharp]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'flat')">
               <xsl:text>&#x266D;</xsl:text>
-              <xsl:comment>flat</xsl:comment>
+              <xsl:comment>[flat]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'natural')">
               <xsl:text>&#x266E;</xsl:text>
-              <xsl:comment>natural</xsl:comment>
+              <xsl:comment>[natural]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'slash')">
               <xsl:text>/</xsl:text>
@@ -7813,27 +7817,27 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:choose>
             <xsl:when test="matches(., 'sharp-sharp')">
               <xsl:text>&#x266F;&#x266F;</xsl:text>
-              <xsl:comment>sharp-sharp</xsl:comment>
+              <xsl:comment>[sharp-sharp]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'flat-flat')">
               <xsl:text>&#x1D12B;</xsl:text>
-              <xsl:comment>flat-flat</xsl:comment>
+              <xsl:comment>[flat-flat]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'double-sharp')">
               <xsl:text>&#x1D12A;</xsl:text>
-              <xsl:comment>double sharp</xsl:comment>
+              <xsl:comment>[double sharp]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'sharp')">
               <xsl:text>&#x266F;</xsl:text>
-              <xsl:comment>sharp</xsl:comment>
+              <xsl:comment>[sharp]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'flat')">
               <xsl:text>&#x266D;</xsl:text>
-              <xsl:comment>flat</xsl:comment>
+              <xsl:comment>[flat]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'natural')">
               <xsl:text>&#x266E;</xsl:text>
-              <xsl:comment>natural</xsl:comment>
+              <xsl:comment>[natural]</xsl:comment>
             </xsl:when>
             <xsl:when test="matches(., 'slash')">
               <xsl:text>/</xsl:text>
