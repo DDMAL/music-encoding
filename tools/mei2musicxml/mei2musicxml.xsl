@@ -2,9 +2,9 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0"
   xmlns:mei="http://www.music-encoding.org/ns/mei" exclude-result-prefixes="mei"
   xmlns:saxon="http://saxon.sf.net/" extension-element-prefixes="saxon">
-  <xsl:output method="xml" indent="yes" encoding="UTF-8" omit-xml-declaration="no" standalone="no"
-    doctype-system="http://www.musicxml.org/dtds/timewise.dtd" doctype-public="-//Recordare//DTD
-    MusicXML 2.0 Timewise//EN"/>
+  <xsl:output doctype-system="http://www.musicxml.org/dtds/timewise.dtd"
+    doctype-public="-//Recordare//DTD MusicXML 2.0 Timewise//EN" method="xml" indent="yes"
+    encoding="UTF-8" omit-xml-declaration="no" standalone="no"/>
   <xsl:strip-space elements="*"/>
 
   <!-- parameters -->
@@ -58,6 +58,19 @@
         </xsl:message>
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="*[local-name()]" mode="commentComments">
+    <xsl:copy>
+      <xsl:copy-of select="@*"/>
+      <xsl:apply-templates mode="commentComments"/>
+    </xsl:copy>
+  </xsl:template>
+
+  <xsl:template match="comment()" mode="commentComments">
+    <xsl:text disable-output-escaping="yes">&lt;!-\-</xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text disable-output-escaping="yes">-\-></xsl:text>
   </xsl:template>
 
   <xsl:template match="mei:anchoredText">
@@ -622,9 +635,11 @@
               <xsl:apply-templates select="*" mode="partContent"/>
             </part>
           </xsl:for-each>
-          <!--<xsl:text disable-output-escaping="yes">&#xa;&lt;!-\- </xsl:text>
-          <xsl:copy-of select="$measureContent4/controlevents"/>
-          <xsl:text disable-output-escaping="yes"> -\->&#xa;</xsl:text>-->
+          <xsl:for-each select="$measureContent4/controlevents">
+            <xsl:text disable-output-escaping="yes">&#xa;&lt;!-- </xsl:text>
+            <xsl:apply-templates mode="commentComments"/>
+            <xsl:text disable-output-escaping="yes"> -->&#xa;</xsl:text>
+          </xsl:for-each>
         </measure>
       </xsl:for-each>
     </score-timewise>
