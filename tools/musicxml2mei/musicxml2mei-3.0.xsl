@@ -415,21 +415,18 @@
         <xsl:when test=". = 'quarter-sharp'">
           <xsl:attribute name="accidupper">su</xsl:attribute>
         </xsl:when>
-        <xsl:otherwise>
-          <xsl:variable name="measureNum">
-            <xsl:value-of select="ancestor::measure/@number"/>
-          </xsl:variable>
-          <xsl:variable name="warning">
-            <xsl:value-of select="concat('Turn upper accidental value (', ., ') not supported')"/>
-          </xsl:variable>
-          <xsl:message>
-            <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
-              ').'))"/>
-          </xsl:message>
-          <xsl:comment>
-            <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
-          </xsl:comment>
-        </xsl:otherwise>
+        <xsl:when test=". = 'three-quarters-sharp'">
+          <xsl:attribute name="accidupper">su</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'three-quarters-flat'">
+          <xsl:attribute name="accidupper">fd</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'triple-sharp'">
+          <xsl:attribute name="accidupper">ts</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'triple-flat'">
+          <xsl:attribute name="accidupper">tf</xsl:attribute>
+        </xsl:when>
       </xsl:choose>
     </xsl:if>
     <xsl:if test="@placement='below'">
@@ -467,23 +464,26 @@
         <xsl:when test=". = 'quarter-sharp'">
           <xsl:attribute name="accidlower">su</xsl:attribute>
         </xsl:when>
-        <xsl:otherwise>
-          <xsl:variable name="measureNum">
-            <xsl:value-of select="ancestor::measure/@number"/>
-          </xsl:variable>
-          <xsl:variable name="warning">
-            <xsl:value-of select="concat('Turn lower accidental value (', ., ') not supported')"/>
-          </xsl:variable>
-          <xsl:message>
-            <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
-              ').'))"/>
-          </xsl:message>
-          <xsl:comment>
-            <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
-          </xsl:comment>
-        </xsl:otherwise>
+        <xsl:when test=". = 'three-quarters-sharp'">
+          <xsl:attribute name="accidlower">su</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'three-quarters-flat'">
+          <xsl:attribute name="accidlower">fd</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'triple-sharp'">
+          <xsl:attribute name="accidlower">ts</xsl:attribute>
+        </xsl:when>
+        <xsl:when test=". = 'triple-flat'">
+          <xsl:attribute name="accidlower">tf</xsl:attribute>
+        </xsl:when>
       </xsl:choose>
     </xsl:if>
+    <!-- If next sibling is an accidental, it belongs to this ornament. -->
+    <xsl:for-each select="following-sibling::*[1]">
+      <xsl:if test="local-name()='accidental-mark'">
+        <xsl:apply-templates select="." mode="stage1.amlist"/>
+      </xsl:if>
+    </xsl:for-each>
     <xsl:if test="not(@placement)">
       <xsl:variable name="measureNum">
         <xsl:value-of select="ancestor::measure/@number"/>
@@ -495,14 +495,35 @@
         <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
           ').'))"/>
       </xsl:message>
+      <xsl:comment>
+        <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+      </xsl:comment>
     </xsl:if>
-    <!-- If next sibling is an accidental, it belongs to this ornament. -->
-    <xsl:for-each select="following-sibling::*[1]">
-      <xsl:if test="local-name()='accidental-mark'">
-        <!--<xsl:apply-templates select="." mode="amlist"/>-->
-        <xsl:apply-templates select="." mode="stage1.amlist"/>
-      </xsl:if>
-    </xsl:for-each>
+    <xsl:if test="not(matches(normalize-space(.), '^sharp$') or matches(normalize-space(.),
+      '^sharp$') or matches(normalize-space(.), '^natural$') or matches(normalize-space(.),
+      '^flat$') or matches(normalize-space(.), '^double-sharp$') or
+      matches(normalize-space(.), '^double-flat$') or matches(normalize-space(.),
+      '^sharp-sharp$')or matches(normalize-space(.), '^flat-flat$') or
+      matches(normalize-space(.), '^natural-sharp$') or matches(normalize-space(.),
+      '^natural-flat$') or matches(normalize-space(.), '^quarter-flat$') or
+      matches(normalize-space(.), '^quarter-sharp$') or matches(normalize-space(.),
+      '^three-quarters-sharp$') or matches(normalize-space(.), '^three-quarters-flat$')       or
+      matches(normalize-space(.), '^triple-sharp$') or matches(normalize-space(.),
+      '^triple-flat$'))">
+      <xsl:variable name="measureNum">
+        <xsl:value-of select="ancestor::measure/@number"/>
+      </xsl:variable>
+      <xsl:variable name="warning">
+        <xsl:value-of select="concat('Turn lower accidental value (', ., ') not supported')"/>
+      </xsl:variable>
+      <xsl:message>
+        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+          ').'))"/>
+      </xsl:message>
+      <xsl:comment>
+        <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+      </xsl:comment>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="attributes" mode="stage1">
@@ -4297,7 +4318,7 @@
       <!-- Unfortunately, @startid isn't allowed on arpeg yet! -->
       <!--<xsl:variable name="startid">
         <xsl:value-of select="generate-id()"/>
-      </xsl:variable>      
+      </xsl:variable>
       <xsl:attribute name="startid">
         <xsl:value-of select="$startid"/>
       </xsl:attribute>-->
@@ -4347,7 +4368,7 @@
       <!-- Unfortunately, @startid isn't allowed on arpeg yet! -->
       <!--<xsl:variable name="startid">
         <xsl:value-of select="generate-id()"/>
-      </xsl:variable>      
+      </xsl:variable>
       <xsl:attribute name="startid">
         <xsl:value-of select="$startid"/>
       </xsl:attribute>-->
@@ -4928,7 +4949,6 @@
         <xsl:call-template name="positionRelative"/>
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
-            <!--<xsl:apply-templates select="." mode="amlist"/>-->
             <xsl:apply-templates select="." mode="stage1.amlist"/>
           </xsl:if>
         </xsl:for-each>
