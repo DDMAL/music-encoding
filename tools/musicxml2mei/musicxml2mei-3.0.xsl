@@ -3929,6 +3929,24 @@
               </xsl:choose>
             </xsl:attribute>
           </xsl:if>
+          <!-- Should hammer-on and pull-off generate values in @slur? -->
+          <!--<xsl:if test="notations/technical/*[local-name()='hammer-on' or local-name()='pull-off']">
+            <!-\- hammer-on and pull-off indicate methods for connecting, i.e., slurring, notes -\->
+            <xsl:attribute name="slur">
+              <xsl:for-each select="notations/technical/*[local-name()='hammer-on' or
+                local-name()='pull-off'][@type='start'][1]">
+                <xsl:text>i</xsl:text>
+              </xsl:for-each>
+              <xsl:for-each select="notations/technical/*[local-name()='hammer-on' or
+                local-name()='pull-off'][@type='stop'][1]">
+                <xsl:if test="../*[local-name()='hammer-on' or
+                  local-name()='pull-off'][@type='start']">
+                  <xsl:text>&#32;</xsl:text>
+                </xsl:if>
+                <xsl:text>t</xsl:text>
+              </xsl:for-each>
+            </xsl:attribute>
+          </xsl:if>-->
 
           <!-- Note attributes -->
           <xsl:variable name="notatedDuration">
@@ -4642,14 +4660,16 @@
   </xsl:template>
 
   <xsl:template match="note/notations/technical/*" mode="stage1.dir">
-    <!-- In MEI pluck, etc. are directives -->
+    <!-- Most MusicXML technical indications are directives in MEI -->
     <xsl:choose>
       <xsl:when test="local-name()='pluck'">
         <dir xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="tstamp">
             <xsl:call-template name="tstamp.ges2beat">
               <xsl:with-param name="tstamp.ges">
-                <xsl:call-template name="getTimestamp.ges"/>
+                <xsl:for-each select="ancestor::note[1]">
+                  <xsl:call-template name="getTimestamp.ges"/>
+                </xsl:for-each>
               </xsl:with-param>
             </xsl:call-template>
           </xsl:attribute>
@@ -4699,9 +4719,99 @@
             <xsl:text>]</xsl:text>
           </xsl:comment>
           <xsl:variable name="content">
+            <xsl:value-of select="normalize-space(.)"/>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="@font-family or @font-style or @font-size or @font-weight or
+              @letter-spacing or @line-height or @justify or @halign or @valign or @color or
+              @rotation or @xml:space or @underline or @overline or @line-through or @dir or
+              @enclosure!='none'">
+              <xsl:call-template name="wrapRend">
+                <xsl:with-param name="in">
+                  <xsl:copy-of select="$content"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="$content"/>
+            </xsl:otherwise>
+          </xsl:choose>
+        </dir>
+      </xsl:when>
+      <xsl:when test="(local-name()='hammer-on' or local-name()='pull-off') and @type='start'">
+        <dir xmlns="http://www.music-encoding.org/ns/mei">
+          <!-- timestamp for the hammer-on/pull-off corresponds to the *ending note* -->
+          <xsl:attribute name="tstamp">
+            <xsl:call-template name="tstamp.ges2beat">
+              <xsl:with-param name="tstamp.ges">
+                <xsl:for-each
+                  select="following::note[notations/technical/*[local-name()=local-name(.)
+                  and @type='stop']][1]">
+                  <xsl:call-template name="getTimestamp.ges"/>
+                </xsl:for-each>
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:attribute>
+          <!-- timestamp.ges for the hammer-on/pull-off corresponds to the *ending note* -->
+          <xsl:attribute name="tstamp.ges">
+            <xsl:for-each select="following::note[notations/technical/*[local-name()=local-name(.)
+              and @type='stop']][1]">
+              <xsl:call-template name="getTimestamp.ges"/>
+            </xsl:for-each>
+          </xsl:attribute>
+          <xsl:variable name="partID">
+            <xsl:value-of select="ancestor::part[1]/@id"/>
+          </xsl:variable>
+          <xsl:variable name="partstaff">
             <xsl:choose>
-              <xsl:when test="local-name()='pluck'">
-                <xsl:value-of select="normalize-space(.)"/>
+              <xsl:when test="ancestor::note[1]/staff">
+                <xsl:value-of select="ancestor::note[1]/staff"/>
+              </xsl:when>
+              <xsl:otherwise>1</xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:attribute name="staff">
+            <xsl:call-template name="getStaffNum">
+              <xsl:with-param name="partID">
+                <xsl:value-of select="$partID"/>
+              </xsl:with-param>
+              <xsl:with-param name="partStaff">
+                <xsl:value-of select="$partstaff"/>
+              </xsl:with-param>
+            </xsl:call-template>
+          </xsl:attribute>
+          <xsl:attribute name="place">
+            <xsl:choose>
+              <xsl:when test="@placement != ''">
+                <xsl:value-of select="@placement"/>
+              </xsl:when>
+              <xsl:otherwise>above</xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+          <xsl:attribute name="startid">
+            <xsl:for-each select="ancestor::note[1]">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:for-each>
+          </xsl:attribute>
+          <xsl:for-each select="following::note[notations/technical/*[local-name()=local-name(.) and
+            @type='stop']][1]">
+            <xsl:attribute name="endid">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:attribute>
+          </xsl:for-each>
+          <xsl:call-template name="positionRelative"/>
+          <xsl:comment>
+            <xsl:text>[</xsl:text>
+            <xsl:value-of select="local-name(.)"/>
+            <xsl:text>]</xsl:text>
+          </xsl:comment>
+          <xsl:variable name="content">
+            <xsl:choose>
+              <xsl:when test="local-name()='hammer-on'">
+                <xsl:text>H</xsl:text>
+              </xsl:when>
+              <xsl:when test="local-name()='pull-off'">
+                <xsl:text>P</xsl:text>
               </xsl:when>
             </xsl:choose>
           </xsl:variable>
@@ -4721,6 +4831,10 @@
             </xsl:otherwise>
           </xsl:choose>
         </dir>
+      </xsl:when>
+      <xsl:when test="(local-name()='hammer-on' or local-name()='pull-off') and
+        @type='stop'">
+        <!-- Do nothing; end points are handled at same time as start points -->
       </xsl:when>
       <xsl:when test="local-name()='double-tongue' or local-name()='down-bow' or
         local-name()='fingernails' or local-name()='harmonic' or local-name()='heel' or
@@ -7276,8 +7390,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
         local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
         local-name()='string' or local-name()='thumb-position')]">
-        <!-- String and fret indications and plucking finger are treated elsewhere as
-          directives. The remaining elements above are not currently transcoded. -->
+        <!-- String and fret indications are handled elsewhere as note attributes. Plucking
+          finger, hammer-on, and pull-off indications are treated elsewhere as directives. 
+          The remaining elements above are not currently transcoded. -->
         <xsl:choose>
           <xsl:when test="local-name()='double-tongue'">
             <xsl:text>dbltongue</xsl:text>
@@ -7436,8 +7551,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
       local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
       local-name()='string' or local-name()='thumb-position')]">
-      <!-- String, fret, and pluck are treated as control events elsewhere. The remainder 
-        of the excluded elements above are not currently transcoded. -->
+      <!-- String and fret indications are handled elsewhere as note attributes. Plucking
+          finger, hammer-on, and pull-off indications are treated elsewhere as directives. 
+          The remaining elements above are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
           <xsl:when test="local-name()='double-tongue'">
