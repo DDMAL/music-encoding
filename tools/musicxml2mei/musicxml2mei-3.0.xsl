@@ -380,116 +380,86 @@
 
   <xsl:template match="accidental-mark" mode="stage1.amlist">
     <!-- Accidentals attached to ornaments -->
-    <xsl:if test="@placement='above'">
+    <xsl:variable name="accidPlace">
       <xsl:choose>
-        <xsl:when test=". = 'sharp'">
-          <xsl:attribute name="accidupper">s</xsl:attribute>
+        <xsl:when test="@placement='above'">
+          <xsl:text>accidupper</xsl:text>
         </xsl:when>
-        <xsl:when test=". = 'natural'">
-          <xsl:attribute name="accidupper">n</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'flat'">
-          <xsl:attribute name="accidupper">f</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'double-sharp'">
-          <xsl:attribute name="accidupper">x</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'double-flat'">
-          <xsl:attribute name="accidupper">ff</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'sharp-sharp'">
-          <xsl:attribute name="accidupper">ss</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'flat-flat'">
-          <xsl:attribute name="accidupper">ff</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'natural-sharp'">
-          <xsl:attribute name="accidupper">ns</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'natural-flat'">
-          <xsl:attribute name="accidupper">nf</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'quarter-flat'">
-          <xsl:attribute name="accidupper">fd</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'quarter-sharp'">
-          <xsl:attribute name="accidupper">su</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'three-quarters-sharp'">
-          <xsl:attribute name="accidupper">su</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'three-quarters-flat'">
-          <xsl:attribute name="accidupper">fd</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'triple-sharp'">
-          <xsl:attribute name="accidupper">ts</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'triple-flat'">
-          <xsl:attribute name="accidupper">tf</xsl:attribute>
+        <xsl:when test="@placement='below'">
+          <xsl:text>accidlower</xsl:text>
         </xsl:when>
       </xsl:choose>
-    </xsl:if>
-    <xsl:if test="@placement='below'">
-      <xsl:choose>
-        <xsl:when test=". = 'sharp'">
-          <xsl:attribute name="accidlower">s</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'natural'">
-          <xsl:attribute name="accidlower">n</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'flat'">
-          <xsl:attribute name="accidlower">f</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'double-sharp'">
-          <xsl:attribute name="accidlower">x</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'double-flat'">
-          <xsl:attribute name="accidlower">ff</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'sharp-sharp'">
-          <xsl:attribute name="accidlower">ss</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'flat-flat'">
-          <xsl:attribute name="accidlower">ff</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'natural-sharp'">
-          <xsl:attribute name="accidlower">ns</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'natural-flat'">
-          <xsl:attribute name="accidlower">nf</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'quarter-flat'">
-          <xsl:attribute name="accidlower">fd</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'quarter-sharp'">
-          <xsl:attribute name="accidlower">su</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'three-quarters-sharp'">
-          <xsl:attribute name="accidlower">su</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'three-quarters-flat'">
-          <xsl:attribute name="accidlower">fd</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'triple-sharp'">
-          <xsl:attribute name="accidlower">ts</xsl:attribute>
-        </xsl:when>
-        <xsl:when test=". = 'triple-flat'">
-          <xsl:attribute name="accidlower">tf</xsl:attribute>
-        </xsl:when>
-      </xsl:choose>
-    </xsl:if>
-    <!-- If next sibling is an accidental, it belongs to this ornament. -->
-    <xsl:for-each select="following-sibling::*[1]">
-      <xsl:if test="local-name()='accidental-mark'">
-        <xsl:apply-templates select="." mode="stage1.amlist"/>
+    </xsl:variable>
+    <xsl:if test="$accidPlace='accidupper' or $accidPlace='accidlower'">
+      <xsl:if test="matches(normalize-space(.), '^sharp$') or matches(normalize-space(.),
+        '^sharp$') or matches(normalize-space(.), '^natural$') or matches(normalize-space(.),
+        '^flat$') or matches(normalize-space(.), '^double-sharp$') or
+        matches(normalize-space(.), '^double-flat$') or matches(normalize-space(.),
+        '^sharp-sharp$')or matches(normalize-space(.), '^flat-flat$') or
+        matches(normalize-space(.), '^natural-sharp$') or matches(normalize-space(.),
+        '^natural-flat$') or matches(normalize-space(.), '^quarter-flat$') or
+        matches(normalize-space(.), '^quarter-sharp$') or matches(normalize-space(.),
+        '^three-quarters-sharp$') or matches(normalize-space(.), '^three-quarters-flat$') or
+        matches(normalize-space(.), '^triple-sharp$') or matches(normalize-space(.),
+        '^triple-flat$')">
+        <xsl:attribute name="{$accidPlace}">
+          <xsl:choose>
+            <xsl:when test="normalize-space(.) = 'sharp'">
+              <xsl:text>s</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'natural'">
+              <xsl:text>n</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'flat'">
+              <xsl:text>f</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'double-sharp'">
+              <xsl:text>x</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'double-flat'">
+              <xsl:text>ff</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'sharp-sharp'">
+              <xsl:text>ss</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'flat-flat'">
+              <xsl:text>ff</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'natural-sharp'">
+              <xsl:text>ns</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'natural-flat'">
+              <xsl:text>nf</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'quarter-flat'">
+              <xsl:text>fd</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'quarter-sharp'">
+              <xsl:text>su</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'three-quarters-sharp'">
+              <xsl:text>su</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'three-quarters-flat'">
+              <xsl:text>fd</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'triple-sharp'">
+              <xsl:text>ts</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'triple-flat'">
+              <xsl:text>tf</xsl:text>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:attribute>
       </xsl:if>
-    </xsl:for-each>
-    <xsl:if test="not(@placement)">
+    </xsl:if>
+    <xsl:if test="$accidPlace != 'accidupper' and $accidPlace != 'accidlower'">
       <xsl:variable name="measureNum">
         <xsl:value-of select="ancestor::measure/@number"/>
       </xsl:variable>
       <xsl:variable name="warning">
-        <xsl:text>Turn accidental place lacking, not transcoded</xsl:text>
+        <xsl:value-of select="concat('Turn accidental (', normalize-space(.), ') place lacking,
+          not transcoded')"/>
       </xsl:variable>
       <xsl:message>
         <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -507,7 +477,7 @@
       matches(normalize-space(.), '^natural-sharp$') or matches(normalize-space(.),
       '^natural-flat$') or matches(normalize-space(.), '^quarter-flat$') or
       matches(normalize-space(.), '^quarter-sharp$') or matches(normalize-space(.),
-      '^three-quarters-sharp$') or matches(normalize-space(.), '^three-quarters-flat$')       or
+      '^three-quarters-sharp$') or matches(normalize-space(.), '^three-quarters-flat$') or
       matches(normalize-space(.), '^triple-sharp$') or matches(normalize-space(.),
       '^triple-flat$'))">
       <xsl:variable name="measureNum">
@@ -524,6 +494,12 @@
         <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
       </xsl:comment>
     </xsl:if>
+    <!-- If next sibling is an accidental, it also belongs to this ornament. -->
+    <xsl:for-each select="following-sibling::*[1]">
+      <xsl:if test="local-name()='accidental-mark'">
+        <xsl:apply-templates select="." mode="stage1.amlist"/>
+      </xsl:if>
+    </xsl:for-each>
   </xsl:template>
 
   <xsl:template match="attributes" mode="stage1">
@@ -1333,7 +1309,11 @@
         <!-- directives with content -->
         <xsl:if test="$dirType = 'dynam' or $dirType = 'dir' or $dirType = 'reh' or $dirType =
           'tempo'">
-          <xsl:apply-templates select="direction-type/*" mode="stage1"/>
+          <xsl:apply-templates select="direction-type/*" mode="stage1">
+            <xsl:with-param name="dirType">
+              <xsl:value-of select="$dirType"/>
+            </xsl:with-param>
+          </xsl:apply-templates>
         </xsl:if>
       </xsl:element>
     </xsl:if>
@@ -1342,6 +1322,12 @@
   <xsl:template match="direction-type/coda | direction-type/dynamics | direction-type/metronome
     | direction-type/principal-voice | direction-type/rehearsal | direction-type/segno |
     direction-type/words" mode="stage1">
+    <xsl:param name="dirType"/>
+    <xsl:if test="$dirType = 'dir'">
+      <xsl:attribute name="label">
+        <xsl:value-of select="local-name()"/>
+      </xsl:attribute>
+    </xsl:if>
     <xsl:variable name="content">
       <xsl:choose>
         <xsl:when test="local-name() = 'coda'">
@@ -4542,6 +4528,9 @@
         local-name()='stress' or local-name()='unstress'">
         <!-- Create control events -->
         <dir xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="label">
+            <xsl:value-of select="local-name()"/>
+          </xsl:attribute>
           <xsl:attribute name="tstamp">
             <xsl:call-template name="tstamp.ges2beat">
               <xsl:with-param name="tstamp.ges">
@@ -4589,11 +4578,6 @@
             </xsl:for-each>
           </xsl:attribute>
           <xsl:call-template name="positionRelative"/>
-          <xsl:comment>
-            <xsl:text>[</xsl:text>
-            <xsl:value-of select="local-name(.)"/>
-            <xsl:text>]</xsl:text>
-          </xsl:comment>
           <xsl:variable name="content">
             <xsl:choose>
               <xsl:when test="local-name()='breath-mark'">
@@ -4664,6 +4648,9 @@
     <xsl:choose>
       <xsl:when test="local-name()='pluck'">
         <dir xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="label">
+            <xsl:value-of select="local-name()"/>
+          </xsl:attribute>
           <xsl:attribute name="tstamp">
             <xsl:call-template name="tstamp.ges2beat">
               <xsl:with-param name="tstamp.ges">
@@ -4713,11 +4700,6 @@
             </xsl:for-each>
           </xsl:attribute>
           <xsl:call-template name="positionRelative"/>
-          <xsl:comment>
-            <xsl:text>[</xsl:text>
-            <xsl:value-of select="local-name(.)"/>
-            <xsl:text>]</xsl:text>
-          </xsl:comment>
           <xsl:variable name="content">
             <xsl:value-of select="normalize-space(.)"/>
           </xsl:variable>
@@ -4740,6 +4722,9 @@
       </xsl:when>
       <xsl:when test="(local-name()='hammer-on' or local-name()='pull-off') and @type='start'">
         <dir xmlns="http://www.music-encoding.org/ns/mei">
+          <xsl:attribute name="label">
+            <xsl:value-of select="local-name()"/>
+          </xsl:attribute>
           <!-- timestamp for the hammer-on/pull-off corresponds to the *ending note* -->
           <xsl:attribute name="tstamp">
             <xsl:call-template name="tstamp.ges2beat">
@@ -4800,11 +4785,6 @@
             </xsl:attribute>
           </xsl:for-each>
           <xsl:call-template name="positionRelative"/>
-          <xsl:comment>
-            <xsl:text>[</xsl:text>
-            <xsl:value-of select="local-name(.)"/>
-            <xsl:text>]</xsl:text>
-          </xsl:comment>
           <xsl:variable name="content">
             <xsl:choose>
               <xsl:when test="local-name()='hammer-on'">
@@ -5127,6 +5107,11 @@
     <!-- Mordents and shakes -->
     <xsl:for-each select="mordent|inverted-mordent|shake">
       <mordent xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:if test="local-name()='shake'">
+          <xsl:attribute name="label">
+            <xsl:value-of select="local-name()"/>
+          </xsl:attribute>
+        </xsl:if>
         <xsl:for-each select="ancestor::note">
           <xsl:call-template name="tstampAttrs"/>
           <xsl:variable name="partID">
@@ -5171,9 +5156,6 @@
           <xsl:attribute name="form">inv</xsl:attribute>
         </xsl:if>
         <xsl:call-template name="positionRelative"/>
-        <xsl:if test="local-name()='shake'">
-          <xsl:comment>[shake]</xsl:comment>
-        </xsl:if>
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
             <xsl:apply-templates select="." mode="stage1.amlist"/>
@@ -5184,6 +5166,9 @@
     <!-- Schleifer -->
     <xsl:for-each select="schleifer">
       <dir xmlns="http://www.music-encoding.org/ns/mei">
+        <xsl:attribute name="label">
+          <xsl:value-of select="local-name()"/>
+        </xsl:attribute>
         <!-- Attributes based on starting note -->
         <xsl:for-each select="ancestor::note">
           <xsl:call-template name="tstampAttrs"/>
@@ -5226,7 +5211,6 @@
             <xsl:apply-templates select="." mode="stage1.amlist"/>
           </xsl:if>
         </xsl:for-each>
-        <xsl:comment>[schleifer]</xsl:comment>
       </dir>
     </xsl:for-each>
   </xsl:template>
