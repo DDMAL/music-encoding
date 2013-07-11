@@ -964,7 +964,7 @@
                         <xsl:text>plop</xsl:text>
                       </xsl:when>
                       <xsl:when test="matches(., '^rip$')">
-                        <xsl:text>plop</xsl:text>
+                        <xsl:text>scoop</xsl:text>
                       </xsl:when>
                       <xsl:when test="matches(., '^spicc$')">
                         <xsl:text>spiccato</xsl:text>
@@ -998,14 +998,14 @@
                         <xsl:text>harmonic</xsl:text>
                       </xsl:when>
                       <xsl:when test="matches(., '^heel$')">
-                        <xsl:text>harmonic</xsl:text>
+                        <xsl:text>heel</xsl:text>
                       </xsl:when>
                       <xsl:when test="matches(., '^open$')">
                         <xsl:text>open-string</xsl:text>
                       </xsl:when>
-                      <xsl:when test="matches(., '^lhpizz$')">
+                      <!--<xsl:when test="matches(., '^lhpizz$')">
                         <xsl:text>pluck</xsl:text>
-                      </xsl:when>
+                      </xsl:when>-->
                       <xsl:when test="matches(., '^snap$')">
                         <xsl:text>snap-pizzicato</xsl:text>
                       </xsl:when>
@@ -1062,6 +1062,9 @@
                       <xsl:when test="matches(., '^plop$')">
                         <xsl:text>plop</xsl:text>
                       </xsl:when>
+                      <xsl:when test="matches(., '^rip$')">
+                        <xsl:text>scoop</xsl:text>
+                      </xsl:when>
                       <xsl:when test="matches(., '^spicc$')">
                         <xsl:text>spiccato</xsl:text>
                       </xsl:when>
@@ -1073,6 +1076,9 @@
                       </xsl:when>
                       <xsl:when test="matches(., '^ten$')">
                         <xsl:text>tenuto</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="matches(., '^ten-stacc$')">
+                        <xsl:text>detached-legato</xsl:text>
                       </xsl:when>
                       <!-- technical -->
                       <xsl:when test="matches(., '^bend$')">
@@ -1090,12 +1096,15 @@
                       <xsl:when test="matches(., '^harm$')">
                         <xsl:text>harmonic</xsl:text>
                       </xsl:when>
+                      <xsl:when test="matches(., '^heel$')">
+                        <xsl:text>heel</xsl:text>
+                      </xsl:when>
                       <xsl:when test="matches(., '^open$')">
                         <xsl:text>open-string</xsl:text>
                       </xsl:when>
-                      <xsl:when test="matches(., '^lhpizz$')">
+                      <!--<xsl:when test="matches(., '^lhpizz$')">
                         <xsl:text>pluck</xsl:text>
-                      </xsl:when>
+                      </xsl:when>-->
                       <xsl:when test="matches(., '^snap$')">
                         <xsl:text>snap-pizzicato</xsl:text>
                       </xsl:when>
@@ -1104,6 +1113,9 @@
                       </xsl:when>
                       <xsl:when test="matches(., '^tap$')">
                         <xsl:text>tap</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="matches(., '^toe$')">
+                        <xsl:text>toe</xsl:text>
                       </xsl:when>
                       <xsl:when test="matches(., '^trpltongue$')">
                         <xsl:text>triple-tongue</xsl:text>
@@ -1129,38 +1141,37 @@
       <xsl:if test="$notations/*">
         <notations>
           <xsl:if test="$notations/*[matches(local-name(),'^accent$') or matches(local-name(),
-            '^doit$') or matches(local-name(), '^falloff$') or matches(local-name(),
-            '^strong-accent$') or matches(local-name(), '^plop$') or
+            '^detached-legato') or matches(local-name(), '^doit$') or
+            matches(local-name(), '^falloff$') or matches(local-name(), '^plop$') or
             matches(local-name(), '^spiccato$') or matches(local-name(), '^staccato$')
             or matches(local-name(), '^staccatissimo$') or matches(local-name(),
-            '^tenuto$')]">
+            '^strong-accent$') or matches(local-name(), '^tenuto$')]">
             <articulations>
               <xsl:copy-of select="$notations/*[matches(local-name(),'^accent$') or
                 matches(local-name(), '^doit$') or matches(local-name(),
-                '^falloff$') or matches(local-name(), '^strong-accent$') or
-                matches(local-name(), '^plop$') or matches(local-name(), '^spiccato$')
-                or matches(local-name(), '^staccato$') or matches(local-name(), '^staccatissimo$')
-                or matches(local-name(), '^tenuto$')]"/>
+                '^falloff$') or matches(local-name(), '^plop$') or
+                matches(local-name(), '^spiccato$') or matches(local-name(),
+                '^staccato$') or matches(local-name(), '^staccatissimo$') or
+                matches(local-name(), '^strong-accent$') or matches(local-name(), '^tenuto$')]"/>
             </articulations>
           </xsl:if>
-          <xsl:if test="$notations/*[matches(local-name(), '^bend$') or
-            matches(local-name(), '^double-tongue$') or matches(local-name(),
-            '^down-bow$') or matches(local-name(), '^fingernails$') or
-            matches(local-name(), '^harmonic$') or matches(local-name(),
-            '^open-string$') or matches(local-name(), '^pluck$') or
-            matches(local-name(), '^snap-pizzicato$') or matches(local-name(),
-            '^stopped$') or matches(local-name(), '^tap$') or matches(local-name(),
-            '^triple-tongue$') or matches(local-name(), '^up-bow$')]">
+          <xsl:if test="$notations/*[matches(local-name(), '^bend$') or matches(local-name(),
+            '^double-tongue$') or matches(local-name(), '^down-bow$') or
+            matches(local-name(), '^fingernails$') or matches(local-name(),
+            '^harmonic$') or matches(local-name(), '^heel$') or matches(local-name(),
+            '^open-string$') or matches(local-name(), '^snap-pizzicato$') or
+            matches(local-name(), '^stopped$') or matches(local-name(), '^tap$') or
+            matches(local-name(), '^toe$') or matches(local-name(), '^triple-tongue$')
+            or matches(local-name(), '^up-bow$')]">
             <technical>
               <xsl:copy-of select="$notations/*[matches(local-name(), '^bend$') or
                 matches(local-name(), '^double-tongue$') or matches(local-name(),
                 '^down-bow$') or matches(local-name(), '^fingernails$') or
-                matches(local-name(), '^harmonic$') or matches(local-name(),
-                '^open-string$') or matches(local-name(), '^pluck$') or
-                matches(local-name(), '^snap-pizzicato$') or matches(local-name(),
-                '^stopped$') or matches(local-name(), '^tap$') or
-                matches(local-name(), '^triple-tongue$') or matches(local-name(),
-                '^up-bow$')]"/>
+                matches(local-name(), '^harmonic$') or matches(local-name(), '^heel$') or
+                matches(local-name(), '^open-string$') or matches(local-name(), '^snap-pizzicato$')
+                or matches(local-name(), '^stopped$') or matches(local-name(),
+                '^tap$') or matches(local-name(), '^toe$') or matches(local-name(),
+                '^triple-tongue$') or matches(local-name(), '^up-bow$')]"/>
             </technical>
           </xsl:if>
         </notations>
