@@ -1143,16 +1143,19 @@
           <xsl:if test="$notations/*[matches(local-name(),'^accent$') or matches(local-name(),
             '^detached-legato') or matches(local-name(), '^doit$') or
             matches(local-name(), '^falloff$') or matches(local-name(), '^plop$') or
-            matches(local-name(), '^spiccato$') or matches(local-name(), '^staccato$')
-            or matches(local-name(), '^staccatissimo$') or matches(local-name(),
-            '^strong-accent$') or matches(local-name(), '^tenuto$')]">
+            matches(local-name(), '^scoop$') or matches(local-name(), '^spiccato$') or
+            matches(local-name(), '^staccato$') or matches(local-name(),
+            '^staccatissimo$') or matches(local-name(), '^strong-accent$') or
+            matches(local-name(), '^tenuto$')]">
             <articulations>
               <xsl:copy-of select="$notations/*[matches(local-name(),'^accent$') or
-                matches(local-name(), '^doit$') or matches(local-name(),
-                '^falloff$') or matches(local-name(), '^plop$') or
+                matches(local-name(), '^detached-legato') or matches(local-name(),
+                '^doit$') or matches(local-name(), '^falloff$') or
+                matches(local-name(), '^plop$') or matches(local-name(), '^scoop$') or
                 matches(local-name(), '^spiccato$') or matches(local-name(),
                 '^staccato$') or matches(local-name(), '^staccatissimo$') or
-                matches(local-name(), '^strong-accent$') or matches(local-name(), '^tenuto$')]"/>
+                matches(local-name(), '^strong-accent$') or matches(local-name(),
+                '^tenuto$')]"/>
             </articulations>
           </xsl:if>
           <xsl:if test="$notations/*[matches(local-name(), '^bend$') or matches(local-name(),
