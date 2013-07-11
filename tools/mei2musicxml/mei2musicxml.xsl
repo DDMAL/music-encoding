@@ -32,24 +32,7 @@
   <xsl:template match="/">
     <xsl:choose>
       <xsl:when test="mei:mei">
-        <!--<xsl:choose>
-          <!-\- MusicXML requires durational information to allocate voices when there's more than one 
-            staff in a part or when there's more than one layer per staff. -\->
-          <xsl:when test="(//mei:staff[count(mei:layer) &gt; 1] or //mei:staffGrp[count(mei:staffDef
-            &gt; 1)]) and (//mei:rest[not(@dur.ges)] or //mei:chord[not(@dur.ges)] or
-            //mei:space[not(@dur.ges)] or //mei:mRest[not(@dur.ges)] or //mei:mSpace[not(@dur.ges)]
-            or //mei:note[not(ancestor::mei:chord) and not(@dur.ges)])">
-            <xsl:variable name="errorMessage">The attribute dur.ges is required on all
-              events!</xsl:variable>
-            <xsl:message terminate="yes">
-              <xsl:value-of select="normalize-space($errorMessage)"/>
-            </xsl:message>
-          </xsl:when>
-          <xsl:otherwise>-->
-        <!-- Proceed with transformation -->
         <xsl:apply-templates select="mei:mei"/>
-        <!--</xsl:otherwise>
-        </xsl:choose>-->
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="errorMessage">The source file is not an MEI file!</xsl:variable>
@@ -551,7 +534,7 @@
               </xsl:for-each>
             </events>
             <controlevents>
-              <xsl:for-each select="mei:*[not(local-name()='staff')]">
+              <xsl:for-each select="*[not(local-name()='staff')] | comment()">
                 <xsl:copy-of select="."/>
               </xsl:for-each>
             </controlevents>
@@ -635,9 +618,9 @@
               <xsl:apply-templates select="*" mode="partContent"/>
             </part>
           </xsl:for-each>
-          <xsl:for-each select="$measureContent4/controlevents">
+          <xsl:for-each select="$measureContent4/controlevents[node()]">
             <xsl:text disable-output-escaping="yes">&#xa;&lt;!-- </xsl:text>
-            <xsl:apply-templates mode="commentComments"/>
+            <xsl:apply-templates select="* |comment()" mode="commentComments"/>
             <xsl:text disable-output-escaping="yes"> -->&#xa;</xsl:text>
           </xsl:for-each>
         </measure>
