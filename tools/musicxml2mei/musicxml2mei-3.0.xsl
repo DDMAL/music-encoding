@@ -392,16 +392,16 @@
     </xsl:variable>
     <xsl:if test="$accidPlace='accidupper' or $accidPlace='accidlower'">
       <xsl:if test="matches(normalize-space(.), '^sharp$') or matches(normalize-space(.),
-        '^sharp$') or matches(normalize-space(.), '^natural$') or matches(normalize-space(.),
-        '^flat$') or matches(normalize-space(.), '^double-sharp$') or
-        matches(normalize-space(.), '^double-flat$') or matches(normalize-space(.),
-        '^sharp-sharp$')or matches(normalize-space(.), '^flat-flat$') or
-        matches(normalize-space(.), '^natural-sharp$') or matches(normalize-space(.),
-        '^natural-flat$') or matches(normalize-space(.), '^quarter-flat$') or
-        matches(normalize-space(.), '^quarter-sharp$') or matches(normalize-space(.),
-        '^three-quarters-sharp$') or matches(normalize-space(.), '^three-quarters-flat$') or
-        matches(normalize-space(.), '^triple-sharp$') or matches(normalize-space(.),
-        '^triple-flat$')">
+        '^natural$') or matches(normalize-space(.), '^flat$') or matches(normalize-space(.),
+        '^double-sharp$') or matches(normalize-space(.), '^double-flat$') or
+        matches(normalize-space(.), '^sharp-sharp$')or matches(normalize-space(.),
+        '^flat-flat$') or matches(normalize-space(.), '^natural-sharp$') or
+        matches(normalize-space(.), '^natural-flat$') or matches(normalize-space(.),
+        '^flat-down$') or matches(normalize-space(.), '^flat-up$') or
+        matches(normalize-space(.), '^natural-down$') or matches(normalize-space(.),
+        '^natural-up$') or  matches(normalize-space(.), '^sharp-down$') or
+        matches(normalize-space(.), '^sharp-up$') or matches(normalize-space(.),
+        '^triple-sharp$') or matches(normalize-space(.), '^triple-flat$')">
         <xsl:attribute name="{$accidPlace}">
           <xsl:choose>
             <xsl:when test="normalize-space(.) = 'sharp'">
@@ -431,17 +431,23 @@
             <xsl:when test="normalize-space(.) = 'natural-flat'">
               <xsl:text>nf</xsl:text>
             </xsl:when>
-            <xsl:when test="normalize-space(.) = 'quarter-flat'">
+            <xsl:when test="normalize-space(.) = 'flat-down'">
               <xsl:text>fd</xsl:text>
             </xsl:when>
-            <xsl:when test="normalize-space(.) = 'quarter-sharp'">
-              <xsl:text>su</xsl:text>
+            <xsl:when test="normalize-space(.) = 'flat-up'">
+              <xsl:text>fu</xsl:text>
             </xsl:when>
-            <xsl:when test="normalize-space(.) = 'three-quarters-sharp'">
-              <xsl:text>su</xsl:text>
+            <xsl:when test="normalize-space(.) = 'natural-down'">
+              <xsl:text>nd</xsl:text>
             </xsl:when>
-            <xsl:when test="normalize-space(.) = 'three-quarters-flat'">
-              <xsl:text>fd</xsl:text>
+            <xsl:when test="normalize-space(.) = 'natural-up'">
+              <xsl:text>nu</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'sharp-down'">
+              <xsl:text>sd</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'sharp-up'">
+              <xsl:text>su</xsl:text>
             </xsl:when>
             <xsl:when test="normalize-space(.) = 'triple-sharp'">
               <xsl:text>ts</xsl:text>
@@ -470,16 +476,16 @@
       </xsl:comment>
     </xsl:if>
     <xsl:if test="not(matches(normalize-space(.), '^sharp$') or matches(normalize-space(.),
-      '^sharp$') or matches(normalize-space(.), '^natural$') or matches(normalize-space(.),
-      '^flat$') or matches(normalize-space(.), '^double-sharp$') or
-      matches(normalize-space(.), '^double-flat$') or matches(normalize-space(.),
-      '^sharp-sharp$')or matches(normalize-space(.), '^flat-flat$') or
-      matches(normalize-space(.), '^natural-sharp$') or matches(normalize-space(.),
-      '^natural-flat$') or matches(normalize-space(.), '^quarter-flat$') or
-      matches(normalize-space(.), '^quarter-sharp$') or matches(normalize-space(.),
-      '^three-quarters-sharp$') or matches(normalize-space(.), '^three-quarters-flat$') or
-      matches(normalize-space(.), '^triple-sharp$') or matches(normalize-space(.),
-      '^triple-flat$'))">
+      '^natural$') or matches(normalize-space(.), '^flat$') or matches(normalize-space(.),
+      '^double-sharp$') or matches(normalize-space(.), '^double-flat$') or
+      matches(normalize-space(.), '^sharp-sharp$')or matches(normalize-space(.),
+      '^flat-flat$') or matches(normalize-space(.), '^natural-sharp$') or
+      matches(normalize-space(.), '^natural-flat$') or matches(normalize-space(.),
+      '^flat-down$') or matches(normalize-space(.), '^flat-up$') or
+      matches(normalize-space(.), '^natural-down$') or matches(normalize-space(.),
+      '^natural-up$') or  matches(normalize-space(.), '^sharp-down$') or
+      matches(normalize-space(.), '^sharp-up$') or matches(normalize-space(.),
+      '^triple-sharp$') or matches(normalize-space(.), '^triple-flat$'))">
       <xsl:variable name="measureNum">
         <xsl:value-of select="ancestor::measure/@number"/>
       </xsl:variable>
@@ -4229,10 +4235,12 @@
                       <xsl:when test="$precedingAccidental = 'flat-flat'">ff</xsl:when>
                       <xsl:when test="$precedingAccidental = 'natural-sharp'">ns</xsl:when>
                       <xsl:when test="$precedingAccidental = 'natural-flat'">nf</xsl:when>
-                      <xsl:when test="$precedingAccidental = 'quarter-flat'">fu</xsl:when>
-                      <xsl:when test="$precedingAccidental = 'quarter-sharp'">sd</xsl:when>
-                      <xsl:when test="$precedingAccidental = 'three-quarters-sharp'">su</xsl:when>
-                      <xsl:when test="$precedingAccidental = 'three-quarters-flat'">fd</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'flat-down'">fd</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'flat-up'">fu</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'natural-down'">nd</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'natural-up'">nu</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'sharp-down'">sd</xsl:when>
+                      <xsl:when test="$precedingAccidental = 'sharp-up'">su</xsl:when>
                       <xsl:when test="$precedingAccidental = 'triple-sharp'">ts</xsl:when>
                       <xsl:when test="$precedingAccidental = 'triple-flat'">tf</xsl:when>
                     </xsl:choose>
@@ -7301,10 +7309,12 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
                 <xsl:when test="$thisAccid = 'flat-flat'">ff</xsl:when>
                 <xsl:when test="$thisAccid = 'natural-sharp'">ns</xsl:when>
                 <xsl:when test="$thisAccid = 'natural-flat'">nf</xsl:when>
-                <xsl:when test="$thisAccid = 'quarter-flat'">fu</xsl:when>
-                <xsl:when test="$thisAccid = 'quarter-sharp'">sd</xsl:when>
-                <xsl:when test="$thisAccid = 'three-quarters-sharp'">su</xsl:when>
-                <xsl:when test="$thisAccid = 'three-quarters-flat'">fd</xsl:when>
+                <xsl:when test="$thisAccid = 'flat-down'">fd</xsl:when>
+                <xsl:when test="$thisAccid = 'flat-up'">fu</xsl:when>
+                <xsl:when test="$thisAccid = 'natural-down'">nd</xsl:when>
+                <xsl:when test="$thisAccid = 'natural-up'">nu</xsl:when>
+                <xsl:when test="$thisAccid = 'sharp-down'">sd</xsl:when>
+                <xsl:when test="$thisAccid = 'sharp-up'">su</xsl:when>
                 <xsl:when test="$thisAccid = 'triple-sharp'">ts</xsl:when>
                 <xsl:when test="$thisAccid = 'triple-flat'">tf</xsl:when>
               </xsl:choose>
