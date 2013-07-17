@@ -306,15 +306,16 @@
                   </xsl:attribute>
                   <xsl:variable name="partID">
                     <xsl:choose>
-                      <xsl:when test="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff] and
-                        @xml:id]">
+                      <xsl:when test="preceding::mei:staffGrp[@xml:id][mei:staffDef[@n=$thisStaff]]">
                         <!-- use staffGrp/xml:id -->
-                        <xsl:value-of select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]
-                          and @xml:id][1]/@xml:id"/>
+                        <xsl:value-of
+                          select="preceding::mei:staffGrp[@xml:id][mei:staffDef[@n=$thisStaff]][1]/@xml:id"
+                        />
                       </xsl:when>
                       <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @xml:id]">
                         <!-- use staffDef/xml:id -->
-                        <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff][1]/@xml:id"/>
+                        <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff and
+                          @xml:id][1]/@xml:id"/>
                       </xsl:when>
                       <xsl:otherwise>
                         <!-- construct part ID -->
