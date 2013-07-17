@@ -120,6 +120,7 @@
   <xsl:template match="mei:chord">
     <xsl:for-each select="mei:note">
       <note>
+        <xsl:copy-of select="@*"/>
         <xsl:if test="position() &gt; 1">
           <chord/>
         </xsl:if>
@@ -241,6 +242,7 @@
             </xsl:attribute>
           </xsl:if>
           <xsl:variable name="measureContent">
+            <!-- Gather event and controlevent contents of measure -->
             <events>
               <xsl:for-each select="mei:staff/mei:layer/*">
                 <xsl:variable name="thisStaff">
@@ -535,11 +537,75 @@
             </events>
             <controlevents>
               <xsl:for-each select="*[not(local-name()='staff')] | comment()">
-                <xsl:copy-of select="."/>
+                <xsl:choose>
+                  <xsl:when test="local-name()=''">
+                    <!-- This node is a comment -->
+                    <xsl:copy-of select="."/>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:copy>
+                      <!-- copy all attributes but @staff. -->
+                      <xsl:copy-of select="@*[not(local-name() = 'staff')]"/>
+                      <xsl:variable name="thisStaff">
+                        <xsl:value-of select="@staff"/>
+                      </xsl:variable>
+                      <xsl:variable name="partID">
+                        <xsl:choose>
+                          <xsl:when test="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff] and
+                            @xml:id]">
+                            <!-- use staffGrp/xml:id -->
+                            <xsl:value-of
+                              select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]
+                              and @xml:id][1]/@xml:id"/>
+                          </xsl:when>
+                          <xsl:when test="preceding::mei:staffDef[@n=$thisStaff and @xml:id]">
+                            <!-- use staffDef/xml:id -->
+                            <xsl:value-of select="preceding::mei:staffDef[@n=$thisStaff][1]/@xml:id"
+                            />
+                          </xsl:when>
+                          <xsl:otherwise>
+                            <!-- construct part ID -->
+                            <xsl:text>P_</xsl:text>
+                            <xsl:choose>
+                              <xsl:when
+                                test="count(preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef)=1">
+                                <xsl:value-of
+                                  select="generate-id(preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[1])"
+                                />
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:value-of
+                                  select="generate-id(preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1])"
+                                />
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </xsl:otherwise>
+                        </xsl:choose>
+                      </xsl:variable>
+                      <xsl:attribute name="partID">
+                        <xsl:value-of select="$partID"/>
+                      </xsl:attribute>
+                      <!-- staff assignment in MEI; that is, staff counted from top to bottom of score -->
+                      <xsl:attribute name="meiStaff">
+                        <xsl:value-of select="$thisStaff"/>
+                      </xsl:attribute>
+                      <!-- staff assignment in MusicXML; that is, where the numbering of staves starts over with each part -->
+                      <xsl:attribute name="partStaff">
+                        <xsl:for-each
+                          select="preceding::mei:staffGrp[mei:staffDef[@n=$thisStaff]][1]/mei:staffDef[@n=$thisStaff]">
+                          <xsl:value-of select="count(preceding-sibling::mei:staffDef) + 1"/>
+                        </xsl:for-each>
+                      </xsl:attribute>
+                      <xsl:copy-of select="node()"/>
+                    </xsl:copy>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:for-each>
             </controlevents>
           </xsl:variable>
+
           <!--<xsl:copy-of select="$measureContent"/>-->
+          <!-- Group events by partID -->
           <xsl:variable name="measureContent2">
             <xsl:for-each-group select="$measureContent/events/*" group-by="@partID">
               <part id="{@partID}">
@@ -554,7 +620,9 @@
             </xsl:for-each-group>
             <xsl:copy-of select="$measureContent/controlevents"/>
           </xsl:variable>
+
           <!--<xsl:copy-of select="$measureContent2"/>-->
+          <!-- Group events within part by MEI staff and voice -->
           <xsl:variable name="measureContent3">
             <xsl:for-each select="$measureContent2/part">
               <part>
@@ -563,7 +631,6 @@
                   <xsl:sort select="*[@meiStaff][1]/@meiStaff"/>
                   <xsl:sort select="*[@meiStaff][1]/@voice"/>
                   <voice>
-                    <!--<xsl:copy-of select="*"/>-->
                     <xsl:for-each select="*">
                       <xsl:copy>
                         <xsl:copy-of select="@*[not(local-name()='voice')]"/>
@@ -581,7 +648,9 @@
             </xsl:for-each>
             <xsl:copy-of select="$measureContent2/controlevents"/>
           </xsl:variable>
+
           <!--<xsl:copy-of select="$measureContent3"/>-->
+          <!-- Replace temporary voice elements with <backup> delimiter between voices -->
           <xsl:variable name="measureContent4">
             <xsl:for-each select="$measureContent3/part">
               <part>
@@ -611,17 +680,39 @@
             </xsl:for-each>
             <xsl:copy-of select="$measureContent3/controlevents"/>
           </xsl:variable>
+
           <!--<xsl:copy-of select="$measureContent4"/>-->
-          <xsl:for-each select="$measureContent4/part">
+          <!-- Copy controlevents into appropriate part -->
+          <xsl:variable name="measureContent5">
+            <xsl:for-each select="$measureContent4/part">
+              <part>
+                <xsl:copy-of select="@*"/>
+                <events>
+                  <xsl:copy-of select="*"/>
+                </events>
+                <xsl:variable name="partID">
+                  <xsl:value-of select="@id"/>
+                </xsl:variable>
+                <xsl:if test="$measureContent4/controlevents/*">
+                  <controlevents>
+                    <!-- Comments between controlevents are dropped here! -->
+                    <xsl:copy-of select="$measureContent4/controlevents/*[@partID=$partID]"/>
+                  </controlevents>
+                </xsl:if>
+              </part>
+            </xsl:for-each>
+          </xsl:variable>
+
+          <!--<xsl:copy-of select="$measureContent5"/>-->
+          <!-- Resolve temporary MEI elements to MusicXML -->
+          <xsl:for-each select="$measureContent5/part">
             <part>
               <xsl:copy-of select="@*"/>
-              <xsl:apply-templates select="*" mode="partContent"/>
+              <events>
+                <xsl:apply-templates select="events/*" mode="partContent"/>
+              </events>
+              <xsl:copy-of select="controlevents"/>
             </part>
-          </xsl:for-each>
-          <xsl:for-each select="$measureContent4/controlevents[node()]">
-            <xsl:text disable-output-escaping="yes">&#xa;&lt;!-- </xsl:text>
-            <xsl:apply-templates select="* |comment()" mode="commentComments"/>
-            <xsl:text disable-output-escaping="yes"> -->&#xa;</xsl:text>
           </xsl:for-each>
         </measure>
       </xsl:for-each>
@@ -645,6 +736,7 @@
 
   <xsl:template match="mei:mRest|mei:mSpace|mei:rest|mei:space" mode="partContent">
     <note>
+      <xsl:copy-of select="@*"/>
       <rest>
         <xsl:if test="@ploc">
           <display-step>
@@ -768,6 +860,7 @@
 
   <xsl:template match="mei:note" mode="partContent">
     <note>
+      <xsl:copy-of select="@*"/>
       <xsl:if test="ancestor::mei:chord and preceding-sibling::mei:note">
         <chord/>
       </xsl:if>
@@ -936,249 +1029,431 @@
           </xsl:when>
         </xsl:choose>
       </staff>
-      <xsl:variable name="notations">
-        <xsl:choose>
-          <xsl:when test="mei:artic">
-            <xsl:for-each select="mei:artic">
-              <xsl:variable name="articPlace">
-                <xsl:value-of select="@place"/>
-              </xsl:variable>
-              <xsl:analyze-string select="@artic" regex="\s+">
-                <xsl:non-matching-substring>
-                  <xsl:variable name="articElement">
-                    <xsl:choose>
-                      <!-- articulations -->
-                      <xsl:when test="matches(., '^acc$')">
-                        <xsl:text>accent</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^doit$')">
-                        <xsl:text>doit</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^fall$')">
-                        <xsl:text>falloff</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^marc$')">
-                        <xsl:text>strong-accent</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^plop$')">
-                        <xsl:text>plop</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^rip$')">
-                        <xsl:text>scoop</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^spicc$')">
-                        <xsl:text>spiccato</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^stacc$')">
-                        <xsl:text>staccato</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^stacciss$')">
-                        <xsl:text>staccatissimo</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^ten$')">
-                        <xsl:text>tenuto</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^ten-stacc$')">
-                        <xsl:text>detached-legato</xsl:text>
-                      </xsl:when>
-                      <!-- technical -->
-                      <xsl:when test="matches(., '^bend$')">
-                        <xsl:text>bend</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^dbltongue$')">
-                        <xsl:text>double-tongue</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^dnbow$')">
-                        <xsl:text>down-bow</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^fingernail$')">
-                        <xsl:text>fingernails</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^harm$')">
-                        <xsl:text>harmonic</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^heel$')">
-                        <xsl:text>heel</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^open$')">
-                        <xsl:text>open-string</xsl:text>
-                      </xsl:when>
-                      <!--<xsl:when test="matches(., '^lhpizz$')">
-                        <xsl:text>pluck</xsl:text>
-                      </xsl:when>-->
-                      <xsl:when test="matches(., '^snap$')">
-                        <xsl:text>snap-pizzicato</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^stop$')">
-                        <xsl:text>stopped</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^tap$')">
-                        <xsl:text>tap</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^toe$')">
-                        <xsl:text>toe</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^trpltongue$')">
-                        <xsl:text>triple-tongue</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^upbow$')">
-                        <xsl:text>up-bow</xsl:text>
-                      </xsl:when>
-                    </xsl:choose>
-                  </xsl:variable>
-                  <xsl:element name="{$articElement}">
-                    <xsl:if test="($articPlace != '')">
-                      <xsl:attribute name="placement">
-                        <xsl:value-of select="$articPlace"/>
-                      </xsl:attribute>
-                    </xsl:if>
-                  </xsl:element>
-                </xsl:non-matching-substring>
-              </xsl:analyze-string>
-            </xsl:for-each>
-          </xsl:when>
-          <xsl:when test="ancestor::mei:chord and not(preceding-sibling::mei:note)">
-            <xsl:for-each select="ancestor::mei:chord/mei:artic">
-              <xsl:variable name="articPlace">
-                <xsl:value-of select="@place"/>
-              </xsl:variable>
-              <xsl:analyze-string select="@artic" regex="\s+">
-                <xsl:non-matching-substring>
-                  <xsl:variable name="articElement">
-                    <xsl:choose>
-                      <!-- articulations -->
-                      <xsl:when test="matches(., '^acc$')">
-                        <xsl:text>accent</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^doit$')">
-                        <xsl:text>doit</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^fall$')">
-                        <xsl:text>falloff</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^marc$')">
-                        <xsl:text>strong-accent</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^plop$')">
-                        <xsl:text>plop</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^rip$')">
-                        <xsl:text>scoop</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^spicc$')">
-                        <xsl:text>spiccato</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^stacc$')">
-                        <xsl:text>staccato</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^stacciss$')">
-                        <xsl:text>staccatissimo</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^ten$')">
-                        <xsl:text>tenuto</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^ten-stacc$')">
-                        <xsl:text>detached-legato</xsl:text>
-                      </xsl:when>
-                      <!-- technical -->
-                      <xsl:when test="matches(., '^bend$')">
-                        <xsl:text>bend</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^dbltongue$')">
-                        <xsl:text>double-tongue</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^dnbow$')">
-                        <xsl:text>down-bow</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^fingernail$')">
-                        <xsl:text>fingernails</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^harm$')">
-                        <xsl:text>harmonic</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^heel$')">
-                        <xsl:text>heel</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^open$')">
-                        <xsl:text>open-string</xsl:text>
-                      </xsl:when>
-                      <!--<xsl:when test="matches(., '^lhpizz$')">
-                        <xsl:text>pluck</xsl:text>
-                      </xsl:when>-->
-                      <xsl:when test="matches(., '^snap$')">
-                        <xsl:text>snap-pizzicato</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^stop$')">
-                        <xsl:text>stopped</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^tap$')">
-                        <xsl:text>tap</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^toe$')">
-                        <xsl:text>toe</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^trpltongue$')">
-                        <xsl:text>triple-tongue</xsl:text>
-                      </xsl:when>
-                      <xsl:when test="matches(., '^upbow$')">
-                        <xsl:text>up-bow</xsl:text>
-                      </xsl:when>
-                    </xsl:choose>
-                  </xsl:variable>
-                  <xsl:element name="{$articElement}">
-                    <xsl:if test="($articPlace != '')">
-                      <xsl:attribute name="placement">
-                        <xsl:value-of select="$articPlace"/>
-                      </xsl:attribute>
-                    </xsl:if>
-                  </xsl:element>
-                </xsl:non-matching-substring>
-              </xsl:analyze-string>
-            </xsl:for-each>
-          </xsl:when>
-        </xsl:choose>
+
+      <xsl:variable name="thisEventID">
+        <xsl:value-of select="@xml:id"/>
       </xsl:variable>
-      <xsl:if test="$notations/*">
+      <xsl:variable name="articulations">
+        <xsl:for-each select="mei:artic">
+          <xsl:variable name="articPlace">
+            <xsl:value-of select="@place"/>
+          </xsl:variable>
+          <xsl:analyze-string select="@artic" regex="\s+">
+            <xsl:non-matching-substring>
+              <xsl:variable name="articElement">
+                <xsl:choose>
+                  <!-- articulations -->
+                  <xsl:when test="matches(., '^acc$')">
+                    <xsl:text>accent</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^doit$')">
+                    <xsl:text>doit</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^fall$')">
+                    <xsl:text>falloff</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^marc$')">
+                    <xsl:text>strong-accent</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^plop$')">
+                    <xsl:text>plop</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^rip$')">
+                    <xsl:text>scoop</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^spicc$')">
+                    <xsl:text>spiccato</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^stacc$')">
+                    <xsl:text>staccato</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^stacciss$')">
+                    <xsl:text>staccatissimo</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^ten$')">
+                    <xsl:text>tenuto</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^ten-stacc$')">
+                    <xsl:text>detached-legato</xsl:text>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:variable>
+              <xsl:if test="$articElement != ''">
+                <xsl:element name="{$articElement}">
+                  <xsl:if test="($articPlace != '')">
+                    <xsl:attribute name="placement">
+                      <xsl:value-of select="$articPlace"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                </xsl:element>
+              </xsl:if>
+            </xsl:non-matching-substring>
+          </xsl:analyze-string>
+        </xsl:for-each>
+
+        <xsl:for-each
+          select="ancestor::events/following-sibling::controlevents/mei:dir[substring(@startid,2)=$thisEventID][@label='breath-mark'
+          or @label='caesura' or @label='stress' or @label='unstress']">
+          <xsl:variable name="articPlace">
+            <xsl:value-of select="@place"/>
+          </xsl:variable>
+          <xsl:variable name="articElement">
+            <xsl:value-of select="@label"/>
+          </xsl:variable>
+          <xsl:if test="$articElement != ''">
+            <xsl:element name="{$articElement}">
+              <xsl:if test="($articPlace != '')">
+                <xsl:attribute name="placement">
+                  <xsl:value-of select="$articPlace"/>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:element>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+
+      <xsl:variable name="dynamics">
+        <xsl:for-each
+          select="ancestor::events/following-sibling::controlevents/mei:dynam[substring(@startid,2)=$thisEventID]">
+          <xsl:variable name="dynamPlace">
+            <xsl:value-of select="@place"/>
+          </xsl:variable>
+          <xsl:variable name="dynamElement">
+            <xsl:choose>
+              <xsl:when test="matches(normalize-space(.),
+                '^(p|f){1,5}$|^m(f|p)$|^sf(p{1,2})?$|^sf{1,2}z$|^rfz?$|^fz$')">
+                <xsl:value-of select="."/>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>other-dynamics</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:if test="$dynamElement != ''">
+            <xsl:element name="{$dynamElement}">
+              <xsl:if test="($dynamPlace != '')">
+                <xsl:attribute name="placement">
+                  <xsl:value-of select="$dynamPlace"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:if test="$dynamElement = 'other-dynamics'">
+                <xsl:value-of select="normalize-space(.)"/>
+              </xsl:if>
+            </xsl:element>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+
+      <xsl:variable name="ornaments">
+        <xsl:for-each
+          select="ancestor::events/following-sibling::controlevents/mei:*[local-name()='mordent' or
+          local-name()='trill' or local-name()='turn'][substring(@startid,2)=$thisEventID] |
+          ancestor::events/following-sibling::controlevents/mei:dir[@label='shake' or
+          @label='schleifer'][substring(@startid,2)=$thisEventID]">
+          <xsl:variable name="ornamPlace">
+            <xsl:value-of select="@place"/>
+          </xsl:variable>
+          <xsl:variable name="ornamElement">
+            <xsl:choose>
+              <xsl:when test="local-name()='dir'">
+                <xsl:value-of select="@label"/>
+              </xsl:when>
+              <xsl:when test="local-name()='mordent'">
+                <xsl:choose>
+                  <xsl:when test="@form='inv' and @label='shake'">
+                    <xsl:text>shake</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="@form='inv'">
+                    <xsl:text>inverted-mordent</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:value-of select="local-name()"/>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+              <xsl:when test="local-name()='trill'">
+                <xsl:text>trill-mark</xsl:text>
+              </xsl:when>
+              <xsl:when test="local-name()='turn'">
+                <xsl:choose>
+                  <xsl:when test="@form='inv' and @delayed='true'">
+                    <xsl:text>delayed-inverted-turn</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="@form='inv'">
+                    <xsl:text>inverted-turn</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="@delayed='true'">
+                    <xsl:text>delayed-turn</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>turn</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:variable>
+          <xsl:if test="$ornamElement != ''">
+            <xsl:element name="{$ornamElement}">
+              <xsl:if test="($ornamPlace != '')">
+                <xsl:attribute name="placement">
+                  <xsl:value-of select="$ornamPlace"/>
+                </xsl:attribute>
+              </xsl:if>
+            </xsl:element>
+            <xsl:if test="@accidupper">
+              <accidental-mark>
+                <xsl:attribute name="placement">
+                  <xsl:text>above</xsl:text>
+                </xsl:attribute>
+                <xsl:analyze-string select="@accidupper" regex="\s+">
+                  <xsl:non-matching-substring>
+                    <xsl:choose>
+                      <xsl:when test="normalize-space(.) = 's'">
+                        <xsl:text>sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'n'">
+                        <xsl:text>natural</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'f'">
+                        <xsl:text>flat</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'x'">
+                        <xsl:text>double-sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ff'">
+                        <xsl:text>double-flat</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ss'">
+                        <xsl:text>sharp-sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ff'">
+                        <xsl:text>flat-flat</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ns'">
+                        <xsl:text>natural-sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'nf'">
+                        <xsl:text>natural-flat</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'fd'">
+                        <xsl:text>flat-down</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'fu'">
+                        <xsl:text>flat-up</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'nd'">
+                        <xsl:text>natural-down</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'nu'">
+                        <xsl:text>natural-up</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'sd'">
+                        <xsl:text>sharp-down</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'su'">
+                        <xsl:text>sharp-up</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ts'">
+                        <xsl:text>triple-sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'tf'">
+                        <xsl:text>triple-flat</xsl:text>
+                      </xsl:when>
+                    </xsl:choose>
+                  </xsl:non-matching-substring>
+                </xsl:analyze-string>
+              </accidental-mark>
+            </xsl:if>
+            <xsl:if test="@accidlower">
+              <accidental-mark>
+                <xsl:attribute name="placement">
+                  <xsl:text>below</xsl:text>
+                </xsl:attribute>
+                <xsl:analyze-string select="@accidlower" regex="\s+">
+                  <xsl:non-matching-substring>
+                    <xsl:choose>
+                      <xsl:when test="normalize-space(.) = 's'">
+                        <xsl:text>sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'n'">
+                        <xsl:text>natural</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'f'">
+                        <xsl:text>flat</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'x'">
+                        <xsl:text>double-sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ff'">
+                        <xsl:text>double-flat</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ss'">
+                        <xsl:text>sharp-sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ff'">
+                        <xsl:text>flat-flat</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ns'">
+                        <xsl:text>natural-sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'nf'">
+                        <xsl:text>natural-flat</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'fd'">
+                        <xsl:text>flat-down</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'fu'">
+                        <xsl:text>flat-up</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'nd'">
+                        <xsl:text>natural-down</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'nu'">
+                        <xsl:text>natural-up</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'sd'">
+                        <xsl:text>sharp-down</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'su'">
+                        <xsl:text>sharp-up</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'ts'">
+                        <xsl:text>triple-sharp</xsl:text>
+                      </xsl:when>
+                      <xsl:when test="normalize-space(.) = 'tf'">
+                        <xsl:text>triple-flat</xsl:text>
+                      </xsl:when>
+                    </xsl:choose>
+                  </xsl:non-matching-substring>
+                </xsl:analyze-string>
+              </accidental-mark>
+            </xsl:if>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+
+      <xsl:variable name="technical">
+        <xsl:for-each select="mei:artic">
+          <xsl:variable name="techPlace">
+            <xsl:value-of select="@place"/>
+          </xsl:variable>
+          <xsl:analyze-string select="@artic" regex="\s+">
+            <xsl:non-matching-substring>
+              <xsl:variable name="techElement">
+                <xsl:choose>
+                  <!-- technical -->
+                  <xsl:when test="matches(., '^bend$')">
+                    <xsl:text>bend</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^dbltongue$')">
+                    <xsl:text>double-tongue</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^dnbow$')">
+                    <xsl:text>down-bow</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^fingernail$')">
+                    <xsl:text>fingernails</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^harm$')">
+                    <xsl:text>harmonic</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^heel$')">
+                    <xsl:text>heel</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^open$')">
+                    <xsl:text>open-string</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^snap$')">
+                    <xsl:text>snap-pizzicato</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^stop$')">
+                    <xsl:text>stopped</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^tap$')">
+                    <xsl:text>tap</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^toe$')">
+                    <xsl:text>toe</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^trpltongue$')">
+                    <xsl:text>triple-tongue</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., '^upbow$')">
+                    <xsl:text>up-bow</xsl:text>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:variable>
+              <xsl:if test="$techElement != ''">
+                <xsl:element name="{$techElement}">
+                  <xsl:if test="($techPlace != '')">
+                    <xsl:attribute name="placement">
+                      <xsl:value-of select="$techPlace"/>
+                    </xsl:attribute>
+                  </xsl:if>
+                </xsl:element>
+              </xsl:if>
+            </xsl:non-matching-substring>
+          </xsl:analyze-string>
+        </xsl:for-each>
+
+        <xsl:for-each
+          select="ancestor::events/following-sibling::controlevents/mei:dir[@label='fingering'
+          or @label='hammer-on' or @label='pluck' or
+          @label='pull-off'][substring(@startid,2)=$thisEventID]">
+          <xsl:variable name="techPlace">
+            <xsl:value-of select="@place"/>
+          </xsl:variable>
+          <xsl:variable name="techElement">
+            <xsl:value-of select="@label"/>
+          </xsl:variable>
+          <xsl:if test="$techElement != ''">
+            <xsl:element name="{$techElement}">
+              <xsl:if test="($techPlace != '')">
+                <xsl:attribute name="placement">
+                  <xsl:value-of select="$techPlace"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:if test="@label='fingering' or @label='pluck'">
+                <xsl:copy-of select="node()"/>
+              </xsl:if>
+            </xsl:element>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+
+      <xsl:if test="$dynamics/* or $articulations/* or $ornaments/* or $technical/*">
         <notations>
-          <xsl:if test="$notations/*[matches(local-name(),'^accent$') or matches(local-name(),
-            '^detached-legato') or matches(local-name(), '^doit$') or
-            matches(local-name(), '^falloff$') or matches(local-name(), '^plop$') or
-            matches(local-name(), '^scoop$') or matches(local-name(), '^spiccato$') or
-            matches(local-name(), '^staccato$') or matches(local-name(),
-            '^staccatissimo$') or matches(local-name(), '^strong-accent$') or
-            matches(local-name(), '^tenuto$')]">
+          <xsl:if test="$articulations/*">
             <articulations>
-              <xsl:copy-of select="$notations/*[matches(local-name(),'^accent$') or
-                matches(local-name(), '^detached-legato') or matches(local-name(),
-                '^doit$') or matches(local-name(), '^falloff$') or
-                matches(local-name(), '^plop$') or matches(local-name(), '^scoop$') or
-                matches(local-name(), '^spiccato$') or matches(local-name(),
-                '^staccato$') or matches(local-name(), '^staccatissimo$') or
-                matches(local-name(), '^strong-accent$') or matches(local-name(),
-                '^tenuto$')]"/>
+              <xsl:copy-of select="$articulations/*"/>
             </articulations>
           </xsl:if>
-          <xsl:if test="$notations/*[matches(local-name(), '^bend$') or matches(local-name(),
-            '^double-tongue$') or matches(local-name(), '^down-bow$') or
-            matches(local-name(), '^fingernails$') or matches(local-name(),
-            '^harmonic$') or matches(local-name(), '^heel$') or matches(local-name(),
-            '^open-string$') or matches(local-name(), '^snap-pizzicato$') or
-            matches(local-name(), '^stopped$') or matches(local-name(), '^tap$') or
-            matches(local-name(), '^toe$') or matches(local-name(), '^triple-tongue$')
-            or matches(local-name(), '^up-bow$')]">
+          <xsl:if test="$dynamics/*">
+            <dynamics>
+              <xsl:copy-of select="$dynamics/*"/>
+            </dynamics>
+          </xsl:if>
+          <xsl:if test="$ornaments/*">
+            <ornaments>
+              <xsl:for-each
+                select="ancestor::events/following-sibling::controlevents/mei:*[local-name()='mordent'
+                or local-name()='trill' or
+                local-name()='turn'][substring(@startid,2)=$thisEventID] |
+                ancestor::events/following-sibling::controlevents/mei:dir[@label='shake' or
+                @label='schleifer'][substring(@startid,2)=$thisEventID]">
+                <xsl:copy-of select="comment()"/>
+              </xsl:for-each>
+              <xsl:copy-of select="$ornaments/*"/>
+            </ornaments>
+          </xsl:if>
+          <xsl:if test="$technical/*">
             <technical>
-              <xsl:copy-of select="$notations/*[matches(local-name(), '^bend$') or
-                matches(local-name(), '^double-tongue$') or matches(local-name(),
-                '^down-bow$') or matches(local-name(), '^fingernails$') or
-                matches(local-name(), '^harmonic$') or matches(local-name(), '^heel$') or
-                matches(local-name(), '^open-string$') or matches(local-name(), '^snap-pizzicato$')
-                or matches(local-name(), '^stopped$') or matches(local-name(),
-                '^tap$') or matches(local-name(), '^toe$') or matches(local-name(),
-                '^triple-tongue$') or matches(local-name(), '^up-bow$')]"/>
+              <xsl:copy-of select="$technical/*"/>
             </technical>
           </xsl:if>
         </notations>
       </xsl:if>
+
       <xsl:for-each select="mei:verse">
         <lyric>
           <xsl:attribute name="number">
@@ -1265,6 +1540,7 @@
 
   <xsl:template match="mei:rest | mei:mRest | mei:space | mei:mSpace">
     <note>
+      <xsl:copy-of select="@*"/>
       <rest>
         <xsl:if test="local-name()='mRest' or local-name()='mSpace'">
           <xsl:attribute name="measure">
