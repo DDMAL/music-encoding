@@ -500,7 +500,8 @@
         <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
       </xsl:comment>
     </xsl:if>
-    <!-- If next sibling is an accidental, it also belongs to this ornament. -->
+    <!-- Include accidentals that apply to this ornament; that is,
+    they follow this ornament, but precede any other ornament -->
     <xsl:for-each select="following-sibling::*[1]">
       <xsl:if test="local-name()='accidental-mark'">
         <xsl:apply-templates select="." mode="stage1.amlist"/>
@@ -5049,6 +5050,8 @@
           </xsl:choose>
         </xsl:attribute>
         <xsl:call-template name="positionRelative"/>
+        <!-- Include accidentals that apply to this ornament; that is,
+        they follow this ornament, but precede any other ornament -->
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
             <xsl:apply-templates select="." mode="stage1.amlist"/>
@@ -5103,7 +5106,7 @@
           </xsl:choose>
         </xsl:attribute>
         <xsl:call-template name="positionRelative"/>
-        <!-- Get accidentals that apply to this ornament; that is,
+        <!-- Include accidentals that apply to this ornament; that is,
         they follow this ornament, but precede any other ornament -->
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
@@ -5164,6 +5167,8 @@
           <xsl:attribute name="form">inv</xsl:attribute>
         </xsl:if>
         <xsl:call-template name="positionRelative"/>
+        <!-- Include accidentals that apply to this ornament; that is,
+        they follow this ornament, but precede any other ornament -->
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
             <xsl:apply-templates select="." mode="stage1.amlist"/>
@@ -5214,6 +5219,8 @@
           </xsl:attribute>
         </xsl:for-each>
         <xsl:call-template name="positionRelative"/>
+        <!-- Include accidentals that apply to this ornament; that is,
+        they follow this ornament, but precede any other ornament -->
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
             <xsl:apply-templates select="." mode="stage1.amlist"/>
