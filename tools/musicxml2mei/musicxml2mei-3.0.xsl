@@ -5234,15 +5234,27 @@
       </xsl:for-each>
       <!-- Attributes based on starting note -->
       <xsl:choose>
-        <xsl:when test="@orientation='under' or @placement='below' or ancestor::note/stem='up'">
+        <xsl:when test="@orientation or @placement">
           <xsl:attribute name="curvedir">
-            <xsl:text>below</xsl:text>
+            <xsl:choose>
+              <xsl:when test="@orientation='under' or @placement='below'">
+                <xsl:text>below</xsl:text>
+              </xsl:when>
+              <xsl:when test="@orientation='over' or @placement='above'">
+                <xsl:text>above</xsl:text>
+              </xsl:when>
+            </xsl:choose>
           </xsl:attribute>
         </xsl:when>
-        <xsl:when test="@orientation='over' or @placement='above' or ancestor::note/stem='down'">
-          <xsl:attribute name="curvedir">
-            <xsl:text>above</xsl:text>
-          </xsl:attribute>
+        <xsl:when test="ancestor::note/stem">
+          <xsl:choose>
+            <xsl:when test="ancestor::note/stem='up'">
+              <xsl:text>below</xsl:text>
+            </xsl:when>
+            <xsl:when test="ancestor::note/stem='down'">
+              <xsl:text>above</xsl:text>
+            </xsl:when>
+          </xsl:choose>
         </xsl:when>
         <xsl:otherwise>
           <xsl:variable name="measureNum">
