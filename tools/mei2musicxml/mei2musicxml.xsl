@@ -117,17 +117,6 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="mei:chord">
-    <xsl:for-each select="mei:note">
-      <note>
-        <xsl:copy-of select="@*"/>
-        <xsl:if test="position() &gt; 1">
-          <chord/>
-        </xsl:if>
-      </note>
-    </xsl:for-each>
-  </xsl:template>
-
   <xsl:template match="mei:fileDesc" mode="source">
     <xsl:for-each select="mei:titleStmt">
       <xsl:variable name="creators">
