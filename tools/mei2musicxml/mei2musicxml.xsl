@@ -1087,6 +1087,42 @@
         </xsl:for-each>
       </xsl:variable>
 
+      <xsl:variable name="arpeggiation">
+        <xsl:for-each
+          select="ancestor::events/following-sibling::controlevents/mei:arpeg[not(@order='nonarp')]">
+          <xsl:analyze-string select="@plist" regex="\s+">
+            <xsl:non-matching-substring>
+              <xsl:if test="substring(.,2)=$thisEventID">
+                <arpeggiate/>
+              </xsl:if>
+            </xsl:non-matching-substring>
+          </xsl:analyze-string>
+        </xsl:for-each>
+        <xsl:for-each
+          select="ancestor::events/following-sibling::controlevents/mei:arpeg[@order='nonarp']">
+          <xsl:variable name="firstNoteID">
+            <xsl:value-of select="substring(replace(@plist,'^([^\s]+)\s+.*', '$1'), 2)"/>
+          </xsl:variable>
+          <xsl:variable name="lastNoteID">
+            <xsl:value-of select="substring(replace(@plist,'^.*\s+([^\s]+)$','$1'), 2)"/>
+          </xsl:variable>
+          <xsl:if test="matches($thisEventID, $firstNoteID) or matches($thisEventID, $lastNoteID)">
+            <non-arpeggiate>
+              <xsl:attribute name="type">
+                <xsl:choose>
+                  <xsl:when test="matches($thisEventID, $firstNoteID)">
+                    <xsl:text>bottom</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches($thisEventID, $lastNoteID)">
+                    <xsl:text>top</xsl:text>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:attribute>
+            </non-arpeggiate>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+
       <xsl:variable name="articulations">
         <xsl:for-each select="mei:artic">
           <xsl:variable name="articPlace">
@@ -1501,11 +1537,14 @@
         </xsl:for-each>
       </xsl:variable>
 
-      <xsl:if test="$accidentalMarks/* or $articulations/* or $dynamics/* or $fermatas/* or
-        $ornaments/* or $technical/*">
+      <xsl:if test="$accidentalMarks/* or $arpeggiation/* or $articulations/* or $dynamics/* or
+        $fermatas/* or $ornaments/* or $technical/*">
         <notations>
           <xsl:if test="$accidentalMarks/*">
             <xsl:copy-of select="$accidentalMarks/*"/>
+          </xsl:if>
+          <xsl:if test="$arpeggiation/*">
+            <xsl:copy-of select="$arpeggiation/*"/>
           </xsl:if>
           <xsl:if test="$articulations/*">
             <articulations>
