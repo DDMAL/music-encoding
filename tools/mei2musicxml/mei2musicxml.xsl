@@ -1023,6 +1023,70 @@
       <xsl:variable name="thisEventID">
         <xsl:value-of select="@xml:id"/>
       </xsl:variable>
+
+      <xsl:variable name="accidentalMarks">
+        <xsl:for-each select="mei:accid[@place='above' or @place='below' or @func='edit' or
+          @func='caution']">
+          <accidental-mark>
+            <xsl:if test="@place">
+              <xsl:attribute name="placement">
+                <xsl:value-of select="@place"/>
+              </xsl:attribute>
+            </xsl:if>
+            <xsl:choose>
+              <xsl:when test="@accid='s'">
+                <xsl:text>sharp</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='n'">
+                <xsl:text>natural</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='f'">
+                <xsl:text>flat</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='x'">
+                <xsl:text>double-sharp</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='ff'">
+                <xsl:text>double-flat</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='ss'">
+                <xsl:text>sharp-sharp</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='ns'">
+                <xsl:text>natural-sharp</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='nf'">
+                <xsl:text>natural-flat</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='fd'">
+                <xsl:text>flat-down</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='fu'">
+                <xsl:text>flat-up</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='nd'">
+                <xsl:text>natural-down</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='nu'">
+                <xsl:text>natural-up</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='sd'">
+                <xsl:text>sharp-down</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='su'">
+                <xsl:text>sharp-up</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='ts'">
+                <xsl:text>triple-sharp</xsl:text>
+              </xsl:when>
+              <xsl:when test="@accid='tf'">
+                <xsl:text>triple-flat</xsl:text>
+              </xsl:when>
+            </xsl:choose>
+          </accidental-mark>
+        </xsl:for-each>
+      </xsl:variable>
+
       <xsl:variable name="articulations">
         <xsl:for-each select="mei:artic">
           <xsl:variable name="articPlace">
@@ -1131,6 +1195,32 @@
               </xsl:if>
             </xsl:element>
           </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+
+      <xsl:variable name="fermatas">
+        <xsl:for-each
+          select="ancestor::events/following-sibling::controlevents/mei:fermata[substring(@startid,2)=$thisEventID]">
+          <fermata>
+            <xsl:attribute name="type">
+              <xsl:choose>
+                <xsl:when test="@form = 'inv'">
+                  <xsl:text>inverted</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>upright</xsl:text>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:attribute>
+            <xsl:choose>
+              <xsl:when test="@shape = 'square'">
+                <xsl:text>square</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>normal</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </fermata>
         </xsl:for-each>
       </xsl:variable>
 
@@ -1411,8 +1501,12 @@
         </xsl:for-each>
       </xsl:variable>
 
-      <xsl:if test="$dynamics/* or $articulations/* or $ornaments/* or $technical/*">
+      <xsl:if test="$accidentalMarks/* or $articulations/* or $dynamics/* or $fermatas/* or
+        $ornaments/* or $technical/*">
         <notations>
+          <xsl:if test="$accidentalMarks/*">
+            <xsl:copy-of select="$accidentalMarks/*"/>
+          </xsl:if>
           <xsl:if test="$articulations/*">
             <articulations>
               <xsl:copy-of select="$articulations/*"/>
@@ -1422,6 +1516,9 @@
             <dynamics>
               <xsl:copy-of select="$dynamics/*"/>
             </dynamics>
+          </xsl:if>
+          <xsl:if test="$fermatas/*">
+            <xsl:copy-of select="$fermatas/*"/>
           </xsl:if>
           <xsl:if test="$ornaments/*">
             <ornaments>
