@@ -4628,9 +4628,9 @@
         </dir>
       </xsl:when>
       <xsl:when test="local-name()='accent' or local-name()='detached-legato' or
-        local-name()='doit' or local-name()='falloff' or local-name()='plop' or local-name()='scoop'
-        or local-name()='spiccato' or local-name()='staccatissimo' or
-        local-name()='staccato' or local-name()='strong-accent' or local-name()='tenuto'">
+        local-name()='doit' or local-name()='falloff' or local-name()='plop' or
+        local-name()='spiccato' or local-name()='staccatissimo' or local-name()='staccato'
+        or local-name()='strong-accent' or local-name()='tenuto'">
         <!-- Do nothing; these are handled as note-level articulations -->
       </xsl:when>
       <xsl:otherwise>
@@ -7377,9 +7377,12 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="local-name()='plop'">
             <xsl:text>plop</xsl:text>
           </xsl:when>
-          <xsl:when test="local-name()='scoop'">
+          <!-- Scoop and rip are not equivalent; scoop not currently
+          supported in MEI. This test can be reinstated after 'scoop'
+          is added to data.ARTICULATION. -->
+          <!--<xsl:when test="local-name()='scoop'">
             <xsl:text>rip</xsl:text>
-          </xsl:when>
+          </xsl:when>-->
           <xsl:when test="local-name()='spiccato'">
             <xsl:text>spicc</xsl:text>
           </xsl:when>
@@ -7460,9 +7463,9 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
     can be recorded. -->
     <xsl:for-each select="notations/articulations/*[not(local-name()='breath-mark' or
       local-name()='caesura' or local-name()='stress' or local-name()='unstress' or
-      local-name()='other-articulation')]">
+      local-name()='other-articulation' or local-name()='scoop')]">
       <!-- Breath marks, caesura, stress, and unstress are treated elsewhere as directives.
-        Other-articulation is not currently transcoded. -->
+        Other-articulation and scoop are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
           <xsl:when test="local-name()='accent'">
@@ -7505,14 +7508,17 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <xsl:when test="local-name()='scoop'">
+          <!-- Scoop and rip are not equivalent; scoop not currently
+          supported in MEI. This test can be reinstated after 'scoop'
+          is added to data.ARTICULATION. -->
+          <!--<xsl:when test="local-name()='scoop'">
             <xsl:attribute name="artic">rip</xsl:attribute>
             <xsl:if test="@placement != ''">
               <xsl:attribute name="place">
                 <xsl:value-of select="@placement"/>
               </xsl:attribute>
             </xsl:if>
-          </xsl:when>
+          </xsl:when>-->
           <xsl:when test="local-name()='spiccato'">
             <xsl:attribute name="artic">spicc</xsl:attribute>
             <xsl:if test="@placement != ''">
@@ -7563,7 +7569,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       local-name()='bend' or local-name()='fingering' or local-name()='fret' or
       local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
       local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
-      local-name()='string' or local-name()='thumb-position')]">
+      local-name()='string' or local-name()='thumb-position' or local-name()='scoop')]">
       <!-- String and fret indications are handled elsewhere as note attributes. Plucking
           finger, hammer-on, and pull-off indications are treated elsewhere as directives. 
           The remaining elements above are not currently transcoded. -->
