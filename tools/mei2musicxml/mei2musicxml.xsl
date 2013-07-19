@@ -1020,10 +1020,18 @@
         </xsl:choose>
       </staff>
 
+      <!-- So-called "notations" attached to individual notes -->
+      <!-- Processing MEI control events into MusicXML notations requires checking the
+      control event's startid (and sometimes endid) against the current event ID. -->
       <xsl:variable name="thisEventID">
         <xsl:value-of select="@xml:id"/>
       </xsl:variable>
 
+      <!-- The following variables, e.g., $accidentalMarks, $arpeggiation, etc., 
+      collect MusicXML elements. Later, if found not to be empty, their contents
+      are copied to <notations> sub-elements. -->
+
+      <!-- Editorial and cautionary accidentals -->
       <xsl:variable name="accidentalMarks">
         <xsl:for-each select="mei:accid[@place='above' or @place='below' or @func='edit' or
           @func='caution']">
@@ -1087,6 +1095,7 @@
         </xsl:for-each>
       </xsl:variable>
 
+      <!-- Arpeggiation in MEI is a control event. -->
       <xsl:variable name="arpeggiation">
         <xsl:for-each
           select="ancestor::events/following-sibling::controlevents/mei:arpeg[not(@order='nonarp')]">
@@ -1123,6 +1132,7 @@
         </xsl:for-each>
       </xsl:variable>
 
+      <!-- Articulations -->
       <xsl:variable name="articulations">
         <xsl:for-each select="mei:artic">
           <xsl:variable name="articPlace">
@@ -1132,7 +1142,6 @@
             <xsl:non-matching-substring>
               <xsl:variable name="articElement">
                 <xsl:choose>
-                  <!-- articulations -->
                   <xsl:when test="matches(., '^acc$')">
                     <xsl:text>accent</xsl:text>
                   </xsl:when>
@@ -1180,7 +1189,7 @@
             </xsl:non-matching-substring>
           </xsl:analyze-string>
         </xsl:for-each>
-
+        <!-- Some MusicXML "articulations" are MEI control events. -->
         <xsl:for-each
           select="ancestor::events/following-sibling::controlevents/mei:dir[substring(@startid,2)=$thisEventID][@label='breath-mark'
           or @label='caesura' or @label='stress' or @label='unstress']">
@@ -1202,6 +1211,7 @@
         </xsl:for-each>
       </xsl:variable>
 
+      <!-- Dynamics are control events in MEI. -->
       <xsl:variable name="dynamics">
         <xsl:for-each
           select="ancestor::events/following-sibling::controlevents/mei:dynam[substring(@startid,2)=$thisEventID]">
@@ -1226,6 +1236,7 @@
                   <xsl:value-of select="$dynamPlace"/>
                 </xsl:attribute>
               </xsl:if>
+              <!-- Copy directive content -->
               <xsl:if test="$dynamElement = 'other-dynamics'">
                 <xsl:value-of select="normalize-space(.)"/>
               </xsl:if>
@@ -1234,6 +1245,7 @@
         </xsl:for-each>
       </xsl:variable>
 
+      <!-- Fermatas are control events in MEI. -->
       <xsl:variable name="fermatas">
         <xsl:for-each
           select="ancestor::events/following-sibling::controlevents/mei:fermata[substring(@startid,2)=$thisEventID]">
@@ -1260,6 +1272,7 @@
         </xsl:for-each>
       </xsl:variable>
 
+      <!-- Ornaments are control events in MEI. -->
       <xsl:variable name="ornaments">
         <xsl:for-each
           select="ancestor::events/following-sibling::controlevents/mei:*[local-name()='mordent' or
@@ -1316,6 +1329,7 @@
                 </xsl:attribute>
               </xsl:if>
             </xsl:element>
+            <!-- Accidentals attached to ornament -->
             <xsl:if test="@accidupper">
               <accidental-mark>
                 <xsl:attribute name="placement">
@@ -1448,7 +1462,9 @@
         </xsl:for-each>
       </xsl:variable>
 
+      <!-- Technical/performance indications -->
       <xsl:variable name="technical">
+        <!-- Some indications are MEI articulations. -->
         <xsl:for-each select="mei:artic">
           <xsl:variable name="techPlace">
             <xsl:value-of select="@place"/>
@@ -1506,12 +1522,36 @@
                       <xsl:value-of select="$techPlace"/>
                     </xsl:attribute>
                   </xsl:if>
+                  <!-- Generate content -->
+                  <xsl:if test="$techElement = 'tap'">
+                    <xsl:text>T</xsl:text>
+                  </xsl:if>
                 </xsl:element>
               </xsl:if>
             </xsl:non-matching-substring>
           </xsl:analyze-string>
         </xsl:for-each>
 
+        <!-- String tablature is recorded in event attributes. -->
+        <xsl:if test="@tab.string">
+          <string>
+            <xsl:value-of select="@tab.string"/>
+          </string>
+        </xsl:if>
+        <xsl:if test="@tab.fret">
+          <fret>
+            <xsl:choose>
+              <xsl:when test="@tab.fret='o'">
+                <xsl:text>0</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:value-of select="@tab.fret"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </fret>
+        </xsl:if>
+
+        <!-- Other indications are MEI directives. -->
         <xsl:for-each
           select="ancestor::events/following-sibling::controlevents/mei:dir[@label='fingering'
           or @label='hammer-on' or @label='pluck' or
@@ -1529,6 +1569,7 @@
                   <xsl:value-of select="$techPlace"/>
                 </xsl:attribute>
               </xsl:if>
+              <!-- Copy content of directive -->
               <xsl:if test="@label='fingering' or @label='pluck'">
                 <xsl:copy-of select="node()"/>
               </xsl:if>
@@ -1537,6 +1578,8 @@
         </xsl:for-each>
       </xsl:variable>
 
+      <!-- If any of the preceding variables aren't empty, create a <notations> element
+      and fill it with appropriate content. -->
       <xsl:if test="$accidentalMarks/* or $arpeggiation/* or $articulations/* or $dynamics/* or
         $fermatas/* or $ornaments/* or $technical/*">
         <notations>
@@ -1561,6 +1604,8 @@
           </xsl:if>
           <xsl:if test="$ornaments/*">
             <ornaments>
+              <!-- In MusicXML ornaments, e.g., trill, don't allow content so copy
+              comments into parent <ornaments> element. -->
               <xsl:for-each
                 select="ancestor::events/following-sibling::controlevents/mei:*[local-name()='mordent'
                 or local-name()='trill' or
