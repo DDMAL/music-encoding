@@ -1206,6 +1206,16 @@
                   <xsl:value-of select="$articPlace"/>
                 </xsl:attribute>
               </xsl:if>
+              <xsl:if test="$articElement='breath-mark'">
+                <xsl:choose>
+                  <xsl:when test="matches(., &quot;&apos;&quot;)">
+                    <xsl:text>tick</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="matches(., ',')">
+                    <xsl:text>comma</xsl:text>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:if>
             </xsl:element>
           </xsl:if>
         </xsl:for-each>
@@ -1501,9 +1511,7 @@
                   <xsl:when test="matches(., '^stop$')">
                     <xsl:text>stopped</xsl:text>
                   </xsl:when>
-                  <xsl:when test="matches(., '^tap$')">
-                    <xsl:text>tap</xsl:text>
-                  </xsl:when>
+                  <!-- tap is recorded in a directive -->
                   <xsl:when test="matches(., '^toe$')">
                     <xsl:text>toe</xsl:text>
                   </xsl:when>
@@ -1521,10 +1529,6 @@
                     <xsl:attribute name="placement">
                       <xsl:value-of select="$techPlace"/>
                     </xsl:attribute>
-                  </xsl:if>
-                  <!-- Generate content -->
-                  <xsl:if test="$techElement = 'tap'">
-                    <xsl:text>T</xsl:text>
                   </xsl:if>
                 </xsl:element>
               </xsl:if>
@@ -1553,9 +1557,8 @@
 
         <!-- Other indications are MEI directives. -->
         <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:dir[@label='fingering'
-          or @label='hammer-on' or @label='pluck' or
-          @label='pull-off'][substring(@startid,2)=$thisEventID]">
+          select="ancestor::events/following-sibling::controlevents/mei:dir[@label='pluck' or
+          @label='tap'][substring(@startid,2)=$thisEventID]">
           <xsl:variable name="techPlace">
             <xsl:value-of select="@place"/>
           </xsl:variable>
@@ -1570,7 +1573,40 @@
                 </xsl:attribute>
               </xsl:if>
               <!-- Copy content of directive -->
-              <xsl:if test="@label='fingering' or @label='pluck'">
+              <xsl:copy-of select="node()"/>
+            </xsl:element>
+          </xsl:if>
+        </xsl:for-each>
+
+        <xsl:for-each
+          select="ancestor::events/following-sibling::controlevents/mei:dir[@label='hammer-on' or
+          @label='pull-off'][substring(@startid,2)=$thisEventID or
+          substring(@endid,2)=$thisEventID]">
+          <xsl:variable name="techPlace">
+            <xsl:value-of select="@place"/>
+          </xsl:variable>
+          <xsl:variable name="techElement">
+            <xsl:value-of select="@label"/>
+          </xsl:variable>
+          <xsl:if test="$techElement != ''">
+            <xsl:element name="{$techElement}">
+              <xsl:if test="($techPlace != '')">
+                <xsl:attribute name="placement">
+                  <xsl:value-of select="$techPlace"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:attribute name="type">
+                <xsl:choose>
+                  <xsl:when test="substring(@startid,2)=$thisEventID">
+                    <xsl:text>start</xsl:text>
+                  </xsl:when>
+                  <xsl:when test="substring(@endid,2)=$thisEventID">
+                    <xsl:text>stop</xsl:text>
+                  </xsl:when>
+                </xsl:choose>
+              </xsl:attribute>
+              <!-- Copy content of directive to start marker -->
+              <xsl:if test="substring(@startid,2)=$thisEventID">
                 <xsl:copy-of select="node()"/>
               </xsl:if>
             </xsl:element>
@@ -1595,9 +1631,17 @@
             </articulations>
           </xsl:if>
           <xsl:if test="$dynamics/*">
-            <dynamics>
-              <xsl:copy-of select="$dynamics/*"/>
-            </dynamics>
+            <xsl:for-each select="$dynamics/*">
+              <dynamics>
+                <xsl:copy-of select="@*"/>
+                <xsl:variable name="elementName">
+                  <xsl:value-of select="local-name()"/>
+                </xsl:variable>
+                <xsl:element name="{$elementName}">
+                  <xsl:copy-of select="node()"/>
+                </xsl:element>
+              </dynamics>
+            </xsl:for-each>
           </xsl:if>
           <xsl:if test="$fermatas/*">
             <xsl:copy-of select="$fermatas/*"/>
