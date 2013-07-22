@@ -4594,9 +4594,9 @@
                   <xsl:when test="matches(., 'tick')">
                     <xsl:text>'</xsl:text>
                   </xsl:when>
-                  <xsl:otherwise>
+                  <xsl:when test="matches(., 'comma')">
                     <xsl:text>,</xsl:text>
-                  </xsl:otherwise>
+                  </xsl:when>
                 </xsl:choose>
               </xsl:when>
               <xsl:when test="local-name()='caesura'">
@@ -4653,9 +4653,9 @@
   </xsl:template>
 
   <xsl:template match="note/notations/technical/*" mode="stage1.dir">
-    <!-- Most MusicXML technical indications are directives in MEI -->
+    <!-- Some MusicXML technical indications are directives in MEI -->
     <xsl:choose>
-      <xsl:when test="local-name()='pluck'">
+      <xsl:when test="local-name()='pluck' or local-name()='tap'">
         <dir xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="label">
             <xsl:value-of select="local-name()"/>
@@ -4796,12 +4796,12 @@
           <xsl:call-template name="positionRelative"/>
           <xsl:variable name="content">
             <xsl:choose>
-              <xsl:when test="local-name()='hammer-on'">
-                <xsl:text>H</xsl:text>
+              <xsl:when test="node()">
+                <xsl:copy-of select="node()"/>
               </xsl:when>
-              <xsl:when test="local-name()='pull-off'">
-                <xsl:text>P</xsl:text>
-              </xsl:when>
+              <xsl:otherwise>
+                <xsl:comment>empty</xsl:comment>
+              </xsl:otherwise>
             </xsl:choose>
           </xsl:variable>
           <xsl:choose>
@@ -4828,12 +4828,11 @@
       <xsl:when test="local-name()='double-tongue' or local-name()='down-bow' or
         local-name()='fingernails' or local-name()='harmonic' or local-name()='heel' or
         local-name()='open-string' or local-name()='snap-pizzicato' or local-name()='stopped'
-        or local-name()='tap' or local-name()='toe' or local-name()='triple-tongue' or
-        local-name()='up-bow'">
+        or local-name()='toe' or local-name()='triple-tongue' or local-name()='up-bow'">
         <!-- Do nothing; these are handled as note-level articulations -->
       </xsl:when>
       <xsl:when test="local-name()='fret' or local-name()='string'">
-        <!-- Do nothing; these are handled as string tablature -->
+        <!-- Do nothing; these are handled as note attributes -->
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="measureNum">
@@ -7405,10 +7404,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         local-name()='bend' or local-name()='fingering' or local-name()='fret' or
         local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
         local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
-        local-name()='string' or local-name()='thumb-position')]">
-        <!-- String and fret indications are handled elsewhere as note attributes. Plucking
-          finger, hammer-on, and pull-off indications are treated elsewhere as directives. 
-          The remaining elements above are not currently transcoded. -->
+        local-name()='string' or local-name()='tap' or local-name()='thumb-position')]">
+        <!-- String and fret indications are handled elsewhere as note attributes. Pluck, 
+          hammer-on, pull-off, and tap indications are treated elsewhere as directives. The 
+          remaining elements above are not currently transcoded. -->
         <xsl:choose>
           <xsl:when test="local-name()='double-tongue'">
             <xsl:text>dbltongue</xsl:text>
@@ -7435,9 +7434,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
           <xsl:when test="local-name()='stopped'">
             <xsl:text>stop</xsl:text>
           </xsl:when>
-          <xsl:when test="local-name()='tap'">
-            <xsl:text>tap</xsl:text>
-          </xsl:when>
+          <!-- Because it can contain text, tap is converted to a directive -->
           <xsl:when test="local-name()='toe'">
             <xsl:text>toe</xsl:text>
           </xsl:when>
@@ -7569,10 +7566,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       local-name()='bend' or local-name()='fingering' or local-name()='fret' or
       local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
       local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
-      local-name()='string' or local-name()='thumb-position' or local-name()='scoop')]">
-      <!-- String and fret indications are handled elsewhere as note attributes. Plucking
-          finger, hammer-on, and pull-off indications are treated elsewhere as directives. 
-          The remaining elements above are not currently transcoded. -->
+      local-name()='string' or local-name()='tap' or local-name()='thumb-position' or
+      local-name()='scoop')]">
+      <!-- String and fret indications are handled elsewhere as note attributes. Pluck, 
+        hammer-on, pull-off and tap indications are treated elsewhere as directives. 
+        The remaining elements above are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
           <xsl:when test="local-name()='double-tongue'">
@@ -7639,14 +7637,7 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
-          <xsl:when test="local-name()='tap'">
-            <xsl:attribute name="artic">tap</xsl:attribute>
-            <xsl:if test="@placement != ''">
-              <xsl:attribute name="place">
-                <xsl:value-of select="@placement"/>
-              </xsl:attribute>
-            </xsl:if>
-          </xsl:when>
+          <!-- Because it can contain text, tap is converted to a directive -->
           <xsl:when test="local-name()='toe'">
             <xsl:attribute name="artic">toe</xsl:attribute>
             <xsl:if test="@placement != ''">
