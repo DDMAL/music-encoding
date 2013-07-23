@@ -32,7 +32,10 @@
   <xsl:template match="/">
     <xsl:choose>
       <xsl:when test="mei:mei">
-        <xsl:apply-templates select="mei:mei"/>
+        <xsl:variable name="stage1">
+          <xsl:apply-templates select="mei:mei"/>
+        </xsl:variable>
+        <xsl:copy-of select="$stage1"/>
       </xsl:when>
       <xsl:otherwise>
         <xsl:variable name="errorMessage">The source file is not an MEI file!</xsl:variable>
@@ -225,11 +228,10 @@
               <xsl:value-of select="@n"/>
             </xsl:attribute>
           </xsl:if>
-          <xsl:if test="@width">
-            <xsl:attribute name="width">
-              <xsl:value-of select="@width * 5"/>
-            </xsl:attribute>
-          </xsl:if>
+
+          <!-- DEBUG: -->
+          <!--<xsl:copy-of select="@*"/>-->
+
           <xsl:variable name="measureContent">
             <!-- Gather event and controlevent contents of measure -->
             <events>
@@ -594,7 +596,9 @@
             </controlevents>
           </xsl:variable>
 
+          <!-- DEBUG: -->
           <!--<xsl:copy-of select="$measureContent"/>-->
+
           <!-- Group events by partID -->
           <xsl:variable name="measureContent2">
             <xsl:for-each-group select="$measureContent/events/*" group-by="@partID">
@@ -611,7 +615,9 @@
             <xsl:copy-of select="$measureContent/controlevents"/>
           </xsl:variable>
 
+          <!-- DEBUG: -->
           <!--<xsl:copy-of select="$measureContent2"/>-->
+
           <!-- Group events within part by MEI staff and voice -->
           <xsl:variable name="measureContent3">
             <xsl:for-each select="$measureContent2/part">
@@ -639,7 +645,9 @@
             <xsl:copy-of select="$measureContent2/controlevents"/>
           </xsl:variable>
 
+          <!-- DEBUG: -->
           <!--<xsl:copy-of select="$measureContent3"/>-->
+
           <!-- Replace temporary voice elements with <backup> delimiter between voices -->
           <xsl:variable name="measureContent4">
             <xsl:for-each select="$measureContent3/part">
@@ -671,7 +679,9 @@
             <xsl:copy-of select="$measureContent3/controlevents"/>
           </xsl:variable>
 
+          <!-- DEBUG: -->
           <!--<xsl:copy-of select="$measureContent4"/>-->
+
           <!-- Copy controlevents into appropriate part -->
           <xsl:variable name="measureContent5">
             <xsl:for-each select="$measureContent4/part">
@@ -693,15 +703,22 @@
             </xsl:for-each>
           </xsl:variable>
 
+          <!-- DEBUG: -->
           <!--<xsl:copy-of select="$measureContent5"/>-->
+
           <!-- Resolve temporary MEI elements to MusicXML -->
           <xsl:for-each select="$measureContent5/part">
             <part>
               <xsl:copy-of select="@*"/>
-              <events>
-                <xsl:apply-templates select="events/*" mode="partContent"/>
-              </events>
-              <xsl:copy-of select="controlevents"/>
+
+              <!-- DEBUG: -->
+              <!--<events>-->
+              <xsl:apply-templates select="events/*" mode="partContent"/>
+              <!-- DEBUG: -->
+              <!--</events>-->
+              <!--<xsl:copy-of select="controlevents"/>-->
+              <!--<xsl:copy-of select="controlevents/*"/>-->
+
             </part>
           </xsl:for-each>
         </measure>
@@ -726,7 +743,7 @@
 
   <xsl:template match="mei:mRest|mei:mSpace|mei:rest|mei:space" mode="partContent">
     <note>
-      <xsl:copy-of select="@*"/>
+      <!--<xsl:copy-of select="@*"/>-->
       <rest>
         <xsl:if test="@ploc">
           <display-step>
@@ -850,7 +867,7 @@
 
   <xsl:template match="mei:note" mode="partContent">
     <note>
-      <xsl:copy-of select="@*"/>
+      <!--<xsl:copy-of select="@*"/>-->
       <xsl:if test="ancestor::mei:chord and preceding-sibling::mei:note">
         <chord/>
       </xsl:if>
@@ -1097,8 +1114,7 @@
 
       <!-- Arpeggiation in MEI is a control event. -->
       <xsl:variable name="arpeggiation">
-        <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:arpeg[not(@order='nonarp')]">
+        <xsl:for-each select="following::controlevents/mei:arpeg[not(@order='nonarp')]">
           <xsl:analyze-string select="@plist" regex="\s+">
             <xsl:non-matching-substring>
               <xsl:if test="substring(.,2)=$thisEventID">
@@ -1107,8 +1123,7 @@
             </xsl:non-matching-substring>
           </xsl:analyze-string>
         </xsl:for-each>
-        <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:arpeg[@order='nonarp']">
+        <xsl:for-each select="following::controlevents/mei:arpeg[@order='nonarp']">
           <xsl:variable name="firstNoteID">
             <xsl:value-of select="substring(replace(@plist,'^([^\s]+)\s+.*', '$1'), 2)"/>
           </xsl:variable>
@@ -1189,9 +1204,10 @@
             </xsl:non-matching-substring>
           </xsl:analyze-string>
         </xsl:for-each>
+
         <!-- Some MusicXML "articulations" are MEI control events. -->
         <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:dir[substring(@startid,2)=$thisEventID][@label='breath-mark'
+          select="//controlevents/mei:dir[substring(@startid,2)=$thisEventID][@label='breath-mark'
           or @label='caesura' or @label='stress' or @label='unstress']">
           <xsl:variable name="articPlace">
             <xsl:value-of select="@place"/>
@@ -1221,44 +1237,9 @@
         </xsl:for-each>
       </xsl:variable>
 
-      <!-- Dynamics are control events in MEI. -->
-      <xsl:variable name="dynamics">
-        <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:dynam[substring(@startid,2)=$thisEventID]">
-          <xsl:variable name="dynamPlace">
-            <xsl:value-of select="@place"/>
-          </xsl:variable>
-          <xsl:variable name="dynamElement">
-            <xsl:choose>
-              <xsl:when test="matches(normalize-space(.),
-                '^(p|f){1,5}$|^m(f|p)$|^sf(p{1,2})?$|^sf{1,2}z$|^rfz?$|^fz$')">
-                <xsl:value-of select="."/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>other-dynamics</xsl:text>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:variable>
-          <xsl:if test="$dynamElement != ''">
-            <xsl:element name="{$dynamElement}">
-              <xsl:if test="($dynamPlace != '')">
-                <xsl:attribute name="placement">
-                  <xsl:value-of select="$dynamPlace"/>
-                </xsl:attribute>
-              </xsl:if>
-              <!-- Copy directive content -->
-              <xsl:if test="$dynamElement = 'other-dynamics'">
-                <xsl:value-of select="normalize-space(.)"/>
-              </xsl:if>
-            </xsl:element>
-          </xsl:if>
-        </xsl:for-each>
-      </xsl:variable>
-
       <!-- Fermatas are control events in MEI. -->
       <xsl:variable name="fermatas">
-        <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:fermata[substring(@startid,2)=$thisEventID]">
+        <xsl:for-each select="//controlevents/mei:fermata[substring(@startid,2)=$thisEventID]">
           <fermata>
             <xsl:attribute name="type">
               <xsl:choose>
@@ -1284,10 +1265,9 @@
 
       <!-- Ornaments are control events in MEI. -->
       <xsl:variable name="ornaments">
-        <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:*[local-name()='mordent' or
+        <xsl:for-each select="//controlevents/mei:*[local-name()='mordent' or
           local-name()='trill' or local-name()='turn'][substring(@startid,2)=$thisEventID] |
-          ancestor::events/following-sibling::controlevents/mei:dir[@label='shake' or
+          //controlevents/mei:dir[@label='shake' or
           @label='schleifer'][substring(@startid,2)=$thisEventID]">
           <xsl:variable name="ornamPlace">
             <xsl:value-of select="@place"/>
@@ -1556,8 +1536,7 @@
         </xsl:if>
 
         <!-- Other indications are MEI directives. -->
-        <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:dir[@label='pluck' or
+        <xsl:for-each select="//controlevents/mei:dir[@label='pluck' or
           @label='tap'][substring(@startid,2)=$thisEventID]">
           <xsl:variable name="techPlace">
             <xsl:value-of select="@place"/>
@@ -1577,11 +1556,46 @@
             </xsl:element>
           </xsl:if>
         </xsl:for-each>
+      </xsl:variable>
 
-        <xsl:for-each
-          select="ancestor::events/following-sibling::controlevents/mei:dir[@label='hammer-on' or
-          @label='pull-off'][substring(@startid,2)=$thisEventID or
-          substring(@endid,2)=$thisEventID]">
+      <!-- Dynamics and hammer-on and pull-off indications can potentially 
+          cross measure boundaries, so must be "passed through" for processing
+          later -->
+
+      <!--<xsl:variable name="dynamics">
+          <xsl:for-each select="//controlevents/mei:dynam[substring(@startid,2)=$thisEventID]">
+            <xsl:variable name="dynamPlace">
+              <xsl:value-of select="@place"/>
+            </xsl:variable>
+            <xsl:variable name="dynamElement">
+              <xsl:choose>
+                <xsl:when test="matches(normalize-space(.),
+                  '^(p|f){1,5}$|^m(f|p)$|^sf(p{1,2})?$|^sf{1,2}z$|^rfz?$|^fz$')">
+                  <xsl:value-of select="."/>
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>other-dynamics</xsl:text>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:if test="$dynamElement != ''">
+              <xsl:element name="{$dynamElement}">
+                <xsl:if test="($dynamPlace != '')">
+                  <xsl:attribute name="placement">
+                    <xsl:value-of select="$dynamPlace"/>
+                  </xsl:attribute>
+                </xsl:if>
+                <!-\- Copy directive content -\->
+                <xsl:if test="$dynamElement = 'other-dynamics'">
+                  <xsl:value-of select="normalize-space(.)"/>
+                </xsl:if>
+              </xsl:element>
+            </xsl:if>
+          </xsl:for-each>
+        </xsl:variable> -->
+
+      <!-- <xsl:for-each select="//controlevents/mei:dir[@label='hammer-on' or
+          @label='pull-off'][substring(@startid,2)=$thisEventID]">
           <xsl:variable name="techPlace">
             <xsl:value-of select="@place"/>
           </xsl:variable>
@@ -1596,28 +1610,39 @@
                 </xsl:attribute>
               </xsl:if>
               <xsl:attribute name="type">
-                <xsl:choose>
-                  <xsl:when test="substring(@startid,2)=$thisEventID">
-                    <xsl:text>start</xsl:text>
-                  </xsl:when>
-                  <xsl:when test="substring(@endid,2)=$thisEventID">
-                    <xsl:text>stop</xsl:text>
-                  </xsl:when>
-                </xsl:choose>
+                <xsl:text>start</xsl:text>
               </xsl:attribute>
-              <!-- Copy content of directive to start marker -->
-              <xsl:if test="substring(@startid,2)=$thisEventID">
-                <xsl:copy-of select="node()"/>
-              </xsl:if>
+              <!-\- Copy content of directive to start marker -\->
+              <xsl:copy-of select="node()"/>
             </xsl:element>
           </xsl:if>
         </xsl:for-each>
-      </xsl:variable>
+        <xsl:for-each select="//controlevents/mei:dir[@label='hammer-on' or
+          @label='pull-off'][substring(@endid,2)=$thisEventID]">
+          <xsl:variable name="techPlace">
+            <xsl:value-of select="@place"/>
+          </xsl:variable>
+          <xsl:variable name="techElement">
+            <xsl:value-of select="@label"/>
+          </xsl:variable>
+          <xsl:if test="$techElement != ''">
+            <xsl:element name="{$techElement}">
+              <xsl:if test="($techPlace != '')">
+                <xsl:attribute name="placement">
+                  <xsl:value-of select="$techPlace"/>
+                </xsl:attribute>
+              </xsl:if>
+              <xsl:attribute name="type">
+                <xsl:text>stop</xsl:text>
+              </xsl:attribute>
+            </xsl:element>
+          </xsl:if>
+        </xsl:for-each> -->
 
       <!-- If any of the preceding variables aren't empty, create a <notations> element
       and fill it with appropriate content. -->
-      <xsl:if test="$accidentalMarks/* or $arpeggiation/* or $articulations/* or $dynamics/* or
-        $fermatas/* or $ornaments/* or $technical/*">
+      <xsl:if test="$accidentalMarks/* or $arpeggiation/* or $articulations/* or $fermatas/*
+        or $ornaments/* or $technical/*">
         <notations>
           <xsl:if test="$accidentalMarks/*">
             <xsl:copy-of select="$accidentalMarks/*"/>
@@ -1630,7 +1655,7 @@
               <xsl:copy-of select="$articulations/*"/>
             </articulations>
           </xsl:if>
-          <xsl:if test="$dynamics/*">
+          <!--<xsl:if test="$dynamics/*">
             <xsl:for-each select="$dynamics/*">
               <dynamics>
                 <xsl:copy-of select="@*"/>
@@ -1642,7 +1667,7 @@
                 </xsl:element>
               </dynamics>
             </xsl:for-each>
-          </xsl:if>
+          </xsl:if>-->
           <xsl:if test="$fermatas/*">
             <xsl:copy-of select="$fermatas/*"/>
           </xsl:if>
@@ -1650,11 +1675,9 @@
             <ornaments>
               <!-- In MusicXML ornaments, e.g., trill, don't allow content so copy
               comments into parent <ornaments> element. -->
-              <xsl:for-each
-                select="ancestor::events/following-sibling::controlevents/mei:*[local-name()='mordent'
-                or local-name()='trill' or
-                local-name()='turn'][substring(@startid,2)=$thisEventID] |
-                ancestor::events/following-sibling::controlevents/mei:dir[@label='shake' or
+              <xsl:for-each select="//controlevents/mei:*[local-name()='mordent' or
+                local-name()='trill' or local-name()='turn'][substring(@startid,2)=$thisEventID] |
+                //controlevents/mei:dir[@label='shake' or
                 @label='schleifer'][substring(@startid,2)=$thisEventID]">
                 <xsl:copy-of select="comment()"/>
               </xsl:for-each>
@@ -1755,7 +1778,7 @@
 
   <xsl:template match="mei:rest | mei:mRest | mei:space | mei:mSpace">
     <note>
-      <xsl:copy-of select="@*"/>
+      <!-- <xsl:copy-of select="@*"/> -->
       <rest>
         <xsl:if test="local-name()='mRest' or local-name()='mSpace'">
           <xsl:attribute name="measure">
