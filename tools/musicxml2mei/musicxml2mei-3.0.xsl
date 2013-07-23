@@ -4536,6 +4536,8 @@
       <xsl:when test="local-name()='breath-mark' or local-name()='caesura' or
         local-name()='stress' or local-name()='unstress'">
         <!-- Create control events -->
+        <!-- Because breath-mark can contain text, it is transcoded as <dir>
+        instead of <breath> in order to retain its content -->
         <dir xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="label">
             <xsl:value-of select="local-name()"/>
