@@ -112,10 +112,9 @@
   </xsl:template>
 
   <xsl:template match="mei:availability">
-    <xsl:if test="mei:useRestrict">
+    <xsl:if test="normalize-space(mei:useRestrict) != ''">
       <rights>
-        <xsl:text>This encoding is in the public domain.</xsl:text>
-        <!--<xsl:value-of select="mei:useRestrict"/>-->
+        <xsl:value-of select="mei:useRestrict"/>
       </rights>
     </xsl:if>
   </xsl:template>
@@ -230,7 +229,7 @@
           </xsl:if>
 
           <!-- DEBUG: -->
-          <!--<xsl:copy-of select="@*"/>-->
+          <xsl:copy-of select="@*"/>
 
           <xsl:variable name="measureContent">
             <!-- Gather event and controlevent contents of measure -->
@@ -710,14 +709,12 @@
           <xsl:for-each select="$measureContent5/part">
             <part>
               <xsl:copy-of select="@*"/>
+              <xsl:apply-templates select="events/*" mode="partContent"/>
 
               <!-- DEBUG: -->
-              <!--<events>-->
-              <xsl:apply-templates select="events/*" mode="partContent"/>
-              <!-- DEBUG: -->
-              <!--</events>-->
-              <!--<xsl:copy-of select="controlevents"/>-->
-              <!--<xsl:copy-of select="controlevents/*"/>-->
+              <xsl:if test="controlevents/*">
+                <xsl:copy-of select="controlevents"/>
+              </xsl:if>
 
             </part>
           </xsl:for-each>
@@ -741,9 +738,28 @@
     <xsl:copy-of select="."/>
   </xsl:template>
 
+  <xsl:template match="mei:clef" mode="partContent">
+    <attributes>
+      <clef>
+        <xsl:attribute name="number">
+          <xsl:value-of select="@partStaff"/>
+        </xsl:attribute>
+        <sign>
+          <xsl:value-of select="@shape"/>
+        </sign>
+        <line>
+          <xsl:value-of select="@line"/>
+        </line>
+      </clef>
+    </attributes>
+  </xsl:template>
+
   <xsl:template match="mei:mRest|mei:mSpace|mei:rest|mei:space" mode="partContent">
     <note>
-      <!--<xsl:copy-of select="@*"/>-->
+
+      <!-- DEBUG: -->
+      <xsl:copy-of select="@*"/>
+
       <rest>
         <xsl:if test="@ploc">
           <display-step>
@@ -867,7 +883,15 @@
 
   <xsl:template match="mei:note" mode="partContent">
     <note>
-      <!--<xsl:copy-of select="@*"/>-->
+
+      <!-- DEBUG: -->
+      <xsl:copy-of select="@*"/>
+
+      <!-- DEBUG: -->
+      <xsl:if test="ancestor::mei:chord">
+        <xsl:copy-of select="ancestor::mei:chord/@*[not(local-name() = 'id')]"/>
+      </xsl:if>
+
       <xsl:if test="ancestor::mei:chord and preceding-sibling::mei:note">
         <chord/>
       </xsl:if>
@@ -2014,6 +2038,13 @@
       <source>
         <xsl:apply-templates select="ancestor::mei:meiHead/mei:fileDesc" mode="source"/>
       </source>
+      <xsl:if test="ancestor::mei:meiHead/mei:fileDesc/mei:notesStmt[mei:annot]">
+        <miscellaneous>
+          <miscellaneous-field name="notes">
+            <xsl:value-of select="ancestor::mei:meiHead/mei:fileDesc/mei:notesStmt"/>
+          </miscellaneous-field>
+        </miscellaneous>
+      </xsl:if>
     </identification>
   </xsl:template>
 
