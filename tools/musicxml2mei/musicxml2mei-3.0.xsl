@@ -401,7 +401,10 @@
         matches(normalize-space(.), '^natural-down$') or matches(normalize-space(.),
         '^natural-up$') or  matches(normalize-space(.), '^sharp-down$') or
         matches(normalize-space(.), '^sharp-up$') or matches(normalize-space(.),
-        '^triple-sharp$') or matches(normalize-space(.), '^triple-flat$')">
+        '^triple-sharp$') or matches(normalize-space(.), '^triple-flat$') or
+        matches(normalize-space(.), '^quarter-flat$') or matches(normalize-space(.),
+        '^three-quarters-flat$') or matches(normalize-space(.), '^quarter-sharp$') or
+        matches(normalize-space(.), '^three-quarters-sharp$')">
         <xsl:attribute name="{$accidPlace}">
           <xsl:choose>
             <xsl:when test="normalize-space(.) = 'sharp'">
@@ -436,6 +439,18 @@
             </xsl:when>
             <xsl:when test="normalize-space(.) = 'flat-up'">
               <xsl:text>fu</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'quarter-flat'">
+              <xsl:text>fu</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'three-quarters-flat'">
+              <xsl:text>fd</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'quarter-sharp'">
+              <xsl:text>sd</xsl:text>
+            </xsl:when>
+            <xsl:when test="normalize-space(.) = 'three-quarters-sharp'">
+              <xsl:text>su</xsl:text>
             </xsl:when>
             <xsl:when test="normalize-space(.) = 'natural-down'">
               <xsl:text>nd</xsl:text>
@@ -485,7 +500,10 @@
       matches(normalize-space(.), '^natural-down$') or matches(normalize-space(.),
       '^natural-up$') or  matches(normalize-space(.), '^sharp-down$') or
       matches(normalize-space(.), '^sharp-up$') or matches(normalize-space(.),
-      '^triple-sharp$') or matches(normalize-space(.), '^triple-flat$'))">
+      '^triple-sharp$') or matches(normalize-space(.), '^triple-flat$') or
+      matches(normalize-space(.), '^quarter-flat$') or matches(normalize-space(.),
+      '^three-quarters-flat$') or matches(normalize-space(.), '^quarter-sharp$') or
+      matches(normalize-space(.), '^three-quarters-sharp$'))">
       <xsl:variable name="measureNum">
         <xsl:value-of select="ancestor::measure/@number"/>
       </xsl:variable>
