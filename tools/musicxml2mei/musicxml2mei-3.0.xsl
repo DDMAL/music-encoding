@@ -4771,6 +4771,14 @@
       <xsl:when test="local-name()='fingering' or local-name()='pluck' or local-name()='tap'">
         <dir xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="label">
+            <xsl:if test="local-name()='fingering'">
+              <xsl:if test="@substitution='yes'">
+                <xsl:text>subst. </xsl:text>
+              </xsl:if>
+              <xsl:if test="@alternate='yes'">
+                <xsl:text>alt. </xsl:text>
+              </xsl:if>
+            </xsl:if>
             <xsl:value-of select="local-name()"/>
           </xsl:attribute>
           <xsl:attribute name="tstamp">
