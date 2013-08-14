@@ -4768,7 +4768,7 @@
   <xsl:template match="note/notations/technical/*" mode="stage1.dir">
     <!-- Some MusicXML technical indications are directives in MEI -->
     <xsl:choose>
-      <xsl:when test="local-name()='pluck' or local-name()='tap'">
+      <xsl:when test="local-name()='fingering' or local-name()='pluck' or local-name()='tap'">
         <dir xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="label">
             <xsl:value-of select="local-name()"/>
@@ -7741,13 +7741,13 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:text>&#32;</xsl:text>
       </xsl:for-each>
       <xsl:for-each select="notations/technical/*[not(local-name()='arrow' or
-        local-name()='bend' or local-name()='fingering' or local-name()='fret' or
-        local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
-        local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
-        local-name()='string' or local-name()='tap' or local-name()='thumb-position')]">
-        <!-- String and fret indications are handled elsewhere as note attributes. Pluck, 
-          hammer-on, pull-off, and tap indications are treated elsewhere as directives. The 
-          remaining elements above are not currently transcoded. -->
+        local-name()='bend' or local-name()='fret' or local-name()='hammer-on' or
+        local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
+        local-name()='pluck' or local-name()='pull-off' or local-name()='string' or
+        local-name()='tap' or local-name()='thumb-position')]">
+        <!-- String and fret indications are handled elsewhere as note attributes. Fingering,
+          pluck, hammer-on, pull-off, and tap indications are treated elsewhere as directives.
+          The remaining elements above are not currently transcoded. -->
         <xsl:choose>
           <xsl:when test="local-name()='double-tongue'">
             <xsl:text>dbltongue</xsl:text>
@@ -7903,13 +7903,12 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </artic>
     </xsl:for-each>
     <xsl:for-each select="notations/technical/*[not(local-name()='arrow' or
-      local-name()='bend' or local-name()='fingering' or local-name()='fret' or
-      local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
-      local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
-      local-name()='string' or local-name()='tap' or local-name()='thumb-position' or
-      local-name()='scoop')]">
-      <!-- String and fret indications are handled elsewhere as note attributes. Pluck, 
-        hammer-on, pull-off and tap indications are treated elsewhere as directives. 
+      local-name()='bend' or local-name()='fret' or local-name()='hammer-on' or
+      local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
+      local-name()='pluck' or local-name()='pull-off' or local-name()='string' or
+      local-name()='tap' or local-name()='thumb-position' or local-name()='scoop')]">
+      <!-- String and fret indications are handled elsewhere as note attributes. Fingering,
+        pluck, hammer-on, pull-off and tap indications are treated elsewhere as directives. 
         The remaining elements above are not currently transcoded. -->
       <artic xmlns="http://www.music-encoding.org/ns/mei">
         <xsl:choose>
