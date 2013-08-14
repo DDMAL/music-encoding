@@ -994,7 +994,19 @@
             </xsl:if>
             <xsl:if test="sound[@tempo]">
               <xsl:attribute name="midi.tempo">
-                <xsl:value-of select="sound[@tempo]/@tempo"/>
+                <xsl:value-of select="round(sound[@tempo]/@tempo)"/>
+                <xsl:if test="contains(sound/@tempo, '.')">
+                  <xsl:variable name="measureNum">
+                    <xsl:value-of select="ancestor::measure/@number"/>
+                  </xsl:variable>
+                  <xsl:variable name="warning">
+                    <xsl:text>Sound/tempo value rounded to integer value</xsl:text>
+                  </xsl:variable>
+                  <xsl:message>
+                    <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                      ').'))"/>
+                  </xsl:message>
+                </xsl:if>
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
@@ -1406,6 +1418,15 @@
         <!-- directives with content -->
         <xsl:if test="$dirType = 'dynam' or $dirType = 'dir' or $dirType = 'reh' or $dirType =
           'tempo'">
+          <!-- Remove this comment once midi.tempo allows decimal values! -->
+          <xsl:if test="$dirType = 'tempo' and contains(sound/@tempo, '.')">
+            <xsl:variable name="warning">
+              <xsl:text>midi.tempo value rounded to integer value</xsl:text>
+            </xsl:variable>
+            <xsl:comment>
+              <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+            </xsl:comment>
+          </xsl:if>
           <xsl:apply-templates select="direction-type/*" mode="stage1">
             <xsl:with-param name="dirType">
               <xsl:value-of select="$dirType"/>
