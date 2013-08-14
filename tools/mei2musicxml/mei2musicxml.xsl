@@ -2147,78 +2147,95 @@
 
   <xsl:template match="mei:staffGrp" mode="partList">
     <part-list>
-      <xsl:for-each select="mei:staffDef | mei:staffGrp">
-        <score-part>
-          <xsl:attribute name="id">
-            <xsl:choose>
-              <xsl:when test="@xml:id">
-                <xsl:value-of select="@xml:id"/>
-              </xsl:when>
-              <xsl:otherwise>
-                <xsl:text>P_</xsl:text>
-                <xsl:value-of select="generate-id()"/>
-              </xsl:otherwise>
-            </xsl:choose>
-          </xsl:attribute>
-          <part-name>
-            <xsl:value-of select="@label"/>
-          </part-name>
-          <xsl:if test="mei:instrDef">
-            <score-instrument>
+      <xsl:choose>
+        <xsl:when test="mei:instrDef">
+          <score-part>
+            <xsl:attribute name="id">
+              <xsl:value-of select="@xml:id"/>
+            </xsl:attribute>
+            <part-name>
+              <xsl:value-of select="@label"/>
+            </part-name>
+            <xsl:apply-templates select="mei:instrDef" mode="partList"/>
+          </score-part>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:for-each select="mei:staffDef | mei:staffGrp">
+            <score-part>
               <xsl:attribute name="id">
                 <xsl:choose>
-                  <xsl:when test="mei:instrDef/@xml:id">
-                    <xsl:value-of select="mei:instrDef/@xml:id"/>
+                  <xsl:when test="@xml:id">
+                    <xsl:value-of select="@xml:id"/>
                   </xsl:when>
                   <xsl:otherwise>
-                    <xsl:text>I</xsl:text>
-                    <xsl:value-of select="generate-id(mei:instrDef)"/>
+                    <xsl:text>P_</xsl:text>
+                    <xsl:value-of select="generate-id()"/>
                   </xsl:otherwise>
                 </xsl:choose>
               </xsl:attribute>
-              <instrument-name>
-                <xsl:value-of select="replace(mei:instrDef/@midi.instrname, '_', '&#32;')"/>
-              </instrument-name>
-            </score-instrument>
-            <midi-instrument>
-              <xsl:attribute name="id">
-                <xsl:choose>
-                  <xsl:when test="mei:instrDef/@xml:id">
-                    <xsl:value-of select="mei:instrDef/@xml:id"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:text>I</xsl:text>
-                    <xsl:value-of select="generate-id(mei:instrDef)"/>
-                  </xsl:otherwise>
-                </xsl:choose>
-              </xsl:attribute>
-              <midi-channel>
-                <xsl:value-of select="mei:instrDef/@midi.channel"/>
-              </midi-channel>
-              <midi-program>
-                <!-- MusicXML uses 1-based program numbers -->
-                <xsl:value-of select="mei:instrDef/@midi.instrnum + 1"/>
-              </midi-program>
-              <volume>
-                <!-- MusicXML uses scaling factor instead of actual MIDI value -->
-                <xsl:value-of select="round((mei:instrDef/@midi.volume * 100) div 127)"/>
-              </volume>
-              <pan>
-                <!-- Placement within stereo sound field (left=0, right=127) -->
-                <xsl:choose>
-                  <xsl:when test="mei:instrDef/@midi.pan = 63 or mei:instrDef/@midi.pan = 64">
-                    <xsl:value-of select="0"/>
-                  </xsl:when>
-                  <xsl:otherwise>
-                    <xsl:value-of select="round(-90 + ((180 div 127) * mei:instrDef/@midi.pan))"/>
-                  </xsl:otherwise>
-                </xsl:choose>
-              </pan>
-            </midi-instrument>
-          </xsl:if>
-        </score-part>
-      </xsl:for-each>
+              <part-name>
+                <xsl:value-of select="@label"/>
+              </part-name>
+              <xsl:apply-templates select="mei:instrDef" mode="partList"/>
+            </score-part>
+          </xsl:for-each>
+        </xsl:otherwise>
+      </xsl:choose>
     </part-list>
+  </xsl:template>
+
+  <xsl:template match="mei:instrDef" mode="partList">
+    <score-instrument>
+      <xsl:attribute name="id">
+        <xsl:choose>
+          <xsl:when test="@xml:id">
+            <xsl:value-of select="@xml:id"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>I</xsl:text>
+            <xsl:value-of select="generate-id()"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+      <instrument-name>
+        <xsl:value-of select="replace(@midi.instrname, '_', '&#32;')"/>
+      </instrument-name>
+    </score-instrument>
+    <midi-instrument>
+      <xsl:attribute name="id">
+        <xsl:choose>
+          <xsl:when test="@xml:id">
+            <xsl:value-of select="@xml:id"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:text>I</xsl:text>
+            <xsl:value-of select="generate-id()"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:attribute>
+      <midi-channel>
+        <xsl:value-of select="@midi.channel"/>
+      </midi-channel>
+      <midi-program>
+        <!-- MusicXML uses 1-based program numbers -->
+        <xsl:value-of select="@midi.instrnum + 1"/>
+      </midi-program>
+      <volume>
+        <!-- MusicXML uses scaling factor instead of actual MIDI value -->
+        <xsl:value-of select="round((@midi.volume * 100) div 127)"/>
+      </volume>
+      <pan>
+        <!-- Placement within stereo sound field (left=0, right=127) -->
+        <xsl:choose>
+          <xsl:when test="@midi.pan = 63 or @midi.pan = 64">
+            <xsl:value-of select="0"/>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:value-of select="round(-90 + ((180 div 127) * @midi.pan))"/>
+          </xsl:otherwise>
+        </xsl:choose>
+      </pan>
+    </midi-instrument>
   </xsl:template>
 
   <xsl:template match="mei:scoreDef" mode="defaults">
