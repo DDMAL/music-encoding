@@ -897,7 +897,8 @@
     <!-- Create appropriate elements for the directions that are processed -->
     <xsl:variable name="dirType">
       <xsl:choose>
-        <xsl:when test="direction-type/dynamics">
+        <xsl:when test="direction-type/dynamics | direction-type/words[matches(., '^cresc') or
+          matches(., '^decresc') or matches(., '^diminuendo') or matches(., '^dim\.')]">
           <xsl:text>dynam</xsl:text>
         </xsl:when>
         <xsl:when test="direction-type/octave-shift[not(@type='stop')]">
@@ -915,8 +916,8 @@
         <xsl:when test="direction-type/wedge[not(@type='stop')]">
           <xsl:text>hairpin</xsl:text>
         </xsl:when>
-        <xsl:when test="direction-type/words | direction-type/principal-voice | direction-type/coda
-          | direction-type/segno">
+        <xsl:when test="direction-type/words[text()] | direction-type/principal-voice |
+          direction-type/coda | direction-type/segno">
           <xsl:text>dir</xsl:text>
         </xsl:when>
         <xsl:otherwise>
@@ -968,7 +969,7 @@
         </xsl:attribute>
         <!-- direction-specific attributes -->
         <xsl:choose>
-          <xsl:when test="$dirType = 'dynam' and sound[@dynamics]">
+          <xsl:when test="$dirType = 'dynam' and sound[@dynamics &gt; 0]">
             <xsl:attribute name="val">
               <xsl:value-of select="round((sound/@dynamics  * .01) * 90)"/>
             </xsl:attribute>
