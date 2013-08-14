@@ -5273,6 +5273,7 @@
           </xsl:attribute>
         </xsl:when>
         <xsl:when test="ancestor::note/stem">
+          <xsl:attribute name="curvedir">
           <xsl:choose>
             <xsl:when test="ancestor::note/stem='up'">
               <xsl:text>below</xsl:text>
@@ -5281,6 +5282,7 @@
               <xsl:text>above</xsl:text>
             </xsl:when>
           </xsl:choose>
+          </xsl:attribute>
         </xsl:when>
         <xsl:otherwise>
           <xsl:variable name="measureNum">
