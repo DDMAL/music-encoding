@@ -994,7 +994,7 @@
             </xsl:if>
             <xsl:if test="sound[@tempo]">
               <xsl:attribute name="midi.tempo">
-                <xsl:value-of select="sound/@tempo"/>
+                <xsl:value-of select="sound[@tempo]/@tempo"/>
               </xsl:attribute>
             </xsl:if>
           </xsl:when>
@@ -1157,66 +1157,138 @@
                 </xsl:for-each>
               </xsl:when>
               <xsl:otherwise>
-                <xsl:for-each select="following::direction[direction-type/octave-shift[@type='stop']
-                  and ancestor::part/@id=$partID][1]">
-                  <xsl:variable name="endMeasureID">
-                    <xsl:value-of select="generate-id(ancestor::measure[1])"/>
-                  </xsl:variable>
-                  <xsl:variable name="endMeasurePos">
-                    <xsl:for-each select="//measure">
-                      <xsl:if test="generate-id()=$endMeasureID">
-                        <xsl:value-of select="position()"/>
-                      </xsl:if>
+                <xsl:choose>
+                  <!-- End of octave-shift follows start -->
+                  <xsl:when test="following::direction[direction-type/octave-shift[@type='stop']
+                    and ancestor::part/@id=$partID]">
+                    <xsl:for-each
+                      select="following::direction[direction-type/octave-shift[@type='stop']
+                      and ancestor::part/@id=$partID][1]">
+                      <xsl:variable name="endMeasureID">
+                        <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+                      </xsl:variable>
+                      <xsl:variable name="endMeasurePos">
+                        <xsl:for-each select="//measure">
+                          <xsl:if test="generate-id()=$endMeasureID">
+                            <xsl:value-of select="position()"/>
+                          </xsl:if>
+                        </xsl:for-each>
+                      </xsl:variable>
+                      <xsl:variable name="endMeasureID">
+                        <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+                      </xsl:variable>
+                      <xsl:variable name="endMeasurePos">
+                        <xsl:for-each select="//measure">
+                          <xsl:if test="generate-id()=$endMeasureID">
+                            <xsl:value-of select="position()"/>
+                          </xsl:if>
+                        </xsl:for-each>
+                      </xsl:variable>
+                      <xsl:variable name="endGestural">
+                        <xsl:call-template name="getTimestamp.ges"/>
+                      </xsl:variable>
+                      <xsl:variable name="endBeat">
+                        <xsl:call-template name="tstamp.ges2beat">
+                          <xsl:with-param name="tstamp.ges">
+                            <xsl:choose>
+                              <!-- Using <offset> instead of @default-x -->
+                              <xsl:when test="number(offset)">
+                                <xsl:value-of select="format-number(number($endGestural) +
+                                  number(offset), '###0.###')"/>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:value-of select="number($endGestural)"/>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </xsl:with-param>
+                        </xsl:call-template>
+                      </xsl:variable>
+                      <xsl:attribute name="tstamp2">
+                        <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
+                        <xsl:text>m+</xsl:text>
+                        <xsl:value-of select="$endBeat"/>
+                      </xsl:attribute>
+                      <xsl:variable name="measureNum">
+                        <xsl:value-of select="ancestor::measure/@number"/>
+                      </xsl:variable>
+                      <xsl:variable name="warning">
+                        <xsl:text>End point of octave shift may not be accurate</xsl:text>
+                      </xsl:variable>
+                      <xsl:message>
+                        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                          ').'))"/>
+                      </xsl:message>
+                      <xsl:comment>
+                        <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+                      </xsl:comment>
                     </xsl:for-each>
-                  </xsl:variable>
-                  <xsl:variable name="endMeasureID">
-                    <xsl:value-of select="generate-id(ancestor::measure[1])"/>
-                  </xsl:variable>
-                  <xsl:variable name="endMeasurePos">
-                    <xsl:for-each select="//measure">
-                      <xsl:if test="generate-id()=$endMeasureID">
-                        <xsl:value-of select="position()"/>
-                      </xsl:if>
+
+                  </xsl:when>
+                  <!-- End of octave-shift precedes start -->
+                  <xsl:otherwise>
+                    <xsl:for-each
+                      select="preceding::direction[direction-type/octave-shift[@type='stop']
+                      and ancestor::part/@id=$partID][1]">
+                      <xsl:variable name="endMeasureID">
+                        <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+                      </xsl:variable>
+                      <xsl:variable name="endMeasurePos">
+                        <xsl:for-each select="//measure">
+                          <xsl:if test="generate-id()=$endMeasureID">
+                            <xsl:value-of select="position()"/>
+                          </xsl:if>
+                        </xsl:for-each>
+                      </xsl:variable>
+                      <xsl:variable name="endMeasureID">
+                        <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+                      </xsl:variable>
+                      <xsl:variable name="endMeasurePos">
+                        <xsl:for-each select="//measure">
+                          <xsl:if test="generate-id()=$endMeasureID">
+                            <xsl:value-of select="position()"/>
+                          </xsl:if>
+                        </xsl:for-each>
+                      </xsl:variable>
+                      <xsl:variable name="endGestural">
+                        <xsl:call-template name="getTimestamp.ges"/>
+                      </xsl:variable>
+                      <xsl:variable name="endBeat">
+                        <xsl:call-template name="tstamp.ges2beat">
+                          <xsl:with-param name="tstamp.ges">
+                            <xsl:choose>
+                              <!-- Using <offset> instead of @default-x -->
+                              <xsl:when test="number(offset)">
+                                <xsl:value-of select="format-number(number($endGestural) +
+                                  number(offset), '###0.###')"/>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:value-of select="number($endGestural)"/>
+                              </xsl:otherwise>
+                            </xsl:choose>
+                          </xsl:with-param>
+                        </xsl:call-template>
+                      </xsl:variable>
+                      <xsl:attribute name="tstamp2">
+                        <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
+                        <xsl:text>m+</xsl:text>
+                        <xsl:value-of select="$endBeat"/>
+                      </xsl:attribute>
+                      <xsl:variable name="measureNum">
+                        <xsl:value-of select="ancestor::measure/@number"/>
+                      </xsl:variable>
+                      <xsl:variable name="warning">
+                        <xsl:text>End point of octave shift may not be accurate</xsl:text>
+                      </xsl:variable>
+                      <xsl:message>
+                        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+                          ').'))"/>
+                      </xsl:message>
+                      <xsl:comment>
+                        <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+                      </xsl:comment>
                     </xsl:for-each>
-                  </xsl:variable>
-                  <xsl:variable name="endGestural">
-                    <xsl:call-template name="getTimestamp.ges"/>
-                  </xsl:variable>
-                  <xsl:variable name="endBeat">
-                    <xsl:call-template name="tstamp.ges2beat">
-                      <xsl:with-param name="tstamp.ges">
-                        <xsl:choose>
-                          <!-- Using <offset> instead of @default-x -->
-                          <xsl:when test="number(offset)">
-                            <xsl:value-of select="format-number(number($endGestural) +
-                              number(offset), '###0.###')"/>
-                          </xsl:when>
-                          <xsl:otherwise>
-                            <xsl:value-of select="number($endGestural)"/>
-                          </xsl:otherwise>
-                        </xsl:choose>
-                      </xsl:with-param>
-                    </xsl:call-template>
-                  </xsl:variable>
-                  <xsl:attribute name="tstamp2">
-                    <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
-                    <xsl:text>m+</xsl:text>
-                    <xsl:value-of select="$endBeat"/>
-                  </xsl:attribute>
-                  <xsl:variable name="measureNum">
-                    <xsl:value-of select="ancestor::measure/@number"/>
-                  </xsl:variable>
-                  <xsl:variable name="warning">
-                    <xsl:text>End point of octave shift may not be accurate</xsl:text>
-                  </xsl:variable>
-                  <xsl:message>
-                    <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
-                      ').'))"/>
-                  </xsl:message>
-                  <xsl:comment>
-                    <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
-                  </xsl:comment>
-                </xsl:for-each>
+                  </xsl:otherwise>
+                </xsl:choose>
               </xsl:otherwise>
             </xsl:choose>
           </xsl:when>
@@ -5274,14 +5346,14 @@
         </xsl:when>
         <xsl:when test="ancestor::note/stem">
           <xsl:attribute name="curvedir">
-          <xsl:choose>
-            <xsl:when test="ancestor::note/stem='up'">
-              <xsl:text>below</xsl:text>
-            </xsl:when>
-            <xsl:when test="ancestor::note/stem='down'">
-              <xsl:text>above</xsl:text>
-            </xsl:when>
-          </xsl:choose>
+            <xsl:choose>
+              <xsl:when test="ancestor::note/stem='up'">
+                <xsl:text>below</xsl:text>
+              </xsl:when>
+              <xsl:when test="ancestor::note/stem='down'">
+                <xsl:text>above</xsl:text>
+              </xsl:when>
+            </xsl:choose>
           </xsl:attribute>
         </xsl:when>
         <xsl:otherwise>
@@ -5919,6 +5991,232 @@
   </xsl:template>
 
   <xsl:template match="note/notations/tuplet[@type='start']" mode="stage1">
+    <tupletSpan xmlns="http://www.music-encoding.org/ns/mei">
+      <xsl:attribute name="xml:id" select="generate-id()"/>
+      <!-- Tstamp attributes -->
+      <xsl:for-each select="ancestor::note">
+        <xsl:call-template name="tstampAttrs"/>
+        <!-- Attributes based on starting note -->
+        <xsl:attribute name="startid">
+          <xsl:value-of select="generate-id()"/>
+        </xsl:attribute>
+        <xsl:if test="time-modification/actual-notes">
+          <xsl:attribute name="num">
+            <xsl:value-of select="time-modification/actual-notes"/>
+          </xsl:attribute>
+        </xsl:if>
+        <xsl:if test="time-modification/normal-notes">
+          <xsl:attribute name="numbase">
+            <xsl:value-of select="time-modification/normal-notes"/>
+          </xsl:attribute>
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:choose>
+        <xsl:when test="@show-number">
+          <xsl:attribute name="num.visible">
+            <xsl:choose>
+              <xsl:when test="@show-number='none'">
+                <xsl:text>false</xsl:text>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:text>true</xsl:text>
+              </xsl:otherwise>
+            </xsl:choose>
+          </xsl:attribute>
+        </xsl:when>
+      </xsl:choose>
+      <xsl:choose>
+        <xsl:when test="@show-number">
+          <xsl:choose>
+            <xsl:when test="@show-number != 'none'">
+              <xsl:attribute name="num.format">
+                <xsl:choose>
+                  <xsl:when test="@show-number='both'">
+                    <xsl:text>ratio</xsl:text>
+                  </xsl:when>
+                  <xsl:otherwise>
+                    <xsl:text>count</xsl:text>
+                  </xsl:otherwise>
+                </xsl:choose>
+              </xsl:attribute>
+            </xsl:when>
+          </xsl:choose>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:attribute name="num.format">
+            <xsl:text>count</xsl:text>
+          </xsl:attribute>
+        </xsl:otherwise>
+      </xsl:choose>
+      <xsl:if test="@placement">
+        <xsl:attribute name="num.place">
+          <xsl:value-of select="@placement"/>
+        </xsl:attribute>
+      </xsl:if>
+      <xsl:if test="@bracket">
+        <xsl:attribute name="bracket.visible">
+          <xsl:choose>
+            <xsl:when test="@bracket='no'">
+              <xsl:text>false</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>true</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+        <xsl:if test="@placement and @bracket and @bracket != 'no'">
+          <xsl:attribute name="bracket.place">
+            <xsl:value-of select="@placement"/>
+          </xsl:attribute>
+        </xsl:if>
+      </xsl:if>
+
+      <!-- Attributes based on ending note -->
+      <xsl:variable name="startMeasureID">
+        <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+      </xsl:variable>
+      <xsl:variable name="startMeasurePos">
+        <xsl:for-each select="//measure">
+          <xsl:if test="generate-id()=$startMeasureID">
+            <xsl:value-of select="position()"/>
+          </xsl:if>
+        </xsl:for-each>
+      </xsl:variable>
+      <xsl:variable name="partID">
+        <xsl:value-of select="ancestor::part[1]/@id"/>
+      </xsl:variable>
+      <xsl:variable name="partStaff">
+        <xsl:choose>
+          <xsl:when test="staff">
+            <xsl:value-of select="staff"/>
+          </xsl:when>
+          <xsl:otherwise>1</xsl:otherwise>
+        </xsl:choose>
+      </xsl:variable>
+      <xsl:variable name="staff1">
+        <xsl:call-template name="getStaffNum">
+          <xsl:with-param name="partID">
+            <xsl:value-of select="$partID"/>
+          </xsl:with-param>
+          <xsl:with-param name="partStaff">
+            <xsl:value-of select="$partStaff"/>
+          </xsl:with-param>
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:choose>
+        <xsl:when test="@number">
+          <!-- Numbered tuplet -->
+          <xsl:variable name="tupletNum">
+            <xsl:value-of select="@number"/>
+          </xsl:variable>
+          <xsl:for-each select="following::note[notations/tuplet[@number=$tupletNum and
+            @type='stop']][1]">
+            <xsl:variable name="endMeasureID">
+              <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+            </xsl:variable>
+            <xsl:variable name="endMeasurePos">
+              <xsl:for-each select="//measure">
+                <xsl:if test="generate-id()=$endMeasureID">
+                  <xsl:value-of select="position()"/>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:variable>
+            <xsl:attribute name="tstamp2">
+              <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
+              <xsl:text>m+</xsl:text>
+              <xsl:call-template name="tstamp.ges2beat">
+                <xsl:with-param name="tstamp.ges">
+                  <xsl:call-template name="getTimestamp.ges"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="endid">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:attribute>
+            <xsl:variable name="partStaff2">
+              <xsl:choose>
+                <xsl:when test="staff">
+                  <xsl:value-of select="staff"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="staff2">
+              <xsl:call-template name="getStaffNum">
+                <xsl:with-param name="partID">
+                  <xsl:value-of select="$partID"/>
+                </xsl:with-param>
+                <xsl:with-param name="partStaff">
+                  <xsl:value-of select="$partStaff2"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:attribute name="staff">
+              <xsl:value-of select="$staff1"/>
+              <xsl:if test="$staff2 != $staff1">
+                <xsl:text>&#32;</xsl:text>
+                <xsl:value-of select="$staff2"/>
+              </xsl:if>
+            </xsl:attribute>
+          </xsl:for-each>
+        </xsl:when>
+        <xsl:otherwise>
+          <!-- Tuplet not numbered, just take the next tuplet-ending note -->
+          <xsl:for-each select="following::note[notations/tuplet[@type='stop']][1]">
+            <xsl:variable name="endMeasureID">
+              <xsl:value-of select="generate-id(ancestor::measure[1])"/>
+            </xsl:variable>
+            <xsl:variable name="endMeasurePos">
+              <xsl:for-each select="//measure">
+                <xsl:if test="generate-id()=$endMeasureID">
+                  <xsl:value-of select="position()"/>
+                </xsl:if>
+              </xsl:for-each>
+            </xsl:variable>
+            <xsl:attribute name="tstamp2">
+              <xsl:value-of select="$endMeasurePos - $startMeasurePos"/>
+              <xsl:text>m+</xsl:text>
+              <xsl:call-template name="tstamp.ges2beat">
+                <xsl:with-param name="tstamp.ges">
+                  <xsl:call-template name="getTimestamp.ges"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:attribute>
+            <xsl:attribute name="endid">
+              <xsl:value-of select="generate-id()"/>
+            </xsl:attribute>
+            <xsl:variable name="partStaff2">
+              <xsl:choose>
+                <xsl:when test="staff">
+                  <xsl:value-of select="staff"/>
+                </xsl:when>
+                <xsl:otherwise>1</xsl:otherwise>
+              </xsl:choose>
+            </xsl:variable>
+            <xsl:variable name="staff2">
+              <xsl:call-template name="getStaffNum">
+                <xsl:with-param name="partID">
+                  <xsl:value-of select="$partID"/>
+                </xsl:with-param>
+                <xsl:with-param name="partStaff">
+                  <xsl:value-of select="$partStaff2"/>
+                </xsl:with-param>
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:attribute name="staff">
+              <xsl:value-of select="$staff1"/>
+              <xsl:if test="$staff2 != $staff1">
+                <xsl:text>&#32;</xsl:text>
+                <xsl:value-of select="$staff2"/>
+              </xsl:if>
+            </xsl:attribute>
+          </xsl:for-each>
+        </xsl:otherwise>
+      </xsl:choose>
+    </tupletSpan>
+  </xsl:template>
+
+  <!--<xsl:template match="note/notations/tuplet[@type='start']" mode="stage1">
     <xsl:choose>
       <xsl:when test="not(@number)">
         <xsl:variable name="measureNum">
@@ -5941,10 +6239,10 @@
         </xsl:variable>
         <tupletSpan xmlns="http://www.music-encoding.org/ns/mei">
           <xsl:attribute name="xml:id" select="generate-id()"/>
-          <!-- Tstamp attributes -->
+          <!-\- Tstamp attributes -\->
           <xsl:for-each select="ancestor::note">
             <xsl:call-template name="tstampAttrs"/>
-            <!-- Attributes based on starting note -->
+            <!-\- Attributes based on starting note -\->
             <xsl:attribute name="startid">
               <xsl:value-of select="generate-id()"/>
             </xsl:attribute>
@@ -6019,7 +6317,7 @@
             </xsl:if>
           </xsl:if>
 
-          <!-- Attributes based on ending note -->
+          <!-\- Attributes based on ending note -\->
           <xsl:variable name="startMeasureID">
             <xsl:value-of select="generate-id(ancestor::measure[1])"/>
           </xsl:variable>
@@ -6104,7 +6402,7 @@
         </tupletSpan>
       </xsl:otherwise>
     </xsl:choose>
-  </xsl:template>
+  </xsl:template> -->
 
   <xsl:template match="part-group[@type='start']" mode="grpSym">
     <!-- Create stand-off staff grouping symbols -->
@@ -6412,7 +6710,6 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template> -->
-
 
   <xsl:template match="score-part" mode="layout">
     <!-- Create staffDef elements -->
