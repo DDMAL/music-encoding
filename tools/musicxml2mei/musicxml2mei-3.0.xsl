@@ -7750,10 +7750,10 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
         <xsl:text>&#32;</xsl:text>
       </xsl:for-each>
       <xsl:for-each select="notations/technical/*[not(local-name()='arrow' or
-        local-name()='bend' or local-name()='fret' or local-name()='hammer-on' or
-        local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
-        local-name()='pluck' or local-name()='pull-off' or local-name()='string' or
-        local-name()='tap' or local-name()='thumb-position')]">
+        local-name()='bend' or local-name()='fingering' or local-name()='fret' or
+        local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
+        local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
+        local-name()='string' or local-name()='tap' or local-name()='thumb-position')]">
         <!-- String and fret indications are handled elsewhere as note attributes. Fingering,
           pluck, hammer-on, pull-off, and tap indications are treated elsewhere as directives.
           The remaining elements above are not currently transcoded. -->
@@ -7912,10 +7912,11 @@ following-sibling::measure[1][attributes[not(preceding-sibling::note)]] -->
       </artic>
     </xsl:for-each>
     <xsl:for-each select="notations/technical/*[not(local-name()='arrow' or
-      local-name()='bend' or local-name()='fret' or local-name()='hammer-on' or
-      local-name()='handbell' or local-name()='hole' or local-name()='other-technical' or
-      local-name()='pluck' or local-name()='pull-off' or local-name()='string' or
-      local-name()='tap' or local-name()='thumb-position' or local-name()='scoop')]">
+      local-name()='bend' or local-name()='fingering' or local-name()='fret' or
+      local-name()='hammer-on' or local-name()='handbell' or local-name()='hole' or
+      local-name()='other-technical' or local-name()='pluck' or local-name()='pull-off' or
+      local-name()='string' or local-name()='tap' or local-name()='thumb-position' or
+      local-name()='scoop')]">
       <!-- String and fret indications are handled elsewhere as note attributes. Fingering,
         pluck, hammer-on, pull-off and tap indications are treated elsewhere as directives. 
         The remaining elements above are not currently transcoded. -->
