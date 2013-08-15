@@ -858,14 +858,15 @@
       </xsl:for-each>
     </xsl:for-each>
     <!-- Staff layout options -->
-    <xsl:for-each select="staff-layout">
-      <xsl:for-each select="staff-distance">
-        <xsl:attribute name="spacing.staff">
-          <xsl:value-of select="format-number(. div 5, '###0.####')"/>
-          <!-- <xsl:text>vu</xsl:text> -->
-        </xsl:attribute>
-      </xsl:for-each>
-    </xsl:for-each>
+    <!-- The smallest value of staff-distance is used with the assumption
+      that additional space can be added programmatically when necessary to
+      avoid collisions. -->
+    <xsl:if test="staff-layout">
+      <xsl:attribute name="spacing.staff">
+        <xsl:value-of select="format-number(min(staff-layout/staff-distance) div 5, '###0.####')"/>
+        <!-- <xsl:text>vu</xsl:text> -->
+      </xsl:attribute>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="direction" mode="stage1">
@@ -2085,7 +2086,7 @@
             </xsl:attribute>
           </xsl:for-each>
         </xsl:for-each>
-
+        
         <!-- Provide multiple time signatures as elements, but ignore first measure -->
         <xsl:if test="part/attributes[time/beats] and count(preceding::measure) &gt; 0">
           <xsl:choose>
