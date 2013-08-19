@@ -288,6 +288,20 @@
             <xsl:value-of select="@xml:id"/>
           </xsl:variable>
 
+          <xsl:variable name="sb">
+            <xsl:choose>
+              <xsl:when
+                test="preceding-sibling::mei:sb[preceding-sibling::mei:measure[following-sibling::mei:measure[1][@xml:id=$thisMeasure]]]">
+                <xsl:copy-of
+                  select="preceding-sibling::mei:sb[preceding-sibling::mei:measure[following-sibling::mei:measure[@xml:id=$thisMeasure]]][1]"
+                />
+              </xsl:when>
+              <xsl:when test="local-name(preceding-sibling::*[1]) = 'sb'">
+                <xsl:copy-of select="preceding-sibling::mei:sb[1]"/>
+              </xsl:when>
+            </xsl:choose>
+          </xsl:variable>
+
           <xsl:variable name="localScoreDef">
             <xsl:choose>
               <xsl:when
@@ -825,16 +839,13 @@
                         </xsl:if>
                       </system-layout>
                       <xsl:if test="$localScoreDef/mei:scoreDef//mei:staffDef[@spacing]">
-
                         <xsl:variable name="thisPart">
                           <xsl:value-of select="@id"/>
                         </xsl:variable>
-
                         <xsl:for-each select="$localScoreDef/mei:scoreDef//mei:staffDef[@spacing]">
                           <xsl:variable name="meiStaff">
                             <xsl:value-of select="@n"/>
                           </xsl:variable>
-
                           <xsl:variable name="meiStaffPart">
                             <xsl:choose>
                               <xsl:when
@@ -851,7 +862,6 @@
                               </xsl:when>
                             </xsl:choose>
                           </xsl:variable>
-
                           <xsl:if test="$meiStaffPart = $thisPart">
                             <staff-layout>
                               <xsl:attribute name="number">
@@ -871,6 +881,11 @@
                   </xsl:variable>
                   <xsl:if test="$print/*">
                     <print>
+                      <xsl:if test="$sb/*">
+                        <xsl:attribute name="new-system">
+                          <xsl:text>yes</xsl:text>
+                        </xsl:attribute>
+                      </xsl:if>
                       <xsl:copy-of select="$print/*"/>
                     </print>
                   </xsl:if>
@@ -1014,6 +1029,7 @@
                     </xsl:when>
                   </xsl:choose>
                 </xsl:variable>
+                
                 <xsl:if test="normalize-space($divisions) != ''">
                   <attributes>
                     <divisions>
