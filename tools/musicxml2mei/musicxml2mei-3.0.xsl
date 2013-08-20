@@ -7177,7 +7177,7 @@
                 <xsl:if test="identification/encoding/software">
                   <!-- MusicXML file encoding description -->
                   <annot>
-                    <xsl:text>MusicXML file created </xsl:text>
+                    <xsl:text>Source MusicXML file created </xsl:text>
                     <xsl:if test="identification/encoding/encoder">
                       <xsl:text>by </xsl:text>
                       <xsl:for-each select="identification/encoding/encoder">
