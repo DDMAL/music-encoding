@@ -2086,7 +2086,7 @@
             </xsl:attribute>
           </xsl:for-each>
         </xsl:for-each>
-        
+
         <!-- Provide multiple time signatures as elements, but ignore first measure -->
         <xsl:if test="part/attributes[time/beats] and count(preceding::measure) &gt; 0">
           <xsl:choose>
@@ -3057,6 +3057,58 @@
                               <xsl:value-of select="generate-id()"/>
                             </xsl:attribute>
                             <xsl:attribute name="tstamp.ges">0</xsl:attribute>
+                            <!-- The duration of the space in musical terms isn't required 
+                              for the conversion of MusicXML to MEI, but it may be necessary 
+                              for processing the MEI file. -->
+                            <xsl:variable name="dur">
+                              <xsl:call-template name="quantizedDuration">
+                                <xsl:with-param name="duration">
+                                  <xsl:value-of select="number(@tstamp.ges)"/>
+                                </xsl:with-param>
+                                <xsl:with-param name="ppq">
+                                  <xsl:variable name="thisPart">
+                                    <xsl:value-of select="ancestor::part/@id"/>
+                                  </xsl:variable>
+                                  <xsl:choose>
+                                    <xsl:when test="ancestor::part[attributes/divisions]">
+                                      <xsl:value-of
+                                        select="ancestor::part[attributes/divisions]/attributes/divisions"
+                                      />
+                                    </xsl:when>
+                                    <xsl:when test="preceding::part[@id=$thisPart and
+                                      attributes/divisions]">
+                                      <xsl:value-of select="preceding::part[@id=$thisPart and
+                                        attributes/divisions][1]/attributes/divisions"/>
+                                    </xsl:when>
+                                    <xsl:when test="following::part[@id=$thisPart and
+                                      attributes/divisions]">
+                                      <xsl:value-of select="following::part[@id=$thisPart and
+                                        attributes/divisions][1]/attributes/divisions"/>
+                                    </xsl:when>
+                                    <xsl:otherwise>
+                                      <xsl:value-of select="$scorePPQ"/>
+                                    </xsl:otherwise>
+                                  </xsl:choose>
+                                </xsl:with-param>
+                              </xsl:call-template>
+                            </xsl:variable>
+                            <xsl:choose>
+                              <xsl:when test="matches($dur, '\.')">
+                                <xsl:attribute name="dur">
+                                  <xsl:value-of select="substring-before($dur, '.')"/>
+                                </xsl:attribute>
+                                <xsl:attribute name="dots">
+                                  <xsl:value-of select="string-length(substring-after($dur,
+                                    substring-before($dur,
+                                    '.')))"/>
+                                </xsl:attribute>
+                              </xsl:when>
+                              <xsl:otherwise>
+                                <xsl:attribute name="dur">
+                                  <xsl:value-of select="$dur"/>
+                                </xsl:attribute>
+                              </xsl:otherwise>
+                            </xsl:choose>
                             <xsl:attribute name="dur.ges">
                               <xsl:value-of select="@tstamp.ges"/>
                               <xsl:text>p</xsl:text>
