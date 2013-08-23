@@ -383,112 +383,136 @@
     <xsl:variable name="accidPlace">
       <xsl:choose>
         <xsl:when test="@placement='above'">
-          <xsl:text>accidupper</xsl:text>
+          <xsl:choose>
+            <xsl:when test="not(preceding-sibling::accidental-mark[1]/@placement = 'above')">
+              <xsl:text>accidupper</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>accidlower</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:when>
         <xsl:when test="@placement='below'">
-          <xsl:text>accidlower</xsl:text>
+          <xsl:choose>
+            <xsl:when test="not(preceding-sibling::accidental-mark[1]/@placement = 'below')">
+              <xsl:text>accidlower</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:text>accidupper</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
         </xsl:when>
+        <xsl:otherwise>
+          <xsl:choose>
+            <xsl:when test="count(ancestor::*[1]/accidental-mark) &gt; 1">
+              <!-- More than one accidental-mark -->
+              <xsl:choose>
+                <xsl:when test="count(preceding-sibling::accidental-mark) = 0">
+                  <!-- First accidental-mark -->
+                  <xsl:text>accidupper</xsl:text>
+                </xsl:when>
+                <xsl:otherwise>
+                  <!-- Not first accidental-mark -->
+                  <xsl:choose>
+                    <xsl:when test="preceding-sibling::accidental-mark/@placement='below'">
+                      <xsl:text>accidupper</xsl:text>
+                    </xsl:when>
+                    <xsl:otherwise>
+                      <xsl:text>accidlower</xsl:text>
+                    </xsl:otherwise>
+                  </xsl:choose>
+                </xsl:otherwise>
+              </xsl:choose>
+            </xsl:when>
+            <xsl:otherwise>
+              <!-- Single accidental-mark -->
+              <xsl:text>accidupper</xsl:text>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:otherwise>
       </xsl:choose>
     </xsl:variable>
-    <xsl:if test="$accidPlace='accidupper' or $accidPlace='accidlower'">
-      <xsl:if test="matches(normalize-space(.), '^sharp$') or matches(normalize-space(.),
-        '^natural$') or matches(normalize-space(.), '^flat$') or matches(normalize-space(.),
-        '^double-sharp$') or matches(normalize-space(.), '^double-flat$') or
-        matches(normalize-space(.), '^sharp-sharp$')or matches(normalize-space(.),
-        '^flat-flat$') or matches(normalize-space(.), '^natural-sharp$') or
-        matches(normalize-space(.), '^natural-flat$') or matches(normalize-space(.),
-        '^flat-down$') or matches(normalize-space(.), '^flat-up$') or
-        matches(normalize-space(.), '^natural-down$') or matches(normalize-space(.),
-        '^natural-up$') or  matches(normalize-space(.), '^sharp-down$') or
-        matches(normalize-space(.), '^sharp-up$') or matches(normalize-space(.),
-        '^triple-sharp$') or matches(normalize-space(.), '^triple-flat$') or
-        matches(normalize-space(.), '^quarter-flat$') or matches(normalize-space(.),
-        '^three-quarters-flat$') or matches(normalize-space(.), '^quarter-sharp$') or
-        matches(normalize-space(.), '^three-quarters-sharp$')">
-        <xsl:attribute name="{$accidPlace}">
-          <xsl:choose>
-            <xsl:when test="normalize-space(.) = 'sharp'">
-              <xsl:text>s</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'natural'">
-              <xsl:text>n</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'flat'">
-              <xsl:text>f</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'double-sharp'">
-              <xsl:text>x</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'double-flat'">
-              <xsl:text>ff</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'sharp-sharp'">
-              <xsl:text>ss</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'flat-flat'">
-              <xsl:text>ff</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'natural-sharp'">
-              <xsl:text>ns</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'natural-flat'">
-              <xsl:text>nf</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'flat-down'">
-              <xsl:text>fd</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'flat-up'">
-              <xsl:text>fu</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'quarter-flat'">
-              <xsl:text>fu</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'three-quarters-flat'">
-              <xsl:text>fd</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'quarter-sharp'">
-              <xsl:text>sd</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'three-quarters-sharp'">
-              <xsl:text>su</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'natural-down'">
-              <xsl:text>nd</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'natural-up'">
-              <xsl:text>nu</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'sharp-down'">
-              <xsl:text>sd</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'sharp-up'">
-              <xsl:text>su</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'triple-sharp'">
-              <xsl:text>ts</xsl:text>
-            </xsl:when>
-            <xsl:when test="normalize-space(.) = 'triple-flat'">
-              <xsl:text>tf</xsl:text>
-            </xsl:when>
-          </xsl:choose>
-        </xsl:attribute>
-      </xsl:if>
-    </xsl:if>
-    <xsl:if test="$accidPlace != 'accidupper' and $accidPlace != 'accidlower'">
-      <xsl:variable name="measureNum">
-        <xsl:value-of select="ancestor::measure/@number"/>
-      </xsl:variable>
-      <xsl:variable name="warning">
-        <xsl:value-of select="concat('Turn accidental (', normalize-space(.), ') place lacking,
-          not transcoded')"/>
-      </xsl:variable>
-      <xsl:message>
-        <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
-          ').'))"/>
-      </xsl:message>
-      <xsl:comment>
-        <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
-      </xsl:comment>
+    <xsl:if test="matches(normalize-space(.), '^sharp$') or matches(normalize-space(.),
+      '^natural$') or matches(normalize-space(.), '^flat$') or matches(normalize-space(.),
+      '^double-sharp$') or matches(normalize-space(.), '^double-flat$') or
+      matches(normalize-space(.), '^sharp-sharp$')or matches(normalize-space(.),
+      '^flat-flat$') or matches(normalize-space(.), '^natural-sharp$') or
+      matches(normalize-space(.), '^natural-flat$') or matches(normalize-space(.),
+      '^flat-down$') or matches(normalize-space(.), '^flat-up$') or
+      matches(normalize-space(.), '^natural-down$') or matches(normalize-space(.),
+      '^natural-up$') or  matches(normalize-space(.), '^sharp-down$') or
+      matches(normalize-space(.), '^sharp-up$') or matches(normalize-space(.),
+      '^triple-sharp$') or matches(normalize-space(.), '^triple-flat$') or
+      matches(normalize-space(.), '^quarter-flat$') or matches(normalize-space(.),
+      '^three-quarters-flat$') or matches(normalize-space(.), '^quarter-sharp$') or
+      matches(normalize-space(.), '^three-quarters-sharp$')">
+      <xsl:attribute name="{$accidPlace}">
+        <xsl:choose>
+          <xsl:when test="normalize-space(.) = 'sharp'">
+            <xsl:text>s</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'natural'">
+            <xsl:text>n</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'flat'">
+            <xsl:text>f</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'double-sharp'">
+            <xsl:text>x</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'double-flat'">
+            <xsl:text>ff</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'sharp-sharp'">
+            <xsl:text>ss</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'flat-flat'">
+            <xsl:text>ff</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'natural-sharp'">
+            <xsl:text>ns</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'natural-flat'">
+            <xsl:text>nf</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'flat-down'">
+            <xsl:text>fd</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'flat-up'">
+            <xsl:text>fu</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'quarter-flat'">
+            <xsl:text>fu</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'three-quarters-flat'">
+            <xsl:text>fd</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'quarter-sharp'">
+            <xsl:text>sd</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'three-quarters-sharp'">
+            <xsl:text>su</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'natural-down'">
+            <xsl:text>nd</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'natural-up'">
+            <xsl:text>nu</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'sharp-down'">
+            <xsl:text>sd</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'sharp-up'">
+            <xsl:text>su</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'triple-sharp'">
+            <xsl:text>ts</xsl:text>
+          </xsl:when>
+          <xsl:when test="normalize-space(.) = 'triple-flat'">
+            <xsl:text>tf</xsl:text>
+          </xsl:when>
+        </xsl:choose>
+      </xsl:attribute>
     </xsl:if>
     <xsl:if test="not(matches(normalize-space(.), '^sharp$') or matches(normalize-space(.),
       '^natural$') or matches(normalize-space(.), '^flat$') or matches(normalize-space(.),
@@ -504,11 +528,39 @@
       matches(normalize-space(.), '^quarter-flat$') or matches(normalize-space(.),
       '^three-quarters-flat$') or matches(normalize-space(.), '^quarter-sharp$') or
       matches(normalize-space(.), '^three-quarters-sharp$'))">
+      <xsl:if test="normalize-space() != ''">
+        <xsl:variable name="measureNum">
+          <xsl:value-of select="ancestor::measure/@number"/>
+        </xsl:variable>
+        <xsl:variable name="warning">
+          <xsl:value-of select="concat(upper-case(substring($accidPlace, 6, 1)),
+            substring($accidPlace, 7), '&#32;', 'accidental value (', ., ') not supported')"/>
+        </xsl:variable>
+        <xsl:message>
+          <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
+            ').'))"/>
+        </xsl:message>
+        <xsl:comment>
+          <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
+        </xsl:comment>
+      </xsl:if>
+    </xsl:if>
+    <!-- Include accidentals that apply to this ornament; that is,
+    they follow this ornament, but precede any other ornament -->
+    <xsl:for-each select="following-sibling::*[1]">
+      <xsl:if test="local-name()='accidental-mark'">
+        <xsl:apply-templates select="." mode="stage1.amlist"/>
+      </xsl:if>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="accidental-mark" mode="stage1.amlist.empty">
+    <xsl:if test="normalize-space() = ''">
       <xsl:variable name="measureNum">
         <xsl:value-of select="ancestor::measure/@number"/>
       </xsl:variable>
       <xsl:variable name="warning">
-        <xsl:value-of select="concat('Turn lower accidental value (', ., ') not supported')"/>
+        <xsl:text>Empty accidental-mark element not transcoded</xsl:text>
       </xsl:variable>
       <xsl:message>
         <xsl:value-of select="normalize-space(concat($warning, ' (m. ', $measureNum,
@@ -518,11 +570,9 @@
         <xsl:value-of select="normalize-space(concat($warning, '.'))"/>
       </xsl:comment>
     </xsl:if>
-    <!-- Include accidentals that apply to this ornament; that is,
-    they follow this ornament, but precede any other ornament -->
     <xsl:for-each select="following-sibling::*[1]">
       <xsl:if test="local-name()='accidental-mark'">
-        <xsl:apply-templates select="." mode="stage1.amlist"/>
+        <xsl:apply-templates select="." mode="stage1.amlist.empty"/>
       </xsl:if>
     </xsl:for-each>
   </xsl:template>
@@ -5231,6 +5281,11 @@
             <xsl:apply-templates select="." mode="stage1.amlist"/>
           </xsl:if>
         </xsl:for-each>
+        <xsl:for-each select="following-sibling::*[1]">
+          <xsl:if test="local-name()='accidental-mark'">
+            <xsl:apply-templates select="." mode="stage1.amlist.empty"/>
+          </xsl:if>
+        </xsl:for-each>
       </trill>
     </xsl:for-each>
     <!-- Turns -->
@@ -5285,6 +5340,11 @@
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
             <xsl:apply-templates select="." mode="stage1.amlist"/>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:for-each select="following-sibling::*[1]">
+          <xsl:if test="local-name()='accidental-mark'">
+            <xsl:apply-templates select="." mode="stage1.amlist.empty"/>
           </xsl:if>
         </xsl:for-each>
       </turn>
@@ -5348,6 +5408,11 @@
             <xsl:apply-templates select="." mode="stage1.amlist"/>
           </xsl:if>
         </xsl:for-each>
+        <xsl:for-each select="following-sibling::*[1]">
+          <xsl:if test="local-name()='accidental-mark'">
+            <xsl:apply-templates select="." mode="stage1.amlist.empty"/>
+          </xsl:if>
+        </xsl:for-each>
       </mordent>
     </xsl:for-each>
     <!-- Schleifer -->
@@ -5398,6 +5463,11 @@
         <xsl:for-each select="following-sibling::*[1]">
           <xsl:if test="local-name()='accidental-mark'">
             <xsl:apply-templates select="." mode="stage1.amlist"/>
+          </xsl:if>
+        </xsl:for-each>
+        <xsl:for-each select="following-sibling::*[1]">
+          <xsl:if test="local-name()='accidental-mark'">
+            <xsl:apply-templates select="." mode="stage1.amlist.empty"/>
           </xsl:if>
         </xsl:for-each>
       </dir>
