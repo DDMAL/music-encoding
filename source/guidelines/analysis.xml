@@ -16,19 +16,21 @@
   
   CONTACT: info@music-encoding.org
 -->
-
-<div xmlns="http://www.tei-c.org/ns/1.0" type="div1" xml:id="analysis" n="0">
+<div n="0" type="div1" xml:id="analysis" xmlns="http://www.tei-c.org/ns/1.0">
   <head>Analytical Information</head>
   <p>This chapter describes the use of attributes that capture data which may be useful for
     analytical purposes. The analysis module provides attributes that record relationships between
     entities found in the encoding. These attributes may be used differently by different users,
     depending on the purpose of the analysis. These Guidelines recommend that encoders employ
-    commonly accepted analytical practices, such as "functional analysis" or "Schenkerian analysis",
-    and document their use in the <gi scheme="MEI">encodingDesc</gi> described in section <ptr
-      target="#encodingDescription"/>. For general information on musical analysis, please consult
-    Grove Music Online, "<ref
-      target="http://www.oxfordmusiconline.com/subscriber/article/grove/music/41862pg1#S41862.1"
-      >Analysis</ref>".</p>
+    commonly accepted analytical practices, such as &quot;functional analysis&quot; or &quot;Schenkerian analysis&quot;,
+    and document their use in the 
+    <gi scheme="MEI">encodingDesc</gi>
+    described in section 
+    <ptr target="#encodingDescription"/>
+    . For general information on musical analysis, please consult
+    Grove Music Online, &quot;
+    <ref target="http://www.oxfordmusiconline.com/subscriber/article/grove/music/41862pg1#S41862.1">Analysis</ref>
+    &quot;.</p>
   <div type="div2" xml:id="analysisDescribingRelationships">
     <head>General Relationships Between Elements</head>
     <p>The relationships between event elements, such as note, chord, and rest, are the basic
@@ -36,12 +38,13 @@
       relations and provide the opportunity to record data useful for common analytical tasks. In
       the context of a formal analysis, for instance, the attributes presented here can be useful in
       the capture information about the structure of a musical work.</p>
-    <p>The analysis module offers several attributes in the <ident type="class"
-        >att.common.anl</ident> class for the description of basic relationships:</p>
+    <p>The analysis module offers several attributes in the 
+      <ident type="class">att.common.anl</ident>
+      class for the description of basic relationships:</p>
     <p>
       <specList>
-        <specDesc key="att.common.anl" atts="copyof corresp next prev sameas synch"/>
-        <specDesc key="att.alignment" atts="when"/>
+        <specDesc atts="copyof corresp next prev sameas synch" key="att.common.anl"/>
+        <specDesc atts="when" key="att.alignment"/>
       </specList>
     </p>
     <p>These attributes accommodate the encoding of linkages between the element carrying the
@@ -53,29 +56,45 @@
       often widely-spaced in both encoded order and time. The attributes allow a large number of
       connections, enhancing the informational content, and therefore the potential usefulness, of
       the encoding.</p>
-    <p>The <att>copyof</att> attribute points to an element of which the current element is a copy.
-      It can be used to repeat a note, for example, without encoding the whole <gi scheme="MEI"
-        >note</gi> element again. The copy is a <soCalled>deep</soCalled>one; that is, the
-        <att>copyof</att> attribute copies all attributes and child elements which belong to the
-      copied element, such as the <att>dur</att> and <att>oct</att> attributes of a copied <gi
-        scheme="MEI">note</gi>. The value of the <att>copyof</att> attribute must be a URI, which
+    <p>The 
+      <att>copyof</att>
+      attribute points to an element of which the current element is a copy.
+      It can be used to repeat a note, for example, without encoding the whole 
+      <gi scheme="MEI">note</gi>
+      element again. The copy is a 
+      <soCalled>deep</soCalled>
+      one; that is, the
+        
+      <att>copyof</att>
+      attribute copies all attributes and child elements which belong to the
+      copied element, such as the 
+      <att>dur</att>
+      and 
+      <att>oct</att>
+      attributes of a copied 
+      <gi scheme="MEI">note</gi>
+      . The value of the 
+      <att>copyof</att>
+      attribute must be a URI, which
       usually refers to an element in the current document. The following example demonstrates use
-      of the <att>copyof</att> attribute:</p>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure n="1">
-  <staff n="1">
-    <layer>
-      <note pname="g" oct="4" dur="4" xml:id="analysis.note1_1"/>
-    </layer>
-  </staff>
-</measure>
-<measure n="2">
-  <staff n="1">
-    <layer>
-      <note copyof="#analysis.note1_1"/>
-    </layer>
-  </staff>
-</measure>
+      of the 
+      <att>copyof</att>
+      attribute:</p>
+    <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+      <measure n="1">
+        <staff n="1">
+          <layer>
+            <note dur="4" oct="4" pname="g" xml:id="analysis.note1_1"/>
+          </layer>
+        </staff>
+      </measure>
+      <measure n="2">
+        <staff n="1">
+          <layer>
+            <note copyof="#analysis.note1_1"/>
+          </layer>
+        </staff>
+      </measure>
     </egXML>
     <p>In this example the 
       <gi scheme="MEI">note</gi>
@@ -99,290 +118,322 @@
       <att>copyof</att>
       greatly reduces
       encoding effort. The image and the following encoding of the beginning of Schubert's
-        <title>Erlkönig</title> illustrates the benefit of using the <att>copyof</att>
+        
+      <title>Erlkönig</title>
+      illustrates the benefit of using the 
+      <att>copyof</att>
       attribute.</p>
     <figure>
       <head>First measure of Schubert's Erlkönig</head>
       <graphic url="Images/modules/analysis/Schubert_Erlkonig_Op1_m1.png"/>
     </figure>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure>
-  <staff n="1">
-    <layer>
-      <mRest/>
-    </layer>
-  </staff>
-  <staff n="2">
-    <layer>
-      <tuplet xml:id="analysis.tup1" num="3" num.visible="true">
-        <chord dur="8">
-          <note pname="g" oct="3"/>
-          <note pname="g" oct="4"/>
-        </chord>
-        <chord dur="8">
-          <note pname="g" oct="3"/>
-          <note pname="g" oct="4"/>
-        </chord>
-        <chord dur="8">
-          <note pname="g" oct="3"/>
-          <note pname="g" oct="4"/>
-        </chord>
-      </tuplet>
-      <tuplet xml:id="analysis.tup2" copyof="#analysis.tup1"/>
-      <tuplet xml:id="analysis.tup3" copyof="#analysis.tup1"/>
-      <tuplet xml:id="analysis.tup4" copyof="#analysis.tup1"/>
-    </layer>
-  </staff>
-  <staff n="3">
-    <layer>
-      <mRest/>
-    </layer>
-  </staff>
-</measure>
+    <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+      <measure>
+        <staff n="1">
+          <layer>
+            <mRest/>
+          </layer>
+        </staff>
+        <staff n="2">
+          <layer>
+            <tuplet num="3" num.visible="true" xml:id="analysis.tup1">
+              <chord dur="8">
+                <note oct="3" pname="g"/>
+                <note oct="4" pname="g"/>
+              </chord>
+              <chord dur="8">
+                <note oct="3" pname="g"/>
+                <note oct="4" pname="g"/>
+              </chord>
+              <chord dur="8">
+                <note oct="3" pname="g"/>
+                <note oct="4" pname="g"/>
+              </chord>
+            </tuplet>
+            <tuplet copyof="#analysis.tup1" xml:id="analysis.tup2"/>
+            <tuplet copyof="#analysis.tup1" xml:id="analysis.tup3"/>
+            <tuplet copyof="#analysis.tup1" xml:id="analysis.tup4"/>
+          </layer>
+        </staff>
+        <staff n="3">
+          <layer>
+            <mRest/>
+          </layer>
+        </staff>
+      </measure>
     </egXML>
-    <p>This example can be reduced further by using <att>copyof</att> inside the initial tuplet to
-      represent the repeated chords:</p>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure>
-  <staff n="1">
-    <layer>
-      <mRest/>
-    </layer>
-  </staff>
-  <staff n="2">
-    <layer>
-      <tuplet xml:id="analysis.tup5" num="3" num.visible="true">
-        <chord dur="8" xml:id="analysis.t1c1">
-          <note pname="g" oct="3"/>
-          <note pname="g" oct="4"/>
-        </chord>
-        <chord copyof="#analysis.t1c1"/>
-        <chord copyof="#analysis.t1c1"/>
-      </tuplet>
-      <tuplet xml:id="analysis.tup6" copyof="#analysis.tup5"/>
-      <tuplet xml:id="analysis.tup7" copyof="#analysis.tup5"/>
-      <tuplet xml:id="analysis.tup8" copyof="#analysis.tup5"/>
-    </layer>
-  </staff>
-  <staff n="3">
-    <layer>
-      <mRest/>
-    </layer>
-  </staff>
-</measure>
+    <p>This example can be reduced further by using 
+      <att>copyof</att>
+      inside the initial tuplet to represent the repeated chords:</p>
+    <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+      <measure>
+        <staff n="1">
+          <layer>
+            <mRest/>
+          </layer>
+        </staff>
+        <staff n="2">
+          <layer>
+            <tuplet num="3" num.visible="true" xml:id="analysis.tup5">
+              <chord dur="8" xml:id="analysis.t1c1">
+                <note oct="3" pname="g"/>
+                <note oct="4" pname="g"/>
+              </chord>
+              <chord copyof="#analysis.t1c1"/>
+              <chord copyof="#analysis.t1c1"/>
+            </tuplet>
+            <tuplet copyof="#analysis.tup5" xml:id="analysis.tup6"/>
+            <tuplet copyof="#analysis.tup5" xml:id="analysis.tup7"/>
+            <tuplet copyof="#analysis.tup5" xml:id="analysis.tup8"/>
+          </layer>
+        </staff>
+        <staff n="3">
+          <layer>
+            <mRest/>
+          </layer>
+        </staff>
+      </measure>
     </egXML>
-    <p>While <att>copyof</att> signifies a duplicate copy of an element, the <att>sameas</att>
+    <p>While 
+      <att>copyof</att>
+      signifies a duplicate copy of an element, the 
+      <att>sameas</att>
       indicates that the current element represents exactly the same entity as the one referenced in
-        <att>sameas</att>. Use of <att>sameas</att> is used for describing the same entity from
+        
+      <att>sameas</att>
+      . Use of 
+      <att>sameas</att>
+      is used for describing the same entity from
       multiple perspectives, e.g., the same event in two layers. The following example illustrates
       the sharing of one note head between two voices in the first full measure of a chorale:</p>
     <figure>
-      <head>Bach Chorale, <title>Ach Gott, vom Himmel sieh' darein</title>, m. 1-2</head>
-      <graphic url="Images/modules/analysis/chor003_m1-2.png" height="200px"/>
+      <head>Bach Chorale, 
+        <title>Ach Gott, vom Himmel sieh' darein</title>
+        , m. 1-2</head>
+      <graphic height="200px" url="Images/modules/analysis/chor003_m1-2.png"/>
     </figure>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure n="1" xml:id="analysis.m_sc_22">
-  <staff n="1">
-    <layer n="1">
-      <note xml:id="analysis.n_sc_23_3" pname="c" oct="5" dur="4"/>
-      <note xml:id="analysis.n_sc_24_3" pname="b" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_25_3" pname="a" oct="4" dur="4" sameas="analysis.n_sc_25_2"/>
-      <note xml:id="analysis.n_sc_26_3" pname="e" oct="5" dur="4"/>
-    </layer>
-    <layer n="2">
-      <note xml:id="analysis.n_sc_23_2" pname="a" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_24_2" pname="g" accid="s" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_25_2" pname="a" oct="4" dur="4" sameas="analysis.n_sc_25_3"/>
-      <beam>
-        <note xml:id="analysis.n_sc_26_2" pname="g" oct="4" dur="8"/>
-        <note xml:id="analysis.n_sc_27_2" pname="a" oct="4" dur="8"/>
-      </beam>
-    </layer>
-  </staff>
-  <staff n="2">
-    <layer n="1">
-      <note xml:id="analysis.n_sc_23_1" pname="e" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_24_1" pname="d" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_25_1" pname="e" oct="4" dur="4"/>
-      <beam>
-        <note xml:id="analysis.n_sc_26_1" pname="d" oct="4" dur="8"/>
-        <note xml:id="analysis.n_sc_27_1" pname="c" oct="4" dur="8"/>
-      </beam>
-    </layer>
-    <layer n="2">
-      <note xml:id="n_sc_23_0" pname="a" oct="3" dur="4"/>
-      <note xml:id="n_sc_24_0" pname="b" oct="3" dur="4"/>
-      <note xml:id="n_sc_25_0" pname="c" oct="4" dur="4"/>
-      <beam>
-        <note xml:id="n_sc_26_0" pname="b" oct="3" dur="8"/>
-        <note xml:id="n_sc_27_0" pname="a" oct="3" dur="8"/>
-      </beam>
-    </layer>
-  </staff>
-</measure>
+    <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+      <measure n="1" xml:id="analysis.m_sc_22">
+        <staff n="1">
+          <layer n="1">
+            <note dur="4" oct="5" pname="c" xml:id="analysis.n_sc_23_3"/>
+            <note dur="4" oct="4" pname="b" xml:id="analysis.n_sc_24_3"/>
+            <note dur="4" oct="4" pname="a" sameas="analysis.n_sc_25_2" xml:id="analysis.n_sc_25_3"/>
+            <note dur="4" oct="5" pname="e" xml:id="analysis.n_sc_26_3"/>
+          </layer>
+          <layer n="2">
+            <note dur="4" oct="4" pname="a" xml:id="analysis.n_sc_23_2"/>
+            <note accid="s" dur="4" oct="4" pname="g" xml:id="analysis.n_sc_24_2"/>
+            <note dur="4" oct="4" pname="a" sameas="analysis.n_sc_25_3" xml:id="analysis.n_sc_25_2"/>
+            <beam>
+              <note dur="8" oct="4" pname="g" xml:id="analysis.n_sc_26_2"/>
+              <note dur="8" oct="4" pname="a" xml:id="analysis.n_sc_27_2"/>
+            </beam>
+          </layer>
+        </staff>
+        <staff n="2">
+          <layer n="1">
+            <note dur="4" oct="4" pname="e" xml:id="analysis.n_sc_23_1"/>
+            <note dur="4" oct="4" pname="d" xml:id="analysis.n_sc_24_1"/>
+            <note dur="4" oct="4" pname="e" xml:id="analysis.n_sc_25_1"/>
+            <beam>
+              <note dur="8" oct="4" pname="d" xml:id="analysis.n_sc_26_1"/>
+              <note dur="8" oct="4" pname="c" xml:id="analysis.n_sc_27_1"/>
+            </beam>
+          </layer>
+          <layer n="2">
+            <note dur="4" oct="3" pname="a" xml:id="n_sc_23_0"/>
+            <note dur="4" oct="3" pname="b" xml:id="n_sc_24_0"/>
+            <note dur="4" oct="4" pname="c" xml:id="n_sc_25_0"/>
+            <beam>
+              <note dur="8" oct="3" pname="b" xml:id="n_sc_26_0"/>
+              <note dur="8" oct="3" pname="a" xml:id="n_sc_27_0"/>
+            </beam>
+          </layer>
+        </staff>
+      </measure>
     </egXML>
-    <p>While <att>copyof</att> and <att>sameas</att> have defined semantics, the <att>corresp</att>
+    <p>While 
+      <att>copyof</att>
+      and 
+      <att>sameas</att>
+      have defined semantics, the 
+      <att>corresp</att>
       may be used to create user-defined relationships between elements. The example below
       demonstrates the encoding of a relationship between #note3 and the fermata, even though the
       fermata is not placed directly above the note.</p>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure n="1" right="end">
-  <staff n="1">
-    <layer n="1">
-      <note pname="c" oct="4" dur="4" xml:id="analysis.note1"/>
-      <note pname="d" oct="4" dur="4" xml:id="analysis.note2"/>
-      <note pname="e" oct="4" dur="2" xml:id="analysis.note3"/>
-    </layer>
-  </staff>
-  <fermata place="above" tstamp="4.75" corresp="#analysis.note3"/>
-</measure>
+    <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+      <measure n="1" right="end">
+        <staff n="1">
+          <layer n="1">
+            <note dur="4" oct="4" pname="c" xml:id="analysis.note1"/>
+            <note dur="4" oct="4" pname="d" xml:id="analysis.note2"/>
+            <note dur="2" oct="4" pname="e" xml:id="analysis.note3"/>
+          </layer>
+        </staff>
+        <fermata corresp="#analysis.note3" place="above" tstamp="4.75"/>
+      </measure>
     </egXML>
-    <p>The <att>corresp</att> attribute only marks the correspondence between the current element
-      and one or more other entities. To describe the nature of the correspondence, one must use <gi
-        scheme="MEI">annot</gi>.</p>
-    <p>The <att>next</att> and <att>prev</att> attributes point to elements which follow or precede
+    <p>The 
+      <att>corresp</att>
+      attribute only marks the correspondence between the current element
+      and one or more other entities. To describe the nature of the correspondence, one must use 
+      <gi scheme="MEI">annot</gi>
+      .</p>
+    <p>The 
+      <att>next</att>
+      and 
+      <att>prev</att>
+      attributes point to elements which follow or precede
       the current element in some fashion other than that indicated by encoding order. The use of
       these attributes helps to avoid confusion in the sequence of events, for example, in voice
       leading across layers or staves, when the encoding reflects the physical arrangement of
       voices. In the second measure of the following example, the target of the next attribute
       occurs after the pointing element in time, but before it in encoding order:</p>
     <figure>
-      <head>Bach Chorale, <title>Ach Gott, vom Himmel sieh' darein</title>, m. 6-7</head>
-      <graphic url="Images/modules/analysis/chor003_m6-7.png" height="200px"/>
+      <head>Bach Chorale, 
+        <title>Ach Gott, vom Himmel sieh' darein</title>
+        , m. 6-7</head>
+      <graphic height="200px" url="Images/modules/analysis/chor003_m6-7.png"/>
     </figure>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure n="6" xml:id="analysis.m_sc_62">
-  <staff n="1">
-    <layer n="1">
-      <note xml:id="analysis.n_sc_63_3" pname="g" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_65_3" pname="a" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_67_3" pname="b" oct="4" dur="4" fermata="above"/>
-      <note xml:id="analysis.n_sc_68_3" pname="g" oct="4" dur="4"/>
-    </layer>
-    <layer n="2">
-      <beam>
-        <note xml:id="analysis.n_sc_63_2" pname="e" oct="4" dur="8"/>
-        <note xml:id="analysis.n_sc_64_2" pname="g" oct="4" dur="8"/>
-      </beam>
-      <beam>
-        <note xml:id="analysis.n_sc_65_2" pname="f" oct="4" dur="8"/>
-        <note xml:id="analysis.n_sc_66_2" pname="e" oct="4" dur="8"/>
-      </beam>
-      <note xml:id="analysis.n_sc_67_2" pname="d" accid="s" oct="4" dur="4" next="analysis.n_sc_67_0"/>
-      <beam>
-        <note xml:id="analysis.n_sc_68_1" pname="e" oct="4" dur="8"/>
-        <note xml:id="analysis.n_sc_69_1" pname="d" accid="n" oct="4" dur="8"/>
-      </beam>
-    </layer>
-  </staff>
-  <staff n="2">
-    <layer n="1">
-      <note xml:id="analysis.n_sc_63_1" pname="b" oct="3" dur="4"/>
-      <note xml:id="analysis.n_sc_65_1" pname="c" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_67_1" pname="f" oct="3" dur="4"/>
-      <note xml:id="analysis.n_sc_68_2" pname="b" oct="3" dur="4"/>
-    </layer>
-    <layer n="1">
-      <beam>
-        <note xml:id="n_sc_63_0" pname="e" oct="3" dur="8"/>
-        <note xml:id="n_sc_64_0" pname="d" oct="3" dur="8"/>
-      </beam>
-      <note xml:id="n_sc_65_0" pname="c" oct="3" dur="4"/>
-      <note xml:id="n_sc_67_0" pname="b" oct="2" dur="4" fermata="below"/>
-      <note xml:id="n_sc_68_0" pname="e" oct="3" dur="4"/>
-    </layer>
-  </staff>
-</measure>
-<measure n="7" xml:id="m_sc_70">
-  <staff n="1">
-    <layer n="1">
-      <beam>
-        <note xml:id="analysis.n_sc_71_3" pname="a" oct="4" dur="8"/>
-        <note xml:id="analysis.n_sc_72_3" pname="b" oct="4" dur="8"/>
-      </beam>
-      <note xml:id="analysis.n_sc_73_3" pname="c" oct="5" dur="4"/>
-      <note xml:id="analysis.n_sc_75_3" pname="b" oct="4" dur="4"/>
-      <beam>
-        <note xml:id="analysis.n_sc_76_3" pname="c" oct="5" dur="8"/>
-        <note xml:id="analysis.n_sc_77_3" pname="b" oct="4" dur="8"/>
-      </beam>
-    </layer>
-    <layer n="2">
-      <beam>
-        <note xml:id="analysis.n_sc_71_1" pname="c" oct="4" dur="8"/>
-        <note xml:id="analysis.n_sc_72_1" pname="d" oct="4" dur="8"/>
-      </beam>
-      <note xml:id="analysis.n_sc_73_2" pname="a" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_75_2" pname="g" accid="s" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_76_2" pname="a" oct="4" dur="4"/>
-    </layer>
-    <layer n="3">
-      <space dur="4"/>
-      <note xml:id="analysis.n_sc_73_1" pname="e" oct="4" dur="4"/>
-      <note xml:id="analysis.n_sc_75_1" pname="e" oct="4" dur="4"/>
-      <beam>
-        <note xml:id="analysis.n_sc_76_1" pname="e" oct="4" dur="8"/>
-        <note xml:id="analysis.n_sc_77_1" pname="d" oct="4" dur="8"/>
-      </beam>
-    </layer>
-  </staff>
-  <staff n="2">
-    <layer n="1">
-      <note xml:id="analysis.n_sc_71_2" pname="a" oct="3" dur="4" next="analysis.n_sc_73_2"/>
-    </layer>
-    <layer n="2">
-      <note xml:id="n_sc_71_0" pname="f" accid="n" oct="3" dur="4"/>
-      <beam>
-        <note xml:id="n_sc_73_0" pname="c" oct="3" dur="8"/>
-        <note xml:id="n_sc_74_0" pname="d" oct="3" dur="8"/>
-      </beam>
-      <note xml:id="n_sc_75_0" pname="e" oct="3" dur="4"/>
-      <beam>
-        <note xml:id="n_sc_76_0" pname="a" oct="2" dur="8"/>
-        <note xml:id="n_sc_77_0" pname="b" oct="2" dur="8"/>
-      </beam>
-    </layer>
-  </staff>
-</measure>
+    <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+      <measure n="6" xml:id="analysis.m_sc_62">
+        <staff n="1">
+          <layer n="1">
+            <note dur="4" oct="4" pname="g" xml:id="analysis.n_sc_63_3"/>
+            <note dur="4" oct="4" pname="a" xml:id="analysis.n_sc_65_3"/>
+            <note dur="4" fermata="above" oct="4" pname="b" xml:id="analysis.n_sc_67_3"/>
+            <note dur="4" oct="4" pname="g" xml:id="analysis.n_sc_68_3"/>
+          </layer>
+          <layer n="2">
+            <beam>
+              <note dur="8" oct="4" pname="e" xml:id="analysis.n_sc_63_2"/>
+              <note dur="8" oct="4" pname="g" xml:id="analysis.n_sc_64_2"/>
+            </beam>
+            <beam>
+              <note dur="8" oct="4" pname="f" xml:id="analysis.n_sc_65_2"/>
+              <note dur="8" oct="4" pname="e" xml:id="analysis.n_sc_66_2"/>
+            </beam>
+            <note accid="s" dur="4" next="analysis.n_sc_67_0" oct="4" pname="d" xml:id="analysis.n_sc_67_2"/>
+            <beam>
+              <note dur="8" oct="4" pname="e" xml:id="analysis.n_sc_68_1"/>
+              <note accid="n" dur="8" oct="4" pname="d" xml:id="analysis.n_sc_69_1"/>
+            </beam>
+          </layer>
+        </staff>
+        <staff n="2">
+          <layer n="1">
+            <note dur="4" oct="3" pname="b" xml:id="analysis.n_sc_63_1"/>
+            <note dur="4" oct="4" pname="c" xml:id="analysis.n_sc_65_1"/>
+            <note dur="4" oct="3" pname="f" xml:id="analysis.n_sc_67_1"/>
+            <note dur="4" oct="3" pname="b" xml:id="analysis.n_sc_68_2"/>
+          </layer>
+          <layer n="1">
+            <beam>
+              <note dur="8" oct="3" pname="e" xml:id="n_sc_63_0"/>
+              <note dur="8" oct="3" pname="d" xml:id="n_sc_64_0"/>
+            </beam>
+            <note dur="4" oct="3" pname="c" xml:id="n_sc_65_0"/>
+            <note dur="4" fermata="below" oct="2" pname="b" xml:id="n_sc_67_0"/>
+            <note dur="4" oct="3" pname="e" xml:id="n_sc_68_0"/>
+          </layer>
+        </staff>
+      </measure>
+      <measure n="7" xml:id="m_sc_70">
+        <staff n="1">
+          <layer n="1">
+            <beam>
+              <note dur="8" oct="4" pname="a" xml:id="analysis.n_sc_71_3"/>
+              <note dur="8" oct="4" pname="b" xml:id="analysis.n_sc_72_3"/>
+            </beam>
+            <note dur="4" oct="5" pname="c" xml:id="analysis.n_sc_73_3"/>
+            <note dur="4" oct="4" pname="b" xml:id="analysis.n_sc_75_3"/>
+            <beam>
+              <note dur="8" oct="5" pname="c" xml:id="analysis.n_sc_76_3"/>
+              <note dur="8" oct="4" pname="b" xml:id="analysis.n_sc_77_3"/>
+            </beam>
+          </layer>
+          <layer n="2">
+            <beam>
+              <note dur="8" oct="4" pname="c" xml:id="analysis.n_sc_71_1"/>
+              <note dur="8" oct="4" pname="d" xml:id="analysis.n_sc_72_1"/>
+            </beam>
+            <note dur="4" oct="4" pname="a" xml:id="analysis.n_sc_73_2"/>
+            <note accid="s" dur="4" oct="4" pname="g" xml:id="analysis.n_sc_75_2"/>
+            <note dur="4" oct="4" pname="a" xml:id="analysis.n_sc_76_2"/>
+          </layer>
+          <layer n="3">
+            <space dur="4"/>
+            <note dur="4" oct="4" pname="e" xml:id="analysis.n_sc_73_1"/>
+            <note dur="4" oct="4" pname="e" xml:id="analysis.n_sc_75_1"/>
+            <beam>
+              <note dur="8" oct="4" pname="e" xml:id="analysis.n_sc_76_1"/>
+              <note dur="8" oct="4" pname="d" xml:id="analysis.n_sc_77_1"/>
+            </beam>
+          </layer>
+        </staff>
+        <staff n="2">
+          <layer n="1">
+            <note dur="4" next="analysis.n_sc_73_2" oct="3" pname="a" xml:id="analysis.n_sc_71_2"/>
+          </layer>
+          <layer n="2">
+            <note accid="n" dur="4" oct="3" pname="f" xml:id="n_sc_71_0"/>
+            <beam>
+              <note dur="8" oct="3" pname="c" xml:id="n_sc_73_0"/>
+              <note dur="8" oct="3" pname="d" xml:id="n_sc_74_0"/>
+            </beam>
+            <note dur="4" oct="3" pname="e" xml:id="n_sc_75_0"/>
+            <beam>
+              <note dur="8" oct="2" pname="a" xml:id="n_sc_76_0"/>
+              <note dur="8" oct="2" pname="b" xml:id="n_sc_77_0"/>
+            </beam>
+          </layer>
+        </staff>
+      </measure>
     </egXML>
     <p>This attribute may also be useful to clarify a sequence of entites which occurs across some
       form of interruption, in this case, notes before and after a system or page break where there
       is no custos or direct in the source:</p>
-    <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure n="1">
-  <staff n="1">
-    <layer>
-      <note pname="f" oct="4" dur="4" stem.dir="up" xml:id="analysis.m1s1e1" next="analysis.m1s1e2"/>
-      <pb/>
-      <note pname="b" oct="3" dur="8" stem.dir="up" xml:id="analysis.m1s1e2" prev="analysis.m1s1e1" next="m1s1e3"/>
-      <note pname="c" oct="4" dur="8" stem.dir="up" xml:id="analysis.m1s1e3" prev="analysis.m1s1e2"/>
-    </layer>
-  </staff>
-</measure>
+    <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+      <measure n="1">
+        <staff n="1">
+          <layer>
+            <note dur="4" next="analysis.m1s1e2" oct="4" pname="f" stem.dir="up" xml:id="analysis.m1s1e1"/>
+            <pb/>
+            <note dur="8" next="m1s1e3" oct="3" pname="b" prev="analysis.m1s1e1" stem.dir="up" xml:id="analysis.m1s1e2"/>
+            <note dur="8" oct="4" pname="c" prev="analysis.m1s1e2" stem.dir="up" xml:id="analysis.m1s1e3"/>
+          </layer>
+        </staff>
+      </measure>
     </egXML>
     <p>A one-to-many relationship between the current element and the entities being referred to can
-      be expressed by using a list of space-separated URIs in <att>corresp</att>.</p>
-    <p>The <att>synch</att> attribute points to an element that is synchronous with; that is, begins
+      be expressed by using a list of space-separated URIs in 
+      <att>corresp</att>
+      .</p>
+    <p>The 
+      <att>synch</att>
+      attribute points to an element that is synchronous with; that is, begins
       at the same moment in time, as the current element. It is useful when the encoding order
       differs from the order in which entities occur in time.</p>
     <!-- TODO:
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-            <!-\- NEED EXAMPLE HERE -\->
-        </egXML>-->
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve"><!-\- NEED EXAMPLE HERE -\-></egXML>-->
     <!--<p>It is also useful for eliminating confusion when the source has obvious timing errors. In
             the following fictitious example,</p>-->
     <!-- TODO:
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-            <!-\- NEED EXAMPLE HERE -\->
-        </egXML>-->
-    <p>The <att>when</att> attribute may be used to indicate the point of occurrence of the feature
-      bearing this attribute along a time line. Its value must be the ID of a <gi scheme="MEI"
-        >when</gi> element. For more detailed information regarding the use of <att>when</att>,
-      please see <ptr target="#linkAlign"/>.</p>
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve"><!-\- NEED EXAMPLE HERE -\-></egXML>-->
+    <p>The 
+      <att>when</att>
+      attribute may be used to indicate the point of occurrence of the feature
+      bearing this attribute along a time line. Its value must be the ID of a 
+      <gi scheme="MEI">when</gi>
+      element. For more detailed information regarding the use of 
+      <att>when</att>
+      ,
+      please see 
+      <ptr target="#linkAlign"/>
+      .</p>
     <!-- TODO:
-        <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-            <!-\- NEED EXAMPLE HERE -\->
-        </egXML>-->
+        <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve"><!-\- NEED EXAMPLE HERE -\-></egXML>-->
   </div>
   <div type="div2" xml:id="analysisSpecificAttrs">
     <head>Event-Specific Analytical Information</head>
@@ -390,150 +441,153 @@
       specific attributes on certain musical elements:</p>
     <p>
       <specList>
-        <specDesc key="att.intervalharmonic" atts="inth"/>
-        <specDesc key="att.intervallicdesc" atts="intm"/>
-        <specDesc key="att.melodicfunction" atts="mfunc"/>
-        <specDesc key="att.harmonicfunction" atts="deg"/>
-        <specDesc key="att.pitchclass" atts="pclass"/>
-        <specDesc key="att.solfa" atts="psolfa"/>
+        <specDesc atts="inth" key="att.intervalharmonic"/>
+        <specDesc atts="intm" key="att.intervallicdesc"/>
+        <specDesc atts="mfunc" key="att.melodicfunction"/>
+        <specDesc atts="deg" key="att.harmonicfunction"/>
+        <specDesc atts="pclass" key="att.pitchclass"/>
+        <specDesc atts="psolfa" key="att.solfa"/>
       </specList>
     </p>
     <div type="div3" xml:id="analysisMelodicIntervals">
       <head>Melodic Intervals</head>
-      <p>The<att>intm</att> attribute offers several methods for encoding the melodic interval from
+      <p>The
+        <att>intm</att>
+        attribute offers several methods for encoding the melodic interval from
         a preceding pitch. First, Parsons Code allows for description of the contour of the melody
         in very general terms; that is, as up, down, or same note. Parsons Code is helpful for
         identifying musical works with clearly defined melodies and analyzing the relationship
         between successive notes of monophonic tunes. For more information about the Parsons Code,
-        please see the "The Directory of Tunes and Musical Themes" by Denys Parsons (2002). The next
+        please see the &quot;The Directory of Tunes and Musical Themes&quot; by Denys Parsons (2002). The next
         example shows interval relationships indicated by the Parsons Code:</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure n="1">
-  <staff n="1">
-    <layer>
-      <note pname="c" oct="4" dur="4"/>
-      <note pname="d" oct="4" dur="4" intm="u"/>
-      <note pname="e" oct="4" dur="4" intm="u"/>
-      <note pname="f" oct="4" dur="4" intm="u"/>
-      <note pname="g" oct="4" dur="2" intm="u"/>
-      <note pname="g" oct="4" dur="2" intm="s"/>
-      <note pname="f" oct="4" dur="4" intm="d"/>
-    </layer>
-  </staff>
-</measure>
+      <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+        <measure n="1">
+          <staff n="1">
+            <layer>
+              <note dur="4" oct="4" pname="c"/>
+              <note dur="4" intm="u" oct="4" pname="d"/>
+              <note dur="4" intm="u" oct="4" pname="e"/>
+              <note dur="4" intm="u" oct="4" pname="f"/>
+              <note dur="2" intm="u" oct="4" pname="g"/>
+              <note dur="2" intm="s" oct="4" pname="g"/>
+              <note dur="4" intm="d" oct="4" pname="f"/>
+            </layer>
+          </staff>
+        </measure>
       </egXML>
       <p>Alternatively, diatonic interval quality and size may be indicated by a letter signifying
         the interval quality (A= augmented, d= diminished, M = major, m = minor, P = perfect)
         followed by a number indicating the size of the interval. The interval direction may be
         encoded using a leading plus (+) or minus (-) sign:</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure>
-  <staff>
-    <layer>
-      <note pname="c" oct="5" dur="4"/>
-      <note pname="d" oct="5" dur="4" intm="+M2"/>
-      <note pname="c" oct="5" dur="4" intm="-M2"/>
-      <note pname="b" oct="4" dur="4" intm="-m2"/>
-      <note pname="b" oct="3" dur="4" intm="-P8"/>
-    </layer>
-  </staff>
-</measure>
+      <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+        <measure>
+          <staff>
+            <layer>
+              <note dur="4" oct="5" pname="c"/>
+              <note dur="4" intm="+M2" oct="5" pname="d"/>
+              <note dur="4" intm="-M2" oct="5" pname="c"/>
+              <note dur="4" intm="-m2" oct="4" pname="b"/>
+              <note dur="4" intm="-P8" oct="3" pname="b"/>
+            </layer>
+          </staff>
+        </measure>
       </egXML>
       <p>As a third option, signed integers may be used to record the difference in half steps
         between the previous pitch and the current one. Decimal values accommodate the description
         of microtonal intervals:</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure>
-  <staff>
-    <layer>
-      <note pname="c" oct="4" dur="4"/>
-      <note pname="d" oct="4" dur="4" intm="1.1"/>
-      <note pname="d" oct="5" dur="4" intm="7.9"/>
-      <note pname="c" oct="5" dur="4" intm="-2.334"/>
-    </layer>
-  </staff>
-</measure>
+      <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+        <measure>
+          <staff>
+            <layer>
+              <note dur="4" oct="4" pname="c"/>
+              <note dur="4" intm="1.1" oct="4" pname="d"/>
+              <note dur="4" intm="7.9" oct="5" pname="d"/>
+              <note dur="4" intm="-2.334" oct="5" pname="c"/>
+            </layer>
+          </staff>
+        </measure>
       </egXML>
     </div>
     <div type="div3" xml:id="analysisMelodicFunction">
       <head>Melodic Function</head>
-      <p>The <att>mfunc</att> attribute describes melodic function of a <gi scheme="MEI">note</gi>
-        or <gi scheme="MEI">neume</gi> using the Humdrum **embel syntax. In the following example,
+      <p>The 
+        <att>mfunc</att>
+        attribute describes melodic function of a 
+        <gi scheme="MEI">note</gi>
+        or 
+        <gi scheme="MEI">neume</gi>
+        using the Humdrum **embel syntax. In the following example,
         the note B is labeled as a lower neighbor while all other notes are labeled as chord
         tones:</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure n="2">
-  <staff n="1">
-    <layer>
-      <chord dur="4" stem.dir="up" xml:id="analysis.chord1">
-        <note pname="f" oct="4" dur="4" xml:id="analysis.m2e1" mfunc="ct"/>
-        <note pname="a" oct="4" dur="4" xml:id="analysis.m2e2" mfunc="ct"/>
-        <note pname="c" oct="5" dur="4" xml:id="analysis.m2e3" mfunc="ct"/>
-      </chord>
-      <note pname="b" oct="4" dur="4" stem.dir="down" xml:id="analysis.m2e4" accid="f" mfunc="ln"/>
-    </layer>
-  </staff>
-</measure>
-<measure n="3">
-  <staff n="1">
-    <layer>
-      <chord dur="4" stem.dir="up" xml:id="analysis.chord2">
-        <note pname="c" oct="4" dur="4" xml:id="analysis.m3e5" mfunc="ct"/>
-        <note pname="e" oct="4" dur="4" xml:id="analysis.m3e6" mfunc="ct"/>
-        <note pname="g" oct="4" dur="4" xml:id="analysis.m3e7" mfunc="ct"/>
-      </chord>
-    </layer>
-  </staff>
-</measure>
-      </egXML>
-      <!--<p>The attribute is also allowed on chords in order to describe those that do not have a
-        harmonic function in the traditional sense:</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-        <measure n="5">
+      <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+        <measure n="2">
           <staff n="1">
             <layer>
-              <chord n="1" mfunc="Tristan_chord">
-                <note pname="f" oct="4" dur="2" dots="1"/>
-                <note pname="b" oct="4" dur="2" dots="1"/>
-                <note pname="d" accid="s" oct="3" dur="2" dots="1"/>
-                <note pname="g" accid="s" dur="2" dots="1"/>
+              <chord dur="4" stem.dir="up" xml:id="analysis.chord1">
+                <note dur="4" mfunc="ct" oct="4" pname="f" xml:id="analysis.m2e1"/>
+                <note dur="4" mfunc="ct" oct="4" pname="a" xml:id="analysis.m2e2"/>
+                <note dur="4" mfunc="ct" oct="5" pname="c" xml:id="analysis.m2e3"/>
+              </chord>
+              <note accid="f" dur="4" mfunc="ln" oct="4" pname="b" stem.dir="down" xml:id="analysis.m2e4"/>
+            </layer>
+          </staff>
+        </measure>
+        <measure n="3">
+          <staff n="1">
+            <layer>
+              <chord dur="4" stem.dir="up" xml:id="analysis.chord2">
+                <note dur="4" mfunc="ct" oct="4" pname="c" xml:id="analysis.m3e5"/>
+                <note dur="4" mfunc="ct" oct="4" pname="e" xml:id="analysis.m3e6"/>
+                <note dur="4" mfunc="ct" oct="4" pname="g" xml:id="analysis.m3e7"/>
               </chord>
             </layer>
           </staff>
         </measure>
-      </egXML>-->
+      </egXML>
+      <!--<p>The attribute is also allowed on chords in order to describe those that do not have a
+        harmonic function in the traditional sense:</p><egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve"><measure n="5"><staff n="1"><layer><chord n="1" mfunc="Tristan_chord"><note pname="f" oct="4" dur="2" dots="1"/><note pname="b" oct="4" dur="2" dots="1"/><note pname="d" accid="s" oct="3" dur="2" dots="1"/><note pname="g" accid="s" dur="2" dots="1"/></chord></layer></staff></measure></egXML>-->
     </div>
     <div type="div3" xml:id="analysisHarmonicIntervals">
       <head>Harmonic Intervals</head>
       <p>
         <specList>
-          <specDesc key="att.intervalharmonic" atts="inth"/>
+          <specDesc atts="inth" key="att.intervalharmonic"/>
         </specList>
       </p>
-      <p>In contrast with <att>intm</att>, which characterizes melodic (sequential) intervals, the
-          <att>inth</att> attribute is used to encode the harmonic interval between the current note
+      <p>In contrast with 
+        <att>intm</att>
+        , which characterizes melodic (sequential) intervals, the
+          
+        <att>inth</att>
+        attribute is used to encode the harmonic interval between the current note
         and other pitches occurring at the same moment in time. The notes of interest may or may not
-        be marked as a <gi scheme="MEI">chord</gi>. In the markup below, for example, the values of
-          <att>inth</att> capture the harmonic intervals between notes distributed across multiple
+        be marked as a 
+        <gi scheme="MEI">chord</gi>
+        . In the markup below, for example, the values of
+          
+        <att>inth</att>
+        capture the harmonic intervals between notes distributed across multiple
         staves and layers.</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure>
-  <staff>
-    <layer n="1">
-      <note xml:id="analysis.e1" pname="c" oct="4" dur="4" inth="M3 P5"/>
-    </layer>
-    <layer n="2">
-      <note xml:id="analysis.e2" pname="e" oct="4" dur="4" inth="M3 m3"/>
-    </layer>
-  </staff>
-  <staff n="2">
-    <layer n="3">
-      <note xml:id="analysis.e3" pname="g" oct="4" dur="4" inth="P5 m3"/>
-    </layer>
-  </staff>
-</measure>
+      <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+        <measure>
+          <staff>
+            <layer n="1">
+              <note dur="4" inth="M3 P5" oct="4" pname="c" xml:id="analysis.e1"/>
+            </layer>
+            <layer n="2">
+              <note dur="4" inth="M3 m3" oct="4" pname="e" xml:id="analysis.e2"/>
+            </layer>
+          </staff>
+          <staff n="2">
+            <layer n="3">
+              <note dur="4" inth="P5 m3" oct="4" pname="g" xml:id="analysis.e3"/>
+            </layer>
+          </staff>
+        </measure>
       </egXML>
-      <p>Use of the <att>inth</att> permits detailed specification of intervallic information for
+      <p>Use of the 
+        <att>inth</att>
+        permits detailed specification of intervallic information for
         every note and its function in relation to other simultaneously-occurring notes and hence
         about the harmonic nature of the musical work.</p>
     </div>
@@ -541,10 +595,12 @@
       <head>Scale Degrees</head>
       <p>
         <specList>
-          <specDesc key="att.harmonicfunction" atts="deg"/>
+          <specDesc atts="deg" key="att.harmonicfunction"/>
         </specList>
       </p>
-      <p>The <att>deg</att> attribute can be used to represent key-dependent scale-degree
+      <p>The 
+        <att>deg</att>
+        attribute can be used to represent key-dependent scale-degree
         information for music in major or minor keys.</p>
       <p>Scale-degree values are relative to the prevailing major or minor key. In the case of minor
         keys, scale degrees are characterized with respect to the harmonic minor scale. For example,
@@ -555,23 +611,29 @@
       <p>Chromatic alteration of the scale degree can be represented using a trailing plus (+) or
         minus (-) signs, signifying raised or lowered scale degree, respectively. The actual amount
         of chromatic alteration is not indicated.</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve" valid="false">
-<!-- Fifth scale degree in the prevailing scale -->
-<note deg="5"/>
-<!-- Augmented 5th -->
-<note deg="5+"/>
-<!-- Lowered 6 scale degree approached from below -->
-<note deg="^6-"/>
-<!-- Leading tone approached from above -->
-<note deg="v7"/>
+      <egXML valid="false" xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+        <!-- Fifth scale degree in the prevailing scale -->
+        <note deg="5"/>
+        <!-- Augmented 5th -->
+        <note deg="5+"/>
+        <!-- Lowered 6 scale degree approached from below -->
+        <note deg="^6-"/>
+        <!-- Leading tone approached from above -->
+        <note deg="v7"/>
       </egXML>
     </div>
     <div type="div3" xml:id="analysisPitchClass">
       <head>Pitch Class</head>
-      <p>The <att>pclass</att> attribute can be used to encode information about the pitch class to
+      <p>The 
+        <att>pclass</att>
+        attribute can be used to encode information about the pitch class to
         which a note belongs. The attribute's value must be an integer less than or equal to 11. It
-        is only allowed on the <gi scheme="MEI">note</gi> element. The <att>pclass</att> attribute
-        comes from "musical set theory" elaborated first by Howard Hanson and Allen Forte as a new
+        is only allowed on the 
+        <gi scheme="MEI">note</gi>
+        element. The 
+        <att>pclass</att>
+        attribute
+        comes from &quot;musical set theory&quot; elaborated first by Howard Hanson and Allen Forte as a new
         method for organizing tones. It provides a concept for categorizing musical objects (notes)
         and describing their relationships. It is a kind of grouping and combining, mostly developed
         in connection with atonal music. However, the concept of set theory is general and can also
@@ -583,22 +645,22 @@
         in pitch class notation, for example, regardless of the octave in which they are performed.
         The example below contains the same pitch in four different enharmonic spellings, but all
         are part of the same pitch class.
+        
         <!--A collection of examples can be
                 found at <ref target="http://kern.ccarh.org/">http://kern.ccarh.org/</ref>--></p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve" valid="false">
-<note pname="d" oct="4" dur="4" pclass="2"/>
-<note pname="d" oct="5" dur="2" pclass="2"/>
-<note pname="c" accid="ss" dur="4" pclass="2"/>
-<note pname="e" accid="ff" dur="1" pclass="2"/>
+      <egXML valid="false" xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+        <note dur="4" oct="4" pclass="2" pname="d"/>
+        <note dur="2" oct="5" pclass="2" pname="d"/>
+        <note accid="ss" dur="4" pclass="2" pname="c"/>
+        <note accid="ff" dur="1" pclass="2" pname="e"/>
       </egXML>
-
       <p>For further information on pitch class set theory, please consult the following
         sources:</p>
       <list type="bulleted">
-        <item><ref
-            target="http://www.mta.ca/faculty/arts-letters/music/pc-set_project/pc-set_new/pages/introduction/toc.html"
-            >http://www.mta.ca/faculty/arts-letters/music/pc-set_project/pc-set_new/pages/introduction/toc.html</ref></item>
-        <item>"Analyzing Atonal Music: Pitch Class Set Theory and its Contexts" by Michael Schuijler
+        <item>
+          <ref target="http://www.mta.ca/faculty/arts-letters/music/pc-set_project/pc-set_new/pages/introduction/toc.html">http://www.mta.ca/faculty/arts-letters/music/pc-set_project/pc-set_new/pages/introduction/toc.html</ref>
+        </item>
+        <item>&quot;Analyzing Atonal Music: Pitch Class Set Theory and its Contexts&quot; by Michael Schuijler
           (2008)</item>
         <item>Cohen, Allen Laurence (2004). Howard Hanson in Theory and Practice</item>
       </list>
@@ -608,25 +670,33 @@
       <p>Solmization is a system which associates a syllable with each note of a musical scale.
         There are various forms of solmization used throughout the world. In Europe and North
         America, solfège is the most common practice. In this system, the seven syllables for a
-        major scale are do, re, mi, fa, so, la and ti. In the <soCalled>fixed-do</soCalled> system,
-        the syllable "do" is always associated with the pitch "c", while in the
-          <soCalled>movable-do</soCalled> system, "do" is associated with the tonic note. The
-          <att>psolfa</att> attribute is only allowed on <gi scheme="MEI">note</gi> and <gi
-          scheme="MEI">uneume</gi> elements. Its value is unconstrained in order to accommodate
+        major scale are do, re, mi, fa, so, la and ti. In the 
+        <soCalled>fixed-do</soCalled>
+        system,
+        the syllable &quot;do&quot; is always associated with the pitch &quot;c&quot;, while in the
+          
+        <soCalled>movable-do</soCalled>
+        system, &quot;do&quot; is associated with the tonic note. The
+          
+        <att>psolfa</att>
+        attribute is only allowed on 
+        <gi scheme="MEI">note</gi>
+        and 
+        <gi scheme="MEI">uneume</gi>
+        elements. Its value is unconstrained in order to accommodate
         various solmization systems.</p>
-      <egXML xmlns="http://www.tei-c.org/ns/Examples" xml:space="preserve">
-<measure>
-  <staff n="1">
-    <layer>
-      <note pname="c" oct="4" dur="4" psolfa="do"/>
-      <note pname="d" oct="4" dur="4" psolfa="re"/>
-      <note pname="e" oct="4" dur="4" psolfa="mi"/>
-      <note pname="f" oct="4" dur="4" psolfa="fa"/>
-    </layer>
-  </staff>
-</measure>
+      <egXML xml:space="preserve" xmlns="http://www.tei-c.org/ns/Examples">
+        <measure>
+          <staff n="1">
+            <layer>
+              <note dur="4" oct="4" pname="c" psolfa="do"/>
+              <note dur="4" oct="4" pname="d" psolfa="re"/>
+              <note dur="4" oct="4" pname="e" psolfa="mi"/>
+              <note dur="4" oct="4" pname="f" psolfa="fa"/>
+            </layer>
+          </staff>
+        </measure>
       </egXML>
     </div>
   </div>
-
 </div>
